@@ -25,7 +25,7 @@ describe('User profile link', () => {
   it.each(['en','ru'] as const)('offers direct %s demo entry without forcing sign-in', language => {
     render(<UserSessionLink profile={null} language={language} accountMode="preview" signInAvailable demoAvailable />);
     const label=language==='ru' ? 'Попробовать демо' : 'Try demo';
-    expect(screen.getByRole('link',{name:label}).getAttribute('href')).toBe('/demo');
+    expect(screen.getByRole('link',{name:label}).getAttribute('href')).toBe('/demo/');
     expect(screen.queryByRole('link',{name:/Sign in|Войти/})).toBeNull();
   });
   it.each(['en','ru'] as const)('identifies the active %s demo without implying a personal sign-in', language => {

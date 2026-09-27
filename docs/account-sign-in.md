@@ -1,7 +1,7 @@
 # Account sign-in
 
 Hosted users can sign in with Google or GitHub. The sign-in page shows only
-configured providers, with Google first. `/demo` opens a separate, 24-hour
+configured providers, with Google first. `/demo/` opens a separate, 24-hour
 visitor workspace without sign-in when the guest demo is enabled. Free sample
 activities remain available as a fallback.
 
@@ -112,3 +112,11 @@ For a hosted smoke test, check:
 Email sign-in, Apple sign-in, passkeys and self-service account merging are not
 implemented in this pass. Email would require a mail provider, delivery setup,
 single-use verification links and request limits.
+
+## Demo routing
+
+With the guest demo enabled, `/` opens the personal workspace or the sign-in entry. `/demo/` opens the temporary workspace directly. `/demo` redirects to `/demo/`; it does not send visitors back to the main app. Demo pages, activity APIs and generated media stay under that prefix. Packaged assets and OAuth routes remain shared at the origin.
+
+The server selects the workspace from the route and its verified cookie. A personal sign-in cookie never replaces the demo workspace, and a demo cookie never activates a demo on the main site. Both can be open in separate tabs. Cookies retain `Path=/` as required by their `__Host-` names. Requests still validate the account scope and CSRF token.
+
+An expired demo API request returns `401` with a link to start again. It never silently creates a replacement workspace. The demo account page has a **Leave demo** link to the main site.

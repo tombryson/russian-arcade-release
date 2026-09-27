@@ -13,7 +13,8 @@
         headers.set('X-CSRF-Token', token);
         if (profile) headers.set('X-Profile-ID', profile);
         const method = (init.method ?? (input instanceof Request ? input.method : 'GET')).toUpperCase();
-        const sessionProbe = method === 'GET' && new URL(url, window.location.href).pathname === '/api/v1/user-session';
+        const pathname = new URL(url, window.location.href).pathname;
+        const sessionProbe = method === 'GET' && (window.arcadePath ? window.arcadePath(pathname) : pathname) === '/api/v1/user-session';
         // The account watcher needs the current identity to reload stale tabs.
         // Activity requests stay bound to the account that opened this document.
         if (scope && !sessionProbe) headers.set('X-Account-Scope', scope);

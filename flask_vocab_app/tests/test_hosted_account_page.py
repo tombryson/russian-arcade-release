@@ -46,7 +46,7 @@ class HostedAccountPageTests(unittest.TestCase):
     def test_demo_is_the_primary_entry_and_preserves_safe_return_route(self):
         html = render_account_page('Sign in', providers=[GITHUB],
             demo_enabled=True, next_url='/#speaking')
-        self.assertIn('href="/demo?next=%2F%23speaking"', html)
+        self.assertIn('href="/demo/?next=%2F%23speaking"', html)
         self.assertLess(html.index('Try demo'), html.index('Sign in with GitHub'))
         self.assertIn('No sign-in needed.', html)
         self.assertIn('shared AI allowance', html)

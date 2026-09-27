@@ -1,3 +1,4 @@
+import { appUrl } from './app-url';
 import {useEffect,useRef,useState} from 'preact/hooks';
 import {api,ApiError} from './learning-api';
 import {courseHref,coursePracticeHref,courseEndpoint} from './course-routes';
@@ -251,7 +252,8 @@ export function CourseJourney({chapterId,attemptId,releaseId,language='en',progr
     const owner=identity;inFlight.current=true;setBusy('writing');setError('');writingRequest.current ??= crypto.randomUUID();
     try {
       const value=await api<{href:string}>(`/api/v1/course/checkpoints/${encodeURIComponent(visibleAttempt.id)}/writing`,{request_id:writingRequest.current});
-      if(currentIdentity.current===owner && value.href.startsWith('/writing/')) window.location.assign(value.href);
+      const href=appUrl(value.href);
+      if(currentIdentity.current===owner && href.startsWith(appUrl('/writing/'))) window.location.assign(href);
     } catch(e) {if(currentIdentity.current===owner) showFailure(e);}
     finally {if(currentIdentity.current===owner){inFlight.current=false;setBusy('');}}
   }

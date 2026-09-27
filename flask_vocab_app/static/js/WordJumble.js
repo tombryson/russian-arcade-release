@@ -13,7 +13,7 @@ window.WordJumbleComponent = function WordJumbleComponent({ gameId }) {
                 h(
                     'form',
                     {
-                        'hx-post': '/word_jumble/create',
+                        'hx-post': window.arcadeUrl ? window.arcadeUrl('/word_jumble/create') : '/word_jumble/create',
                         'hx-target': '#jumble-content',
                         'hx-swap': 'innerHTML',
                         'hx-indicator': '#create-spinner',

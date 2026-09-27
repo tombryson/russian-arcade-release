@@ -1,4 +1,5 @@
 import {GameLanguage} from './GameLocale';
+import { appUrl } from './app-url';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Sheet, ActivityLink } from './components';
 import { WelcomeHero } from './WelcomeHero';
@@ -232,7 +233,7 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
   const profileControl = <UserSessionLink profile={profile} language={language} household={householdEnabled} accountMode={accountMode} signInAvailable={signInAvailable} demoAvailable={demoAvailable} sessionScope={sessionScope} />;
   const appearanceControl = <AppearancePicker language={language} navigationLayout={navigationLayout} csrfToken={csrfToken} />;
   const coinBalance = onboarding.state.coins_introduced && <ProgressionBadge progression={progression} language={language} introductory={signedOut || householdEnabled && !profile} />;
-  const languageControl = <details class="post-language"><summary aria-label={language === 'ru' ? 'Язык интерфейса' : 'Interface language'}><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h12M9 3v2M12 5c-1 5-4 8-8 10M5 8c1 3 4 6 7 7M13 21l4.5-11L22 21M15 17h5"/></svg></summary><form method="post" action="/ui-language"><input type="hidden" name="csrf_token" value={csrfToken} /><input type="hidden" name="next" value={`/${window.location.hash}`} /><button name="lang" value="en" lang="en" aria-current={language === 'en' ? 'true' : undefined}>English</button><button name="lang" value="ru" lang="ru" aria-current={language === 'ru' ? 'true' : undefined}>Русский</button></form></details>;
+  const languageControl = <details class="post-language"><summary aria-label={language === 'ru' ? 'Язык интерфейса' : 'Interface language'}><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h12M9 3v2M12 5c-1 5-4 8-8 10M5 8c1 3 4 6 7 7M13 21l4.5-11L22 21M15 17h5"/></svg></summary><form method="post" action="/ui-language"><input type="hidden" name="csrf_token" value={csrfToken} /><input type="hidden" name="next" value={appUrl(`/${window.location.hash}`)} /><button name="lang" value="en" lang="en" aria-current={language === 'en' ? 'true' : undefined}>English</button><button name="lang" value="ru" lang="ru" aria-current={language === 'ru' ? 'true' : undefined}>Русский</button></form></details>;
   const skillProgress = onboarding.state.progress_introduced && <SkillProgress progression={progression} language={language} introductory={signedOut || householdEnabled && !profile} profileHref="/#journey" />;
   const ready = state.home?.content.filter(item => item.kind === 'activity') ?? [];
   const nativeReady = nativeEnabled && state.home?.content.some(item => item.kind === 'deck');

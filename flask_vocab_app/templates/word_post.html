@@ -6,12 +6,13 @@
     <meta name="color-scheme" content="light dark">
     <meta name="description" content="Learn and practise Russian with stories, sentence games and your vocabulary library.">
     <title>Russian Arcade{% if view == 'catalogue' %} · Components{% endif %}</title>
+    <script src="/static/js/app_paths.js?v=1"></script>
     {% include '_favicon.html' %}
     {% for filename in assets.styles %}
     <link rel="stylesheet" href="{{ url_for('word_post.assets', filename=filename) }}">
     {% endfor %}
     <script type="module" src="{{ url_for('word_post.assets', filename=assets.script) }}"></script>
-    <script src="/static/js/user_sessions.js?v=3" defer></script>
+    <script src="/static/js/user_sessions.js?v=4" defer></script>
   </head>
   <body>
     <div id="word-post" data-default-course-release="{{ default_course_release | default('a1-v1') }}" data-view="{{ view }}" data-onboarding="{{ onboarding_state | tojson | forceescape }}" data-profile="{{ user_session_profile | default(none) | tojson | forceescape }}" data-household="{{ 'true' if household_enabled else 'false' }}" data-session-scope="{{ user_session_scope | default('') }}" data-account-mode="{{ 'demo' if config.get('HOSTED_GUEST_DEMO') else 'hosted' if config.get('HOSTED_AI_TRIAL') else 'preview' if config.get('PUBLIC_DEMO') else 'local' }}" data-demo-available="{{ 'true' if config.get('HOSTED_GUEST_DEMO_ENABLED') else 'false' }}" data-sign-in-available="{{ 'true' if config.get('HOSTED_ACCOUNTS_ENABLED') else 'false' }}" data-native="{{ 'true' if config.NATIVE_FLASHCARDS_ENABLED else 'false' }}" data-language="{{ ui_lang }}" data-csrf="{{ csrf_token() }}" data-navigation-layout="{{ navigation_layout }}" data-navigation="{{ activity_navigation | tojson | forceescape }}">

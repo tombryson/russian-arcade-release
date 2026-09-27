@@ -60,6 +60,14 @@ describe('Step-through audio player', () => {
     expect(URL.revokeObjectURL).toHaveBeenCalledTimes(1);
   });
 
+  it('plays tenant recordings from the demo mount and preserves already scoped audio', async () => {
+    history.replaceState(null, '', '/demo/#speaking');
+    await audio.playStepAudio('/api/v1/step-conversations/one/audio/line', handlers());
+    expect(media.src).toBe('/demo/api/v1/step-conversations/one/audio/line');
+    await audio.playStepAudio('/demo/static/media/reply.mp3', handlers());
+    expect(media.src).toBe('/demo/static/media/reply.mp3');
+  });
+
   it('does not replace a playing line or repeat priming after successful playback', async () => {
     await audio.playStepAudio('/npc.mp3', handlers());
     audio.primeStepAudio();

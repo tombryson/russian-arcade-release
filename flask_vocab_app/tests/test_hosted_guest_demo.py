@@ -78,8 +78,8 @@ class HostedGuestDemoTests(unittest.TestCase):
     def start(self, client):
         response = self.get(client, '/demo')
         self.assertEqual(response.status_code, 302, response.text)
-        self.assertEqual(response.location, '/')
-        return self.get(client, '/who').json
+        self.assertEqual(response.location, '/demo/')
+        return self.get(client, '/demo/who').json
 
     def login(self, client):
         response = self.get(client, '/trial/sign-in/github')
@@ -88,8 +88,8 @@ class HostedGuestDemoTests(unittest.TestCase):
         self.assertEqual(response.status_code, 302, response.text)
 
     def test_opt_in_disabled_and_public_pages_do_not_provision_guests(self):
-        self.assertEqual(self.get(self.a, '/who').text, 'public samples')
-        self.assertEqual(self.get(self.a, '/trial/status').json['demo_url'], '/demo')
+        self.assertIn('Try demo', self.get(self.a, '/').text)
+        self.assertEqual(self.get(self.a, '/trial/status').json['demo_url'], '/demo/')
         self.dispatch.guest_demo_enabled = False
         self.assertEqual(self.get(self.a, '/demo').status_code, 404)
         self.assertFalse(self.get(self.a, '/trial/status').json['demo_enabled'])
@@ -99,14 +99,14 @@ class HostedGuestDemoTests(unittest.TestCase):
         first, second = self.start(self.a), self.start(self.b)
         self.assertNotEqual(first['identity'], second['identity'])
         self.assertNotEqual(first['database'], second['database'])
-        self.a.post('/notes', base_url=self.base, json={'note': 'private to this demo'})
-        self.assertEqual(self.get(self.b, '/notes').json, [])
+        self.a.post('/demo/notes', base_url=self.base, json={'note': 'private to this demo'})
+        self.assertEqual(self.get(self.b, '/demo/notes').json, [])
         self.assertEqual(self.start(self.a), first)
-        self.assertEqual(self.get(self.a, '/notes').json, ['private to this demo'])
+        self.assertEqual(self.get(self.a, '/demo/notes').json, ['private to this demo'])
         self.assertTrue(self.apps[0].config['HOSTED_GUEST_DEMO'])
         self.assertTrue(self.apps[0].config['HOSTED_AI_TRIAL'])
         self.assertFalse(self.apps[0].config['PUBLIC_DEMO'])
-        status = self.get(self.a, '/trial/status').json
+        status = self.get(self.a, '/demo/trial/status').json
         self.assertTrue(status['demo'])
         self.assertFalse(status['authenticated'])
         self.assertEqual(status['display_name'], 'Demo')
@@ -119,24 +119,45 @@ class HostedGuestDemoTests(unittest.TestCase):
 
     def test_guest_status_and_account_do_not_offer_identity_linking(self):
         self.start(self.a)
-        page = self.get(self.a, '/trial/account')
+        page = self.get(self.a, '/demo/trial/account')
         self.assertIn('24 hours', page.text)
         self.assertNotIn('/trial/connect/', page.text)
         self.assertNotIn('/trial/sign-out', page.text)
         self.assertIn('/trial/sign-in/github', page.text)
+        self.assertIn('href="/demo/">Continue demo', page.text)
+        self.assertIn('href="/" data-app-exit', page.text)
         response = self.a.post('/trial/connect/github', base_url=self.base, data={'csrf_token': 'anything'})
         self.assertEqual(response.status_code, 403)
 
+    def test_main_entry_is_not_a_demo_even_with_a_guest_cookie(self):
+        self.start(self.a)
+        main = self.get(self.a, '/')
+        self.assertIn('Try demo', main.text)
+        self.assertNotIn('Public demo', main.text)
+        self.assertNotIn('24 hours', main.text)
+        self.assertNotIn('Continue demo', main.text)
+        self.assertFalse(self.get(self.a, '/trial/status').json['demo'])
+        self.assertEqual(self.get(self.a, '/api/v1/user-session').status_code, 401)
+        self.assertTrue(self.get(self.a, '/demo/trial/status').json['demo'])
+
+    def test_demo_api_never_creates_a_guest_implicitly(self):
+        self.assertEqual(self.get(self.a, '/demo/api/v1/user-session').status_code, 401)
+        self.assertEqual(self.a.post('/demo/notes', base_url=self.base, json={'note': 'no session'}).status_code, 401)
+        with sqlite3.connect(self.dispatch.registry) as conn:
+            self.assertEqual(conn.execute('SELECT COUNT(*) FROM guest_sessions').fetchone()[0], 0)
+
     def test_login_preserves_guest_and_personal_workspaces_without_merging(self):
         guest = self.start(self.a)
-        self.a.post('/notes', base_url=self.base, json={'note': 'guest-only'})
+        self.a.post('/demo/notes', base_url=self.base, json={'note': 'guest-only'})
         self.login(self.a)
         personal = self.get(self.a, '/who').json
         self.assertEqual(personal['identity'], 'github:11')
         self.assertNotEqual(personal['database'], guest['database'])
         self.assertEqual(self.get(self.a, '/notes').json, [])
         personal_cookie = self.a.get_cookie(COOKIE, domain='arcade.example').value
-        self.assertEqual(self.start(self.a), personal)
+        self.assertEqual(self.start(self.a), guest)
+        self.assertEqual(self.get(self.a, '/who').json, personal)
+        self.assertEqual(self.get(self.a, '/demo/notes').json, ['guest-only'])
         self.assertEqual(self.a.get_cookie(COOKIE, domain='arcade.example').value, personal_cookie)
         self.assertTrue(self.get(self.a, '/trial/status').json['authenticated'])
         self.assertFalse(self.get(self.a, '/trial/status').json['demo'])
@@ -148,16 +169,17 @@ class HostedGuestDemoTests(unittest.TestCase):
         for value in ('forged', self.dispatch.guest_signer.dumps(known['identity']),
                       self.dispatch.signer.dumps('anything')):
             self.b.set_cookie(GUEST_COOKIE, value, domain='arcade.example')
-            self.assertEqual(self.get(self.b, '/who').text, 'public samples')
-        self.assertEqual(self.get(self.b, '/who?identity=' + known['identity']).text, 'public samples')
+            self.assertEqual(self.get(self.b, '/demo/api/v1/user-session').status_code, 401)
+        self.assertEqual(self.get(self.b, '/demo/api/v1/user-session?identity=' + known['identity']).status_code, 401)
 
     def test_return_path_keeps_local_destinations_and_rejects_external_urls(self):
-        self.assertEqual(self.get(self.a, '/demo?next=/writing').location, '/writing')
-        self.assertEqual(self.get(self.a, '/demo?next=https://evil.example').location, '/')
-        self.assertEqual(self.get(self.a, '/demo?next=//evil.example').location, '/')
+        self.assertEqual(self.get(self.a, '/demo?next=/writing').location, '/demo/writing')
+        self.assertEqual(self.get(self.a, '/demo?next=https://evil.example').location, '/demo/')
+        self.assertEqual(self.get(self.a, '/demo?next=//evil.example').location, '/demo/')
 
     def test_prefetch_embeds_head_and_cross_origin_requests_do_not_create_guests(self):
         self.assertEqual(self.a.head('/demo', base_url=self.base).status_code, 302)
+        self.assertEqual(self.a.head('/demo/', base_url=self.base).status_code, 200)
         self.assertEqual(self.a.post('/demo', base_url=self.base).status_code, 405)
         for headers in ({'Purpose': 'prefetch'}, {'Sec-Purpose': 'prefetch;prerender'},
                         {'Sec-Fetch-Dest': 'image'}, {'Origin': 'https://evil.example'}):
@@ -191,11 +213,11 @@ class HostedGuestDemoTests(unittest.TestCase):
         first, second = self.start(self.a), self.start(self.b)
         with sqlite3.connect(self.dispatch.registry) as conn:
             conn.execute('INSERT INTO request_limits VALUES (?,?,?,?)', (first['identity'], 'writes', self.now // 60, 30))
-        self.assertEqual(self.a.post('/notes', base_url=self.base, json={'note': 'limited'}).status_code, 429)
-        self.assertEqual(self.b.post('/notes', base_url=self.base, json={'note': 'allowed'}).status_code, 200)
+        self.assertEqual(self.a.post('/demo/notes', base_url=self.base, json={'note': 'limited'}).status_code, 429)
+        self.assertEqual(self.b.post('/demo/notes', base_url=self.base, json={'note': 'allowed'}).status_code, 200)
         with sqlite3.connect(self.dispatch.registry) as conn:
             conn.execute("UPDATE request_limits SET attempts=180 WHERE identity='guest-global' AND kind='writes'")
-        self.assertEqual(self.b.post('/notes', base_url=self.base, json={'note': 'limited'}).status_code, 429)
+        self.assertEqual(self.b.post('/demo/notes', base_url=self.base, json={'note': 'limited'}).status_code, 429)
 
     def test_storage_limit_cannot_be_overridden_by_guest(self):
         first = self.start(self.a)
@@ -203,8 +225,8 @@ class HostedGuestDemoTests(unittest.TestCase):
         media = Path(first['database']).parent / 'huge.dat'
         with media.open('wb') as output:
             output.truncate(GUEST_STORAGE_BYTES)
-        self.assertEqual(self.a.post('/notes', base_url=self.base, json={'note': 'full'}).status_code, 507)
-        self.assertEqual(self.get(self.a, '/notes').status_code, 200)
+        self.assertEqual(self.a.post('/demo/notes', base_url=self.base, json={'note': 'full'}).status_code, 507)
+        self.assertEqual(self.get(self.a, '/demo/notes').status_code, 200)
 
     def test_guests_share_existing_global_dollar_limit(self):
         first, second = self.start(self.a), self.start(self.b)
@@ -232,7 +254,7 @@ class HostedGuestDemoTests(unittest.TestCase):
         with sqlite3.connect(self.dispatch.registry) as conn:
             self.assertEqual(conn.execute('SELECT expires_at FROM guest_sessions').fetchone()[0], expires)
         self.now += GUEST_SESSION_SECONDS
-        self.assertEqual(self.get(self.a, '/who').text, 'public samples')
+        self.assertIn('Try demo', self.get(self.a, '/').text)
         self.assertFalse(Path(guest['database']).parent.exists())
         self.assertTrue(Path(personal['database']).exists())
         with sqlite3.connect(self.ledger.path) as conn:
@@ -307,29 +329,39 @@ class HostedGuestCompositionTests(unittest.TestCase):
         self.assertEqual(client.get('/demo', base_url=self.base).status_code, 302)
         for path in ('/', '/comprehension', '/writing', '/sentences', '/sentences/saved',
                      '/lessons', '/vocab', '/api/v1/flashcards', '/api/v1/live-conversations/options'):
-            result = client.get(path, base_url=self.base)
+            result = client.get('/demo' + path, base_url=self.base)
             self.assertEqual(result.status_code, 200, f'{path}: {result.text[:250]}')
-        self.assertIn('data-account-mode="demo"', client.get('/', base_url=self.base).text)
-        self.assertIn('<summary>Demo</summary>', client.get('/', base_url=self.base).text)
-        self.assertEqual(client.get('/tools/anki/', base_url=self.base).status_code, 403)
-        status = client.get('/trial/status', base_url=self.base).json
+        self.assertIn('data-account-mode="demo"', client.get('/demo/', base_url=self.base).text)
+        self.assertIn('<summary>Demo</summary>', client.get('/demo/', base_url=self.base).text)
+        self.assertEqual(client.get('/demo/tools/anki/', base_url=self.base).status_code, 403)
+        status = client.get('/demo/trial/status', base_url=self.base).json
         self.assertTrue(status['demo'])
         self.assertFalse(status['configured'])
         self.assertEqual(status['providers'], [])
-        token = client.get('/api/v1/user-session', base_url=self.base).json['csrf_token']
+        token = client.get('/demo/api/v1/user-session', base_url=self.base).json['csrf_token']
+        # Generated media belongs to this workspace, even though its legacy URL
+        # starts with /static. Public packaged asset routing must not catch it.
+        guest_app = next(iter(dispatch.cache.values()))
+        media = Path(guest_app.config['APP_MEDIA_DIR'])
+        media.mkdir(parents=True, exist_ok=True)
+        (media / 'private-demo-test.mp3').write_bytes(b'only this visitor')
+        media_path = '/demo/static/media/private-demo-test.mp3'
+        self.assertEqual(client.get(media_path, base_url=self.base).data, b'only this visitor')
+        self.assertNotEqual(client.get('/static/media/private-demo-test.mp3', base_url=self.base).data, b'only this visitor')
         sdk = Mock()
         sdk.responses.create.return_value = SimpleNamespace(status='completed',
             output_text=json.dumps({'sentence': 'Я читаю книгу.', 'english': 'I am reading a book.'}),
             usage=SimpleNamespace(input_tokens=10, output_tokens=10))
         with patch('openai.OpenAI', return_value=sdk), patch('services.sentence_service.translation_candidates', return_value={}):
-            generated = client.post('/sentence/generate', base_url=self.base,
+            generated = client.post('/demo/sentence/generate', base_url=self.base,
                 data={'difficulty': '1', 'topic': 'any'}, headers={'X-CSRF-Token': token})
         self.assertEqual(generated.status_code, 303, generated.text[:300])
         sdk.responses.create.assert_called_once()
         self.assertIn('I am reading a book.', client.get(generated.location, base_url=self.base).text)
-        self.assertIn('Я читаю книгу.', client.get('/sentences/saved', base_url=self.base).text)
+        self.assertIn('Я читаю книгу.', client.get('/demo/sentences/saved', base_url=self.base).text)
         self.assertEqual(other.get('/demo', base_url=self.base).status_code, 302)
-        self.assertNotIn('Я читаю книгу.', other.get('/sentences/saved', base_url=self.base).text)
+        self.assertNotEqual(other.get(media_path, base_url=self.base).data, b'only this visitor')
+        self.assertNotIn('Я читаю книгу.', other.get('/demo/sentences/saved', base_url=self.base).text)
         with sqlite3.connect(self.ledger_path) as conn:
             rows = conn.execute('SELECT identity,actual,state FROM trial_requests').fetchall()
         self.assertEqual(len(rows), 1)

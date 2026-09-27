@@ -1,3 +1,4 @@
+import { appUrl } from './app-url';
 import {useEffect,useRef,useState} from 'preact/hooks';
 import type {Ref} from 'preact';
 import {Feedback,Sheet} from './components';
@@ -30,7 +31,7 @@ function PracticeActions({lessonId,chapter=false}:{lessonId?:string;chapter?:boo
         if(mounted.current)window.location.hash=`generate/${result.id}`;
       } else {
         const result=await api<{url:string}>('/api/v1/first-steps/practice/word-jumble',{});
-        if(mounted.current)window.location.assign(result.url);
+        if(mounted.current)window.location.assign(appUrl(result.url));
       }
     } catch(cause) {if(mounted.current)setError(cause instanceof Error ? cause.message : 'Your practice could not open. Please try again.');}
     finally {pending.current=false;if(mounted.current)setBusy('');}

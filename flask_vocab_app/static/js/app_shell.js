@@ -1,6 +1,8 @@
 (function () {
     if (window.russianArcadeShellLoaded) return;
     window.russianArcadeShellLoaded = true;
+    const appUrl = value => window.arcadeUrl ? window.arcadeUrl(value) : value;
+    const appPath = value => window.arcadePath ? window.arcadePath(value) : value;
 
     const loadedScripts = new Map();
     const storyMounts = new WeakSet();
@@ -168,7 +170,7 @@
         const progressSpan = document.getElementById(progressElementId);
         if (!progressSpan || !sessionId) return;
         progressSpan.textContent = t('processing');
-        const source = new EventSource(`/progress/${sessionId}`);
+        const source = new EventSource(appUrl(`/progress/${sessionId}`));
         source.onmessage = function (event) {
             const data = JSON.parse(event.data);
             if (data.complete) {
@@ -186,7 +188,7 @@
 
     function getRequestPath(event) {
         const elt = event.detail?.elt;
-        return elt?.getAttribute('hx-post') || elt?.getAttribute('hx-get') || '';
+        return appPath(elt?.getAttribute('hx-post') || elt?.getAttribute('hx-get') || '');
     }
 
     function hideModal(id) {
@@ -283,7 +285,7 @@
     function getCurrentPage(root = document) {
         const main = getMainContent(root);
         if (main?.dataset.page) return main.dataset.page;
-        const path = window.location.pathname;
+        const path = appPath(window.location.pathname);
         if (path.startsWith('/tools/anki')) return 'flashcards';
         if (path.startsWith('/vocab')) return 'vocab';
         if (path.startsWith('/comprehension')) return 'comprehension';
@@ -477,7 +479,7 @@
                 vocabMount.node,
             );
         } else if (window.htmx) {
-            window.htmx.ajax('GET', '/vocab?page=1&source=cloud', {
+            window.htmx.ajax('GET', appUrl('/vocab?page=1&source=cloud'), {
                 target: '#dynamic-vocab-content',
                 swap: 'outerHTML',
             });
@@ -590,7 +592,7 @@
             hideModal('sanitizePreviewModal');
             showShellMessage(t('cleaning_applied'), 'success');
             if (window.htmx) {
-                window.htmx.ajax('GET', '/vocab?page=1&source=cloud', {
+                window.htmx.ajax('GET', appUrl('/vocab?page=1&source=cloud'), {
                     target: '#dynamic-vocab-content',
                     swap: 'outerHTML',
                 });
@@ -655,7 +657,7 @@
         if (target.id === 'diffAny') window.toggleDifficulty(target);
         if (target.id === 'posAny') window.togglePos(target);
         if (target.id === 'source-db' || target.id === 'source-cloud') {
-            window.location.assign(`/vocab?source=${target.value}`);
+            window.location.assign(appUrl(`/vocab?source=${target.value}`));
         }
         if (target.name === 'chartType' || target.id === 'topicFilter') {
             window.updateDashboard();
@@ -783,7 +785,7 @@
         if (path === '/apply_sanitization' && event.detail.successful) {
             hideModal('sanitizePreviewModal');
             if (window.htmx) {
-                window.htmx.ajax('GET', '/vocab?page=1&source=cloud', {
+                window.htmx.ajax('GET', appUrl('/vocab?page=1&source=cloud'), {
                     target: '#dynamic-vocab-content',
                     swap: 'outerHTML',
                 });

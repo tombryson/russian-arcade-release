@@ -1,10 +1,11 @@
 /* Tap words on the original page; selection persists before card generation. */
 (() => {
+  const appUrl=value=>window.arcadeUrl ? window.arcadeUrl(value) : value;
   const t=(en,ru)=>document.documentElement.lang==='ru'?ru:en;
   const mounted=new WeakSet();
   function mount(root) {
     if(mounted.has(root))return;mounted.add(root);
-    const endpoint=root.dataset.endpoint, page=Number(root.dataset.page);
+    const endpoint=appUrl(root.dataset.endpoint), page=Number(root.dataset.page);
     const layer=root.querySelector('[data-word-layer]'), list=root.querySelector('[data-pending-list]');
     const status=root.querySelector('[data-selection-status]'), ocrStatus=root.querySelector('[data-ocr-status]');
     const create=root.querySelector('[data-create-selected]');
@@ -44,7 +45,7 @@
           if(pick.region_id){const crop=node('img',null,'lesson-word-crop');crop.src=`${endpoint}/${pick.page}/crop/${encodeURIComponent(pick.region_id)}`;crop.alt=t('Selected word on the page','Выбранное слово на странице');crop.loading='lazy';details.append(crop);}
           details.append(context,label,save);article.append(details);
         } else if(pick.batch_id) {
-          const link=node('a',t('Open set →','Открыть набор →'));link.href='/#generate/'+encodeURIComponent(pick.batch_id);article.append(link);
+          const link=node('a',t('Open set →','Открыть набор →'));link.href=appUrl('/#generate/'+encodeURIComponent(pick.batch_id));article.append(link);
         }
         if(pick.error)article.append(node('p',pick.error,'lesson-card-note'));
         list.append(article);
@@ -167,7 +168,7 @@
     root.addEventListener('htmx:beforeRequest',event=>{if(busy&&event.detail.elt?.matches('[data-lesson-page-nav]'))event.preventDefault();});
     create.addEventListener('click',async()=>{
       if(busy)return;busy=true;paint();status.textContent=t('Starting your cards…','Начинаем создавать карточки…');
-      try{const result=await json(endpoint+'/create',{});location.assign(result.url);}
+      try{const result=await json(endpoint+'/create',{});location.assign(appUrl(result.url));}
       catch(error){busy=false;status.textContent=error.message;paint();}
     });
     async function load() {

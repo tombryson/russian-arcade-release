@@ -13,7 +13,7 @@ window.LessonComponent = function LessonComponent({ lessonId }) {
                 h(
                     'form',
                     {
-                        'hx-post': '/lessons/create',
+                        'hx-post': window.arcadeUrl ? window.arcadeUrl('/lessons/create') : '/lessons/create',
                         'hx-target': '#lesson-content',
                         'hx-swap': 'innerHTML',
                         'hx-indicator': '#create-spinner',

@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  const appUrl=value=>window.arcadeUrl ? window.arcadeUrl(value) : value;
   const header=document.querySelector('.arcade-header');
   const sidebar=document.querySelector('#sidebar');
   const navigation=header || sidebar;
@@ -45,7 +46,7 @@
       const label=preview ? t('50% layout preview; saved progress unchanged','Предпросмотр 50%; сохранённый прогресс не изменён') : chapter ? `${chapterLabel} · ${chapter.status==='passed' ? t('Milestone passed','Этап пройден') : t(`${Math.round(progress*100)}% prepared for checkpoint`,`${Math.round(progress*100)}% подготовки к проверке`)}` : data ? '' : t('Chapter progress unavailable','Прогресс главы недоступен');
       const stale=data && error ? t('Showing your last saved progress','Показан последний сохранённый прогресс') : '';
       const link=rail.querySelector('.skill-rail-link');
-      link.setAttribute('href','/#journey');
+      link.setAttribute('href',appUrl('/#journey'));
       link.setAttribute('aria-label',[label,stale,t('Open your journey','Открыть путешествие')].filter(Boolean).join('. '));
       rail.querySelector('.skill-rail-runner').hidden=!data && !preview;
       const bar=rail.querySelector('[data-skill-bar]');
@@ -60,7 +61,7 @@
     if (busy) {queued=true;return;}
     busy=true;
     try {
-      const response=await originalFetch.call(window,'/api/v1/progression',{credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json'}});
+      const response=await originalFetch.call(window,appUrl('/api/v1/progression'),{credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json'}});
       if (response.status===401 || response.status===403) lastData=undefined;
       const data=await response.json();
       if (data.error?.code==='profile_changed') lastData=undefined;

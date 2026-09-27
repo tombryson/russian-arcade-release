@@ -1,6 +1,7 @@
 /* A profile change in another tab must not leave the old activity on screen. */
 (() => {
   'use strict';
+  const appUrl=value=>window.arcadeUrl ? window.arcadeUrl(value) : value;
   function watch(marker) {
   const current=marker.dataset.profileId || '';
   const scope=marker.dataset.sessionScope;
@@ -9,17 +10,17 @@
     if (checking || leaving || document.visibilityState!=='visible') return;
     checking=true;
     try {
-      const response=await fetch('/api/v1/user-session',{credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json'}});
+      const response=await fetch(appUrl('/api/v1/user-session'),{credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json'}});
       if (!response.ok) return;
       const state=await response.json();
       if ((scope && state.session_scope && state.session_scope!==scope) ||
           (state.mode==='personal' && (state.profile?.id || '')!==current)) {
         leaving=true;
         // A hash-only navigation would leave the old app/profile mounted.
-        if (window.location.pathname==='/') {
-          window.history.replaceState(null,'','/#home');
+        if (window.location.pathname===appUrl('/')) {
+          window.history.replaceState(null,'',appUrl('/#home'));
           window.location.reload();
-        } else window.location.assign('/#home');
+        } else window.location.assign(appUrl('/#home'));
       }
     } catch (_) { /* Keep a draft during connection problems; the server rejects stale writes. */ }
     finally {checking=false;}

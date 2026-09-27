@@ -4,7 +4,7 @@ Russian Arcade is a Russian learning application with vocabulary, flashcards, re
 
 Barsik (Барсик), a cat delivering a letter, guides the introductory lessons and journey activities. The application supports both younger learners and adults. Individual study is the default; household controls are optional.
 
-**[Try the public demo](https://russian-arcade.fly.dev/demo)** · [Local setup](#local-setup) · [Architecture](#architecture-and-technology-stack) · [Documentation](#documentation)
+**[Try the public demo](https://russian-arcade.fly.dev/demo/)** · [Local setup](#local-setup) · [Architecture](#architecture-and-technology-stack) · [Documentation](#documentation)
 
 <p align="center">
   <img src="flask_vocab_app/ui/src/assets/barsik.webp" alt="Barsik holding a letter beside a red postbox." width="320">
@@ -209,11 +209,13 @@ Model settings are listed in [config.py](flask_vocab_app/config.py) and [`.env.e
 
 ## Public demo and project status
 
-The **[public demo](https://russian-arcade.fly.dev/demo)** opens without a login. Each visitor receives a separate workspace for 24 hours, starting with authored vocabulary and sample cards. Visitors do not share progress, uploads or recordings.
+The **[public demo](https://russian-arcade.fly.dev/demo/)** opens without a login. Each visitor receives a separate workspace for 24 hours, starting with authored vocabulary and sample cards. Visitors do not share progress, uploads or recordings.
 
 AI generation uses a shared allowance: **US$1 per day, US$20 per month and US$10 in total**. Each temporary visitor or personal account also has a US$1 daily and US$2 total limit. Clearing cookies cannot reset the shared allowance. Cookie-based visitor limits are not proof of a unique person; admission limits and the shared ledger remain the spending boundary. Saved sample practice remains available when AI funding runs out.
 
 **Sign-in is optional.** Google and GitHub are supported when configured by the operator. Personal accounts keep their own vocabulary, cards, lessons and progress. Existing GitHub users can connect Google from their account page without moving their data. Temporary demo work is separate and is not automatically imported into a personal account. See the [sign-in guide](docs/account-sign-in.md).
+
+The main site opens your personal account, or offers sign-in and a link to the demo. Demo activities stay under `/demo/`, including navigation, API requests and private media. Personal and demo workspaces can be open in separate tabs without switching each other.
 
 The no-login demo and paid AI are separate deployment switches. When the guest demo is disabled, anonymous visitors can still try free samples. That fallback uses no paid providers and resets on restart. See [demo operation](docs/operations-fly.md).
 

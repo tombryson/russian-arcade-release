@@ -2,7 +2,7 @@
 
 ## Public sample fallback
 
-Demo entry: https://russian-arcade.fly.dev/demo
+Demo entry: https://russian-arcade.fly.dev/demo/
 
 Sample fallback: https://russian-arcade.fly.dev/
 
@@ -80,7 +80,7 @@ after each deployment.
 
 ## No-login AI demo
 
-Enable `HOSTED_GUEST_DEMO_ENABLED=true` to make `/demo` issue a temporary visitor workspace and redirect into the app. The visitor does not need Google or GitHub. A signed-in personal account takes precedence, so opening this link cannot replace its data or session.
+Enable `HOSTED_GUEST_DEMO_ENABLED=true` to serve a temporary visitor workspace at `/demo/`. `/demo` redirects to this canonical path. Activity pages, API requests and generated media stay under `/demo/`; the visitor does not need Google or GitHub. The main site at `/` opens a personal account or offers sign-in and demo entry. Personal and demo cookies coexist, with the route selecting the workspace.
 
 Demo visitors have separate databases, media and progress. The demo cookie expires after 24 hours. The server bounds new guest admission and retained workspaces, then removes expired guest files when they are no longer in use. The persistent spending ledger is never deleted during guest cleanup.
 
@@ -105,7 +105,7 @@ repository or Google Drive access and discards provider tokens after verifying
 the account. Register the GitHub callback as
 `https://russian-arcade.fly.dev/trial/callback` and the Google callback as
 `https://russian-arcade.fly.dev/trial/callback/google`. Provider identity uses a
-stable subject, not a browser-supplied name. Signing out returns to the temporary demo when its separate cookie is still valid; otherwise it returns to free samples.
+stable subject, not a browser-supplied name. Signing out returns to the main sign-in entry. The separate `/demo/` workspace remains available until its own session expires.
 
 See [account sign-in](account-sign-in.md) for Google configuration and connecting
 Google to an existing GitHub account. Connected methods share the same account

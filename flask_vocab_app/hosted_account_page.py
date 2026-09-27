@@ -52,5 +52,5 @@ def render_account_page(title, message='', *, providers=(), account=None,
         existing_github_notice=not account and available == {'google', 'github'},
         demo_active=bool(demo_active and not account),
         demo_enabled=bool(demo_enabled and not account),
-        demo_url='/demo' + query,
+        demo_url='/demo/' + query,
     )

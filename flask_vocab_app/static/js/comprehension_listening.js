@@ -1,5 +1,6 @@
 /* A transcript is disclosed only after its support receipt has been saved. */
 (() => {
+    const appUrl = value => window.arcadeUrl ? window.arcadeUrl(value) : value;
     const mounted = new WeakSet();
     const ru = () => document.documentElement.lang === 'ru';
     const text = (en, russian) => ru() ? russian : en;
@@ -28,7 +29,7 @@
                     article.dataset.transcriptVisible = form.dataset.transcriptVisible;
                     const container = article.querySelector('#story-container');
                     if (container) container.dataset.taskId = id;
-                    if (audio) audio.src = `/comprehension/tasks/${id}/audio`;
+                    if (audio) audio.src = appUrl(`/comprehension/tasks/${id}/audio`);
                     document.dispatchEvent(new CustomEvent('arcade:comprehension-transcript'));
                 }
                 const fields = article.querySelector('[data-listening-answers]');

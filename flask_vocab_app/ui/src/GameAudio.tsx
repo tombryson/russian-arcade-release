@@ -3,6 +3,7 @@ import { useContext } from 'preact/hooks';
 import { GameMedia } from './GameLocale';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { getGameAudio, prepareGameAudio } from './journey-games-api';
+import { appUrl } from './app-url';
 let playingClue: {
   audio: HTMLAudioElement;
   stop: () => void;
@@ -66,7 +67,7 @@ function AudioCluePlayer({
         if (!url.current) throw new Error(prepared.message || t("The recording is not ready yet. Try listening again."));
       }
       if (!audio.current) {
-        audio.current = new Audio(url.current);
+        audio.current = new Audio(appUrl(url.current));
         audio.current.onended = () => {
           if (mounted.current) setStatus('idle');
         };

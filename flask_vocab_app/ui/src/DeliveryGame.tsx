@@ -1,3 +1,4 @@
+import { appUrl } from './app-url';
 import {useEffect,useRef,useState} from 'preact/hooks';
 import {api,ApiError} from './learning-api';
 import {getGame,type GameState} from './journey-games-api';
@@ -71,7 +72,7 @@ function Recording({line,ru,onHeard,label}:{line:DeliveryLine;ru:boolean;onHeard
   const [playing,setPlaying]=useState(false),[slow,setSlow]=useState(false),[failed,setFailed]=useState(false);
   useEffect(()=>()=>{player.current?.pause();if(activeRecording===player.current)activeRecording=undefined;},[]);
   async function play(){
-    if(!player.current){player.current=new Audio(line.audio_url);player.current.onended=()=>{setPlaying(false);ended.current?.();};player.current.onpause=()=>setPlaying(false);}
+    if(!player.current){player.current=new Audio(appUrl(line.audio_url));player.current.onended=()=>{setPlaying(false);ended.current?.();};player.current.onpause=()=>setPlaying(false);}
     const audio=player.current;
     if(playing){audio.pause();setPlaying(false);return;}
     if(activeRecording!==audio)activeRecording?.pause();

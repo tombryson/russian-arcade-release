@@ -1,3 +1,5 @@
+import { appUrl } from './app-url';
+
 type PlaybackHandlers = {
   onEnded(): void;
   onError(): void;
@@ -56,7 +58,7 @@ async function startPlayback(
   const ended = () => finish(handlers.onEnded);
   const failed = () => finish(handlers.onError);
 
-  audio.src = url;
+  audio.src = appUrl(url);
   audio.load();
   audio.addEventListener('ended', ended);
   audio.addEventListener('error', failed);

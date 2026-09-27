@@ -50,6 +50,10 @@ class AccountAssetTests(unittest.TestCase):
         self.assertEqual(self.client.get('/static/css/account.css', base_url='https://wrong.example').status_code, 400)
         self.public.assert_not_called()
 
+    def test_guest_mount_does_not_expand_private_asset_access(self):
+        self.dispatch.guest_demo_enabled = True
+        self.test_other_paths_methods_and_hosts_cannot_use_asset_bypass()
+
     def test_allowlist_covers_rendered_images_stylesheet_and_its_fonts(self):
         root = Path(__file__).resolve().parents[1]
         html = render_account_page('Sign in', providers=[{'id': 'google'}, {'id': 'github'}])

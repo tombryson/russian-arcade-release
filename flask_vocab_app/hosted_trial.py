@@ -21,6 +21,7 @@ from urllib.parse import urlencode, urlsplit
 
 import requests
 from hosted_account_page import ACCOUNT_PUBLIC_ASSETS
+from hosted_demo_mount import DemoMount, demo_url, packaged_asset
 from itsdangerous import BadSignature, SignatureExpired, URLSafeTimedSerializer
 from werkzeug.wrappers import Request, Response
 from werkzeug.utils import redirect
@@ -447,10 +448,14 @@ class HostedTrialDispatcher:
             return self._response(Response('Not found', status=404))
         if request.method not in ('GET', 'HEAD'):
             return self._response(Response('Method not allowed', status=405, headers={'Allow': 'GET, HEAD'}))
-        # A real account always wins. Visiting a shared demo URL must never
-        # disconnect a learner or move their existing data into a public space.
-        next_url = safe_return_url(request.args.get('next'))
-        if account or guest or request.method == 'HEAD':
+        # Demo and personal accounts coexist. The URL selects the workspace;
+        # entering the demo never signs out or modifies a personal account.
+        next_url = demo_url(safe_return_url(request.args.get('next')))
+        if next_url == '/demo':
+            next_url = '/demo/'
+        if request.method == 'HEAD' and request.environ.get('russian_arcade.demo'):
+            return self._response(Response(status=200))
+        if guest or request.method == 'HEAD':
             return self._response(redirect(next_url))
         purpose = (request.headers.get('Sec-Purpose', '') + request.headers.get('Purpose', '')).lower()
         if ('prefetch' in purpose or request.headers.get('Sec-Fetch-Dest') not in (None, 'document')
@@ -762,24 +767,36 @@ class HostedTrialDispatcher:
             return app
 
     def __call__(self, environ, start_response):
+        if environ.get('PATH_INFO', '').startswith('/demo/'):
+            return DemoMount(self._dispatch)(environ, start_response)
+        return self._dispatch(environ, start_response)
+
+    def _dispatch(self, environ, start_response):
         request = Request(environ)
         if request.host != self.hostname:
             return self._response(Response('Unknown host', status=400))(environ, start_response)
         # Sign-in and recovery pages must render even while a learner's
         # workspace is paused. Only these packaged public files bypass it.
-        if request.method in ('GET', 'HEAD') and request.path in ACCOUNT_PUBLIC_ASSETS:
+        if request.method in ('GET', 'HEAD') and (request.path in ACCOUNT_PUBLIC_ASSETS
+                or self.guest_demo_enabled and packaged_asset(request.path)):
             return self.public_application(environ, start_response)
         try:
-            account = self._session(request)
+            demo_area = bool(environ.get('russian_arcade.demo'))
+            account = None if demo_area else self._session(request)
             if self.guest_demo_enabled:
                 self._cleanup_guests()
-            guest = None if account else self._guest_session(request)
-            if request.path in ('/demo', '/demo/'):
+            guest = self._guest_session(request) if demo_area or request.path == '/demo' else None
+            if demo_area and not self.guest_demo_enabled:
+                response = self._response(Response('Not found', status=404))
+            elif request.path == '/demo' or (demo_area and request.path == '/' and (not guest or 'next' in request.args)):
                 response = self._demo(request, account, guest)
+            elif demo_area and request.path.startswith(('/trial/sign-in', '/trial/callback', '/trial/connect', '/trial/sign-out')):
+                # Provider authentication always belongs to the main site.
+                response = self._response(Response('Not found', status=404))
             elif request.path == '/trial/status' and request.method == 'GET':
                 response = self._json({'authenticated': bool(account), 'enabled': self.enabled,
                     'demo': bool(guest), 'demo_enabled': self.guest_demo_enabled,
-                    'demo_url': '/demo' if self.guest_demo_enabled else '',
+                    'demo_url': '/demo/' if self.guest_demo_enabled else '',
                     'configured': any(provider.configured for provider in self.providers.values()),
                     'providers': self._provider_options(), 'ai_enabled': self.ai_enabled,
                     'display_name': account['display_name'] if account else 'Demo' if guest else None,
@@ -835,6 +852,12 @@ class HostedTrialDispatcher:
                     response.delete_cookie(FLOW_COOKIE, secure=True, httponly=True, samesite='Lax', path='/')
             elif request.path.startswith('/trial/'):
                 response = self._response(Response('Not found', status=404))
+            elif demo_area and not guest:
+                if request.path.startswith('/api/') or request.method not in ('GET', 'HEAD'):
+                    response = self._json({'error': {'code': 'demo_expired',
+                        'message': 'Open the demo to start a new session.', 'demo_url': '/demo/'}}, 401)
+                else:
+                    response = self._response(redirect('/demo?' + urlencode({'next': request.full_path.rstrip('?')})))
             elif account or guest:
                 workspace = account or guest
                 identity = workspace['identity']
@@ -861,6 +884,18 @@ class HostedTrialDispatcher:
                     raise
                 return ClosingIterator(result, release)
             else:
+                if self.guest_demo_enabled:
+                    # The main site is the personal-account entry. Anonymous
+                    # visitors enter the explicit /demo/ area to try activities.
+                    if request.method in ('GET', 'HEAD') and not request.path.startswith('/api/'):
+                        response = self._page('Russian Arcade' if request.path == '/' else 'Sign in',
+                            'Learn and practise Russian.' if request.path == '/' else '',
+                            next_url=safe_return_url(request.full_path.rstrip('?')))
+                    else:
+                        response = self._json({'error': {'code': 'sign_in_required',
+                            'message': 'Sign in or open the demo to continue.',
+                            'sign_in_url': '/trial/sign-in', 'demo_url': '/demo/'}}, 401)
+                    return response(environ, start_response)
                 return self.public_application(environ, start_response)
         except (sqlite3.Error, OSError, TrialIdentityError):
             response = self._page('Demo temporarily unavailable', 'Please try again shortly.', 503)

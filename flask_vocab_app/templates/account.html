@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ title }} · Russian Arcade</title>
+  <title>{{ title }}{% if title != 'Russian Arcade' %} · Russian Arcade{% endif %}</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="/static/images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/static/css/account.css?v=2">
@@ -92,6 +92,7 @@
       {% if demo_active and allowance_message %}
       <details class="account-allowance"><summary>AI allowance</summary><p>{{ allowance_message }}</p></details>
       {% endif %}
+      {% if demo_active %}<a class="account-guest" href="/" data-app-exit>Leave demo <span aria-hidden="true">→</span></a>{% endif %}
       {% endif %}
     </section>
   </main>

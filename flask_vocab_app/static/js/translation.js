@@ -1,5 +1,6 @@
 /* Preparation and optional audio are separate from saving/checking the editor. */
 (() => {
+    const appUrl = value => window.arcadeUrl ? window.arcadeUrl(value) : value;
     document.addEventListener('submit', async event => {
         const form = event.target;
         if (!form.matches('[data-translation-prepare], [data-writing-prepare]') || !window.fetch) return;
@@ -25,11 +26,11 @@
             // Do not discard changes typed while a sentence was being prepared.
             if (fingerprint !== JSON.stringify([...new FormData(form)])) {
                 const link = document.createElement('a');
-                link.href = result.url;
+                link.href = appUrl(result.url);
                 link.textContent = form.dataset.ready;
                 status.replaceChildren(link);
             } else {
-                window.location.assign(result.url);
+                window.location.assign(appUrl(result.url));
             }
         } catch (_) {
             if (form.isConnected) status.textContent = form.dataset.error;

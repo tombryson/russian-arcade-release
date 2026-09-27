@@ -1,5 +1,6 @@
 /* Progressive enhancement: the lesson remains navigable without JavaScript. */
 (() => {
+  const appUrl=value=>window.arcadeUrl ? window.arcadeUrl(value) : value;
   const t = (en, ru) => document.documentElement.lang === 'ru' ? ru : en;
   const editors = new WeakMap();
   const pagePositions = new WeakMap();
@@ -42,7 +43,7 @@
     try {
       const result=await request(form.action,new FormData(form));
       if (!form.isConnected) return;
-      if (result.state==='ready') { location.assign(result.url);return; }
+      if (result.state==='ready') { location.assign(appUrl(result.url));return; }
       if (result.state==='failed') throw new Error(result.error);
       setTimeout(()=>prepareCards(form),3000);
     } catch (error) { if(form.isConnected)status.textContent=error.message; }
@@ -60,7 +61,7 @@
         const response=await fetch(root.dataset.lessonPoll,{headers:{Accept:'application/json'}});
         if (!response.ok) throw new Error();
         const data=await response.json();
-        if (data.state==='ready' || data.state==='failed' || data.retryable) {location.replace(data.url);return;}
+        if (data.state==='ready' || data.state==='failed' || data.retryable) {location.replace(appUrl(data.url));return;}
         const stages={rendering:t('Opening the annotated pages','Открываем страницы с заметками'),reading:t('Reading your pages and notes','Читаем страницы и заметки'),planning:t('Preparing your exercises','Готовим задания'),checking:t('Checking the exercises against the lesson','Проверяем задания по материалу урока')};
         root.querySelector('[data-lesson-stage]').textContent=stages[data.stage] || stages.reading;
         root.querySelector('progress').value=data.pages_read;
@@ -120,7 +121,7 @@
     const form=document.querySelector('[data-lesson-editor]');
     if (link && dirty(form) && !link.target && !event.ctrlKey && !event.metaKey && event.button===0) {
       event.preventDefault();
-      try {await save(form);location.assign(link.href);} catch {form.elements.answer.focus();}
+      try {await save(form);location.assign(appUrl(link.href));} catch {form.elements.answer.focus();}
     }
   });
   document.addEventListener('submit',async event=>{
@@ -136,7 +137,7 @@
       const status=form.querySelector('[data-check-status]');
       const textarea=form.elements.answer;textarea.readOnly=true;
       form.querySelectorAll('button').forEach(b=>b.disabled=true);form.setAttribute('aria-busy','true');
-      try {await save(form);status.textContent=t('Checking your answer…','Проверяем ответ…');const result=await request(form.action,new FormData(form));location.assign(result.url);}
+      try {await save(form);status.textContent=t('Checking your answer…','Проверяем ответ…');const result=await request(form.action,new FormData(form));location.assign(appUrl(result.url));}
       catch(error){status.textContent=error.message;}
       finally{s.checking=false;textarea.readOnly=false;form.removeAttribute('aria-busy');form.querySelectorAll('button').forEach(b=>b.disabled=false);}
     } else if(form.matches('[data-lesson-bookmark]')) {

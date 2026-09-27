@@ -7,6 +7,26 @@ afterEach(()=>{
 });
 
 describe('Page identity binding',()=>{
+  it('sends reads, writes, recordings, and leave requests to the mounted demo',async()=>{
+    history.replaceState(null,'','/demo/#speaking');
+    bindUserSession('guest','demo-token','demo:guest');
+    const fetch=vi.fn(async(_url:string,_options?:RequestInit)=>({ok:true,json:async()=>({})}));
+    vi.stubGlobal('fetch',fetch);
+
+    await api('/api/v1/progression');
+    await api('/demo/api/v1/progression/preferences',{level:'A2'});
+    await upload('/api/v1/conversations/one/turns',new FormData());
+    endOnLeave('/api/v1/live-conversations/one/end');
+
+    expect(fetch.mock.calls.map(call=>call[0])).toEqual([
+      '/demo/api/v1/progression','/demo/api/v1/progression/preferences',
+      '/demo/api/v1/conversations/one/turns','/demo/api/v1/live-conversations/one/end',
+    ]);
+    expect(fetch).toHaveBeenLastCalledWith('/demo/api/v1/live-conversations/one/end',expect.objectContaining({
+      keepalive:true,headers:expect.objectContaining({'X-Account-Scope':'demo:guest','X-CSRF-Token':'demo-token'}),
+    }));
+  });
+
   it('keeps every request bound to its original profile after a late response refreshes CSRF',async()=>{
     bindUserSession('profile-a','old-token','hosted:original-account');
     const fetch=vi.fn((_url:string,_options?:RequestInit)=>Promise.resolve({ok:true,json:async()=>({

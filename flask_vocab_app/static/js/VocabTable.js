@@ -1,5 +1,6 @@
 import { h, useEffect, useRef, useState } from './preact_deps.js';
 import { vocabularyLabel, normaliseRussian } from './vocab_labels.js';
+const appUrl = value => window.arcadeUrl ? window.arcadeUrl(value) : value;
 
 export function VocabTable() {
     const language = document.documentElement.lang === 'ru' ? 'ru' : 'en';
@@ -82,7 +83,7 @@ export function VocabTable() {
         h('div',{className:'vocab-paper'},[
             h('div',{className:'vocab-search-row'},[
                 h('label',{className:'vocab-search'},[h('span',null,t('Find a word or one of its forms','Найти слово или его форму')),h('input',{type:'search',value:query,placeholder:t('Search Russian words…','Поиск по русским словам…'),onInput:event=>setQuery(event.currentTarget.value)})]),
-                h('a',{className:'vocab-flashcard-link',href:'/#flashcards'},t('Open flashcards →','Открыть карточки →')),
+                h('a',{className:'vocab-flashcard-link',href:appUrl('/#flashcards')},t('Open flashcards →','Открыть карточки →')),
             ]),
             h('details',{className:'vocab-filters'},[
                 h('summary',null,t('Filter words','Фильтры')),
@@ -114,7 +115,7 @@ export function VocabTable() {
                         h('td',{className:'vocab-topic-cell','data-label':t('Topics','Темы')},h('div',{className:'vocab-tags'},word.topic.length ? word.topic.slice(0,2).map(topic=>h('span',{key:topic},label(topic))).concat(word.topic.length>2 ? h('span',{title:word.topic.slice(2).map(label).join(', ')},`+${word.topic.length-2}`) : []) : h('span',{className:'vocab-muted'},'—'))),
                         h('td',{'data-label':t('Difficulty','Сложность')},h('span',{className:'vocab-level'},word.lemma_difficulty || '—')),
                         h('td',{'data-label':t('Cards','Карточки')},[
-                            word.native_count ? h('a',{className:'vocab-count',href:`/#flashcards?word_id=${word.id}`,'aria-label':`${word.lemma}: ${counted(word.native_count,'in-app card','in-app cards','карточка в приложении','карточки в приложении','карточек в приложении')}`},`${word.native_count} →`) : h('span',{className:'vocab-zero','aria-label':t('0 in-app cards','0 карточек в приложении')},'0'),
+                            word.native_count ? h('a',{className:'vocab-count',href:appUrl(`/#flashcards?word_id=${word.id}`),'aria-label':`${word.lemma}: ${counted(word.native_count,'in-app card','in-app cards','карточка в приложении','карточки в приложении','карточек в приложении')}`},`${word.native_count} →`) : h('span',{className:'vocab-zero','aria-label':t('0 in-app cards','0 карточек в приложении')},'0'),
                             word.anki_exports>0 && h('span',{className:'vocab-anki'},`${t('Anki exports','Экспорты в Anki')}: ${word.anki_exports}`),
                         ]),
                     ]),
@@ -124,7 +125,7 @@ export function VocabTable() {
                             h('p',{className:'vocab-muted'},`${t('Added','Добавлено')} ${date(word.date_added)}`),
                         ]),
                         h('div',{className:'vocab-detail-actions'},[
-                            h('a',{className:'vocab-generate',href:`/#generate?word_id=${word.id}`},t('Make flashcards →','Создать карточки →')),
+                            h('a',{className:'vocab-generate',href:appUrl(`/#generate?word_id=${word.id}`)},t('Make flashcards →','Создать карточки →')),
                             h('a',{href:`https://en.openrussian.org/ru/${encodeURIComponent(word.lemma)}`,target:'_blank',rel:'noopener noreferrer'},t('Open dictionary ↗','Открыть словарь ↗')),
                         ]),
                         h('p',{className:'vocab-record-note'},`${t('In-app cards','Карточки в приложении')}: ${word.native_count} · ${t('Saved card records','Сохранённых записей о карточках')}: ${word.native_total}. ${t('History includes unpublished and retired cards.','История включает неопубликованные и удалённые карточки.')}`),

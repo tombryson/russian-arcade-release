@@ -14,7 +14,9 @@ import { render, type ComponentChild } from 'preact';
 import { App } from './App';
 import '../../static/css/navigation_layout.css';
 import { bindUserSession } from './learning-api';
+import { installAppUrlVnodes } from './app-url-vnodes';
 
+installAppUrlVnodes();
 const root = document.getElementById('word-post');
 if (root) {
   const mount = (view: ComponentChild) => {

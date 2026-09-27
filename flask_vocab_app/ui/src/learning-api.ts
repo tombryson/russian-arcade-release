@@ -1,3 +1,5 @@
+import { appUrl } from './app-url';
+
 export type Household = { mode?: 'personal'; configured: boolean; adult: boolean; profile: { id: string; display_name: string } | null; csrf_token: string };
 export type LearningHome = {
   profile: { id: string; display_name: string };
@@ -29,18 +31,18 @@ function identityHeaders(): Record<string,string> {
     ...(pageScope ? {'X-Account-Scope':pageScope} : {})};
 }
 export function endOnLeave(url: string) {
-  void fetch(url,{method:'POST',credentials:'same-origin',keepalive:true,
+  void fetch(appUrl(url),{method:'POST',credentials:'same-origin',keepalive:true,
     headers:{...identityHeaders(),'Content-Type':'application/json','X-CSRF-Token':csrf},body:'{}'}).catch(() => {});
 }
 export async function upload<T>(url: string, body: FormData, signal?: AbortSignal): Promise<T> {
-  const response = await fetch(url, {method:'POST', body, signal, credentials:'same-origin', cache:'no-store',
+  const response = await fetch(appUrl(url), {method:'POST', body, signal, credentials:'same-origin', cache:'no-store',
     headers:{...identityHeaders(),Accept:'application/json', 'X-CSRF-Token':csrf}});
   const result = await response.json();
   if (!response.ok) throw new ApiError(result.error?.message ?? 'Your recording could not be sent. Please retry.', result.error?.code ?? 'request_failed');
   return result as T;
 }
 export async function api<T>(url: string, body?: unknown, signal?: AbortSignal): Promise<T> {
-  const response = await fetch(url, { method: body === undefined ? 'GET' : 'POST', credentials: 'same-origin', cache: 'no-store', signal,
+  const response = await fetch(appUrl(url), { method: body === undefined ? 'GET' : 'POST', credentials: 'same-origin', cache: 'no-store', signal,
     headers: body === undefined ? { ...identityHeaders(), Accept: 'application/json' } : { ...identityHeaders(), Accept: 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': csrf },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
   });
