@@ -7,6 +7,7 @@ from urllib.parse import urlsplit
 
 from flask import abort, current_app, has_request_context, jsonify, redirect, render_template, request, session
 
+from hosted_account_page import ACCOUNT_PUBLIC_ASSETS
 from repositories.learning_repository import LearningError, require_access, timestamp, transaction
 
 
@@ -100,11 +101,15 @@ def install_household_policy(app):
             role = 'public'
         if request.endpoint == 'static':
             filename = request.view_args.get('filename', '')
-            if filename.startswith(('css/','js/')) or re.fullmatch(r'audio/deliveries/[0-9a-f]{24}\.mp3', filename) or filename in {
+            # The hosted dispatcher sends shared art and sign-in assets through
+            # this same guard, without opening a learner's private workspace.
+            if '/static/' + filename in ACCOUNT_PUBLIC_ASSETS or filename.startswith(('css/','js/')) or re.fullmatch(r'audio/deliveries/[0-9a-f]{24}\.mp3', filename) or filename in {
                 'audio/course/curriculum/location-destination-listening-v1/shop-now.mp3',
                 'audio/course/curriculum/location-destination-listening-v1/after-pharmacy.mp3',
                 'audio/course/curriculum/location-destination-listening-v1/inside-museum.mp3',
                 'images/barsik-running-v1.webp', 'images/barsik-progress-run-v1.webp', 'images/favicon.svg',
+                'images/barsik-leaving-home-v1.webp', 'images/barsik-post-office-v1.webp',
+                'images/barsik-market-v1.webp', 'images/barsik-leaving-town-v1.webp',
                 'images/favicon.ico', 'images/apple-touch-icon.png',
                 'images/scene-builder/cat-v1.webp', 'images/scene-builder/table-v1.webp',
                 'images/scene-builder/book-v1.webp', 'images/scene-builder/book-upright-v1.webp', 'images/scene-builder/walking-v1.webp',

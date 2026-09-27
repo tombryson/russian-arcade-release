@@ -316,6 +316,29 @@ class HostedGuestCompositionTests(unittest.TestCase):
         flags.start()
         self.addCleanup(flags.stop)
 
+    def test_packaged_journey_and_account_assets_load_without_a_profile(self):
+        from hosted import create_hosted_app
+        from hosted_account_page import ACCOUNT_PUBLIC_ASSETS
+        app = create_hosted_app()
+        client = app.test_client()
+        journey_images = {
+            '/static/images/barsik-leaving-home-v1.webp',
+            '/static/images/barsik-post-office-v1.webp',
+            '/static/images/barsik-market-v1.webp',
+            '/static/images/barsik-leaving-town-v1.webp',
+        }
+        for path in sorted(journey_images | ACCOUNT_PUBLIC_ASSETS):
+            for prefix in ('', '/demo'):
+                for method in ('GET', 'HEAD'):
+                    with self.subTest(path=prefix + path, method=method):
+                        with client.open(prefix + path, method=method, base_url=self.base) as response:
+                            self.assertEqual(response.status_code, 200)
+                            self.assertNotEqual(response.mimetype, 'text/html')
+                            if path in journey_images and method == 'GET':
+                                self.assertEqual(response.mimetype, 'image/webp')
+                                self.assertEqual(response.data[8:12], b'WEBP')
+        self.assertFalse(app.extensions['hosted_trial'].cache)
+
     def test_whole_app_without_oauth_is_isolated_and_provider_calls_remain_metered(self):
         from hosted import create_hosted_app
         app = create_hosted_app()
