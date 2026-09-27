@@ -145,7 +145,7 @@ class CourseIntegrationTests(unittest.TestCase):
         body = {'request_id': 'bound-preparation', 'release_id': 'a1-journey-v2'}
         saved = self.post('chapters/home/practice', body)
         self.assertEqual(saved['target_catalogue_version'], 'a1-targets-v1')
-        self.assertEqual(saved['content_version'], 'a1-target-practice-v1')
+        self.assertEqual(saved['content_version'], 'a1-target-practice-v2')
         self.assertEqual(saved['coverage']['practice_href'], '/#journey/release/a1-journey-v2/practice/start/home')
         with transaction(self.db, write=True) as conn:
             conn.execute("UPDATE course_enrolments SET release_id='a1-v1' WHERE profile_id=?", (self.pid,))

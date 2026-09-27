@@ -17,7 +17,11 @@ from services.curriculum_targets import curriculum_targets, get_section, get_tar
 from services.course_releases import release_metadata
 
 PRACTICE_FILE = Path(__file__).resolve().parents[1] / 'data' / 'course_target_practice.json'
-PRACTICE_VERSION = 'a1-target-practice-v1'
+PRACTICE_VERSION = 'a1-target-practice-v2'
+PRACTICE_FILES = {
+    'a1-target-practice-v1': PRACTICE_FILE,
+    PRACTICE_VERSION: PRACTICE_FILE.with_name('course_target_practice_v2.json'),
+}
 CATALOGUE_VERSION = 'a1-targets-v1'
 PREPARATION_RELEASE = 'a1-journey-v2'
 
@@ -46,7 +50,7 @@ def validate_practice(data):
     def require(test, message):
         if not test:
             raise ValueError(message)
-    require(isinstance(data, dict) and data.get('version') == PRACTICE_VERSION, 'Unknown preparation content version.')
+    require(isinstance(data, dict) and data.get('version') in PRACTICE_FILES, 'Unknown preparation content version.')
     items = data.get('items')
     require(isinstance(items, list) and items, 'Preparation needs authored items.')
     expected = {tid for section in curriculum_targets()['sections'] for tid in section['required_target_ids']}
@@ -60,6 +64,10 @@ def validate_practice(data):
         require(_nonempty(item.get('rubric_version')), 'Every item needs its marking version.')
         teaching = item.get('teaching', {})
         require(all(_nonempty(teaching.get(f)) for f in ('explanation', 'explanation_ru', 'example_ru', 'example_en')), 'Preparation needs a bilingual teaching example.')
+        if 'examples' in teaching:
+            require(isinstance(teaching['examples'], list) and 1 <= len(teaching['examples']) <= 6
+                    and all(isinstance(example, dict) and all(_nonempty(example.get(f)) for f in ('ru', 'en'))
+                            for example in teaching['examples']), 'Teaching examples need short Russian and English pairs.')
         question = item.get('question', {})
         require(all(_nonempty(question.get(f)) for f in ('prompt', 'prompt_ru', 'explanation', 'explanation_ru')), 'Every item needs bilingual prompts and feedback.')
         choices = question.get('choices', [])
@@ -70,14 +78,20 @@ def validate_practice(data):
             require(question.get('passage') is None and _nonempty(question.get('transcript')) and question.get('audio_url') == f"/static/audio/course/a1-targets-v1/{item['id']}.mp3", 'Listening needs its own audio and a hidden transcript.')
             require(question['transcript'] != teaching['example_ru'], 'The teaching example must not reveal the listening task.')
         else:
-            require(_nonempty(question.get('passage')) and not question.get('audio_url'), 'Reading or contextual selection needs the saved passage.')
+            require((question.get('passage') is None or _nonempty(question['passage']))
+                    and not question.get('audio_url'), 'Written practice may use a passage or a direct prompt, not a listening recording.')
     require(targets == expected, 'Preparation must cover exactly the required A1 target subset.')
     return data
 
 
-@lru_cache(maxsize=1)
-def practice_catalogue():
-    return validate_practice(json.loads(PRACTICE_FILE.read_text(encoding='utf-8')))
+@lru_cache(maxsize=2)
+def practice_catalogue(version=PRACTICE_VERSION):
+    if version not in PRACTICE_FILES:
+        raise LearningError('practice_content_unavailable', 'This saved preparation version is unavailable.', 409)
+    data = validate_practice(json.loads(PRACTICE_FILES[version].read_text(encoding='utf-8')))
+    if data['version'] != version:
+        raise ValueError('Preparation file does not match its registered version.')
+    return data
 
 
 def _target_prepared(target):
@@ -85,15 +99,18 @@ def _target_prepared(target):
     return bool(target['demonstrated'] or (target['introduced'] and target['practised']))
 
 
-def preparation_metadata(release_id):
+def preparation_metadata(release_id, *, saved_content_version=None):
     """Resolve published preparation without silently replacing its versions."""
     release = release_metadata(release_id)
     preparation = release.get('preparation')
     if not isinstance(preparation, dict):
         raise LearningError('practice_unavailable', 'This course has no focused preparation.', 404)
     if (preparation.get('target_catalogue_version') != CATALOGUE_VERSION
-            or preparation.get('content_version') != PRACTICE_VERSION):
+            or preparation.get('content_version') not in PRACTICE_FILES
+            or saved_content_version is not None and saved_content_version not in PRACTICE_FILES):
         raise LearningError('practice_content_unavailable', 'This saved preparation version is unavailable.', 409)
+    if saved_content_version is not None:
+        preparation['content_version'] = saved_content_version
     return {'release_id': release_id, **preparation}
 
 
@@ -110,7 +127,7 @@ def _target_snapshot(section_id, catalogue_version):
 
 
 def _practice_context(row):
-    identity = preparation_metadata(row['release_id'])
+    identity = preparation_metadata(row['release_id'], saved_content_version=row['content_version'])
     if (row['target_catalogue_version'] != identity['target_catalogue_version']
             or row['content_version'] != identity['content_version']):
         raise LearningError('practice_content_unavailable', 'This saved preparation version is unavailable.', 409)
@@ -218,7 +235,10 @@ def practice_get(conn, profile_id, attempt_id):
             current['feedback'] = {'correct': saved['answer'] == question['answer'],
                                    'answer': next(c['text'] for c in question['choices'] if c['id'] == question['answer']),
                                    'explanation': question['explanation'], 'explanation_ru': question['explanation_ru']}
+    updated = preparation_metadata(row['release_id'])['content_version'] != row['content_version']
     return {**identity, 'id': row['id'], 'profile_id': profile_id, 'section_id': row['section_id'],
+            **({'updated_practice_href': '/#journey/release/' + quote(row['release_id'], safe='')
+                + '/practice/start/' + quote(row['section_id'], safe='')} if updated else {}),
             'status': row['status'], 'completed_count': row['current_index'], 'total_count': len(items),
             'current_item': current, 'coverage': target_coverage(conn, profile_id, row['section_id'],
                 release_id=row['release_id'], target_snapshot=snapshot)}
@@ -256,14 +276,14 @@ def practice_start(conn, profile_id, section_id, request_id, *, release_id=None,
     if enrol:
         _execute(conn, 'INSERT OR IGNORE INTO course_enrolments(profile_id,band,release_id,started_at) VALUES (?,?,?,?)',
                  (profile_id, state['band'], release_id, timestamp()))
-    active = _execute(conn, "SELECT id FROM course_target_practice_attempts WHERE profile_id=? AND release_id=? AND section_id=? AND status='active'", (profile_id, release_id, section_id)).fetchone()
+    active = _execute(conn, "SELECT id FROM course_target_practice_attempts WHERE profile_id=? AND release_id=? AND section_id=? AND content_version=? AND status='active'", (profile_id, release_id, section_id, identity['content_version'])).fetchone()
     if active:
         attempt_id = active['id']
     else:
         required = {t['id'] for t in coverage['targets']}
         gaps = {t['id'] for t in coverage['targets'] if not t['prepared'] or t['needs_practice']}
         chosen = gaps or required
-        items = [deepcopy(item) for item in practice_catalogue()['items'] if item['target_id'] in chosen]
+        items = [deepcopy(item) for item in practice_catalogue(identity['content_version'])['items'] if item['target_id'] in chosen]
         # Rotate answer positions per attempt without changing authored meaning.
         import random
         for item in items:

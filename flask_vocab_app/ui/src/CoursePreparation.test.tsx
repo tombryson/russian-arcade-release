@@ -1,5 +1,5 @@
 import {afterEach,beforeEach,describe,expect,it,vi} from 'vitest';
-import {fireEvent,render,screen,waitFor} from '@testing-library/preact';
+import {fireEvent,render,screen,waitFor,within} from '@testing-library/preact';
 import {CoursePreparation,type CoursePractice} from './CoursePreparation';
 import type {ProgressionState} from './Progression';
 const progression={data:{profile_id:'p',course:{release_id:'a1-journey-v2'}},refresh:vi.fn(),loading:false,error:''} as unknown as ProgressionState;
@@ -14,11 +14,55 @@ describe('Milestone target practice',()=>{
       if(url.endsWith('/next'))value={...value,status:'completed',current_item:null,completed_count:1};return value;
     });render(<CoursePreparation practiceId="practice-1" progression={progression}/>);
     await screen.findByText('Use моя before сестра.');expect(screen.queryByRole('radio')).toBeNull();
+    expect(screen.getByText('Это моя сестра.').getAttribute('lang')).toBe('ru');
+    expect(screen.getByText('This is my sister.').getAttribute('lang')).toBe('en');
+    expect(screen.queryByRole('link',{name:'Start the revised lesson'})).toBeNull();
     fireEvent.click(screen.getByRole('button',{name:'Try it →'}));fireEvent.click(await screen.findByRole('radio',{name:'Моя сестра'}));fireEvent.click(screen.getByRole('button',{name:'Check answer'}));
     expect(await screen.findByText('That’s right.')).toBeTruthy();fireEvent.click(screen.getByRole('button',{name:'Finish practice →'}));
     await screen.findByRole('heading',{name:'Practice saved'});expect(screen.getByRole('link',{name:'Continue the milestone →'}).getAttribute('href')).toBe('#journey/release/a1-journey-v2/chapter/home');
     const commands=fetch.mock.calls.filter(([,options])=>options?.method==='POST');expect(commands.map(([url])=>url.split('/').at(-1))).toEqual(['learn','answer','next']);
     expect(JSON.parse(String(commands[1][1]?.body))).toMatchObject({item_id:'item-1',choice_id:'right'});
+  });
+  it('shows translated examples once, lets learners review them and closes review for the next item',async()=>{
+    let value=practice();value={...value,total_count:2,current_item:{...value.current_item!,teaching:{...value.current_item!.teaching,examples:[{ru:'Это мама.',en:'This is Mum.'},{ru:'Это папа.',en:'This is Dad.'}]}}};
+    const fetch=serve(url=>{
+      if(url.endsWith('/learn'))value={...value,current_item:{...value.current_item!,stage:'question'}};
+      if(url.endsWith('/answer'))value={...value,current_item:{...value.current_item!,stage:'feedback',feedback:{correct:true,answer:'right',explanation:'That phrase fits.',explanation_ru:'Этот вариант подходит.'}}};
+      if(url.endsWith('/next'))value={...value,completed_count:1,current_item:{...value.current_item!,id:'item-2',stage:'question',feedback:null}};
+      return value;
+    });
+    render(<CoursePreparation practiceId="practice-1" progression={progression}/>);
+    await screen.findByText('This is Mum.');
+    expect(screen.getAllByText('Это мама.')).toHaveLength(1);
+    expect(screen.getByText('Это папа.').getAttribute('lang')).toBe('ru');
+    expect(screen.getByText('This is Dad.').getAttribute('lang')).toBe('en');
+    expect(screen.queryByText('Это моя сестра.')).toBeNull();
+    expect(screen.queryByText('This is my sister.')).toBeNull();
+    fireEvent.click(screen.getByRole('button',{name:'Try it →'}));
+    const summary=await screen.findByText('Review examples');const disclosure=summary.closest('details')!;
+    expect(disclosure.open).toBe(false);
+    fireEvent.click(summary);expect(disclosure.open).toBe(true);
+    expect(within(disclosure).getByText('Use моя before сестра.')).toBeTruthy();
+    expect(within(disclosure).getByText('This is Mum.')).toBeTruthy();
+    fireEvent.click(summary);expect(disclosure.open).toBe(false);
+    fireEvent.click(summary);expect(disclosure.open).toBe(true);
+    expect(fetch.mock.calls.filter(([,options])=>options?.method==='POST').map(([url])=>url.split('/').at(-1))).toEqual(['learn']);
+    fireEvent.click(screen.getByRole('radio',{name:'Моя сестра'}));fireEvent.click(screen.getByRole('button',{name:'Check answer'}));
+    fireEvent.click(await screen.findByRole('button',{name:'Next →'}));
+    await waitFor(()=>expect(screen.getByRole('radio',{name:'Моя сестра'}).getAttribute('name')).toBe('practice-item-2'));
+    expect(screen.getByText('Review examples').closest('details')!.open).toBe(false);
+  });
+  it('offers the revised lesson without changing a retained answer',async()=>{
+    const current=practice();const saved={...current,updated_practice_href:'#journey/release/a1-journey-v2/prepare/home',current_item:{...current.current_item!,stage:'feedback',selected_choice:'wrong',feedback:{correct:false,answer:'right',explanation:'Saved explanation.',explanation_ru:'Сохранённое объяснение.'}}} as CoursePractice;
+    const fetch=serve(()=>saved);render(<CoursePreparation practiceId="practice-1" progression={progression}/>);
+    const link=await screen.findByRole('link',{name:'Start the revised lesson'});
+    expect(link.getAttribute('href')).toBe(saved.updated_practice_href);
+    expect(screen.getByText('This lesson has been revised for beginners.')).toBeTruthy();
+    expect((screen.getByRole('radio',{name:'Мой сестра'}) as HTMLInputElement).checked).toBe(true);
+    expect(screen.getByRole('radio',{name:'Мой сестра'}).closest('fieldset')!.disabled).toBe(true);
+    expect(screen.getByText('Saved explanation.')).toBeTruthy();
+    expect(fetch.mock.calls.every(([,options])=>options?.method==='GET')).toBe(true);
+    expect(saved.current_item?.selected_choice).toBe('wrong');
   });
   it('starts or resumes section practice with a stable request across an uncertain start',async()=>{
     let fail=true;const fetch=vi.fn(async(_url:string,_options?:RequestInit)=>{if(fail)throw new Error('Offline');return{ok:true,json:async()=>practice()};});vi.stubGlobal('fetch',fetch);
@@ -70,7 +114,7 @@ describe('Preparation audio recovery',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Retry audio'}));
     await screen.findByRole('button',{name:'Retry audio'});
     fireEvent.click(screen.getByRole('button',{name:'Show transcript'}));
-    await screen.findByText('Это моя сестра.');
+    await screen.findByText('Это моя сестра.',{selector:'.course-listening p'});
     expect((screen.getByRole('button',{name:'Check answer'}) as HTMLButtonElement).disabled).toBe(false);
     expect(fetch.mock.calls.filter(([,options])=>options?.method==='POST').map(([url])=>url.split('/').at(-1))).toEqual(['transcript']);
   });
@@ -121,16 +165,18 @@ describe('Preparation audio recovery',()=>{
 
 describe('Release-scoped preparation navigation',()=>{
   it('retains known release identity through an exact legacy action receipt',async()=>{
-    const current=practice();
-    const receipt={...current,release_id:undefined,target_catalogue_version:undefined,content_version:undefined,status:'completed',current_item:null,completed_count:1} as CoursePractice;
+    const current={...practice(),updated_practice_href:'#journey/release/a1-journey-v2/prepare/home'};
+    const receipt={...current,release_id:undefined,target_catalogue_version:undefined,content_version:undefined,updated_practice_href:undefined,status:'completed',current_item:null,completed_count:1} as CoursePractice;
     const fetch=serve(url=>url.endsWith('/learn')?receipt:current);
     const changed={...progression,data:{...progression.data!,course:{...progression.data!.course!,release_id:'a1-v1'}}};
     render(<CoursePreparation practiceId="practice-1" progression={changed}/>);
     fireEvent.click(await screen.findByRole('button',{name:'Try it →'}));
     expect((await screen.findByRole('link',{name:'Continue the milestone →'})).getAttribute('href')).toBe('#journey/release/a1-journey-v2/chapter/home');
     expect(screen.getByRole('link',{name:'← Milestone practice'}).getAttribute('href')).toBe('#journey/release/a1-journey-v2/chapter/home');
+    expect(screen.getByRole('link',{name:'Start the revised lesson'}).getAttribute('href')).toBe(current.updated_practice_href);
     expect(fetch.mock.calls.map(([url])=>url)).toEqual(['/api/v1/course/practice/practice-1','/api/v1/course/practice/practice-1/learn']);
     expect(receipt.release_id).toBeUndefined();
+    expect(receipt.updated_practice_href).toBeUndefined();
   });
   it.each(['id','profile_id','section_id','release_id','target_catalogue_version','content_version'] as const)('rejects an action receipt with a different %s',async(field)=>{
     const current=practice();

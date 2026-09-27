@@ -150,6 +150,21 @@ describe('Your first words',()=>{
     const api=server(completed({amount:2,status:'credited',awarded_now:false}));render(<FirstDelivery next={next} />);
     await screen.findByText('2 Lingocoins earned');expect(api.posts()).toHaveLength(0);
   });
+  it('keeps one word-and-meaning review after completion without repeating answers or explanations',async()=>{
+    const api=server({...completed(),teaching_cards:words});render(<FirstDelivery next={next} />);
+    const summary=await screen.findByText('Revisit your first words');
+    expect(summary.closest('details')!.open).toBe(false);
+    fireEvent.click(summary);expect(summary.closest('details')!.open).toBe(true);
+    for(const word of words) {
+      expect(screen.getByText(word.word,{exact:true}).getAttribute('lang')).toBe('ru');
+      expect(screen.getByText(word.meaning,{exact:true}).getAttribute('lang')).toBe('en');
+      expect(screen.queryByText(word.explanation)).toBeNull();
+    }
+    expect(screen.queryByText('Look back at your answers')).toBeNull();
+    expect(screen.queryByText('Привет! means hello.')).toBeNull();
+    expect(screen.getByText('3 Lingocoins earned')).toBeTruthy();
+    expect(api.posts()).toHaveLength(0);
+  });
   it('keeps pending guest coins distinct from saved profile coins',async()=>{
     server({...completed({amount:3,status:'pending',awarded_now:false}),profile_id:null,pending_reward:3});render(<FirstDelivery next={next} />);
     await screen.findByText('Create a profile to save your coins and first activity.');

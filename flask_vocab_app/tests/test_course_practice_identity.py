@@ -71,6 +71,52 @@ class PracticeIdentityTests(unittest.TestCase):
                 self.assertEqual(self.conn.execute('SELECT COUNT(*) FROM course_target_observations').fetchone()[0], 0)
                 self.conn.execute(f'UPDATE course_target_practice_attempts SET {field}=?', (row[field],))
 
+    def test_revised_teaching_keeps_old_questions_answers_and_receipts(self):
+        old_release = deepcopy(course_releases.RELEASES['a1-journey-v2'])
+        old_release['preparation']['content_version'] = 'a1-target-practice-v1'
+        with patch.dict(course_releases.RELEASES, {'a1-journey-v2': old_release}):
+            old = course_targets.practice_start(self.conn, self.pid, 'home', 'old-start')
+            body = {'item_id': old['current_item']['id']}
+            receipt = course_targets.practice_action(self.conn, self.pid, old['id'], 'learn', body, 'old-learn')
+            answer = course_targets.practice_action(self.conn, self.pid, old['id'], 'answer', {**body, 'choice_id': '2'}, 'old-answer')
+        frozen = dict(self.conn.execute('SELECT * FROM course_target_practice_attempts WHERE id=?', (old['id'],)).fetchone())
+        resumed = course_targets.practice_get(self.conn, self.pid, old['id'])
+        self.assertEqual(resumed['content_version'], 'a1-target-practice-v1')
+        self.assertEqual(resumed['current_item']['question'], receipt['current_item']['question'])
+        self.assertEqual(resumed['current_item']['feedback'], answer['current_item']['feedback'])
+        self.assertEqual(resumed['updated_practice_href'], '/#journey/release/a1-journey-v2/practice/start/home')
+        self.assertEqual(course_targets.practice_action(self.conn, self.pid, old['id'], 'learn', body, 'old-learn'), receipt)
+        new = course_targets.practice_start(self.conn, self.pid, 'home', 'new-start')
+        self.assertNotEqual(new['id'], old['id'])
+        self.assertEqual(new['content_version'], 'a1-target-practice-v2')
+        self.assertEqual(new['current_item']['stage'], 'learn')
+        self.assertTrue(new['current_item']['teaching']['examples'])
+        self.assertNotIn('updated_practice_href', new)
+        self.assertEqual(course_targets.practice_start(self.conn, self.pid, 'home', 'new-resume')['id'], new['id'])
+        self.assertEqual(course_targets.practice_start(self.conn, self.pid, 'home', 'old-start')['id'], old['id'])
+        self.assertEqual(dict(self.conn.execute('SELECT * FROM course_target_practice_attempts WHERE id=?', (old['id'],)).fetchone()), frozen)
+        self.assertEqual(self.conn.execute('SELECT COUNT(*) FROM course_target_observations').fetchone()[0], 2)
+
+    def test_edition_index_upgrade_preserves_saved_practice(self):
+        old_release = deepcopy(course_releases.RELEASES['a1-journey-v2'])
+        old_release['preparation']['content_version'] = 'a1-target-practice-v1'
+        with patch.dict(course_releases.RELEASES, {'a1-journey-v2': old_release}):
+            old = course_targets.practice_start(self.conn, self.pid, 'home', 'old-start')
+        self.conn.execute('DROP INDEX course_target_practice_active')
+        self.conn.execute("CREATE UNIQUE INDEX course_target_practice_active ON course_target_practice_attempts(profile_id,release_id,section_id) WHERE status='active'")
+        self.conn.execute('DELETE FROM schema_migrations WHERE version=55')
+        self.conn.commit()
+        tables = ('course_target_practice_attempts', 'course_target_practice_requests',
+                  'course_target_practice_receipts', 'course_target_observations', 'course_chapter_passes')
+        before = {table: list(self.conn.execute('SELECT * FROM ' + table)) for table in tables}
+        self.assertEqual(migrations.upgrade_database(self.path, backup=False)[0], 55)
+        for table in tables:
+            self.assertEqual(list(self.conn.execute('SELECT * FROM ' + table)), before[table])
+        new = course_targets.practice_start(self.conn, self.pid, 'home', 'new-start')
+        self.assertNotEqual(old['id'], new['id'])
+        self.assertEqual(self.conn.execute('PRAGMA integrity_check').fetchone()[0], 'ok')
+        self.assertEqual(self.conn.execute('PRAGMA foreign_key_check').fetchall(), [])
+
 
 class PracticeIdentityMigrationTests(unittest.TestCase):
     def setUp(self):
@@ -85,7 +131,7 @@ class PracticeIdentityMigrationTests(unittest.TestCase):
         with patch.object(migrations, 'MIGRATION_DIR', self.scripts):
             self.assertEqual(migrations.upgrade_database(str(self.path), backup=False), (47, None))
         targets = {t['id'] for t in course_targets.targets_for_section('home', required_only=True)}
-        items = [item for item in course_targets.practice_catalogue()['items'] if item['target_id'] in targets]
+        items = [item for item in course_targets.practice_catalogue('a1-target-practice-v1')['items'] if item['target_id'] in targets]
         self.item_id = items[0]['id']
         self.receipt = {'id': 'old-attempt', 'original': 'saved response', 'coverage': {'prepared_count': 1}}
         with sqlite3.connect(self.path) as conn:

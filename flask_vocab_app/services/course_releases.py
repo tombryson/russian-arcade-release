@@ -20,7 +20,7 @@ RELEASES = {
         'schema_version': 2, 'chapter_count': 4,
         'requirement_version': 'a1-section-selection-v2', 'continuation_level': 'A2',
         'preparation': {'target_catalogue_version': 'a1-targets-v1',
-                        'content_version': 'a1-target-practice-v1'},
+                        'content_version': 'a1-target-practice-v2'},
         'catalogue_file': 'course_releases/a1-journey-v2.json',
         'catalogue_sha256': '7d641b7b3ae75086d4d226a7c11dd09fa38118386859d20858527575d1285ab4',
     },

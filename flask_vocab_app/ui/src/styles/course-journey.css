@@ -46,6 +46,16 @@
 .course-target-coverage {padding-block:12px;font-size:13px}.course-target-coverage summary {cursor:pointer}.course-target-coverage ul {padding:0;list-style:none;margin:12px 0;display:grid;gap:8px}.course-target-coverage li {display:flex;gap:20px;justify-content:space-between}.course-target-coverage li>span:last-child {color:var(--wp-text-secondary);white-space:nowrap}.course-preparation-player {max-width:860px}.course-teaching-card {max-width:720px;line-height:1.7}.course-teaching-example {font-size:clamp(24px,3vw,32px);line-height:1.5}.course-preparation-question fieldset {padding:0;margin:0 0 12px;border:0;min-width:0}.course-preparation-question legend {font-size:20px;line-height:1.5;margin-bottom:16px}.course-preparation-question .cta {margin-top:16px}.course-practice-hint .text-button {padding:12px 0;background:none;border:0;text-decoration:underline;text-underline-offset:3px;color:inherit;font:inherit;font-size:13px;cursor:pointer}
 .course-letter-word {font:inherit;line-height:inherit;color:inherit;display:inline;border:0;border-radius:0;background:none;padding:0;cursor:pointer}.course-letter-word:hover,.course-letter-word:focus-visible {text-decoration:underline;text-underline-offset:4px}.course-letter-word:focus-visible {outline:2px solid #776b53;outline-offset:2px}.course-word-picker {display:flex;align-items:center;gap:14px;margin-top:14px;font-size:14px}.course-word-picker select {max-width:100%;min-width:160px;border:1px solid #776b5366;border-radius:6px;background:#fff9e9;color:#302d29;padding:8px 10px;font:inherit}.course-capture-context {margin:10px 0}.course-draft-conflict {border:1px solid var(--wp-border-subtle);padding:14px;border-radius:8px;margin-bottom:16px;font-size:14px}.course-draft-conflict button {margin-right:8px}
 
+.course-preparation-player .course-teaching-examples {display:grid;gap:16px;list-style:none;padding:0;margin:18px 0 24px}
+.course-preparation-player .course-teaching-examples p {margin:0}
+.course-preparation-player .course-teaching-examples .quiet {margin-top:3px;font-size:14px;line-height:1.6}
+.course-preparation-player .course-example-review {margin:0 0 18px;border-block:1px solid var(--wp-border-subtle);font-size:14px;line-height:1.6}
+.course-preparation-player .course-example-review summary {padding:12px 0;cursor:pointer;color:var(--wp-text-secondary)}
+.course-preparation-player .course-example-review .course-teaching-example {font-size:22px}
+.course-preparation-player .course-example-review .course-teaching-examples {gap:12px;margin-block:12px 18px}
+.course-preparation-player .course-revision-notice {display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:18px 0;font-size:13px;line-height:1.6;color:var(--wp-text-secondary)}
+.course-preparation-player .course-revision-notice .text-link {font-size:inherit}
+
 .course-preparation summary {cursor:pointer;margin-top:12px;font-size:13px;text-underline-offset:3px}.course-preparation[open] summary {margin-bottom:10px}.course-topic-heading [hidden] {display:none}
 
 .course-page.is-checkpoint {padding-top:16px}.course-page.is-checkpoint>.course-heading {margin:16px 0}.course-page.is-checkpoint>.course-heading h1 {font-size:clamp(27px,3vw,34px);margin-bottom:8px}.course-page.is-checkpoint>.course-heading .kicker {margin-bottom:7px}

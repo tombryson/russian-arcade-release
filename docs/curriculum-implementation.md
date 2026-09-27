@@ -1,5 +1,24 @@
 # Curriculum implementation status
 
+## Beginner practice revision — 28 September 2026
+
+The introduction now shows one recap of the first three words. The eight
+Leaving home exercises teach short translated phrases before asking a question.
+The first name exercise uses two choices and does not test unfamiliar pronouns.
+Learners can reopen the examples while answering. The two listening exercises
+keep their recordings and teach the words needed to follow them.
+
+New practice uses `a1-target-practice-v2`. Existing attempts retain their original
+questions, answers and receipts. An older attempt offers a link to the revised
+lesson. Migration `055` permits one active attempt per content edition; it does
+not reset practice history. Supported practice still does not award independent
+mastery or pass a milestone.
+
+This revision covers the first milestone. The other 24 focused practice items
+retain their previous content and need the same beginner-readiness review.
+
+## Previous implementation record
+
 This guide records the [curriculum uplift plan](curriculum-uplift-plan.md) implementation on `codex/curriculum-assessment-pilot`, updated 24 September 2026. It adds teaching and diagnostic evidence. It does not replace the published A1 journey or introduce a new level gate.
 
 **Previously deployed baseline:** application revision `87ca343` is deployed as Fly release 61. Full CI passed **1,714 backend tests and 726 frontend tests**, along with the production build and security checks. Results are recorded in [the validation record](curriculum-validation.md). A fresh browser check passed native audio playback, replay, slower playback, answer submission and transcript support. Generated Comprehension and the pilot also passed browser checks using isolated provider-free fixtures; the pilot fixture verified transport and saving, not the pending recordings' language. These checks verify operation, not pronunciation quality or marking accuracy. No qualified human language review or learner trial is claimed.

@@ -339,6 +339,24 @@ class HostedGuestCompositionTests(unittest.TestCase):
                                 self.assertEqual(response.data[8:12], b'WEBP')
         self.assertFalse(app.extensions['hosted_trial'].cache)
 
+    def test_practice_recordings_are_public_and_support_partial_playback(self):
+        from hosted import create_hosted_app
+        from services.course_targets import practice_catalogue
+        app = create_hosted_app()
+        client = app.test_client()
+        paths = {item['question']['audio_url'] for item in practice_catalogue()['items']
+                 if item['question'].get('audio_url')}
+        self.assertEqual(len(paths), 5)
+        for path in paths:
+            for prefix in ('', '/demo'):
+                with self.subTest(path=prefix + path):
+                    with client.get(prefix + path, base_url=self.base, headers={'Range': 'bytes=0-511'}) as response:
+                        self.assertEqual(response.status_code, 206)
+                        self.assertEqual(response.mimetype, 'audio/mpeg')
+                        self.assertEqual(len(response.data), 512)
+                        self.assertTrue(response.headers['Content-Range'].startswith('bytes 0-511/'))
+        self.assertFalse(app.extensions['hosted_trial'].cache)
+
     def test_whole_app_without_oauth_is_isolated_and_provider_calls_remain_metered(self):
         from hosted import create_hosted_app
         app = create_hosted_app()
