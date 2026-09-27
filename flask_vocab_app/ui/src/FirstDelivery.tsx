@@ -94,7 +94,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
       <p class="kicker">One word at a time</p><h1 ref={heading} tabIndex={-1}>Help Barsik reach the next stop.</h1>
       <p class="intro">Practise the topics at each stop to move Barsik along the bar.</p>
       <Sheet><div class="tutorial-progress-introduction"><img class="tutorial-progress-barsik" src="/static/images/barsik-running-v1.webp" width="92" height="68" alt="Barsik running with his letter bag." />
-          <div><h2>A message at every stop</h2><p>{courseJourney ? 'Barsik receives letters that help him on his way. Read each letter, listen to the update and choose a reply to pass a milestone. Your letter stays sealed in his bag.' : 'Use what you have learned to read a message and continue the journey. After four A1 chapters, Barsik delivers your letter.'}</p><p>Tap Barsik to see your next stop and choose what to practise.</p></div></div>
+          <div><h2>Choose what to practise</h2><p>Tap Barsik on the bar to see your journey and find activities for your next stop.</p><p>You can also practise from the Activities menu.</p></div></div>
       </Sheet>
       <div class="action-row"><button class="cta" disabled={busy} onClick={openActivity}>Learn your first words <span aria-hidden="true">→</span></button><button class="text-link" onClick={() => setStep(0)}>Back to Lingocoins</button></div>
     </> : step === 2 ? <>
