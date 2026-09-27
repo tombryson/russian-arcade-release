@@ -70,25 +70,26 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
     else void save('start',attempt ? {restart:true} : {});
   }
 
-  return <section class="page first-delivery lesson-player">
+  return <section class={`page first-delivery lesson-player${step === 0 ? ' first-delivery-intro' : ''}`}>
     <div class="lesson-player-nav">
       <a class="text-link" href="#first-steps"><span aria-hidden="true">← </span>First steps</a>
     </div>
     {step === 0 ? <>
-      <div class="tutorial-welcome">
-        <div><p class="kicker">Your first delivery</p><h1 ref={heading} tabIndex={-1}>Before we set off…</h1>
-          <p class="intro">Play games, practise Russian and help Barsik deliver your letter.</p></div>
-        <figure class="tutorial-welcome-art"><img src={settingOffArt} width="1254" height="1254" decoding="async" alt="Barsik jogs ahead holding gold Lingocoins, with your letter tucked into his red postbag." /></figure>
-      </div>
-      <Sheet><div class="coin-introduction"><span class="lingocoin" aria-hidden="true">Л</span><div><h2>Earn coins as you learn.</h2><p>Complete activities and review flashcards to earn Lingocoins. Spend them on games in <a href="#shop">the shop</a>.</p><p>Finish this first activity to earn a one-time bonus of 3 Lingocoins.</p><p>Look for the gold coin at the top to see how many you have.</p></div></div>
-        <details class="coin-rules"><summary>How do I earn coins?</summary>
+      <h1 ref={heading} tabIndex={-1}>Before we set off…</h1>
+      <div class="onboarding-coins">
+        <div class="onboarding-coins-copy">
+          <h2><span class="lingocoin" aria-hidden="true">Л</span>Lingocoins</h2>
+          <p>Earn Lingocoins from activities and flashcards to buy games in <a href="#shop">the shop</a>.</p>
+          <p class="onboarding-bonus">Your first activity earns <strong>3 coins.</strong></p>
+        </div>
+        <img class="onboarding-coins-art" src={settingOffArt} width="1254" height="1254" decoding="async" alt="Barsik holding a Lingocoin." />
+        <details class="onboarding-coin-rules"><summary>How do I earn coins?</summary>
           <ul><li>Complete an activity: <strong>3 coins</strong>, up to 12 per day.</li><li>Review a flashcard: <strong>1 coin</strong>, up to 10 per day.</li></ul>
-          <p>Hints and mistakes won’t reduce your reward. Each activity or card earns coins only once a day.</p>
-          <p>Your first activity has its own one-time bonus. You can revisit it whenever you like.</p>
-          <p>You can spend your Lingocoins on games in <a href="#shop">the shop</a>. Each game is yours to keep.</p>
+          <p>Each activity or card earns coins once a day. Hints and mistakes don’t reduce your reward.</p>
+          <p>The first-activity bonus is awarded once.</p>
         </details>
-      </Sheet>
-      <div class="action-row"><button class="cta" onClick={() => setStep(1)}>Continue <span aria-hidden="true">→</span></button><a class="text-link" href="#activities">Go straight to activities</a></div>
+      </div>
+      <div class="action-row onboarding-intro-actions"><button class="cta" onClick={() => setStep(1)}>Continue <span aria-hidden="true">→</span></button><a class="text-link" href="#activities">Go straight to activities</a></div>
     </> : step === 1 ? <>
       <p class="kicker">One word at a time</p><h1 ref={heading} tabIndex={-1}>Help Barsik reach the next stop.</h1>
       <p class="intro">Practise the topics at each stop to move Barsik along the bar.</p>

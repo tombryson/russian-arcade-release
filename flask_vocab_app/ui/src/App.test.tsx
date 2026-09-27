@@ -295,7 +295,7 @@ describe('Stepwise header introduction',()=>{
     expect(document.querySelector('.skill-rail')).toBeNull();
     await navigate('first-delivery');
     await screen.findByRole('link',{name:'Lingo coins: 42'});
-    expect(screen.getByRole('heading',{name:'Earn coins as you learn.'})).toBeTruthy();
+    expect(screen.getByRole('heading',{name:'Lingocoins'})).toBeTruthy();
     expect(document.querySelector('.skill-rail')).toBeNull();
     fireEvent.click(screen.getByRole('button',{name:'Continue'}));
     await vi.waitFor(()=>expect(document.querySelector('.skill-rail')).not.toBeNull());
