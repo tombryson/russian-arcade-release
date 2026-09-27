@@ -10,6 +10,7 @@
 !flask_vocab_app/story_cli.py
 !flask_vocab_app/hosted.py
 !flask_vocab_app/hosted_trial.py
+!flask_vocab_app/hosted_demo_mount.py
 !flask_vocab_app/hosted_account_page.py
 !flask_vocab_app/trial_cli.py
 !flask_vocab_app/public_demo.py

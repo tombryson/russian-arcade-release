@@ -16,6 +16,8 @@ COPY flask_vocab_app/requirements.lock /tmp/requirements.lock
 RUN pip install --no-cache-dir --require-hashes -r /tmp/requirements.lock
 COPY flask_vocab_app/ ./
 COPY --from=ui /build/ui/dist ./ui/dist
+# Catch missing allowlisted hosted modules before replacing a running Machine.
+RUN python -c "import hosted; import hosted_trial"
 EXPOSE 8080
 # Startup runs on the Machine with /data mounted, not a Fly release Machine.
 CMD ["python", "hosted.py"]
