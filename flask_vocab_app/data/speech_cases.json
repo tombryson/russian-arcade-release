@@ -1,0 +1,10 @@
+[
+  {"id":"genitive","category":"case","text":"Я хочу чай без сахар.","corrected":"Я хочу чай без сахара.","target":"сахар","correction":"сахара","note":"без requires the genitive."},
+  {"id":"dative","category":"case","text":"Я звоню сестра.","corrected":"Я звоню сестре.","target":"сестра","correction":"сестре","note":"звонить takes a dative recipient."},
+  {"id":"agreement","category":"agreement","text":"Я вижу красивый кошку.","corrected":"Я вижу красивую кошку.","target":"красивый","correction":"красивую","note":"The adjective agrees with feminine accusative кошку."},
+  {"id":"conjugation_singular","category":"conjugation","text":"Она каждый день читаю книгу.","corrected":"Она каждый день читает книгу.","target":"читаю","correction":"читает","note":"Она requires third-person singular читает."},
+  {"id":"conjugation_plural","category":"conjugation","text":"Мы завтра идёт в парк.","corrected":"Мы завтра идём в парк.","target":"идёт","correction":"идём","note":"Мы requires first-person plural идём; present motion with завтра is valid."},
+  {"id":"correct_control","category":"control","text":"Можно чай без сахара?","corrected":"Можно чай без сахара?","target":"","correction":"","note":"A valid request; do not invent a grammar mistake."},
+  {"id":"short_control","category":"control","text":"Без сахара, пожалуйста.","corrected":"Без сахара, пожалуйста.","target":"","correction":"","note":"A valid short reply to a question about sugar."},
+  {"id":"self_repair","category":"self_repair","text":"Я хочу... нет, я хотел чай без сахара.","corrected":"","target":"хочу","correction":"","note":"Preserve the false start and self-repair; do not penalise a successful repair."}
+]

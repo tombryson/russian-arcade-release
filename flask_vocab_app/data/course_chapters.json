@@ -1,0 +1,3930 @@
+{
+  "version": 1,
+  "band": "A1",
+  "rubric_version": "a1-checkpoint-v1",
+  "chapters": [
+    {
+      "id": "a1-post-office",
+      "number": 1,
+      "title": "The little post office",
+      "title_ru": "Маленькая почта",
+      "intro": "Help Barsik meet his helpers and agree when to set off. These are notes to Barsik; your original letter stays sealed.",
+      "intro_ru": "Помоги Барсику познакомиться с друзьями и выбрать время. Это записки для Барсика. Твоё письмо пока закрыто.",
+      "topic_ids": [
+        "greetings",
+        "numbers",
+        "family"
+      ],
+      "objectives": [
+        {
+          "en": "Understand greetings and introductions in a short note.",
+          "ru": "Понимать приветствия и имена в короткой записке."
+        },
+        {
+          "en": "Identify family relationships and a meeting time.",
+          "ru": "Понимать, кто кому родственник и когда встреча."
+        },
+        {
+          "en": "Hear a changed arrangement and choose a suitable reply.",
+          "ru": "Понять новое время на слух и выбрать подходящий ответ."
+        }
+      ],
+      "variants": [
+        {
+          "id": "a1-post-office-v1",
+          "letter_title": "A helper for Barsik",
+          "letter_title_ru": "Помощник для Барсика",
+          "letter": "Здравствуй, Барсик! Меня зовут Анна. Я работаю на почте. Это моя семья: мама Ирина, брат Миша и сестра Оля. Миша идёт с тобой. Сейчас два часа. В три часа у нас встреча. Оля дома. Спасибо за помощь! Анна.",
+          "listening": {
+            "audio_url": "/static/audio/course/a1-post-office-v1.mp3",
+            "transcript": "Барсик, привет! Это Миша. Встреча теперь в четыре часа. С нами идёт мой друг Дима. Нас трое: ты, я и Дима."
+          },
+          "glossary": [
+            {
+              "ru": "почта",
+              "en": "post office"
+            },
+            {
+              "ru": "помощник",
+              "en": "helper"
+            },
+            {
+              "ru": "идёт с тобой",
+              "en": "is going with you"
+            },
+            {
+              "ru": "встреча",
+              "en": "meeting"
+            },
+            {
+              "ru": "теперь",
+              "en": "now; the updated arrangement"
+            },
+            {
+              "ru": "с нами",
+              "en": "with us"
+            },
+            {
+              "ru": "нас трое",
+              "en": "there are three of us"
+            },
+            {
+              "ru": "за помощь",
+              "en": "for the help"
+            }
+          ],
+          "topic_targets": {
+            "greetings": [
+              "Здравствуй!",
+              "Меня зовут…",
+              "Спасибо."
+            ],
+            "numbers": [
+              "Сейчас два часа.",
+              "В три часа.",
+              "В четыре часа."
+            ],
+            "family": [
+              "мама",
+              "брат",
+              "сестра",
+              "друг"
+            ]
+          },
+          "questions": [
+            {
+              "id": "r1",
+              "kind": "reading",
+              "prompt": "Who goes with Barsik in Anna’s note?",
+              "prompt_ru": "Кто идёт с Барсиком в записке Анны?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Оля."
+                },
+                {
+                  "id": "b",
+                  "text": "Ирина."
+                },
+                {
+                  "id": "c",
+                  "text": "Миша."
+                }
+              ],
+              "answer": "c",
+              "essential": true,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Anna says that Misha goes with Barsik.",
+              "explanation_ru": "Анна пишет: «Миша идёт с тобой».",
+              "topic_ids": [
+                "family"
+              ]
+            },
+            {
+              "id": "r2",
+              "kind": "reading",
+              "prompt": "Who wrote this note?",
+              "prompt_ru": "Кто написал эту записку?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Оля."
+                },
+                {
+                  "id": "b",
+                  "text": "Анна."
+                },
+                {
+                  "id": "c",
+                  "text": "Ирина."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The writer introduces herself as Anna and signs the note.",
+              "explanation_ru": "Автор говорит: «Меня зовут Анна» и подписывает записку.",
+              "topic_ids": [
+                "greetings"
+              ]
+            },
+            {
+              "id": "r3",
+              "kind": "reading",
+              "prompt": "Who is Irina in Anna’s family?",
+              "prompt_ru": "Кто Ирина в семье Анны?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Её мама."
+                },
+                {
+                  "id": "b",
+                  "text": "Её сестра."
+                },
+                {
+                  "id": "c",
+                  "text": "Её дочь."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Anna calls Irina her mother.",
+              "explanation_ru": "Анна пишет: «мама Ирина».",
+              "topic_ids": [
+                "family"
+              ]
+            },
+            {
+              "id": "r4",
+              "kind": "reading",
+              "prompt": "What meeting time does the written note give?",
+              "prompt_ru": "Во сколько встреча в записке?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "В два часа."
+                },
+                {
+                  "id": "b",
+                  "text": "В пять часов."
+                },
+                {
+                  "id": "c",
+                  "text": "В три часа."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Two is the current time; the note gives three as the meeting time.",
+              "explanation_ru": "Сейчас два часа, а встреча в записке — в три часа.",
+              "topic_ids": [
+                "numbers"
+              ]
+            },
+            {
+              "id": "r5",
+              "kind": "reading",
+              "prompt": "What does Anna say about Olya?",
+              "prompt_ru": "Что Анна пишет об Оле?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Это её сестра, она идёт с Барсиком."
+                },
+                {
+                  "id": "b",
+                  "text": "Это её сестра, она дома."
+                },
+                {
+                  "id": "c",
+                  "text": "Это её мама, она дома."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Olya is Anna’s sister and is at home.",
+              "explanation_ru": "Оля — сестра Анны. Анна пишет: «Оля дома».",
+              "topic_ids": [
+                "family"
+              ]
+            },
+            {
+              "id": "l1",
+              "kind": "listening",
+              "prompt": "Listen to Misha: what is the new meeting time?",
+              "prompt_ru": "Послушай Мишу: во сколько теперь встреча?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "В четыре часа."
+                },
+                {
+                  "id": "b",
+                  "text": "В три часа."
+                },
+                {
+                  "id": "c",
+                  "text": "В два часа."
+                }
+              ],
+              "answer": "a",
+              "essential": true,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Misha changes the meeting time to four.",
+              "explanation_ru": "Миша говорит: «Встреча теперь в четыре часа».",
+              "topic_ids": [
+                "numbers"
+              ]
+            },
+            {
+              "id": "l2",
+              "kind": "listening",
+              "prompt": "Who else joins Barsik and Misha in the audio?",
+              "prompt_ru": "Кто ещё идёт с Барсиком и Мишей в сообщении?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Брат Миши Павел."
+                },
+                {
+                  "id": "b",
+                  "text": "Сестра Миши Оля."
+                },
+                {
+                  "id": "c",
+                  "text": "Друг Миши Дима."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Misha says that his friend Dima is joining them.",
+              "explanation_ru": "Миша говорит: «С нами идёт мой друг Дима».",
+              "topic_ids": [
+                "family"
+              ]
+            },
+            {
+              "id": "reply",
+              "kind": "response",
+              "prompt": "You are Barsik. Greet Misha and accept the updated time.",
+              "prompt_ru": "Ты Барсик. Поздоровайся с Мишей и подтверди новое время.",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Привет, Миша! Я Барсик. До встречи в два часа!"
+                },
+                {
+                  "id": "b",
+                  "text": "Привет, Миша! Я Барсик. До встречи в четыре часа!"
+                },
+                {
+                  "id": "c",
+                  "text": "Привет, Миша! Я Барсик. До встречи в три часа!"
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Choose the reply that follows the speaker’s latest request.",
+              "hint_ru": "Выбери ответ, который подходит к последней просьбе говорящего.",
+              "explanation": "This reply greets Misha, introduces Barsik and confirms the updated time.",
+              "explanation_ru": "Этот ответ приветствует Мишу, представляет Барсика и подтверждает новое время.",
+              "topic_ids": [
+                "greetings",
+                "numbers"
+              ]
+            }
+          ],
+          "support_note": "Glossary entries explain incidental words. Optional question hints and the audio transcript make this a supported attempt.",
+          "support_note_ru": "Словарь объясняет отдельные слова. Подсказки к вопросам и текст аудио делают эту попытку попыткой с помощью."
+        },
+        {
+          "id": "a1-post-office-v2",
+          "letter_title": "Nina’s introduction",
+          "letter_title_ru": "Знакомство с Ниной",
+          "letter": "Здравствуйте, Барсик! Я Нина. У меня есть сын Саша и дочь Вера. Саша ещё дома, а Вера здесь. Мой папа Лев тоже здесь. Сегодня Вера помогает тебе. Мы начинаем в пять часов. До встречи! Нина.",
+          "listening": {
+            "audio_url": "/static/audio/course/a1-post-office-v2.mp3",
+            "transcript": "Добрый день, Барсик! Это Вера. Папа тоже идёт с нами. У нас две сумки: одна для тебя, одна для меня. До встречи!"
+          },
+          "glossary": [
+            {
+              "ru": "ещё дома",
+              "en": "still at home"
+            },
+            {
+              "ru": "помогает тебе",
+              "en": "helps you"
+            },
+            {
+              "ru": "начинаем",
+              "en": "we start"
+            },
+            {
+              "ru": "сумка",
+              "en": "bag"
+            },
+            {
+              "ru": "одна для тебя",
+              "en": "one for you"
+            },
+            {
+              "ru": "с нами",
+              "en": "with us"
+            }
+          ],
+          "topic_targets": {
+            "greetings": [
+              "Здравствуйте!",
+              "Добрый день.",
+              "До встречи!"
+            ],
+            "numbers": [
+              "В пять часов.",
+              "две сумки"
+            ],
+            "family": [
+              "сын",
+              "дочь",
+              "папа"
+            ]
+          },
+          "questions": [
+            {
+              "id": "r1",
+              "kind": "reading",
+              "prompt": "Who will help Barsik today?",
+              "prompt_ru": "Кто сегодня помогает Барсику?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Нина."
+                },
+                {
+                  "id": "b",
+                  "text": "Вера."
+                },
+                {
+                  "id": "c",
+                  "text": "Саша."
+                }
+              ],
+              "answer": "b",
+              "essential": true,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Nina says that Vera helps Barsik today.",
+              "explanation_ru": "Нина пишет: «Сегодня Вера помогает тебе».",
+              "topic_ids": [
+                "family"
+              ]
+            },
+            {
+              "id": "r2",
+              "kind": "reading",
+              "prompt": "How does Nina greet Barsik in the note?",
+              "prompt_ru": "Как Нина здоровается с Барсиком в записке?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Здравствуйте, Барсик!"
+                },
+                {
+                  "id": "b",
+                  "text": "До встречи, Барсик!"
+                },
+                {
+                  "id": "c",
+                  "text": "Спасибо, Барсик!"
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Здравствуйте is Nina’s greeting; До встречи is her farewell.",
+              "explanation_ru": "«Здравствуйте» — приветствие Нины, а «До встречи» — прощание.",
+              "topic_ids": [
+                "greetings"
+              ]
+            },
+            {
+              "id": "r3",
+              "kind": "reading",
+              "prompt": "Who is Sasha?",
+              "prompt_ru": "Кто Саша?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Брат Нины, он здесь."
+                },
+                {
+                  "id": "b",
+                  "text": "Папа Нины, он дома."
+                },
+                {
+                  "id": "c",
+                  "text": "Сын Нины, он дома."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Nina introduces Sasha as her son and says he is still at home.",
+              "explanation_ru": "Нина пишет: «У меня есть сын Саша» и «Саша ещё дома».",
+              "topic_ids": [
+                "family"
+              ]
+            },
+            {
+              "id": "r4",
+              "kind": "reading",
+              "prompt": "When do they start?",
+              "prompt_ru": "Во сколько они начинают?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "В семь часов."
+                },
+                {
+                  "id": "b",
+                  "text": "В пять часов."
+                },
+                {
+                  "id": "c",
+                  "text": "В три часа."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The note says they start at five.",
+              "explanation_ru": "В записке сказано: «Мы начинаем в пять часов».",
+              "topic_ids": [
+                "numbers"
+              ]
+            },
+            {
+              "id": "r5",
+              "kind": "reading",
+              "prompt": "Who is Lev to Nina?",
+              "prompt_ru": "Кто Лев для Нины?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Её папа."
+                },
+                {
+                  "id": "b",
+                  "text": "Её сын."
+                },
+                {
+                  "id": "c",
+                  "text": "Её брат."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Nina writes “my dad Lev”.",
+              "explanation_ru": "Нина пишет: «Мой папа Лев».",
+              "topic_ids": [
+                "family"
+              ]
+            },
+            {
+              "id": "l1",
+              "kind": "listening",
+              "prompt": "Listen to Vera: how many bags do they have?",
+              "prompt_ru": "Послушай Веру: сколько у них сумок?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Три."
+                },
+                {
+                  "id": "b",
+                  "text": "Одна."
+                },
+                {
+                  "id": "c",
+                  "text": "Две."
+                }
+              ],
+              "answer": "c",
+              "essential": true,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Vera says there are two bags, one for each of them.",
+              "explanation_ru": "Вера говорит: «У нас две сумки: одна для тебя, одна для меня».",
+              "topic_ids": [
+                "numbers"
+              ]
+            },
+            {
+              "id": "l2",
+              "kind": "listening",
+              "prompt": "Who does Vera say is going with them?",
+              "prompt_ru": "Кто, по словам Веры, тоже идёт с ними?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Её дедушка."
+                },
+                {
+                  "id": "b",
+                  "text": "Её папа."
+                },
+                {
+                  "id": "c",
+                  "text": "Её брат."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Vera says “Dad is also coming with us”; she means her father.",
+              "explanation_ru": "Вера говорит: «Папа тоже идёт с нами». Это её папа.",
+              "topic_ids": [
+                "family"
+              ]
+            },
+            {
+              "id": "reply",
+              "kind": "response",
+              "prompt": "You are Barsik. Greet Vera and confirm the bag arrangement.",
+              "prompt_ru": "Ты Барсик. Поздоровайся с Верой и подтверди, как вы берёте сумки.",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Привет, Вера! Одна сумка для меня, одна для тебя. Спасибо!"
+                },
+                {
+                  "id": "b",
+                  "text": "Привет, Вера! Две сумки для меня, одна для тебя. Спасибо!"
+                },
+                {
+                  "id": "c",
+                  "text": "Привет, Вера! Одна сумка для меня, две для тебя. Спасибо!"
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Choose the reply that follows the speaker’s latest request.",
+              "hint_ru": "Выбери ответ, который подходит к последней просьбе говорящего.",
+              "explanation": "The reply confirms one bag each, matching Vera’s message.",
+              "explanation_ru": "Ответ подтверждает: у каждого одна сумка, как сказала Вера.",
+              "topic_ids": [
+                "greetings",
+                "numbers"
+              ]
+            }
+          ],
+          "support_note": "Glossary entries explain incidental words. Optional question hints and the audio transcript make this a supported attempt.",
+          "support_note_ru": "Словарь объясняет отдельные слова. Подсказки к вопросам и текст аудио делают эту попытку попыткой с помощью."
+        },
+        {
+          "id": "a1-post-office-v3",
+          "letter_title": "A note from Pavel",
+          "letter_title_ru": "Записка от Павла",
+          "letter": "Привет, Барсик! Я Павел, друг Анны. У меня есть брат Денис и сестра Лена. Денис сейчас на почте. Он твой помощник сегодня. Лена дома. Мы встречаемся утром, в десять часов. Вот моя семья! Очень приятно познакомиться. Павел.",
+          "listening": {
+            "audio_url": "/static/audio/course/a1-post-office-v3.mp3",
+            "transcript": "Барсик, здравствуй! Это Денис. Утром я занят. Давай встретимся вечером, в шесть часов. Моя подруга Ира тоже будет с нами. Спасибо!"
+          },
+          "glossary": [
+            {
+              "ru": "почта",
+              "en": "post office"
+            },
+            {
+              "ru": "помощник",
+              "en": "helper"
+            },
+            {
+              "ru": "встречаемся / встретимся",
+              "en": "we meet / let’s meet"
+            },
+            {
+              "ru": "познакомиться",
+              "en": "to meet someone"
+            },
+            {
+              "ru": "занят",
+              "en": "busy"
+            },
+            {
+              "ru": "тоже будет с нами",
+              "en": "will also be with us"
+            }
+          ],
+          "topic_targets": {
+            "greetings": [
+              "Привет!",
+              "Очень приятно познакомиться.",
+              "Здравствуй!"
+            ],
+            "numbers": [
+              "утром",
+              "В десять часов.",
+              "вечером",
+              "В шесть часов."
+            ],
+            "family": [
+              "друг",
+              "брат",
+              "сестра",
+              "подруга"
+            ]
+          },
+          "questions": [
+            {
+              "id": "r1",
+              "kind": "reading",
+              "prompt": "Who is Barsik’s helper today?",
+              "prompt_ru": "Кто сегодня помощник Барсика?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Денис."
+                },
+                {
+                  "id": "b",
+                  "text": "Павел."
+                },
+                {
+                  "id": "c",
+                  "text": "Лена."
+                }
+              ],
+              "answer": "a",
+              "essential": true,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The note introduces Denis and says he is Barsik’s helper.",
+              "explanation_ru": "После имени Дениса сказано: «Он твой помощник сегодня».",
+              "topic_ids": [
+                "family"
+              ]
+            },
+            {
+              "id": "r2",
+              "kind": "reading",
+              "prompt": "How does Pavel introduce his connection to Anna?",
+              "prompt_ru": "Кто Павел для Анны?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Её брат."
+                },
+                {
+                  "id": "b",
+                  "text": "Её папа."
+                },
+                {
+                  "id": "c",
+                  "text": "Её друг."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Pavel introduces himself as Anna’s friend.",
+              "explanation_ru": "Павел пишет: «Я Павел, друг Анны».",
+              "topic_ids": [
+                "greetings",
+                "family"
+              ]
+            },
+            {
+              "id": "r3",
+              "kind": "reading",
+              "prompt": "Who is Lena to Pavel?",
+              "prompt_ru": "Кто Лена для Павла?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Его подруга."
+                },
+                {
+                  "id": "b",
+                  "text": "Его сестра."
+                },
+                {
+                  "id": "c",
+                  "text": "Его дочь."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Pavel says that Lena is his sister.",
+              "explanation_ru": "Павел пишет: «У меня есть брат Денис и сестра Лена».",
+              "topic_ids": [
+                "family"
+              ]
+            },
+            {
+              "id": "r4",
+              "kind": "reading",
+              "prompt": "When is the meeting in the written note?",
+              "prompt_ru": "Когда встреча в записке?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Утром, в десять часов."
+                },
+                {
+                  "id": "b",
+                  "text": "Вечером, в десять часов."
+                },
+                {
+                  "id": "c",
+                  "text": "Утром, в шесть часов."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The note specifies the morning at ten.",
+              "explanation_ru": "В записке сказано: «Мы встречаемся утром, в десять часов».",
+              "topic_ids": [
+                "numbers"
+              ]
+            },
+            {
+              "id": "r5",
+              "kind": "reading",
+              "prompt": "Which phrase says Pavel is pleased to meet Barsik?",
+              "prompt_ru": "Какая фраза говорит, что Павел рад знакомству?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "У меня есть брат."
+                },
+                {
+                  "id": "b",
+                  "text": "Мы встречаемся утром."
+                },
+                {
+                  "id": "c",
+                  "text": "Очень приятно познакомиться."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Очень приятно познакомиться is a polite introduction phrase.",
+              "explanation_ru": "«Очень приятно познакомиться» — вежливая фраза при знакомстве.",
+              "topic_ids": [
+                "greetings"
+              ]
+            },
+            {
+              "id": "l1",
+              "kind": "listening",
+              "prompt": "Listen to Denis: when does he suggest meeting now?",
+              "prompt_ru": "Послушай Дениса: когда он теперь предлагает встретиться?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Утром, в шесть часов."
+                },
+                {
+                  "id": "b",
+                  "text": "Вечером, в шесть часов."
+                },
+                {
+                  "id": "c",
+                  "text": "Утром, в десять часов."
+                }
+              ],
+              "answer": "b",
+              "essential": true,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Denis is busy in the morning and suggests six in the evening.",
+              "explanation_ru": "Денис утром занят. Он предлагает встретиться вечером, в шесть часов.",
+              "topic_ids": [
+                "numbers"
+              ]
+            },
+            {
+              "id": "l2",
+              "kind": "listening",
+              "prompt": "Who will also join them, according to Denis?",
+              "prompt_ru": "Кто тоже будет с ними, по словам Дениса?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Его подруга Ира."
+                },
+                {
+                  "id": "b",
+                  "text": "Его сестра Лена."
+                },
+                {
+                  "id": "c",
+                  "text": "Его друг Павел."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Denis names his friend Ira in the spoken message.",
+              "explanation_ru": "В устном сообщении Денис называет свою подругу Иру.",
+              "topic_ids": [
+                "family"
+              ]
+            },
+            {
+              "id": "reply",
+              "kind": "response",
+              "prompt": "You are Barsik. Accept Denis’s new meeting time.",
+              "prompt_ru": "Ты Барсик. Согласись с новым временем Дениса.",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Здравствуй, Денис! До встречи утром, в десять часов."
+                },
+                {
+                  "id": "b",
+                  "text": "Здравствуй, Денис! До встречи вечером, в десять часов."
+                },
+                {
+                  "id": "c",
+                  "text": "Здравствуй, Денис! До встречи вечером, в шесть часов."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Choose the reply that follows the speaker’s latest request.",
+              "hint_ru": "Выбери ответ, который подходит к последней просьбе говорящего.",
+              "explanation": "This reply accepts the new evening arrangement.",
+              "explanation_ru": "Этот ответ подтверждает новое время: вечером, в шесть часов.",
+              "topic_ids": [
+                "greetings",
+                "numbers"
+              ]
+            }
+          ],
+          "support_note": "Glossary entries explain incidental words. Optional question hints and the audio transcript make this a supported attempt.",
+          "support_note_ru": "Словарь объясняет отдельные слова. Подсказки к вопросам и текст аудио делают эту попытку попыткой с помощью."
+        }
+      ],
+      "preparation": [
+        {
+          "topic_id": "greetings",
+          "title": "Greetings and names",
+          "title_ru": "Приветствия и имена",
+          "explanation": "Use a greeting first. Меня зовут introduces your name; До встречи ends a planned meeting exchange.",
+          "explanation_ru": "Сначала поздоровайся. «Меня зовут» — имя. «До встречи» — прощание перед новой встречей.",
+          "examples": [
+            {
+              "ru": "Здравствуйте! Меня зовут Алексей.",
+              "en": "Hello! My name is Alexey."
+            },
+            {
+              "ru": "Привет! Очень приятно. До встречи!",
+              "en": "Hi! Nice to meet you. See you!"
+            }
+          ]
+        },
+        {
+          "topic_id": "numbers",
+          "title": "Times and quantities",
+          "title_ru": "Время и количество",
+          "explanation": "A time uses в: в два часа. One, two and five change the form of час. Distinguish the written plan from a later spoken update.",
+          "explanation_ru": "Время начинается с «в»: «в два часа». Сравни: один час, два часа, пять часов. Устное сообщение может менять план.",
+          "examples": [
+            {
+              "ru": "В один час. В два часа. В пять часов.",
+              "en": "At one. At two. At five."
+            },
+            {
+              "ru": "Сейчас утро. Встреча вечером, в семь часов.",
+              "en": "It is morning now. The meeting is in the evening, at seven."
+            },
+            {
+              "ru": "Одна сумка для меня, одна для тебя. У нас две сумки.",
+              "en": "One bag for me, one for you. We have two bags."
+            }
+          ]
+        },
+        {
+          "topic_id": "family",
+          "title": "Family and friends",
+          "title_ru": "Семья и друзья",
+          "explanation": "Connect each family word to the person speaking. Мой папа means the speaker’s father. Names alone do not tell you a relationship.",
+          "explanation_ru": "Связывай слово о семье с говорящим. «Мой папа» — папа говорящего. Одно имя не объясняет, кто этот человек.",
+          "examples": [
+            {
+              "ru": "Это мой брат. Это моя сестра.",
+              "en": "This is my brother. This is my sister."
+            },
+            {
+              "ru": "У меня есть сын и дочь. Это моя семья.",
+              "en": "I have a son and a daughter. This is my family."
+            },
+            {
+              "ru": "Это мой друг. Это моя подруга.",
+              "en": "This is my male friend. This is my female friend."
+            }
+          ]
+        }
+      ],
+      "prior_topic_ids": []
+    },
+    {
+      "id": "a1-home",
+      "number": 2,
+      "title": "A stop at home",
+      "title_ru": "Остановка дома",
+      "intro": "Read the household’s notes to help Barsik find his clothes and prepare for the day. Your letter is still sealed in his bag.",
+      "intro_ru": "Прочитай домашние записки: помоги Барсику найти одежду и подготовиться к дороге. Твоё письмо ещё закрыто.",
+      "topic_ids": [
+        "home",
+        "daily_activities",
+        "clothing"
+      ],
+      "objectives": [
+        {
+          "en": "Find familiar objects in rooms using location phrases.",
+          "ru": "Находить вещи в комнатах по описанию."
+        },
+        {
+          "en": "Understand who does a daily activity and when.",
+          "ru": "Понимать, кто и когда работает, ест или отдыхает."
+        },
+        {
+          "en": "Choose the needed clothing and follow a separate spoken request.",
+          "ru": "Выбирать нужную одежду и понимать отдельную устную просьбу."
+        }
+      ],
+      "variants": [
+        {
+          "id": "a1-home-v1",
+          "letter_title": "Before you leave",
+          "letter_title_ru": "Перед дорогой",
+          "letter": "Барсик, привет! Это Анна. Сейчас я работаю, а ты можешь отдохнуть у меня дома. Твоя куртка в шкафу в спальне. Шарф на стуле на кухне. Утром я завтракаю на кухне, а вечером читаю в комнате. Возьми куртку и шарф. Шапка тебе не нужна: она для моей сестры. Спасибо! Анна.",
+          "listening": {
+            "audio_url": "/static/audio/course/a1-home-v1.mp3",
+            "transcript": "Барсик, это Анна. Теперь положи шарф на диван, пожалуйста. Миша сейчас спит в спальне. Я читаю на кухне, приходи ко мне."
+          },
+          "glossary": [
+            {
+              "ru": "можешь отдохнуть",
+              "en": "you can rest"
+            },
+            {
+              "ru": "возьми",
+              "en": "take"
+            },
+            {
+              "ru": "положи",
+              "en": "put"
+            },
+            {
+              "ru": "приходи ко мне",
+              "en": "come to me"
+            },
+            {
+              "ru": "под столом / под стол",
+              "en": "under the table (location / destination)"
+            }
+          ],
+          "topic_targets": {
+            "home": [
+              "в шкафу",
+              "в спальне",
+              "на стуле",
+              "на кухне",
+              "на диван"
+            ],
+            "daily_activities": [
+              "работаю",
+              "завтракаю",
+              "читаю",
+              "спит"
+            ],
+            "clothing": [
+              "куртка",
+              "шарф",
+              "шапка"
+            ]
+          },
+          "questions": [
+            {
+              "id": "r1",
+              "kind": "reading",
+              "prompt": "What does Anna ask Barsik to take?",
+              "prompt_ru": "Что Анна просит Барсика взять?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Куртку и шапку."
+                },
+                {
+                  "id": "b",
+                  "text": "Шапку и шарф."
+                },
+                {
+                  "id": "c",
+                  "text": "Куртку и шарф."
+                }
+              ],
+              "answer": "c",
+              "essential": true,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Anna asks for the jacket and scarf; the hat belongs to her sister.",
+              "explanation_ru": "Анна просит взять куртку и шарф. Шапка для её сестры.",
+              "topic_ids": [
+                "clothing"
+              ]
+            },
+            {
+              "id": "r2",
+              "kind": "reading",
+              "prompt": "Where is Barsik’s jacket in the note?",
+              "prompt_ru": "Где куртка Барсика в записке?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "На диване в комнате."
+                },
+                {
+                  "id": "b",
+                  "text": "В шкафу в спальне."
+                },
+                {
+                  "id": "c",
+                  "text": "На стуле на кухне."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The jacket is in the bedroom wardrobe.",
+              "explanation_ru": "Куртка в шкафу в спальне.",
+              "topic_ids": [
+                "home",
+                "clothing"
+              ]
+            },
+            {
+              "id": "r3",
+              "kind": "reading",
+              "prompt": "Where is the scarf in the written note?",
+              "prompt_ru": "Где шарф в записке?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "На стуле на кухне."
+                },
+                {
+                  "id": "b",
+                  "text": "В шкафу в спальне."
+                },
+                {
+                  "id": "c",
+                  "text": "На кровати в спальне."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The written note places the scarf on a kitchen chair.",
+              "explanation_ru": "В записке шарф на стуле на кухне.",
+              "topic_ids": [
+                "home",
+                "clothing"
+              ]
+            },
+            {
+              "id": "r4",
+              "kind": "reading",
+              "prompt": "What does Anna usually do in the kitchen in the morning?",
+              "prompt_ru": "Что Анна делает утром на кухне?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Читает."
+                },
+                {
+                  "id": "b",
+                  "text": "Спит."
+                },
+                {
+                  "id": "c",
+                  "text": "Завтракает."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Anna says she has breakfast in the kitchen in the morning.",
+              "explanation_ru": "Анна пишет: «Утром я завтракаю на кухне».",
+              "topic_ids": [
+                "daily_activities"
+              ]
+            },
+            {
+              "id": "r5",
+              "kind": "reading",
+              "prompt": "What does Anna do in the room in the evening?",
+              "prompt_ru": "Что Анна делает вечером в комнате?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Обедает."
+                },
+                {
+                  "id": "b",
+                  "text": "Читает."
+                },
+                {
+                  "id": "c",
+                  "text": "Работает."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Her evening routine in the note is reading in the room.",
+              "explanation_ru": "Вечером Анна читает в комнате.",
+              "topic_ids": [
+                "daily_activities",
+                "home"
+              ]
+            },
+            {
+              "id": "l1",
+              "kind": "listening",
+              "prompt": "Listen to Anna: where should Barsik put the scarf now?",
+              "prompt_ru": "Послушай Анну: куда теперь нужно положить шарф?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "На диван."
+                },
+                {
+                  "id": "b",
+                  "text": "На стул."
+                },
+                {
+                  "id": "c",
+                  "text": "В шкаф."
+                }
+              ],
+              "answer": "a",
+              "essential": true,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Anna’s spoken request is to put the scarf on the sofa.",
+              "explanation_ru": "В устном сообщении Анна просит положить шарф на диван.",
+              "topic_ids": [
+                "home",
+                "clothing"
+              ]
+            },
+            {
+              "id": "l2",
+              "kind": "listening",
+              "prompt": "What is Misha doing in the audio?",
+              "prompt_ru": "Что делает Миша в устном сообщении?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Читает на кухне."
+                },
+                {
+                  "id": "b",
+                  "text": "Работает в комнате."
+                },
+                {
+                  "id": "c",
+                  "text": "Спит в спальне."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Anna says Misha is sleeping in the bedroom now.",
+              "explanation_ru": "Анна говорит, что Миша сейчас спит в спальне.",
+              "topic_ids": [
+                "daily_activities",
+                "home"
+              ]
+            },
+            {
+              "id": "reply",
+              "kind": "response",
+              "prompt": "You are Barsik. Confirm Anna’s latest request about the scarf.",
+              "prompt_ru": "Ты Барсик. Подтверди последнюю просьбу Анны о шарфе.",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Хорошо, Анна. Шарф в шкаф. Спасибо!"
+                },
+                {
+                  "id": "b",
+                  "text": "Хорошо, Анна. Шарф на диван. Спасибо!"
+                },
+                {
+                  "id": "c",
+                  "text": "Хорошо, Анна. Шарф на стул. Спасибо!"
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Choose the reply that follows the speaker’s latest request.",
+              "hint_ru": "Выбери ответ, который подходит к последней просьбе говорящего.",
+              "explanation": "The reply confirms the sofa, the destination in the spoken request.",
+              "explanation_ru": "Ответ подтверждает, что шарф нужно положить на диван.",
+              "topic_ids": [
+                "home",
+                "clothing"
+              ]
+            }
+          ],
+          "support_note": "Glossary entries explain incidental words. Optional question hints and the audio transcript make this a supported attempt.",
+          "support_note_ru": "Словарь объясняет отдельные слова. Подсказки к вопросам и текст аудио делают эту попытку попыткой с помощью."
+        },
+        {
+          "id": "a1-home-v2",
+          "letter_title": "An afternoon with Nina",
+          "letter_title_ru": "День у Нины",
+          "letter": "Привет, Барсик! Я Нина. Добро пожаловать! У меня маленькая квартира. На кухне стоит стол, а в комнате — диван и шкаф. Твоя рубашка в шкафу. Штаны на кровати в спальне. После обеда я гуляю, а Вера учится дома. Сегодня тебе нужны рубашка и штаны. Моё пальто оставь здесь. Нина.",
+          "listening": {
+            "audio_url": "/static/audio/course/a1-home-v2.mp3",
+            "transcript": "Барсик, привет! Это Вера. Твоя рубашка теперь на стуле в комнате. Я сегодня не учусь: я пишу письмо. Мама уже дома."
+          },
+          "glossary": [
+            {
+              "ru": "добро пожаловать",
+              "en": "welcome"
+            },
+            {
+              "ru": "тебе нужны",
+              "en": "you need"
+            },
+            {
+              "ru": "оставь здесь",
+              "en": "leave here"
+            },
+            {
+              "ru": "теперь",
+              "en": "now"
+            },
+            {
+              "ru": "уже",
+              "en": "already"
+            }
+          ],
+          "topic_targets": {
+            "home": [
+              "на кухне",
+              "в комнате",
+              "в шкафу",
+              "на кровати",
+              "на стуле"
+            ],
+            "daily_activities": [
+              "гуляю",
+              "учится",
+              "пишу"
+            ],
+            "clothing": [
+              "рубашка",
+              "штаны",
+              "пальто"
+            ]
+          },
+          "questions": [
+            {
+              "id": "r1",
+              "kind": "reading",
+              "prompt": "Which clothes does Barsik need today?",
+              "prompt_ru": "Какая одежда нужна Барсику сегодня?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Пальто и штаны."
+                },
+                {
+                  "id": "b",
+                  "text": "Рубашка и штаны."
+                },
+                {
+                  "id": "c",
+                  "text": "Пальто и рубашка."
+                }
+              ],
+              "answer": "b",
+              "essential": true,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Nina specifies the shirt and trousers and asks him to leave her coat.",
+              "explanation_ru": "Нина пишет, что нужны рубашка и штаны, а пальто нужно оставить.",
+              "topic_ids": [
+                "clothing"
+              ]
+            },
+            {
+              "id": "r2",
+              "kind": "reading",
+              "prompt": "Where are the trousers?",
+              "prompt_ru": "Где штаны?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "На кровати в спальне."
+                },
+                {
+                  "id": "b",
+                  "text": "В шкафу в комнате."
+                },
+                {
+                  "id": "c",
+                  "text": "На столе на кухне."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The trousers are on the bedroom bed.",
+              "explanation_ru": "Штаны на кровати в спальне.",
+              "topic_ids": [
+                "home",
+                "clothing"
+              ]
+            },
+            {
+              "id": "r3",
+              "kind": "reading",
+              "prompt": "What furniture is in Nina’s room?",
+              "prompt_ru": "Какая мебель в комнате Нины?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Стол и кровать."
+                },
+                {
+                  "id": "b",
+                  "text": "Кровать и стул."
+                },
+                {
+                  "id": "c",
+                  "text": "Диван и шкаф."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Nina says there are a sofa and wardrobe in the room.",
+              "explanation_ru": "Нина пишет: «в комнате — диван и шкаф».",
+              "topic_ids": [
+                "home"
+              ]
+            },
+            {
+              "id": "r4",
+              "kind": "reading",
+              "prompt": "What does Nina do after lunch?",
+              "prompt_ru": "Что Нина делает после обеда?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Спит."
+                },
+                {
+                  "id": "b",
+                  "text": "Гуляет."
+                },
+                {
+                  "id": "c",
+                  "text": "Учится."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Nina goes for a walk after lunch.",
+              "explanation_ru": "После обеда Нина гуляет.",
+              "topic_ids": [
+                "daily_activities"
+              ]
+            },
+            {
+              "id": "r5",
+              "kind": "reading",
+              "prompt": "What does the written note say Vera does at home?",
+              "prompt_ru": "Что Вера делает дома в записке?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Учится."
+                },
+                {
+                  "id": "b",
+                  "text": "Работает."
+                },
+                {
+                  "id": "c",
+                  "text": "Ужинает."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The written note says Vera studies at home.",
+              "explanation_ru": "В записке сказано: «Вера учится дома».",
+              "topic_ids": [
+                "daily_activities"
+              ]
+            },
+            {
+              "id": "l1",
+              "kind": "listening",
+              "prompt": "Listen to Vera: where is the shirt now?",
+              "prompt_ru": "Послушай Веру: где теперь рубашка?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "В шкафу в комнате."
+                },
+                {
+                  "id": "b",
+                  "text": "На кровати в спальне."
+                },
+                {
+                  "id": "c",
+                  "text": "На стуле в комнате."
+                }
+              ],
+              "answer": "c",
+              "essential": true,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Vera says the shirt is now on a chair in the room.",
+              "explanation_ru": "Вера говорит: «Твоя рубашка теперь на стуле в комнате».",
+              "topic_ids": [
+                "home",
+                "clothing"
+              ]
+            },
+            {
+              "id": "l2",
+              "kind": "listening",
+              "prompt": "What is Vera doing now in the audio?",
+              "prompt_ru": "Что Вера делает сейчас в устном сообщении?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Гуляет с мамой."
+                },
+                {
+                  "id": "b",
+                  "text": "Пишет письмо."
+                },
+                {
+                  "id": "c",
+                  "text": "Учится дома."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Vera says she is writing a letter rather than studying today.",
+              "explanation_ru": "Вера говорит: «Я сегодня не учусь: я пишу письмо».",
+              "topic_ids": [
+                "daily_activities"
+              ]
+            },
+            {
+              "id": "reply",
+              "kind": "response",
+              "prompt": "You are Barsik. Confirm where you will look for the shirt after Vera’s update.",
+              "prompt_ru": "Ты Барсик. Подтверди, где искать рубашку после сообщения Веры.",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Спасибо, Вера! Рубашка на стуле в комнате."
+                },
+                {
+                  "id": "b",
+                  "text": "Спасибо, Вера! Рубашка в шкафу в комнате."
+                },
+                {
+                  "id": "c",
+                  "text": "Спасибо, Вера! Рубашка на кровати в спальне."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Choose the reply that follows the speaker’s latest request.",
+              "hint_ru": "Выбери ответ, который подходит к последней просьбе говорящего.",
+              "explanation": "The reply follows Vera’s updated location.",
+              "explanation_ru": "Ответ подтверждает новое место рубашки из сообщения Веры.",
+              "topic_ids": [
+                "home",
+                "clothing"
+              ]
+            }
+          ],
+          "support_note": "Glossary entries explain incidental words. Optional question hints and the audio transcript make this a supported attempt.",
+          "support_note_ru": "Словарь объясняет отдельные слова. Подсказки к вопросам и текст аудио делают эту попытку попыткой с помощью."
+        },
+        {
+          "id": "a1-home-v3",
+          "letter_title": "A morning at Pavel’s",
+          "letter_title_ru": "Утро у Павла",
+          "letter": "Здравствуй, Барсик! Это Павел. Утром я работаю дома. Денис готовит завтрак на кухне, а Лена ещё спит. В комнате у окна стоит стол. Твоя футболка на столе, а свитер на диване. Надень свитер: в доме холодно. Ботинки у двери. После завтрака мы с Денисом идём гулять. До встречи! Павел.",
+          "listening": {
+            "audio_url": "/static/audio/course/a1-home-v3.mp3",
+            "transcript": "Барсик, это Лена. Поставь ботинки в шкаф, пожалуйста. Сейчас я не сплю: я слушаю музыку в комнате. Денис ещё на кухне."
+          },
+          "glossary": [
+            {
+              "ru": "готовит завтрак",
+              "en": "is making breakfast"
+            },
+            {
+              "ru": "у окна",
+              "en": "by the window"
+            },
+            {
+              "ru": "надень",
+              "en": "put on (clothing)"
+            },
+            {
+              "ru": "холодно",
+              "en": "cold"
+            },
+            {
+              "ru": "поставь",
+              "en": "put (something standing)"
+            },
+            {
+              "ru": "музыка",
+              "en": "music"
+            },
+            {
+              "ru": "под столом / под стол",
+              "en": "under the table (location / destination)"
+            }
+          ],
+          "topic_targets": {
+            "home": [
+              "на кухне",
+              "у окна",
+              "на столе",
+              "на диване",
+              "у двери",
+              "в шкаф"
+            ],
+            "daily_activities": [
+              "работаю",
+              "спит",
+              "идём гулять",
+              "слушаю"
+            ],
+            "clothing": [
+              "футболка",
+              "свитер",
+              "ботинки"
+            ]
+          },
+          "questions": [
+            {
+              "id": "r1",
+              "kind": "reading",
+              "prompt": "What does Pavel ask Barsik to put on?",
+              "prompt_ru": "Что Павел просит Барсика надеть?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Свитер."
+                },
+                {
+                  "id": "b",
+                  "text": "Футболку."
+                },
+                {
+                  "id": "c",
+                  "text": "Куртку."
+                }
+              ],
+              "answer": "a",
+              "essential": true,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Pavel asks him to put on the sweater because the house is cold.",
+              "explanation_ru": "Павел просит надеть свитер: в доме холодно.",
+              "topic_ids": [
+                "clothing"
+              ]
+            },
+            {
+              "id": "r2",
+              "kind": "reading",
+              "prompt": "Where is Barsik’s T-shirt?",
+              "prompt_ru": "Где футболка Барсика?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "На диване в комнате."
+                },
+                {
+                  "id": "b",
+                  "text": "В шкафу у двери."
+                },
+                {
+                  "id": "c",
+                  "text": "На столе у окна."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The note places the T-shirt on the table by the window.",
+              "explanation_ru": "Футболка на столе, а стол стоит у окна.",
+              "topic_ids": [
+                "home",
+                "clothing"
+              ]
+            },
+            {
+              "id": "r3",
+              "kind": "reading",
+              "prompt": "Where are the boots in the written note?",
+              "prompt_ru": "Где ботинки в записке?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "На кухне."
+                },
+                {
+                  "id": "b",
+                  "text": "У двери."
+                },
+                {
+                  "id": "c",
+                  "text": "Под столом."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The written note says the boots are by the door.",
+              "explanation_ru": "В записке сказано: «Ботинки у двери».",
+              "topic_ids": [
+                "home",
+                "clothing"
+              ]
+            },
+            {
+              "id": "r4",
+              "kind": "reading",
+              "prompt": "What is Denis doing in the kitchen?",
+              "prompt_ru": "Что Денис делает на кухне?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Готовит завтрак."
+                },
+                {
+                  "id": "b",
+                  "text": "Работает."
+                },
+                {
+                  "id": "c",
+                  "text": "Спит."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Denis is making breakfast while Pavel works.",
+              "explanation_ru": "Денис готовит завтрак, а Павел работает.",
+              "topic_ids": [
+                "daily_activities"
+              ]
+            },
+            {
+              "id": "r5",
+              "kind": "reading",
+              "prompt": "What do Pavel and Denis do after breakfast?",
+              "prompt_ru": "Что Павел и Денис делают после завтрака?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Читают дома."
+                },
+                {
+                  "id": "b",
+                  "text": "Работают на кухне."
+                },
+                {
+                  "id": "c",
+                  "text": "Идут гулять."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Pavel says he and Denis go for a walk after breakfast.",
+              "explanation_ru": "Павел пишет: «После завтрака мы с Денисом идём гулять».",
+              "topic_ids": [
+                "daily_activities"
+              ]
+            },
+            {
+              "id": "l1",
+              "kind": "listening",
+              "prompt": "Listen to Lena: where should Barsik put the boots?",
+              "prompt_ru": "Послушай Лену: куда поставить ботинки?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Под стол."
+                },
+                {
+                  "id": "b",
+                  "text": "В шкаф."
+                },
+                {
+                  "id": "c",
+                  "text": "У двери."
+                }
+              ],
+              "answer": "b",
+              "essential": true,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Lena asks him to put the boots in the wardrobe.",
+              "explanation_ru": "Лена просит поставить ботинки в шкаф.",
+              "topic_ids": [
+                "home",
+                "clothing"
+              ]
+            },
+            {
+              "id": "l2",
+              "kind": "listening",
+              "prompt": "What is Lena doing now?",
+              "prompt_ru": "Что Лена делает сейчас?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Слушает музыку."
+                },
+                {
+                  "id": "b",
+                  "text": "Спит в комнате."
+                },
+                {
+                  "id": "c",
+                  "text": "Готовит завтрак."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Lena says she is no longer sleeping and is listening to music.",
+              "explanation_ru": "Лена говорит, что сейчас не спит, а слушает музыку.",
+              "topic_ids": [
+                "daily_activities"
+              ]
+            },
+            {
+              "id": "reply",
+              "kind": "response",
+              "prompt": "You are Barsik. Confirm Lena’s request about the boots.",
+              "prompt_ru": "Ты Барсик. Подтверди просьбу Лены о ботинках.",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Хорошо, Лена. Ботинки у двери. Спасибо!"
+                },
+                {
+                  "id": "b",
+                  "text": "Хорошо, Лена. Ботинки под стол. Спасибо!"
+                },
+                {
+                  "id": "c",
+                  "text": "Хорошо, Лена. Ботинки в шкаф. Спасибо!"
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Choose the reply that follows the speaker’s latest request.",
+              "hint_ru": "Выбери ответ, который подходит к последней просьбе говорящего.",
+              "explanation": "This reply confirms the location Lena requests.",
+              "explanation_ru": "Ответ подтверждает просьбу Лены поставить ботинки в шкаф.",
+              "topic_ids": [
+                "home",
+                "clothing"
+              ]
+            }
+          ],
+          "support_note": "Glossary entries explain incidental words. Optional question hints and the audio transcript make this a supported attempt.",
+          "support_note_ru": "Словарь объясняет отдельные слова. Подсказки к вопросам и текст аудио делают эту попытку попыткой с помощью."
+        }
+      ],
+      "preparation": [
+        {
+          "topic_id": "home",
+          "title": "Rooms and object locations",
+          "title_ru": "Комнаты и вещи",
+          "explanation": "Use location phrases to find things. A direction to put something somewhere uses a different form: на столе → на стол.",
+          "explanation_ru": "Чтобы найти вещь, смотри на место. Сравни место и движение: «на столе» и «на стол».",
+          "examples": [
+            {
+              "ru": "Лампа на столе в комнате.",
+              "en": "The lamp is on the table in the room."
+            },
+            {
+              "ru": "Книга в шкафу. Положи книгу на стол.",
+              "en": "The book is in the wardrobe. Put the book on the table."
+            },
+            {
+              "ru": "Стул у окна, кровать у двери.",
+              "en": "The chair is by the window; the bed is by the door."
+            }
+          ]
+        },
+        {
+          "topic_id": "daily_activities",
+          "title": "Daily actions",
+          "title_ru": "Дела каждый день",
+          "explanation": "Track the person, action and time. A usual routine can differ from what someone is doing now.",
+          "explanation_ru": "Смотри, кто, что и когда делает. Обычный день может отличаться от того, что происходит сейчас.",
+          "examples": [
+            {
+              "ru": "Утром я завтракаю. Вечером я читаю.",
+              "en": "I have breakfast in the morning. I read in the evening."
+            },
+            {
+              "ru": "Сейчас он работает, а она отдыхает.",
+              "en": "He is working now, while she is resting."
+            },
+            {
+              "ru": "Я пишу письмо. Он слушает музыку.",
+              "en": "I am writing a letter. He is listening to music."
+            }
+          ]
+        },
+        {
+          "topic_id": "clothing",
+          "title": "Clothes to find or take",
+          "title_ru": "Найти или взять одежду",
+          "explanation": "Distinguish a named item from an instruction to take or wear it. Нужен/нужна/нужны agrees with the item.",
+          "explanation_ru": "Отличай название вещи от просьбы взять или надеть её. Сравни формы «нужен», «нужна», «нужны».",
+          "examples": [
+            {
+              "ru": "Мне нужен шарф. Мне нужна шапка. Мне нужны штаны.",
+              "en": "I need a scarf. I need a hat. I need trousers."
+            },
+            {
+              "ru": "Возьми рубашку. Надень куртку.",
+              "en": "Take the shirt. Put on the jacket."
+            },
+            {
+              "ru": "Футболка на стуле. Ботинки у двери.",
+              "en": "The T-shirt is on the chair. The boots are by the door."
+            }
+          ]
+        }
+      ],
+      "prior_topic_ids": [
+        "greetings",
+        "numbers",
+        "family"
+      ]
+    },
+    {
+      "id": "a1-market",
+      "number": 3,
+      "title": "At the market",
+      "title_ru": "На рынке",
+      "intro": "Help Barsik collect food for the friends who are preparing your welcome. Their notes identify what is needed; the letter to you stays sealed.",
+      "intro_ru": "Помоги Барсику выбрать еду для друзей. Они готовятся к встрече с тобой. Твоё письмо пока закрыто.",
+      "topic_ids": [
+        "food",
+        "colors"
+      ],
+      "objectives": [
+        {
+          "en": "Understand a food request and distinguish drinks from ingredients.",
+          "ru": "Понимать просьбы о еде и напитках."
+        },
+        {
+          "en": "Identify the right food or bag by colour and size.",
+          "ru": "Выбирать нужную еду или сумку по цвету и размеру."
+        },
+        {
+          "en": "Hear a revised request and confirm it with a suitable reply.",
+          "ru": "Понять новую просьбу на слух и выбрать подходящий ответ."
+        }
+      ],
+      "variants": [
+        {
+          "id": "a1-market-v1",
+          "letter_title": "Food for the visit",
+          "letter_title_ru": "Еда для встречи",
+          "letter": "Барсик, привет! Это Анна. Друзья скоро будут здесь. Нам нужны хлеб, сыр и яблоки. Возьми большие красные яблоки: маленькие зелёные ещё кислые. Для Миши нужен сок, а для меня — чай. Молоко уже дома. Положи еду в большую синюю сумку. Маленькая белая сумка для писем. Спасибо за помощь! Анна.",
+          "listening": {
+            "audio_url": "/static/audio/course/a1-market-v1.mp3",
+            "transcript": "Барсик, это Анна. Миша теперь хочет воду, а не сок. Возьми ещё два банана для Оли. Чай для меня уже есть."
+          },
+          "glossary": [
+            {
+              "ru": "скоро",
+              "en": "soon"
+            },
+            {
+              "ru": "нам нужны",
+              "en": "we need"
+            },
+            {
+              "ru": "возьми",
+              "en": "take"
+            },
+            {
+              "ru": "ещё кислые",
+              "en": "still sour"
+            },
+            {
+              "ru": "положи",
+              "en": "put"
+            },
+            {
+              "ru": "для писем",
+              "en": "for letters"
+            },
+            {
+              "ru": "кроме",
+              "en": "apart from; besides"
+            },
+            {
+              "ru": "не подходят",
+              "en": "are not suitable"
+            },
+            {
+              "ru": "слишком",
+              "en": "too"
+            }
+          ],
+          "topic_targets": {
+            "food": [
+              "хлеб",
+              "сыр",
+              "яблоки",
+              "сок",
+              "чай",
+              "молоко",
+              "вода",
+              "банан"
+            ],
+            "colors": [
+              "большие красные",
+              "маленькие зелёные",
+              "большая синяя",
+              "маленькая белая"
+            ]
+          },
+          "questions": [
+            {
+              "id": "r1",
+              "kind": "reading",
+              "prompt": "Which apples does Anna ask for?",
+              "prompt_ru": "Какие яблоки просит Анна?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Маленькие зелёные."
+                },
+                {
+                  "id": "b",
+                  "text": "Большие зелёные."
+                },
+                {
+                  "id": "c",
+                  "text": "Большие красные."
+                }
+              ],
+              "answer": "c",
+              "essential": true,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Anna asks for large red apples; the small green ones are sour.",
+              "explanation_ru": "Анна просит большие красные яблоки. Маленькие зелёные ещё кислые.",
+              "topic_ids": [
+                "food",
+                "colors"
+              ]
+            },
+            {
+              "id": "r2",
+              "kind": "reading",
+              "prompt": "Which bag is for the food?",
+              "prompt_ru": "Какая сумка для еды?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Большая белая."
+                },
+                {
+                  "id": "b",
+                  "text": "Большая синяя."
+                },
+                {
+                  "id": "c",
+                  "text": "Маленькая белая."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The food goes in the large blue bag; the small white bag is for letters.",
+              "explanation_ru": "Еду нужно положить в большую синюю сумку. Маленькая белая — для писем.",
+              "topic_ids": [
+                "colors"
+              ]
+            },
+            {
+              "id": "r3",
+              "kind": "reading",
+              "prompt": "Which two foods does Anna need with the apples?",
+              "prompt_ru": "Какие два продукта нужны Анне, кроме яблок?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Хлеб и сыр."
+                },
+                {
+                  "id": "b",
+                  "text": "Рис и рыба."
+                },
+                {
+                  "id": "c",
+                  "text": "Хлеб и мясо."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Her list is bread, cheese and apples.",
+              "explanation_ru": "В списке Анны хлеб, сыр и яблоки.",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "r4",
+              "kind": "reading",
+              "prompt": "What drink does Anna want for herself?",
+              "prompt_ru": "Какой напиток Анна хочет для себя?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Сок."
+                },
+                {
+                  "id": "b",
+                  "text": "Молоко."
+                },
+                {
+                  "id": "c",
+                  "text": "Чай."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Anna wants tea; the written juice request is for Misha.",
+              "explanation_ru": "Анна хочет чай. Сок в записке нужен Мише.",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "r5",
+              "kind": "reading",
+              "prompt": "Which drink is already at home?",
+              "prompt_ru": "Какой напиток уже дома?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Сок."
+                },
+                {
+                  "id": "b",
+                  "text": "Вода."
+                },
+                {
+                  "id": "c",
+                  "text": "Молоко."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Anna says the milk is already at home.",
+              "explanation_ru": "Анна пишет: «Молоко уже дома».",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "l1",
+              "kind": "listening",
+              "prompt": "Listen to Anna: what does Misha want now?",
+              "prompt_ru": "Послушай Анну: что теперь хочет Миша?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Воду."
+                },
+                {
+                  "id": "b",
+                  "text": "Сок."
+                },
+                {
+                  "id": "c",
+                  "text": "Молоко."
+                }
+              ],
+              "answer": "a",
+              "essential": true,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Anna changes Misha’s drink from juice to water.",
+              "explanation_ru": "Анна говорит, что Миша теперь хочет воду, а не сок.",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "l2",
+              "kind": "listening",
+              "prompt": "What should Barsik get for Olya?",
+              "prompt_ru": "Что Барсик должен взять для Оли?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Два яблока."
+                },
+                {
+                  "id": "b",
+                  "text": "Три банана."
+                },
+                {
+                  "id": "c",
+                  "text": "Два банана."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "The audio asks for two bananas for Olya.",
+              "explanation_ru": "В устном сообщении Анна просит два банана для Оли.",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "reply",
+              "kind": "response",
+              "prompt": "You are Barsik. Confirm Misha’s new drink request politely.",
+              "prompt_ru": "Ты Барсик. Вежливо подтверди новую просьбу о напитке для Миши.",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Хорошо, для Миши молоко. Спасибо, Анна!"
+                },
+                {
+                  "id": "b",
+                  "text": "Хорошо, для Миши вода. Спасибо, Анна!"
+                },
+                {
+                  "id": "c",
+                  "text": "Хорошо, для Миши сок. Спасибо, Анна!"
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Choose the reply that follows the speaker’s latest request.",
+              "hint_ru": "Выбери ответ, который подходит к последней просьбе говорящего.",
+              "explanation": "This reply confirms the water requested in the audio.",
+              "explanation_ru": "Ответ подтверждает просьбу из устного сообщения: для Миши вода.",
+              "topic_ids": [
+                "food"
+              ]
+            }
+          ],
+          "support_note": "Glossary entries explain incidental words. Optional question hints and the audio transcript make this a supported attempt.",
+          "support_note_ru": "Словарь объясняет отдельные слова. Подсказки к вопросам и текст аудио делают эту попытку попыткой с помощью."
+        },
+        {
+          "id": "a1-market-v2",
+          "letter_title": "Nina’s lunch basket",
+          "letter_title_ru": "Обед для Нины",
+          "letter": "Привет, Барсик! Это Нина. Сегодня у нас обед для друзей. Я готовлю суп, а Вера хочет рис и рыбу. Саша ест хлеб с сыром. Нам нужны большие жёлтые яблоки. Красные яблоки слишком маленькие. Возьми ещё воду. Еду положи в зелёную сумку. Чёрная сумка старая, она уже полная. Спасибо! Нина.",
+          "listening": {
+            "audio_url": "/static/audio/course/a1-market-v2.mp3",
+            "transcript": "Барсик, это Вера. Вместо рыбы я хочу мясо. Для Саши возьми молоко, пожалуйста. Он сегодня не хочет воду. Мама готовит обед."
+          },
+          "glossary": [
+            {
+              "ru": "готовлю",
+              "en": "I am making"
+            },
+            {
+              "ru": "слишком",
+              "en": "too"
+            },
+            {
+              "ru": "положи",
+              "en": "put"
+            },
+            {
+              "ru": "уже полная",
+              "en": "already full"
+            },
+            {
+              "ru": "вместо",
+              "en": "instead of"
+            },
+            {
+              "ru": "кислые",
+              "en": "sour"
+            }
+          ],
+          "topic_targets": {
+            "food": [
+              "суп",
+              "рис",
+              "рыба",
+              "хлеб",
+              "сыр",
+              "яблоко",
+              "вода",
+              "мясо",
+              "молоко"
+            ],
+            "colors": [
+              "большие жёлтые",
+              "красные",
+              "маленькие",
+              "зелёная",
+              "чёрная",
+              "старая"
+            ]
+          },
+          "questions": [
+            {
+              "id": "r1",
+              "kind": "reading",
+              "prompt": "Which apples should Barsik take?",
+              "prompt_ru": "Какие яблоки должен взять Барсик?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Маленькие жёлтые."
+                },
+                {
+                  "id": "b",
+                  "text": "Большие жёлтые."
+                },
+                {
+                  "id": "c",
+                  "text": "Маленькие красные."
+                }
+              ],
+              "answer": "b",
+              "essential": true,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Nina asks for large yellow apples.",
+              "explanation_ru": "Нина просит большие жёлтые яблоки.",
+              "topic_ids": [
+                "food",
+                "colors"
+              ]
+            },
+            {
+              "id": "r2",
+              "kind": "reading",
+              "prompt": "Which bag should hold the food?",
+              "prompt_ru": "В какую сумку нужно положить еду?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "В зелёную."
+                },
+                {
+                  "id": "b",
+                  "text": "В чёрную."
+                },
+                {
+                  "id": "c",
+                  "text": "В красную."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Nina tells Barsik to use the green bag; the black one is full.",
+              "explanation_ru": "Нина просит положить еду в зелёную сумку. Чёрная уже полная.",
+              "topic_ids": [
+                "colors"
+              ]
+            },
+            {
+              "id": "r3",
+              "kind": "reading",
+              "prompt": "What does Vera want in the written note?",
+              "prompt_ru": "Что Вера хочет в записке?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Суп и хлеб."
+                },
+                {
+                  "id": "b",
+                  "text": "Хлеб и сыр."
+                },
+                {
+                  "id": "c",
+                  "text": "Рис и рыбу."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The written note says Vera wants rice and fish.",
+              "explanation_ru": "В записке Вера хочет рис и рыбу.",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "r4",
+              "kind": "reading",
+              "prompt": "What is Nina preparing?",
+              "prompt_ru": "Что готовит Нина?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Рис."
+                },
+                {
+                  "id": "b",
+                  "text": "Суп."
+                },
+                {
+                  "id": "c",
+                  "text": "Рыбу."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Nina says she is making soup.",
+              "explanation_ru": "Нина пишет: «Я готовлю суп».",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "r5",
+              "kind": "reading",
+              "prompt": "Why are the red apples unsuitable?",
+              "prompt_ru": "Почему красные яблоки не подходят?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Они слишком маленькие."
+                },
+                {
+                  "id": "b",
+                  "text": "Они слишком большие."
+                },
+                {
+                  "id": "c",
+                  "text": "Они ещё кислые."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The red apples are too small for Nina’s request.",
+              "explanation_ru": "Нина пишет: «Красные яблоки слишком маленькие».",
+              "topic_ids": [
+                "colors"
+              ]
+            },
+            {
+              "id": "l1",
+              "kind": "listening",
+              "prompt": "Listen to Vera: what does she want instead of fish?",
+              "prompt_ru": "Послушай Веру: что она хочет вместо рыбы?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Сыр."
+                },
+                {
+                  "id": "b",
+                  "text": "Суп."
+                },
+                {
+                  "id": "c",
+                  "text": "Мясо."
+                }
+              ],
+              "answer": "c",
+              "essential": true,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Vera changes her request from fish to meat.",
+              "explanation_ru": "Вера говорит, что вместо рыбы хочет мясо.",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "l2",
+              "kind": "listening",
+              "prompt": "Which drink does Vera request for Sasha?",
+              "prompt_ru": "Какой напиток Вера просит для Саши?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Сок."
+                },
+                {
+                  "id": "b",
+                  "text": "Молоко."
+                },
+                {
+                  "id": "c",
+                  "text": "Воду."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Vera asks for milk for Sasha and says he does not want water.",
+              "explanation_ru": "Вера просит для Саши молоко и говорит, что он не хочет воду.",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "reply",
+              "kind": "response",
+              "prompt": "You are Barsik. Confirm both parts of Vera’s updated request.",
+              "prompt_ru": "Ты Барсик. Подтверди обе новые просьбы Веры.",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Хорошо: для тебя мясо, для Саши молоко."
+                },
+                {
+                  "id": "b",
+                  "text": "Хорошо: для тебя рыба, для Саши молоко."
+                },
+                {
+                  "id": "c",
+                  "text": "Хорошо: для тебя мясо, для Саши вода."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Choose the reply that follows the speaker’s latest request.",
+              "hint_ru": "Выбери ответ, который подходит к последней просьбе говорящего.",
+              "explanation": "The reply confirms meat for Vera and milk for Sasha.",
+              "explanation_ru": "Ответ подтверждает мясо для Веры и молоко для Саши.",
+              "topic_ids": [
+                "food"
+              ]
+            }
+          ],
+          "support_note": "Glossary entries explain incidental words. Optional question hints and the audio transcript make this a supported attempt.",
+          "support_note_ru": "Словарь объясняет отдельные слова. Подсказки к вопросам и текст аудио делают эту попытку попыткой с помощью."
+        },
+        {
+          "id": "a1-market-v3",
+          "letter_title": "Breakfast for the helpers",
+          "letter_title_ru": "Завтрак для друзей",
+          "letter": "Здравствуй, Барсик! Павел здесь. Завтра у нас завтрак для друзей. Денис любит кофе, Лена пьёт чай с молоком. Мне нужен хлеб и сыр. Возьми маленькие жёлтые бананы: большие бананы ещё зелёные. Сок стоит на белом столе, а вода — на чёрном. Нам нужен сок. Положи всё в новую красную сумку. Павел.",
+          "listening": {
+            "audio_url": "/static/audio/course/a1-market-v3.mp3",
+            "transcript": "Барсик, это Лена. Я хочу чай без молока. Для Дениса возьми ещё одно красное яблоко. Бананы для него не нужны. Спасибо!"
+          },
+          "glossary": [
+            {
+              "ru": "любит",
+              "en": "likes"
+            },
+            {
+              "ru": "стоит",
+              "en": "is standing / is placed"
+            },
+            {
+              "ru": "положи всё",
+              "en": "put everything"
+            },
+            {
+              "ru": "без молока",
+              "en": "without milk"
+            },
+            {
+              "ru": "для него",
+              "en": "for him"
+            }
+          ],
+          "topic_targets": {
+            "food": [
+              "кофе",
+              "чай",
+              "молоко",
+              "хлеб",
+              "сыр",
+              "бананы",
+              "сок",
+              "вода",
+              "яблоко"
+            ],
+            "colors": [
+              "маленькие жёлтые",
+              "большие зелёные",
+              "белый",
+              "чёрный",
+              "новая красная"
+            ]
+          },
+          "questions": [
+            {
+              "id": "r1",
+              "kind": "reading",
+              "prompt": "Which bananas does Pavel ask for?",
+              "prompt_ru": "Какие бананы просит Павел?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Маленькие жёлтые."
+                },
+                {
+                  "id": "b",
+                  "text": "Большие зелёные."
+                },
+                {
+                  "id": "c",
+                  "text": "Большие жёлтые."
+                }
+              ],
+              "answer": "a",
+              "essential": true,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Pavel asks for the small yellow bananas; the large ones are still green.",
+              "explanation_ru": "Павел просит маленькие жёлтые бананы. Большие ещё зелёные.",
+              "topic_ids": [
+                "food",
+                "colors"
+              ]
+            },
+            {
+              "id": "r2",
+              "kind": "reading",
+              "prompt": "Which table has the drink Pavel asks Barsik to take?",
+              "prompt_ru": "На каком столе напиток, который просит Павел?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "На чёрном столе."
+                },
+                {
+                  "id": "b",
+                  "text": "На красном столе."
+                },
+                {
+                  "id": "c",
+                  "text": "На белом столе."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Pavel asks for juice, which is on the white table.",
+              "explanation_ru": "Павел просит сок, а сок стоит на белом столе.",
+              "topic_ids": [
+                "food",
+                "colors"
+              ]
+            },
+            {
+              "id": "r3",
+              "kind": "reading",
+              "prompt": "Which bag should Barsik use?",
+              "prompt_ru": "Какую сумку нужно взять Барсику?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Новую белую."
+                },
+                {
+                  "id": "b",
+                  "text": "Новую красную."
+                },
+                {
+                  "id": "c",
+                  "text": "Старую красную."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Pavel asks him to put everything in the new red bag.",
+              "explanation_ru": "Павел просит положить всё в новую красную сумку.",
+              "topic_ids": [
+                "colors"
+              ]
+            },
+            {
+              "id": "r4",
+              "kind": "reading",
+              "prompt": "What does Pavel want for himself?",
+              "prompt_ru": "Что Павел хочет для себя?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Хлеб и сыр."
+                },
+                {
+                  "id": "b",
+                  "text": "Чай и молоко."
+                },
+                {
+                  "id": "c",
+                  "text": "Рис и мясо."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Pavel writes that he needs bread and cheese.",
+              "explanation_ru": "Павел пишет: «Мне нужен хлеб и сыр».",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "r5",
+              "kind": "reading",
+              "prompt": "Which drink does Lena have in the written note?",
+              "prompt_ru": "Какой напиток у Лены в записке?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Чай с молоком."
+                },
+                {
+                  "id": "b",
+                  "text": "Чай без молока."
+                },
+                {
+                  "id": "c",
+                  "text": "Кофе с молоком."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The written note says Lena drinks tea with milk.",
+              "explanation_ru": "В записке сказано: «Лена пьёт чай с молоком».",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "l1",
+              "kind": "listening",
+              "prompt": "Listen to Lena: which drink does she want now?",
+              "prompt_ru": "Послушай Лену: какой напиток она теперь хочет?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Кофе без молока."
+                },
+                {
+                  "id": "b",
+                  "text": "Чай с молоком."
+                },
+                {
+                  "id": "c",
+                  "text": "Чай без молока."
+                }
+              ],
+              "answer": "c",
+              "essential": true,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Lena’s separate message asks for tea without milk.",
+              "explanation_ru": "В отдельном сообщении Лена просит чай без молока.",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "l2",
+              "kind": "listening",
+              "prompt": "What extra fruit does Lena request for Denis?",
+              "prompt_ru": "Какой фрукт Лена ещё просит для Дениса?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Одно красное яблоко."
+                },
+                {
+                  "id": "b",
+                  "text": "Два красных яблока."
+                },
+                {
+                  "id": "c",
+                  "text": "Один жёлтый банан."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Lena asks for one red apple for Denis.",
+              "explanation_ru": "Лена просит для Дениса одно красное яблоко.",
+              "topic_ids": [
+                "food",
+                "colors"
+              ]
+            },
+            {
+              "id": "reply",
+              "kind": "response",
+              "prompt": "You are Barsik. Confirm Lena’s tea and Denis’s fruit.",
+              "prompt_ru": "Ты Барсик. Подтверди чай для Лены и фрукт для Дениса.",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Хорошо: чай с молоком и одно красное яблоко."
+                },
+                {
+                  "id": "b",
+                  "text": "Хорошо: чай без молока и один жёлтый банан."
+                },
+                {
+                  "id": "c",
+                  "text": "Хорошо: чай без молока и одно красное яблоко."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Choose the reply that follows the speaker’s latest request.",
+              "hint_ru": "Выбери ответ, который подходит к последней просьбе говорящего.",
+              "explanation": "The reply combines both requests from Lena’s message.",
+              "explanation_ru": "Ответ подтверждает обе просьбы Лены из устного сообщения.",
+              "topic_ids": [
+                "food",
+                "colors"
+              ]
+            }
+          ],
+          "support_note": "Glossary entries explain incidental words. Optional question hints and the audio transcript make this a supported attempt.",
+          "support_note_ru": "Словарь объясняет отдельные слова. Подсказки к вопросам и текст аудио делают эту попытку попыткой с помощью."
+        }
+      ],
+      "preparation": [
+        {
+          "topic_id": "food",
+          "title": "Food and drink requests",
+          "title_ru": "Просьбы о еде и напитках",
+          "explanation": "Keep each request with its person. Listen for changes such as вместо (instead of), без (without) or не (not).",
+          "explanation_ru": "Помни, кто что просит. Слушай изменения: «вместо», «без», «не».",
+          "examples": [
+            {
+              "ru": "Я хочу суп. Можно воды, пожалуйста?",
+              "en": "I would like soup. May I have some water, please?"
+            },
+            {
+              "ru": "Для меня чай без молока, для тебя сок.",
+              "en": "Tea without milk for me; juice for you."
+            },
+            {
+              "ru": "Вместо рыбы я хочу сыр.",
+              "en": "I would like cheese instead of fish."
+            }
+          ]
+        },
+        {
+          "topic_id": "colors",
+          "title": "Identify the right item",
+          "title_ru": "Выбрать нужную вещь",
+          "explanation": "Combine colour and size to distinguish similar objects. Adjective endings follow the noun’s gender or number.",
+          "explanation_ru": "Чтобы отличить похожие вещи, смотри на цвет и размер. Окончание прилагательного зависит от рода и числа существительного.",
+          "examples": [
+            {
+              "ru": "Красный стол, красная сумка, красное яблоко.",
+              "en": "A red table, a red bag, a red apple."
+            },
+            {
+              "ru": "Большие зелёные яблоки и маленькие жёлтые бананы.",
+              "en": "Large green apples and small yellow bananas."
+            },
+            {
+              "ru": "Новая сумка и старый стол.",
+              "en": "A new bag and an old table."
+            }
+          ]
+        }
+      ],
+      "prior_topic_ids": [
+        "greetings",
+        "numbers",
+        "family",
+        "home",
+        "daily_activities",
+        "clothing"
+      ]
+    },
+    {
+      "id": "a1-delivery",
+      "number": 4,
+      "title": "Your letter arrives",
+      "title_ru": "Твоё письмо здесь",
+      "intro": "Barsik has reached your storybook doorstep. Open the letter from the friends helping him along the route, then listen to their separate update.",
+      "intro_ru": "Барсик у твоей двери. Открой письмо от друзей, которые помогают ему в пути. Потом послушай их отдельное сообщение.",
+      "topic_ids": [
+        "places",
+        "weather"
+      ],
+      "objectives": [
+        {
+          "en": "Follow a short route from a stated starting point to an invitation’s destination.",
+          "ru": "Понять короткий путь от указанного места к месту встречи."
+        },
+        {
+          "en": "Use a weather message to choose suitable plans or clothing.",
+          "ru": "Выбрать план или одежду по сообщению о погоде."
+        },
+        {
+          "en": "Combine a written invitation with a spoken update and choose an appropriate reply.",
+          "ru": "Понять приглашение и устное уточнение, затем выбрать подходящий ответ."
+        }
+      ],
+      "variants": [
+        {
+          "id": "a1-delivery-v1",
+          "letter_title": "An invitation to the park",
+          "letter_title_ru": "Приглашение в парк",
+          "letter": "Привет, наш новый друг! Это Анна и друзья. Барсик принёс тебе наше письмо. Приходи завтра в парк в три часа: мы хотим познакомиться! От школы иди прямо, потом поверни налево. Парк рядом с магазином. Завтра будет тепло и солнечно. Возьми воду и яблоко. Мы будем у большого стола. До встречи! Анна, Миша и Оля.",
+          "listening": {
+            "audio_url": "/static/audio/course/a1-delivery-v1.mp3",
+            "transcript": "Привет! Это Миша. Мы встречаемся у маленького стола, большой стол занят. Оля придёт в четыре часа. Мы с Анной будем раньше."
+          },
+          "glossary": [
+            {
+              "ru": "приходи",
+              "en": "come (invitation)"
+            },
+            {
+              "ru": "принёс",
+              "en": "has brought"
+            },
+            {
+              "ru": "хотим познакомиться",
+              "en": "want to meet you"
+            },
+            {
+              "ru": "от школы",
+              "en": "from the school"
+            },
+            {
+              "ru": "поверни",
+              "en": "turn"
+            },
+            {
+              "ru": "будем",
+              "en": "we will be"
+            },
+            {
+              "ru": "занят",
+              "en": "occupied"
+            },
+            {
+              "ru": "придёт",
+              "en": "will arrive"
+            },
+            {
+              "ru": "раньше",
+              "en": "earlier"
+            },
+            {
+              "ru": "будет",
+              "en": "will be"
+            }
+          ],
+          "topic_targets": {
+            "places": [
+              "от школы",
+              "прямо",
+              "налево",
+              "парк рядом с магазином"
+            ],
+            "weather": [
+              "завтра будет тепло и солнечно"
+            ]
+          },
+          "questions": [
+            {
+              "id": "r1",
+              "kind": "reading",
+              "prompt": "Where do the friends invite you?",
+              "prompt_ru": "Куда друзья приглашают тебя?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "В школу."
+                },
+                {
+                  "id": "b",
+                  "text": "В магазин."
+                },
+                {
+                  "id": "c",
+                  "text": "В парк."
+                }
+              ],
+              "answer": "c",
+              "essential": true,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The park is the destination; the school and shop help describe the route.",
+              "explanation_ru": "Место встречи — парк. Школа и магазин помогают описать дорогу.",
+              "topic_ids": [
+                "places"
+              ]
+            },
+            {
+              "id": "r2",
+              "kind": "reading",
+              "prompt": "Which route starts at the school?",
+              "prompt_ru": "Как идти от школы?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Налево, потом направо."
+                },
+                {
+                  "id": "b",
+                  "text": "Прямо, потом налево."
+                },
+                {
+                  "id": "c",
+                  "text": "Прямо, потом направо."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The letter says to go straight from the school and then turn left.",
+              "explanation_ru": "В письме сказано: «От школы иди прямо, потом поверни налево».",
+              "topic_ids": [
+                "places"
+              ]
+            },
+            {
+              "id": "r3",
+              "kind": "reading",
+              "prompt": "What is beside the park?",
+              "prompt_ru": "Что рядом с парком?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Магазин."
+                },
+                {
+                  "id": "b",
+                  "text": "Школа."
+                },
+                {
+                  "id": "c",
+                  "text": "Почта."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Anna places the park next to the shop.",
+              "explanation_ru": "Анна пишет: «Парк рядом с магазином».",
+              "topic_ids": [
+                "places"
+              ]
+            },
+            {
+              "id": "r4",
+              "kind": "reading",
+              "prompt": "What weather does the letter describe for tomorrow?",
+              "prompt_ru": "Какая погода завтра в письме?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Холодно, идёт снег."
+                },
+                {
+                  "id": "b",
+                  "text": "Холодно, идёт дождь."
+                },
+                {
+                  "id": "c",
+                  "text": "Тепло, светит солнце."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The letter describes warm, sunny weather.",
+              "explanation_ru": "В письме сказано, что завтра будет тепло и солнечно.",
+              "topic_ids": [
+                "weather"
+              ]
+            },
+            {
+              "id": "r5",
+              "kind": "reading",
+              "prompt": "What should you bring for the park visit?",
+              "prompt_ru": "Что нужно взять в парк?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Чай и банан."
+                },
+                {
+                  "id": "b",
+                  "text": "Воду и яблоко."
+                },
+                {
+                  "id": "c",
+                  "text": "Молоко и сыр."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The invitation asks you to bring water and an apple.",
+              "explanation_ru": "В приглашении сказано: «Возьми воду и яблоко».",
+              "topic_ids": [
+                "food",
+                "weather"
+              ]
+            },
+            {
+              "id": "l1",
+              "kind": "listening",
+              "prompt": "Listen to Misha: which table is the meeting place now?",
+              "prompt_ru": "Послушай Мишу: у какого стола теперь встреча?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "У маленького стола."
+                },
+                {
+                  "id": "b",
+                  "text": "У большого стола."
+                },
+                {
+                  "id": "c",
+                  "text": "У длинного стола."
+                }
+              ],
+              "answer": "a",
+              "essential": true,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Misha changes the meeting point to the small table because the large one is occupied.",
+              "explanation_ru": "Миша говорит, что встреча у маленького стола: большой занят.",
+              "topic_ids": [
+                "places",
+                "colors"
+              ]
+            },
+            {
+              "id": "l2",
+              "kind": "listening",
+              "prompt": "When will Olya arrive, according to Misha?",
+              "prompt_ru": "Когда придёт Оля, по словам Миши?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "В три часа."
+                },
+                {
+                  "id": "b",
+                  "text": "В пять часов."
+                },
+                {
+                  "id": "c",
+                  "text": "В четыре часа."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Misha says Olya will arrive at four; the others will be earlier.",
+              "explanation_ru": "Миша говорит, что Оля придёт в четыре часа, а он и Анна будут раньше.",
+              "topic_ids": [
+                "numbers"
+              ]
+            },
+            {
+              "id": "reply",
+              "kind": "response",
+              "prompt": "Accept the invitation and confirm the updated meeting point.",
+              "prompt_ru": "Прими приглашение и подтверди новое место встречи.",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Спасибо! До встречи у школы, рядом с маленьким столом."
+                },
+                {
+                  "id": "b",
+                  "text": "Спасибо! До встречи в парке у маленького стола."
+                },
+                {
+                  "id": "c",
+                  "text": "Спасибо! До встречи в парке у большого стола."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Choose the reply that follows the speaker’s latest request.",
+              "hint_ru": "Выбери ответ, который подходит к последней просьбе говорящего.",
+              "explanation": "The reply accepts the invitation and uses Misha’s updated meeting point.",
+              "explanation_ru": "Ответ принимает приглашение и подтверждает новое место встречи из сообщения Миши.",
+              "topic_ids": [
+                "greetings",
+                "places"
+              ]
+            }
+          ],
+          "support_note": "Glossary entries explain incidental words. Optional question hints and the audio transcript make this a supported attempt.",
+          "support_note_ru": "Словарь объясняет отдельные слова. Подсказки к вопросам и текст аудио делают эту попытку попыткой с помощью."
+        },
+        {
+          "id": "a1-delivery-v2",
+          "letter_title": "Lunch with your new friends",
+          "letter_title_ru": "Обед с новыми друзьями",
+          "letter": "Здравствуй, наш новый друг! Это Нина и друзья. Спасибо, что помогаешь Барсику. Приходи завтра к нам на обед в два часа. Мы живём рядом со школой. От магазина иди прямо и поверни направо. Наш дом жёлтый. Завтра будет дождь, поэтому обедаем дома. Возьми куртку. У нас будут суп, хлеб и чай. До встречи! Нина и Вера.",
+          "listening": {
+            "audio_url": "/static/audio/course/a1-delivery-v2.mp3",
+            "transcript": "Привет! Это Вера. Обед теперь в три часа. Для тебя у нас есть сок. Саша тоже придёт, а дедушка сегодня отдыхает."
+          },
+          "glossary": [
+            {
+              "ru": "приходи к нам",
+              "en": "come to our home"
+            },
+            {
+              "ru": "от магазина",
+              "en": "from the shop"
+            },
+            {
+              "ru": "поверни",
+              "en": "turn"
+            },
+            {
+              "ru": "поэтому",
+              "en": "so; for that reason"
+            },
+            {
+              "ru": "будут",
+              "en": "there will be"
+            },
+            {
+              "ru": "придёт",
+              "en": "will come"
+            },
+            {
+              "ru": "будет",
+              "en": "will be"
+            }
+          ],
+          "topic_targets": {
+            "places": [
+              "рядом со школой",
+              "от магазина",
+              "прямо",
+              "направо"
+            ],
+            "weather": [
+              "завтра будет дождь",
+              "возьми куртку"
+            ]
+          },
+          "questions": [
+            {
+              "id": "r1",
+              "kind": "reading",
+              "prompt": "Where should you go for lunch?",
+              "prompt_ru": "Куда нужно прийти на обед?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "В школу рядом с жёлтым домом."
+                },
+                {
+                  "id": "b",
+                  "text": "В жёлтый дом рядом со школой."
+                },
+                {
+                  "id": "c",
+                  "text": "В жёлтый магазин рядом со школой."
+                }
+              ],
+              "answer": "b",
+              "essential": true,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Nina lives in the yellow house beside the school and invites you there.",
+              "explanation_ru": "Нина приглашает в свой жёлтый дом рядом со школой.",
+              "topic_ids": [
+                "places",
+                "colors"
+              ]
+            },
+            {
+              "id": "r2",
+              "kind": "reading",
+              "prompt": "Which route starts at the shop?",
+              "prompt_ru": "Как идти от магазина?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Прямо, потом направо."
+                },
+                {
+                  "id": "b",
+                  "text": "Прямо, потом налево."
+                },
+                {
+                  "id": "c",
+                  "text": "Направо, потом налево."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The letter says to walk straight from the shop and turn right.",
+              "explanation_ru": "В письме сказано: «От магазина иди прямо и поверни направо».",
+              "topic_ids": [
+                "places"
+              ]
+            },
+            {
+              "id": "r3",
+              "kind": "reading",
+              "prompt": "Why will the friends eat at home?",
+              "prompt_ru": "Почему друзья обедают дома?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Завтра будет снег."
+                },
+                {
+                  "id": "b",
+                  "text": "Завтра будет дождь."
+                },
+                {
+                  "id": "c",
+                  "text": "Завтра будет жарко."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Nina explains that lunch is indoors because it will rain tomorrow.",
+              "explanation_ru": "Нина пишет, что завтра будет дождь, поэтому друзья обедают дома.",
+              "topic_ids": [
+                "weather"
+              ]
+            },
+            {
+              "id": "r4",
+              "kind": "reading",
+              "prompt": "What clothing should you bring for the weather?",
+              "prompt_ru": "Какую одежду нужно взять для такой погоды?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Юбку."
+                },
+                {
+                  "id": "b",
+                  "text": "Куртку."
+                },
+                {
+                  "id": "c",
+                  "text": "Футболку."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The letter specifically asks you to bring a jacket.",
+              "explanation_ru": "В письме прямо сказано: «Возьми куртку».",
+              "topic_ids": [
+                "weather",
+                "clothing"
+              ]
+            },
+            {
+              "id": "r5",
+              "kind": "reading",
+              "prompt": "Which lunch does Nina describe?",
+              "prompt_ru": "Какой обед описывает Нина?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Суп, хлеб и чай."
+                },
+                {
+                  "id": "b",
+                  "text": "Рыбу, рис и сок."
+                },
+                {
+                  "id": "c",
+                  "text": "Мясо, сыр и молоко."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Nina says there will be soup, bread and tea.",
+              "explanation_ru": "Нина пишет, что будут суп, хлеб и чай.",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "l1",
+              "kind": "listening",
+              "prompt": "Listen to Vera: what is the new lunch time?",
+              "prompt_ru": "Послушай Веру: во сколько теперь обед?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "В два часа."
+                },
+                {
+                  "id": "b",
+                  "text": "В четыре часа."
+                },
+                {
+                  "id": "c",
+                  "text": "В три часа."
+                }
+              ],
+              "answer": "c",
+              "essential": true,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Vera changes lunch to three o’clock.",
+              "explanation_ru": "Вера говорит: «Обед теперь в три часа».",
+              "topic_ids": [
+                "numbers"
+              ]
+            },
+            {
+              "id": "l2",
+              "kind": "listening",
+              "prompt": "What drink does Vera say they have for you?",
+              "prompt_ru": "Какой напиток есть для тебя, по словам Веры?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Кофе."
+                },
+                {
+                  "id": "b",
+                  "text": "Сок."
+                },
+                {
+                  "id": "c",
+                  "text": "Молоко."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Vera says that they have juice for you.",
+              "explanation_ru": "Вера говорит: «Для тебя у нас есть сок».",
+              "topic_ids": [
+                "food"
+              ]
+            },
+            {
+              "id": "reply",
+              "kind": "response",
+              "prompt": "Accept lunch at Nina’s home using the updated time.",
+              "prompt_ru": "Прими приглашение на обед к Нине и подтверди новое время.",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Спасибо! До встречи у вас дома в три часа."
+                },
+                {
+                  "id": "b",
+                  "text": "Спасибо! До встречи у вас дома в два часа."
+                },
+                {
+                  "id": "c",
+                  "text": "Спасибо! До встречи в школе в три часа."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Choose the reply that follows the speaker’s latest request.",
+              "hint_ru": "Выбери ответ, который подходит к последней просьбе говорящего.",
+              "explanation": "The reply accepts lunch at Nina’s home at the updated time of three.",
+              "explanation_ru": "Ответ подтверждает обед дома у Нины в новое время — в три часа.",
+              "topic_ids": [
+                "greetings",
+                "places",
+                "numbers"
+              ]
+            }
+          ],
+          "support_note": "Glossary entries explain incidental words. Optional question hints and the audio transcript make this a supported attempt.",
+          "support_note_ru": "Словарь объясняет отдельные слова. Подсказки к вопросам и текст аудио делают эту попытку попыткой с помощью."
+        },
+        {
+          "id": "a1-delivery-v3",
+          "letter_title": "Tea at Pavel’s",
+          "letter_title_ru": "Чай у Павла",
+          "letter": "Привет, наш новый друг! Это Павел и друзья. Барсик принёс тебе приглашение. Приходи сегодня в пять часов: будем пить чай и знакомиться. Наш дом на площади. От парка иди прямо, потом поверни направо. Наш дом белый, дверь синяя. Сегодня холодно и идёт снег. Надень тёплый свитер. Дома тепло, есть чай и сыр. Ждём тебя! Павел и Лена.",
+          "listening": {
+            "audio_url": "/static/audio/course/a1-delivery-v3.mp3",
+            "transcript": "Привет! Это Лена. Входи через красную дверь: синяя дверь закрыта. Денис придёт в шесть часов. Мы будем на кухне. До встречи!"
+          },
+          "glossary": [
+            {
+              "ru": "приглашение",
+              "en": "invitation"
+            },
+            {
+              "ru": "приходи",
+              "en": "come (invitation)"
+            },
+            {
+              "ru": "знакомиться",
+              "en": "to get to know each other"
+            },
+            {
+              "ru": "от парка",
+              "en": "from the park"
+            },
+            {
+              "ru": "поверни",
+              "en": "turn"
+            },
+            {
+              "ru": "надень",
+              "en": "put on (clothing)"
+            },
+            {
+              "ru": "ждём тебя",
+              "en": "we are waiting for you"
+            },
+            {
+              "ru": "входи через",
+              "en": "enter through"
+            },
+            {
+              "ru": "закрыта",
+              "en": "closed"
+            },
+            {
+              "ru": "придёт",
+              "en": "will arrive"
+            },
+            {
+              "ru": "тонкую",
+              "en": "thin (accusative feminine)"
+            },
+            {
+              "ru": "лёгкую",
+              "en": "light (accusative feminine)"
+            },
+            {
+              "ru": "вход",
+              "en": "entrance"
+            },
+            {
+              "ru": "музыка",
+              "en": "music"
+            }
+          ],
+          "topic_targets": {
+            "places": [
+              "на площади",
+              "от парка",
+              "прямо",
+              "направо"
+            ],
+            "weather": [
+              "сегодня холодно",
+              "идёт снег",
+              "тёплый свитер"
+            ]
+          },
+          "questions": [
+            {
+              "id": "r1",
+              "kind": "reading",
+              "prompt": "Which building is the destination in the letter?",
+              "prompt_ru": "В какой дом приглашает письмо?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "В белый дом на площади."
+                },
+                {
+                  "id": "b",
+                  "text": "В белый дом в парке."
+                },
+                {
+                  "id": "c",
+                  "text": "В синий дом на площади."
+                }
+              ],
+              "answer": "a",
+              "essential": true,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Pavel’s house is white and stands on the square.",
+              "explanation_ru": "Дом Павла белый и находится на площади.",
+              "topic_ids": [
+                "places",
+                "colors"
+              ]
+            },
+            {
+              "id": "r2",
+              "kind": "reading",
+              "prompt": "Which route does Pavel give from the park?",
+              "prompt_ru": "Какой путь Павел описывает от парка?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Прямо, потом налево."
+                },
+                {
+                  "id": "b",
+                  "text": "Направо, потом налево."
+                },
+                {
+                  "id": "c",
+                  "text": "Прямо, потом направо."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The route starts at the park: straight, then right.",
+              "explanation_ru": "Путь начинается от парка: прямо, потом направо.",
+              "topic_ids": [
+                "places"
+              ]
+            },
+            {
+              "id": "r3",
+              "kind": "reading",
+              "prompt": "What is the weather today?",
+              "prompt_ru": "Какая погода сегодня?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Жарко, идёт дождь."
+                },
+                {
+                  "id": "b",
+                  "text": "Холодно, идёт снег."
+                },
+                {
+                  "id": "c",
+                  "text": "Тепло, светит солнце."
+                }
+              ],
+              "answer": "b",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The letter says it is cold and snowing today.",
+              "explanation_ru": "В письме сказано: «Сегодня холодно и идёт снег».",
+              "topic_ids": [
+                "weather"
+              ]
+            },
+            {
+              "id": "r4",
+              "kind": "reading",
+              "prompt": "What does Pavel suggest wearing for this weather?",
+              "prompt_ru": "Что Павел предлагает надеть для такой погоды?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Тёплый свитер."
+                },
+                {
+                  "id": "b",
+                  "text": "Тонкую футболку."
+                },
+                {
+                  "id": "c",
+                  "text": "Лёгкую рубашку."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "Pavel asks you to put on a warm sweater.",
+              "explanation_ru": "Павел пишет: «Надень тёплый свитер».",
+              "topic_ids": [
+                "weather",
+                "clothing"
+              ]
+            },
+            {
+              "id": "r5",
+              "kind": "reading",
+              "prompt": "What will you do at Pavel’s home?",
+              "prompt_ru": "Что вы будете делать дома у Павла?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Работать и писать письма."
+                },
+                {
+                  "id": "b",
+                  "text": "Есть суп и слушать музыку."
+                },
+                {
+                  "id": "c",
+                  "text": "Пить чай и знакомиться."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Read the note again. Track who does what, and distinguish the details.",
+              "hint_ru": "Прочитай записку ещё раз. Обрати внимание на людей, действия и детали.",
+              "explanation": "The invitation is to have tea and get to know each other.",
+              "explanation_ru": "Павел приглашает пить чай и знакомиться.",
+              "topic_ids": [
+                "greetings",
+                "daily_activities"
+              ]
+            },
+            {
+              "id": "l1",
+              "kind": "listening",
+              "prompt": "Listen to Lena: which door should you use now?",
+              "prompt_ru": "Послушай Лену: через какую дверь теперь нужно войти?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Через белую дверь."
+                },
+                {
+                  "id": "b",
+                  "text": "Через красную дверь."
+                },
+                {
+                  "id": "c",
+                  "text": "Через синюю дверь."
+                }
+              ],
+              "answer": "b",
+              "essential": true,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Lena asks you to enter through the red door because the blue door is closed.",
+              "explanation_ru": "Лена просит войти через красную дверь: синяя закрыта.",
+              "topic_ids": [
+                "places",
+                "colors"
+              ]
+            },
+            {
+              "id": "l2",
+              "kind": "listening",
+              "prompt": "When will Denis arrive, according to Lena?",
+              "prompt_ru": "Когда придёт Денис, по словам Лены?",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "В шесть часов."
+                },
+                {
+                  "id": "b",
+                  "text": "В пять часов."
+                },
+                {
+                  "id": "c",
+                  "text": "В семь часов."
+                }
+              ],
+              "answer": "a",
+              "essential": false,
+              "hint": "Replay the separate message. Listen for the new detail or request.",
+              "hint_ru": "Послушай отдельное сообщение ещё раз. Обрати внимание на новую деталь или просьбу.",
+              "explanation": "Lena says Denis will come at six.",
+              "explanation_ru": "Лена говорит, что Денис придёт в шесть часов.",
+              "topic_ids": [
+                "numbers"
+              ]
+            },
+            {
+              "id": "reply",
+              "kind": "response",
+              "prompt": "Accept the invitation and confirm Lena’s entry instruction.",
+              "prompt_ru": "Прими приглашение и подтверди, как войти по совету Лены.",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Спасибо! До встречи. Вход через синюю дверь."
+                },
+                {
+                  "id": "b",
+                  "text": "Спасибо! До встречи. Вход через белую дверь."
+                },
+                {
+                  "id": "c",
+                  "text": "Спасибо! До встречи. Вход через красную дверь."
+                }
+              ],
+              "answer": "c",
+              "essential": false,
+              "hint": "Choose the reply that follows the speaker’s latest request.",
+              "hint_ru": "Выбери ответ, который подходит к последней просьбе говорящего.",
+              "explanation": "The reply accepts the invitation and confirms the red door from Lena’s update.",
+              "explanation_ru": "Ответ принимает приглашение и подтверждает красную дверь из сообщения Лены.",
+              "topic_ids": [
+                "greetings",
+                "places"
+              ]
+            }
+          ],
+          "support_note": "Glossary entries explain incidental words. Optional question hints and the audio transcript make this a supported attempt.",
+          "support_note_ru": "Словарь объясняет отдельные слова. Подсказки к вопросам и текст аудио делают эту попытку попыткой с помощью."
+        }
+      ],
+      "preparation": [
+        {
+          "topic_id": "places",
+          "title": "Follow a short route",
+          "title_ru": "Понять короткий путь",
+          "explanation": "Start at the named place and follow the directions in order. A landmark is not necessarily your destination.",
+          "explanation_ru": "Начинай в указанном месте и следуй по порядку. Место рядом с дорогой может быть не местом встречи.",
+          "examples": [
+            {
+              "ru": "От школы иди прямо, потом поверни направо.",
+              "en": "From the school, go straight and then turn right."
+            },
+            {
+              "ru": "Магазин рядом с парком. Дом на площади.",
+              "en": "The shop is beside the park. The house is on the square."
+            },
+            {
+              "ru": "Входи через эту дверь.",
+              "en": "Enter through this door."
+            }
+          ]
+        },
+        {
+          "topic_id": "weather",
+          "title": "Weather and plans",
+          "title_ru": "Погода и планы",
+          "explanation": "Use the message’s stated weather and request. The task is to understand this plan, not guess what people always wear.",
+          "explanation_ru": "Используй погоду и просьбу из сообщения. Нужно понять этот план, а не угадывать, что люди всегда носят.",
+          "examples": [
+            {
+              "ru": "Сегодня холодно и идёт снег. Надень тёплую куртку.",
+              "en": "It is cold and snowing today. Put on a warm jacket."
+            },
+            {
+              "ru": "Завтра будет дождь. Мы будем дома.",
+              "en": "It will rain tomorrow. We will be at home."
+            },
+            {
+              "ru": "Завтра будет тепло и солнечно.",
+              "en": "Tomorrow will be warm and sunny."
+            }
+          ]
+        }
+      ],
+      "prior_topic_ids": [
+        "greetings",
+        "numbers",
+        "family",
+        "home",
+        "daily_activities",
+        "clothing",
+        "food",
+        "colors"
+      ]
+    }
+  ]
+}

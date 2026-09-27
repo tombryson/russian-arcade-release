@@ -1,0 +1,34 @@
+<div class="modal-content" id="sanitize-modal">
+    <h2>{{ ui_t('vocab.sanitize_preview') }}</h2>
+    {% if sanitization.to_remove %}
+    <h3>{{ ui_t('vocab.review_before_remove') }}</h3>
+    <form
+        id="sanitization-form"
+        method="POST"
+        action="/apply_sanitization"
+    >
+        <input
+            type="hidden"
+            name="sanitization_id"
+            value="{{ sanitization_id }}"
+        />
+        <label
+            ><input type="checkbox" name="consolidate" value="true" />
+            {{ ui_t('vocab.consolidate') }}</label
+        ><br />
+        <ul class="modal-preview-list">
+            {% for item in sanitization.to_remove %}
+            <li>{{ item.word }} ({{ item.reason }})</li>
+            {% endfor %}
+        </ul>
+        <div id="sanitize-preview-feedback"></div>
+        <div class="button-row">
+            <button type="submit" class="btn btn-primary">{{ ui_t('vocab.apply_cleaning') }}</button>
+            <button type="button" class="btn btn-secondary" data-close-modal="sanitizePreviewModal">{{ ui_t('common.cancel') }}</button>
+        </div>
+    </form>
+    {% else %}
+    <p>{{ ui_t('vocab.no_issues') }}</p>
+    <button type="button" class="btn btn-secondary" data-close-modal="sanitizePreviewModal">{{ ui_t('common.close') }}</button>
+    {% endif %}
+</div>

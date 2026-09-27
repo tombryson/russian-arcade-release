@@ -1,0 +1,139 @@
+/* Top navigation keeps the same dimensions on every route, in both renderers. */
+.navigation-layout-top > :is(.top, .arcade-header) {
+  padding:10px max(32px, calc((100vw - 1100px) / 2)); min-height:68px;
+}
+.navigation-layout-top > :is(.top, .arcade-header):has(> .skill-rail) { padding-bottom:42px; }
+.navigation-layout-top > .top .origin,
+.navigation-layout-top > .arcade-header .arcade-brand small { display:none; }
+.navigation-layout-top > .top .mark,
+.navigation-layout-top > .arcade-header .arcade-brand > span { font:500 22px/1 var(--wp-font-display); padding:9px 7px; }
+.navigation-layout-top > .top .post-language > summary,
+.navigation-layout-top > .arcade-header .language-picker > summary { min-height:48px; }
+@media(max-width:600px) {
+  .navigation-layout-top > :is(.top, .arcade-header) { padding-inline:20px; }
+  .navigation-layout-top > :is(.top, .arcade-header) nav > a,
+  .navigation-layout-top > :is(.top, .arcade-header) .activities-menu > summary { padding-inline:8px; }
+}
+@media(max-width:440px) {
+  .navigation-layout-top > .top .mark,
+  .navigation-layout-top > .arcade-header .arcade-brand > span { display:grid; place-items:center; padding:0; }
+}
+
+/* The sidebar owns navigation and account controls; the page has no top banner. */
+.navigation-layout-top #sidebar { display:none; }
+.navigation-layout-top .main-content { margin-left:0; width:100%; }
+.navigation-layout-top .arcade-header nav > a[aria-current=page] { background:var(--wp-header-foreground); color:var(--wp-header-background); }
+.navigation-layout-sidebar { --sidebar-width:246px; --activity-header-height:0px; }
+html:has(.navigation-layout-sidebar) { scroll-padding-top:calc(var(--skill-header-height,0px) + 16px); }
+.navigation-layout-sidebar .activity-layout { display:block; padding-left:var(--sidebar-width); }
+.navigation-layout-sidebar .activity-workspace-content > main { min-height:calc(100svh - 70px); }
+.navigation-layout-sidebar .main-content { margin-left:var(--sidebar-width); width:calc(100% - var(--sidebar-width)); min-height:100svh; }
+.navigation-layout-sidebar .activity-sidebar,
+.navigation-layout-sidebar .sidebar {
+  position:fixed; inset:0 auto 0 0; z-index:1002;
+  display:flex; flex-direction:column; align-items:stretch;
+  width:var(--sidebar-width); height:100dvh; min-height:0; max-height:100dvh;
+  padding:0; overflow-x:hidden; overflow-y:auto; transform:none;
+  background:var(--wp-header-background); color:var(--wp-header-foreground);
+  border-right:1px solid #ffffff18; box-shadow:none;
+}
+.navigation-layout-sidebar .sidebar > .container-fluid {
+  display:flex; flex-direction:column; align-items:stretch;
+  flex:1 0 auto; min-height:100%; width:100%; padding:0;
+}
+.navigation-layout-sidebar .sidebar-brand-row {
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  flex:0 0 auto; min-height:84px; padding:20px 24px;
+}
+.navigation-layout-sidebar .sidebar-brand {
+  display:flex; align-items:center; gap:9px; min-width:0;
+  color:inherit; text-decoration:none;
+  font:500 14px/1.45 var(--wp-font-display,sans-serif);
+}
+.navigation-layout-sidebar .sidebar-brand > span:first-child {
+  display:grid; place-items:center; flex:0 0 30px; width:30px; height:38px;
+  padding:0; transform:rotate(-5deg); font:500 26px/1 var(--wp-font-display,sans-serif);
+  color:var(--wp-text-onTicket); background:var(--wp-surface-ticket);
+}
+.navigation-layout-sidebar .sidebar-brand strong,
+.navigation-layout-sidebar .sidebar-brand .brand-name { font:inherit; }
+.navigation-layout-sidebar .activity-navigation,
+.navigation-layout-sidebar #sidebarNav,
+.navigation-layout-sidebar .sidebar-content { display:flex; flex-direction:column; flex:1 0 auto; min-height:0; padding:0; }
+.navigation-layout-sidebar .sidebar-menu-scroll { flex:0 0 auto; padding:18px 24px 0; }
+.navigation-layout-sidebar .sidebar-title,
+.navigation-layout-sidebar .activity-sidebar-title { display:block; min-height:0; margin:0 0 16px; padding:0 12px; color:inherit; text-decoration:none; font:500 12px/1.5 var(--wp-font-reading,sans-serif); letter-spacing:1px; text-transform:uppercase; opacity:.8; }
+.navigation-layout-sidebar .sidebar-pages,
+.navigation-layout-sidebar .activity-sidebar-links { display:grid; gap:4px; padding:0; }
+.navigation-layout-sidebar .sidebar-link,
+.navigation-layout-sidebar .activity-sidebar-links a,
+.navigation-layout-sidebar .activity-sidebar-more a { min-height:48px; margin:0; padding:12px 15.2px; font:400 16px/1.6 var(--wp-font-reading,sans-serif); border-radius:7px; }
+.navigation-layout-sidebar .sidebar-more-tools,
+.navigation-layout-sidebar .activity-sidebar-more { margin-top:20px; padding-top:12px; border-top:1px solid #ffffff26; }
+.navigation-layout-sidebar .sidebar-more-tools > summary,
+.navigation-layout-sidebar .activity-sidebar-more > summary { min-height:44px; padding:10.4px 15.2px; font-size:14px; }
+.navigation-layout-sidebar .sidebar-more-tools a,
+.navigation-layout-sidebar .activity-sidebar-more a { font-size:14px; }
+.navigation-layout-sidebar .sidebar-footer { flex:0 0 auto; padding:0 24px 16px; background:var(--wp-header-background); }
+.navigation-layout-sidebar .sidebar-footer .skill-rail { position:relative; inset:auto; height:44px; margin:10px 0; }
+.navigation-layout-sidebar .sidebar-footer .skill-rail-link { display:block; padding:0; min-height:0; border-radius:0; }
+.navigation-layout-sidebar .sidebar-account { position:sticky; bottom:0; z-index:2; flex:0 0 auto; margin-top:auto; padding:12px 24px 16px; border-top:1px solid #ffffff18; background:var(--wp-header-background); }
+.navigation-layout-sidebar .sidebar-utilities { position:relative; display:flex; align-items:center; gap:8px; }
+.navigation-layout-sidebar .sidebar-utilities .user-session-link { flex:0 0 44px; width:44px; height:44px; min-height:44px; margin-right:auto; padding:0; border:0; }
+.navigation-layout-sidebar .sidebar-balance { display:flex; justify-content:center; padding-top:24px; }
+.navigation-layout-sidebar .sidebar-balance:not(:has(a)) { display:none; }
+.navigation-layout-sidebar .sidebar-balance .progression-badge,
+.navigation-layout-sidebar .sidebar-balance .arcade-progression { display:inline-flex; min-height:44px; padding:6px 4px; gap:8px; margin:0; border:0; background:none; }
+.navigation-layout-sidebar .sidebar-utilities .language-picker,
+.navigation-layout-sidebar .sidebar-utilities .post-language,
+.navigation-layout-sidebar .sidebar-utilities .appearance-picker { position:static; margin:0; }
+.navigation-layout-sidebar .sidebar-utilities summary,
+.navigation-layout-sidebar .sidebar-utilities .sidebar-appearance { display:flex; align-items:center; justify-content:center; width:44px; height:44px; min-height:44px; padding:0; border:0; border-radius:8px; color:inherit; text-decoration:none; background:none; }
+.navigation-layout-sidebar .sidebar-utilities summary { font-size:24px; list-style:none; }
+.navigation-layout-sidebar .sidebar-utilities summary::-webkit-details-marker { display:none; }
+.navigation-layout-sidebar .sidebar-utilities summary:hover,
+.navigation-layout-sidebar .sidebar-utilities .sidebar-appearance:hover { background:#ffffff18; }
+.navigation-layout-sidebar .sidebar-utilities .language-picker-options,
+.navigation-layout-sidebar .sidebar-utilities .post-language form { position:absolute; top:auto; bottom:calc(100% + 10px); right:auto; left:0; z-index:1100; width:198px; margin:0; padding:8px; }
+.navigation-layout-sidebar .sidebar-utilities .appearance-picker-options { right:auto; left:0; width:198px; }
+.navigation-layout-sidebar .sidebar-footer .sidebar-shortcuts { display:flex; justify-content:space-evenly; margin:20px 0 0; padding:0 32px; }
+.navigation-layout-sidebar .sidebar-shortcuts a { display:flex; align-items:center; justify-content:center; min-height:44px; width:44px; padding:0; margin:0; color:#ffffffb3; text-decoration:none; }
+.navigation-layout-sidebar .sidebar-shortcuts a:hover,
+.navigation-layout-sidebar .sidebar-shortcuts a[aria-current=page] { background:none; color:var(--wp-surface-ticket); }
+.navigation-layout-sidebar .sidebar-shortcuts svg { display:block; width:22.4px; height:22.4px; flex:0 0 auto; }
+.navigation-layout-sidebar .sidebar-shortcuts .sidebar-icon-book { width:19.6px; }
+.navigation-layout-sidebar .sidebar-appearance svg { display:block; width:22px; height:22px; flex:0 0 auto; }
+.navigation-layout-sidebar .delivery-world { top:calc(var(--activity-header-height,0px) + 16px); }
+.navigation-layout-sidebar .card.sticky-top,
+.navigation-layout-sidebar .sticky-dashboard { top:calc(var(--arcade-header-height,0px) + 16px); }
+.vocab-heading-actions { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+@media(min-width:992px) {
+  .navigation-layout-sidebar #sidebarNav { display:flex !important; }
+  .navigation-layout-sidebar .sidebar .navbar-toggler,
+  .navigation-layout-sidebar .activity-menu-toggle { display:none; }
+}
+@media(max-width:991.98px) {
+  .navigation-layout-sidebar .activity-layout { padding-left:0; }
+  .navigation-layout-sidebar .main-content { margin-left:0; width:100%; min-height:0; }
+  .navigation-layout-sidebar .activity-sidebar,
+  .navigation-layout-sidebar .sidebar { position:sticky; inset:0 auto auto; width:100%; height:auto; max-height:100dvh; overflow:visible; border-right:0; border-bottom:1px solid #ffffff26; }
+  .navigation-layout-sidebar .sidebar > .container-fluid { min-height:0; }
+  .navigation-layout-sidebar .sidebar-brand-row { min-height:64px; padding:12px 18px 4px; }
+  .navigation-layout-sidebar .sidebar-brand { font-size:14px; }
+  .navigation-layout-sidebar .sidebar .navbar-toggler,
+  .navigation-layout-sidebar .activity-menu-toggle { display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; min-height:40px; margin:0; padding:8px 20px; border:0; color:inherit; background:none; text-align:left; font:500 13px/1.5 var(--wp-font-reading,sans-serif); }
+  .navigation-layout-sidebar .sidebar .navbar-toggler-icon { width:18px; height:18px; }
+  .navigation-layout-sidebar .sidebar .navbar-toggler { justify-content:flex-start; }
+  .navigation-layout-sidebar #sidebarNav:not(.show):not(.collapsing),
+  .navigation-layout-sidebar .activity-navigation[data-expanded=false] { display:none; }
+  .navigation-layout-sidebar #sidebarNav,
+  .navigation-layout-sidebar .activity-navigation { max-height:calc(100dvh - 104px); overflow-y:auto; }
+  .navigation-layout-sidebar .sidebar-menu-scroll { padding:10px 16px 0; }
+  .navigation-layout-sidebar .sidebar-title,
+  .navigation-layout-sidebar .activity-sidebar-title { margin:0 0 12px; }
+  .navigation-layout-sidebar .sidebar-pages,
+  .navigation-layout-sidebar .activity-sidebar-links { grid-template-columns:1fr 1fr; gap:4px 8px; }
+  .navigation-layout-sidebar .sidebar-footer { padding:8px 20px 16px; }
+  .navigation-layout-sidebar .sidebar-footer .sidebar-shortcuts { max-width:260px; margin-inline:auto; }
+  .navigation-layout-sidebar .sidebar-account { position:static; margin-top:0; padding:12px 20px 16px; }
+}

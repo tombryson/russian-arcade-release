@@ -1,0 +1,347 @@
+{
+  "id": "numbers-quantities-v1",
+  "level": "A1",
+  "topic_id": "numbers",
+  "title": "Numbers and quantities",
+  "title_ru": "Числа и количество",
+  "summary": "Read quantities and prices, and choose the noun form that goes with the number.",
+  "summary_ru": "Читайте количество и цены. Выбирайте форму существительного после числа.",
+  "practice_summary": "Read eight short situations and choose the answer that fits.",
+  "practice_summary_ru": "Прочитайте восемь коротких ситуаций и выберите подходящий ответ.",
+  "review_status": "application-authored; qualified language review pending",
+  "groups": [
+    {
+      "title": "One, two to four, five or more",
+      "title_ru": "Один, два — четыре, пять и больше",
+      "note": "For these simple quantities: один билет, два/три/четыре билета, пять билетов. One agrees with gender: одна книга, одно окно. Two has a feminine form: две книги. These are counting patterns, not a rule for every case.",
+      "note_ru": "При простом счёте: один билет, два/три/четыре билета, пять билетов. Один согласуется с родом: одна книга, одно окно. Для женского рода: две книги. В других падежах формы могут меняться.",
+      "examples": [
+        {
+          "ru": "На столе одна чашка и две тарелки.",
+          "en": "There is one cup and two plates on the table."
+        },
+        {
+          "ru": "Мне нужны три билета. У кассы пять человек.",
+          "en": "I need three tickets. There are five people at the ticket office."
+        },
+        {
+          "ru": "В сумке одно яблоко, а дома четыре яблока.",
+          "en": "There is one apple in the bag, and four apples at home."
+        }
+      ]
+    },
+    {
+      "title": "Quantity or position?",
+      "title_ru": "Сколько? Который?",
+      "note": "Два answers how many. Второй identifies a position. A nominative ordinal agrees with the noun: первый урок, первая встреча, первое письмо.",
+      "note_ru": "Два отвечает на вопрос «сколько?». Второй указывает порядок. Порядковое числительное в именительном падеже согласуется с существительным: первый урок, первая встреча, первое письмо.",
+      "examples": [
+        {
+          "ru": "Сегодня два урока. Первый урок — русский язык.",
+          "en": "There are two lessons today. The first lesson is Russian."
+        },
+        {
+          "ru": "Это вторая остановка. До вокзала ещё одна.",
+          "en": "This is the second stop. There is one more before the station."
+        }
+      ]
+    },
+    {
+      "title": "Prices and age",
+      "title_ru": "Цены и возраст",
+      "note": "Use рубль/рубля/рублей for prices and год/года/лет for age. With larger whole numbers, the ending usually follows the last number, but 11–14 take рублей/лет: 21 рубль, 22 рубля, 25 рублей, 12 рублей. Age uses a dative person: мне, тебе, ему, ей.",
+      "note_ru": "В ценах: рубль/рубля/рублей; в возрасте: год/года/лет. В больших целых числах форма обычно зависит от последнего числа, но после 11–14: рублей/лет. Например: 21 рубль, 22 рубля, 25 рублей, 12 рублей. Возраст: мне, тебе, ему, ей.",
+      "examples": [
+        {
+          "ru": "Марка стоит один рубль, а конверт — три рубля.",
+          "en": "A stamp costs one rouble, and an envelope costs three roubles."
+        },
+        {
+          "ru": "Дочке два года, а сыну пять лет.",
+          "en": "The daughter is two years old, and the son is five."
+        },
+        {
+          "ru": "Мне двадцать один год. Сестре двенадцать лет.",
+          "en": "I am twenty-one years old. My sister is twelve."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "one-notebook",
+      "prompt": "На столе лежит только … тетрадь.",
+      "choices": [
+        {
+          "id": "masculine",
+          "text": "один"
+        },
+        {
+          "id": "feminine",
+          "text": "одна"
+        },
+        {
+          "id": "neuter",
+          "text": "одно"
+        }
+      ],
+      "answer": "feminine",
+      "hint": "Тетрадь is feminine.",
+      "explanation": "Одна agrees with feminine тетрадь.",
+      "requirement_id": "a1.language.cardinal-and-ordinal",
+      "expectation": "Select feminine cardinal одна to express exactly one notebook in a nominative quantity."
+    },
+    {
+      "id": "two-cups",
+      "prompt": "Нас двое. На столе … чашки: одна для меня, другая для тебя.",
+      "choices": [
+        {
+          "id": "masculine",
+          "text": "два"
+        },
+        {
+          "id": "ordinal",
+          "text": "вторая"
+        },
+        {
+          "id": "feminine",
+          "text": "две"
+        }
+      ],
+      "answer": "feminine",
+      "hint": "Чашка is feminine; the sentence counts two cups.",
+      "explanation": "Две чашки counts two feminine items. Вторая identifies the second one instead.",
+      "requirement_id": "a1.language.cardinal-and-ordinal",
+      "expectation": "Choose the feminine cardinal две for the stated total, rather than an ordinal or masculine/neuter cardinal."
+    },
+    {
+      "id": "three-tickets",
+      "prompt": "Мы едем втроём. Я покупаю три …",
+      "choices": [
+        {
+          "id": "single",
+          "text": "билет."
+        },
+        {
+          "id": "few",
+          "text": "билета."
+        },
+        {
+          "id": "many",
+          "text": "билетов."
+        }
+      ],
+      "answer": "few",
+      "hint": "After три, use the counting form also used after два and четыре.",
+      "explanation": "Три билета uses genitive singular билета in this simple quantity.",
+      "requirement_id": "a1.language.genitive-quantity",
+      "expectation": "Choose билета after три when buying three inanimate tickets."
+    },
+    {
+      "id": "five-apples",
+      "prompt": "Для пирога нужно пять …",
+      "choices": [
+        {
+          "id": "many",
+          "text": "яблок."
+        },
+        {
+          "id": "few",
+          "text": "яблока."
+        },
+        {
+          "id": "one",
+          "text": "яблоко."
+        }
+      ],
+      "answer": "many",
+      "hint": "Compare одно яблоко, три яблока and пять яблок.",
+      "explanation": "Пять яблок uses the genitive plural; the ending is not the same as in три яблока.",
+      "requirement_id": "a1.language.genitive-quantity",
+      "expectation": "Choose the genitive plural яблок after пять in a stated quantity."
+    },
+    {
+      "id": "second-lesson",
+      "prompt": "Первый урок уже закончился. Сейчас начинается … урок.",
+      "choices": [
+        {
+          "id": "quantity",
+          "text": "два"
+        },
+        {
+          "id": "second",
+          "text": "второй"
+        },
+        {
+          "id": "feminine",
+          "text": "вторая"
+        }
+      ],
+      "answer": "second",
+      "hint": "The sentence asks for the next position, not a total.",
+      "explanation": "Второй урок names the second lesson and agrees with masculine урок.",
+      "requirement_id": "a1.language.cardinal-and-ordinal",
+      "expectation": "Choose the nominative masculine ordinal второй for the lesson following the first."
+    },
+    {
+      "id": "price-label",
+      "prompt": "В магазине написано: «Тетрадь — 25 рублей. Ручка — 12 рублей. Карандаш — 5 рублей».\nСколько стоит ручка?",
+      "choices": [
+        {
+          "id": "notebook",
+          "text": "Двадцать пять рублей."
+        },
+        {
+          "id": "pencil",
+          "text": "Пять рублей."
+        },
+        {
+          "id": "pen",
+          "text": "Двенадцать рублей."
+        }
+      ],
+      "answer": "pen",
+      "hint": "Read the price next to ручка, not the other two items.",
+      "explanation": "The pen costs twelve roubles. The notebook costs twenty-five and the pencil five.",
+      "requirement_id": "a1.reading.practical-information",
+      "expectation": "Locate the price attached to ручка in a three-item written price list; do not assess numeral inflection from this selected answer."
+    },
+    {
+      "id": "revised-shopping-list",
+      "prompt": "Лена пишет: «Купи три яблока и две груши. Нет, груш нужно четыре. Яблоки не меняем».\nЧто нужно купить?",
+      "choices": [
+        {
+          "id": "original",
+          "text": "Три яблока и две груши."
+        },
+        {
+          "id": "updated",
+          "text": "Три яблока и четыре груши."
+        },
+        {
+          "id": "reversed",
+          "text": "Четыре яблока и две груши."
+        }
+      ],
+      "answer": "updated",
+      "hint": "Only the number of pears changes in the second sentence.",
+      "explanation": "Lena changes the pears to four and keeps the three apples.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Follow the correction of one quantity while retaining the unchanged item and amount."
+    },
+    {
+      "id": "child-age",
+      "prompt": "Сегодня брату исполнилось пять …",
+      "choices": [
+        {
+          "id": "one",
+          "text": "год."
+        },
+        {
+          "id": "many",
+          "text": "лет."
+        },
+        {
+          "id": "few",
+          "text": "года."
+        }
+      ],
+      "answer": "many",
+      "hint": "Compare один год, три года and пять лет.",
+      "explanation": "Пять лет is the age expression; пять года and пять год are not correct here.",
+      "requirement_id": "a1.language.genitive-quantity",
+      "expectation": "Select the taught irregular genitive plural лет after пять in an age statement."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Numbers and quantities · word forms",
+    "summary": "Complete five short sentences. Write only the missing word or phrase.",
+    "summary_ru": "Дополните пять коротких предложений. Впишите только пропущенное слово или сочетание.",
+    "questions": [
+      {
+        "id": "form-one-room",
+        "prompt": "Здесь только ___ комната. (один)\nВпиши форму числительного.",
+        "answer": "одна",
+        "accepted_answers": [
+          "одна"
+        ],
+        "hint": "Комната is feminine.",
+        "explanation": "Одна комната names a single feminine item.",
+        "requirement_id": "a1.language.cardinal-and-ordinal",
+        "expectation": "Produce одна for the feminine noun комната. This is a supplied-form task, not independent writing."
+      },
+      {
+        "id": "form-three-notebooks",
+        "prompt": "Мне нужны три ___. (тетрадь)\nВпиши форму существительного.",
+        "answer": "тетради",
+        "accepted_answers": [
+          "тетради"
+        ],
+        "hint": "Three takes the same counting form as two and four.",
+        "explanation": "Три тетради uses the genitive singular form of тетрадь.",
+        "requirement_id": "a1.language.genitive-quantity",
+        "expectation": "Produce тетради after три, without changing the number. This is a supplied-form task, not independent writing."
+      },
+      {
+        "id": "form-five-roubles",
+        "prompt": "Пакет стоит пять ___. (рубль)\nВпиши форму существительного.",
+        "answer": "рублей",
+        "accepted_answers": [
+          "рублей"
+        ],
+        "hint": "Compare один рубль, три рубля, пять рублей.",
+        "explanation": "Пять рублей uses the genitive plural in this price.",
+        "requirement_id": "a1.language.genitive-quantity",
+        "expectation": "Produce рублей after пять in a price statement. This is a supplied-form task, not independent writing."
+      },
+      {
+        "id": "form-five-years",
+        "prompt": "Моей дочке пять ___. (год)\nВпиши форму существительного.",
+        "answer": "лет",
+        "accepted_answers": [
+          "лет"
+        ],
+        "hint": "Age uses a different plural after five.",
+        "explanation": "Пять лет is the usual age expression.",
+        "requirement_id": "a1.language.genitive-quantity",
+        "expectation": "Produce лет as the irregular counted plural after пять. This is a supplied-form task, not independent writing."
+      },
+      {
+        "id": "form-second-meeting",
+        "prompt": "Первая встреча была вчера. Сегодня ___ встреча. (второй)\nВпиши форму числительного.",
+        "answer": "вторая",
+        "accepted_answers": [
+          "вторая"
+        ],
+        "hint": "The ordinal describes feminine встреча.",
+        "explanation": "Вторая agrees with встреча and identifies its position in the sequence.",
+        "requirement_id": "a1.language.cardinal-and-ordinal",
+        "expectation": "Produce вторая for the second meeting rather than a quantity. This is a supplied-form task, not independent writing."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Покупки для встречи",
+    "title_en": "Shopping for a get-together",
+    "task": "Завтра к тебе придут друзья. Попроси друга купить два вида еды или напитков. Для каждого укажи количество. Напиши, сколько денег он может потратить и когда принести покупки. Количества, бюджет и время выбери сам.",
+    "task_en": "Friends are visiting tomorrow. Ask a friend to buy two kinds of food or drink. Give the quantity of each. Say how much they can spend and when to bring the shopping. Choose the amounts, budget and time yourself.",
+    "required_words": [
+      "купить",
+      "рублей",
+      "завтра"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.personal-message",
+    "id": "shopping-quantities-message",
+    "expectation": "Write an original practical message to a friend requesting two distinct food/drink items with intelligible quantities, a spending limit and a time to bring them. Accept natural counting units, numerals or written numbers, any sensible budget and short sentences. Do not require perfect case endings or literal use of all suggested words; grammar feedback is separate."
+  },
+  "writing_summary": "Ask a friend to buy what you need, within a budget.",
+  "writing_summary_ru": "Попросите друга купить продукты и укажите бюджет.",
+  "speaking_href": "/#speaking/scenario/shop?level=A1",
+  "speaking_title": "At the shops",
+  "speaking_title_ru": "В магазине",
+  "speaking_summary": "Ask about quantities and prices in a separate conversation.",
+  "speaking_summary_ru": "Спросите о количестве и ценах в отдельном разговоре."
+}

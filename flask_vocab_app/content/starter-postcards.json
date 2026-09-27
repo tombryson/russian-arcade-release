@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "first-postcards",
+  "kind": "deck",
+  "title": "First Russian words",
+  "source": "Authored starter draft, September 2026. A grown-up must review the Russian, meanings and learner suitability before publication.",
+  "items": [
+    {"id": "apple-reading", "type": "basic", "direction": "ru-en", "prompt": "яблоко", "answer": "apple", "hint": "A fruit you can pack for a picnic."},
+    {"id": "cat-reading", "type": "basic", "direction": "ru-en", "prompt": "кот", "answer": "cat (male)", "hint": "Barsik is one of these."},
+    {"id": "house-reading", "type": "basic", "direction": "ru-en", "prompt": "дом", "answer": "house; home", "hint": "A place to live."},
+    {"id": "hello-recall", "type": "basic", "direction": "en-ru", "prompt": "Say an informal hello to a friend.", "answer": "Привет!", "hint": "It begins with при-."},
+    {"id": "apple-message", "type": "cloze", "direction": "en-ru", "prompt": "Я беру [[blank]].\nI am taking an apple.", "answer": "яблоко", "hint": "Use the Russian word for apple."}
+  ]
+}

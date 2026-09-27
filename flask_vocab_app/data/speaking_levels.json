@@ -1,0 +1,899 @@
+{
+  "version": 1,
+  "description": "Authored practice targets; not a placement test or certified TORFL alignment. Migration 024 updates catalogue variants only, preserving saved sessions.",
+  "variants": [
+    {
+      "seed": "cafe-takeaway-v1",
+      "scenario_id": "cafe",
+      "target_level": "A1",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A1",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Choose a drink and a snack",
+          "Ask to take them away",
+          "Check the total"
+        ],
+        "grammar_focus": [
+          "Simple requests with можно or мне; familiar accusative objects",
+          "The fixed expression с собой"
+        ],
+        "vocabulary_focus": [
+          "чай",
+          "кофе",
+          "булочка",
+          "бутерброд",
+          "с собой",
+          "сколько"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use familiar concrete words and the listed vocabulary; introduce no unexplained idioms, extra conditions or abstract topics.",
+          "interaction_policy": "Make the next response predictable. Accept a word, a fixed phrase or a short sentence when it conveys the requested meaning. Do not demand explanations of reasons.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "cafe-for-two-v1",
+      "scenario_id": "cafe",
+      "target_level": "A1",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A1",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Order two drinks",
+          "Choose a snack to share",
+          "Ask the total"
+        ],
+        "grammar_focus": [
+          "Two-item requests and familiar quantity phrases",
+          "Coordinating short choices with и"
+        ],
+        "vocabulary_focus": [
+          "два",
+          "чай",
+          "кофе",
+          "сок",
+          "пирог",
+          "бутерброд",
+          "вместе"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use familiar concrete words and the listed vocabulary; introduce no unexplained idioms, extra conditions or abstract topics.",
+          "interaction_policy": "Make the next response predictable. Accept a word, a fixed phrase or a short sentence when it conveys the requested meaning. Do not demand explanations of reasons.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "cafe-warm-drink-v1",
+      "scenario_id": "cafe",
+      "target_level": "A1",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A1",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Choose a hot drink",
+          "Ask for no sugar",
+          "Ask the price"
+        ],
+        "grammar_focus": [
+          "A simple drink request",
+          "The supported expression без сахара; do not require abstract case terminology"
+        ],
+        "vocabulary_focus": [
+          "чай",
+          "кофе",
+          "какао",
+          "горячий",
+          "без сахара",
+          "сколько"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use familiar concrete words and the listed vocabulary; introduce no unexplained idioms, extra conditions or abstract topics.",
+          "interaction_policy": "Make the next response predictable. Accept a word, a fixed phrase or a short sentence when it conveys the requested meaning. Do not demand explanations of reasons.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "cafe-budget-v1",
+      "scenario_id": "cafe",
+      "target_level": "A2",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A2",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Choose a drink",
+          "Choose a snack within your budget",
+          "Check the total"
+        ],
+        "grammar_focus": [
+          "Questions about whether a quantity is sufficient",
+          "Simple comparison and alternatives within an order"
+        ],
+        "vocabulary_focus": [
+          "рубль",
+          "хватать",
+          "дорогой",
+          "дешёвый",
+          "вместо",
+          "всего"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use everyday concrete vocabulary and short connected explanations. Keep complications within the authored brief; no abstract debates or invented obstacles.",
+          "interaction_policy": "Allow routine follow-up questions, a simple reason or an alternative when relevant. Keep one decision at a time and accept valid short replies.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "cafe-recommendation-v1",
+      "scenario_id": "cafe",
+      "target_level": "A1",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A1",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Ask for a recommendation",
+          "Choose a snack and a drink",
+          "Check the total"
+        ],
+        "grammar_focus": [
+          "A supported recommendation question",
+          "A short choice or acceptance of a suggested item"
+        ],
+        "vocabulary_focus": [
+          "посоветовать",
+          "нравиться",
+          "пирог",
+          "булочка",
+          "чай",
+          "кофе"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use familiar concrete words and the listed vocabulary; introduce no unexplained idioms, extra conditions or abstract topics.",
+          "interaction_policy": "Make the next response predictable. Accept a word, a fixed phrase or a short sentence when it conveys the requested meaning. Do not demand explanations of reasons.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "cafe-sold-out-v1",
+      "scenario_id": "cafe",
+      "target_level": "A2",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A2",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Choose another snack",
+          "Order a drink",
+          "Ask the total"
+        ],
+        "grammar_focus": [
+          "Changing a choice after new information",
+          "Simple negative and alternative requests"
+        ],
+        "vocabulary_focus": [
+          "закончиться",
+          "другой",
+          "вместо",
+          "пирог",
+          "бутерброд",
+          "напиток"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use everyday concrete vocabulary and short connected explanations. Keep complications within the authored brief; no abstract debates or invented obstacles.",
+          "interaction_policy": "Allow routine follow-up questions, a simple reason or an alternative when relevant. Keep one decision at a time and accept valid short replies.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "cafe-payment-v1",
+      "scenario_id": "cafe",
+      "target_level": "A1",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A1",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Order a coffee to take away",
+          "Ask the price",
+          "Ask about paying by card"
+        ],
+        "grammar_focus": [
+          "A coffee request and the fixed expression с собой",
+          "A supported question можно картой?"
+        ],
+        "vocabulary_focus": [
+          "кофе",
+          "с собой",
+          "сколько",
+          "карта",
+          "можно",
+          "пожалуйста"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use familiar concrete words and the listed vocabulary; introduce no unexplained idioms, extra conditions or abstract topics.",
+          "interaction_policy": "Make the next response predictable. Accept a word, a fixed phrase or a short sentence when it conveys the requested meaning. Do not demand explanations of reasons.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "cafe-later-order-v1",
+      "scenario_id": "cafe",
+      "target_level": "A1",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A1",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Order a drink",
+          "Add a snack to your order",
+          "Check the new total"
+        ],
+        "grammar_focus": [
+          "Adding to a request with ещё or и",
+          "Simple quantity and total-price questions"
+        ],
+        "vocabulary_focus": [
+          "ещё",
+          "чай",
+          "кофе",
+          "сок",
+          "печенье",
+          "бутерброд",
+          "всего"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use familiar concrete words and the listed vocabulary; introduce no unexplained idioms, extra conditions or abstract topics.",
+          "interaction_policy": "Make the next response predictable. Accept a word, a fixed phrase or a short sentence when it conveys the requested meaning. Do not demand explanations of reasons.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "shop-groceries-v1",
+      "scenario_id": "shop",
+      "target_level": "A2",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A2",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Ask for a kilo of apples",
+          "Ask for half a kilo of cheese",
+          "Check the total"
+        ],
+        "grammar_focus": [
+          "Quantities with genitive nouns: килограмм яблок, полкилограмма сыра",
+          "Equivalent quantities in grams and kilograms"
+        ],
+        "vocabulary_focus": [
+          "яблоко",
+          "сыр",
+          "килограмм",
+          "полкилограмма",
+          "грамм",
+          "взвесить",
+          "всего"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use everyday concrete vocabulary and short connected explanations. Keep complications within the authored brief; no abstract debates or invented obstacles.",
+          "interaction_policy": "Allow routine follow-up questions, a simple reason or an alternative when relevant. Keep one decision at a time and accept valid short replies.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "shop-tshirt-v1",
+      "scenario_id": "shop",
+      "target_level": "A1",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A1",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Describe the colour and size you want",
+          "Ask to try it on",
+          "Ask the price"
+        ],
+        "grammar_focus": [
+          "A supported clothing request with a colour",
+          "Common size phrases and можно примерить?"
+        ],
+        "vocabulary_focus": [
+          "футболка",
+          "синий",
+          "средний",
+          "размер",
+          "примерить",
+          "сколько"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use familiar concrete words and the listed vocabulary; introduce no unexplained idioms, extra conditions or abstract topics.",
+          "interaction_policy": "Make the next response predictable. Accept a word, a fixed phrase or a short sentence when it conveys the requested meaning. Do not demand explanations of reasons.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "directions-library-v1",
+      "scenario_id": "directions",
+      "target_level": "A2",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A2",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Ask the way to the library",
+          "Check a turning or landmark",
+          "Thank the person and say goodbye"
+        ],
+        "grammar_focus": [
+          "Destination versus location in a familiar route",
+          "Spatial relations and a clarifying question about a landmark"
+        ],
+        "vocabulary_focus": [
+          "библиотека",
+          "площадь",
+          "парк",
+          "пекарня",
+          "прямо",
+          "направо",
+          "напротив",
+          "за"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use everyday concrete vocabulary and short connected explanations. Keep complications within the authored brief; no abstract debates or invented obstacles.",
+          "interaction_policy": "Allow routine follow-up questions, a simple reason or an alternative when relevant. Keep one decision at a time and accept valid short replies.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "directions-station-v1",
+      "scenario_id": "directions",
+      "target_level": "A2",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A2",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Ask the way to the railway station",
+          "Ask how long the walk takes",
+          "Confirm where to turn"
+        ],
+        "grammar_focus": [
+          "Sequencing route instructions and checking a turning",
+          "Asking duration with сколько времени or сколько идти"
+        ],
+        "vocabulary_focus": [
+          "вокзал",
+          "музей",
+          "мост",
+          "перейти",
+          "повернуть",
+          "налево",
+          "минут",
+          "пешком"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use everyday concrete vocabulary and short connected explanations. Keep complications within the authored brief; no abstract debates or invented obstacles.",
+          "interaction_policy": "Allow routine follow-up questions, a simple reason or an alternative when relevant. Keep one decision at a time and accept valid short replies.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "station-one-way-v1",
+      "scenario_id": "station",
+      "target_level": "A2",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A2",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Ask for a one-way ticket to Lesnoy",
+          "Choose a train arriving before noon",
+          "Ask the price"
+        ],
+        "grammar_focus": [
+          "Departure and arrival time in a journey",
+          "A time constraint with до and choosing the suitable option"
+        ],
+        "vocabulary_focus": [
+          "поезд",
+          "билет",
+          "в одну сторону",
+          "отправляться",
+          "прибывать",
+          "до полудня"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use everyday concrete vocabulary and short connected explanations. Keep complications within the authored brief; no abstract debates or invented obstacles.",
+          "interaction_policy": "Allow routine follow-up questions, a simple reason or an alternative when relevant. Keep one decision at a time and accept valid short replies.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "station-return-v1",
+      "scenario_id": "station",
+      "target_level": "A2",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A2",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Ask for return tickets for two people",
+          "Agree on the outward and return trains",
+          "Check the total price"
+        ],
+        "grammar_focus": [
+          "Coordinating outward and return travel with day/time expressions",
+          "Requests for two people and a combined price"
+        ],
+        "vocabulary_focus": [
+          "туда и обратно",
+          "суббота",
+          "на двоих",
+          "утром",
+          "вечером",
+          "отправляться",
+          "всего"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use everyday concrete vocabulary and short connected explanations. Keep complications within the authored brief; no abstract debates or invented obstacles.",
+          "interaction_policy": "Allow routine follow-up questions, a simple reason or an alternative when relevant. Keep one decision at a time and accept valid short replies.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "meet-neighbour-v1",
+      "scenario_id": "meet-someone",
+      "target_level": "A1",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A1",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Introduce yourself",
+          "Ask about Anya’s interests",
+          "Share something you enjoy"
+        ],
+        "grammar_focus": [
+          "Introducing yourself with меня зовут",
+          "Simple likes and everyday hobbies; short follow-up questions"
+        ],
+        "vocabulary_focus": [
+          "звать",
+          "нравиться",
+          "любить",
+          "читать",
+          "гулять",
+          "велосипед",
+          "свободное время"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use familiar concrete words and the listed vocabulary; introduce no unexplained idioms, extra conditions or abstract topics.",
+          "interaction_policy": "Make the next response predictable. Accept a word, a fixed phrase or a short sentence when it conveys the requested meaning. Do not demand explanations of reasons.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "meet-weekend-v1",
+      "scenario_id": "meet-someone",
+      "target_level": "A2",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A2",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Suggest something to do",
+          "Agree on a day and time",
+          "Agree where to meet"
+        ],
+        "grammar_focus": [
+          "Suggesting an activity with давай or a simple question",
+          "Agreeing a day, time and meeting place; proposing an alternative"
+        ],
+        "vocabulary_focus": [
+          "встретиться",
+          "выходные",
+          "свободный",
+          "суббота",
+          "воскресенье",
+          "парк",
+          "музей",
+          "у входа"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use everyday concrete vocabulary and short connected explanations. Keep complications within the authored brief; no abstract debates or invented obstacles.",
+          "interaction_policy": "Allow routine follow-up questions, a simple reason or an alternative when relevant. Keep one decision at a time and accept valid short replies.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      }
+    },
+    {
+      "seed": "directions-park-a1-v1",
+      "scenario_id": "directions",
+      "target_level": "A1",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A1",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Ask where the park is",
+          "Ask whether it is far",
+          "Thank the person"
+        ],
+        "grammar_focus": [
+          "A simple где question",
+          "A short distance question далеко? and polite thanks"
+        ],
+        "vocabulary_focus": [
+          "парк",
+          "где",
+          "далеко",
+          "прямо",
+          "справа",
+          "пять минут",
+          "спасибо"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use familiar concrete words and the listed vocabulary; introduce no unexplained idioms, extra conditions or abstract topics.",
+          "interaction_policy": "Make the next response predictable. Accept a word, a fixed phrase or a short sentence when it conveys the requested meaning. Do not demand explanations of reasons.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      },
+      "snapshot": {
+        "id": "directions-park-a1-v1",
+        "seed": "directions-park-a1-v1",
+        "scenario_version": 1,
+        "title": "Where is the park?",
+        "title_ru": "Где парк?",
+        "description": "Ask where the park is, find out whether it is far, then thank the person.",
+        "description_ru": "Спросите, где парк, узнайте, далеко ли он, и поблагодарите собеседника.",
+        "opening": "Здравствуйте! Вам помочь?",
+        "opening_english": "Hello! Can I help you?",
+        "goals": [
+          "Ask where the park is",
+          "Ask whether it is far",
+          "Thank the person"
+        ],
+        "goals_ru": [
+          "Спросите, где парк",
+          "Узнайте, далеко ли он",
+          "Поблагодарите собеседника"
+        ],
+        "goal_ids": [
+          "destination",
+          "distance",
+          "thanks"
+        ],
+        "completion_criteria": [
+          "The learner has asked where the park is or how to get to it.",
+          "The learner has asked or confirmed whether the park is far away or how long it takes to walk there.",
+          "The learner has thanked the local resident."
+        ],
+        "worker_brief": "Вы у выхода из магазина. Парк дальше по этой же улице, справа. До него пять минут пешком. На вопрос о дороге скажи просто: «Идите прямо. Парк справа». Не добавляй поворотов, названий улиц или новых ориентиров. На вопрос о расстоянии ответь «Недалеко, пять минут». Дай задать каждый вопрос отдельно. После благодарности оставь возможность попрощаться.",
+        "closing_instruction": "Когда цель разговора достигнута, естественно подведи итог и оставь собеседнику возможность уточнить что-то или попрощаться. После его прощания коротко попрощайся и не начинай новую тему. Если собеседник явно хочет закончить раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+        "menu": {},
+        "reference": {
+          "title": "Your destination",
+          "title_ru": "Куда вы идёте",
+          "items": [
+            {
+              "label": "Destination",
+              "label_ru": "Куда",
+              "value": "Park",
+              "value_ru": "Парк"
+            }
+          ]
+        },
+        "complication": "",
+        "complication_ru": "",
+        "scenario_id": "directions",
+        "category_title": "Asking directions",
+        "category_title_ru": "Как пройти?",
+        "role": "Local resident",
+        "role_ru": "Местный житель",
+        "conversation_role": "Ты — доброжелательный местный житель, к которому обратились на улице. Объясняй дорогу по фактам ситуации, постепенно и без лишних маршрутов. Если человек не понял, повтори проще. Не выдумывай новые улицы, расстояния или препятствия.",
+        "sign": "ГОРОД",
+        "icon": "🧭"
+      }
+    },
+    {
+      "seed": "station-simple-ticket-a1-v1",
+      "scenario_id": "station",
+      "target_level": "A1",
+      "learning_contract": {
+        "version": "speaking-levels-v1",
+        "target_level": "A1",
+        "alignment_status": "authored_practice_target",
+        "communicative_objectives": [
+          "Ask for one ticket to Lesnoy",
+          "Ask when the train leaves",
+          "Ask the ticket price"
+        ],
+        "grammar_focus": [
+          "A short ticket request using в plus a familiar destination",
+          "Simple когда and сколько questions; a whole-hour departure"
+        ],
+        "vocabulary_focus": [
+          "билет",
+          "поезд",
+          "один",
+          "сегодня",
+          "когда",
+          "сколько",
+          "десять утра"
+        ],
+        "agent_complexity": {
+          "max_sentences_per_turn": 2,
+          "one_question_at_a_time": true,
+          "vocabulary_policy": "Use familiar concrete words and the listed vocabulary; introduce no unexplained idioms, extra conditions or abstract topics.",
+          "interaction_policy": "Make the next response predictable. Accept a word, a fixed phrase or a short sentence when it conveys the requested meaning. Do not demand explanations of reasons.",
+          "speech_policy": "Speak clearly and at an unhurried conversational pace; repeat more slowly when asked, without exaggerated pronunciation."
+        },
+        "support": {
+          "reference_panel": true,
+          "repeat_on_request": true,
+          "rephrase_on_request": true,
+          "offer_two_choices_when_stuck": true,
+          "supply_full_task_answer": false
+        },
+        "assessment_policy": "Assess the forms and meaning actually attempted. Targets guide opportunities and feedback, not a required script or a proficiency certification. A correct simple answer can earn a high accuracy mark; record which communication goals the learner achieved."
+      },
+      "snapshot": {
+        "id": "station-simple-ticket-a1-v1",
+        "seed": "station-simple-ticket-a1-v1",
+        "scenario_version": 1,
+        "title": "One ticket, please",
+        "title_ru": "Один билет, пожалуйста",
+        "description": "Ask for one ticket to Lesnoy today. Ask when the train leaves and how much the ticket costs.",
+        "description_ru": "Попросите один билет в Лесной на сегодня. Узнайте, когда поезд отправляется и сколько стоит билет.",
+        "opening": "Здравствуйте! Куда поедете?",
+        "opening_english": "Hello! Where are you going?",
+        "goals": [
+          "Ask for one ticket to Lesnoy",
+          "Ask when the train leaves",
+          "Ask the ticket price"
+        ],
+        "goals_ru": [
+          "Попросите один билет в Лесной",
+          "Спросите, когда отправляется поезд",
+          "Спросите цену билета"
+        ],
+        "goal_ids": [
+          "ticket",
+          "departure",
+          "price"
+        ],
+        "completion_criteria": [
+          "The learner has requested one ticket to Lesnoy today; one way is assumed and need not be restated.",
+          "The learner has asked about or confirmed the departure time.",
+          "The learner has asked about or confirmed the ticket price."
+        ],
+        "worker_brief": "Учебная ситуация: сейчас девять утра. Сегодня ближайший поезд в Лесной отправляется в десять утра. Один билет стоит 400 рублей. Места есть. Достаточно попросить один билет в Лесной; не требуй отдельно говорить «в одну сторону». На вопрос о времени ответь «В десять утра», на вопрос о цене — «Четыреста рублей». Не предлагай выбор поездов, пересадки или обратный билет. Не запрашивай документы и не проводи настоящий платёж. Сначала ответь на вопрос собеседника, затем дай ему задать следующий.",
+        "closing_instruction": "Когда цель разговора достигнута, естественно подведи итог и оставь собеседнику возможность уточнить что-то или попрощаться. После его прощания коротко попрощайся и не начинай новую тему. Если собеседник явно хочет закончить раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+        "menu": {},
+        "reference": {
+          "title": "Journey plan",
+          "title_ru": "План поездки",
+          "items": [
+            {
+              "label": "Destination",
+              "label_ru": "Куда",
+              "value": "Lesnoy",
+              "value_ru": "Лесной"
+            },
+            {
+              "label": "Day",
+              "label_ru": "Когда",
+              "value": "Today",
+              "value_ru": "Сегодня"
+            },
+            {
+              "label": "Passengers",
+              "label_ru": "Пассажиры",
+              "value": "1 person",
+              "value_ru": "1 человек"
+            }
+          ]
+        },
+        "complication": "",
+        "complication_ru": "",
+        "scenario_id": "station",
+        "category_title": "At the station",
+        "category_title_ru": "На вокзале",
+        "role": "Ticket clerk",
+        "role_ru": "Кассир",
+        "conversation_role": "Ты — доброжелательный кассир на железнодорожном вокзале. Используй только учебное расписание и цены из описания ситуации, помогай выбрать нужный билет. Это воображаемая поездка: не запрашивай документы, адрес, реквизиты карты и не совершай настоящих бронирований.",
+        "sign": "ВОКЗАЛ",
+        "icon": "🚆"
+      }
+    }
+  ]
+}

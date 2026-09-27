@@ -1,0 +1,280 @@
+{
+  "id": "objects-recipients-v1",
+  "level": "A1",
+  "topic_id": "family",
+  "title": "Objects and recipients",
+  "title_ru": "Предмет и получатель",
+  "summary": "Distinguish what someone gives, sees or buys from the person who receives it.",
+  "summary_ru": "Различайте предмет действия и человека, который его получает.",
+  "practice_summary": "Follow who does what, what changes hands and who receives it.",
+  "practice_summary_ru": "Определите, кто действует, что передают и кому.",
+  "groups": [
+    {
+      "title": "Direct object · Что? Кого?",
+      "title_ru": "Прямой объект · Что? Кого?",
+      "note": "Use the accusative for the direct object of видеть, покупать and читать. A feminine -а noun often changes to -у. A masculine inanimate noun such as журнал keeps its form here.",
+      "note_ru": "После видеть, покупать и читать прямой объект стоит в винительном падеже. У слов на -а часто появляется -у. Мужское неодушевлённое журнал здесь не меняется.",
+      "examples": [
+        {
+          "ru": "Лена читает книгу.",
+          "en": "Lena is reading a book."
+        },
+        {
+          "ru": "Лена покупает журнал.",
+          "en": "Lena is buying a magazine."
+        }
+      ]
+    },
+    {
+      "title": "People as objects · Кого?",
+      "title_ru": "Люди как объекты · Кого?",
+      "note": "A masculine animate object changes too: видеть брата. Do not use the nominative just because a person is involved.",
+      "note_ru": "Мужское одушевлённое существительное тоже меняется: видеть брата. Человек может быть объектом действия.",
+      "examples": [
+        {
+          "ru": "Брат видит Лену.",
+          "en": "The brother sees Lena."
+        },
+        {
+          "ru": "Лена видит брата.",
+          "en": "Lena sees her brother."
+        }
+      ]
+    },
+    {
+      "title": "Recipient · Кому?",
+      "title_ru": "Получатель · Кому?",
+      "note": "With давать, the thing given is accusative; the recipient is dative. Звонить also takes a dative person. Learn the case with the verb.",
+      "note_ru": "После давать предмет стоит в винительном падеже, получатель — в дательном. После звонить человек тоже стоит в дательном падеже. Запоминайте падеж вместе с глаголом.",
+      "examples": [
+        {
+          "ru": "Лена даёт книгу брату.",
+          "en": "Lena gives her brother a book."
+        },
+        {
+          "ru": "Лена звонит маме.",
+          "en": "Lena calls her mother."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "delivery-note",
+      "prompt": "Ира пишет Олегу: «Журнал на столе. Дай его папе, пожалуйста. Книгу не бери: она нужна мне».\nЧто Олег должен дать папе?",
+      "choices": [
+        {
+          "id": "book",
+          "text": "Книгу."
+        },
+        {
+          "id": "magazine",
+          "text": "Журнал."
+        },
+        {
+          "id": "table",
+          "text": "Стол."
+        }
+      ],
+      "answer": "magazine",
+      "hint": "Его refers back to журнал; the book stays where it is.",
+      "explanation": "Олег should give the magazine to his father. The book is for Ira.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Follow the pronoun его back to журнал and distinguish the item to give from the one to leave."
+    },
+    {
+      "id": "object-form",
+      "prompt": "Катя хочет приготовить суп. Она покупает …",
+      "choices": [
+        {
+          "id": "potato",
+          "text": "картошку."
+        },
+        {
+          "id": "to-potato",
+          "text": "картошке."
+        },
+        {
+          "id": "subject-potato",
+          "text": "картошка."
+        }
+      ],
+      "answer": "potato",
+      "hint": "What is Katya buying?",
+      "explanation": "Покупает картошку uses an accusative direct object. Картошка is nominative; картошке is not the direct-object form.",
+      "requirement_id": "a1.language.accusative-object",
+      "expectation": "Choose картошку as the direct object of покупает in a familiar food context."
+    },
+    {
+      "id": "person-object",
+      "prompt": "Это мой брат. Я вижу …",
+      "choices": [
+        {
+          "id": "brother",
+          "text": "брат."
+        },
+        {
+          "id": "to-brother",
+          "text": "брату."
+        },
+        {
+          "id": "brother-object",
+          "text": "брата."
+        }
+      ],
+      "answer": "brother-object",
+      "hint": "Кого я вижу? An animate masculine noun changes form here.",
+      "explanation": "Вижу брата uses the accusative of the animate noun брат, which matches its genitive form.",
+      "requirement_id": "a1.language.accusative-object",
+      "expectation": "Choose брата for the animate masculine direct object, not the dative recipient."
+    },
+    {
+      "id": "recipient-form",
+      "prompt": "У Сони два билета. Один она оставляет себе, а второй даёт …",
+      "choices": [
+        {
+          "id": "friend-object",
+          "text": "подругу."
+        },
+        {
+          "id": "friend-recipient",
+          "text": "подруге."
+        },
+        {
+          "id": "friend-subject",
+          "text": "подруга."
+        }
+      ],
+      "answer": "friend-recipient",
+      "hint": "Кому она даёт билет?",
+      "explanation": "Даёт подруге names the recipient in the dative. The ticket is the object being given.",
+      "requirement_id": "a1.language.dative-recipient",
+      "expectation": "Choose подруге as the person receiving the ticket, distinct from the direct object."
+    },
+    {
+      "id": "verb-government",
+      "prompt": "Папа далеко. Я хочу поговорить с ним и звоню …",
+      "choices": [
+        {
+          "id": "dad-recipient",
+          "text": "папе."
+        },
+        {
+          "id": "dad-object",
+          "text": "папу."
+        },
+        {
+          "id": "dad-subject",
+          "text": "папа."
+        }
+      ],
+      "answer": "dad-recipient",
+      "hint": "Звонить takes a person in the dative.",
+      "explanation": "Звоню папе uses the dative after звонить. Russian and English verbs do not always use the same grammatical pattern.",
+      "requirement_id": "a1.language.dative-recipient",
+      "expectation": "Select папе as the dative person governed by звоню."
+    },
+    {
+      "id": "recipient-message",
+      "prompt": "Мама даёт Кате книгу. Катя читает её, а потом даёт брату. Брат кладёт книгу в сумку.\nУ кого книга в конце?",
+      "choices": [
+        {
+          "id": "mother",
+          "text": "У мамы."
+        },
+        {
+          "id": "katya",
+          "text": "У Кати."
+        },
+        {
+          "id": "brother",
+          "text": "У брата."
+        }
+      ],
+      "answer": "brother",
+      "hint": "Follow the book through the three actions.",
+      "explanation": "The book passes from the mother to Katya and then to the brother. He puts it in his bag.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Track successive recipients and identify who has the book at the end; this does not test an unseen listening skill."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Objects and recipients · word forms",
+    "summary": "Complete four phrases with an object or a recipient.",
+    "summary_ru": "Дополните четыре выражения с объектом или получателем.",
+    "questions": [
+      {
+        "id": "form-object",
+        "prompt": "На столе лежит газета. Я читаю ___. (газета)\nВпиши пропущенную форму слова.",
+        "answer": "газету",
+        "accepted_answers": [
+          "газету",
+          "читаю газету"
+        ],
+        "hint": "After читаю, газета becomes газету.",
+        "explanation": "Читаю газету has an accusative direct object.",
+        "requirement_id": "a1.language.accusative-object",
+        "expectation": "Produce газету in this sentence. Accept the listed equivalent phrase, without requiring a whole sentence."
+      },
+      {
+        "id": "form-person",
+        "prompt": "Мой друг в парке. Я вижу ___. (друг)\nВпиши пропущенную форму слова.",
+        "answer": "друга",
+        "accepted_answers": [
+          "друга",
+          "вижу друга"
+        ],
+        "hint": "A masculine animate object takes the form друга.",
+        "explanation": "Вижу друга identifies the person seen, not a recipient.",
+        "requirement_id": "a1.language.accusative-object",
+        "expectation": "Produce друга in this sentence. Accept the listed equivalent phrase, without requiring a whole sentence."
+      },
+      {
+        "id": "form-recipient",
+        "prompt": "У меня новая книга. Я даю книгу ___. (сестра)\nВпиши пропущенную форму слова.",
+        "answer": "сестре",
+        "accepted_answers": [
+          "сестре",
+          "даю книгу сестре"
+        ],
+        "hint": "Кому? Сестра becomes сестре.",
+        "explanation": "Даю книгу сестре distinguishes the book from its recipient.",
+        "requirement_id": "a1.language.dative-recipient",
+        "expectation": "Produce сестре in this sentence. Accept the listed equivalent phrase, without requiring a whole sentence."
+      },
+      {
+        "id": "form-call",
+        "prompt": "Мама дома. Я звоню ___. (мама)\nВпиши пропущенную форму слова.",
+        "answer": "маме",
+        "accepted_answers": [
+          "маме",
+          "звоню маме"
+        ],
+        "hint": "Use the dative after звоню.",
+        "explanation": "Звоню маме is the pattern for calling your mother.",
+        "requirement_id": "a1.language.dative-recipient",
+        "expectation": "Produce маме in this sentence. Accept the listed equivalent phrase, without requiring a whole sentence."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Передай книгу",
+    "title_en": "Pass on a book",
+    "task": "Ты оставляешь у друга вещь для другого человека. Напиши другу, что это за вещь, кому её передать и когда. Выбери вещь, человека и время сам.",
+    "task_en": "You are leaving an item with a friend for someone else. Write to your friend. Say what the item is, who should receive it and when to pass it on. Choose the item, person and time yourself.",
+    "required_words": [
+      "передать",
+      "вещь",
+      "завтра"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.personal-message",
+    "id": "clear-recipient-message",
+    "expectation": "Write an original intelligible message telling a friend which item to pass to which recipient and when. Accept natural alternatives, different items, names and times, and short comprehensible sentences. Do not require the literal verb давать or error-free inflection. A reversed recipient is a meaning problem; a recoverable case error still permits communicative success and separate grammar feedback."
+  },
+  "writing_summary": "Tell a friend what to pass on and who should receive it.",
+  "writing_summary_ru": "Скажите другу, какую вещь передать и кому.",
+  "review_status": "application-authored; qualified language review pending"
+}

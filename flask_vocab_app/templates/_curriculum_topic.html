@@ -1,0 +1,30 @@
+  <div class="curriculum-topic-content">
+    <div class="curriculum-objectives" lang="en">
+      <h2>Learning outcomes</h2>
+      <ul>{% for objective in topic.objectives %}<li>{{ objective }}</li>{% endfor %}</ul>
+      <h2>Grammar</h2>
+      <ul>{% for item in topic.grammar_focus %}<li>{{ item }}</li>{% endfor %}</ul>
+    </div>
+    <div class="curriculum-vocabulary">
+      <h2>{{ 'Лексика' if russian else 'Vocabulary' }}</h2>
+      <p lang="ru">{{ topic.lemmas|join(' · ') }}</p>
+      {% if topic.phrases %}<h2>{{ 'Выражения' if russian else 'Useful expressions' }}</h2><p lang="ru">{{ topic.phrases|join(' · ') }}</p>{% endif %}
+      <h2>{{ 'Задание для разговора (на английском)' if russian else 'Speaking task' }}</h2><p lang="en">{{ topic.practice.speaking }}</p>
+    </div>
+    <div class="curriculum-practice">
+      <h2>{{ 'Практика' if russian else 'Practise this topic' }}</h2>
+      {% for unit in units|default([]) if unit.topic_id == topic.id and unit.level == band.id %}<p><a href="/curriculum/units/{{ unit.id }}" hx-boost="false">{{ unit.title_ru if russian else unit.title }} →</a></p>{% endfor %}
+      {% set levels = ['C1', 'C2'] if band.id == 'C1-C2' else [band.id] %}
+      {% for level in levels %}
+      <div class="curriculum-practice-links">
+        {% if levels|length > 1 %}<strong>{{ level }}</strong>{% endif %}
+        <a href="/comprehension?topic={{ topic.id }}&amp;level={{ level }}" hx-boost="false">{{ 'Чтение' if russian else 'Reading' }}</a>
+        <a href="/writing?topic={{ topic.id }}&amp;level={{ level }}" hx-boost="false">{{ 'Письмо' if russian else 'Writing' }}</a>
+        <a href="/sentences?topic={{ topic.id }}&amp;level={{ level }}" hx-boost="false">{{ 'Перевод' if russian else 'Translation' }}</a>
+        <a href="/word_jumble?topic={{ topic.id }}&amp;level={{ level }}" hx-boost="false">{{ 'Составь предложение' if russian else 'Word Jumble' }}</a>
+        {% set scenario = speaking_scenario(topic.id, level) %}
+        {% if scenario %}<a href="/#speaking/scenario/{{ scenario }}?level={{ level }}" hx-boost="false">{{ 'Разговорная практика' if russian else 'Speaking' }}</a>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>

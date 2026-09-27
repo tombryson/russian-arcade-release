@@ -1,0 +1,84 @@
+{
+  "version": "listening-v1",
+  "id": "connected-messages-listening-v1",
+  "unit_id": "connected-messages-v1",
+  "title": "Listen for changes and reasons",
+  "title_ru": "Что изменилось и почему?",
+  "items": [
+    {
+      "id": "meeting-change",
+      "transcript": "Миша, сегодня не встретимся: я болею. Давай не завтра, а в пятницу вечером. Врач сказал отдыхать ещё два дня. В пятницу позвоню, и договоримся, где встретиться.",
+      "prompt": "На какой день предлагают перенести встречу?",
+      "choices": [
+        {
+          "id": "today",
+          "text": "На сегодня."
+        },
+        {
+          "id": "tomorrow",
+          "text": "На завтра."
+        },
+        {
+          "id": "friday",
+          "text": "На пятницу."
+        }
+      ],
+      "answer": "friday",
+      "hint": "Listen to the correction after не завтра.",
+      "explanation": "The speaker proposes Friday evening, explicitly ruling out tomorrow.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the revised meeting day from a recorded plan with two rejected alternatives.",
+      "audio_url": "/static/audio/course/curriculum/connected-messages-listening-v1/meeting-change.mp3"
+    },
+    {
+      "id": "who-will-call",
+      "transcript": "Саша, это Вика. Я дала твой номер моему брату Антону. Он хочет спросить тебя про билеты. Я сегодня занята, а он позвонит тебе после работы.",
+      "prompt": "Кто позвонит Саше после работы?",
+      "choices": [
+        {
+          "id": "vika",
+          "text": "Вика."
+        },
+        {
+          "id": "anton",
+          "text": "Антон."
+        },
+        {
+          "id": "both",
+          "text": "Вика и Антон."
+        }
+      ],
+      "answer": "anton",
+      "hint": "Follow the named person referred to by он.",
+      "explanation": "Он refers to Anton, Vika’s brother; Vika says she is busy.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Resolve the masculine pronoun to the explicitly named caller in the recorded message.",
+      "audio_url": "/static/audio/course/curriculum/connected-messages-listening-v1/who-will-call.mp3"
+    },
+    {
+      "id": "why-wait",
+      "transcript": "Катя, я уже у твоего дома, но не могу войти: дверь закрыта. У меня нет ключа. Не спускайся, пожалуйста: я подожду здесь, пока ты закончишь разговор, а потом откроешь мне.",
+      "prompt": "Почему человек ждёт у дома?",
+      "choices": [
+        {
+          "id": "door",
+          "text": "Дверь закрыта, а ключа нет."
+        },
+        {
+          "id": "late",
+          "text": "Катя ещё не пришла домой."
+        },
+        {
+          "id": "bus",
+          "text": "Он ждёт автобус."
+        }
+      ],
+      "answer": "door",
+      "hint": "Listen for the reason the visitor cannot enter.",
+      "explanation": "The door is closed and the visitor has no key. The recording does not say that Katya is away.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the stated practical reason for waiting without inventing absence or transport details.",
+      "audio_url": "/static/audio/course/curriculum/connected-messages-listening-v1/why-wait.mp3"
+    }
+  ]
+}

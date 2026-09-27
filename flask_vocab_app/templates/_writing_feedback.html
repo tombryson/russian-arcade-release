@@ -1,0 +1,20 @@
+{% macro advice(attempt) %}
+  {% if attempt.source == 'legacy' %}<p class="sentence-muted">{{ ui_t('writing.legacy') }}</p><p class="writing-preserve">{{ attempt.feedback }}</p>
+  {% else %}<div class="sentence-feedback-grid"><div><h4>{{ ui_t('word_jumble.strength') }}</h4><p lang="{{ attempt.ui_language }}">{{ attempt.strength }}</p></div><div><h4>{{ ui_t('word_jumble.next_step') }}</h4><p lang="{{ attempt.ui_language }}">{{ attempt.next_step }}</p></div></div>
+    <details class="sentence-suggestion"><summary>{{ ui_t('word_jumble.suggestion') }}</summary><p lang="ru">{{ attempt.example }}</p></details>{% endif %}
+  {% if attempt.criterion_details %}<details class="sentence-suggestion">
+    <summary>{{ 'Что показывает этот ответ' if ui_lang == 'ru' else 'What this response shows' }}</summary>
+    {% if attempt.criterion_support %}<p class="sentence-muted">{{ 'После предыдущего отзыва по этому заданию.' if ui_lang == 'ru' else 'After earlier feedback on this task.' }}</p>{% endif %}
+    {% for criterion in attempt.criterion_details %}<div><h4>{{ criterion.label }} · {{ criterion.outcome }}</h4><p lang="{{ attempt.ui_language }}">{{ criterion.feedback }}</p></div>{% endfor %}
+  </details>{% endif %}
+  <details class="sentence-suggestion"><summary>{{ ui_t('writing.checked_text') }}</summary><blockquote class="sentence-checked-answer" lang="ru">{{ attempt.response }}</blockquote></details>
+{% endmacro %}
+{% if exercise.attempts %}{% set latest = exercise.attempts[0] %}
+<section class="sentence-feedback-card" aria-labelledby="writing-feedback-heading">
+  <div class="sentence-task-heading"><h3 id="writing-feedback-heading">{{ ui_t('word_jumble.last_check') }}</h3>{% if latest.score_max %}<span class="sentence-score">{{ latest.score }}/{{ latest.score_max }}</span>{% endif %}</div>
+  <p class="sentence-muted">{{ ui_t('writing.feedback_scope') }}</p>{{ advice(latest) }}
+  {% if latest.source != 'legacy' %}<details class="sentence-rubric"><summary>{{ ui_t('word_jumble.rubric_label') }}</summary><p>{{ ui_t('writing.rubric') }}</p></details>{% endif %}
+</section>
+{% if exercise.attempts|length > 1 %}<details class="sentence-history"><summary><span>{{ ui_t('word_jumble.history') }} <span class="sentence-count">{{ exercise.attempts|length - 1 }}</span></span><span class="sentence-disclosure-icon" aria-hidden="true">+</span></summary>
+{% for attempt in exercise.attempts[1:] %}<article><h3>{{ ui_t('word_jumble.earlier_feedback') }}{% if attempt.score_max %} · {{ attempt.score }}/{{ attempt.score_max }}{% endif %}</h3>{{ advice(attempt) }}</article>{% endfor %}</details>{% endif %}
+{% endif %}

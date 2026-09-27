@@ -1,0 +1,124 @@
+{
+  "provider": "elevenlabs",
+  "clips": {
+    "/static/audio/course/a1-targets-v1/home-locate-object-listen.mp3": {
+      "text_sha256": "768b0ab4fe0268764fe44464990a79946c94d9a4ec4a15942b80ae43a3341301",
+      "voice_id": "ymDCYd8puC7gYjxIamPt",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "0537f52c36e5ede90188685fa7331195b178253c6167fdda4af7f0c44bb51d25",
+      "duration": 2.638367
+    },
+    "/static/audio/course/a1-targets-v1/family-identify-relatives-listen.mp3": {
+      "text_sha256": "67ed1a9f88ca0dffafb5025b910a480d366f5408bc945a517b1627644bb36d95",
+      "voice_id": "sRk0zCqhS2Cmv0bzx5wA",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "f1ecf993ea958265f96b29e400929d478f5e2d1a35d981b20fdbaee0a34eb14a",
+      "duration": 2.690612
+    },
+    "/static/audio/course/a1-targets-v1/numbers-event-time-listen.mp3": {
+      "text_sha256": "e866627e603c32142868a815fc8afbffcba0a97330aa6d25de38ccf5023cdac9",
+      "voice_id": "sRk0zCqhS2Cmv0bzx5wA",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "220e7ff492f85f0f05057e306e48fea7329a4b7c8a951524b4fccc3544f21c32",
+      "duration": 3.94449
+    },
+    "/static/audio/course/a1-targets-v1/clothing-identify-clothing-description-listen.mp3": {
+      "text_sha256": "c7e0ce5a9983971a867f3745409ab80937e549ab4d197fba5a57b769bd163234",
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "12914d12676d4b540f8fe15888614e8e2aec094b2bc71495fc900a4427401f96",
+      "duration": 4.362449
+    },
+    "/static/audio/course/a1-targets-v1/places-follow-directions-listen.mp3": {
+      "text_sha256": "6c6524f6bf9cda578c141f176e86d88d992c6f726b8d2000889d9de199023ca4",
+      "voice_id": "ymDCYd8puC7gYjxIamPt",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "df839abe71c4effaa92ab84f201d0b468ec784aeb435644725d7d4c659622fdf",
+      "duration": 4.832653
+    },
+    "/static/audio/course/a1-journey-v2/a1-journey-v2-home-a-update-v1.mp3": {
+      "text_sha256": "3a750b6da73c88fd80f07f4aacfb1db5cb75865633f3a7eb108102299161f106",
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "8620ee1e83ce11ac634a274ff740b360c98e427ee67717b5f7ec48a737206c87",
+      "duration": 13.400816
+    },
+    "/static/audio/course/a1-journey-v2/a1-journey-v2-home-b-update-v1.mp3": {
+      "text_sha256": "ee88b828340b974a4a90bd517afe6ca092184c373fa11be49d7aab8e193c979c",
+      "voice_id": "sRk0zCqhS2Cmv0bzx5wA",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "9d408f34defe6229d4bfbddaf8479f8641113f69e22c61e0f9cd4b8a93b9b2dd",
+      "duration": 11.363265
+    },
+    "/static/audio/course/a1-journey-v2/a1-journey-v2-home-c-update-v1.mp3": {
+      "text_sha256": "a0b80a9219de80a9793a5c9aa83b3c57de03f16437af5a6336db0e907d48bc62",
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "120c26b01ae49a25309378978fb0ea786728f197760921260454d974d1ee3677",
+      "duration": 13.792653
+    },
+    "/static/audio/course/a1-journey-v2/a1-journey-v2-postoffice-a-update-v1.mp3": {
+      "text_sha256": "b5113cf8d2439b4e976a48c345a3f0bc93832c5e2e72fcbf3a6020bacb13937a",
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "aea5eddd0761b4c040143025023c0afef7959efaca36159a80bfd8fdd3339589",
+      "duration": 7.941224
+    },
+    "/static/audio/course/a1-journey-v2/a1-journey-v2-postoffice-b-update-v1.mp3": {
+      "text_sha256": "94f64c35414f80ab3dbbbc3088fe5d9f60ffff34a6102ea0c68521961399458e",
+      "voice_id": "ymDCYd8puC7gYjxIamPt",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "16c819adc86fe482c066bea4b2299df72c4ad1dc187be6181eab811f26234620",
+      "duration": 11.41551
+    },
+    "/static/audio/course/a1-journey-v2/a1-journey-v2-postoffice-c-update-v1.mp3": {
+      "text_sha256": "4a4db5ac7d9eafd092743bc3dead324af3fbbf957f4fbd6677f570ad991b40ba",
+      "voice_id": "ymDCYd8puC7gYjxIamPt",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "73b09f48380b2e24355fafc6f2256fbc40693c416b7502626a505dc4819f2d28",
+      "duration": 9.691429
+    },
+    "/static/audio/course/a1-journey-v2/a1-journey-v2-market-a-update-v1.mp3": {
+      "text_sha256": "45a02aecaaf60fb24389876f03b4f84481fb4dd5edf01a61b62bf8c3de8e9c24",
+      "voice_id": "ymDCYd8puC7gYjxIamPt",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "815d577810eaca6aa5bddfa1af5df8b4b3f2d440e6f9bf54f40453cb91f69ecc",
+      "duration": 11.049796
+    },
+    "/static/audio/course/a1-journey-v2/a1-journey-v2-market-b-update-v1.mp3": {
+      "text_sha256": "c82a063a78c7bcd89e4c3aef820c0b886ce4c3a98f5d7dd601cad3a99197a798",
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "120ada32ba29e459fa2371c41f3b28407159f9fedf2c2ec882170e3c6ca88275",
+      "duration": 11.937959
+    },
+    "/static/audio/course/a1-journey-v2/a1-journey-v2-market-c-update-v1.mp3": {
+      "text_sha256": "772afd4de730456bc9dfe77f3bd8ed46deaeceb9b22c450196d4d66a2f45b41c",
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "b19c87b189f8fcb984425727249ef9b4803e19a5be15dee3d70e0e587d818158",
+      "duration": 11.180408
+    },
+    "/static/audio/course/a1-journey-v2/a1-journey-v2-leavingtown-a-update-v2.mp3": {
+      "text_sha256": "b76a4868f20a3d915ecc55cca442daa03273c0b9b8014b82741b4ce60bd3e667",
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "6bbafe366119a8c7e3b79e4bc010ae48c878504b686fe925a3070cff68005c54",
+      "duration": 14.106122
+    },
+    "/static/audio/course/a1-journey-v2/a1-journey-v2-leavingtown-b-update-v2.mp3": {
+      "text_sha256": "50c21a95c348aeb87a0a862151198f77bd41ee821f1d1d705b64ad30e95d3b6b",
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "2de3873a6fe4028544d1673763c30229d2ddf184dd6c092ed9862b26808307cc",
+      "duration": 15.124898
+    },
+    "/static/audio/course/a1-journey-v2/a1-journey-v2-leavingtown-c-update-v2.mp3": {
+      "text_sha256": "b46764dd44ab2c10a3145829047e199dedb57acd9bc7ec583d4c7021dd74a001",
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2",
+      "audio_sha256": "565c7a46170f15bef9ed905d8f89593007fa7fb213611d88d751f85017c695b3",
+      "duration": 17.031837
+    }
+  }
+}

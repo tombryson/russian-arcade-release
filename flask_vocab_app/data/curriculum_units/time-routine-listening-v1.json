@@ -1,0 +1,84 @@
+{
+  "version": "listening-v1",
+  "id": "time-routine-listening-v1",
+  "unit_id": "time-routine-v1",
+  "title": "Listen for the time and plan",
+  "title_ru": "Когда и что делать?",
+  "items": [
+    {
+      "id": "changed-visit",
+      "prompt": "Во сколько придёт гость сегодня?",
+      "choices": [
+        {
+          "id": "six",
+          "text": "В шесть."
+        },
+        {
+          "id": "seven",
+          "text": "В семь."
+        },
+        {
+          "id": "before-six",
+          "text": "До шести."
+        }
+      ],
+      "answer": "seven",
+      "hint": "Listen for today’s change to the usual plan.",
+      "explanation": "Six is the usual time and the lesson’s finishing time. Today the guest will arrive at seven.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Extract the revised arrival time, distinct from the usual time and the end of the lesson.",
+      "transcript": "Дима, привет! Обычно я прихожу к тебе в шесть. Но сегодня у меня урок до шести, поэтому буду в семь. Пожалуйста, подожди меня дома.",
+      "audio_url": "/static/audio/course/curriculum/time-routine-listening-v1/changed-visit.mp3"
+    },
+    {
+      "id": "class-day",
+      "prompt": "Когда будет урок с учителем?",
+      "choices": [
+        {
+          "id": "wednesday",
+          "text": "В среду."
+        },
+        {
+          "id": "thursday",
+          "text": "В четверг."
+        },
+        {
+          "id": "friday",
+          "text": "В пятницу."
+        }
+      ],
+      "answer": "thursday",
+      "hint": "One day is cancelled; another is for studying without the teacher.",
+      "explanation": "The teacher’s lesson has moved to Thursday. Friday is independent study.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the rescheduled teacher-led lesson day without confusing it with the cancelled or independent-study days.",
+      "transcript": "Лена, в среду русского языка не будет: учитель занят. Урок будет в четверг в десять утра. В пятницу мы, как обычно, занимаемся сами.",
+      "audio_url": "/static/audio/course/curriculum/time-routine-listening-v1/class-day.mp3"
+    },
+    {
+      "id": "evening-order",
+      "prompt": "Что девушка будет делать сразу после мытья посуды?",
+      "choices": [
+        {
+          "id": "read",
+          "text": "Читать."
+        },
+        {
+          "id": "call",
+          "text": "Звонить маме."
+        },
+        {
+          "id": "film",
+          "text": "Смотреть фильм."
+        }
+      ],
+      "answer": "read",
+      "hint": "Follow what comes next, rather than the later bedtime plan.",
+      "explanation": "Reading comes after washing up. The call is later, before bed; there is no film tonight.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Follow the spoken sequence to identify the next planned action.",
+      "transcript": "Я уже поужинала. Сейчас мою посуду. Потом буду читать, а перед сном позвоню маме. Не жди меня у телевизора: сегодня смотреть фильм не буду.",
+      "audio_url": "/static/audio/course/curriculum/time-routine-listening-v1/evening-order.mp3"
+    }
+  ]
+}

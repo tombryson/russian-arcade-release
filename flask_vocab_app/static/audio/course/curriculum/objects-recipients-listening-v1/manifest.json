@@ -1,0 +1,15 @@
+{
+  "version": "curriculum-unit-audio-v1",
+  "content_id": "objects-recipients-listening-v1",
+  "provider": "elevenlabs",
+  "source": "App-authored learning material with synthetic narration.",
+  "clips": {
+    "hand-over-envelope": {
+      "text_sha256": "7d58d9070dc5e37f1aaf3c1468f74e06e0e63870a73573fcc5fa6b51106f016b",
+      "audio_sha256": "2f95eb2c36851e5ec189979ba9c6282e21b58d9bc63d1c9e80cb436e6dd3e8e3",
+      "duration": 9.691429,
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{% if onboarding_state and onboarding_state.coins_introduced %}
+<a class="arcade-progression" href="/#shop" hx-boost="false" data-progression-badge data-language="{{ ui_lang | default('en') }}" aria-label="{{ 'Лингокоины: загружаем' if ui_lang == 'ru' else 'Lingo coins: loading' }}" title="{{ 'Магазин' if ui_lang == 'ru' else 'Shop' }}">
+    <span class="arcade-progression-coin" aria-hidden="true">Л</span>
+    <strong data-progression-balance>—</strong>
+</a>
+{% endif %}

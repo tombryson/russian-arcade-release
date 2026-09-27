@@ -1,0 +1,56 @@
+<section class="lesson-paper lesson-flashcards">
+  <p class="lesson-eyebrow">{{ lt('FROM THIS LESSON', 'ИЗ ЭТОГО УРОКА') }}</p>
+  <h2>{{ lt('Choose your words', 'Выберите слова') }}</h2>
+  <p>{{ lt('Tap a word in your lesson to save it. Create your flashcards when you’re ready.', 'Нажмите на слово в уроке, чтобы сохранить его. Создайте карточки, когда будете готовы.') }}</p>
+  {% set active_request = request.args.get('card_request') %}
+  {% set active = lesson_card_history|selectattr('id','equalto',active_request)|first %}
+  {% if active %}
+  <form action="/lessons/{{ lesson.id }}/flashcards/{{ active.id }}/prepare" method="post" data-lesson-cards-prepare {% if active.state!='failed' %}data-auto-prepare{% endif %}>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <p role="status" data-card-status>{{ lt('Finding useful sentences and checking their word forms…', 'Ищем полезные предложения и проверяем формы слов…') if active.state!='failed' else lt('Preparation paused. Your existing cards are kept.', 'Подготовка приостановлена. Готовые карточки сохранены.') }}</p>
+    <button class="btn btn-primary" type="submit">{{ lt('Continue', 'Продолжить') }}</button>
+  </form>
+  {% else %}
+  <div class="lesson-word-workspace" data-word-selector data-endpoint="/lessons/{{ lesson.id }}/word-selection/{{ rev.id }}" data-page="{{ page_number }}" data-csrf="{{ csrf_token() }}">
+    <div class="lesson-word-reader">
+      <form class="lesson-word-controls" method="get" action="{{ base }}" data-lesson-page-nav hx-get="{{ base }}" hx-target="#lesson-content" hx-swap="innerHTML show:none focus-scroll:false" hx-push-url="true" hx-sync="#lesson-content:replace">
+        <input type="hidden" name="revision" value="{{ rev.id }}"><input type="hidden" name="view" value="flashcards">
+        <label for="word-page">{{ lt('Page', 'Страница') }}</label>
+        <select class="form-select" id="word-page" name="page" data-lesson-page>{% for p in state.pages %}<option value="{{ p.number }}" {% if p.number==page_number %}selected{% endif %}>{{ p.number }} / {{ state.pages|length }}</option>{% endfor %}</select>
+        <noscript><button class="btn btn-outline-secondary" type="submit">{{ lt('Go', 'Перейти') }}</button></noscript>
+        <button class="btn btn-outline-secondary" type="button" data-word-zoom aria-pressed="false">{{ lt('Enlarge page', 'Увеличить страницу') }}</button>
+        <button class="btn btn-outline-secondary" type="button" data-select-area aria-pressed="false">{{ lt('Select an area', 'Выделить область') }}</button>
+        <a class="lesson-pending-shortcut" href="#lesson-pending">{{ lt('Pending cards', 'Будущие карточки') }} · <span data-top-pending>0</span></a>
+      </form>
+      <p data-ocr-status role="status">{{ lt('Making the words selectable…', 'Готовим слова для выбора…') }}</p>
+      <button type="button" class="btn btn-outline-secondary" data-ocr-retry hidden>{{ lt('Retry reading this page', 'Прочитать страницу ещё раз') }}</button>
+      <div class="lesson-area-actions" data-area-actions hidden>
+        <p>{{ lt('Drag around a word, or adjust the corners of the box. Use arrow keys on a corner for small changes.', 'Обведите слово или передвиньте углы рамки. Для точной настройки используйте клавиши со стрелками.') }}</p>
+        <button type="button" class="btn btn-primary" data-read-area>{{ lt('Read this area', 'Прочитать выделенное') }}</button>
+        <button type="button" class="btn btn-outline-secondary" data-cancel-area>{{ lt('Cancel', 'Отмена') }}</button>
+      </div>
+      <div class="lesson-word-scroll"><div class="lesson-word-sheet">
+        <img src="/lessons/{{ lesson.id }}/page/{{ rev.id }}/{{ page_number }}" alt="{{ lt('Lesson page', 'Страница урока') }} {{ page_number }}" draggable="false" {% if page_image_size %}width="{{ page_image_size[0] }}" height="{{ page_image_size[1] }}"{% endif %}>
+        <div class="lesson-word-layer" data-word-layer aria-label="{{ lt('Select words on the lesson', 'Выберите слова на странице') }}"></div>
+        <div class="lesson-area-box" data-area-box hidden>{% for corner, en, ru in [('nw','Top left','Верхний левый'),('ne','Top right','Верхний правый'),('sw','Bottom left','Нижний левый'),('se','Bottom right','Нижний правый')] %}<span role="button" tabindex="0" data-corner="{{ corner }}" aria-label="{{ lt(en,ru) }}"></span>{% endfor %}</div>
+      </div></div>
+      <div class="lesson-reader-bottom">{% if page_number>1 %}<a href="{{ version_url }}&view=flashcards&page={{ page_number-1 }}" data-lesson-page-nav hx-get="{{ version_url }}&view=flashcards&page={{ page_number-1 }}" hx-target="#lesson-content" hx-swap="innerHTML show:none focus-scroll:false" hx-push-url="true" hx-sync="#lesson-content:replace">← {{ lt('Previous page', 'Предыдущая страница') }}</a>{% endif %}{% if page_number<state.pages|length %}<a href="{{ version_url }}&view=flashcards&page={{ page_number+1 }}" data-lesson-page-nav hx-get="{{ version_url }}&view=flashcards&page={{ page_number+1 }}" hx-target="#lesson-content" hx-swap="innerHTML show:none focus-scroll:false" hx-push-url="true" hx-sync="#lesson-content:replace">{{ lt('Next page', 'Следующая страница') }} →</a>{% endif %}</div>
+    </div>
+    <aside class="lesson-pending" id="lesson-pending">
+      <h3>{{ lt('Pending cards', 'Будущие карточки') }} <span data-pending-count>0</span></h3>
+      <p data-pending-empty>{{ lt('Select words on any page. They’ll stay here until you’re ready.', 'Выбирайте слова на любых страницах. Они сохранятся здесь.') }}</p>
+      <div data-pending-list></div>
+      <p data-selection-status role="status"></p>
+      <button type="button" class="btn btn-primary" data-create-selected disabled>{{ lt('Create cards', 'Создать карточки') }}</button>
+      <p class="lesson-card-note">{{ lt('Pictures and audio are added when you create the cards. If a word comes from a heading or exercise, we’ll write a new example for it.', 'Картинки и аудио добавятся при создании карточек. Для слов из заголовков и заданий мы составим новые примеры.') }}</p>
+    </aside>
+  </div>
+  <noscript><p>{{ lt('Enable JavaScript to select words on the page.', 'Включите JavaScript, чтобы выбирать слова на странице.') }}</p></noscript>
+  {% endif %}
+</section>
+{% if lesson_card_history %}
+<section class="lesson-paper"><div class="lesson-card-library-heading"><h2>{{ lt('Your lesson cards', 'Ваши карточки по уроку') }}</h2><a class="btn btn-outline-secondary" href="/#flashcards?lesson_id={{ lesson.id }}">{{ lt('Open lesson cards', 'Открыть карточки урока') }} →</a></div>
+  <p>{{ lt('These are also in your main flashcard collection. Their review dates stay the same wherever you practise.', 'Эти карточки также доступны в общей коллекции. Даты повторения едины для всех разделов.') }}</p>
+  <ul class="lesson-card-history">{% for batch in lesson_card_history %}<li><span>{{ lt('Pages', 'Страницы') }} {{ batch.first_page }}–{{ batch.last_page }} · {{ lt('Up to', 'До') }} {{ batch.quantity }} {{ lt('cards', 'карточек') }}</span><a href="{{ '/#generate/' ~ batch.batch_id if batch.batch_id else version_url ~ '&view=flashcards&card_request=' ~ batch.id }}">{{ lt('Open set', 'Открыть набор') if batch.batch_id else lt('Continue preparation', 'Продолжить подготовку') }} →</a></li>{% endfor %}</ul>
+</section>
+{% endif %}

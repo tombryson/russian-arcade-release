@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Russian Arcade</title>
+  <!-- Header mark: Unbounded Medium, outlined; colours from the shared design tokens. -->
+  <g transform="rotate(-5 32 32)">
+    <path fill="#F8C843" d="M10 5h44v54H10z"/>
+    <path fill="#24264B" transform="translate(16.10000 47.00000) scale(0.0400000 -0.0400000)" d="M263 292Q217 299 180 317Q118 345 83.0 396.5Q48 448 48 517Q48 587 83.0 639.0Q118 691 179.5 720.5Q241 750 324 750H764V0H594V285H451L229 0H31ZM594 407V626H346Q287 626 253.0 597.0Q219 568 219.0 517.0Q219 466 253.0 436.5Q287 407 346 407Z"/>
+  </g>
+</svg>

@@ -1,0 +1,338 @@
+{
+  "id": "action-aspect-v1",
+  "level": "A1",
+  "topic_id": "daily_activities",
+  "title": "Activities and completed results",
+  "title_ru": "Действие и результат",
+  "summary": "Say what you are doing, what you have finished and what you will do next.",
+  "summary_ru": "Расскажите, что вы делаете, что уже закончили и что сделаете потом.",
+  "practice_summary": "Read eight short situations and choose the answer that fits.",
+  "practice_summary_ru": "Прочитайте восемь коротких ситуаций и выберите подходящий ответ.",
+  "groups": [
+    {
+      "title": "An activity · читать, писать, делать",
+      "title_ru": "Действие · читать, писать, делать",
+      "note": "An imperfective verb can describe an activity in progress or a routine. Я читал does not tell us by itself whether I finished the text.",
+      "note_ru": "Несовершенный вид может описывать процесс или привычное действие. Я читал само по себе не сообщает, дочитал ли человек текст.",
+      "examples": [
+        {
+          "ru": "Сейчас я читаю письмо.",
+          "en": "I am reading the letter now."
+        },
+        {
+          "ru": "Вчера я писал письмо, но не закончил.",
+          "en": "Yesterday I was writing a letter, but I did not finish it."
+        }
+      ]
+    },
+    {
+      "title": "A completed result · прочитать, написать, сделать",
+      "title_ru": "Результат · прочитать, написать, сделать",
+      "note": "These perfective verbs present the action as a whole or a completed result. Learn each pair with its meaning; adding a prefix does not always produce the same kind of pair.",
+      "note_ru": "Эти глаголы совершенного вида представляют действие целиком или как достигнутый результат. Запоминайте пары со значением: не каждая приставка просто меняет вид.",
+      "examples": [
+        {
+          "ru": "Я прочитал письмо. Теперь я знаю все новости.",
+          "en": "I have read the letter. Now I know all the news."
+        },
+        {
+          "ru": "Нина написала письмо. Оно готово.",
+          "en": "Nina has written the letter. It is ready."
+        },
+        {
+          "ru": "Я сделал задание. Можно отдыхать.",
+          "en": "I have finished the task. I can rest."
+        }
+      ]
+    },
+    {
+      "title": "Time · yesterday, now, later",
+      "title_ru": "Время · вчера, сейчас, потом",
+      "note": "Past forms agree with the subject: он читал, она читала, они читали. Singular forms show gender; plural forms do not. For a future activity, use буду читать. Прочитаю refers to a future completed reading, not an activity happening now.",
+      "note_ru": "В прошедшем времени глагол согласуется с подлежащим: он читал, она читала, они читали. В единственном числе форма зависит от рода; во множественном род не различается. Буду читать — будущее действие; прочитаю — будущий результат, а не действие сейчас.",
+      "examples": [
+        {
+          "ru": "Сейчас я читаю. Завтра я буду читать в поезде.",
+          "en": "I am reading now. Tomorrow I will be reading on the train."
+        },
+        {
+          "ru": "Я прочитаю письмо вечером и отвечу тебе.",
+          "en": "I will read the letter this evening and reply to you."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "unfinished-letter",
+      "prompt": "Вчера Максим работал над письмом, но написал только начало.\nВчера Максим ___ письмо, но не закончил.",
+      "choices": [
+        {
+          "id": "wrote",
+          "text": "написал"
+        },
+        {
+          "id": "writing",
+          "text": "писал"
+        },
+        {
+          "id": "future",
+          "text": "напишет"
+        }
+      ],
+      "answer": "writing",
+      "hint": "The letter is still unfinished.",
+      "explanation": "Писал describes the activity. Написал письмо would present the whole letter as written.",
+      "requirement_id": "a1.language.verb-aspect",
+      "expectation": "Choose imperfective писал for an explicitly unfinished letter, rather than a completed result or a future event."
+    },
+    {
+      "id": "completed-reading",
+      "prompt": "В каком сообщении прямо сказано, что всё письмо уже прочитано?",
+      "choices": [
+        {
+          "id": "activity",
+          "text": "Я читал письмо."
+        },
+        {
+          "id": "result",
+          "text": "Я прочитал письмо до конца."
+        },
+        {
+          "id": "future",
+          "text": "Я буду читать письмо вечером."
+        }
+      ],
+      "answer": "result",
+      "hint": "Look for an explicit completed result, not just the activity.",
+      "explanation": "Прочитал письмо до конца explicitly says that the whole letter has been read.",
+      "requirement_id": "a1.language.verb-aspect",
+      "expectation": "Recognise the explicitly completed reading. Do not infer from читал alone that the text was either completed or unfinished."
+    },
+    {
+      "id": "current-task",
+      "prompt": "Оля сейчас делает задание. Оно ещё не готово.\nЧто она может сказать о действии прямо сейчас?",
+      "choices": [
+        {
+          "id": "now",
+          "text": "Я делаю задание."
+        },
+        {
+          "id": "done",
+          "text": "Я сделала задание."
+        },
+        {
+          "id": "later",
+          "text": "Я сделаю задание."
+        }
+      ],
+      "answer": "now",
+      "hint": "She is doing it now and has not finished.",
+      "explanation": "Делаю describes the present activity; сделала is a past result and сделаю a future one.",
+      "requirement_id": "a1.language.verb-tense",
+      "expectation": "Choose the present form for the stated current unfinished activity, distinguishing past and future forms."
+    },
+    {
+      "id": "future-reading",
+      "prompt": "Завтра в поезде у меня будет час. Я хочу провести его с книгой. Книга длинная, закончить её не успею.\nКак рассказать о запланированном занятии?",
+      "choices": [
+        {
+          "id": "activity",
+          "text": "Завтра я буду читать книгу в поезде."
+        },
+        {
+          "id": "result",
+          "text": "Завтра я прочитаю всю книгу в поезде."
+        },
+        {
+          "id": "past",
+          "text": "Вчера я читал книгу в поезде."
+        }
+      ],
+      "answer": "activity",
+      "hint": "The plan is to spend time reading; finishing is uncertain.",
+      "explanation": "Буду читать states the future activity without promising that the whole book will be finished.",
+      "requirement_id": "a1.language.verb-aspect",
+      "expectation": "Distinguish a planned future reading activity from a claimed complete reading when completion is explicitly uncertain."
+    },
+    {
+      "id": "past-speaker",
+      "prompt": "Анна рассказывает о вчерашнем вечере: «Я ___ письмо маме. Оно уже готово».",
+      "choices": [
+        {
+          "id": "masculine",
+          "text": "написал"
+        },
+        {
+          "id": "feminine",
+          "text": "написала"
+        },
+        {
+          "id": "future",
+          "text": "напишу"
+        }
+      ],
+      "answer": "feminine",
+      "hint": "Anna is the speaker and the action was yesterday.",
+      "explanation": "Написала is the feminine past form used by Anna.",
+      "requirement_id": "a1.language.verb-tense",
+      "expectation": "Select the feminine past form for the explicitly female speaker describing yesterday’s completed writing."
+    },
+    {
+      "id": "future-result",
+      "prompt": "Как сказать, что письмо будет готово завтра, а не что ты будешь работать над ним без обещания закончить?",
+      "choices": [
+        {
+          "id": "result",
+          "text": "Завтра я напишу письмо."
+        },
+        {
+          "id": "activity",
+          "text": "Завтра я буду писать письмо."
+        },
+        {
+          "id": "now",
+          "text": "Сейчас я пишу письмо."
+        }
+      ],
+      "answer": "result",
+      "hint": "Choose the future completed result.",
+      "explanation": "Напишу письмо presents the planned result. Буду писать describes the future activity without stating completion.",
+      "requirement_id": "a1.language.verb-aspect",
+      "expectation": "Choose a simple future perfective that expresses the promised finished letter rather than the activity alone."
+    },
+    {
+      "id": "ready-to-send",
+      "prompt": "Ира пишет другу: «Я уже написала адрес на конверте, но письмо ещё не закончила. Закончу вечером и тогда отправлю».\nЧто уже готово?",
+      "choices": [
+        {
+          "id": "letter",
+          "text": "Всё письмо."
+        },
+        {
+          "id": "address",
+          "text": "Адрес на конверте."
+        },
+        {
+          "id": "sent",
+          "text": "Письмо уже отправлено."
+        }
+      ],
+      "answer": "address",
+      "hint": "Separate what is done from what will happen later.",
+      "explanation": "The address is written. The letter will be finished and sent later.",
+      "requirement_id": "a1.reading.practical-information",
+      "expectation": "Extract the completed part of the job from a message contrasting it with unfinished and future steps."
+    },
+    {
+      "id": "after-task",
+      "prompt": "Сначала Андрей делал домашнее задание. Он закончил его в семь часов. Потом Андрей позвонил другу и пошёл гулять.\nЧто Андрей сделал перед звонком?",
+      "choices": [
+        {
+          "id": "walk",
+          "text": "Пошёл гулять."
+        },
+        {
+          "id": "finished",
+          "text": "Закончил домашнее задание."
+        },
+        {
+          "id": "called",
+          "text": "Позвонил другу."
+        }
+      ],
+      "answer": "finished",
+      "hint": "Follow the order, rather than assuming the events happen together.",
+      "explanation": "Andrei finished the task before calling his friend; the walk came afterwards.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Identify the completed event that precedes the phone call in the short narrative."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Activities and completed results · word forms",
+    "summary": "Complete five short messages or sentences.",
+    "summary_ru": "Дополните пять коротких сообщений или предложений.",
+    "questions": [
+      {
+        "id": "form-ongoing-past",
+        "prompt": "Нина говорит: «Вчера я ___ письмо, но успела написать только начало».\nВыбери писать или написать и впиши форму прошедшего времени.",
+        "answer": "писала",
+        "accepted_answers": [
+          "писала"
+        ],
+        "hint": "Nina has only written the beginning.",
+        "explanation": "Писала describes her unfinished activity and agrees with the female speaker.",
+        "requirement_id": "a1.language.verb-aspect",
+        "expectation": "Produce писала for an explicitly unfinished activity by Nina. The supplied pair limits this controlled response; do not grade unrelated paraphrases."
+      },
+      {
+        "id": "form-result-past",
+        "prompt": "Игорь уже ___ всё письмо до конца. (прочитать)\nВпиши форму прошедшего времени.",
+        "answer": "прочитал",
+        "accepted_answers": [
+          "прочитал"
+        ],
+        "hint": "Use the masculine past form of the supplied verb.",
+        "explanation": "Прочитал agrees with Игорь and presents the completed reading.",
+        "requirement_id": "a1.language.verb-tense",
+        "expectation": "Produce the masculine past form прочитал from the supplied perfective infinitive; this alone does not demonstrate independent aspect choice."
+      },
+      {
+        "id": "form-future-result",
+        "prompt": "Я обещаю: завтра я ___ письмо, и оно будет готово. (написать)\nВпиши форму будущего времени.",
+        "answer": "напишу",
+        "accepted_answers": [
+          "напишу"
+        ],
+        "hint": "Use the я form of написать.",
+        "explanation": "Напишу is the simple future form for a planned completed letter.",
+        "requirement_id": "a1.language.verb-tense",
+        "expectation": "Produce first-person singular future напишу from the supplied perfective verb."
+      },
+      {
+        "id": "form-future-activity",
+        "prompt": "Завтра мы ___ книгу в поезде. (читать)\nВпиши две части формы будущего времени. Не обещай закончить книгу.",
+        "answer": "будем читать",
+        "accepted_answers": [
+          "будем читать"
+        ],
+        "hint": "Use будем with the infinitive читать.",
+        "explanation": "Мы будем читать describes a future activity without asserting its completion.",
+        "requirement_id": "a1.language.verb-tense",
+        "expectation": "Produce the compound future будем читать with plural subject мы; accept the listed complete verb phrase."
+      },
+      {
+        "id": "form-activity-now",
+        "prompt": "Сейчас я ___ задание. Оно ещё не готово. (делать)\nВпиши форму настоящего времени.",
+        "answer": "делаю",
+        "accepted_answers": [
+          "делаю"
+        ],
+        "hint": "Use the я form of делать.",
+        "explanation": "Делаю describes what I am doing now.",
+        "requirement_id": "a1.language.verb-conjugation",
+        "expectation": "Produce first-person present делаю in the explicit ongoing-action context."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Что уже готово?",
+    "title_en": "Update a friend on your plans",
+    "task": "Вы с другом готовите небольшую встречу. Напиши ему, что ты уже сделал, над чем ещё работаешь и что сделаешь завтра. Попроси друга помочь с одной оставшейся задачей. Детали можно придумать.",
+    "task_en": "You and a friend are preparing a small get-together. Tell them what you have finished, what you are still working on and what you will do tomorrow. Ask them to help with one remaining task. You may invent the details.",
+    "required_words": [
+      "уже",
+      "ещё",
+      "завтра"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.personal-message",
+    "id": "update-preparation-message",
+    "expectation": "Write an intelligible original update to a friend distinguishing a completed preparation, an unfinished one and a plan for tomorrow, and request help with a remaining task. Accept invented coherent details, natural expressions of completion and short alternatives. Assess whether the friend can understand the status and request; do not demand one particular aspect pair or error-free grammar."
+  },
+  "writing_summary": "Tell a friend what is finished and what still needs doing.",
+  "writing_summary_ru": "Расскажите другу, что готово и что ещё нужно сделать.",
+  "review_status": "application-authored; qualified language review pending"
+}

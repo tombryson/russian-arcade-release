@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% from '_activity_header.html' import activity_header %}
+{% set russian = language == 'ru' %}
+{% set page_title = 'Учебная программа' if russian else 'Curriculum' %}
+{% block main_content %}
+<main class="main-content activity-entry curriculum curriculum-overview" id="mainContent" data-page="curriculum">
+  <div class="activity-entry-content">
+    {% call activity_header(page_title, 'Темы и навыки по уровням.' if russian else 'Topics and skills, organised by level.') %}
+      <nav class="curriculum-bands" aria-label="{{ 'Уровни' if russian else 'Course levels' }}">
+        {% for band in bands %}<a href="#level-{{ band.id }}" hx-boost="false">{{ band.id|replace('-', '–') }}</a>{% endfor %}
+      </nav>
+    {% endcall %}
+    {% for band in bands %}
+    <section class="curriculum-band" id="level-{{ band.id }}" aria-labelledby="heading-{{ band.id }}">
+      <header class="curriculum-band-heading">
+        <h2 id="heading-{{ band.id }}">{{ band.id|replace('-', '–') }} <span>{{ band.label }}</span></h2>
+        <p>{{ band.summary }}</p>
+        {% set reference = requirement_groups(band.id, language) %}
+        {% if reference %}
+        <div class="curriculum-band-links">
+          <a href="{{ url_for('curriculum.outcomes_page', level=band.id) }}" hx-boost="false">{{ 'Результаты обучения' if russian else 'Learning outcomes' }} <span aria-hidden="true">→</span></a>
+          {% if band.id == 'A1' %}<a href="/#assessment" hx-boost="false">{{ 'Проверить навыки A1' if russian else 'Check your A1 skills' }} <span aria-hidden="true">→</span></a>{% endif %}
+        </div>
+        {% endif %}
+      </header>
+      <div class="curriculum-topic-list">
+        {% for topic in band.topics %}
+        <a class="curriculum-topic" id="topic-{{ topic.id }}" href="{{ url_for('curriculum.topic_page', topic_id=topic.id) }}" hx-boost="false">
+          <span class="curriculum-order">{{ '%02d'|format(topic.order) }}</span>
+          <h3>{{ topic.title_ru if russian else topic.title_en }}</h3>
+          <span class="curriculum-arrow" aria-hidden="true">→</span>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

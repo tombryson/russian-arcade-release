@@ -1,0 +1,649 @@
+{
+  "id": "first-steps",
+  "version": "first-steps-v1",
+  "title": "First steps with Barsik",
+  "description": "Meet Barsik, pack his bag and help him find the way from the post office to the market.",
+  "first_lesson": {
+    "id": "hello",
+    "position": 1,
+    "source": "first-delivery-v2",
+    "title": "Hello, Barsik!",
+    "description": "Learn hello, letter and thank you, then try your first Russian words.",
+    "vocabulary": [
+      {
+        "lemma": "привет",
+        "form": "Привет",
+        "pos": "INTJ",
+        "sentence": "Привет, Барсик!",
+        "translation": "Hello, Barsik!",
+        "target_meaning": "hello",
+        "grammar": {}
+      },
+      {
+        "lemma": "письмо",
+        "form": "письмо",
+        "pos": "NOUN",
+        "sentence": "Это письмо.",
+        "translation": "This is a letter.",
+        "target_meaning": "a letter",
+        "grammar": {
+          "case": "nomn",
+          "number": "sing",
+          "gender": "neut",
+          "animacy": "inan"
+        }
+      },
+      {
+        "lemma": "спасибо",
+        "form": "Спасибо",
+        "pos": "INTJ",
+        "sentence": "Спасибо, Барсик!",
+        "translation": "Thank you, Barsik!",
+        "target_meaning": "thank you",
+        "grammar": {}
+      }
+    ]
+  },
+  "lessons": [
+    {
+      "id": "bag",
+      "position": 2,
+      "title": "What’s in the bag?",
+      "description": "Name the letter, bag and map so Barsik has what he needs.",
+      "resolution": "Barsik has his letter and map ready in his bag. Next, help him read the directions.",
+      "teaching": [
+        {
+          "id": "bag-letter",
+          "title": "The letter stays with Barsik.",
+          "word": "Это письмо.",
+          "meaning": "This is a letter.",
+          "explanation": "You know письмо. Add это to say what something is. Russian needs no separate word for “is” here.",
+          "visual": "letter"
+        },
+        {
+          "id": "bag-bag",
+          "title": "A bag for the journey.",
+          "word": "Это сумка.",
+          "meaning": "This is a bag.",
+          "explanation": "Сумка is a bag. Barsik can carry the letter inside it.",
+          "visual": "bag"
+        },
+        {
+          "id": "bag-map",
+          "title": "Take a map.",
+          "word": "Это карта.",
+          "meaning": "This is a map.",
+          "explanation": "Карта means a map here. This one will help Barsik find his way.",
+          "visual": "map"
+        }
+      ],
+      "questions": [
+        {
+          "id": "bag-name-letter",
+          "prompt": "Name the letter Barsik must take with him.",
+          "visual": "letter",
+          "choices": [
+            {
+              "id": "bag",
+              "text": "Это сумка."
+            },
+            {
+              "id": "letter",
+              "text": "Это письмо."
+            },
+            {
+              "id": "map",
+              "text": "Это карта."
+            }
+          ],
+          "answer": "letter",
+          "hint": "Письмо is a letter. Add это to name it.",
+          "feedback": "Это письмо. This is the letter for you. Barsik will keep it with him."
+        },
+        {
+          "id": "bag-name-bag",
+          "prompt": "Name the bag that will hold the letter.",
+          "visual": "bag",
+          "choices": [
+            {
+              "id": "map",
+              "text": "Это карта."
+            },
+            {
+              "id": "letter",
+              "text": "Это письмо."
+            },
+            {
+              "id": "bag",
+              "text": "Это сумка."
+            }
+          ],
+          "answer": "bag",
+          "hint": "Сумка is the word for a bag.",
+          "feedback": "Это сумка. This is a bag. There is room for the letter and a map."
+        },
+        {
+          "id": "bag-name-map",
+          "prompt": "Name the map that will help Barsik find the way.",
+          "visual": "map",
+          "choices": [
+            {
+              "id": "map",
+              "text": "Это карта."
+            },
+            {
+              "id": "bag",
+              "text": "Это сумка."
+            },
+            {
+              "id": "letter",
+              "text": "Это письмо."
+            }
+          ],
+          "answer": "map",
+          "hint": "Карта means a map in this lesson.",
+          "feedback": "Это карта. This is a map. Barsik is ready to look for the route."
+        }
+      ],
+      "vocabulary": [
+        {
+          "lemma": "письмо",
+          "form": "письмо",
+          "pos": "NOUN",
+          "sentence": "Это письмо.",
+          "translation": "This is a letter.",
+          "target_meaning": "a letter",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "neut",
+            "animacy": "inan"
+          }
+        },
+        {
+          "lemma": "сумка",
+          "form": "сумка",
+          "pos": "NOUN",
+          "sentence": "Это сумка.",
+          "translation": "This is a bag.",
+          "target_meaning": "a bag",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "femn",
+            "animacy": "inan"
+          }
+        },
+        {
+          "lemma": "карта",
+          "form": "карта",
+          "pos": "NOUN",
+          "sentence": "Это карта.",
+          "translation": "This is a map.",
+          "target_meaning": "a map",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "femn",
+            "animacy": "inan"
+          }
+        }
+      ]
+    },
+    {
+      "id": "directions",
+      "position": 3,
+      "title": "Which way?",
+      "description": "Learn three direction words to guide Barsik along the map.",
+      "resolution": "You have practised straight ahead, left and right. Now help Barsik ask where the market is.",
+      "teaching": [
+        {
+          "id": "direction-straight",
+          "title": "Keep going ahead.",
+          "word": "Прямо.",
+          "meaning": "Straight ahead.",
+          "explanation": "Прямо tells Barsik to keep going in the direction he is facing.",
+          "visual": "straight"
+        },
+        {
+          "id": "direction-left",
+          "title": "Take the left turn.",
+          "word": "Налево.",
+          "meaning": "To the left.",
+          "explanation": "Налево tells Barsik which way to turn. Follow the arrow to the left.",
+          "visual": "left"
+        },
+        {
+          "id": "direction-right",
+          "title": "Take the right turn.",
+          "word": "Направо.",
+          "meaning": "To the right.",
+          "explanation": "Направо tells Barsik to turn right. Compare it with налево, to the left.",
+          "visual": "right"
+        }
+      ],
+      "questions": [
+        {
+          "id": "direction-follow-straight",
+          "prompt": "Barsik is facing up the map. Tell him to keep going straight ahead.",
+          "visual": "straight",
+          "choices": [
+            {
+              "id": "left",
+              "text": "Налево."
+            },
+            {
+              "id": "straight",
+              "text": "Прямо."
+            },
+            {
+              "id": "right",
+              "text": "Направо."
+            }
+          ],
+          "answer": "straight",
+          "hint": "Прямо means straight ahead.",
+          "feedback": "Прямо. Barsik keeps going ahead without turning."
+        },
+        {
+          "id": "direction-follow-left",
+          "prompt": "The path turns left. Give Barsik that direction.",
+          "visual": "left",
+          "choices": [
+            {
+              "id": "right",
+              "text": "Направо."
+            },
+            {
+              "id": "straight",
+              "text": "Прямо."
+            },
+            {
+              "id": "left",
+              "text": "Налево."
+            }
+          ],
+          "answer": "left",
+          "hint": "Налево is the left turn.",
+          "feedback": "Налево. This is the direction for a left turn."
+        },
+        {
+          "id": "direction-follow-right",
+          "prompt": "This path turns right. Give Barsik that direction.",
+          "visual": "right",
+          "choices": [
+            {
+              "id": "right",
+              "text": "Направо."
+            },
+            {
+              "id": "left",
+              "text": "Налево."
+            },
+            {
+              "id": "straight",
+              "text": "Прямо."
+            }
+          ],
+          "answer": "right",
+          "hint": "Направо is the right turn.",
+          "feedback": "Направо. This is the direction for a right turn. You have tried all three directions."
+        }
+      ],
+      "vocabulary": [
+        {
+          "lemma": "прямо",
+          "form": "прямо",
+          "pos": "ADVB",
+          "sentence": "Барсик, прямо!",
+          "translation": "Barsik, straight ahead!",
+          "target_meaning": "straight ahead",
+          "grammar": {}
+        },
+        {
+          "lemma": "налево",
+          "form": "налево",
+          "pos": "ADVB",
+          "sentence": "Барсик, налево!",
+          "translation": "Barsik, to the left!",
+          "target_meaning": "to the left",
+          "grammar": {}
+        },
+        {
+          "lemma": "направо",
+          "form": "направо",
+          "pos": "ADVB",
+          "sentence": "Барсик, направо!",
+          "translation": "Barsik, to the right!",
+          "target_meaning": "to the right",
+          "grammar": {}
+        }
+      ]
+    },
+    {
+      "id": "help",
+      "position": 4,
+      "title": "Ask for help",
+      "description": "Help Barsik ask the clerk where the market is and thank them for their help.",
+      "resolution": "Barsik can ask about the market and ask the clerk to show the way. The next lesson puts the exchange together.",
+      "teaching": [
+        {
+          "id": "help-greet",
+          "title": "Greet the clerk politely.",
+          "word": "Здравствуйте!",
+          "meaning": "Hello!",
+          "explanation": "Use здравствуйте with someone you do not know, such as the clerk. Привет is the informal greeting you use with Barsik."
+        },
+        {
+          "id": "help-market",
+          "title": "The first place to find.",
+          "word": "Рынок.",
+          "meaning": "A market.",
+          "explanation": "Рынок is a market. It is the next place on Barsik’s route, not the end of his delivery.",
+          "example": "Это рынок.",
+          "translation": "This is a market."
+        },
+        {
+          "id": "help-where",
+          "title": "Ask where it is.",
+          "word": "Где рынок?",
+          "meaning": "Where is the market?",
+          "explanation": "Где means where. This short question asks for the market’s location."
+        },
+        {
+          "id": "help-show",
+          "title": "Ask the clerk to show you.",
+          "word": "Покажите, пожалуйста.",
+          "meaning": "Please show me.",
+          "explanation": "Use this polite request when the clerk can point to the route on a map. Learn it as a useful phrase."
+        }
+      ],
+      "questions": [
+        {
+          "id": "help-name-market",
+          "prompt": "Which Russian word names the market Barsik is looking for?",
+          "choices": [
+            {
+              "id": "bag",
+              "text": "сумка"
+            },
+            {
+              "id": "market",
+              "text": "рынок"
+            },
+            {
+              "id": "map",
+              "text": "карта"
+            }
+          ],
+          "answer": "market",
+          "hint": "Рынок is the market. Карта is a map.",
+          "feedback": "Рынок means a market. Barsik needs to find this next stop."
+        },
+        {
+          "id": "help-ask-where",
+          "prompt": "Ask the clerk where the market is.",
+          "choices": [
+            {
+              "id": "show",
+              "text": "Покажите, пожалуйста."
+            },
+            {
+              "id": "thanks",
+              "text": "Спасибо!"
+            },
+            {
+              "id": "where",
+              "text": "Где рынок?"
+            }
+          ],
+          "answer": "where",
+          "hint": "Где asks where something is.",
+          "feedback": "Где рынок? This asks where the market is."
+        },
+        {
+          "id": "help-ask-show",
+          "prompt": "The clerk has a map. Politely ask them to show you the way.",
+          "choices": [
+            {
+              "id": "show",
+              "text": "Покажите, пожалуйста."
+            },
+            {
+              "id": "where",
+              "text": "Где рынок?"
+            },
+            {
+              "id": "thanks",
+              "text": "Спасибо!"
+            }
+          ],
+          "answer": "show",
+          "hint": "Покажите, пожалуйста means please show me.",
+          "feedback": "Покажите, пожалуйста. This asks the clerk to show you. The map makes it clear what you mean."
+        },
+        {
+          "id": "help-say-thanks",
+          "prompt": "The clerk has helped Barsik. Say thank you.",
+          "choices": [
+            {
+              "id": "hello",
+              "text": "Привет!"
+            },
+            {
+              "id": "thanks",
+              "text": "Спасибо!"
+            },
+            {
+              "id": "where",
+              "text": "Где рынок?"
+            }
+          ],
+          "answer": "thanks",
+          "hint": "Спасибо is the thank-you you learned with Barsik.",
+          "feedback": "Спасибо! Barsik thanks the clerk for helping."
+        }
+      ],
+      "vocabulary": [
+        {
+          "lemma": "рынок",
+          "form": "рынок",
+          "pos": "NOUN",
+          "sentence": "Где рынок?",
+          "translation": "Where is the market?",
+          "target_meaning": "the market",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "masc",
+            "animacy": "inan"
+          }
+        },
+        {
+          "lemma": "показать",
+          "form": "Покажите",
+          "pos": "VERB",
+          "sentence": "Покажите, пожалуйста.",
+          "translation": "Please show me.",
+          "target_meaning": "show me",
+          "grammar": {
+            "number": "plur",
+            "mood": "impr",
+            "aspect": "perf"
+          }
+        },
+        {
+          "lemma": "пожалуйста",
+          "form": "пожалуйста",
+          "pos": "PRCL",
+          "sentence": "Покажите, пожалуйста.",
+          "translation": "Please show me.",
+          "target_meaning": "please",
+          "grammar": {}
+        }
+      ]
+    },
+    {
+      "id": "set-off",
+      "position": 5,
+      "title": "Ready to set off",
+      "description": "Use your words to follow the clerk’s directions toward the market.",
+      "resolution": "Barsik leaves the post office with the letter and the route: straight ahead, then left toward the market. The letter is still on its way to you.",
+      "teaching": [
+        {
+          "id": "set-off-letter",
+          "title": "Keep the letter ready.",
+          "word": "Это письмо.",
+          "meaning": "This is a letter.",
+          "explanation": "The letter stays with Barsik. His bag and map are ready too.",
+          "visual": "letter"
+        },
+        {
+          "id": "set-off-where",
+          "title": "Ask for the next stop.",
+          "word": "Где рынок?",
+          "meaning": "Where is the market?",
+          "explanation": "Use the question you practised with the clerk. The market is the next stop."
+        },
+        {
+          "id": "set-off-then",
+          "title": "Put two directions together.",
+          "word": "Прямо, потом налево.",
+          "meaning": "Straight ahead, then left.",
+          "explanation": "Потом means then. Go straight ahead first; make the left turn after that."
+        },
+        {
+          "id": "set-off-there",
+          "title": "Read the clerk’s clue.",
+          "word": "Рынок там.",
+          "meaning": "The market is there.",
+          "explanation": "Там means there. Read it with the directions to see where Barsik should go.",
+          "example": "Рынок там. Прямо, потом налево.",
+          "translation": "The market is there. Straight ahead, then left."
+        }
+      ],
+      "questions": [
+        {
+          "id": "set-off-greet",
+          "prompt": "Greet the clerk politely before asking for help.",
+          "choices": [
+            {
+              "id": "thanks",
+              "text": "Спасибо!"
+            },
+            {
+              "id": "informal",
+              "text": "Привет!"
+            },
+            {
+              "id": "hello",
+              "text": "Здравствуйте!"
+            }
+          ],
+          "answer": "hello",
+          "hint": "Здравствуйте is the polite greeting for someone you do not know. Привет is informal.",
+          "feedback": "Здравствуйте! Barsik greets the clerk politely. Привет is the informal hello you used with Barsik."
+        },
+        {
+          "id": "set-off-carry",
+          "prompt": "Name what Barsik is delivering.",
+          "choices": [
+            {
+              "id": "letter",
+              "text": "Это письмо."
+            },
+            {
+              "id": "map",
+              "text": "Это карта."
+            },
+            {
+              "id": "bag",
+              "text": "Это сумка."
+            }
+          ],
+          "answer": "letter",
+          "hint": "Письмо is the letter. Карта is his map.",
+          "feedback": "Это письмо. The letter is for you; the bag and map help Barsik carry it along the route."
+        },
+        {
+          "id": "set-off-turn",
+          "prompt": "Read the exchange. Which way should Barsik turn after going straight ahead?",
+          "passage": "— Где рынок?\n— Рынок там. Прямо, потом налево.",
+          "choices": [
+            {
+              "id": "right",
+              "text": "Направо."
+            },
+            {
+              "id": "left",
+              "text": "Налево."
+            },
+            {
+              "id": "straight",
+              "text": "Прямо."
+            }
+          ],
+          "answer": "left",
+          "hint": "Потом means then. The direction after потом is налево, left.",
+          "feedback": "Налево. First Barsik goes straight ahead, then he turns left. This is the route the clerk gave him."
+        },
+        {
+          "id": "set-off-destination",
+          "prompt": "Read the clerk’s clue. What is the next place on Barsik’s route?",
+          "passage": "Рынок там. Прямо, потом налево.",
+          "choices": [
+            {
+              "id": "map",
+              "text": "карта"
+            },
+            {
+              "id": "bag",
+              "text": "сумка"
+            },
+            {
+              "id": "market",
+              "text": "рынок"
+            }
+          ],
+          "answer": "market",
+          "hint": "Рынок means the market. The clue tells Barsik how to get there.",
+          "feedback": "Рынок. Barsik now has directions toward the market. The delivery continues from there; he has not reached your doorstep yet."
+        }
+      ],
+      "vocabulary": [
+        {
+          "lemma": "потом",
+          "form": "потом",
+          "pos": "ADVB",
+          "sentence": "Прямо, потом налево.",
+          "translation": "Straight ahead, then left.",
+          "target_meaning": "then",
+          "grammar": {}
+        },
+        {
+          "lemma": "там",
+          "form": "там",
+          "pos": "ADVB",
+          "sentence": "Рынок там.",
+          "translation": "The market is there.",
+          "target_meaning": "there",
+          "grammar": {}
+        },
+        {
+          "lemma": "рынок",
+          "form": "Рынок",
+          "pos": "NOUN",
+          "sentence": "Рынок там.",
+          "translation": "The market is there.",
+          "target_meaning": "the market",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "masc",
+            "animacy": "inan"
+          }
+        }
+      ]
+    }
+  ]
+}

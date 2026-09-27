@@ -1,0 +1,343 @@
+{
+  "id": "origins-and-destinations-v1",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Where from and where to",
+  "title_ru": "Откуда и куда",
+  "summary": "Explain where a journey starts, where it ends and whom you are visiting.",
+  "summary_ru": "Скажите, откуда вы идёте, куда направляетесь и к кому идёте.",
+  "practice_summary": "Read eight short situations and choose the answer that fits.",
+  "practice_summary_ru": "Прочитайте восемь коротких ситуаций и выберите подходящий ответ.",
+  "groups": [
+    {
+      "title": "From a place · из, с",
+      "title_ru": "Откуда · из, с",
+      "note": "Learn common pairs: в школу → из школы; на работу → с работы. The place after из or с is genitive. These are familiar pairings, not a rule about every building or outdoor space.",
+      "note_ru": "Запоминайте пары: в школу → из школы; на работу → с работы. После из и с здесь родительный падеж. Выбор предлога зависит от слова.",
+      "examples": [
+        {
+          "ru": "Утром я иду в школу. После уроков я иду из школы домой.",
+          "en": "In the morning I go to school. After classes I go home from school."
+        },
+        {
+          "ru": "Он едет на работу. Вечером он возвращается с работы.",
+          "en": "He is going to work. In the evening he returns from work."
+        }
+      ]
+    },
+    {
+      "title": "A person · к, от",
+      "title_ru": "К человеку и от человека",
+      "note": "К + dative names the person you are going to see. От + genitive can name the person you have just visited. К врачу and в поликлинику describe different parts of the same journey.",
+      "note_ru": "К + дательный падеж называет человека, к которому вы направляетесь. От + родительный падеж может назвать человека, от которого вы возвращаетесь.",
+      "examples": [
+        {
+          "ru": "Я иду к врачу в поликлинику.",
+          "en": "I am going to see the doctor at the clinic."
+        },
+        {
+          "ru": "Я возвращаюсь от врача домой.",
+          "en": "I am returning home from the doctor."
+        },
+        {
+          "ru": "Сначала зайду к Анне, потом вернусь от неё домой.",
+          "en": "First I will visit Anna, then return home from her place."
+        }
+      ]
+    },
+    {
+      "title": "Destination and location · куда, где",
+      "title_ru": "Направление и место · куда, где",
+      "note": "В аптеку and на почту answer куда? В аптеке and на почте answer где? A message may name both an origin and a destination; keep them separate.",
+      "note_ru": "В аптеку и на почту отвечают на вопрос куда? В аптеке и на почте — где? В одном сообщении могут быть и начальная точка, и место назначения.",
+      "examples": [
+        {
+          "ru": "Я иду из магазина в аптеку.",
+          "en": "I am going from the shop to the pharmacy."
+        },
+        {
+          "ru": "Я уже в аптеке. Потом пойду на почту.",
+          "en": "I am already at the pharmacy. Afterwards I will go to the post office."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "from-school",
+      "prompt": "Уроки закончились. Оля была в школе, а теперь идёт домой.\nОна идёт …",
+      "choices": [
+        {
+          "id": "origin",
+          "text": "из школы."
+        },
+        {
+          "id": "wrong-prep",
+          "text": "с школы."
+        },
+        {
+          "id": "destination",
+          "text": "в школу."
+        }
+      ],
+      "answer": "origin",
+      "hint": "Pair в школу with из школы.",
+      "explanation": "Из школы names where Olya is coming from.",
+      "requirement_id": "a1.language.genitive-origin",
+      "expectation": "Select из школы as the origin after the explicitly completed time at school, not a destination or mismatched origin preposition."
+    },
+    {
+      "id": "from-work",
+      "prompt": "Рабочий день закончился. Борис едет домой …",
+      "choices": [
+        {
+          "id": "origin",
+          "text": "с работы."
+        },
+        {
+          "id": "wrong-prep",
+          "text": "из работы."
+        },
+        {
+          "id": "destination",
+          "text": "на работу."
+        }
+      ],
+      "answer": "origin",
+      "hint": "Pair на работу with с работы.",
+      "explanation": "С работы gives the starting point of the journey home.",
+      "requirement_id": "a1.language.genitive-origin",
+      "expectation": "Choose с работы as the origin, distinguishing the familiar с/на pairing from a destination."
+    },
+    {
+      "id": "to-pharmacy",
+      "prompt": "Лекарство нужно купить. Аптека ещё открыта.\nНина идёт …",
+      "choices": [
+        {
+          "id": "there",
+          "text": "в аптеке."
+        },
+        {
+          "id": "to",
+          "text": "в аптеку."
+        },
+        {
+          "id": "from",
+          "text": "из аптеки."
+        }
+      ],
+      "answer": "to",
+      "hint": "Nina is going to buy something there.",
+      "explanation": "В аптеку gives the destination; в аптеке is a location and из аптеки an origin.",
+      "requirement_id": "a1.language.accusative-destination",
+      "expectation": "Choose accusative destination в аптеку for the stated planned visit."
+    },
+    {
+      "id": "to-post-office",
+      "prompt": "У Лены письмо для отправки. Она выходит из дома и идёт …",
+      "choices": [
+        {
+          "id": "location",
+          "text": "на почте."
+        },
+        {
+          "id": "origin",
+          "text": "с почты."
+        },
+        {
+          "id": "destination",
+          "text": "на почту."
+        }
+      ],
+      "answer": "destination",
+      "hint": "She has not reached the post office yet.",
+      "explanation": "На почту names the destination of her trip to send the letter.",
+      "requirement_id": "a1.language.accusative-destination",
+      "expectation": "Choose на почту as the destination, distinct from location and origin forms."
+    },
+    {
+      "id": "visit-brother",
+      "prompt": "У Максима сегодня день рождения. Я хочу поздравить его дома.\nЯ иду …",
+      "choices": [
+        {
+          "id": "person",
+          "text": "к Максиму."
+        },
+        {
+          "id": "wrong-case",
+          "text": "к Максима."
+        },
+        {
+          "id": "origin",
+          "text": "от Максима."
+        }
+      ],
+      "answer": "person",
+      "hint": "Use к for the person you are going to visit.",
+      "explanation": "К Максиму names the person being visited and takes the dative.",
+      "requirement_id": "a1.language.dative-person-destination",
+      "expectation": "Choose к Максиму as a person-destination while distinguishing the origin от Максима."
+    },
+    {
+      "id": "origin-question",
+      "prompt": "— ___ ты едешь?\n— Из университета.",
+      "choices": [
+        {
+          "id": "where",
+          "text": "Где"
+        },
+        {
+          "id": "to-where",
+          "text": "Куда"
+        },
+        {
+          "id": "from-where",
+          "text": "Откуда"
+        }
+      ],
+      "answer": "from-where",
+      "hint": "The answer gives the starting point of the journey.",
+      "explanation": "Откуда? asks where the traveller is coming from.",
+      "requirement_id": "a1.language.adverb-reference",
+      "expectation": "Choose the question word matching an explicit point-of-origin answer."
+    },
+    {
+      "id": "after-visit",
+      "prompt": "Саша пишет: «Я только что вышел от бабушки. Сейчас иду к брату. Вечером вернусь домой».\nКого Саша уже навестил?",
+      "choices": [
+        {
+          "id": "grandmother",
+          "text": "Бабушку."
+        },
+        {
+          "id": "brother",
+          "text": "Брата."
+        },
+        {
+          "id": "both",
+          "text": "Бабушку и брата."
+        }
+      ],
+      "answer": "grandmother",
+      "hint": "Separate the completed visit from the next visit.",
+      "explanation": "He has left his grandmother’s and is now on the way to his brother.",
+      "requirement_id": "a1.reading.practical-information",
+      "expectation": "Identify the person already visited from an original written update containing a contrasting future visit. This is reading evidence, not a claim of full от declension control."
+    },
+    {
+      "id": "two-stops",
+      "prompt": "Таня пишет другу: «Я вышла из библиотеки. Сначала зайду на почту, а потом в кафе. Жди меня в кафе».\nКуда Таня зайдёт перед кафе?",
+      "choices": [
+        {
+          "id": "library",
+          "text": "В библиотеку."
+        },
+        {
+          "id": "post-office",
+          "text": "На почту."
+        },
+        {
+          "id": "home",
+          "text": "Домой."
+        }
+      ],
+      "answer": "post-office",
+      "hint": "Find the first stop after leaving the library.",
+      "explanation": "The post office is the stop between the library and the café.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Follow the stated sequence and distinguish the starting point from the intermediate stop and final meeting place."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Where from and where to · word forms",
+    "summary": "Complete five short messages or sentences.",
+    "summary_ru": "Дополните пять коротких сообщений или предложений.",
+    "questions": [
+      {
+        "id": "form-school-origin",
+        "prompt": "Уроки закончились. Я иду из ___ домой. (школа)\nВпиши форму слова.",
+        "answer": "школы",
+        "accepted_answers": [
+          "школы",
+          "из школы"
+        ],
+        "hint": "Use the genitive after из.",
+        "explanation": "Из школы is the origin phrase.",
+        "requirement_id": "a1.language.genitive-origin",
+        "expectation": "Produce школы after из; also accept the complete matching origin phrase."
+      },
+      {
+        "id": "form-work-origin",
+        "prompt": "Вечером мы возвращаемся с ___. (работа)\nВпиши форму слова.",
+        "answer": "работы",
+        "accepted_answers": [
+          "работы",
+          "с работы"
+        ],
+        "hint": "Use the genitive after с when naming this origin.",
+        "explanation": "С работы says where the journey home begins.",
+        "requirement_id": "a1.language.genitive-origin",
+        "expectation": "Produce работы in the taught origin construction с работы."
+      },
+      {
+        "id": "form-doctor-destination",
+        "prompt": "У меня приём. Я иду к ___. (врач)\nВпиши форму слова.",
+        "answer": "врачу",
+        "accepted_answers": [
+          "врачу",
+          "к врачу"
+        ],
+        "hint": "К takes the dative for this person-destination.",
+        "explanation": "К врачу names the person you are going to see.",
+        "requirement_id": "a1.language.dative-person-destination",
+        "expectation": "Produce врачу after к for the stated medical appointment."
+      },
+      {
+        "id": "form-post-destination",
+        "prompt": "Мне нужно отправить письмо. Я иду на ___. (почта)\nВпиши форму слова.",
+        "answer": "почту",
+        "accepted_answers": [
+          "почту",
+          "на почту"
+        ],
+        "hint": "Use the destination form after на.",
+        "explanation": "На почту answers куда?, not где?.",
+        "requirement_id": "a1.language.accusative-destination",
+        "expectation": "Produce почту in the taught accusative destination на почту."
+      },
+      {
+        "id": "form-person-origin-pronoun",
+        "prompt": "Я был у Анны. Сейчас возвращаюсь от ___. (она)\nЗамени имя местоимением.",
+        "answer": "неё",
+        "accepted_answers": [
+          "неё",
+          "от неё"
+        ],
+        "hint": "After от, use неё for Анна.",
+        "explanation": "От неё preserves Anna as the person whose place you are leaving.",
+        "requirement_id": "a1.language.personal-pronoun-cases",
+        "expectation": "Replace the named person Анна with неё after the already supplied от. This is a narrow controlled pronoun-form check, not a general origin-preposition test."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Где тебя ждать?",
+    "title_en": "Explain your route to a friend",
+    "task": "Друг ждёт встречи с тобой. Напиши, откуда ты выходишь, к кому или куда зайдёшь по дороге и где вы встретитесь после этого. Попроси друга ждать в понятном месте. Детали можно придумать.",
+    "task_en": "A friend is waiting to meet you. Tell them where you are leaving from, whom or what place you will visit on the way, and where you will meet afterwards. Ask them to wait at a clear location. You may invent the details.",
+    "required_words": [
+      "сначала",
+      "потом",
+      "ждать"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.personal-message",
+    "id": "route-and-meeting-message",
+    "expectation": "Write an intelligible original message giving a starting point, an intermediate visit to a person or place, and a clear final meeting/waiting location. Accept natural routes and short alternatives, including sensible home/place expressions. Assess whether the friend can follow the route and know where to wait; do not require all of из, с, от, к, в and на or infer mastery of every case."
+  },
+  "writing_summary": "Explain your stops and tell a friend where to wait.",
+  "writing_summary_ru": "Объясните маршрут и скажите другу, где ждать.",
+  "review_status": "application-authored; qualified language review pending"
+}

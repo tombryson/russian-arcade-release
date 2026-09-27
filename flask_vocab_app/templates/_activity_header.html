@@ -1,0 +1,12 @@
+{% macro activity_header(title, description, heading_id='activity-page-title') -%}
+<header class="activity-header">
+  <div class="activity-header-copy">
+    <h1 id="{{ heading_id }}" tabindex="-1">{{ title }}</h1>
+    {% if description %}<p class="activity-description">{{ description }}</p>{% endif %}
+  </div>
+  {% if caller is defined %}
+    {% set actions = caller()|trim %}
+    {% if actions %}<div class="activity-header-actions">{{ actions }}</div>{% endif %}
+  {% endif %}
+</header>
+{%- endmacro %}

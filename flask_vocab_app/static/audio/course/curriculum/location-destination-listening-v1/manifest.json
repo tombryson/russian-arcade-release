@@ -1,0 +1,29 @@
+{
+  "version": "curriculum-unit-audio-v1",
+  "content_id": "location-destination-listening-v1",
+  "provider": "elevenlabs",
+  "source": "App-authored learning material with synthetic narration.",
+  "clips": {
+    "shop-now": {
+      "text_sha256": "2ce34cf3945c5c2974238a89e44f9d00a30eb221d0280843e3704fac9cb15bcc",
+      "audio_sha256": "6c099d31c5a963d3a8cb1ecfb44617832447c4f1959a805d63947159e4fe35e8",
+      "duration": 7.523265,
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2"
+    },
+    "after-pharmacy": {
+      "text_sha256": "91cba714367727a3f7d73420fbd2d395317287a912565a0af6b0eeb24f6b558d",
+      "audio_sha256": "bc802cecc5453eb41ef98318f03cd449b490d2c2c2f7abf4508ea1331deeb5eb",
+      "duration": 11.128163,
+      "voice_id": "ymDCYd8puC7gYjxIamPt",
+      "model": "eleven_multilingual_v2"
+    },
+    "inside-museum": {
+      "text_sha256": "f47cbd06c28df3a1a1f5d19e1d91f28e67bab9bca2eca008162a46f31675bfb2",
+      "audio_sha256": "ec8b17399aa0f86206ba367c080aedc94986082e97749697acb6ff43b34b6ae6",
+      "duration": 12.303673,
+      "voice_id": "ymDCYd8puC7gYjxIamPt",
+      "model": "eleven_multilingual_v2"
+    }
+  }
+}

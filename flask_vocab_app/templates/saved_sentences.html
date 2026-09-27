@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% from '_activity_header.html' import activity_header %}
+{% set page_title = ui_t('sentences.saved_title') %}
+{% block main_content %}
+<main class="main-content activity-entry sentence-store" id="mainContent" data-page="sentences_saved">
+  <div class="activity-entry-content">
+    {% call activity_header(ui_t('sentences.saved_title'), '', 'sentence-page-title') %}
+      <details class="sentence-store-add" data-library-disclosure {% if add_open %}open{% endif %}>
+        <summary class="sentence-store-action"><span aria-hidden="true">+</span> {{ ui_t('sentence_store.add') }}</summary>
+        <form class="sentence-store-panel" action="/sentence/add" method="post" data-translation-prepare data-ready="{{ ui_t('sentence_store.view_saved') }}" data-pending="{{ ui_t('translation.adding') }}" data-error="{{ ui_t('translation.add_failed') }}">
+          <label for="add-russian">{{ ui_t('sentences.russian') }}</label>
+          <textarea name="sentence" id="add-russian" class="form-control" lang="ru" rows="2" required maxlength="1000">{{ added_russian|default('') }}</textarea>
+          <label for="add-english">{{ ui_t('translation.add_english') }}</label>
+          <textarea name="english" id="add-english" class="form-control" lang="en" rows="2" maxlength="1000" aria-describedby="add-english-help">{{ added_english|default('') }}</textarea>
+          <p class="sentence-store-help" id="add-english-help">{{ ui_t('sentence_store.translation_help') }}</p>
+          <div class="sentence-store-fields">
+            <div><label for="add-topic">{{ ui_t('sentences.topic') }}</label><select name="topic" id="add-topic" class="form-select">
+              <option value="general" {% if added_topic|default('general') == 'general' %}selected{% endif %}>{{ ui_t('topic.generic') }}</option>
+              {% for topic in topics if topic.value != 'general' %}<option value="{{ topic.value }}" {% if added_topic == topic.value %}selected{% endif %}>{{ topic.label }}</option>{% endfor %}
+            </select></div>
+            <div><label for="add-level">{{ ui_t('translation.level') }}</label><select id="add-level" name="difficulty" class="form-select">
+              {% for level in curriculum_levels %}<option value="{{ loop.index }}" {% if added_level|default(1) == loop.index %}selected{% endif %}>{{ level.label }}</option>{% endfor %}
+            </select></div>
+          </div>
+          <div class="sentence-store-form-actions"><button class="btn btn-primary" type="submit">{{ ui_t('sentences.save') }}</button><button class="sentence-store-cancel" type="button" data-library-close>{{ ui_t('common.cancel') }}</button></div>
+          <p data-prepare-status role="status" aria-live="polite"></p>
+        </form>
+      </details>
+    {% endcall %}
+    {% if error %}<p class="alert alert-warning" role="alert">{{ error }}</p>{% endif %}
+    <form class="sentence-store-toolbar" action="/sentences/saved" method="get" role="search">
+      <div class="sentence-store-search">
+        <label class="visually-hidden" for="library-search">{{ ui_t('translation.search') }}</label>
+        <input class="form-control" type="search" id="library-search" name="q" value="{{ search|default('') }}" maxlength="200" placeholder="{{ ui_t('translation.search') }}">
+        <button type="submit" aria-label="{{ ui_t('translation.search') }}" title="{{ ui_t('translation.search') }}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
+      </div>
+      <details class="sentence-store-filters" data-library-disclosure>
+        <summary class="sentence-store-action" {% if selected_topic or selected_level %}data-active="true"{% endif %}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="17" r="2"/></svg>
+          {{ ui_t('sentence_store.filters') }}{% if selected_topic or selected_level %}<span class="sentence-store-filter-count">{{ (1 if selected_topic else 0) + (1 if selected_level else 0) }}</span>{% endif %}
+        </summary>
+        <div class="sentence-store-panel">
+          <label for="library-topic">{{ ui_t('sentences.topic') }}</label>
+          <select class="form-select" id="library-topic" name="topic"><option value="">{{ ui_t('translation.all_topics') }}</option>{% for topic in topics %}<option value="{{ topic.value }}" {% if selected_topic == topic.value %}selected{% endif %}>{{ topic.label }}</option>{% endfor %}</select>
+          <label for="library-level">{{ ui_t('translation.level') }}</label>
+          <select class="form-select" id="library-level" name="level"><option value="">{{ ui_t('sentence_store.all_levels') }}</option>{% for level in curriculum_levels %}<option value="{{ loop.index }}" {% if selected_level == loop.index %}selected{% endif %}>{{ level.label }}</option>{% endfor %}</select>
+          <div class="sentence-store-form-actions"><button class="btn btn-primary" type="submit">{{ ui_t('sentence_store.apply') }}</button></div>
+        </div>
+      </details>
+      {% if selected_topic or selected_level or search %}<a class="sentence-store-clear" href="/sentences/saved">{{ ui_t('translation.clear_filters') }}</a>{% endif %}
+      <span class="sentence-store-count" role="status">{% if selected_topic or selected_level or search %}{{ ui_t('translation.library_count').format(shown=sentences|length, total=total_sentences) }}{% elif total_sentences == 1 %}{{ ui_t('sentence_store.one_sentence') }}{% else %}{{ ui_t('sentence_store.count').format(count=total_sentences) }}{% endif %}</span>
+    </form>
+    {% if sentences %}
+    <div class="sentence-store-table-wrap">
+      <table class="translation-library-table">
+        <caption class="visually-hidden">{{ ui_t('sentences.saved_title') }}</caption>
+        <thead><tr><th scope="col">{{ ui_t('sentences.russian') }}</th><th scope="col">{{ ui_t('sentences.english') }}</th><th scope="col" class="sentence-store-audio-heading">{{ ui_t('sentences.audio') }}</th></tr></thead>
+        <tbody>{% for item in sentences %}
+          <tr id="sentence-{{ item.id }}" data-sentence-id="{{ item.id }}">
+            <td class="sentence-store-russian" lang="ru">{{ item.sentence }}</td>
+            <td class="sentence-store-english" lang="en">{{ item.english }}</td>
+            <td class="sentence-store-audio">
+              {% if item.audio_url %}
+              <audio controls preload="none" aria-label="{{ ui_t('translation.sentence_audio').format(number=loop.index) }}"><source src="{{ item.audio_url }}" type="audio/mpeg">{{ ui_t('common.audio_unsupported') }}</audio>
+              <button type="button" class="sentence-store-play" data-sentence-play data-play-label="{{ ui_t('translation.sentence_audio').format(number=loop.index) }}" data-pause-label="{{ ui_t('sentence_store.pause').format(number=loop.index) }}" data-error="{{ ui_t('sentence_store.audio_error') }}" aria-label="{{ ui_t('translation.sentence_audio').format(number=loop.index) }}" hidden>
+                <svg class="sentence-store-play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7z"/></svg>
+                <svg class="sentence-store-pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM15 5h4v14h-4z"/></svg>
+              </button>
+              <span class="sentence-store-audio-error" role="status" hidden></span>
+              {% else %}<span class="sentence-store-missing" title="{{ ui_t('sentences.no_audio') }}"><span aria-hidden="true">—</span><span class="visually-hidden">{{ ui_t('sentences.no_audio') }}</span></span>{% endif %}
+            </td>
+          </tr>
+        {% endfor %}</tbody>
+      </table>
+    </div>
+    {% else %}<p class="sentence-store-empty">{{ ui_t('translation.no_matches') }}</p>{% endif %}
+  </div>
+</main>
+{% endblock %}

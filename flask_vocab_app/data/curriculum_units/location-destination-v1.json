@@ -1,0 +1,121 @@
+{
+  "id": "location-destination-v1",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Where and where to",
+  "title_ru": "Где и куда",
+  "summary": "Say where someone is and where they are going.",
+  "summary_ru": "Скажите, где человек находится и куда он идёт.",
+  "groups": [
+    {
+      "title": "Where? · Где?",
+      "title_ru": "Где?",
+      "note": "With в or на, use the prepositional case to say where someone is. Learn the preposition with the place.",
+      "note_ru": "Чтобы сказать, где человек находится, с предлогами в и на используйте предложный падеж. Запоминайте предлог вместе с названием места.",
+      "examples": [
+        {"ru": "Барсик в школе.", "en": "Barsik is at school."},
+        {"ru": "Нина на почте.", "en": "Nina is at the post office."},
+        {"ru": "Мы в парке.", "en": "We are in the park."}
+      ]
+    },
+    {
+      "title": "Where to? · Куда?",
+      "title_ru": "Куда?",
+      "note": "Use the accusative case for a destination with в or на. Movement alone does not decide the case: walking inside a park is still в парке.",
+      "note_ru": "Для направления с предлогами в и на используйте винительный падеж. Само движение не определяет падеж: гулять внутри парка — гулять в парке.",
+      "examples": [
+        {"ru": "Барсик идёт в школу.", "en": "Barsik is walking to school."},
+        {"ru": "Нина идёт на почту.", "en": "Nina is walking to the post office."},
+        {"ru": "Мы идём в парк.", "en": "We are walking to the park."}
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "where-now",
+      "prompt": "Барсик сейчас в школе. Потом он идёт в парк.\nГде Барсик сейчас?",
+      "choices": [{"id": "school", "text": "В школе."}, {"id": "park", "text": "В парке."}, {"id": "post", "text": "На почте."}],
+      "answer": "school",
+      "hint": "Сейчас means now; потом means afterwards.",
+      "explanation": "Сейчас places Barsik at school. The park is his next destination.",
+      "requirement_id": "a1.reading.practical-information",
+      "expectation": "Identify the person's current location in this message, rather than the next destination."
+    },
+    {
+      "id": "destination",
+      "prompt": "Маша дома. Она хочет взять книгу и выходит из дома.\nМаша идёт …",
+      "choices": [{"id": "at-library", "text": "в библиотеке."}, {"id": "to-library", "text": "в библиотеку."}, {"id": "from-library", "text": "из библиотеки."}],
+      "answer": "to-library",
+      "hint": "She is leaving home to get a book. Which phrase gives her destination?",
+      "explanation": "В библиотеку tells us where Masha is going. В библиотеке would describe her location; из библиотеки would mean from the library.",
+      "requirement_id": "a1.language.accusative-destination",
+      "expectation": "Select в библиотеку as the destination after идёт in this context."
+    },
+    {
+      "id": "location",
+      "prompt": "Нина уже пришла на почту. Она ждёт тебя …",
+      "choices": [{"id": "to-post", "text": "на почту."}, {"id": "from-post", "text": "с почты."}, {"id": "at-post", "text": "на почте."}],
+      "answer": "at-post",
+      "hint": "Nina has already arrived. Now she is waiting there.",
+      "explanation": "На почте tells us where Nina is waiting. На почту names a destination.",
+      "requirement_id": "a1.language.prepositional-location",
+      "expectation": "Select на почте for the location where the person is already waiting."
+    },
+    {
+      "id": "movement-within",
+      "prompt": "Мы уже в парке. Здесь красивые деревья. Мы гуляем …",
+      "choices": [{"id": "within-park", "text": "в парке."}, {"id": "to-park", "text": "в парк."}, {"id": "from-park", "text": "из парка."}],
+      "answer": "within-park",
+      "hint": "You are walking inside the park, not travelling to it.",
+      "explanation": "В парке describes where the walk happens. A movement verb does not always require a destination form.",
+      "requirement_id": "a1.language.prepositional-location",
+      "expectation": "Distinguish movement within a location from movement towards that place."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Where and where to · word forms",
+    "questions": [
+      {
+        "id": "form-destination",
+        "prompt": "Барсик дома. Сейчас он идёт в ___. (школа)\nВпиши форму слова.",
+        "answer": "школу",
+        "accepted_answers": ["школу", "в школу"],
+        "hint": "This is his destination: куда? For школа, change -а to -у.",
+        "explanation": "Идёт в школу names Barsik's destination. Школу is the accusative form of школа.",
+        "requirement_id": "a1.language.accusative-destination",
+        "expectation": "Produce школу in the given destination phrase, accepting в школу as an equivalent full phrase."
+      },
+      {
+        "id": "form-location",
+        "prompt": "Нина уже пришла. Она ждёт тебя на ___. (почта)\nВпиши форму слова.",
+        "answer": "почте",
+        "accepted_answers": ["почте", "на почте"],
+        "hint": "She is already waiting there: где? For почта, use the ending -е.",
+        "explanation": "Ждёт на почте gives Nina's current location. Почте is the prepositional form of почта.",
+        "requirement_id": "a1.language.prepositional-location",
+        "expectation": "Produce почте for the stated location, accepting на почте as an equivalent full phrase."
+      },
+      {
+        "id": "form-movement-within",
+        "prompt": "Мы пришли в парк. Теперь гуляем здесь, среди деревьев. Мы гуляем в ___. (парк)\nВпиши форму слова.",
+        "answer": "парке",
+        "accepted_answers": ["парке", "в парке"],
+        "hint": "The walk happens inside the park. Use the location ending -е.",
+        "explanation": "Гуляем в парке describes where the walk happens. Movement within a place uses the location form парке here.",
+        "requirement_id": "a1.language.prepositional-location",
+        "expectation": "Produce парке for movement within the stated place, accepting в парке as an equivalent full phrase."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Где мы встретимся?",
+    "title_en": "Where shall we meet?",
+    "task": "Напиши другу короткое сообщение. Скажи, где ты сейчас, куда идёшь и где будешь ждать друга. Выбери места сам. Друг должен понять, где тебя найти.",
+    "task_en": "Write a short message to a friend. Say where you are now, where you are going and where you will wait for them. Choose the places yourself. Your friend should know where to find you.",
+    "required_words": ["сейчас", "идти", "ждать"]
+  },
+  "speaking_href": "/#speaking/scenario/directions?level=A1",
+  "speaking_title": "Ask someone the way",
+  "speaking_title_ru": "Спросите дорогу"
+}

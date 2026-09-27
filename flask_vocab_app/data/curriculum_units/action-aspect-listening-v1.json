@@ -1,0 +1,84 @@
+{
+  "version": "listening-v1",
+  "id": "action-aspect-listening-v1",
+  "unit_id": "action-aspect-v1",
+  "title": "Listen for what is finished",
+  "title_ru": "Что уже готово?",
+  "items": [
+    {
+      "id": "dinner-progress",
+      "transcript": "Вера, привет! Хлеб я уже купил. Сейчас делаю салат, он ещё не готов. А суп сделаю после салата. Приходи через час, тогда поужинаем.",
+      "prompt": "Что уже сделано?",
+      "choices": [
+        {
+          "id": "bread",
+          "text": "Хлеб куплен."
+        },
+        {
+          "id": "salad",
+          "text": "Салат готов."
+        },
+        {
+          "id": "soup",
+          "text": "Суп готов."
+        }
+      ],
+      "answer": "bread",
+      "hint": "Separate the completed errand from the work in progress and the later plan.",
+      "explanation": "The bread has been bought. The salad is in progress and the soup comes afterwards.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the completed preparation from a spoken update contrasting past completion, current work and a future task.",
+      "audio_url": "/static/audio/course/curriculum/action-aspect-listening-v1/dinner-progress.mp3"
+    },
+    {
+      "id": "reading-update",
+      "transcript": "Мама, книгу я ещё читаю. Она длинная. Вчера прочитала первую главу, а сегодня начала вторую. Не возвращай книгу в библиотеку: я её ещё не закончила.",
+      "prompt": "Что девушка уже закончила читать?",
+      "choices": [
+        {
+          "id": "whole",
+          "text": "Всю книгу."
+        },
+        {
+          "id": "first",
+          "text": "Первую главу."
+        },
+        {
+          "id": "second",
+          "text": "Вторую главу."
+        }
+      ],
+      "answer": "first",
+      "hint": "Listen for the part that is finished, not the part she has just started.",
+      "explanation": "She finished the first chapter yesterday and has only started the second; the whole book is unfinished.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the completed part of a longer reading activity from the original recording.",
+      "audio_url": "/static/audio/course/curriculum/action-aspect-listening-v1/reading-update.mp3"
+    },
+    {
+      "id": "future-letter",
+      "transcript": "Лёша, я сейчас делаю домашнее задание. Потом буду писать письмо дедушке. Сегодня, наверное, не закончу. Закончу завтра утром и сразу отправлю.",
+      "prompt": "Когда человек собирается отправить письмо?",
+      "choices": [
+        {
+          "id": "now",
+          "text": "Сейчас."
+        },
+        {
+          "id": "tonight",
+          "text": "Сегодня вечером."
+        },
+        {
+          "id": "tomorrow",
+          "text": "Завтра утром."
+        }
+      ],
+      "answer": "tomorrow",
+      "hint": "Follow the planned finished result, then the sending.",
+      "explanation": "The speaker plans to finish the letter tomorrow morning and send it immediately afterwards.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Extract the planned sending time rather than the time of beginning the writing activity.",
+      "audio_url": "/static/audio/course/curriculum/action-aspect-listening-v1/future-letter.mp3"
+    }
+  ]
+}

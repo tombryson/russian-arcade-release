@@ -1,0 +1,318 @@
+{
+  "version": "speaking-interaction-diagnostic-v1",
+  "mappings": {
+    "cafe-a1-takeaway-v2": {
+      "expected": {
+        "scenario_id": "cafe",
+        "target_level": "A1",
+        "scenario_version": 2,
+        "goals": [
+          "Order water and a bread roll",
+          "Ask to take them away",
+          "Ask the total"
+        ],
+        "goals_ru": [
+          "Закажите воду и булочку",
+          "Попросите заказ с собой",
+          "Спросите общую стоимость"
+        ],
+        "goal_ids": [
+          "objective-1",
+          "objective-2",
+          "objective-3"
+        ],
+        "completion_criteria": [
+          "Request water and one bread roll.",
+          "State that the order is to take away.",
+          "Ask the combined price."
+        ],
+        "opening": "Здравствуйте! Что будете заказывать?",
+        "worker_brief": "Вода стоит 60 рублей, булочка 90. Вместе 150. Упаковка бесплатная. Сначала прими заказ, затем уточни здесь или с собой, если посетитель ещё не сказал. Ответь на вопрос о цене; не добавляй товары.",
+        "variation": {
+          "version": 2,
+          "family_id": "cafe-a1",
+          "bundle_id": "takeaway",
+          "facts": {
+            "drink": "вода",
+            "food": "булочка",
+            "service": "с собой",
+            "total": 150
+          }
+        }
+      },
+      "topic_id": "food",
+      "goal_ids": [
+        "objective-1"
+      ],
+      "criterion": {
+        "id": "request-order",
+        "target_id": "speaking-cafe-a1.request-order",
+        "requirement_id": "a1.speaking.request-and-response",
+        "expectation": "Request water and one bread roll; both requested items must be understandable in the learner audio. Assess only this narrow order request, not accepting or declining, the service choice, asking a price or the whole reference requirement. Accept natural short requests and alternative phrasing; do not require можно or any particular grammatical construction. Ground every judgement in the original learner audio, never an agent line, expected answer, ASR caption or general grammar/fluency score. Grammatical errors do not erase meaning when the requested action is intelligible. Unclear or unlocatable evidence remains insufficient_evidence; support and independence remain unverified."
+      },
+      "label": "Order water and a bread roll",
+      "label_ru": "Закажите воду и булочку"
+    },
+    "cafe-a1-warm-lunch-v2": {
+      "expected": {
+        "scenario_id": "cafe",
+        "target_level": "A1",
+        "scenario_version": 2,
+        "goals": [
+          "Order soup and tea",
+          "Ask to eat inside",
+          "Ask the total"
+        ],
+        "goals_ru": [
+          "Закажите суп и чай",
+          "Попросите место в зале",
+          "Спросите общую стоимость"
+        ],
+        "goal_ids": [
+          "objective-1",
+          "objective-2",
+          "objective-3"
+        ],
+        "completion_criteria": [
+          "Request one soup and one tea.",
+          "State the wish to eat in the café.",
+          "Ask the combined price."
+        ],
+        "opening": "Здравствуйте! Что будете заказывать?",
+        "worker_brief": "Суп стоит 180 рублей, чай 100. Вместе 280. В зале есть свободные столики. После выбора еды уточни здесь или с собой; можно остаться в зале.",
+        "variation": {
+          "version": 2,
+          "family_id": "cafe-a1",
+          "bundle_id": "warm-lunch",
+          "facts": {
+            "drink": "чай",
+            "food": "суп",
+            "service": "в зале",
+            "total": 280
+          }
+        }
+      },
+      "topic_id": "food",
+      "goal_ids": [
+        "objective-1"
+      ],
+      "criterion": {
+        "id": "request-order",
+        "target_id": "speaking-cafe-a1.request-order",
+        "requirement_id": "a1.speaking.request-and-response",
+        "expectation": "Request one soup and one tea; both requested items must be understandable in the learner audio. Assess only this narrow order request, not accepting or declining, the service choice, asking a price or the whole reference requirement. Accept natural short requests and alternative phrasing; do not require можно or any particular grammatical construction. Ground every judgement in the original learner audio, never an agent line, expected answer, ASR caption or general grammar/fluency score. Grammatical errors do not erase meaning when the requested action is intelligible. Unclear or unlocatable evidence remains insufficient_evidence; support and independence remain unverified."
+      },
+      "label": "Order soup and tea",
+      "label_ru": "Закажите суп и чай"
+    },
+    "cafe-a1-two-drinks-v2": {
+      "expected": {
+        "scenario_id": "cafe",
+        "target_level": "A1",
+        "scenario_version": 2,
+        "goals": [
+          "Order two teas",
+          "Choose one sandwich for two people",
+          "Ask the total"
+        ],
+        "goals_ru": [
+          "Закажите два чая",
+          "Попросите один бутерброд на двоих",
+          "Спросите общую стоимость"
+        ],
+        "goal_ids": [
+          "objective-1",
+          "objective-2",
+          "objective-3"
+        ],
+        "completion_criteria": [
+          "Request two teas rather than one.",
+          "Request exactly one sandwich to share.",
+          "Ask the total price of 330 roubles."
+        ],
+        "opening": "Здравствуйте! Что будете заказывать?",
+        "worker_brief": "Чай стоит 100 рублей, бутерброд 130. Два чая и один бутерброд стоят 330. Не добавляй второй бутерброд. Если количество неясно, уточни его.",
+        "variation": {
+          "version": 2,
+          "family_id": "cafe-a1",
+          "bundle_id": "two-drinks",
+          "facts": {
+            "drink": "чай",
+            "drink_count": 2,
+            "food": "бутерброд",
+            "food_count": 1,
+            "total": 330
+          }
+        }
+      },
+      "topic_id": "food",
+      "goal_ids": [
+        "objective-1"
+      ],
+      "criterion": {
+        "id": "request-order",
+        "target_id": "speaking-cafe-a1.request-order",
+        "requirement_id": "a1.speaking.request-and-response",
+        "expectation": "Request two teas; the quantity of two must be understandable in the learner audio. Assess only this narrow order request, not accepting or declining, the separate sandwich order, asking a price or the whole reference requirement. Accept natural short requests and alternative phrasing; do not require можно or any particular grammatical construction. Ground every judgement in the original learner audio, never an agent line, expected answer, ASR caption or general grammar/fluency score. Grammatical errors do not erase meaning when the requested action is intelligible. Unclear or unlocatable evidence remains insufficient_evidence; support and independence remain unverified."
+      },
+      "label": "Order two teas",
+      "label_ru": "Закажите два чая"
+    },
+    "meet-someone-a1-classmate-v2": {
+      "expected": {
+        "scenario_id": "meet-someone",
+        "target_level": "A1",
+        "scenario_version": 2,
+        "goals": [
+          "Introduce yourself",
+          "Ask your classmate’s name",
+          "Say goodbye"
+        ],
+        "goals_ru": [
+          "Представьтесь",
+          "Узнайте имя одноклассника",
+          "Попрощайтесь"
+        ],
+        "goal_ids": [
+          "objective-1",
+          "objective-2",
+          "objective-3"
+        ],
+        "completion_criteria": [
+          "Introduce yourself using a real or invented name. Any understandable natural introduction meets this communicative goal; assess grammar separately.",
+          "Ask the classmate his name.",
+          "Say goodbye naturally."
+        ],
+        "opening": "Привет! Как тебя зовут?",
+        "worker_brief": "Ты Дима, новый ученик. Начни «Привет! Как тебя зовут?», но не представляйся до ответного вопроса. Урок скоро начинается. После знакомства скажи, что пора в класс, и дай попрощаться. Говори на ты, принимай вы.",
+        "variation": {
+          "version": 2,
+          "family_id": "meet-someone-a1",
+          "bundle_id": "classmate",
+          "facts": {
+            "character": "Дима",
+            "setting": "перед уроком русского",
+            "register": "ты"
+          }
+        }
+      },
+      "topic_id": "greetings",
+      "goal_ids": [
+        "objective-1",
+        "objective-2"
+      ],
+      "criterion": {
+        "id": "exchange-names",
+        "target_id": "speaking-introductions-a1.exchange-names",
+        "requirement_id": "a1.speaking.ask-and-answer",
+        "expectation": "Give the learner’s own real or invented name in response to the opening name question AND ask the other person’s name. Satisfied requires audible evidence of both actions; when only one is clearly demonstrated, use partial. Accept short natural replies, reciprocal questions and alternative phrasing. Assess only this name exchange, not a connected personal description, a greeting, a farewell or the whole reference requirement. Ground every judgement in the original learner audio, never an agent line, expected answer, ASR caption or general grammar/fluency score. Grammatical errors do not erase meaning when the requested action is intelligible. Unclear or unlocatable evidence remains insufficient_evidence; support and independence remain unverified."
+      },
+      "label": "Exchange names",
+      "label_ru": "Обменяйтесь именами"
+    },
+    "meet-someone-a1-neighbour-v2": {
+      "expected": {
+        "scenario_id": "meet-someone",
+        "target_level": "A1",
+        "scenario_version": 2,
+        "goals": [
+          "Introduce yourself politely",
+          "Ask your neighbour’s name",
+          "Say goodbye"
+        ],
+        "goals_ru": [
+          "Вежливо представьтесь",
+          "Узнайте имя соседки",
+          "Попрощайтесь"
+        ],
+        "goal_ids": [
+          "objective-1",
+          "objective-2",
+          "objective-3"
+        ],
+        "completion_criteria": [
+          "Introduce yourself using a real or invented name. Any understandable natural introduction meets this communicative goal; assess grammar separately.",
+          "Ask the neighbour’s name in a polite exchange.",
+          "Say goodbye."
+        ],
+        "opening": "Здравствуйте! Мы ещё не знакомы. Как вас зовут?",
+        "worker_brief": "Ты Анна, новая соседка. Используй вы. Поздоровайся и спроси имя, но своё назови в ответ на вопрос. После знакомства скажи «Очень приятно». Не запрашивай адрес или номер квартиры.",
+        "variation": {
+          "version": 2,
+          "family_id": "meet-someone-a1",
+          "bundle_id": "neighbour",
+          "facts": {
+            "character": "Анна",
+            "setting": "у дома",
+            "register": "вы"
+          }
+        }
+      },
+      "topic_id": "greetings",
+      "goal_ids": [
+        "objective-1",
+        "objective-2"
+      ],
+      "criterion": {
+        "id": "exchange-names",
+        "target_id": "speaking-introductions-a1.exchange-names",
+        "requirement_id": "a1.speaking.ask-and-answer",
+        "expectation": "Give the learner’s own real or invented name in response to the opening name question AND ask the other person’s name. Satisfied requires audible evidence of both actions; when only one is clearly demonstrated, use partial. Accept short natural replies, reciprocal questions and alternative phrasing. Assess only this name exchange, not a connected personal description, a greeting, a farewell or the whole reference requirement. Ground every judgement in the original learner audio, never an agent line, expected answer, ASR caption or general grammar/fluency score. Grammatical errors do not erase meaning when the requested action is intelligible. Unclear or unlocatable evidence remains insufficient_evidence; support and independence remain unverified."
+      },
+      "label": "Exchange names",
+      "label_ru": "Обменяйтесь именами"
+    },
+    "meet-someone-a1-club-v2": {
+      "expected": {
+        "scenario_id": "meet-someone",
+        "target_level": "A1",
+        "scenario_version": 2,
+        "goals": [
+          "Introduce yourself",
+          "Ask the other person’s name",
+          "Say that you are pleased to meet them and say goodbye"
+        ],
+        "goals_ru": [
+          "Представьтесь",
+          "Спросите имя собеседника",
+          "Скажите, что рады знакомству, и попрощайтесь"
+        ],
+        "goal_ids": [
+          "objective-1",
+          "objective-2",
+          "objective-3"
+        ],
+        "completion_criteria": [
+          "Introduce yourself using a real or invented name. Any understandable natural introduction meets this communicative goal; assess grammar separately.",
+          "Ask the other club member’s name.",
+          "Use a natural pleased-to-meet-you expression and farewell."
+        ],
+        "opening": "Привет! Как тебя зовут?",
+        "worker_brief": "Ты Саша, участник книжного клуба. Говори доброжелательно, поздоровайся и спроси имя. Свое назови только после ответного вопроса. На «Очень приятно» ответь естественно. Встреча начинается; после знакомства пора попрощаться.",
+        "variation": {
+          "version": 2,
+          "family_id": "meet-someone-a1",
+          "bundle_id": "club",
+          "facts": {
+            "character": "Саша",
+            "setting": "книжный клуб",
+            "register": "ты"
+          }
+        }
+      },
+      "topic_id": "greetings",
+      "goal_ids": [
+        "objective-1",
+        "objective-2"
+      ],
+      "criterion": {
+        "id": "exchange-names",
+        "target_id": "speaking-introductions-a1.exchange-names",
+        "requirement_id": "a1.speaking.ask-and-answer",
+        "expectation": "Give the learner’s own real or invented name in response to the opening name question AND ask the other person’s name. Satisfied requires audible evidence of both actions; when only one is clearly demonstrated, use partial. Accept short natural replies, reciprocal questions and alternative phrasing. Assess only this name exchange, not a connected personal description, a greeting, a farewell or the whole reference requirement. Ground every judgement in the original learner audio, never an agent line, expected answer, ASR caption or general grammar/fluency score. Grammatical errors do not erase meaning when the requested action is intelligible. Unclear or unlocatable evidence remains insufficient_evidence; support and independence remain unverified."
+      },
+      "label": "Exchange names",
+      "label_ru": "Обменяйтесь именами"
+    }
+  }
+}

@@ -1,0 +1,1017 @@
+{
+  "activity": {
+    "id": "speaking",
+    "title": "Speaking",
+    "title_ru": "Разговорная практика"
+  },
+  "scenarios": [
+    {
+      "id": "cafe",
+      "title": "At the café",
+      "title_ru": "В кафе",
+      "description": "Order something to eat and drink, make a choice, and ask the price.",
+      "description_ru": "Закажите еду и напитки, выберите подходящий вариант и спросите цену.",
+      "role": "Café worker",
+      "role_ru": "Сотрудник кафе",
+      "icon": "☕",
+      "sign": "КАФЕ",
+      "sort_order": 10,
+      "conversation_role": "Ты — доброжелательный сотрудник кафе. Принимай заказы, отвечай на вопросы о меню и считай стоимость по указанным ценам.",
+      "variants": [
+        {
+          "id": "cafe-takeaway-v1",
+          "seed": "cafe-takeaway-v1",
+          "scenario_version": 1,
+          "complication": "",
+          "complication_ru": "",
+          "closing_instruction": "Когда заказ согласован и вопросы посетителя решены, один раз спроси, нужно ли что-нибудь ещё. Если посетитель закончил, коротко подтверди заказ и попрощайся естественно. Не начинай после этого новый заказ и не задавай новых вопросов. Если посетитель явно прощается раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "title": "Something to take away",
+          "title_ru": "С собой",
+          "description": "Get a drink and a snack to take away, then check the total.",
+          "description_ru": "Закажите напиток и перекус с собой, затем уточните общую стоимость.",
+          "opening": "Здравствуйте! Что вам приготовить?",
+          "opening_english": "Hello! What can I get you?",
+          "goals": [
+            "Choose a drink and a snack",
+            "Ask to take them away",
+            "Check the total"
+          ],
+          "goals_ru": [
+            "Выберите напиток и перекус",
+            "Попросите заказ с собой",
+            "Уточните общую стоимость"
+          ],
+          "goal_ids": [
+            "order",
+            "takeaway",
+            "total"
+          ],
+          "completion_criteria": [
+            "The learner has chosen a drink and a snack from the available menu.",
+            "The learner has communicated that the order is to take away.",
+            "The learner has asked about or confirmed the total price."
+          ],
+          "menu": {
+            "чай": 100,
+            "кофе": 150,
+            "булочка": 80,
+            "бутерброд": 120
+          },
+          "worker_brief": "Обычный заказ с собой. Уточни здесь или с собой, если это ещё не понятно. Упаковка бесплатная.",
+          "scenario_id": "cafe",
+          "category_title": "At the café",
+          "category_title_ru": "В кафе",
+          "role": "Café worker",
+          "role_ru": "Сотрудник кафе",
+          "conversation_role": "Ты — доброжелательный сотрудник кафе. Принимай заказы, отвечай на вопросы о меню и считай стоимость по указанным ценам.",
+          "sign": "КАФЕ",
+          "icon": "☕"
+        },
+        {
+          "id": "cafe-for-two-v1",
+          "seed": "cafe-for-two-v1",
+          "scenario_version": 1,
+          "complication": "",
+          "complication_ru": "",
+          "closing_instruction": "Когда заказ согласован и вопросы посетителя решены, один раз спроси, нужно ли что-нибудь ещё. Если посетитель закончил, коротко подтверди заказ и попрощайся естественно. Не начинай после этого новый заказ и не задавай новых вопросов. Если посетитель явно прощается раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "title": "A table for two",
+          "title_ru": "На двоих",
+          "description": "Order drinks for yourself and a friend, choose something to share, and ask the total.",
+          "description_ru": "Закажите напитки себе и другу, выберите перекус на двоих и спросите общую стоимость.",
+          "opening": "Добрый день! Вы уже выбрали напитки?",
+          "opening_english": "Good afternoon! Have you chosen your drinks?",
+          "goals": [
+            "Order two drinks",
+            "Choose a snack to share",
+            "Ask the total"
+          ],
+          "goals_ru": [
+            "Закажите два напитка",
+            "Выберите перекус на двоих",
+            "Спросите общую стоимость"
+          ],
+          "goal_ids": [
+            "two_drinks",
+            "shared_snack",
+            "total"
+          ],
+          "completion_criteria": [
+            "The learner has ordered two drinks; they may be the same or different.",
+            "The learner has chosen one or more snacks for the two people.",
+            "The learner has asked about or confirmed the total for the agreed quantities."
+          ],
+          "menu": {
+            "чай": 110,
+            "кофе": 160,
+            "сок": 120,
+            "пирог": 180,
+            "бутерброд": 140
+          },
+          "worker_brief": "Посетитель заказывает на двоих. Уточни количество, только если оно непонятно. Пирог продаётся порциями, любую порцию можно разделить.",
+          "scenario_id": "cafe",
+          "category_title": "At the café",
+          "category_title_ru": "В кафе",
+          "role": "Café worker",
+          "role_ru": "Сотрудник кафе",
+          "conversation_role": "Ты — доброжелательный сотрудник кафе. Принимай заказы, отвечай на вопросы о меню и считай стоимость по указанным ценам.",
+          "sign": "КАФЕ",
+          "icon": "☕"
+        },
+        {
+          "id": "cafe-warm-drink-v1",
+          "seed": "cafe-warm-drink-v1",
+          "scenario_version": 1,
+          "complication": "",
+          "complication_ru": "",
+          "closing_instruction": "Когда заказ согласован и вопросы посетителя решены, один раз спроси, нужно ли что-нибудь ещё. Если посетитель закончил, коротко подтверди заказ и попрощайся естественно. Не начинай после этого новый заказ и не задавай новых вопросов. Если посетитель явно прощается раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "title": "Time to warm up",
+          "title_ru": "Пора согреться",
+          "description": "Choose a hot drink, ask for it without sugar, and find out the price.",
+          "description_ru": "Выберите горячий напиток, попросите его без сахара и узнайте цену.",
+          "opening": "Здравствуйте! Хотите что-нибудь горячее?",
+          "opening_english": "Hello! Would you like something hot?",
+          "goals": [
+            "Choose a hot drink",
+            "Ask for no sugar",
+            "Ask the price"
+          ],
+          "goals_ru": [
+            "Выберите горячий напиток",
+            "Попросите без сахара",
+            "Спросите цену"
+          ],
+          "goal_ids": [
+            "hot_drink",
+            "no_sugar",
+            "price"
+          ],
+          "completion_criteria": [
+            "The learner has chosen tea, coffee or cocoa.",
+            "The learner has communicated that they do not want sugar in the drink.",
+            "The learner has asked about or confirmed the price of the drink."
+          ],
+          "menu": {
+            "чай": 90,
+            "кофе": 140,
+            "какао": 160,
+            "печенье": 60
+          },
+          "worker_brief": "Чай, кофе и какао горячие. Любой напиток можно сделать без сахара, цена не меняется. Не добавляй сахар автоматически.",
+          "scenario_id": "cafe",
+          "category_title": "At the café",
+          "category_title_ru": "В кафе",
+          "role": "Café worker",
+          "role_ru": "Сотрудник кафе",
+          "conversation_role": "Ты — доброжелательный сотрудник кафе. Принимай заказы, отвечай на вопросы о меню и считай стоимость по указанным ценам.",
+          "sign": "КАФЕ",
+          "icon": "☕"
+        },
+        {
+          "id": "cafe-budget-v1",
+          "seed": "cafe-budget-v1",
+          "scenario_version": 1,
+          "complication": "",
+          "complication_ru": "",
+          "closing_instruction": "Когда заказ согласован и вопросы посетителя решены, один раз спроси, нужно ли что-нибудь ещё. Если посетитель закончил, коротко подтверди заказ и попрощайся естественно. Не начинай после этого новый заказ и не задавай новых вопросов. Если посетитель явно прощается раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "title": "A little lunch",
+          "title_ru": "Небольшой обед",
+          "description": "You have 250 roubles. Choose a drink and a snack, and check that you have enough.",
+          "description_ru": "У вас 250 рублей. Выберите напиток и перекус и уточните, хватает ли денег.",
+          "opening": "Добрый день! Что будете заказывать?",
+          "opening_english": "Good afternoon! What would you like to order?",
+          "goals": [
+            "Choose a drink",
+            "Choose a snack within your budget",
+            "Check the total"
+          ],
+          "goals_ru": [
+            "Выберите напиток",
+            "Выберите перекус по карману",
+            "Уточните общую стоимость"
+          ],
+          "goal_ids": [
+            "drink",
+            "budget_snack",
+            "total"
+          ],
+          "completion_criteria": [
+            "The learner has chosen a drink.",
+            "The agreed order includes a snack and costs no more than 250 roubles.",
+            "The learner has asked about or confirmed the total or whether 250 roubles is enough."
+          ],
+          "menu": {
+            "чай": 90,
+            "кофе": 150,
+            "булочка": 70,
+            "бутерброд": 130,
+            "пирог": 180
+          },
+          "worker_brief": "Бюджет посетителя — 250 рублей. Если он спрашивает о цене или просит недорогой вариант, помоги с выбором. Не выбирай за него и не придумывай скидки.",
+          "scenario_id": "cafe",
+          "category_title": "At the café",
+          "category_title_ru": "В кафе",
+          "role": "Café worker",
+          "role_ru": "Сотрудник кафе",
+          "conversation_role": "Ты — доброжелательный сотрудник кафе. Принимай заказы, отвечай на вопросы о меню и считай стоимость по указанным ценам.",
+          "sign": "КАФЕ",
+          "icon": "☕"
+        },
+        {
+          "id": "cafe-recommendation-v1",
+          "seed": "cafe-recommendation-v1",
+          "scenario_version": 1,
+          "complication": "",
+          "complication_ru": "",
+          "closing_instruction": "Когда заказ согласован и вопросы посетителя решены, один раз спроси, нужно ли что-нибудь ещё. Если посетитель закончил, коротко подтверди заказ и попрощайся естественно. Не начинай после этого новый заказ и не задавай новых вопросов. Если посетитель явно прощается раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "title": "What would you recommend?",
+          "title_ru": "Что вы посоветуете?",
+          "description": "Ask what is good today, choose a snack and a drink, then check the price.",
+          "description_ru": "Спросите, что стоит попробовать, выберите перекус и напиток, затем уточните цену.",
+          "opening": "Здравствуйте! У нас сегодня свежий яблочный пирог.",
+          "opening_english": "Hello! We have fresh apple pie today.",
+          "goals": [
+            "Ask for a recommendation",
+            "Choose a snack and a drink",
+            "Check the total"
+          ],
+          "goals_ru": [
+            "Попросите совет",
+            "Выберите перекус и напиток",
+            "Уточните общую стоимость"
+          ],
+          "goal_ids": [
+            "recommendation",
+            "order",
+            "total"
+          ],
+          "completion_criteria": [
+            "The learner has asked what the worker recommends or asked about a suggested item.",
+            "The learner has chosen a snack and a drink, whether or not they accept the recommendation.",
+            "The learner has asked about or confirmed the total price."
+          ],
+          "menu": {
+            "чай": 100,
+            "кофе": 140,
+            "яблочный пирог": 170,
+            "булочка": 90,
+            "бутерброд": 130
+          },
+          "worker_brief": "Сегодня свежий яблочный пирог: он сладкий, с яблоками. Посоветуй его, если попросят, но спокойно прими другой выбор. Бутерброд с сыром.",
+          "scenario_id": "cafe",
+          "category_title": "At the café",
+          "category_title_ru": "В кафе",
+          "role": "Café worker",
+          "role_ru": "Сотрудник кафе",
+          "conversation_role": "Ты — доброжелательный сотрудник кафе. Принимай заказы, отвечай на вопросы о меню и считай стоимость по указанным ценам.",
+          "sign": "КАФЕ",
+          "icon": "☕"
+        },
+        {
+          "id": "cafe-sold-out-v1",
+          "seed": "cafe-sold-out-v1",
+          "scenario_version": 1,
+          "complication": "The buns have sold out.",
+          "complication_ru": "Булочки закончились.",
+          "closing_instruction": "Когда заказ согласован и вопросы посетителя решены, один раз спроси, нужно ли что-нибудь ещё. Если посетитель закончил, коротко подтверди заказ и попрощайся естественно. Не начинай после этого новый заказ и не задавай новых вопросов. Если посетитель явно прощается раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "title": "A change of plan",
+          "title_ru": "Другой вариант",
+          "description": "You came for a bun, but they have sold out. Choose something else and order a drink.",
+          "description_ru": "Вы пришли за булочкой, но булочки закончились. Выберите другой перекус и закажите напиток.",
+          "opening": "Здравствуйте! К сожалению, булочки закончились. Есть пирог и бутерброды.",
+          "opening_english": "Hello! Sorry, we have sold out of buns. We have pie and sandwiches.",
+          "goals": [
+            "Choose another snack",
+            "Order a drink",
+            "Ask the total"
+          ],
+          "goals_ru": [
+            "Выберите другой перекус",
+            "Закажите напиток",
+            "Спросите общую стоимость"
+          ],
+          "goal_ids": [
+            "alternative",
+            "drink",
+            "total"
+          ],
+          "completion_criteria": [
+            "The learner has chosen an available snack instead of a bun.",
+            "The learner has ordered a drink.",
+            "The learner has asked about or confirmed the total price."
+          ],
+          "menu": {
+            "чай": 100,
+            "кофе": 160,
+            "пирог": 150,
+            "бутерброд": 120
+          },
+          "worker_brief": "Булочек действительно нет; не принимай заказ на них. Предложи пирог или бутерброд один раз, затем дай посетителю выбрать. Не добавляй новых препятствий.",
+          "scenario_id": "cafe",
+          "category_title": "At the café",
+          "category_title_ru": "В кафе",
+          "role": "Café worker",
+          "role_ru": "Сотрудник кафе",
+          "conversation_role": "Ты — доброжелательный сотрудник кафе. Принимай заказы, отвечай на вопросы о меню и считай стоимость по указанным ценам.",
+          "sign": "КАФЕ",
+          "icon": "☕"
+        },
+        {
+          "id": "cafe-payment-v1",
+          "seed": "cafe-payment-v1",
+          "scenario_version": 1,
+          "complication": "",
+          "complication_ru": "",
+          "closing_instruction": "Когда заказ согласован и вопросы посетителя решены, один раз спроси, нужно ли что-нибудь ещё. Если посетитель закончил, коротко подтверди заказ и попрощайся естественно. Не начинай после этого новый заказ и не задавай новых вопросов. Если посетитель явно прощается раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "title": "Coffee before the train",
+          "title_ru": "Кофе перед поездом",
+          "description": "Order a coffee to take away, ask the price, and find out whether you can pay by card.",
+          "description_ru": "Закажите кофе с собой, спросите цену и узнайте, можно ли заплатить картой.",
+          "opening": "Здравствуйте! Что для вас?",
+          "opening_english": "Hello! What can I get you?",
+          "goals": [
+            "Order a coffee to take away",
+            "Ask the price",
+            "Ask about paying by card"
+          ],
+          "goals_ru": [
+            "Закажите кофе с собой",
+            "Спросите цену",
+            "Спросите об оплате картой"
+          ],
+          "goal_ids": [
+            "takeaway_coffee",
+            "price",
+            "card_payment"
+          ],
+          "completion_criteria": [
+            "The learner has ordered coffee and communicated that it is to take away.",
+            "The learner has asked about or confirmed the price.",
+            "The learner has asked whether card payment is possible or requested to pay by card."
+          ],
+          "menu": {
+            "кофе": 150,
+            "чай": 100,
+            "булочка": 80
+          },
+          "worker_brief": "Кофе с собой стоит столько же, сколько в кафе. Карты принимаются. Оплата только воображаемая: не проси реквизиты карты и не проводи платёж. Не торопи посетителя из-за поезда.",
+          "scenario_id": "cafe",
+          "category_title": "At the café",
+          "category_title_ru": "В кафе",
+          "role": "Café worker",
+          "role_ru": "Сотрудник кафе",
+          "conversation_role": "Ты — доброжелательный сотрудник кафе. Принимай заказы, отвечай на вопросы о меню и считай стоимость по указанным ценам.",
+          "sign": "КАФЕ",
+          "icon": "☕"
+        },
+        {
+          "id": "cafe-later-order-v1",
+          "seed": "cafe-later-order-v1",
+          "scenario_version": 1,
+          "complication": "",
+          "complication_ru": "",
+          "closing_instruction": "Когда заказ согласован и вопросы посетителя решены, один раз спроси, нужно ли что-нибудь ещё. Если посетитель закончил, коротко подтверди заказ и попрощайся естественно. Не начинай после этого новый заказ и не задавай новых вопросов. Если посетитель явно прощается раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "title": "One more thing",
+          "title_ru": "Ещё кое-что",
+          "description": "Choose a drink, then add a snack to your order and check the new total.",
+          "description_ru": "Выберите напиток, затем добавьте перекус к заказу и уточните новую общую стоимость.",
+          "opening": "Добрый день! С чего начнём?",
+          "opening_english": "Good afternoon! What would you like first?",
+          "goals": [
+            "Order a drink",
+            "Add a snack to your order",
+            "Check the new total"
+          ],
+          "goals_ru": [
+            "Закажите напиток",
+            "Добавьте перекус к заказу",
+            "Уточните новую общую стоимость"
+          ],
+          "goal_ids": [
+            "drink",
+            "add_snack",
+            "new_total"
+          ],
+          "completion_criteria": [
+            "The learner has ordered a drink.",
+            "The learner has added a snack, without unintentionally replacing the drink.",
+            "The learner has asked about or confirmed the total for the updated order."
+          ],
+          "menu": {
+            "чай": 90,
+            "кофе": 130,
+            "сок": 110,
+            "печенье": 50,
+            "бутерброд": 120
+          },
+          "worker_brief": "Сначала прими заказ на напиток, затем оставь возможность добавить перекус. Сохраняй весь заказ при дополнении. Если посетитель сразу закажет всё, прими заказ без требования повторить по шагам.",
+          "scenario_id": "cafe",
+          "category_title": "At the café",
+          "category_title_ru": "В кафе",
+          "role": "Café worker",
+          "role_ru": "Сотрудник кафе",
+          "conversation_role": "Ты — доброжелательный сотрудник кафе. Принимай заказы, отвечай на вопросы о меню и считай стоимость по указанным ценам.",
+          "sign": "КАФЕ",
+          "icon": "☕"
+        }
+      ]
+    },
+    {
+      "id": "shop",
+      "title": "At the shops",
+      "title_ru": "В магазине",
+      "description": "Find what you need, describe it, and ask a shop assistant for help.",
+      "description_ru": "Найдите нужные покупки, опишите их и обратитесь за помощью к продавцу.",
+      "role": "Shop assistant",
+      "role_ru": "Продавец",
+      "icon": "🛍️",
+      "sign": "МАГАЗИН",
+      "sort_order": 20,
+      "conversation_role": "Ты — доброжелательный продавец в магазине из описания ситуации. Помогай выбрать товары, уточняй количество или размер только при необходимости. Все покупки воображаемые; не запрашивай платёжные данные.",
+      "variants": [
+        {
+          "id": "shop-groceries-v1",
+          "seed": "shop-groceries-v1",
+          "scenario_version": 1,
+          "title": "A few things for dinner",
+          "title_ru": "Покупки к ужину",
+          "description": "Buy a kilo of apples and half a kilo of cheese, then check the total.",
+          "description_ru": "Купите килограмм яблок и полкилограмма сыра, затем уточните общую стоимость.",
+          "opening": "Здравствуйте! Что вам взвесить?",
+          "opening_english": "Hello! What would you like me to weigh?",
+          "goals": [
+            "Ask for a kilo of apples",
+            "Ask for half a kilo of cheese",
+            "Check the total"
+          ],
+          "goals_ru": [
+            "Попросите килограмм яблок",
+            "Попросите полкилограмма сыра",
+            "Уточните общую стоимость"
+          ],
+          "goal_ids": [
+            "apples_quantity",
+            "cheese_quantity",
+            "total"
+          ],
+          "completion_criteria": [
+            "The learner has requested one kilogram of apples.",
+            "The learner has requested half a kilogram or 500 grams of cheese.",
+            "The learner has asked about or confirmed the total for the agreed quantities."
+          ],
+          "worker_brief": "Продуктовый магазин. Яблоки стоят 140 рублей за килограмм, сыр — 800 рублей за килограмм. Оба товара есть в наличии. Килограмм яблок и полкилограмма сыра вместе стоят 540 рублей. Можно взвесить половину килограмма или 500 граммов — это одна и та же просьба. Пакет бесплатный. Не добавляй товаров в заказ сам.",
+          "closing_instruction": "Когда цель разговора достигнута, естественно подведи итог и оставь собеседнику возможность уточнить что-то или попрощаться. После его прощания коротко попрощайся и не начинай новую тему. Если собеседник явно хочет закончить раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "menu": {},
+          "reference": {
+            "title": "Shopping list",
+            "title_ru": "Список покупок",
+            "items": [
+              {
+                "label": "Apples",
+                "label_ru": "Яблоки",
+                "value": "1 kg",
+                "value_ru": "1 кг"
+              },
+              {
+                "label": "Cheese",
+                "label_ru": "Сыр",
+                "value": "500 g",
+                "value_ru": "500 г"
+              }
+            ]
+          },
+          "complication": "",
+          "complication_ru": "",
+          "scenario_id": "shop",
+          "category_title": "At the shops",
+          "category_title_ru": "В магазине",
+          "role": "Shop assistant",
+          "role_ru": "Продавец",
+          "conversation_role": "Ты — доброжелательный продавец в магазине из описания ситуации. Помогай выбрать товары, уточняй количество или размер только при необходимости. Все покупки воображаемые; не запрашивай платёжные данные.",
+          "sign": "МАГАЗИН",
+          "icon": "🛍️"
+        },
+        {
+          "id": "shop-tshirt-v1",
+          "seed": "shop-tshirt-v1",
+          "scenario_version": 1,
+          "title": "Finding a T-shirt",
+          "title_ru": "Выбираем футболку",
+          "description": "Find a blue T-shirt in a medium size, ask to try it on, and find out the price.",
+          "description_ru": "Найдите синюю футболку среднего размера, попросите её примерить и узнайте цену.",
+          "opening": "Добрый день! Подсказать вам что-нибудь?",
+          "opening_english": "Good afternoon! Can I help you find something?",
+          "goals": [
+            "Describe the colour and size you want",
+            "Ask to try it on",
+            "Ask the price"
+          ],
+          "goals_ru": [
+            "Назовите нужный цвет и размер",
+            "Попросите примерить футболку",
+            "Спросите цену"
+          ],
+          "goal_ids": [
+            "colour_size",
+            "try_on",
+            "price"
+          ],
+          "completion_criteria": [
+            "The learner has requested a blue T-shirt in medium size, including an equivalent spoken size such as em or sredniy.",
+            "The learner has asked to try the T-shirt on or asked where the fitting room is.",
+            "The learner has asked about or confirmed the price of the T-shirt."
+          ],
+          "worker_brief": "Магазин одежды. Есть синие и зелёные футболки маленького, среднего и большого размера. Любая футболка стоит 900 рублей. Средний размер можно назвать «эм» или «средний»; понимай оба варианта. Примерочная справа, зеркало внутри. Примерка бесплатная. Не требуй покупки после примерки и не придумывай отсутствие нужного размера.",
+          "closing_instruction": "Когда цель разговора достигнута, естественно подведи итог и оставь собеседнику возможность уточнить что-то или попрощаться. После его прощания коротко попрощайся и не начинай новую тему. Если собеседник явно хочет закончить раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "menu": {},
+          "reference": {
+            "title": "What you are looking for",
+            "title_ru": "Что вам нужно",
+            "items": [
+              {
+                "label": "Item",
+                "label_ru": "Вещь",
+                "value": "T-shirt",
+                "value_ru": "Футболка"
+              },
+              {
+                "label": "Colour",
+                "label_ru": "Цвет",
+                "value": "Blue",
+                "value_ru": "Синий"
+              },
+              {
+                "label": "Size",
+                "label_ru": "Размер",
+                "value": "Medium",
+                "value_ru": "Средний"
+              }
+            ]
+          },
+          "complication": "",
+          "complication_ru": "",
+          "scenario_id": "shop",
+          "category_title": "At the shops",
+          "category_title_ru": "В магазине",
+          "role": "Shop assistant",
+          "role_ru": "Продавец",
+          "conversation_role": "Ты — доброжелательный продавец в магазине из описания ситуации. Помогай выбрать товары, уточняй количество или размер только при необходимости. Все покупки воображаемые; не запрашивай платёжные данные.",
+          "sign": "МАГАЗИН",
+          "icon": "🛍️"
+        }
+      ]
+    },
+    {
+      "id": "directions",
+      "title": "Asking directions",
+      "title_ru": "Как пройти?",
+      "description": "Ask someone the way, check a detail, and find your next stop.",
+      "description_ru": "Спросите дорогу, уточните детали и найдите нужное место.",
+      "role": "Local resident",
+      "role_ru": "Местный житель",
+      "icon": "🧭",
+      "sign": "ГОРОД",
+      "sort_order": 30,
+      "conversation_role": "Ты — доброжелательный местный житель, к которому обратились на улице. Объясняй дорогу по фактам ситуации, постепенно и без лишних маршрутов. Если человек не понял, повтори проще. Не выдумывай новые улицы, расстояния или препятствия.",
+      "variants": [
+        {
+          "id": "directions-library-v1",
+          "seed": "directions-library-v1",
+          "scenario_version": 1,
+          "title": "Finding the library",
+          "title_ru": "Дорога в библиотеку",
+          "description": "You are in the town square. Ask how to reach the library and check a landmark along the way.",
+          "description_ru": "Вы на городской площади. Узнайте, как пройти в библиотеку, и уточните один ориентир по дороге.",
+          "opening": "Здравствуйте! Вы что-то ищете?",
+          "opening_english": "Hello! Are you looking for somewhere?",
+          "goals": [
+            "Ask the way to the library",
+            "Check a turning or landmark",
+            "Thank the person and say goodbye"
+          ],
+          "goals_ru": [
+            "Спросите дорогу в библиотеку",
+            "Уточните поворот или ориентир",
+            "Поблагодарите и попрощайтесь"
+          ],
+          "goal_ids": [
+            "destination",
+            "route_detail",
+            "farewell"
+          ],
+          "completion_criteria": [
+            "The learner has asked how to get to the library.",
+            "The learner has asked about or confirmed at least one route detail, such as the turn after the park or the bakery opposite the library.",
+            "The learner has thanked the local resident and brought the exchange to a polite close."
+          ],
+          "worker_brief": "Вы стоите на площади. Чтобы дойти до библиотеки, нужно идти прямо до парка, сразу за парком повернуть направо; библиотека будет слева, напротив пекарни. Путь занимает около десяти минут пешком. Библиотека открыта сегодня до семи вечера. Не называй сразу все детали: сначала объясни путь и дай задать вопрос. Если спрашивают, парк виден с площади.",
+          "closing_instruction": "Когда цель разговора достигнута, естественно подведи итог и оставь собеседнику возможность уточнить что-то или попрощаться. После его прощания коротко попрощайся и не начинай новую тему. Если собеседник явно хочет закончить раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "menu": {},
+          "reference": {
+            "title": "Your destination",
+            "title_ru": "Куда вы идёте",
+            "items": [
+              {
+                "label": "Starting point",
+                "label_ru": "Откуда",
+                "value": "Town square",
+                "value_ru": "Городская площадь"
+              },
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Library",
+                "value_ru": "Библиотека"
+              }
+            ]
+          },
+          "complication": "",
+          "complication_ru": "",
+          "scenario_id": "directions",
+          "category_title": "Asking directions",
+          "category_title_ru": "Как пройти?",
+          "role": "Local resident",
+          "role_ru": "Местный житель",
+          "conversation_role": "Ты — доброжелательный местный житель, к которому обратились на улице. Объясняй дорогу по фактам ситуации, постепенно и без лишних маршрутов. Если человек не понял, повтори проще. Не выдумывай новые улицы, расстояния или препятствия.",
+          "sign": "ГОРОД",
+          "icon": "🧭"
+        },
+        {
+          "id": "directions-station-v1",
+          "seed": "directions-station-v1",
+          "scenario_version": 1,
+          "title": "Enough time to walk?",
+          "title_ru": "Успеем пешком?",
+          "description": "You are outside a museum with twenty minutes to spare. Find out how to walk to the railway station and how long it takes.",
+          "description_ru": "Вы у музея, у вас двадцать минут. Узнайте, как дойти до вокзала пешком и сколько времени займёт дорога.",
+          "opening": "Добрый день! Вам помочь?",
+          "opening_english": "Good afternoon! Can I help you?",
+          "goals": [
+            "Ask the way to the railway station",
+            "Ask how long the walk takes",
+            "Confirm where to turn"
+          ],
+          "goals_ru": [
+            "Спросите дорогу к вокзалу",
+            "Узнайте, сколько идти пешком",
+            "Уточните, где повернуть"
+          ],
+          "goal_ids": [
+            "destination",
+            "walking_time",
+            "turning"
+          ],
+          "completion_criteria": [
+            "The learner has asked for directions to the railway station.",
+            "The learner has asked about or confirmed the walking time or whether twenty minutes is enough.",
+            "The learner has asked about or confirmed the left turn after the bridge."
+          ],
+          "worker_brief": "Вы у входа в музей. До железнодорожного вокзала двенадцать минут пешком: идти прямо до моста, перейти мост и повернуть налево; вокзал будет справа через два квартала. Двадцати минут достаточно для этой прогулки, но точное время поезда тебе неизвестно. Не обещай, что человек успеет на конкретный поезд. Повторяй маршрут по частям, если просят.",
+          "closing_instruction": "Когда цель разговора достигнута, естественно подведи итог и оставь собеседнику возможность уточнить что-то или попрощаться. После его прощания коротко попрощайся и не начинай новую тему. Если собеседник явно хочет закончить раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "menu": {},
+          "reference": {
+            "title": "Your route",
+            "title_ru": "Ваш маршрут",
+            "items": [
+              {
+                "label": "Starting point",
+                "label_ru": "Откуда",
+                "value": "Outside the museum",
+                "value_ru": "У музея"
+              },
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Railway station",
+                "value_ru": "Железнодорожный вокзал"
+              },
+              {
+                "label": "Time available",
+                "label_ru": "Сколько есть времени",
+                "value": "20 minutes",
+                "value_ru": "20 минут"
+              }
+            ]
+          },
+          "complication": "",
+          "complication_ru": "",
+          "scenario_id": "directions",
+          "category_title": "Asking directions",
+          "category_title_ru": "Как пройти?",
+          "role": "Local resident",
+          "role_ru": "Местный житель",
+          "conversation_role": "Ты — доброжелательный местный житель, к которому обратились на улице. Объясняй дорогу по фактам ситуации, постепенно и без лишних маршрутов. Если человек не понял, повтори проще. Не выдумывай новые улицы, расстояния или препятствия.",
+          "sign": "ГОРОД",
+          "icon": "🧭"
+        }
+      ]
+    },
+    {
+      "id": "station",
+      "title": "At the station",
+      "title_ru": "На вокзале",
+      "description": "Plan a train journey, ask about departures, and choose a ticket.",
+      "description_ru": "Спланируйте поездку на поезде, узнайте время отправления и выберите билет.",
+      "role": "Ticket clerk",
+      "role_ru": "Кассир",
+      "icon": "🚆",
+      "sign": "ВОКЗАЛ",
+      "sort_order": 40,
+      "conversation_role": "Ты — доброжелательный кассир на железнодорожном вокзале. Используй только учебное расписание и цены из описания ситуации, помогай выбрать нужный билет. Это воображаемая поездка: не запрашивай документы, адрес, реквизиты карты и не совершай настоящих бронирований.",
+      "variants": [
+        {
+          "id": "station-one-way-v1",
+          "seed": "station-one-way-v1",
+          "scenario_version": 1,
+          "title": "A day in Lesnoy",
+          "title_ru": "Поездка в Лесной",
+          "description": "Ask for a one-way ticket to Lesnoy today. Find a train that arrives before noon and ask the price.",
+          "description_ru": "Попросите билет в Лесной в одну сторону на сегодня. Выберите поезд, который прибывает до полудня, и узнайте цену.",
+          "opening": "Здравствуйте! Куда хотите поехать?",
+          "opening_english": "Hello! Where would you like to go?",
+          "goals": [
+            "Ask for a one-way ticket to Lesnoy",
+            "Choose a train arriving before noon",
+            "Ask the price"
+          ],
+          "goals_ru": [
+            "Попросите билет в Лесной в одну сторону",
+            "Выберите поезд с прибытием до полудня",
+            "Спросите цену"
+          ],
+          "goal_ids": [
+            "ticket",
+            "arrival",
+            "price"
+          ],
+          "completion_criteria": [
+            "The learner has requested one ticket to Lesnoy today without a return journey.",
+            "The learner has selected the 9:00 train or otherwise agreed to the option arriving at 10:30, before noon.",
+            "The learner has asked about or confirmed the ticket price of 400 roubles."
+          ],
+          "worker_brief": "Учебное расписание: сейчас восемь утра. Сегодня в Лесной есть поезд в девять утра, прибытие в десять тридцать, и поезд в одиннадцать, прибытие в двенадцать тридцать. Любой билет в одну сторону стоит 400 рублей. Места есть в обоих поездах. Для прибытия до полудня подходит поезд в девять. Если просят поезд пораньше, предложи его, но дай подтвердить выбор. Не подставляй реальное расписание.",
+          "closing_instruction": "Когда цель разговора достигнута, естественно подведи итог и оставь собеседнику возможность уточнить что-то или попрощаться. После его прощания коротко попрощайся и не начинай новую тему. Если собеседник явно хочет закончить раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "menu": {},
+          "reference": {
+            "title": "Journey plan",
+            "title_ru": "План поездки",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Lesnoy",
+                "value_ru": "Лесной"
+              },
+              {
+                "label": "Day",
+                "label_ru": "Когда",
+                "value": "Today",
+                "value_ru": "Сегодня"
+              },
+              {
+                "label": "Arrival",
+                "label_ru": "Прибытие",
+                "value": "Before noon",
+                "value_ru": "До полудня"
+              },
+              {
+                "label": "Ticket",
+                "label_ru": "Билет",
+                "value": "One way · one person",
+                "value_ru": "В одну сторону · один человек"
+              }
+            ]
+          },
+          "complication": "",
+          "complication_ru": "",
+          "scenario_id": "station",
+          "category_title": "At the station",
+          "category_title_ru": "На вокзале",
+          "role": "Ticket clerk",
+          "role_ru": "Кассир",
+          "conversation_role": "Ты — доброжелательный кассир на железнодорожном вокзале. Используй только учебное расписание и цены из описания ситуации, помогай выбрать нужный билет. Это воображаемая поездка: не запрашивай документы, адрес, реквизиты карты и не совершай настоящих бронирований.",
+          "sign": "ВОКЗАЛ",
+          "icon": "🚆"
+        },
+        {
+          "id": "station-return-v1",
+          "seed": "station-return-v1",
+          "scenario_version": 1,
+          "title": "There and back",
+          "title_ru": "Туда и обратно",
+          "description": "Plan a Saturday trip to Ozyorsk for two people, returning that evening. Ask about the trains and the total price.",
+          "description_ru": "Спланируйте поездку в Озёрск в субботу на двоих с возвращением вечером. Узнайте время поездов и общую стоимость.",
+          "opening": "Добрый день! На какой день нужны билеты?",
+          "opening_english": "Good afternoon! What day do you need tickets for?",
+          "goals": [
+            "Ask for return tickets for two people",
+            "Agree on the outward and return trains",
+            "Check the total price"
+          ],
+          "goals_ru": [
+            "Попросите билеты туда и обратно на двоих",
+            "Выберите поезда туда и обратно",
+            "Уточните общую стоимость"
+          ],
+          "goal_ids": [
+            "return_tickets",
+            "train_times",
+            "total"
+          ],
+          "completion_criteria": [
+            "The learner has requested tickets to Ozyorsk on Saturday and back the same day for two people.",
+            "The learner has asked about and accepted the outward 9:30 train and the return 18:00 train.",
+            "The learner has asked about or confirmed the total of 1,200 roubles for both people and both directions."
+          ],
+          "worker_brief": "Учебное расписание на субботу: поезд в Озёрск отправляется в девять тридцать, прибывает в десять тридцать. Обратный поезд отправляется из Озёрска в восемнадцать часов, прибывает обратно в девятнадцать. Билет туда и обратно стоит 600 рублей на человека, на двоих всего 1200 рублей. Места есть. Сначала выясни направление и количество людей; время обратного поезда уточни, если ещё не обсудили. Не придумывай другие рейсы и не запрашивай имена пассажиров.",
+          "closing_instruction": "Когда цель разговора достигнута, естественно подведи итог и оставь собеседнику возможность уточнить что-то или попрощаться. После его прощания коротко попрощайся и не начинай новую тему. Если собеседник явно хочет закончить раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "menu": {},
+          "reference": {
+            "title": "Journey plan",
+            "title_ru": "План поездки",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Ozyorsk",
+                "value_ru": "Озёрск"
+              },
+              {
+                "label": "Day",
+                "label_ru": "Когда",
+                "value": "Saturday",
+                "value_ru": "Суббота"
+              },
+              {
+                "label": "Passengers",
+                "label_ru": "Пассажиры",
+                "value": "2 people",
+                "value_ru": "2 человека"
+              },
+              {
+                "label": "Return",
+                "label_ru": "Обратно",
+                "value": "The same evening",
+                "value_ru": "В тот же вечер"
+              }
+            ]
+          },
+          "complication": "",
+          "complication_ru": "",
+          "scenario_id": "station",
+          "category_title": "At the station",
+          "category_title_ru": "На вокзале",
+          "role": "Ticket clerk",
+          "role_ru": "Кассир",
+          "conversation_role": "Ты — доброжелательный кассир на железнодорожном вокзале. Используй только учебное расписание и цены из описания ситуации, помогай выбрать нужный билет. Это воображаемая поездка: не запрашивай документы, адрес, реквизиты карты и не совершай настоящих бронирований.",
+          "sign": "ВОКЗАЛ",
+          "icon": "🚆"
+        }
+      ]
+    },
+    {
+      "id": "meet-someone",
+      "title": "Meeting people",
+      "title_ru": "Знакомства и общение",
+      "description": "Get to know someone, talk about your interests, and make plans together.",
+      "description_ru": "Познакомьтесь, поговорите об увлечениях и договоритесь о совместных планах.",
+      "role": "Conversation partner",
+      "role_ru": "Собеседник",
+      "icon": "👋",
+      "sign": "ПРИВЕТ",
+      "sort_order": 50,
+      "conversation_role": "Ты — собеседник из описания ситуации: соседка или друг. Разговаривай тепло и естественно, делись своими интересами и задавай один уместный вопрос за раз. Это обычная встреча, не собеседование и не урок. Для знакомства достаточно выдуманного имени и увлечений; не проси точный адрес, контакты или другие личные данные.",
+      "variants": [
+        {
+          "id": "meet-neighbour-v1",
+          "seed": "meet-neighbour-v1",
+          "scenario_version": 1,
+          "title": "A new neighbour",
+          "title_ru": "Новая соседка",
+          "description": "Meet Anya, who lives nearby. Introduce yourself, find out what she enjoys, and tell her about one of your interests.",
+          "description_ru": "Познакомьтесь с Аней, которая живёт по соседству. Представьтесь, узнайте о её увлечениях и расскажите об одном из своих.",
+          "opening": "Привет! Я Аня, живу по соседству. А тебя как зовут?",
+          "opening_english": "Hi! I’m Anya. I live nearby. What’s your name?",
+          "goals": [
+            "Introduce yourself",
+            "Ask about Anya’s interests",
+            "Share something you enjoy"
+          ],
+          "goals_ru": [
+            "Представьтесь",
+            "Спросите об увлечениях Ани",
+            "Расскажите, что вам нравится"
+          ],
+          "goal_ids": [
+            "introduction",
+            "ask_interest",
+            "share_interest"
+          ],
+          "completion_criteria": [
+            "The learner has introduced themselves using a real or invented name.",
+            "The learner has asked about Anya’s interests or asked a follow-up question about an interest she mentioned.",
+            "The learner has shared at least one activity or subject they enjoy, whether or not Anya enjoys it too."
+          ],
+          "worker_brief": "Ты Аня, соседка. Любишь кататься на велосипеде и читать детективы; по выходным часто бываешь в парке. Ты приехала из Казани год назад. Говори на «ты», но спокойно принимай «вы». Сначала познакомься, затем заинтересуйся увлечениями собеседника. Не перечисляй всю биографию сразу. Если общих увлечений нет, прояви любопытство к его интересу без притворного согласия. Не называй адрес или номер квартиры. Когда вы познакомились и немного поговорили об интересах, можно сказать, что пора идти, и тепло попрощаться.",
+          "closing_instruction": "Когда цель разговора достигнута, естественно подведи итог и оставь собеседнику возможность уточнить что-то или попрощаться. После его прощания коротко попрощайся и не начинай новую тему. Если собеседник явно хочет закончить раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "menu": {},
+          "reference": {
+            "title": "A first conversation",
+            "title_ru": "Первое знакомство",
+            "items": [
+              {
+                "label": "You are meeting",
+                "label_ru": "Ваш собеседник",
+                "value": "Anya, your neighbour",
+                "value_ru": "Аня, ваша соседка"
+              },
+              {
+                "label": "Talk about",
+                "label_ru": "О чём поговорить",
+                "value": "Names and free-time interests",
+                "value_ru": "Как вас зовут и чем вы любите заниматься"
+              }
+            ]
+          },
+          "complication": "",
+          "complication_ru": "",
+          "scenario_id": "meet-someone",
+          "category_title": "Meeting people",
+          "category_title_ru": "Знакомства и общение",
+          "role": "Anya",
+          "role_ru": "Аня",
+          "conversation_role": "Ты — собеседник из описания ситуации: соседка или друг. Разговаривай тепло и естественно, делись своими интересами и задавай один уместный вопрос за раз. Это обычная встреча, не собеседование и не урок. Для знакомства достаточно выдуманного имени и увлечений; не проси точный адрес, контакты или другие личные данные.",
+          "sign": "ПРИВЕТ",
+          "icon": "👋"
+        },
+        {
+          "id": "meet-weekend-v1",
+          "seed": "meet-weekend-v1",
+          "scenario_version": 1,
+          "title": "A plan for the weekend",
+          "title_ru": "Планы на выходные",
+          "description": "Make a weekend plan with your friend Dima. Suggest something to do, then agree on a time and a meeting place.",
+          "description_ru": "Договоритесь с другом Димой о встрече на выходных. Предложите занятие, затем выберите время и место встречи.",
+          "opening": "Привет! Хочешь встретиться на выходных?",
+          "opening_english": "Hi! Would you like to meet up this weekend?",
+          "goals": [
+            "Suggest something to do",
+            "Agree on a day and time",
+            "Agree where to meet"
+          ],
+          "goals_ru": [
+            "Предложите занятие",
+            "Договоритесь о дне и времени",
+            "Выберите место встречи"
+          ],
+          "goal_ids": [
+            "activity",
+            "time",
+            "meeting_place"
+          ],
+          "completion_criteria": [
+            "The learner has suggested or chosen an activity to do with Dima; accepting an offered activity counts.",
+            "The learner has agreed on a specific meeting time on Saturday between 14:00 and 18:00 or Sunday between 11:00 and 15:00.",
+            "The learner has agreed on a clear meeting place appropriate to the activity."
+          ],
+          "worker_brief": "Ты Дима, друг собеседника. Свободен в субботу с двух часов дня до шести вечера и в воскресенье с одиннадцати утра до трёх дня. Любишь прогулки, фотографию и музеи; открыт и к другим спокойным планам. В городе есть парк и музей, оба открыты в эти часы. Встретиться можно у главного входа в парк или у входа в музей; можно принять другой понятный общественный ориентир. Если собеседник предлагает неудобное время, объясни, когда свободен, и предложи один подходящий вариант. Не превращай планирование встречи в покупку билетов. Когда занятие, время и место согласованы, коротко повтори договорённость и дай собеседнику подтвердить её или задать последний вопрос. После его подтверждения завершения или прощания следуй инструкции завершения беседы; не прощайся раньше его ответа.",
+          "closing_instruction": "Когда цель разговора достигнута, естественно подведи итог и оставь собеседнику возможность уточнить что-то или попрощаться. После его прощания коротко попрощайся и не начинай новую тему. Если собеседник явно хочет закончить раньше, тоже вежливо закончи: не заставляй выполнять все задания. Пауза, ошибка в окончании, просьба повторить или английская речь сами по себе не означают конец беседы. Не объявляй оценку, выполненные задания или результат урока.",
+          "menu": {},
+          "reference": {
+            "title": "Make a plan",
+            "title_ru": "Договоритесь о встрече",
+            "items": [
+              {
+                "label": "You are meeting",
+                "label_ru": "Ваш собеседник",
+                "value": "Dima, your friend",
+                "value_ru": "Дима, ваш друг"
+              },
+              {
+                "label": "When",
+                "label_ru": "Когда",
+                "value": "This weekend",
+                "value_ru": "В эти выходные"
+              },
+              {
+                "label": "Ideas",
+                "label_ru": "Идеи",
+                "value": "A walk, a museum, or your own suggestion",
+                "value_ru": "Прогулка, музей или ваша идея"
+              }
+            ]
+          },
+          "complication": "",
+          "complication_ru": "",
+          "scenario_id": "meet-someone",
+          "category_title": "Meeting people",
+          "category_title_ru": "Знакомства и общение",
+          "role": "Dima",
+          "role_ru": "Дима",
+          "conversation_role": "Ты — собеседник из описания ситуации: соседка или друг. Разговаривай тепло и естественно, делись своими интересами и задавай один уместный вопрос за раз. Это обычная встреча, не собеседование и не урок. Для знакомства достаточно выдуманного имени и увлечений; не проси точный адрес, контакты или другие личные данные.",
+          "sign": "ПРИВЕТ",
+          "icon": "👋"
+        }
+      ]
+    }
+  ]
+}

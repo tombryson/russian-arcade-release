@@ -1,0 +1,84 @@
+{
+  "version": "listening-v1",
+  "id": "objects-recipients-listening-v1",
+  "unit_id": "objects-recipients-v1",
+  "title": "Listen for the handover",
+  "title_ru": "Кому передать?",
+  "items": [
+    {
+      "id": "hand-over-envelope",
+      "prompt": "Что нужно отдать дедушке?",
+      "choices": [
+        {
+          "id": "envelope",
+          "text": "Конверт."
+        },
+        {
+          "id": "book",
+          "text": "Книгу."
+        },
+        {
+          "id": "pie",
+          "text": "Пирог."
+        }
+      ],
+      "answer": "envelope",
+      "hint": "Follow the item attached to the request for grandfather.",
+      "explanation": "The envelope is for grandfather; the book goes to the sister tomorrow and the pie stays in the kitchen.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the direct object of the requested handover while distinguishing two other mentioned objects.",
+      "transcript": "Соня, зайди, пожалуйста, к дедушке. Отдай ему этот конверт. Книгу не бери: её я завтра отнесу сестре. А пирог оставь на кухне, мы его вечером съедим.",
+      "audio_url": "/static/audio/course/curriculum/objects-recipients-listening-v1/hand-over-envelope.mp3"
+    },
+    {
+      "id": "ticket-recipient",
+      "prompt": "Кому Петя должен отдать билет?",
+      "choices": [
+        {
+          "id": "self",
+          "text": "Себе."
+        },
+        {
+          "id": "lena",
+          "text": "Лене."
+        },
+        {
+          "id": "speaker",
+          "text": "Девушке, которая звонит."
+        }
+      ],
+      "answer": "lena",
+      "hint": "Who is waiting to receive the ticket?",
+      "explanation": "Petya already has his own ticket. The other ticket is for Lena.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the intended recipient of the remaining ticket from the spoken request.",
+      "transcript": "Петя, я купила билеты для тебя и для Лены. Твой уже у тебя на столе. Этот билет отдай, пожалуйста, Лене. Она ждёт тебя возле театра.",
+      "audio_url": "/static/audio/course/curriculum/objects-recipients-listening-v1/ticket-recipient.mp3"
+    },
+    {
+      "id": "two-purchases",
+      "prompt": "Что покупают для брата?",
+      "choices": [
+        {
+          "id": "milk",
+          "text": "Молоко."
+        },
+        {
+          "id": "card",
+          "text": "Открытку."
+        },
+        {
+          "id": "present",
+          "text": "Молоко и открытку."
+        }
+      ],
+      "answer": "card",
+      "hint": "Keep the two recipients separate.",
+      "explanation": "The milk is for mother; the card is for the brother’s birthday.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Match the intended purchase to its recipient, rather than selecting another mentioned object.",
+      "transcript": "Нина, я в магазине. Я уже купил молоко для мамы. Теперь выбираю открытку для брата: у него завтра день рождения. Тебе что-нибудь купить?",
+      "audio_url": "/static/audio/course/curriculum/objects-recipients-listening-v1/two-purchases.mp3"
+    }
+  ]
+}

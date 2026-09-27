@@ -1,0 +1,52 @@
+CREATE TABLE IF NOT EXISTS words (
+ id INTEGER PRIMARY KEY AUTOINCREMENT, lemma TEXT NOT NULL, pos TEXT NOT NULL,
+ count INTEGER DEFAULT 0, lemma_difficulty INTEGER NOT NULL, topic TEXT,
+ mnemonic TEXT, date_added TEXT, UNIQUE(lemma, pos)
+);
+CREATE TABLE IF NOT EXISTS forms (
+ id INTEGER PRIMARY KEY AUTOINCREMENT, word_id INTEGER NOT NULL, form TEXT NOT NULL,
+ count INTEGER DEFAULT 0, tags JSON NOT NULL, form_difficulty INTEGER DEFAULT 0,
+ FOREIGN KEY(word_id) REFERENCES words(id), UNIQUE(word_id, form, tags)
+);
+CREATE TABLE IF NOT EXISTS saved_stories (
+ id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, topic TEXT, difficulty TEXT,
+ text TEXT, audio_url TEXT, questions TEXT, answers TEXT, feedback TEXT, score INTEGER,
+ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, image_url TEXT
+);
+CREATE TABLE IF NOT EXISTS writing_exercises (
+ id INTEGER PRIMARY KEY AUTOINCREMENT, topic TEXT NOT NULL, difficulty TEXT NOT NULL,
+ task TEXT NOT NULL, required_words TEXT NOT NULL, min_words INTEGER NOT NULL,
+ user_response TEXT, score INTEGER, feedback TEXT, created_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS lessons (
+ id TEXT PRIMARY KEY, title TEXT NOT NULL, description TEXT, pdf_path TEXT,
+ images TEXT NOT NULL DEFAULT '[]', prompts TEXT NOT NULL DEFAULT '[]',
+ created_at TEXT NOT NULL, responses TEXT NOT NULL DEFAULT '[]'
+);
+CREATE TABLE IF NOT EXISTS word_jumble_games (
+ id TEXT PRIMARY KEY, topic TEXT NOT NULL, difficulty TEXT NOT NULL, words TEXT NOT NULL,
+ user_response TEXT, score INTEGER, feedback TEXT, created_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS sentences (
+ id INTEGER PRIMARY KEY AUTOINCREMENT, sentence TEXT NOT NULL, english TEXT NOT NULL,
+ score INTEGER NOT NULL DEFAULT 0, topic TEXT NOT NULL, difficulty INTEGER NOT NULL,
+ audio_url TEXT, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS users (
+ user_id INTEGER PRIMARY KEY AUTOINCREMENT, lingocoins INTEGER DEFAULT 0,
+ elo_rating INTEGER DEFAULT 1000
+);
+CREATE TABLE IF NOT EXISTS anki_cards (
+ card_id INTEGER PRIMARY KEY, form_id INTEGER NOT NULL, word_id INTEGER NOT NULL,
+ interval INTEGER DEFAULT 0, lapses INTEGER DEFAULT 0, reps INTEGER DEFAULT 0,
+ rewarded INTEGER DEFAULT 0, created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+ ease INTEGER DEFAULT 250, type INTEGER DEFAULT 0, queue INTEGER DEFAULT 0,
+ due INTEGER DEFAULT 0, mod INTEGER DEFAULT 0,
+ FOREIGN KEY(form_id) REFERENCES forms(id), FOREIGN KEY(word_id) REFERENCES words(id)
+);
+CREATE TABLE IF NOT EXISTS user_stories (
+ user_id INTEGER, story_id INTEGER, rewarded INTEGER DEFAULT 0,
+ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(user_id, story_id),
+ FOREIGN KEY(user_id) REFERENCES users(user_id), FOREIGN KEY(story_id) REFERENCES saved_stories(id)
+);
+INSERT OR IGNORE INTO users(user_id, lingocoins, elo_rating) VALUES (1, 0, 1000);

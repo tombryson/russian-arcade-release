@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="{{ ui_lang }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="Learn and practise Russian with stories, sentence games and your vocabulary library.">
+    <title>Russian Arcade{% if view == 'catalogue' %} · Components{% endif %}</title>
+    {% include '_favicon.html' %}
+    {% for filename in assets.styles %}
+    <link rel="stylesheet" href="{{ url_for('word_post.assets', filename=filename) }}">
+    {% endfor %}
+    <script type="module" src="{{ url_for('word_post.assets', filename=assets.script) }}"></script>
+    <script src="/static/js/user_sessions.js?v=3" defer></script>
+  </head>
+  <body>
+    <div id="word-post" data-default-course-release="{{ default_course_release | default('a1-v1') }}" data-view="{{ view }}" data-onboarding="{{ onboarding_state | tojson | forceescape }}" data-profile="{{ user_session_profile | default(none) | tojson | forceescape }}" data-household="{{ 'true' if household_enabled else 'false' }}" data-session-scope="{{ user_session_scope | default('') }}" data-account-mode="{{ 'demo' if config.get('HOSTED_GUEST_DEMO') else 'hosted' if config.get('HOSTED_AI_TRIAL') else 'preview' if config.get('PUBLIC_DEMO') else 'local' }}" data-demo-available="{{ 'true' if config.get('HOSTED_GUEST_DEMO_ENABLED') else 'false' }}" data-sign-in-available="{{ 'true' if config.get('HOSTED_ACCOUNTS_ENABLED') else 'false' }}" data-native="{{ 'true' if config.NATIVE_FLASHCARDS_ENABLED else 'false' }}" data-language="{{ ui_lang }}" data-csrf="{{ csrf_token() }}" data-navigation-layout="{{ navigation_layout }}" data-navigation="{{ activity_navigation | tojson | forceescape }}">
+      <section class="page"><p class="kicker">Russian Arcade</p><h1>Opening your activities…</h1>
+        <p>If this page does not open, <a href="{{ url_for('word_post.home') }}">try again</a> or <a href="/comprehension">open reading practice</a>.</p>
+        <noscript><p>The activity home needs JavaScript. You can still <a href="/tools/anki/">open the existing learning tools</a>.</p></noscript>
+      </section>
+    </div>
+  </body>
+</html>

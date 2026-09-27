@@ -1,0 +1,57 @@
+{
+  "version": "listening-v1",
+  "id": "location-destination-listening-v1",
+  "unit_id": "location-destination-v1",
+  "title": "Listen for the place",
+  "title_ru": "Узнайте место на слух",
+  "items": [
+    {
+      "id": "shop-now",
+      "prompt": "Где Нина ждёт Диму?",
+      "choices": [
+        {"id": "post-office", "text": "На почте."},
+        {"id": "shop", "text": "В магазине."},
+        {"id": "home", "text": "Дома."}
+      ],
+      "answer": "shop",
+      "hint": "Listen for where Nina is waiting now, rather than where she will go later.",
+      "transcript": "Дима, привет! Я уже в магазине. Покупаю хлеб и молоко. Потом пойду на почту. Но сначала давай встретимся. Жду тебя здесь, у кассы.",
+      "explanation": "Nina says she is already в магазине and is waiting there. На почту is where she plans to go afterwards.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the meeting place in the spoken message, distinguishing the speaker's current location from her later destination.",
+      "audio_url": "/static/audio/course/curriculum/location-destination-listening-v1/shop-now.mp3"
+    },
+    {
+      "id": "after-pharmacy",
+      "prompt": "Куда Саша пойдёт после аптеки?",
+      "choices": [
+        {"id": "shop", "text": "В магазин."},
+        {"id": "post-office", "text": "На почту."},
+        {"id": "home", "text": "Домой."}
+      ],
+      "answer": "home",
+      "hint": "Listen for the next place Sasha plans to go. One other place is mentioned with не.",
+      "transcript": "Мама, это Саша. Я сейчас в аптеке. Куплю лекарство и пойду домой. В магазин сегодня не пойду: хлеб у нас есть. Скоро увидимся!",
+      "explanation": "Пойду домой gives Sasha's next destination. В аптеке is the current location; в магазин не пойду rules out the shop.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the next destination in the spoken message, distinguishing it from the current location and a rejected destination.",
+      "audio_url": "/static/audio/course/curriculum/location-destination-listening-v1/after-pharmacy.mp3"
+    },
+    {
+      "id": "inside-museum",
+      "prompt": "Где сейчас друзья Оли?",
+      "choices": [
+        {"id": "inside", "text": "В музее."},
+        {"id": "street", "text": "На улице."},
+        {"id": "shop", "text": "В магазине."}
+      ],
+      "answer": "inside",
+      "hint": "They are moving, but are they going to another place or walking inside one?",
+      "transcript": "Оля, привет! Мы уже в музее. Сейчас ходим по залам и смотрим картины. На улицу пока не выходим. Приходи к нам! Мы ждём тебя в первом зале.",
+      "explanation": "The friends are already в музее. Ходим по залам describes movement inside it; they have not gone outside.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify where the speakers can be found from the spoken message, recognising that walking through rooms remains movement inside the museum.",
+      "audio_url": "/static/audio/course/curriculum/location-destination-listening-v1/inside-museum.mp3"
+    }
+  ]
+}

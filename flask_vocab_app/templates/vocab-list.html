@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% set page_title = 'Мои слова' if session.get('ui_lang') == 'ru' else 'My words' %}
+{% set ru = session.get('ui_lang') == 'ru' %}
+{% block main_content %}
+<main class="main-content" id="mainContent" data-page="vocab">
+    <header class="vocab-heading">
+        <div><p class="vocab-eyebrow">{{ 'ВАШ СЛОВАРЬ' if ru else 'YOUR VOCABULARY' }}</p><h1>{{ page_title }}</h1>
+        <p>{{ 'Слова, их формы и карточки для практики.' if ru else 'Your words, their forms, and the cards you practise.' }}</p></div>
+        <div class="vocab-heading-actions"><a class="sentence-text-link" href="/sentences/saved" hx-boost="false">{{ ui_t('sentences.saved_title') }} ↗</a><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWordModal">＋ {{ 'Добавить слово' if ru else 'Add a word' }}</button></div>
+    </header>
+    <div class="vocab-source-row">
+        <fieldset class="vocab-source-switch"><legend class="visually-hidden">{{ 'Источник слов' if ru else 'Vocabulary source' }}</legend>
+            <input type="radio" name="source" id="source-db" value="db" {% if source == 'db' %}checked{% endif %}><label for="source-db">{{ 'Словарь' if ru else 'Word library' }}</label>
+            <input type="radio" name="source" id="source-cloud" value="cloud" {% if source == 'cloud' %}checked{% endif %}><label for="source-cloud">Google Drive</label>
+        </fieldset>
+        <details class="vocab-tools"><summary>{{ 'Синхронизация и инструменты' if ru else 'Sync & tools' }}</summary><div class="vocab-tools-panel">
+            <p>{{ 'Добавляйте слова в Google Drive, затем переносите их в словарь с помощью синхронизации.' if ru else 'Collect words in Google Drive, then sync them into your word library.' }}</p>
+            <button class="btn btn-primary" hx-post="/sync_vocab" hx-target="#syncPreviewModal .modal-content" hx-swap="innerHTML" data-bs-toggle="modal" data-bs-target="#syncPreviewModal" hx-indicator="#sync-spinner">{{ 'Просмотреть синхронизацию' if ru else 'Review sync' }}</button>
+            <button class="btn btn-outline-secondary" hx-post="/sanitize_vocab" hx-target="#sanitizePreviewModal .modal-content" hx-swap="innerHTML" data-bs-toggle="modal" data-bs-target="#sanitizePreviewModal" hx-indicator="#sanitize-spinner">{{ 'Очистить список Drive' if ru else 'Clean up Drive list' }}</button>
+            <p id="sync-spinner" class="htmx-indicator" role="status">{{ ui_t('vocab.syncing') }}</p>
+            <p id="sanitize-spinner" class="htmx-indicator" role="status">{{ ui_t('vocab.cleaning') }}</p>
+            <div id="sync-result" role="status"></div>
+        </div></details>
+    </div>
+    <div id="vocab-spinner" class="htmx-indicator" role="status">{{ ui_t('common.loading') }}</div>
+    {% include '_vocab_dynamic_content.html' %}
+        <!-- Sync Preview Modal -->
+        <div
+            class="modal fade"
+            id="syncPreviewModal"
+            tabindex="-1"
+            aria-labelledby="syncPreviewModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content"></div>
+            </div>
+        </div>
+
+        <!-- Sanitize Preview Modal -->
+        <div
+            class="modal fade"
+            id="sanitizePreviewModal"
+            tabindex="-1"
+            aria-labelledby="sanitizePreviewModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content"></div>
+            </div>
+        </div>
+
+        <!-- Add Word Modal -->
+        <div
+            class="modal fade"
+            id="addWordModal"
+            tabindex="-1"
+            aria-labelledby="addWordModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addWordModalLabel">
+                            {{ ui_t('vocab.add_word') }}
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="{{ ui_t('common.close') }}"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ 'Слово сохранится в Google Drive. Синхронизируйте список, чтобы добавить его в словарь.' if ru else 'Saved to Google Drive. Sync your list to add it to the word library.' }}</p><div id="add-word-result"></div>
+                        <div class="mb-3">
+                            <label for="add-word-input" class="form-label"
+                                >{{ ui_t('vocab.word') }}</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="add-word-input"
+                                name="word"
+                            />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+                            {{ ui_t('common.close') }}
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            hx-post="/add_word"
+                            hx-target="#dynamic-vocab-content"
+                            hx-swap="outerHTML"
+                            hx-include="#add-word-input"
+                        >
+                            {{ ui_t('vocab.add_word') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Word Modal -->
+        <div
+            class="modal fade"
+            id="editWordModal"
+            tabindex="-1"
+            aria-labelledby="editWordModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editWordModalLabel">
+                            {{ ui_t('vocab.edit_word') }}
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="{{ ui_t('common.close') }}"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="edit-word-result"></div>
+                        <input
+                            type="hidden"
+                            id="edit-old-word"
+                            name="old_word"
+                        />
+                        <div class="mb-3">
+                            <label for="edit-new-word" class="form-label"
+                                >{{ ui_t('vocab.new_word') }}</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="edit-new-word"
+                                name="new_word"
+                            />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+                            {{ ui_t('common.close') }}
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            hx-post="/edit_word"
+                            hx-target="#dynamic-vocab-content"
+                            hx-swap="outerHTML"
+                            hx-include="#edit-old-word, #edit-new-word"
+                        >
+                            {{ ui_t('vocab.save') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+{% endblock %}

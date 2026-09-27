@@ -1,0 +1,363 @@
+{% extends "base.html" %}
+{% set page_title = ui_t('flashcards.title') %}
+
+{% block main_content %}
+<main class="main-content" id="mainContent" data-page="flashcards">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Main Form -->
+                        <div class="col-md-8 mt-4">
+                            <h1>{{ ui_t('flashcards.title') }}</h1>
+                            <form
+                                hx-post="/generate"
+                                hx-target="#result"
+                                hx-indicator="#spinner"
+                            >
+                                <div class="mb-3">
+                                    <h3>{{ ui_t('flashcards.difficulty') }}</h3>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="difficulty"
+                                            value="any"
+                                            id="diffAny"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="diffAny"
+                                            >{{ ui_t('flashcards.any') }}</label
+                                        >
+                                    </div>
+                                    {% for i in range(1, 9) %}
+                                    <div class="form-check form-check-inline">
+                                        <input
+                                            class="form-check-input difficulty-checkbox"
+                                            type="checkbox"
+                                            name="difficulty"
+                                            value="{{ i }}"
+                                            id="diff{{ i }}"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="diff{{ i }}"
+                                            >{{ i }}</label
+                                        >
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="mb-3">
+                                    <h3>{{ ui_t('flashcards.part_of_speech') }}</h3>
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="pos"
+                                            value="any"
+                                            id="posAny"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="posAny"
+                                            >{{ ui_t('flashcards.any') }}</label
+                                        >
+                                    </div>
+                                    {% for pos in pos_list %} {% for value in
+                                    pos.value %}
+                                    <div class="form-check form-check-inline">
+                                        <input
+                                            class="form-check-input pos-checkbox"
+                                            type="checkbox"
+                                            name="pos"
+                                            value="{{ value }}"
+                                            id="pos{{ pos.label }}_{{ value }}"
+                                            data-group="{{ pos.label }}"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="pos{{ pos.label }}_{{ value }}"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="{{ pos.examples }}"
+                                            >{{ pos.label }}</label
+                                        >
+                                    </div>
+                                    {% endfor %} {% endfor %}
+                                </div>
+                                <div class="mb-3">
+                                    <h3>{{ ui_t('flashcards.case') }}</h3>
+                                    <label for="case-filter" class="visually-hidden">{{ ui_t('flashcards.case') }}</label>
+                                    <select class="form-select" id="case-filter" name="case">
+                                        <option value="">{{ ui_t('flashcards.any') }}</option>
+                                        {% for case in case_list %}
+                                        <option value="{{ case.value }}">
+                                            {{ case.label }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <h3>{{ ui_t('flashcards.topics') }}</h3>
+                                    <label for="topics-filter" class="visually-hidden">{{ ui_t('flashcards.topics') }}</label>
+                                    <select
+                                        class="form-select"
+                                        id="topics-filter"
+                                        name="topics[]"
+                                        multiple
+                                        size="5"
+                                    >
+                                        <option value="">{{ ui_t('flashcards.any') }}</option>
+                                        {% for topic in topics %}
+                                        <option value="{{ topic }}">
+                                            {{ topic }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label
+                                        for="max_sentences"
+                                        class="form-label"
+                                        >{{ ui_t('flashcards.max_sentences') }}</label
+                                    >
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="max_sentences"
+                                        name="max_sentences"
+                                        value="1"
+                                        min="1"
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="batch_size" class="form-label"
+                                        >{{ ui_t('flashcards.batch_size') }}</label
+                                    >
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="batch_size"
+                                        name="batch_size"
+                                        value="10"
+                                        min="1"
+                                    />
+                                </div>
+                                <div class="buttons-flashcards">
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary btn-full"
+                                    >
+                                        {{ ui_t('flashcards.create') }}
+                                    </button>
+                                    <button
+                                        type="button"
+                                        hx-post="/review_cards"
+                                        hx-target="#result"
+                                        hx-swap="innerHTML"
+                                        class="btn btn-primary action-btn review-cards-btn"
+                                    >
+                                        {{ 'Проверить статистику Anki' if ui_lang == 'ru' else 'Check Anki stats' }}
+                                        <span
+                                            class="htmx-indicator spinner-border spinner-border-sm"
+                                            role="status"
+                                        ></span>
+                                    </button>
+                                </div>
+                                <div id="spinner" class="htmx-indicator mt-3">
+                                    <div
+                                        class="spinner-border text-primary"
+                                        role="status"
+                                    >
+                                        <span class="visually-hidden"
+                                            >{{ ui_t('flashcards.processing') }}</span
+                                        >
+                                    </div>
+                                    <span id="progress"> {{ ui_t('flashcards.processing') }}</span>
+                                </div>
+                            </form>
+                            <div id="result" class="mt-3"></div>
+                            <!-- Word-Specific Form -->
+                            <div class="mt-4">
+                                <h3>{{ ui_t('flashcards.word_forms_title') }}</h3>
+                                <form
+                                    hx-post="/generate_word_forms"
+                                    hx-target="#word-result"
+                                    hx-indicator="#word-spinner"
+                                >
+                                    <div class="mb-3">
+                                        <label for="word" class="form-label"
+                                            >{{ ui_t('flashcards.choose_word') }}:</label
+                                        >
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            name="word"
+                                            id="word"
+                                            list="word-list"
+                                            placeholder="{{ ui_t('flashcards.word_placeholder') }}"
+                                            required
+                                        />
+                                        <datalist id="word-list">
+                                            {% for word in words %}
+                                            <option value="{{ word.lemma }}">
+                                                {{ word.lemma }} ({{ word.pos
+                                                }})
+                                            </option>
+                                            {% endfor %}
+                                        </datalist>
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        class="btn btn-success"
+                                    >
+                                        {{ ui_t('flashcards.create_forms') }}
+                                    </button>
+                                    <div
+                                        id="word-spinner"
+                                        class="htmx-indicator mt-3"
+                                    >
+                                        <div
+                                            class="spinner-border text-success"
+                                            role="status"
+                                        >
+                                            <span class="visually-hidden"
+                                                >{{ ui_t('flashcards.processing') }}</span
+                                            >
+                                        </div>
+                                        <span id="word-progress">
+                                            {{ ui_t('flashcards.processing') }}</span
+                                        >
+                                    </div>
+                                </form>
+                                <div id="word-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                        <!-- Dashboard Sidebar -->
+                        <div class="col-md-4">
+                            <div class="card sticky-top sticky-dashboard">
+                                <div class="card-header">
+                                    <h3>{{ ui_t('flashcards.stats') }}</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div id="metrics">
+                                        <!-- Chart at the top -->
+                                        <h4>{{ ui_t('flashcards.charts') }}</h4>
+                                        <div class="mb-3">
+                                            <div class="form-check">
+                                                <input
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    name="chartType"
+                                                    id="chartPos"
+                                                    value="pos"
+                                                    checked
+                                                />
+                                                <label
+                                                    class="form-check-label"
+                                                    for="chartPos"
+                                                    >{{ ui_t('flashcards.pos_distribution') }}</label
+                                                >
+                                            </div>
+                                            <div class="form-check">
+                                                <input
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    name="chartType"
+                                                    id="chartCase"
+                                                    value="case"
+                                                />
+                                                <label
+                                                    class="form-check-label"
+                                                    for="chartCase"
+                                                    >{{ ui_t('flashcards.case_cards') }}</label
+                                                >
+                                            </div>
+                                        </div>
+                                        <div id="scoreDistribution"></div>
+                                        <!-- Metrics -->
+                                        <div class="card-body">
+                                            <p>
+                                                <strong>{{ ui_t('flashcards.total_words') }}:</strong>
+                                                <span
+                                                    id="total"
+                                                    class="fw-bold text-dark"
+                                                    >{{ ui_t('common.loading') }}</span
+                                                >
+                                            </p>
+                                            <p>
+                                                <strong>{{ ui_t('flashcards.total_cards') }}:</strong>
+                                                <span
+                                                    id="flashcards-total"
+                                                    class="fw-bold text-dark"
+                                                    >{{ ui_t('common.loading') }}</span
+                                                >
+                                            </p>
+                                            <p>
+                                                <strong
+                                                    >{{ ui_t('flashcards.card_percentage') }}:</strong
+                                                >
+                                                <span
+                                                    id="flashcard-percentage"
+                                                    class="fw-bold text-primary"
+                                                    >{{ ui_t('common.loading') }}</span
+                                                >%
+                                            </p>
+                                            <h4>{{ ui_t('flashcards.difficulty_distribution') }}</h4>
+                                            <table
+                                                class="table table-sm table-bordered"
+                                            >
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th>{{ ui_t('flashcards.difficulty') }}</th>
+                                                        <th>{{ ui_t('flashcards.count') }}</th>
+                                                        <th>%</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="difficultyTable">
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            {{ ui_t('common.loading') }}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="mb-3">
+                                                <h5>{{ ui_t('flashcards.topics') }}</h5>
+                                                <div class="form-check">
+                                                    <input
+                                                        class="form-check-input"
+                                                        type="checkbox"
+                                                        name="topic"
+                                                        value="any"
+                                                        id="topicFilter"
+                                                        checked
+                                                    />
+                                                    <label
+                                                        class="form-check-label"
+                                                        for="topicFilter"
+                                                        >{{ ui_t('flashcards.topics') }}</label
+                                                    >
+                                                </div>
+                                                <select
+                                                    class="form-select mt-2"
+                                                    id="topicSelect"
+                                                    multiple
+                                                    size="5"
+                                                    disabled
+                                                >
+                                                    {% for topic in topics %}
+                                                    <option value="{{ topic }}">
+                                                        {{ topic }}
+                                                    </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+{% endblock %}

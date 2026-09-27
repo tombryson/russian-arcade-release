@@ -1,0 +1,30 @@
+.appearance-picker { position:relative; flex:0 0 auto; color:inherit; }
+.appearance-picker > summary { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0; padding:0; border:0; border-radius:8px; list-style:none; cursor:pointer; }
+.appearance-picker > summary::-webkit-details-marker { display:none; }
+.appearance-picker > summary:hover,.appearance-picker[open] > summary { background:#ffffff18; }
+.appearance-picker svg { display:block; width:22px; height:22px; }
+.appearance-picker .appearance-picker-options { position:absolute; top:calc(100% + 8px); right:0; z-index:1100; display:grid; gap:4px; width:208px; min-width:0; margin:0; padding:6px; border:1px solid #24264b30; border-radius:12px; box-shadow:0 8px 24px #14162c30; background:#fff5db; color:#24264b; }
+.appearance-picker-options button { display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; min-height:44px; padding:10px 12px; margin:0; border:0; border-radius:7px; background:transparent; color:inherit; font:400 14px/1.5 var(--wp-font-reading,sans-serif); text-align:left; cursor:pointer; }
+.appearance-picker-options button:hover,.appearance-picker-options button[aria-pressed=true] { background:#24264b0e; }
+.appearance-picker > summary:focus-visible { outline:2px solid currentColor; outline-offset:2px; }
+.appearance-picker-options button:focus-visible { outline:2px solid #294acc; outline-offset:-2px; }
+.sidebar-footer .appearance-picker .appearance-picker-options,
+.sidebar-account .appearance-picker .appearance-picker-options { top:auto; bottom:calc(100% + 8px); }
+.navigation-preferences { display:flex; align-items:center; justify-content:space-between; max-width:440px; margin-top:32px; padding-top:20px; border-top:1px solid var(--wp-border-subtle,#b8b7c7); }
+.navigation-preferences h2 { margin:0; font-size:18px; }
+@media(max-width:900px) {
+  .arcade-header:has(.appearance-picker) { grid-template-columns:minmax(0,1fr) auto 40px 40px; gap:12px 6px; }
+  .arcade-header:has(.appearance-picker) .arcade-progression { grid-column:2; }
+  .arcade-header:has(.appearance-picker) .language-picker { grid-column:3; }
+  .arcade-header:has(.appearance-picker) .appearance-picker { grid-column:4; grid-row:2; }
+  .arcade-header:has(.appearance-picker) .user-session-link { grid-column:4; }
+  .arcade-header:has(.appearance-picker) nav { grid-column:1/4; }
+}
+@media(max-width:900px) {
+  .top:has(>.appearance-picker) { grid-template-columns:minmax(0,1fr) auto 40px 40px; gap:12px 6px; }
+  .top:has(>.appearance-picker) > .progression-badge { grid-column:2; }
+  .top:has(>.appearance-picker) > .post-language { grid-column:3; }
+  .top > .appearance-picker { grid-column:4; grid-row:2; }
+  .top:has(>.appearance-picker) > .user-session-link { grid-column:4; }
+  .top:has(>.appearance-picker) > .nav { grid-column:1/4; }
+}

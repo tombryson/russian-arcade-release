@@ -1,0 +1,1366 @@
+{
+  "schema_version": 1,
+  "catalogue_version": "torfl-reference-v1",
+  "level": "A1",
+  "extends": null,
+  "sources": [
+    {
+      "id": "msu-a1-2001",
+      "title": "Государственный стандарт по русскому языку как иностранному. Элементарный уровень",
+      "edition": "2nd edition, revised and supplemented, 2001",
+      "url": "https://test.irlc.msu.ru/wp-content/uploads/2024/08/A1_standart.pdf",
+      "accessed": "2026-09-23",
+      "kind": "standard",
+      "note": "Currently linked by the MSU testing centre. The upload date is not the publication date. The title page identifies this edition as a draft. The requirements below are original application assessment specifications informed by the cited sections; they are not official test items or certification rules. The separate lexical minimum has not been imported."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "a1.language.noun-gender-number-animacy",
+      "domain": "language_use",
+      "category": "noun_forms",
+      "label_en": "Gender, number and animacy",
+      "label_ru": "Род, число и одушевлённость",
+      "expectation": "Choose a noun form that fits whether the context names one or several people, animals or objects; use its grammatical gender rather than English associations.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2, pp. 11–14"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.nominative-subject",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "The person doing the action",
+      "label_ru": "Действующее лицо",
+      "expectation": "Identify the noun that names who performs an action in a short sentence; do not rely only on first-word position.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 11"
+        }
+      ],
+      "case": "nominative"
+    },
+    {
+      "id": "a1.language.nominative-identification",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Naming a person or object",
+      "label_ru": "Название лица или предмета",
+      "expectation": "Complete a simple identification with the named person or object in the appropriate noun form.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 11"
+        }
+      ],
+      "case": "nominative"
+    },
+    {
+      "id": "a1.language.nominative-address",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Addressing someone",
+      "label_ru": "Обращение",
+      "expectation": "Select the name used to address a person directly, distinguishing it from the object of an action.",
+      "topic_ids": [
+        "greetings",
+        "family"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 11"
+        }
+      ],
+      "case": "nominative"
+    },
+    {
+      "id": "a1.language.nominative-role",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Describing who someone is",
+      "label_ru": "Характеристика человека",
+      "expectation": "Choose a present role or relationship statement with a noun predicate and no unnecessary present-tense form of быть.",
+      "topic_ids": [
+        "family",
+        "jobs"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 11"
+        }
+      ],
+      "case": "nominative"
+    },
+    {
+      "id": "a1.language.nominative-event",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Naming an event",
+      "label_ru": "Событие",
+      "expectation": "Complete a brief statement identifying an event that happens today or tomorrow.",
+      "topic_ids": [
+        "school",
+        "holidays"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 11"
+        }
+      ],
+      "case": "nominative"
+    },
+    {
+      "id": "a1.language.nominative-existence",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Saying what is there",
+      "label_ru": "Наличие предмета",
+      "expectation": "Choose the form naming an available item or place after есть, distinguishing it from an absence construction.",
+      "topic_ids": [
+        "home",
+        "places",
+        "shopping"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 11"
+        }
+      ],
+      "case": "nominative"
+    },
+    {
+      "id": "a1.language.genitive-possession",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Whose object it is",
+      "label_ru": "Принадлежность предмета",
+      "expectation": "Identify an owner from a noun phrase and choose the owner form that preserves that relationship.",
+      "topic_ids": [
+        "family",
+        "home"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "genitive"
+    },
+    {
+      "id": "a1.language.genitive-part-whole",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Part of a place or thing",
+      "label_ru": "Часть предмета или места",
+      "expectation": "Choose a noun form identifying the larger place or thing to which a named part belongs.",
+      "topic_ids": [
+        "home",
+        "places"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "genitive"
+    },
+    {
+      "id": "a1.language.genitive-absence",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Saying something is absent",
+      "label_ru": "Отсутствие в настоящем времени",
+      "expectation": "Use нет with the missing person or object in a present-time situation.",
+      "topic_ids": [
+        "family",
+        "home",
+        "shopping"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "genitive"
+    },
+    {
+      "id": "a1.language.genitive-quantity",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Nouns after small numbers",
+      "label_ru": "Существительные после числительных",
+      "expectation": "Choose the familiar noun form required after two, three, four or five when stating a price or quantity.",
+      "topic_ids": [
+        "numbers",
+        "shopping",
+        "food"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "genitive"
+    },
+    {
+      "id": "a1.language.genitive-calendar-month",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "The month in a date",
+      "label_ru": "Месяц в дате",
+      "expectation": "Supply the month form when naming a calendar date.",
+      "topic_ids": [
+        "numbers",
+        "holidays"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "genitive"
+    },
+    {
+      "id": "a1.language.genitive-origin",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Where someone comes from",
+      "label_ru": "Откуда: из и с",
+      "expectation": "Distinguish a departure point from a destination by selecting из or с and the corresponding place form.",
+      "topic_ids": [
+        "places",
+        "travel"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "genitive"
+    },
+    {
+      "id": "a1.language.genitive-owner-u",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Who has something",
+      "label_ru": "У кого что есть",
+      "expectation": "Identify the possessor in an у construction while keeping the possessed object as a separate participant.",
+      "topic_ids": [
+        "family",
+        "home"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "genitive"
+    },
+    {
+      "id": "a1.language.dative-recipient",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Who receives the action",
+      "label_ru": "Адресат действия",
+      "expectation": "Choose the person to whom someone writes, calls or gives something when the verb requires the dative.",
+      "topic_ids": [
+        "family",
+        "greetings"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "dative"
+    },
+    {
+      "id": "a1.language.dative-age",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Saying someone’s age",
+      "label_ru": "Возраст с личным местоимением",
+      "expectation": "Choose the personal-pronoun form identifying whose age is given.",
+      "topic_ids": [
+        "family",
+        "numbers"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "dative"
+    },
+    {
+      "id": "a1.language.dative-need",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Who needs to do something",
+      "label_ru": "Необходимость с личным местоимением",
+      "expectation": "Identify who needs to act using a personal pronoun with нужно and an infinitive.",
+      "topic_ids": [
+        "daily_activities",
+        "places"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "dative"
+    },
+    {
+      "id": "a1.language.dative-person-destination",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Going to a person",
+      "label_ru": "Направление к человеку",
+      "expectation": "Use к with a person as the destination, distinguishing that person from a building or point of origin.",
+      "topic_ids": [
+        "family",
+        "body"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "dative"
+    },
+    {
+      "id": "a1.language.accusative-object",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "The object of an action",
+      "label_ru": "Прямой объект действия",
+      "expectation": "Select the person or thing directly affected by a familiar verb, accounting for animacy where the form changes.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "accusative"
+    },
+    {
+      "id": "a1.language.accusative-name-pattern",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Asking and giving names",
+      "label_ru": "Как зовут человека",
+      "expectation": "Use the fixed naming pattern with the person whose name is requested; distinguish that person from the name supplied.",
+      "topic_ids": [
+        "greetings"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "accusative"
+    },
+    {
+      "id": "a1.language.accusative-duration",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "How long an action lasts",
+      "label_ru": "Продолжительность действия",
+      "expectation": "Choose a duration phrase for a stated length of time, distinguishing it from a date or starting time.",
+      "topic_ids": [
+        "numbers",
+        "daily_activities"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "accusative"
+    },
+    {
+      "id": "a1.language.accusative-destination",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Going into or to a place",
+      "label_ru": "Направление: в и на",
+      "expectation": "Choose в or на and a destination form when the context describes movement towards a place.",
+      "topic_ids": [
+        "places",
+        "travel",
+        "daily_activities"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "accusative"
+    },
+    {
+      "id": "a1.language.accusative-clock-weekday",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "At a time or on a weekday",
+      "label_ru": "Время: час и день недели",
+      "expectation": "Interpret or complete a meeting time using в with a clock hour or weekday.",
+      "topic_ids": [
+        "numbers",
+        "daily_activities"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "accusative"
+    },
+    {
+      "id": "a1.language.instrumental-activity",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "An activity with заниматься",
+      "label_ru": "Занятие: заниматься чем",
+      "expectation": "Choose the activity form governed by заниматься in a familiar study or leisure context.",
+      "topic_ids": [
+        "hobbies",
+        "sports",
+        "school"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "case": "instrumental"
+    },
+    {
+      "id": "a1.language.instrumental-profession",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "A profession with быть",
+      "label_ru": "Профессия с глаголом быть",
+      "expectation": "Choose the noun predicate used with быть when describing a future profession.",
+      "topic_ids": [
+        "jobs"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "case": "instrumental"
+    },
+    {
+      "id": "a1.language.instrumental-company",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Doing something with someone",
+      "label_ru": "Совместное действие",
+      "expectation": "Identify the companion using с and the appropriate person form; distinguish company from a direct object.",
+      "topic_ids": [
+        "family",
+        "hobbies"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "case": "instrumental"
+    },
+    {
+      "id": "a1.language.instrumental-ingredient",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "What something comes with",
+      "label_ru": "Состав или дополнение",
+      "expectation": "Choose the form naming an ingredient or accompaniment after с.",
+      "topic_ids": [
+        "food",
+        "restaurant"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "case": "instrumental"
+    },
+    {
+      "id": "a1.language.prepositional-topic",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Talking or thinking about something",
+      "label_ru": "Тема речи или мысли",
+      "expectation": "Select the topic form after о for a familiar verb of speaking or thinking.",
+      "topic_ids": [
+        "family",
+        "hobbies"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "case": "prepositional"
+    },
+    {
+      "id": "a1.language.prepositional-location",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Where something is",
+      "label_ru": "Местонахождение: в и на",
+      "expectation": "Choose a stationary location phrase and distinguish it from movement to that same place.",
+      "topic_ids": [
+        "home",
+        "places"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "case": "prepositional"
+    },
+    {
+      "id": "a1.language.prepositional-transport",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "How someone travels",
+      "label_ru": "Средство передвижения",
+      "expectation": "Choose the transport form after на without confusing it with the traveller’s destination.",
+      "topic_ids": [
+        "travel",
+        "places"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "case": "prepositional"
+    },
+    {
+      "id": "a1.language.personal-pronoun-cases",
+      "domain": "language_use",
+      "category": "pronouns",
+      "label_en": "Pronouns in a sentence",
+      "label_ru": "Падежные формы личных местоимений",
+      "expectation": "Replace a named person with a personal pronoun while preserving that person’s role in a familiar construction.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.3, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.pronoun-reference",
+      "domain": "language_use",
+      "category": "pronouns",
+      "label_en": "Questions, ownership and reference",
+      "label_ru": "Вопрос, принадлежность и указание",
+      "expectation": "Select a familiar question, possessive, demonstrative, distributive or negative pronoun that identifies the intended referent.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.3, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.adjective-agreement",
+      "domain": "language_use",
+      "category": "adjectives",
+      "label_en": "Describing a noun",
+      "label_ru": "Согласование в именительном падеже",
+      "expectation": "Match a full adjective to the gender and number of a noun in a nominative description.",
+      "topic_ids": [
+        "colors",
+        "clothing",
+        "home"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.4, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.adjective-oblique-recognition",
+      "domain": "language_use",
+      "category": "adjectives",
+      "label_en": "Recognising adjective case forms",
+      "label_ru": "Знакомые падежные формы прилагательных",
+      "expectation": "Recognise agreement in a taught adjective–noun phrase after a familiar verb or preposition; introductory recognition does not establish full declension control.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.4, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.short-adjective-state",
+      "domain": "language_use",
+      "category": "adjectives",
+      "label_en": "States and obligations",
+      "label_ru": "Краткие прилагательные состояния",
+      "expectation": "Choose a familiar short adjective for a person’s stated condition or obligation.",
+      "topic_ids": [
+        "daily_activities",
+        "feelings",
+        "body"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.4, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.verb-conjugation",
+      "domain": "language_use",
+      "category": "verbs",
+      "label_en": "Matching a verb to its subject",
+      "label_ru": "Лицо и число глагола",
+      "expectation": "Choose the person and number form of a taught first- or second-conjugation verb, including familiar stem alternations.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.verb-tense",
+      "domain": "language_use",
+      "category": "verbs",
+      "label_en": "Present, past and future",
+      "label_ru": "Настоящее, прошедшее и будущее время",
+      "expectation": "Select a verb form consistent with when an event happens, including past gender and a familiar simple or compound future.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.verb-aspect",
+      "domain": "language_use",
+      "category": "verbs",
+      "label_en": "An action and its completion",
+      "label_ru": "Вид глагола в знакомом контексте",
+      "expectation": "Distinguish an ongoing or repeated action from a completed result using a taught imperfective–perfective pair.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.imperative",
+      "domain": "language_use",
+      "category": "verbs",
+      "label_en": "Requests and instructions",
+      "label_ru": "Повелительное наклонение",
+      "expectation": "Choose a taught imperative appropriate for addressing one familiar person or using polite or plural address.",
+      "topic_ids": [
+        "greetings",
+        "places",
+        "school"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.verb-government",
+      "domain": "language_use",
+      "category": "verbs",
+      "label_en": "Verb and dependent phrase",
+      "label_ru": "Глагольное управление",
+      "expectation": "Select the complement required by a familiar verb rather than transferring an English preposition or object pattern.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.motion-basic-pairs",
+      "domain": "language_use",
+      "category": "motion",
+      "label_en": "Walking and travelling",
+      "label_ru": "Идти, ходить, ехать, ездить",
+      "expectation": "Use context to distinguish a current directed journey from repeated travel, and walking from travel by vehicle.",
+      "topic_ids": [
+        "places",
+        "travel",
+        "daily_activities"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.motion-departure-arrival",
+      "domain": "language_use",
+      "category": "motion",
+      "label_en": "Setting off and arriving",
+      "label_ru": "Начало движения и прибытие",
+      "expectation": "Distinguish departure from arrival with taught по- and при- motion forms; the scene must state the movement stage.",
+      "topic_ids": [
+        "places",
+        "travel"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.cardinal-and-ordinal",
+      "domain": "language_use",
+      "category": "numbers",
+      "label_en": "Quantity and order",
+      "label_ru": "Количество и порядок",
+      "expectation": "Distinguish how many items there are from which item comes first or next, using familiar cardinals and nominative ordinals.",
+      "topic_ids": [
+        "numbers"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.6, p. 14"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.word-structure",
+      "domain": "language_use",
+      "category": "word_formation",
+      "label_en": "Recognising related words",
+      "label_ru": "Основа, окончание и родственные слова",
+      "expectation": "Recognise a taught root, ending or derivational change without treating every related word as the same grammatical form.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.1, p. 11"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.adverb-reference",
+      "domain": "language_use",
+      "category": "adverbs",
+      "label_en": "Where, when and how",
+      "label_ru": "Место, время и образ действия",
+      "expectation": "Choose an adverb that answers the intended question, distinguishing location, destination and origin as well as time and manner.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.7, p. 14"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.sentence-negation",
+      "domain": "language_use",
+      "category": "syntax",
+      "label_en": "Statements, questions and negatives",
+      "label_ru": "Утверждение, вопрос и отрицание",
+      "expectation": "Choose a simple sentence that preserves whether a fact is asserted, questioned or denied.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.1, p. 14"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.impersonal-modal",
+      "domain": "language_use",
+      "category": "syntax",
+      "label_en": "Conditions and permission",
+      "label_ru": "Состояние, возможность и запрет",
+      "expectation": "Interpret a familiar subjectless state or permission/prohibition construction without inventing a personal subject.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.7, p. 14; §2.3.1–2.3.2, pp. 14–15"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.coordination",
+      "domain": "language_use",
+      "category": "syntax",
+      "label_en": "Joining and contrasting ideas",
+      "label_ru": "Соединение и противопоставление",
+      "expectation": "Choose a conjunction that expresses addition, contrast or alternatives between two short propositions.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.4, p. 16"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.time-and-reason-clauses",
+      "domain": "language_use",
+      "category": "syntax",
+      "label_en": "When and why",
+      "label_ru": "Временные и причинные связи",
+      "expectation": "Connect familiar events with a time or reason clause while preserving which event explains the other.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.4, p. 16"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.complement-clauses",
+      "domain": "language_use",
+      "category": "syntax",
+      "label_en": "What someone says or knows",
+      "label_ru": "Изъяснительные предложения",
+      "expectation": "Identify the content of a familiar statement or question embedded after a verb of speech or knowledge.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.4, p. 16"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.relative-reference",
+      "domain": "language_use",
+      "category": "syntax",
+      "label_en": "Which person or object",
+      "label_ru": "Придаточное с который",
+      "expectation": "Recognise the referent of a short taught relative clause without changing the main sentence’s participants.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.4, p. 16"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.reported-speech",
+      "domain": "language_use",
+      "category": "syntax",
+      "label_en": "Reporting a short message",
+      "label_ru": "Прямая и косвенная речь",
+      "expectation": "Match a short direct message to a simple indirect report that preserves speaker, place and intended information.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.5, p. 16"
+        }
+      ]
+    },
+    {
+      "id": "a1.language.neutral-word-order",
+      "domain": "language_use",
+      "category": "syntax",
+      "label_en": "Sentence structure",
+      "label_ru": "Нейтральный порядок слов",
+      "expectation": "Recognise ordinary phrase and clause order while using inflections to identify roles; accept equivalent grammatical arrangements.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.6, p. 16"
+        }
+      ]
+    },
+    {
+      "id": "a1.reading.cyrillic-decoding",
+      "domain": "reading",
+      "category": "orthography",
+      "label_en": "Reading Cyrillic",
+      "label_ru": "Чтение кириллицы",
+      "expectation": "Recognise familiar printed Russian words without substituting similarly shaped Latin letters.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "reading_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.1, p. 11"
+        }
+      ]
+    },
+    {
+      "id": "a1.reading.practical-information",
+      "domain": "reading",
+      "category": "functional_reading",
+      "label_en": "Finding practical information",
+      "label_ru": "Поиск нужной информации",
+      "expectation": "Find the needed place, person, opening time, item or price in a short everyday written message.",
+      "topic_ids": [
+        "places",
+        "numbers",
+        "shopping",
+        "restaurant"
+      ],
+      "response_mode": "reading_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.2, p. 7; §1.2.2, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "a1.reading.narrative-meaning",
+      "domain": "reading",
+      "category": "narrative_comprehension",
+      "label_en": "Understanding a short account",
+      "label_ru": "Понимание короткого рассказа",
+      "expectation": "Identify the main event and important details in an unfamiliar short account using language at this level.",
+      "topic_ids": [
+        "family",
+        "daily_activities",
+        "hobbies"
+      ],
+      "response_mode": "reading_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.2, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "a1.reading.reference-and-sequence",
+      "domain": "reading",
+      "category": "text_cohesion",
+      "label_en": "Following people and events",
+      "label_ru": "Участники и последовательность событий",
+      "expectation": "Follow who a pronoun refers to and which event happens before or after another in a simple text.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "reading_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.2, p. 9; §2.3, pp. 14–16"
+        }
+      ]
+    },
+    {
+      "id": "a1.listening.sound-contrasts",
+      "domain": "listening",
+      "category": "phonology",
+      "label_en": "Hearing word differences",
+      "label_ru": "Различение звуков и ударения",
+      "expectation": "Distinguish taught words when consonant hardness, voicing or stress changes the word heard; no written answer is revealed before listening.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "listening_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.1, p. 11"
+        }
+      ]
+    },
+    {
+      "id": "a1.listening.short-message",
+      "domain": "listening",
+      "category": "message_comprehension",
+      "label_en": "Understanding a spoken message",
+      "label_ru": "Понимание устного сообщения",
+      "expectation": "Identify the main information and a requested detail from a short clear recording without a transcript supplying the answer.",
+      "topic_ids": [
+        "daily_activities",
+        "places",
+        "numbers"
+      ],
+      "response_mode": "listening_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.1 A, p. 8"
+        }
+      ]
+    },
+    {
+      "id": "a1.listening.dialogue-intention",
+      "domain": "listening",
+      "category": "interaction_comprehension",
+      "label_en": "Understanding what someone wants",
+      "label_ru": "Понимание намерения собеседника",
+      "expectation": "Recognise whether a speaker is asking, offering, accepting, refusing or requesting repetition in a short everyday exchange.",
+      "topic_ids": [
+        "greetings",
+        "shopping",
+        "restaurant"
+      ],
+      "response_mode": "listening_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.1 B, p. 8"
+        }
+      ]
+    },
+    {
+      "id": "a1.writing.personal-message",
+      "domain": "writing",
+      "category": "written_interaction",
+      "label_en": "Writing a personal message",
+      "label_ru": "Короткое личное сообщение",
+      "expectation": "Write an original brief message with an intelligible purpose, recipient and the requested information; copying a model is not independent evidence.",
+      "topic_ids": [
+        "greetings",
+        "family",
+        "hobbies"
+      ],
+      "response_mode": "independent_writing",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.3, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "a1.writing.connected-description",
+      "domain": "writing",
+      "category": "written_production",
+      "label_en": "Describing everyday life",
+      "label_ru": "Связное описание повседневной жизни",
+      "expectation": "Write connected sentences about personal details or daily life, using taught forms to make the intended meaning clear.",
+      "topic_ids": [
+        "family",
+        "daily_activities",
+        "home"
+      ],
+      "response_mode": "independent_writing",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.3, p. 8; §1.2.3, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "a1.writing.source-based-message",
+      "domain": "writing",
+      "category": "source_reformulation",
+      "label_en": "Using information from a text",
+      "label_ru": "Письменное сообщение по тексту",
+      "expectation": "Write a short response using the relevant facts from a simple source text without changing its essential information.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "independent_writing",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.3, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "a1.speaking.intelligibility",
+      "domain": "speaking",
+      "category": "phonology",
+      "label_en": "Speaking clearly enough to understand",
+      "label_ru": "Понятное произношение",
+      "expectation": "Produce taught words and short phrases with intelligible stress, consonant contrasts and phrase intonation; judge the audio itself.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "independent_speaking",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.1, p. 11; §1.2.4, p. 10"
+        }
+      ]
+    },
+    {
+      "id": "a1.speaking.social-etiquette",
+      "domain": "speaking",
+      "category": "social_interaction",
+      "label_en": "Greetings and polite exchanges",
+      "label_ru": "Приветствие и речевой этикет",
+      "expectation": "Start or close a brief exchange and give thanks or an apology using address appropriate to the person.",
+      "topic_ids": [
+        "greetings",
+        "social"
+      ],
+      "response_mode": "independent_speaking",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.1, p. 7; §1.2.4 B, p. 10"
+        }
+      ]
+    },
+    {
+      "id": "a1.speaking.personal-information",
+      "domain": "speaking",
+      "category": "spoken_production",
+      "label_en": "Introducing yourself and another person",
+      "label_ru": "Рассказ о себе и другом человеке",
+      "expectation": "Give a short connected introduction or description containing relevant personal or family information in original speech.",
+      "topic_ids": [
+        "greetings",
+        "family"
+      ],
+      "response_mode": "independent_speaking",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.3, p. 8; §1.2.4 A, p. 10"
+        }
+      ]
+    },
+    {
+      "id": "a1.speaking.ask-and-answer",
+      "domain": "speaking",
+      "category": "spoken_interaction",
+      "label_en": "Asking and answering everyday questions",
+      "label_ru": "Вопросы и ответы в бытовой ситуации",
+      "expectation": "Ask for needed information and answer a related follow-up about an item, place, time or personal detail.",
+      "topic_ids": [
+        "shopping",
+        "places",
+        "numbers",
+        "family"
+      ],
+      "response_mode": "independent_speaking",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.1–1.1.2, p. 7; §1.2.4 B, p. 10"
+        }
+      ]
+    },
+    {
+      "id": "a1.speaking.request-and-response",
+      "domain": "speaking",
+      "category": "spoken_interaction",
+      "label_en": "Requests, offers and replies",
+      "label_ru": "Просьбы, предложения и ответы",
+      "expectation": "Express a simple wish, request or invitation, then accept or decline in a way that fits the situation.",
+      "topic_ids": [
+        "restaurant",
+        "hobbies",
+        "shopping"
+      ],
+      "response_mode": "independent_speaking",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.1, p. 7; §1.2.4 B, p. 10"
+        }
+      ]
+    },
+    {
+      "id": "a1.speaking.repair",
+      "domain": "speaking",
+      "category": "interaction_repair",
+      "label_en": "Asking someone to repeat",
+      "label_ru": "Просьба повторить",
+      "expectation": "Signal that a spoken detail was not understood and ask for repetition instead of guessing an unrelated reply.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "independent_speaking",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.1, p. 7; §1.2.4 B, p. 10"
+        }
+      ]
+    },
+    {
+      "id": "a1.speaking.simple-retelling",
+      "domain": "speaking",
+      "category": "source_reformulation",
+      "label_en": "Retelling a short account",
+      "label_ru": "Краткий пересказ",
+      "expectation": "Retell the main facts of a simple account in connected original speech, preserving who did what.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "independent_speaking",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.4 A, p. 10"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><title>Russian Arcade · Please try again</title>
+    {% include '_favicon.html' %}
+{% for filename in assets.styles %}<link rel="stylesheet" href="{{ url_for('word_post.assets', filename=filename) }}">{% endfor %}</head>
+<body><main class="page"><p class="kicker">Russian Arcade</p><h1>Let’s get you back<br>to your practice.</h1><section class="letter"><p>{{ message }}</p><div class="action-row"><a class="cta" href="{{ "/post/household" if household_enabled else "/post/profiles" }}">{{ "Open household controls" if household_enabled else "Choose your profile" }}</a><a class="text-link" href="/">Return to Russian Arcade</a></div></section></main></body></html>

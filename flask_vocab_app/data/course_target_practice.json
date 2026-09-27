@@ -1,0 +1,1263 @@
+{
+  "version": "a1-target-practice-v1",
+  "items": [
+    {
+      "id": "greetings-exchange-names-read",
+      "target_id": "a1.greetings.exchange-names.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Меня зовут introduces your name. А тебя asks the other person.",
+        "explanation_ru": "Меня зовут — так мы называем своё имя. А тебя? — вопрос собеседнику.",
+        "example_ru": "Меня зовут Оля. А тебя?",
+        "example_en": "My name is Olya. And yours?"
+      },
+      "question": {
+        "passage": "— Меня зовут Дима. А тебя?",
+        "prompt": "Introduce yourself as Vera.",
+        "prompt_ru": "Представьтесь: вас зовут Вера.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Меня зовут Вера."
+          },
+          {
+            "id": "2",
+            "text": "Её зовут Вера."
+          },
+          {
+            "id": "3",
+            "text": "Тебя зовут Вера."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Меня refers to yourself. Её refers to another woman; тебя refers to the listener.",
+        "explanation_ru": "Меня — о себе. Её — о другой женщине, тебя — о собеседнике."
+      },
+      "hint": {
+        "en": "Меня зовут introduces your name. А тебя asks the other person.",
+        "ru": "Меня зовут — так мы называем своё имя. А тебя? — вопрос собеседнику."
+      },
+      "title": "Introducing yourself",
+      "title_ru": "Как представиться"
+    },
+    {
+      "id": "family-identify-relatives-read",
+      "target_id": "a1.family.identify-relatives.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Брат means brother; сестра means sister.",
+        "explanation_ru": "Брат и сестра — члены семьи.",
+        "example_ru": "Это моя сестра Нина.",
+        "example_en": "This is my sister Nina."
+      },
+      "question": {
+        "passage": "Это Андрей. Лена — его сестра.",
+        "prompt": "Who is Lena to Andrey?",
+        "prompt_ru": "Кто Лена Андрею?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Сестра."
+          },
+          {
+            "id": "2",
+            "text": "Мама."
+          },
+          {
+            "id": "3",
+            "text": "Дочь."
+          }
+        ],
+        "answer": "1",
+        "explanation": "The message says Лена — его сестра.",
+        "explanation_ru": "В сообщении сказано: Лена — его сестра."
+      },
+      "hint": {
+        "en": "Брат means brother; сестра means sister.",
+        "ru": "Брат и сестра — члены семьи."
+      },
+      "title": "Family and friends",
+      "title_ru": "Семья и друзья"
+    },
+    {
+      "id": "family-possessive-agreement-select",
+      "target_id": "a1.family.possessive-agreement.select",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Use мой with брат, моя with сестра and мои with родители.",
+        "explanation_ru": "Слово мой меняется: мой брат, моя сестра, мои родители.",
+        "example_ru": "Моя мама дома.",
+        "example_en": "My mum is at home."
+      },
+      "question": {
+        "passage": "Это [...] папа.",
+        "prompt": "Choose the word meaning “my” that fits.",
+        "prompt_ru": "Выберите подходящую форму слова мой.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Мой."
+          },
+          {
+            "id": "2",
+            "text": "Моя."
+          },
+          {
+            "id": "3",
+            "text": "Мои."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Папа is masculine, so use мой папа.",
+        "explanation_ru": "Папа — мужского рода, поэтому мой папа."
+      },
+      "hint": {
+        "en": "Use мой with брат, моя with сестра and мои with родители.",
+        "ru": "Слово мой меняется: мой брат, моя сестра, мои родители."
+      },
+      "title": "My family",
+      "title_ru": "Моя семья"
+    },
+    {
+      "id": "home-locate-object-read",
+      "target_id": "a1.home.locate-object.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "В комнате and на столе tell you where something is.",
+        "explanation_ru": "В комнате и на столе отвечают на вопрос где.",
+        "example_ru": "Книга на столе.",
+        "example_en": "The book is on the table."
+      },
+      "question": {
+        "passage": "Сумка в комнате. Письмо в сумке.",
+        "prompt": "Where is the letter?",
+        "prompt_ru": "Где письмо?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "В сумке."
+          },
+          {
+            "id": "2",
+            "text": "На столе."
+          },
+          {
+            "id": "3",
+            "text": "На окне."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Письмо в сумке places the letter inside the bag.",
+        "explanation_ru": "Письмо в сумке: письмо находится внутри сумки."
+      },
+      "hint": {
+        "en": "В комнате and на столе tell you where something is.",
+        "ru": "В комнате и на столе отвечают на вопрос где."
+      },
+      "title": "Where is the bag?",
+      "title_ru": "Где сумка?"
+    },
+    {
+      "id": "home-identify-rooms-furniture-read",
+      "target_id": "a1.home.identify-rooms-furniture.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Кухня is a kitchen. Стол and стул are a table and chair.",
+        "explanation_ru": "Кухня — комната, где готовят. Стол и стул — мебель.",
+        "example_ru": "На кухне стоит стол.",
+        "example_en": "There is a table in the kitchen."
+      },
+      "question": {
+        "passage": "В комнате стоит кровать. На кухне стоят стол и два стула.",
+        "prompt": "What is in the room?",
+        "prompt_ru": "Что стоит в комнате?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Кровать."
+          },
+          {
+            "id": "2",
+            "text": "Стол."
+          },
+          {
+            "id": "3",
+            "text": "Два стула."
+          }
+        ],
+        "answer": "1",
+        "explanation": "The bed is in the room; the table and chairs are in the kitchen.",
+        "explanation_ru": "Кровать стоит в комнате, а стол и стулья — на кухне."
+      },
+      "hint": {
+        "en": "Кухня is a kitchen. Стол and стул are a table and chair.",
+        "ru": "Кухня — комната, где готовят. Стол и стул — мебель."
+      },
+      "title": "Rooms and furniture",
+      "title_ru": "Комнаты и мебель"
+    },
+    {
+      "id": "home-locate-object-listen",
+      "target_id": "a1.home.locate-object.listen",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "На столе means on the table; на полке means on the shelf. Listen for the object and its location.",
+        "explanation_ru": "На столе и на полке отвечают на вопрос где. Слушайте название предмета и его место.",
+        "example_ru": "Книга на полке.",
+        "example_en": "The book is on the shelf."
+      },
+      "question": {
+        "passage": null,
+        "prompt": "Where is the letter?",
+        "prompt_ru": "Где письмо?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "На полке."
+          },
+          {
+            "id": "2",
+            "text": "На столе."
+          },
+          {
+            "id": "3",
+            "text": "В сумке."
+          }
+        ],
+        "answer": "1",
+        "explanation": "The speaker places the letter on the shelf.",
+        "explanation_ru": "Письмо находится на полке.",
+        "audio_url": "/static/audio/course/a1-targets-v1/home-locate-object-listen.mp3",
+        "transcript": "Чашка на столе, а письмо на полке."
+      },
+      "hint": {
+        "en": "На столе means on the table; на полке means on the shelf. Listen for the object and its location.",
+        "ru": "На столе и на полке отвечают на вопрос где. Слушайте название предмета и его место."
+      },
+      "title": "Finding an object",
+      "title_ru": "Найти предмет"
+    },
+    {
+      "id": "family-identify-relatives-listen",
+      "target_id": "a1.family.identify-relatives.listen",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Его means his; её means her. Listen for the family relationship.",
+        "explanation_ru": "Его — о мужчине, её — о женщине. Слушайте название члена семьи.",
+        "example_ru": "Это Саша и его папа.",
+        "example_en": "This is Sasha and his dad."
+      },
+      "question": {
+        "passage": null,
+        "prompt": "Who is Pavel?",
+        "prompt_ru": "Кто Павел?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Брат Иры."
+          },
+          {
+            "id": "2",
+            "text": "Папа Иры."
+          },
+          {
+            "id": "3",
+            "text": "Друг Иры."
+          }
+        ],
+        "answer": "1",
+        "explanation": "The speaker says её брат Павел.",
+        "explanation_ru": "В записи сказано: её брат Павел.",
+        "audio_url": "/static/audio/course/a1-targets-v1/family-identify-relatives-listen.mp3",
+        "transcript": "Это Ира. Рядом её брат Павел."
+      },
+      "hint": {
+        "en": "Его means his; её means her. Listen for the family relationship.",
+        "ru": "Его — о мужчине, её — о женщине. Слушайте название члена семьи."
+      },
+      "title": "Who is speaking?",
+      "title_ru": "Кто говорит?"
+    },
+    {
+      "id": "greetings-polite-greeting-read",
+      "target_id": "a1.greetings.polite-greeting.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Здравствуйте is a polite greeting for someone you do not know.",
+        "explanation_ru": "Здравствуйте — вежливое приветствие незнакомому человеку.",
+        "example_ru": "Здравствуйте! Меня зовут Антон.",
+        "example_en": "Hello! My name is Anton."
+      },
+      "question": {
+        "passage": "Вы входите на почту. Вы не знаете сотрудника.",
+        "prompt": "Greet the postal worker politely.",
+        "prompt_ru": "Вежливо поздоровайтесь с сотрудником.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Здравствуйте!"
+          },
+          {
+            "id": "2",
+            "text": "До свидания!"
+          },
+          {
+            "id": "3",
+            "text": "Спасибо!"
+          }
+        ],
+        "answer": "1",
+        "explanation": "Здравствуйте starts the conversation. До свидания ends it.",
+        "explanation_ru": "Здравствуйте — начало разговора. До свидания — прощание."
+      },
+      "hint": {
+        "en": "Здравствуйте is a polite greeting for someone you do not know.",
+        "ru": "Здравствуйте — вежливое приветствие незнакомому человеку."
+      },
+      "title": "Saying hello",
+      "title_ru": "Как поздороваться"
+    },
+    {
+      "id": "numbers-recognise-number-read",
+      "target_id": "a1.numbers.recognise-number.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Два is two, три is three, четыре is four.",
+        "explanation_ru": "Два, три, четыре — числа 2, 3, 4.",
+        "example_ru": "У меня три письма.",
+        "example_en": "I have three letters."
+      },
+      "question": {
+        "passage": "В сумке четыре письма и два билета.",
+        "prompt": "How many letters are in the bag?",
+        "prompt_ru": "Сколько писем в сумке?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Четыре."
+          },
+          {
+            "id": "2",
+            "text": "Два."
+          },
+          {
+            "id": "3",
+            "text": "Три."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Четыре письма means four letters. The two items are tickets.",
+        "explanation_ru": "Четыре письма — это 4 письма. Два — количество билетов."
+      },
+      "hint": {
+        "en": "Два is two, три is three, четыре is four.",
+        "ru": "Два, три, четыре — числа 2, 3, 4."
+      },
+      "title": "Numbers",
+      "title_ru": "Числа"
+    },
+    {
+      "id": "numbers-event-time-read",
+      "target_id": "a1.numbers.event-time.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "В семь утра gives a time; утром means in the morning.",
+        "explanation_ru": "В семь утра — точное время. Утром — часть дня.",
+        "example_ru": "Магазин открыт в девять утра.",
+        "example_en": "The shop is open at nine in the morning."
+      },
+      "question": {
+        "passage": "Почта открыта в восемь утра. Автобус отправляется в десять утра.",
+        "prompt": "When does the bus leave?",
+        "prompt_ru": "Когда отправляется автобус?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "В десять утра."
+          },
+          {
+            "id": "2",
+            "text": "В восемь утра."
+          },
+          {
+            "id": "3",
+            "text": "В десять вечера."
+          }
+        ],
+        "answer": "1",
+        "explanation": "The bus leaves at ten in the morning; eight is the post office time.",
+        "explanation_ru": "Автобус отправляется в десять утра, а восемь — время работы почты."
+      },
+      "hint": {
+        "en": "В семь утра gives a time; утром means in the morning.",
+        "ru": "В семь утра — точное время. Утром — часть дня."
+      },
+      "title": "Making an arrangement",
+      "title_ru": "Договориться о встрече"
+    },
+    {
+      "id": "numbers-event-time-listen",
+      "target_id": "a1.numbers.event-time.listen",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Утра and вечера distinguish morning from evening.",
+        "explanation_ru": "Утра и вечера помогают понять, о какой части дня говорят.",
+        "example_ru": "Встреча в шесть вечера.",
+        "example_en": "The meeting is at six in the evening."
+      },
+      "question": {
+        "passage": null,
+        "prompt": "When is the meeting?",
+        "prompt_ru": "Когда встреча?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "В девять утра."
+          },
+          {
+            "id": "2",
+            "text": "В девять вечера."
+          },
+          {
+            "id": "3",
+            "text": "В шесть утра."
+          }
+        ],
+        "answer": "1",
+        "explanation": "The speaker says в девять утра.",
+        "explanation_ru": "В записи сказано: в девять утра.",
+        "audio_url": "/static/audio/course/a1-targets-v1/numbers-event-time-listen.mp3",
+        "transcript": "Мы встречаемся у почты в девять утра. Не вечером, а утром."
+      },
+      "hint": {
+        "en": "Утра and вечера distinguish morning from evening.",
+        "ru": "Утра и вечера помогают понять, о какой части дня говорят."
+      },
+      "title": "A change of time",
+      "title_ru": "Время изменилось"
+    },
+    {
+      "id": "numbers-clock-hour-forms-select",
+      "target_id": "a1.numbers.clock-hour-forms.select",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Use один час, два часа, пять часов when telling the time.",
+        "explanation_ru": "Когда называем время: один час, два часа, пять часов.",
+        "example_ru": "Сейчас три часа.",
+        "example_en": "It is three o’clock."
+      },
+      "question": {
+        "passage": "Сейчас пять [...].",
+        "prompt": "Complete the time.",
+        "prompt_ru": "Дополните время.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Часов."
+          },
+          {
+            "id": "2",
+            "text": "Часа."
+          },
+          {
+            "id": "3",
+            "text": "Час."
+          }
+        ],
+        "answer": "1",
+        "explanation": "After пять, the time expression uses часов.",
+        "explanation_ru": "После пять в обозначении времени нужно часов."
+      },
+      "hint": {
+        "en": "Use один час, два часа, пять часов when telling the time.",
+        "ru": "Когда называем время: один час, два часа, пять часов."
+      },
+      "title": "Telling the time",
+      "title_ru": "Который час?"
+    },
+    {
+      "id": "numbers-time-versus-duration-select",
+      "target_id": "a1.numbers.time-versus-duration.select",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "В два часа is at two o’clock; два часа is a duration of two hours.",
+        "explanation_ru": "В два часа — когда. Два часа — как долго.",
+        "example_ru": "Мы работаем два часа.",
+        "example_en": "We work for two hours."
+      },
+      "question": {
+        "passage": "— Когда начинается урок? — [...]",
+        "prompt": "Choose a time, not a duration.",
+        "prompt_ru": "Ответьте на вопрос когда.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "В два часа."
+          },
+          {
+            "id": "2",
+            "text": "Два часа."
+          },
+          {
+            "id": "3",
+            "text": "Два билета."
+          }
+        ],
+        "answer": "1",
+        "explanation": "В два часа answers when the lesson begins.",
+        "explanation_ru": "В два часа отвечает на вопрос, когда начинается урок."
+      },
+      "hint": {
+        "en": "В два часа is at two o’clock; два часа is a duration of two hours.",
+        "ru": "В два часа — когда. Два часа — как долго."
+      },
+      "title": "When and how long",
+      "title_ru": "Когда и как долго"
+    },
+    {
+      "id": "daily_activities-describe-routine-read",
+      "target_id": "a1.daily_activities.describe-routine.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Утром, днём and вечером put activities into a daily routine.",
+        "explanation_ru": "Утром, днём и вечером показывают время действия.",
+        "example_ru": "Утром я пью чай, вечером читаю.",
+        "example_en": "In the morning I drink tea; in the evening I read."
+      },
+      "question": {
+        "passage": "Утром Олег работает. Днём он ест суп. Вечером он читает.",
+        "prompt": "What does Oleg do in the evening?",
+        "prompt_ru": "Что Олег делает вечером?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Читает."
+          },
+          {
+            "id": "2",
+            "text": "Работает."
+          },
+          {
+            "id": "3",
+            "text": "Ест суп."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Вечером он читает describes his evening activity.",
+        "explanation_ru": "Вечером он читает — это действие вечером."
+      },
+      "hint": {
+        "en": "Утром, днём and вечером put activities into a daily routine.",
+        "ru": "Утром, днём и вечером показывают время действия."
+      },
+      "title": "A daily routine",
+      "title_ru": "Обычный день"
+    },
+    {
+      "id": "daily_activities-ask-current-activity-read",
+      "target_id": "a1.daily_activities.ask-current-activity.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Что ты делаешь? asks what someone is doing.",
+        "explanation_ru": "Что ты делаешь? — вопрос о действии собеседника.",
+        "example_ru": "— Что ты делаешь? — Я читаю.",
+        "example_en": "What are you doing? I am reading."
+      },
+      "question": {
+        "passage": "Вы хотите узнать, что Маша делает сейчас.",
+        "prompt": "Choose the question to ask Masha.",
+        "prompt_ru": "Задайте Маше вопрос о её действии сейчас.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Что ты сейчас делаешь?"
+          },
+          {
+            "id": "2",
+            "text": "Как тебя зовут?"
+          },
+          {
+            "id": "3",
+            "text": "Где твой дом?"
+          }
+        ],
+        "answer": "1",
+        "explanation": "Что ты сейчас делаешь? asks about her current activity.",
+        "explanation_ru": "Что ты сейчас делаешь? — вопрос о действии сейчас."
+      },
+      "hint": {
+        "en": "Что ты делаешь? asks what someone is doing.",
+        "ru": "Что ты делаешь? — вопрос о действии собеседника."
+      },
+      "title": "What is happening now?",
+      "title_ru": "Что происходит сейчас?"
+    },
+    {
+      "id": "daily_activities-irregular-present-select",
+      "target_id": "a1.daily_activities.irregular-present.select",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Ем goes with я; ешь with ты; ест with он or она.",
+        "explanation_ru": "Я ем, ты ешь, он ест, она ест.",
+        "example_ru": "Я ем хлеб.",
+        "example_en": "I am eating bread."
+      },
+      "question": {
+        "passage": "Он [...] суп.",
+        "prompt": "Complete the sentence.",
+        "prompt_ru": "Дополните предложение.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Ест."
+          },
+          {
+            "id": "2",
+            "text": "Ем."
+          },
+          {
+            "id": "3",
+            "text": "Ешь."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Он needs ест: он ест суп.",
+        "explanation_ru": "С он нужна форма ест: он ест суп."
+      },
+      "hint": {
+        "en": "Ем goes with я; ешь with ты; ест with он or она.",
+        "ru": "Я ем, ты ешь, он ест, она ест."
+      },
+      "title": "Everyday actions",
+      "title_ru": "Повседневные дела"
+    },
+    {
+      "id": "food-identify-food-drink-read",
+      "target_id": "a1.food.identify-food-drink.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Хлеб is bread, сыр is cheese, вода is water.",
+        "explanation_ru": "Хлеб и сыр — еда. Вода — напиток.",
+        "example_ru": "Я покупаю хлеб и сыр.",
+        "example_en": "I am buying bread and cheese."
+      },
+      "question": {
+        "passage": "Нужны хлеб и вода. Сыр у нас уже есть.",
+        "prompt": "What drink is needed?",
+        "prompt_ru": "Какой напиток нужен?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Вода."
+          },
+          {
+            "id": "2",
+            "text": "Чай."
+          },
+          {
+            "id": "3",
+            "text": "Сок."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Вода is requested. The other requested item is bread.",
+        "explanation_ru": "Нужна вода. Ещё нужен хлеб."
+      },
+      "hint": {
+        "en": "Хлеб is bread, сыр is cheese, вода is water.",
+        "ru": "Хлеб и сыр — еда. Вода — напиток."
+      },
+      "title": "Food and drink",
+      "title_ru": "Еда и напитки"
+    },
+    {
+      "id": "food-make-request-read",
+      "target_id": "a1.food.make-request.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Можно… пожалуйста? is a polite way to ask for something.",
+        "explanation_ru": "Можно… пожалуйста? — вежливая просьба.",
+        "example_ru": "Можно чай, пожалуйста?",
+        "example_en": "May I have tea, please?"
+      },
+      "question": {
+        "passage": "Вы хотите купить хлеб.",
+        "prompt": "Ask the seller for bread.",
+        "prompt_ru": "Попросите у продавца хлеб.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Можно хлеб, пожалуйста?"
+          },
+          {
+            "id": "2",
+            "text": "Где моя вода?"
+          },
+          {
+            "id": "3",
+            "text": "Спасибо за чай."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Можно хлеб, пожалуйста? makes the requested purchase clear.",
+        "explanation_ru": "Можно хлеб, пожалуйста? — просьба дать хлеб."
+      },
+      "hint": {
+        "en": "Можно… пожалуйста? is a polite way to ask for something.",
+        "ru": "Можно… пожалуйста? — вежливая просьба."
+      },
+      "title": "Making a request",
+      "title_ru": "Как попросить"
+    },
+    {
+      "id": "food-polite-request-select",
+      "target_id": "a1.food.polite-request.select",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Пожалуйста makes a request polite; спасибо expresses thanks.",
+        "explanation_ru": "Пожалуйста помогает вежливо попросить. Спасибо — благодарность.",
+        "example_ru": "Можно воду, пожалуйста?",
+        "example_en": "May I have water, please?"
+      },
+      "question": {
+        "passage": "— Можно суп, [...]?",
+        "prompt": "Complete the polite request.",
+        "prompt_ru": "Дополните вежливую просьбу.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Пожалуйста."
+          },
+          {
+            "id": "2",
+            "text": "Спасибо."
+          },
+          {
+            "id": "3",
+            "text": "Вчера."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Use пожалуйста when making the request.",
+        "explanation_ru": "В просьбе используем пожалуйста."
+      },
+      "hint": {
+        "en": "Пожалуйста makes a request polite; спасибо expresses thanks.",
+        "ru": "Пожалуйста помогает вежливо попросить. Спасибо — благодарность."
+      },
+      "title": "Asking politely",
+      "title_ru": "Вежливая просьба"
+    },
+    {
+      "id": "colors-identify-colour-size-read",
+      "target_id": "a1.colors.identify-colour-size.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Большой is big; маленький is small. The colour helps identify the exact item.",
+        "explanation_ru": "Большой и маленький говорят о размере. Цвет помогает выбрать предмет.",
+        "example_ru": "Это маленький красный мяч.",
+        "example_en": "This is a small red ball."
+      },
+      "question": {
+        "passage": "Нужна большая синяя сумка. Маленькая красная сумка остаётся дома.",
+        "prompt": "Which bag is needed?",
+        "prompt_ru": "Какая сумка нужна?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Большая синяя."
+          },
+          {
+            "id": "2",
+            "text": "Маленькая красная."
+          },
+          {
+            "id": "3",
+            "text": "Большая красная."
+          }
+        ],
+        "answer": "1",
+        "explanation": "The requested bag is both big and blue.",
+        "explanation_ru": "Нужна сумка большого размера и синего цвета."
+      },
+      "hint": {
+        "en": "Большой is big; маленький is small. The colour helps identify the exact item.",
+        "ru": "Большой и маленький говорят о размере. Цвет помогает выбрать предмет."
+      },
+      "title": "Colour and size",
+      "title_ru": "Цвет и размер"
+    },
+    {
+      "id": "colors-gender-agreement-select",
+      "target_id": "a1.colors.gender-agreement.select",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Красный matches стол; красная matches сумка; красное matches письмо.",
+        "explanation_ru": "Красный стол, красная сумка, красное письмо: окончание зависит от рода.",
+        "example_ru": "Синяя сумка на столе.",
+        "example_en": "The blue bag is on the table."
+      },
+      "question": {
+        "passage": "Это [...] шапка.",
+        "prompt": "Choose the form of “red” that fits.",
+        "prompt_ru": "Выберите подходящую форму слова красный.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Красная."
+          },
+          {
+            "id": "2",
+            "text": "Красный."
+          },
+          {
+            "id": "3",
+            "text": "Красное."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Шапка is feminine, so use красная.",
+        "explanation_ru": "Шапка — женского рода, поэтому красная."
+      },
+      "hint": {
+        "en": "Красный matches стол; красная matches сумка; красное matches письмо.",
+        "ru": "Красный стол, красная сумка, красное письмо: окончание зависит от рода."
+      },
+      "title": "Describing an object",
+      "title_ru": "Описание предмета"
+    },
+    {
+      "id": "clothing-identify-clothes-read",
+      "target_id": "a1.clothing.identify-clothes.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Шапка is a hat; обувь is footwear; рубашка is a shirt.",
+        "explanation_ru": "Шапку носят на голове, обувь — на ногах. Рубашка — одежда.",
+        "example_ru": "На столе лежит шапка.",
+        "example_en": "A hat is lying on the table."
+      },
+      "question": {
+        "passage": "Возьми рубашку. Шапка и обувь уже в сумке.",
+        "prompt": "What still needs to go in the bag?",
+        "prompt_ru": "Что ещё нужно положить в сумку?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Рубашку."
+          },
+          {
+            "id": "2",
+            "text": "Шапку."
+          },
+          {
+            "id": "3",
+            "text": "Обувь."
+          }
+        ],
+        "answer": "1",
+        "explanation": "The instruction asks for the shirt. The other items are already packed.",
+        "explanation_ru": "Нужно взять рубашку. Остальные вещи уже в сумке."
+      },
+      "hint": {
+        "en": "Шапка is a hat; обувь is footwear; рубашка is a shirt.",
+        "ru": "Шапку носят на голове, обувь — на ногах. Рубашка — одежда."
+      },
+      "title": "Choosing clothes",
+      "title_ru": "Выбор одежды"
+    },
+    {
+      "id": "clothing-identify-clothing-description-listen",
+      "target_id": "a1.clothing.identify-clothing-description.listen",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Listen for the item and its description together.",
+        "explanation_ru": "Слушайте название одежды вместе с её описанием.",
+        "example_ru": "Нужна тёплая шапка.",
+        "example_en": "A warm hat is needed."
+      },
+      "question": {
+        "passage": null,
+        "prompt": "Which shirt should you take?",
+        "prompt_ru": "Какую рубашку нужно взять?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Синюю."
+          },
+          {
+            "id": "2",
+            "text": "Красную."
+          },
+          {
+            "id": "3",
+            "text": "Белую."
+          }
+        ],
+        "answer": "1",
+        "explanation": "The speaker asks for the blue shirt.",
+        "explanation_ru": "В записи просят взять синюю рубашку.",
+        "audio_url": "/static/audio/course/a1-targets-v1/clothing-identify-clothing-description-listen.mp3",
+        "transcript": "Возьми синюю рубашку. Красная рубашка слишком маленькая."
+      },
+      "hint": {
+        "en": "Listen for the item and its description together.",
+        "ru": "Слушайте название одежды вместе с её описанием."
+      },
+      "title": "Listen to the description",
+      "title_ru": "Послушайте описание"
+    },
+    {
+      "id": "clothing-exceptional-nouns-select",
+      "target_id": "a1.clothing.exceptional-nouns.select",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Пальто keeps its form. Штаны is used in the plural.",
+        "explanation_ru": "Слово пальто не изменяется. Штаны — слово во множественном числе.",
+        "example_ru": "Это новое пальто. Это новые штаны.",
+        "example_en": "This is a new coat. These are new trousers."
+      },
+      "question": {
+        "passage": "Вы берёте штаны и одно пальто.",
+        "prompt": "Choose the correctly formed sentence.",
+        "prompt_ru": "Выберите правильное предложение.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Я беру новые штаны и новое пальто."
+          },
+          {
+            "id": "2",
+            "text": "Я беру новый штаны и новое пальто."
+          },
+          {
+            "id": "3",
+            "text": "Я беру новые штаны и новое пальта."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Штаны needs the plural новые. Пальто keeps its ending: новое пальто.",
+        "explanation_ru": "Штаны требует множественного числа: новые. Пальто не изменяется: новое пальто."
+      },
+      "hint": {
+        "en": "Пальто keeps its form. Штаны is used in the plural.",
+        "ru": "Слово пальто не изменяется. Штаны — слово во множественном числе."
+      },
+      "title": "Describing clothes",
+      "title_ru": "Описание одежды"
+    },
+    {
+      "id": "places-ask-location-read",
+      "target_id": "a1.places.ask-location.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Где…? asks where something is.",
+        "explanation_ru": "Где…? — вопрос о месте.",
+        "example_ru": "Где аптека?",
+        "example_en": "Where is the pharmacy?"
+      },
+      "question": {
+        "passage": "Вы не знаете, где вокзал.",
+        "prompt": "Ask someone where the station is.",
+        "prompt_ru": "Спросите, где вокзал.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Где вокзал?"
+          },
+          {
+            "id": "2",
+            "text": "Куда вы идёте?"
+          },
+          {
+            "id": "3",
+            "text": "Когда автобус?"
+          }
+        ],
+        "answer": "1",
+        "explanation": "Где вокзал? asks for the station’s location.",
+        "explanation_ru": "Где вокзал? — вопрос о месте, где находится вокзал."
+      },
+      "hint": {
+        "en": "Где…? asks where something is.",
+        "ru": "Где…? — вопрос о месте."
+      },
+      "title": "Asking where",
+      "title_ru": "Где это?"
+    },
+    {
+      "id": "places-follow-directions-read",
+      "target_id": "a1.places.follow-directions.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Прямо means straight ahead, направо means right, налево means left.",
+        "explanation_ru": "Прямо — без поворота. Направо и налево — направления поворота.",
+        "example_ru": "Идите прямо, потом налево.",
+        "example_en": "Go straight ahead, then left."
+      },
+      "question": {
+        "passage": "Идите прямо до парка. Потом поверните направо.",
+        "prompt": "What should you do at the park?",
+        "prompt_ru": "Что нужно сделать у парка?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Повернуть направо."
+          },
+          {
+            "id": "2",
+            "text": "Повернуть налево."
+          },
+          {
+            "id": "3",
+            "text": "Вернуться домой."
+          }
+        ],
+        "answer": "1",
+        "explanation": "After reaching the park, the instruction says to turn right.",
+        "explanation_ru": "После парка нужно повернуть направо."
+      },
+      "hint": {
+        "en": "Прямо means straight ahead, направо means right, налево means left.",
+        "ru": "Прямо — без поворота. Направо и налево — направления поворота."
+      },
+      "title": "Following directions",
+      "title_ru": "Как пройти"
+    },
+    {
+      "id": "places-follow-directions-listen",
+      "target_id": "a1.places.follow-directions.listen",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Listen to the order of the directions, not just one word.",
+        "explanation_ru": "Слушайте порядок указаний, а не только отдельное слово.",
+        "example_ru": "Сначала направо, потом прямо.",
+        "example_en": "First right, then straight ahead."
+      },
+      "question": {
+        "passage": null,
+        "prompt": "Which way should you turn at the shop?",
+        "prompt_ru": "Куда нужно повернуть у магазина?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Налево."
+          },
+          {
+            "id": "2",
+            "text": "Направо."
+          },
+          {
+            "id": "3",
+            "text": "Назад."
+          }
+        ],
+        "answer": "1",
+        "explanation": "The turn at the shop is left: поверните налево.",
+        "explanation_ru": "У магазина нужно повернуть налево.",
+        "audio_url": "/static/audio/course/a1-targets-v1/places-follow-directions-listen.mp3",
+        "transcript": "Сначала идите прямо до магазина. У магазина поверните налево."
+      },
+      "hint": {
+        "en": "Listen to the order of the directions, not just one word.",
+        "ru": "Слушайте порядок указаний, а не только отдельное слово."
+      },
+      "title": "Listen to the route",
+      "title_ru": "Послушайте маршрут"
+    },
+    {
+      "id": "places-location-versus-direction-select",
+      "target_id": "a1.places.location-versus-direction.select",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Где ты? asks your location. Куда ты идёшь? asks your destination.",
+        "explanation_ru": "Где ты? — место. Куда ты идёшь? — направление движения.",
+        "example_ru": "Я в школе. Я иду в школу.",
+        "example_en": "I am at school. I am going to school."
+      },
+      "question": {
+        "passage": "— [...] ты идёшь? — В парк.",
+        "prompt": "Choose the question word.",
+        "prompt_ru": "Выберите вопросительное слово.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Куда."
+          },
+          {
+            "id": "2",
+            "text": "Где."
+          },
+          {
+            "id": "3",
+            "text": "Когда."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Куда asks the destination of идёшь.",
+        "explanation_ru": "Куда — вопрос о том, в какое место ты идёшь."
+      },
+      "hint": {
+        "en": "Где ты? asks your location. Куда ты идёшь? asks your destination.",
+        "ru": "Где ты? — место. Куда ты идёшь? — направление движения."
+      },
+      "title": "Where and where to",
+      "title_ru": "Где и куда"
+    },
+    {
+      "id": "places-direction-commands-select",
+      "target_id": "a1.places.direction-commands.select",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Идите and поверните are polite instructions for walking and turning.",
+        "explanation_ru": "Идите и поверните — вежливые указания движения.",
+        "example_ru": "Поверните направо.",
+        "example_en": "Turn right."
+      },
+      "question": {
+        "passage": "[...] прямо до почты.",
+        "prompt": "Give a polite walking instruction.",
+        "prompt_ru": "Дайте вежливое указание идти прямо.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Идите."
+          },
+          {
+            "id": "2",
+            "text": "Идёте."
+          },
+          {
+            "id": "3",
+            "text": "Иду."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Идите is the instruction; идёте describes what someone is doing.",
+        "explanation_ru": "Идите — указание. Идёте — сообщение о действии."
+      },
+      "hint": {
+        "en": "Идите and поверните are polite instructions for walking and turning.",
+        "ru": "Идите и поверните — вежливые указания движения."
+      },
+      "title": "Giving directions",
+      "title_ru": "Как объяснить дорогу"
+    },
+    {
+      "id": "weather-understand-weather-read",
+      "target_id": "a1.weather.understand-weather.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Холодно and тепло describe how the weather feels.",
+        "explanation_ru": "Холодно и тепло описывают погоду.",
+        "example_ru": "Сегодня тепло.",
+        "example_en": "It is warm today."
+      },
+      "question": {
+        "passage": "Сегодня холодно и идёт дождь. Завтра будет тепло.",
+        "prompt": "What is today’s weather like?",
+        "prompt_ru": "Какая погода сегодня?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Холодно, идёт дождь."
+          },
+          {
+            "id": "2",
+            "text": "Тепло, светит солнце."
+          },
+          {
+            "id": "3",
+            "text": "Тепло, идёт дождь."
+          }
+        ],
+        "answer": "1",
+        "explanation": "Today is cold and rainy; the warm weather is tomorrow.",
+        "explanation_ru": "Сегодня холодно и дождь. Тепло будет завтра."
+      },
+      "hint": {
+        "en": "Холодно and тепло describe how the weather feels.",
+        "ru": "Холодно и тепло описывают погоду."
+      },
+      "title": "The weather",
+      "title_ru": "Погода"
+    },
+    {
+      "id": "weather-choose-weather-plan-read",
+      "target_id": "a1.weather.choose-weather-plan.read",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Use the stated weather to choose what the message asks you to take.",
+        "explanation_ru": "Выбирайте вещи по погоде и указанию в сообщении.",
+        "example_ru": "Идёт дождь. Возьми зонт.",
+        "example_en": "It is raining. Take an umbrella."
+      },
+      "question": {
+        "passage": "Сегодня холодно. Возьми тёплое пальто. Зонт не нужен: дождя нет.",
+        "prompt": "What should you take?",
+        "prompt_ru": "Что нужно взять?",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Тёплое пальто."
+          },
+          {
+            "id": "2",
+            "text": "Зонт."
+          },
+          {
+            "id": "3",
+            "text": "Только футболку."
+          }
+        ],
+        "answer": "1",
+        "explanation": "The message explicitly asks for a warm coat.",
+        "explanation_ru": "В сообщении прямо сказано взять тёплое пальто."
+      },
+      "hint": {
+        "en": "Use the stated weather to choose what the message asks you to take.",
+        "ru": "Выбирайте вещи по погоде и указанию в сообщении."
+      },
+      "title": "Planning for the weather",
+      "title_ru": "Планы и погода"
+    },
+    {
+      "id": "weather-impersonal-state-select",
+      "target_id": "a1.weather.impersonal-state.select",
+      "rubric_version": "a1-target-practice-v1",
+      "teaching": {
+        "explanation": "Холодно describes the weather without a subject. Холодный describes a masculine noun.",
+        "explanation_ru": "Холодно — о погоде. Холодный — признак существительного мужского рода.",
+        "example_ru": "На улице тепло.",
+        "example_en": "It is warm outside."
+      },
+      "question": {
+        "passage": "На улице [...].",
+        "prompt": "Complete the weather sentence with “cold”.",
+        "prompt_ru": "Дополните предложение о холодной погоде.",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Холодно."
+          },
+          {
+            "id": "2",
+            "text": "Холодный."
+          },
+          {
+            "id": "3",
+            "text": "Холодная."
+          }
+        ],
+        "answer": "1",
+        "explanation": "На улице холодно describes the weather.",
+        "explanation_ru": "На улице холодно — описание погоды без подлежащего."
+      },
+      "hint": {
+        "en": "Холодно describes the weather without a subject. Холодный describes a masculine noun.",
+        "ru": "Холодно — о погоде. Холодный — признак существительного мужского рода."
+      },
+      "title": "Describing the weather",
+      "title_ru": "Описание погоды"
+    }
+  ]
+}

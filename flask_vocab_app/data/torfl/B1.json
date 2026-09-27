@@ -1,0 +1,933 @@
+{
+  "schema_version": 1,
+  "catalogue_version": "torfl-reference-v1",
+  "level": "B1",
+  "extends": "A2",
+  "sources": [
+    {
+      "id": "msu-b1-2009",
+      "title": "Требования по русскому языку как иностранному. Первый уровень. Общее владение. Второй вариант.",
+      "edition": "Second edition: printed 2007; electronic edition 2009",
+      "url": "https://test.irlc.msu.ru/wp-content/uploads/2024/08/B1_trebovaniya.pdf",
+      "accessed": "2026-09-23",
+      "kind": "standard",
+      "note": "Historical edition hosted by the MSU testing centre. The observable criteria are original application specifications mapped to its coverage, not copied examination items or certification rules. Selection evidence does not establish independent production."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "b1.language.word-formation",
+      "domain": "language_use",
+      "category": "word_formation",
+      "label_en": "Recognise related words",
+      "label_ru": "Родственные слова",
+      "expectation": "Identify a familiar root and use its prefix or suffix to distinguish meanings in a short passage.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.1, pp. 11–12"
+        }
+      ]
+    },
+    {
+      "id": "b1.listening.stress-intonation",
+      "domain": "listening",
+      "category": "phonology",
+      "label_en": "Stress and sentence meaning",
+      "label_ru": "Ударение и смысл фразы",
+      "expectation": "Choose the meaning conveyed by a recorded question or statement, attending to stress and intonation.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "listening_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.1, p. 11"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.noun-number-animacy",
+      "domain": "language_use",
+      "category": "nouns",
+      "label_en": "Number and animacy",
+      "label_ru": "Число и одушевлённость",
+      "expectation": "Choose noun forms that preserve the number and identity of the people or objects described.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 12"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.nominative-roles",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Identify people and their roles",
+      "label_ru": "Люди и их роли",
+      "expectation": "Distinguish who acts, who is being identified and what description completes the sentence.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "case": "nominative"
+    },
+    {
+      "id": "b1.language.genitive-quantity-possession",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Quantity, possession and absence",
+      "label_ru": "Количество, принадлежность и отсутствие",
+      "expectation": "Select a genitive phrase that correctly expresses the stated amount, owner or absence.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "case": "genitive"
+    },
+    {
+      "id": "b1.language.genitive-source-cause",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Source, reason and purpose",
+      "label_ru": "Источник, причина и цель",
+      "expectation": "Choose a preposition and genitive form that preserve the intended source, reason or purpose.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, pp. 13–14"
+        }
+      ],
+      "case": "genitive"
+    },
+    {
+      "id": "b1.language.dative-recipient-experiencer",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Recipients and personal states",
+      "label_ru": "Адресат и состояние человека",
+      "expectation": "Identify the recipient or person experiencing a state and select the corresponding dative phrase.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 14"
+        }
+      ],
+      "case": "dative"
+    },
+    {
+      "id": "b1.language.dative-direction-distribution",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Direction and repeated occasions",
+      "label_ru": "Направление и повторяемость",
+      "expectation": "Distinguish a destination with к from a route or repeated occasion expressed with по.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 14"
+        }
+      ],
+      "case": "dative"
+    },
+    {
+      "id": "b1.language.accusative-object",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Direct objects in context",
+      "label_ru": "Прямое дополнение в контексте",
+      "expectation": "Choose the object form while preserving who does the action and who or what receives it.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 15"
+        }
+      ],
+      "case": "accusative"
+    },
+    {
+      "id": "b1.language.accusative-time-route",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Duration, destination and route",
+      "label_ru": "Длительность, цель и маршрут",
+      "expectation": "Select a phrase that distinguishes elapsed time, intended duration and movement to or through a place.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 15"
+        }
+      ],
+      "case": "accusative"
+    },
+    {
+      "id": "b1.language.instrumental-role-means",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Roles, means and agents",
+      "label_ru": "Роли, средства и действующие лица",
+      "expectation": "Choose an instrumental phrase that identifies a role, instrument or agent without changing the event.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 15"
+        }
+      ],
+      "case": "instrumental"
+    },
+    {
+      "id": "b1.language.instrumental-space-company",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Position and company",
+      "label_ru": "Положение и совместное действие",
+      "expectation": "Select the phrase that locates an object or names a companion in the given scene.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, pp. 15–16"
+        }
+      ],
+      "case": "instrumental"
+    },
+    {
+      "id": "b1.language.prepositional-contexts",
+      "domain": "language_use",
+      "category": "cases",
+      "label_en": "Location, subject and circumstances",
+      "label_ru": "Место, тема и обстоятельства",
+      "expectation": "Distinguish location, the subject of discussion and a stated circumstance when selecting a prepositional phrase.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 16"
+        }
+      ],
+      "case": "prepositional"
+    },
+    {
+      "id": "b1.language.adjective-agreement",
+      "domain": "language_use",
+      "category": "adjectives",
+      "label_en": "Agreement in noun phrases",
+      "label_ru": "Согласование в словосочетании",
+      "expectation": "Select an adjective ending that matches its noun within the complete sentence.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.4, p. 16"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.adjectives-short-comparison",
+      "domain": "language_use",
+      "category": "adjectives",
+      "label_en": "Descriptions and comparisons",
+      "label_ru": "Признаки и сравнения",
+      "expectation": "Choose a full, short or comparative adjective that fits the sentence function and intended comparison.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.4, p. 16"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.pronoun-reference",
+      "domain": "language_use",
+      "category": "pronouns",
+      "label_en": "Track who a pronoun refers to",
+      "label_ru": "К кому относится местоимение",
+      "expectation": "Resolve personal, possessive and reflexive references without assigning an action or possession to the wrong person.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.3, p. 16"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.pronoun-negation",
+      "domain": "language_use",
+      "category": "pronouns",
+      "label_en": "Negation and reference",
+      "label_ru": "Отрицание и отсылка",
+      "expectation": "Select a negative or defining pronoun that preserves the scope of the statement.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.3, p. 16"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.numeral-phrases",
+      "domain": "language_use",
+      "category": "numerals",
+      "label_en": "Numbers in noun phrases",
+      "label_ru": "Числительные в словосочетании",
+      "expectation": "Choose a familiar cardinal, ordinal or collective construction with the required noun and adjective forms.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.6, p. 17"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.adverb-meaning",
+      "domain": "language_use",
+      "category": "adverbs",
+      "label_en": "Time, manner and degree",
+      "label_ru": "Время, образ действия и степень",
+      "expectation": "Choose an adverb that preserves when, how or to what extent an event happens.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.7, p. 17"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.verb-forms-tense",
+      "domain": "language_use",
+      "category": "verbs",
+      "label_en": "Verb forms and time",
+      "label_ru": "Формы глагола и время",
+      "expectation": "Select the person, number and tense needed to describe the supplied sequence of events.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, pp. 16–17"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.aspect-in-context",
+      "domain": "language_use",
+      "category": "aspect",
+      "label_en": "Action and result",
+      "label_ru": "Действие и результат",
+      "expectation": "Distinguish a process or repeated action from a completed event using the surrounding context.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, pp. 16–17"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.imperative-conditional",
+      "domain": "language_use",
+      "category": "mood",
+      "label_en": "Requests and imagined situations",
+      "label_ru": "Просьбы и возможные ситуации",
+      "expectation": "Select a request or conditional formulation that expresses the stated intention without changing its meaning.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, p. 17"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.government-reflexivity",
+      "domain": "language_use",
+      "category": "verbs",
+      "label_en": "Verb patterns and reflexive forms",
+      "label_ru": "Управление и возвратные формы",
+      "expectation": "Choose a verb construction whose complement and reflexive form preserve the participants in the event.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, p. 17"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.motion-direction-frequency",
+      "domain": "language_use",
+      "category": "motion",
+      "label_en": "Direction, frequency and transport",
+      "label_ru": "Направление, повторяемость и транспорт",
+      "expectation": "Choose a motion verb from evidence about travel method, direction and whether the journey is repeated.",
+      "topic_ids": [
+        "places",
+        "travel",
+        "city"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, p. 17"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.motion-prefixes",
+      "domain": "language_use",
+      "category": "motion",
+      "label_en": "Stages of a journey",
+      "label_ru": "Этапы движения",
+      "expectation": "Select a prefixed motion verb that matches the specified arrival, departure, crossing or approach.",
+      "topic_ids": [
+        "places",
+        "travel",
+        "city"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.1, p. 12; §2.2.5, p. 17"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.participles-active",
+      "domain": "language_use",
+      "category": "participles",
+      "label_en": "Recognise active participles",
+      "label_ru": "Понимание действительных причастий",
+      "expectation": "Identify who performs the action in a familiar active-participle phrase; spontaneous participle production is not assessed here.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, p. 17"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.participles-passive",
+      "domain": "language_use",
+      "category": "participles",
+      "label_en": "Recognise passive participles",
+      "label_ru": "Понимание страдательных причастий",
+      "expectation": "Identify the affected object and distinguish a descriptive full form from a short passive predicate.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, p. 17"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.adverbial-participles",
+      "domain": "language_use",
+      "category": "participles",
+      "label_en": "Recognise linked actions",
+      "label_ru": "Понимание деепричастий",
+      "expectation": "Identify the shared actor and order of events in a familiar adverbial-participle construction.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, p. 17"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.subject-predicate-impersonal",
+      "domain": "language_use",
+      "category": "syntax",
+      "label_en": "Personal and impersonal statements",
+      "label_ru": "Личные и безличные предложения",
+      "expectation": "Identify whose state or obligation is described and select a compatible subject-predicate construction.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§§2.3.1–2.3.2, pp. 18–19"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.relative-complement-clauses",
+      "domain": "language_use",
+      "category": "syntax",
+      "label_en": "Connect descriptions and reported ideas",
+      "label_ru": "Определительные и изъяснительные придаточные",
+      "expectation": "Choose a clause connection that preserves the person, object or idea being described.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.3.5, p. 21"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.time-cause-purpose",
+      "domain": "language_use",
+      "category": "syntax",
+      "label_en": "Time, reasons and purpose",
+      "label_ru": "Время, причины и цели",
+      "expectation": "Select a clause that accurately connects the order, cause or purpose of two events.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.3.5, p. 21"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.condition-concession-comparison",
+      "domain": "language_use",
+      "category": "syntax",
+      "label_en": "Conditions, contrasts and comparisons",
+      "label_ru": "Условия, уступки и сравнения",
+      "expectation": "Distinguish a condition, concession or comparison and select the connector required by the intended relationship.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.3.5, p. 21"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.reported-speech",
+      "domain": "language_use",
+      "category": "syntax",
+      "label_en": "Report what someone said",
+      "label_ru": "Передача чужой речи",
+      "expectation": "Select reported speech that preserves the speaker, question or instruction in its new context.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.3.6, p. 21"
+        }
+      ]
+    },
+    {
+      "id": "b1.language.word-order-particles",
+      "domain": "language_use",
+      "category": "discourse",
+      "label_en": "Emphasis and connections",
+      "label_ru": "Смысловые акценты и связи",
+      "expectation": "Choose word order or a particle that answers the given question without introducing an unintended emphasis.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "contextual_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.8, pp. 17–18; §2.3.4, p. 20"
+        }
+      ]
+    },
+    {
+      "id": "b1.reading.main-point",
+      "domain": "reading",
+      "category": "text_comprehension",
+      "label_en": "Find the main point",
+      "label_ru": "Основная мысль текста",
+      "expectation": "Identify the central point of a connected account rather than selecting an answer from one matching word.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "reading_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.2, pp. 9–10"
+        }
+      ]
+    },
+    {
+      "id": "b1.reading.details-sequence",
+      "domain": "reading",
+      "category": "text_comprehension",
+      "label_en": "Follow details and events",
+      "label_ru": "Детали и последовательность событий",
+      "expectation": "Connect information across a passage to identify the order of events and the people involved.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "reading_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.2, pp. 9–10"
+        }
+      ]
+    },
+    {
+      "id": "b1.reading.attitude-reasons",
+      "domain": "reading",
+      "category": "interpretation",
+      "label_en": "Understand reasons and attitudes",
+      "label_ru": "Причины и отношение автора",
+      "expectation": "Identify a reason or stated evaluation and point to the information supporting it.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "reading_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.2, pp. 9–10"
+        }
+      ]
+    },
+    {
+      "id": "b1.reading.summary-fidelity",
+      "domain": "reading",
+      "category": "text_comprehension",
+      "label_en": "Choose an accurate summary",
+      "label_ru": "Точная передача содержания",
+      "expectation": "Select a summary that retains the main information without adding events or changing the author’s point.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "reading_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.2, pp. 9–10"
+        }
+      ]
+    },
+    {
+      "id": "b1.listening.main-point",
+      "domain": "listening",
+      "category": "audio_comprehension",
+      "label_en": "Understand a connected account",
+      "label_ru": "Понимание связного рассказа",
+      "expectation": "Identify the topic and main information in a recording before consulting a transcript.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "listening_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.1, pp. 8–9"
+        }
+      ]
+    },
+    {
+      "id": "b1.listening.detail-sequence",
+      "domain": "listening",
+      "category": "audio_comprehension",
+      "label_en": "Follow spoken details",
+      "label_ru": "Детали услышанного",
+      "expectation": "Identify relevant times, actions and event order from the recording rather than from displayed text.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "listening_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.1, pp. 8–9"
+        }
+      ]
+    },
+    {
+      "id": "b1.listening.dialogue-intention",
+      "domain": "listening",
+      "category": "interaction",
+      "label_en": "Understand the other speaker",
+      "label_ru": "Намерение собеседника",
+      "expectation": "Identify what a speaker is asking, proposing or refusing within the developing exchange.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "listening_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.1, pp. 8–9"
+        }
+      ]
+    },
+    {
+      "id": "b1.listening.reasons-response",
+      "domain": "listening",
+      "category": "interpretation",
+      "label_en": "Connect a reply to its reason",
+      "label_ru": "Ответ и его причина",
+      "expectation": "Choose the explanation supported by the speakers’ words across several turns.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "listening_selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.1, pp. 8–9"
+        }
+      ]
+    },
+    {
+      "id": "b1.writing.connected-account",
+      "domain": "writing",
+      "category": "narration",
+      "label_en": "Write a connected account",
+      "label_ru": "Связный письменный рассказ",
+      "expectation": "Write an independently worded account with an intelligible sequence, relevant detail and consistent reference to its participants.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "independent_writing",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.3, p. 10"
+        }
+      ]
+    },
+    {
+      "id": "b1.writing.summary-response",
+      "domain": "writing",
+      "category": "mediation",
+      "label_en": "Summarise and respond",
+      "label_ru": "Изложение и собственное отношение",
+      "expectation": "Retell essential source information in your own words and distinguish your response from what the source says.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "independent_writing",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.3, p. 10"
+        }
+      ]
+    },
+    {
+      "id": "b1.writing.purposeful-message",
+      "domain": "writing",
+      "category": "correspondence",
+      "label_en": "Write for a stated purpose",
+      "label_ru": "Письмо с конкретной целью",
+      "expectation": "Compose a message that addresses the requested information and suits the relationship with its recipient.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "independent_writing",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.3, p. 10"
+        }
+      ]
+    },
+    {
+      "id": "b1.writing.opinion-reasons",
+      "domain": "writing",
+      "category": "argumentation",
+      "label_en": "Explain a personal view",
+      "label_ru": "Объяснение своей точки зрения",
+      "expectation": "State a view, support it with relevant reasons and connect the sentences so the reader can follow.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "independent_writing",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.3, p. 10"
+        }
+      ]
+    },
+    {
+      "id": "b1.speaking.initiate-complete-exchange",
+      "domain": "speaking",
+      "category": "interaction",
+      "label_en": "Manage a practical exchange",
+      "label_ru": "Решение задачи в диалоге",
+      "expectation": "Begin and sustain a familiar exchange, obtain the needed information and bring the conversation to a suitable end.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "independent_speaking",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.4, pp. 10–11"
+        }
+      ]
+    },
+    {
+      "id": "b1.speaking.clarify-repair",
+      "domain": "speaking",
+      "category": "interaction",
+      "label_en": "Ask for clarification",
+      "label_ru": "Уточнение и переспрос",
+      "expectation": "Respond to a misunderstanding by asking a relevant question or reformulating your meaning without a supplied reply.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "independent_speaking",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.1.1, p. 7; §1.2.4, pp. 10–11"
+        }
+      ]
+    },
+    {
+      "id": "b1.speaking.retell-experience",
+      "domain": "speaking",
+      "category": "narration",
+      "label_en": "Retell an event or experience",
+      "label_ru": "Рассказ о событии или опыте",
+      "expectation": "Produce a connected spoken account with recognisable participants, event order and relevant details.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "independent_speaking",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.4, pp. 10–11"
+        }
+      ]
+    },
+    {
+      "id": "b1.speaking.view-and-reasons",
+      "domain": "speaking",
+      "category": "argumentation",
+      "label_en": "Give a view and reasons",
+      "label_ru": "Мнение и его обоснование",
+      "expectation": "Express a view and explain it in understandable connected speech while answering relevant follow-up questions.",
+      "topic_ids": [
+        "*"
+      ],
+      "response_mode": "independent_speaking",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.4, pp. 10–11"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{% if attempt.criterion_details %}<details class="sentence-suggestion">
+  <summary>{{ 'Что показывает этот ответ' if ui_lang == 'ru' else 'What this response shows' }}</summary>
+  {% if attempt.criterion_support %}<p class="sentence-muted">{{ 'Был доступен образец ответа или предыдущий отзыв.' if ui_lang == 'ru' else 'Earlier feedback or a reference answer was available.' }}</p>{% endif %}
+  {% for criterion in attempt.criterion_details %}<div><h4>{{ criterion.label }} · {{ criterion.outcome }}</h4><p lang="{{ attempt.ui_language }}">{{ criterion.feedback }}</p></div>{% endfor %}
+</details>{% endif %}

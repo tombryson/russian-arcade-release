@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% from '_activity_header.html' import activity_header %}
+{% set page_title = ui_t('translation.title') %}
+{% block main_content %}
+<main class="main-content{% if not practice %} activity-entry{% endif %}" id="mainContent" data-page="sentences">
+  <div class="sentence-page translation-page{% if not practice %} activity-entry-content{% endif %}">
+    {% if practice %}
+    <header class="sentence-heading">
+      <div><p class="sentence-eyebrow">{{ ui_t('translation.direction') }}</p><h1 id="sentence-page-title" tabindex="-1">{{ ui_t('translation.title') }}</h1><p>{{ ui_t('translation.intro') }}</p></div>
+      <a class="sentence-text-link" href="/sentences" hx-get="/sentences" hx-target="#mainContent" hx-swap="outerHTML" hx-push-url="true">{{ ui_t('translation.choose_another') }} <span aria-hidden="true">↗</span></a>
+    </header>
+    {% else %}
+    {{ activity_header(ui_t('translation.title'), ui_t('translation.entry_description'), 'sentence-page-title') }}
+    {% endif %}
+    {% if error and not practice %}<p class="alert alert-warning" role="alert">{{ error }}</p>{% endif %}
+    {% if practice %}{% include '_translation_content.html' %}
+    {% elif sentences %}
+    <section class="sentence-paper translation-launch" aria-labelledby="translation-start-title">
+      <div><h2 id="translation-start-title">{{ ui_t('translation.start_title') }}</h2><p class="sentence-muted">{{ ui_t('translation.from_library') }}</p>
+        <p class="translation-launch-prompt" lang="en">{{ sentences[0].english }}</p>
+        <a class="btn btn-primary" href="/sentences/practice/{{ sentences[0].id }}" hx-get="/sentences/practice/{{ sentences[0].id }}" hx-target="#mainContent" hx-swap="outerHTML" hx-push-url="true">{{ ui_t('translation.start') }} <span aria-hidden="true">→</span></a>
+      </div>
+      <aside class="translation-guide" aria-label="{{ ui_t('translation.how') }}">
+        <ol><li><span aria-hidden="true">1</span>{{ ui_t('translation.step_read') }}</li><li><span aria-hidden="true">2</span>{{ ui_t('translation.step_write') }}</li><li><span aria-hidden="true">3</span>{{ ui_t('translation.step_check') }}</li></ol>
+        <p>{{ ui_t('translation.many_answers') }}</p>
+      </aside>
+    </section>
+    {% endif %}
+    {% include '_translation_library.html' %}
+    {% if not practice %}
+    <details class="sentence-library translation-create" {% if not sentences or error or curriculum_selected %}open{% endif %}>
+      <summary><span>{{ ui_t('translation.create_title') }}</span><span class="sentence-disclosure-icon" aria-hidden="true">+</span></summary>
+      <form action="/sentence/generate" method="post" data-curriculum-setup {% if level_explicit %}data-level-explicit="true"{% endif %} data-translation-prepare data-ready="{{ ui_t('translation.prepared_link') }}" data-pending="{{ ui_t('translation.preparing') }}" data-error="{{ ui_t('translation.prepare_failed') }}">
+        <p class="sentence-muted">{{ ui_t('translation.create_help') }}</p>
+        <div class="translation-settings">
+          <div><label for="translation-topic">{{ ui_t('sentences.topic') }}</label><select name="topic" id="translation-topic" class="form-select" data-curriculum-topic><option value="any">{{ ui_t('word_jumble.any') }}</option>{% for band in curriculum_topics|selectattr('band')|groupby('band') %}<optgroup label="{{ band.grouper }}">{% for topic in band.list %}<option value="{{ topic.value }}" {% if selected_topic == topic.value %}selected{% endif %} data-level="{{ topic.level }}">{{ topic.label }}</option>{% endfor %}</optgroup>{% endfor %}{% for topic in curriculum_topics if not topic.band %}<option value="{{ topic.value }}" {% if selected_topic == topic.value %}selected{% endif %}>{{ topic.label }}</option>{% endfor %}</select></div>
+          <div><label for="translation-level">{{ ui_t('translation.level') }}</label><select name="difficulty" id="translation-level" class="form-select" data-curriculum-level>{% for level in curriculum_levels %}<option value="{{ level.value }}" {% if selected_level|default('A1') == level.value %}selected{% endif %}>{{ level.label }}</option>{% endfor %}</select></div>
+        </div>
+        <button class="btn btn-primary" type="submit">{{ ui_t('translation.generate') }}</button><p data-prepare-status role="status" aria-live="polite"></p>
+      </form>
+    </details>
+    {% endif %}
+    <p class="translation-library-link"><a class="sentence-text-link" href="/sentences/saved">{{ ui_t('translation.open_library') }} <span aria-hidden="true">↗</span></a></p>
+  </div>
+</main>
+{% endblock %}

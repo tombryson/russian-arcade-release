@@ -1,0 +1,55 @@
+        <form
+            id="question-form"
+            hx-post="/comprehension/answer"
+            hx-target="#question-feedback"
+            hx-swap="innerHTML"
+            data-listened="{{ 'true' if story.listened else 'false' }}"
+            data-transcript-visible="{{ 'true' if story.transcript_visible else 'false' }}"
+        >
+            {% if story.task_id %}
+            <input type="hidden" name="story_id" value="{{ story.id }}" />
+            <input type="hidden" name="task_id" value="{{ story.task_id }}" />
+            <input type="hidden" id="reading-task-revision" name="task_revision" value="{{ story.revision }}" />
+            <input type="hidden" id="reading-submission-id" name="submission_id" value="{{ story.submission_id }}" />
+            {% else %}
+            <input type="hidden" name="story_title" value="{{ story.title }}" />
+            <input type="hidden" name="story_title_en" value="{{ story.title_en | default('') }}" />
+            <input type="hidden" name="story_id" value="{{ story.id | default('') }}" />
+            <input type="hidden" name="story_text" value="{{ story.text | b64encode }}" />
+            <input type="hidden" name="questions_b64" value="{{ story.questions | tojson | b64encode }}" />
+            <input type="hidden" name="audio_url" value="{{ story.audio_url }}" />
+            <input type="hidden" name="image_url" value="{{ story.image_url }}" />
+            <input type="hidden" name="topic" value="{{ story.topic | default('any') }}" />
+            <input type="hidden" name="difficulty" value="{{ story.difficulty | default('beginner') }}" />
+            {% endif %}
+            <fieldset class="reading-answer-fields" data-listening-answers {% if story.practice_mode == 'listening' and not story.listened and not story.transcript_visible %}disabled{% endif %}>
+            <legend class="visually-hidden">{{ ui_t('comprehension.questions') }}</legend>
+            {% for question in story.questions %}
+            <div class="question-card">
+                <label for="story-answer-{{ loop.index0 }}" class="form-label"><strong>{{ ui_t('comprehension.question') }} {{ loop.index }}:</strong> {{ question }}</label>
+                {% set answer = story.answers[loop.index0] if story.answers and loop.index0 < story.answers|length else '' %}
+                <textarea id="story-answer-{{ loop.index0 }}" {% if preserve_answers %}hx-preserve{% endif %} name="answers[]" lang="ru" class="form-control" rows="4" data-question-index="{{ loop.index0 }}">{{ answer }}</textarea>
+            </div>
+            {% endfor %}
+            {% if story.questions %}
+            <button
+                type="submit"
+                class="btn btn-primary mt-3 grid-span-all"
+            >
+                {{ ui_t('comprehension.submit_answers') }}
+            </button>
+            {% endif %}
+            </fieldset>
+        </form>
+        {% if not story.questions %}
+        <div class="alert alert-warning grid-span-all">
+            {{ ui_t('comprehension.no_questions') }}
+        </div>
+        {% endif %}
+        <div id="question-feedback" role="status" class="question-feedback mt-2 grid-span-all">
+        {% if story.assessment %}
+            {% with reading_result={'assessment': story.assessment, 'answers': story.answers}, update_form=False %}
+            {% include '_comprehension_checked.html' %}
+            {% endwith %}
+        {% endif %}
+        </div>

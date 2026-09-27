@@ -1,0 +1,1442 @@
+{
+  "schema_version": 1,
+  "id": "a1-units-review-v2",
+  "reference_version": "torfl-reference-v1",
+  "status": "application-authored hypotheses; no qualified review recorded",
+  "unit_sha256": {
+    "location-destination-v1": "0afa10eb3a5f7953984bdc8694f23d090204bfc36c9c4f81dec0d87804e66256",
+    "possession-absence-v1": "9cfb3f1924f7dbbfdcf02b1a36debdeca547ccd6d7478e1f7405518c2b62ea48",
+    "objects-recipients-v1": "512540c372c3be0d003d7a2444ccbd043140dab126ecd16ff6a32a8851de56c0",
+    "time-routine-v1": "53e8a067495f4d051a958e080f191c39d80670a61dd9d1d4188dd313cf179cfe",
+    "noun-adjective-agreement-v1": "ef91d307769895453fc0a7e42572e918bf5fde0f4c829d40df7d52d4ca7ae539",
+    "personal-reference-v1": "bdf54f27e3da61cac39b42b0917198bcda75927e41ca5f0e0eb20ffaee206d6e",
+    "basic-motion-v1": "e6c3d1c6ecada977284562280d3e101511815316d6264bcedb88c556c040e5af"
+  },
+  "cases": [
+    {
+      "id": "location-destination-v1-form-destination-canonical",
+      "unit_id": "location-destination-v1",
+      "stage": "forms",
+      "item_id": "form-destination",
+      "response": "школу",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "location-destination-v1-form-destination-alternative",
+      "unit_id": "location-destination-v1",
+      "stage": "forms",
+      "item_id": "form-destination",
+      "response": "  В ШКОЛУ!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "location-destination-v1-form-destination-error",
+      "unit_id": "location-destination-v1",
+      "stage": "forms",
+      "item_id": "form-destination",
+      "response": "школе",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "location-destination-v1-form-location-canonical",
+      "unit_id": "location-destination-v1",
+      "stage": "forms",
+      "item_id": "form-location",
+      "response": "почте",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "location-destination-v1-form-location-alternative",
+      "unit_id": "location-destination-v1",
+      "stage": "forms",
+      "item_id": "form-location",
+      "response": "  НА ПОЧТЕ!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "location-destination-v1-form-location-error",
+      "unit_id": "location-destination-v1",
+      "stage": "forms",
+      "item_id": "form-location",
+      "response": "почту",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "location-destination-v1-form-movement-within-canonical",
+      "unit_id": "location-destination-v1",
+      "stage": "forms",
+      "item_id": "form-movement-within",
+      "response": "парке",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "location-destination-v1-form-movement-within-alternative",
+      "unit_id": "location-destination-v1",
+      "stage": "forms",
+      "item_id": "form-movement-within",
+      "response": "  В ПАРКЕ!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "location-destination-v1-form-movement-within-error",
+      "unit_id": "location-destination-v1",
+      "stage": "forms",
+      "item_id": "form-movement-within",
+      "response": "парк",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "possession-absence-v1-form-owner-u-canonical",
+      "unit_id": "possession-absence-v1",
+      "stage": "forms",
+      "item_id": "form-owner-u",
+      "response": "Марии",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "possession-absence-v1-form-owner-u-alternative",
+      "unit_id": "possession-absence-v1",
+      "stage": "forms",
+      "item_id": "form-owner-u",
+      "response": "  У МАРИИ!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "possession-absence-v1-form-owner-u-error",
+      "unit_id": "possession-absence-v1",
+      "stage": "forms",
+      "item_id": "form-owner-u",
+      "response": "Мария",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "possession-absence-v1-form-absence-canonical",
+      "unit_id": "possession-absence-v1",
+      "stage": "forms",
+      "item_id": "form-absence",
+      "response": "книги",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "possession-absence-v1-form-absence-alternative",
+      "unit_id": "possession-absence-v1",
+      "stage": "forms",
+      "item_id": "form-absence",
+      "response": "  НЕТ КНИГИ!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "possession-absence-v1-form-absence-error",
+      "unit_id": "possession-absence-v1",
+      "stage": "forms",
+      "item_id": "form-absence",
+      "response": "книга",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "possession-absence-v1-form-owned-canonical",
+      "unit_id": "possession-absence-v1",
+      "stage": "forms",
+      "item_id": "form-owned",
+      "response": "брата",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "possession-absence-v1-form-owned-alternative",
+      "unit_id": "possession-absence-v1",
+      "stage": "forms",
+      "item_id": "form-owned",
+      "response": "  РЮКЗАК БРАТА!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "possession-absence-v1-form-owned-error",
+      "unit_id": "possession-absence-v1",
+      "stage": "forms",
+      "item_id": "form-owned",
+      "response": "брат",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "possession-absence-v1-form-pronoun-canonical",
+      "unit_id": "possession-absence-v1",
+      "stage": "forms",
+      "item_id": "form-pronoun",
+      "response": "тебя",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "possession-absence-v1-form-pronoun-alternative",
+      "unit_id": "possession-absence-v1",
+      "stage": "forms",
+      "item_id": "form-pronoun",
+      "response": "  У ТЕБЯ!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "possession-absence-v1-form-pronoun-error",
+      "unit_id": "possession-absence-v1",
+      "stage": "forms",
+      "item_id": "form-pronoun",
+      "response": "ты",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-form-object-canonical",
+      "unit_id": "objects-recipients-v1",
+      "stage": "forms",
+      "item_id": "form-object",
+      "response": "газету",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-form-object-alternative",
+      "unit_id": "objects-recipients-v1",
+      "stage": "forms",
+      "item_id": "form-object",
+      "response": "  ЧИТАЮ ГАЗЕТУ!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-form-object-error",
+      "unit_id": "objects-recipients-v1",
+      "stage": "forms",
+      "item_id": "form-object",
+      "response": "газета",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-form-person-canonical",
+      "unit_id": "objects-recipients-v1",
+      "stage": "forms",
+      "item_id": "form-person",
+      "response": "друга",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-form-person-alternative",
+      "unit_id": "objects-recipients-v1",
+      "stage": "forms",
+      "item_id": "form-person",
+      "response": "  ВИЖУ ДРУГА!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-form-person-error",
+      "unit_id": "objects-recipients-v1",
+      "stage": "forms",
+      "item_id": "form-person",
+      "response": "друг",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-form-recipient-canonical",
+      "unit_id": "objects-recipients-v1",
+      "stage": "forms",
+      "item_id": "form-recipient",
+      "response": "сестре",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-form-recipient-alternative",
+      "unit_id": "objects-recipients-v1",
+      "stage": "forms",
+      "item_id": "form-recipient",
+      "response": "  ДАЮ КНИГУ СЕСТРЕ!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-form-recipient-error",
+      "unit_id": "objects-recipients-v1",
+      "stage": "forms",
+      "item_id": "form-recipient",
+      "response": "сестру",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-form-call-canonical",
+      "unit_id": "objects-recipients-v1",
+      "stage": "forms",
+      "item_id": "form-call",
+      "response": "маме",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-form-call-alternative",
+      "unit_id": "objects-recipients-v1",
+      "stage": "forms",
+      "item_id": "form-call",
+      "response": "  ЗВОНЮ МАМЕ!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-form-call-error",
+      "unit_id": "objects-recipients-v1",
+      "stage": "forms",
+      "item_id": "form-call",
+      "response": "маму",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-weekday-canonical",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-weekday",
+      "response": "среду",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-weekday-alternative",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-weekday",
+      "response": "  В СРЕДУ!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-weekday-error",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-weekday",
+      "response": "среде",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-we-canonical",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-we",
+      "response": "читаем",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-we-alternative",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-we",
+      "response": "  МЫ ЧИТАЕМ!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-we-error",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-we",
+      "response": "читают",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-i-canonical",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-i",
+      "response": "пишу",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-i-alternative",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-i",
+      "response": "  Я ПИШУ!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-i-error",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-i",
+      "response": "писаю",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-past-canonical",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-past",
+      "response": "работала",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-past-alternative",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-past",
+      "response": "  ОЛЬГА РАБОТАЛА!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-past-error",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-past",
+      "response": "работал",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-future-canonical",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-future",
+      "response": "будем",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed word form fits the supplied context."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-future-alternative",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-future",
+      "response": "  МЫ БУДЕМ!  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The listed fuller phrase is allowed. Case, outer whitespace and final punctuation do not change the linguistic answer."
+      }
+    },
+    {
+      "id": "time-routine-v1-form-future-error",
+      "unit_id": "time-routine-v1",
+      "stage": "forms",
+      "item_id": "form-future",
+      "response": "будут",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied response does not fulfil this controlled form target. A related real Russian word is not enough; judge the required form in context."
+      }
+    },
+    {
+      "id": "possession-absence-v1-writing-clear",
+      "unit_id": "possession-absence-v1",
+      "stage": "writing",
+      "response": "Привет! У меня есть хлеб и сыр, но нет воды. Возьми воду, пожалуйста.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Available food, missing water and the request are clear. The recipient is the friend addressed."
+      }
+    },
+    {
+      "id": "possession-absence-v1-writing-grammar",
+      "unit_id": "possession-absence-v1",
+      "stage": "writing",
+      "response": "У меня есть хлеб. У меня нет вода. Возьми воду, пожалуйста.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The message achieves its purpose despite нет вода. Correct this to нет воды; do not erase communicative success or claim grammar mastery."
+      }
+    },
+    {
+      "id": "possession-absence-v1-writing-missing-request",
+      "unit_id": "possession-absence-v1",
+      "stage": "writing",
+      "response": "У меня есть хлеб. У меня нет воды.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "partial",
+        "notes": "The available and missing items are stated, but the friend is not asked to bring the missing item."
+      }
+    },
+    {
+      "id": "possession-absence-v1-writing-unrelated",
+      "unit_id": "possession-absence-v1",
+      "stage": "writing",
+      "response": "Сегодня хорошая погода. Я люблю гулять.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "Intelligible Russian, but none of the requested packing information is supplied."
+      }
+    },
+    {
+      "id": "possession-absence-v1-writing-empty",
+      "unit_id": "possession-absence-v1",
+      "stage": "writing",
+      "response": "",
+      "support": [],
+      "author_expectation": {
+        "outcome": "insufficient_evidence",
+        "notes": "An empty response contains no evidence. Do not infer ability or a grammar error. This is an evaluator calibration case; the live submission form rejects empty drafts."
+      }
+    },
+    {
+      "id": "possession-absence-v1-writing-supported",
+      "unit_id": "possession-absence-v1",
+      "stage": "writing",
+      "response": "Привет! У меня есть хлеб и сыр, но нет воды. Возьми воду, пожалуйста.",
+      "support": [
+        "model_answer"
+      ],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The text fulfils the task, but a model answer was supplied. Record supported practice; do not count it as independent writing evidence."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-writing-clear",
+      "unit_id": "objects-recipients-v1",
+      "stage": "writing",
+      "response": "Привет! У тебя моя книга. Передай её Нине завтра утром, пожалуйста.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The item, recipient and time are all clear. Natural pronoun reference is allowed."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-writing-grammar",
+      "unit_id": "objects-recipients-v1",
+      "stage": "writing",
+      "response": "Передай эту книгу Нину завтра утром, пожалуйста.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Recipient and timing remain clear although Нину should be Нине. Correct the dative without treating the whole message as incomprehensible."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-writing-missing-time",
+      "unit_id": "objects-recipients-v1",
+      "stage": "writing",
+      "response": "Привет! Эта книга для Нины. Передай её Нине, пожалуйста.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "partial",
+        "notes": "Item and recipient are clear, but the requested time is missing."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-writing-conflict",
+      "unit_id": "objects-recipients-v1",
+      "stage": "writing",
+      "response": "Передай книгу Нине, не Нине, а маме, но только Нине завтра.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "partial",
+        "notes": "The instruction names conflicting recipients. The evaluator should identify uncertainty rather than invent a final recipient."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-writing-empty",
+      "unit_id": "objects-recipients-v1",
+      "stage": "writing",
+      "response": "",
+      "support": [],
+      "author_expectation": {
+        "outcome": "insufficient_evidence",
+        "notes": "An empty response contains no evidence. Do not infer ability or a grammar error. This is an evaluator calibration case; the live submission form rejects empty drafts."
+      }
+    },
+    {
+      "id": "objects-recipients-v1-writing-supported",
+      "unit_id": "objects-recipients-v1",
+      "stage": "writing",
+      "response": "Привет! У тебя моя книга. Передай её Нине завтра утром, пожалуйста.",
+      "support": [
+        "model_answer"
+      ],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The text fulfils the task, but a model answer was supplied. Record supported practice; do not count it as independent writing evidence."
+      }
+    },
+    {
+      "id": "time-routine-v1-writing-clear",
+      "unit_id": "time-routine-v1",
+      "stage": "writing",
+      "response": "Утром я завтракаю в восемь. Вечером читаю дома. Завтра пойду в парк.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Connected routine, one time and a future plan are clear. A natural perfective future is allowed; буду is not compulsory."
+      }
+    },
+    {
+      "id": "time-routine-v1-writing-grammar",
+      "unit_id": "time-routine-v1",
+      "stage": "writing",
+      "response": "Утром я завтракает в восемь. Вечером я читают. Завтра я буду работать.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "All requested information remains clear. Correct завтракает to завтракаю and читают to читаю; these are conjugation errors, not missing information."
+      }
+    },
+    {
+      "id": "time-routine-v1-writing-no-future",
+      "unit_id": "time-routine-v1",
+      "stage": "writing",
+      "response": "Утром я завтракаю в семь. Вечером я читаю.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "partial",
+        "notes": "The routine and time are supplied, but the future plan is missing."
+      }
+    },
+    {
+      "id": "time-routine-v1-writing-fragment",
+      "unit_id": "time-routine-v1",
+      "stage": "writing",
+      "response": "Я читаю.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "partial",
+        "notes": "A comprehensible activity alone does not supply the requested morning/evening routine, time and future plan."
+      }
+    },
+    {
+      "id": "time-routine-v1-writing-empty",
+      "unit_id": "time-routine-v1",
+      "stage": "writing",
+      "response": "",
+      "support": [],
+      "author_expectation": {
+        "outcome": "insufficient_evidence",
+        "notes": "An empty response contains no evidence. Do not infer ability or a grammar error. This is an evaluator calibration case; the live submission form rejects empty drafts."
+      }
+    },
+    {
+      "id": "time-routine-v1-writing-supported",
+      "unit_id": "time-routine-v1",
+      "stage": "writing",
+      "response": "Утром я завтракаю в восемь. Вечером читаю дома. Завтра пойду в парк.",
+      "support": [
+        "model_answer"
+      ],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The text fulfils the task, but a model answer was supplied. Record supported practice; do not count it as independent writing evidence."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-form-masculine-exact",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "forms",
+      "item_id": "form-masculine",
+      "response": "новый",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Matches the authored controlled-form key."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-form-masculine-variant",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "forms",
+      "item_id": "form-masculine",
+      "response": "новый рюкзак",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "An explicitly accepted phrase or supported case/whitespace/punctuation variant; this does not imply unrestricted paraphrase matching."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-form-masculine-form-error",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "forms",
+      "item_id": "form-masculine",
+      "response": "новая",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied form does not fit this construction: Новый рюкзак is a masculine nominative description."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-form-feminine-exact",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "forms",
+      "item_id": "form-feminine",
+      "response": "новая",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Matches the authored controlled-form key."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-form-feminine-variant",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "forms",
+      "item_id": "form-feminine",
+      "response": "новая куртка",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "An explicitly accepted phrase or supported case/whitespace/punctuation variant; this does not imply unrestricted paraphrase matching."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-form-feminine-form-error",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "forms",
+      "item_id": "form-feminine",
+      "response": "новый",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied form does not fit this construction: Новая agrees with куртка."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-form-neuter-exact",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "forms",
+      "item_id": "form-neuter",
+      "response": "синее",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Matches the authored controlled-form key."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-form-neuter-variant",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "forms",
+      "item_id": "form-neuter",
+      "response": "синее платье",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "An explicitly accepted phrase or supported case/whitespace/punctuation variant; this does not imply unrestricted paraphrase matching."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-form-neuter-form-error",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "forms",
+      "item_id": "form-neuter",
+      "response": "синяя",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied form does not fit this construction: Синее is the neuter form of синий."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-form-plural-exact",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "forms",
+      "item_id": "form-plural",
+      "response": "красные",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Matches the authored controlled-form key."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-form-plural-variant",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "forms",
+      "item_id": "form-plural",
+      "response": "  КРАСНЫЕ.  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "An explicitly accepted phrase or supported case/whitespace/punctuation variant; this does not imply unrestricted paraphrase matching."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-form-plural-form-error",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "forms",
+      "item_id": "form-plural",
+      "response": "красный",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied form does not fit this construction: Красные describes more than one sock."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-writing-clear",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "writing",
+      "response": "Привет! Я оставил у тебя куртку. Она синяя и большая. Думаю, она на стуле. Пожалуйста, найди её.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The requested communicative details and purpose are clear. This is an authored hypothesis for human review."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-writing-grammar",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "writing",
+      "response": "Привет! Я оставил куртку у тебя. Она синий и большой. Она на стуле. Найди её, пожалуйста.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The requested meaning remains clear despite a recoverable form error. Judge communication separately from grammatical correction."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-writing-missing-detail",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "writing",
+      "response": "Я оставил куртку. Она синяя. Найди её, пожалуйста.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "partial",
+        "notes": "The reply omits part of the requested description or explanation."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-writing-fragment",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "writing",
+      "response": "Куртка синяя.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "partial",
+        "notes": "Only a small relevant detail is supplied; the requested message is incomplete."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-writing-empty",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "writing",
+      "response": "",
+      "support": [],
+      "author_expectation": {
+        "outcome": "insufficient_evidence",
+        "notes": "No observable reply. The live form blocks empty submissions; this is a rubric-review case."
+      }
+    },
+    {
+      "id": "noun-adjective-agreement-v1-writing-supported",
+      "unit_id": "noun-adjective-agreement-v1",
+      "stage": "writing",
+      "response": "Привет! Я оставил у тебя куртку. Она синяя и большая. Думаю, она на стуле. Пожалуйста, найди её.",
+      "support": [
+        "model_answer"
+      ],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Meaning is clear, but a supplied model answer prevents a claim of independent production."
+      }
+    },
+    {
+      "id": "personal-reference-v1-form-direct-object-exact",
+      "unit_id": "personal-reference-v1",
+      "stage": "forms",
+      "item_id": "form-direct-object",
+      "response": "его",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Matches the authored controlled-form key."
+      }
+    },
+    {
+      "id": "personal-reference-v1-form-direct-object-variant",
+      "unit_id": "personal-reference-v1",
+      "stage": "forms",
+      "item_id": "form-direct-object",
+      "response": "знаю его",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "An explicitly accepted phrase or supported case/whitespace/punctuation variant; this does not imply unrestricted paraphrase matching."
+      }
+    },
+    {
+      "id": "personal-reference-v1-form-direct-object-form-error",
+      "unit_id": "personal-reference-v1",
+      "stage": "forms",
+      "item_id": "form-direct-object",
+      "response": "он",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied form does not fit this construction: Его is the object form after знаю."
+      }
+    },
+    {
+      "id": "personal-reference-v1-form-recipient-exact",
+      "unit_id": "personal-reference-v1",
+      "stage": "forms",
+      "item_id": "form-recipient",
+      "response": "ей",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Matches the authored controlled-form key."
+      }
+    },
+    {
+      "id": "personal-reference-v1-form-recipient-variant",
+      "unit_id": "personal-reference-v1",
+      "stage": "forms",
+      "item_id": "form-recipient",
+      "response": "даю ей",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "An explicitly accepted phrase or supported case/whitespace/punctuation variant; this does not imply unrestricted paraphrase matching."
+      }
+    },
+    {
+      "id": "personal-reference-v1-form-recipient-form-error",
+      "unit_id": "personal-reference-v1",
+      "stage": "forms",
+      "item_id": "form-recipient",
+      "response": "её",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied form does not fit this construction: Ей identifies the recipient of the ticket."
+      }
+    },
+    {
+      "id": "personal-reference-v1-form-after-u-exact",
+      "unit_id": "personal-reference-v1",
+      "stage": "forms",
+      "item_id": "form-after-u",
+      "response": "него",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Matches the authored controlled-form key."
+      }
+    },
+    {
+      "id": "personal-reference-v1-form-after-u-variant",
+      "unit_id": "personal-reference-v1",
+      "stage": "forms",
+      "item_id": "form-after-u",
+      "response": "у него",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "An explicitly accepted phrase or supported case/whitespace/punctuation variant; this does not imply unrestricted paraphrase matching."
+      }
+    },
+    {
+      "id": "personal-reference-v1-form-after-u-form-error",
+      "unit_id": "personal-reference-v1",
+      "stage": "forms",
+      "item_id": "form-after-u",
+      "response": "его",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied form does not fit this construction: У него uses н after the preposition у."
+      }
+    },
+    {
+      "id": "personal-reference-v1-form-possessive-exact",
+      "unit_id": "personal-reference-v1",
+      "stage": "forms",
+      "item_id": "form-possessive",
+      "response": "её",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Matches the authored controlled-form key."
+      }
+    },
+    {
+      "id": "personal-reference-v1-form-possessive-variant",
+      "unit_id": "personal-reference-v1",
+      "stage": "forms",
+      "item_id": "form-possessive",
+      "response": "её сумка",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "An explicitly accepted phrase or supported case/whitespace/punctuation variant; this does not imply unrestricted paraphrase matching."
+      }
+    },
+    {
+      "id": "personal-reference-v1-form-possessive-form-error",
+      "unit_id": "personal-reference-v1",
+      "stage": "forms",
+      "item_id": "form-possessive",
+      "response": "ней",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied form does not fit this construction: Её сумка means her bag. There is no н in this possessive form."
+      }
+    },
+    {
+      "id": "personal-reference-v1-writing-clear",
+      "unit_id": "personal-reference-v1",
+      "stage": "writing",
+      "response": "Мой друг Олег — учитель. Он любит музыку. Давай встретимся с ним в субботу!",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The requested communicative details and purpose are clear. This is an authored hypothesis for human review."
+      }
+    },
+    {
+      "id": "personal-reference-v1-writing-grammar",
+      "unit_id": "personal-reference-v1",
+      "stage": "writing",
+      "response": "Мой друг Олег — учитель. Он любит музыка. Давай встретимся с ним в субботу!",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The requested meaning remains clear despite a recoverable form error. Judge communication separately from grammatical correction."
+      }
+    },
+    {
+      "id": "personal-reference-v1-writing-missing-detail",
+      "unit_id": "personal-reference-v1",
+      "stage": "writing",
+      "response": "Мой друг Олег — учитель. Давай встретимся с ним!",
+      "support": [],
+      "author_expectation": {
+        "outcome": "partial",
+        "notes": "The reply omits part of the requested description or explanation."
+      }
+    },
+    {
+      "id": "personal-reference-v1-writing-fragment",
+      "unit_id": "personal-reference-v1",
+      "stage": "writing",
+      "response": "Это Олег.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "partial",
+        "notes": "Only a small relevant detail is supplied; the requested message is incomplete."
+      }
+    },
+    {
+      "id": "personal-reference-v1-writing-empty",
+      "unit_id": "personal-reference-v1",
+      "stage": "writing",
+      "response": "",
+      "support": [],
+      "author_expectation": {
+        "outcome": "insufficient_evidence",
+        "notes": "No observable reply. The live form blocks empty submissions; this is a rubric-review case."
+      }
+    },
+    {
+      "id": "personal-reference-v1-writing-supported",
+      "unit_id": "personal-reference-v1",
+      "stage": "writing",
+      "response": "Мой друг Олег — учитель. Он любит музыку. Давай встретимся с ним в субботу!",
+      "support": [
+        "model_answer"
+      ],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Meaning is clear, but a supplied model answer prevents a claim of independent production."
+      }
+    },
+    {
+      "id": "basic-motion-v1-form-walk-exact",
+      "unit_id": "basic-motion-v1",
+      "stage": "forms",
+      "item_id": "form-walk",
+      "response": "иду",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Matches the authored controlled-form key."
+      }
+    },
+    {
+      "id": "basic-motion-v1-form-walk-variant",
+      "unit_id": "basic-motion-v1",
+      "stage": "forms",
+      "item_id": "form-walk",
+      "response": "  ИДУ.  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "An explicitly accepted phrase or supported case/whitespace/punctuation variant; this does not imply unrestricted paraphrase matching."
+      }
+    },
+    {
+      "id": "basic-motion-v1-form-walk-form-error",
+      "unit_id": "basic-motion-v1",
+      "stage": "forms",
+      "item_id": "form-walk",
+      "response": "идёт",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied form does not fit this construction: Я иду describes my current walk."
+      }
+    },
+    {
+      "id": "basic-motion-v1-form-ride-exact",
+      "unit_id": "basic-motion-v1",
+      "stage": "forms",
+      "item_id": "form-ride",
+      "response": "едем",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Matches the authored controlled-form key."
+      }
+    },
+    {
+      "id": "basic-motion-v1-form-ride-variant",
+      "unit_id": "basic-motion-v1",
+      "stage": "forms",
+      "item_id": "form-ride",
+      "response": "  ЕДЕМ.  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "An explicitly accepted phrase or supported case/whitespace/punctuation variant; this does not imply unrestricted paraphrase matching."
+      }
+    },
+    {
+      "id": "basic-motion-v1-form-ride-form-error",
+      "unit_id": "basic-motion-v1",
+      "stage": "forms",
+      "item_id": "form-ride",
+      "response": "еду",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied form does not fit this construction: Мы едем agrees with the plural subject."
+      }
+    },
+    {
+      "id": "basic-motion-v1-form-repeated-exact",
+      "unit_id": "basic-motion-v1",
+      "stage": "forms",
+      "item_id": "form-repeated",
+      "response": "хожу",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Matches the authored controlled-form key."
+      }
+    },
+    {
+      "id": "basic-motion-v1-form-repeated-variant",
+      "unit_id": "basic-motion-v1",
+      "stage": "forms",
+      "item_id": "form-repeated",
+      "response": "  ХОЖУ.  ",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "An explicitly accepted phrase or supported case/whitespace/punctuation variant; this does not imply unrestricted paraphrase matching."
+      }
+    },
+    {
+      "id": "basic-motion-v1-form-repeated-form-error",
+      "unit_id": "basic-motion-v1",
+      "stage": "forms",
+      "item_id": "form-repeated",
+      "response": "ходит",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied form does not fit this construction: Хожу is the я form of ходить, used here for a regular walk to work."
+      }
+    },
+    {
+      "id": "basic-motion-v1-form-transport-exact",
+      "unit_id": "basic-motion-v1",
+      "stage": "forms",
+      "item_id": "form-transport",
+      "response": "автобусе",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Matches the authored controlled-form key."
+      }
+    },
+    {
+      "id": "basic-motion-v1-form-transport-variant",
+      "unit_id": "basic-motion-v1",
+      "stage": "forms",
+      "item_id": "form-transport",
+      "response": "на автобусе",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "An explicitly accepted phrase or supported case/whitespace/punctuation variant; this does not imply unrestricted paraphrase matching."
+      }
+    },
+    {
+      "id": "basic-motion-v1-form-transport-form-error",
+      "unit_id": "basic-motion-v1",
+      "stage": "forms",
+      "item_id": "form-transport",
+      "response": "автобус",
+      "support": [],
+      "author_expectation": {
+        "outcome": "not_satisfied",
+        "notes": "The supplied form does not fit this construction: На автобусе says which transport we use."
+      }
+    },
+    {
+      "id": "basic-motion-v1-writing-clear",
+      "unit_id": "basic-motion-v1",
+      "stage": "writing",
+      "response": "Обычно я хожу в библиотеку пешком. Сегодня поеду на автобусе, потому что идёт дождь. Жди меня у входа.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The requested communicative details and purpose are clear. This is an authored hypothesis for human review."
+      }
+    },
+    {
+      "id": "basic-motion-v1-writing-grammar",
+      "unit_id": "basic-motion-v1",
+      "stage": "writing",
+      "response": "Обычно я ходит в библиотеку пешком. Сегодня поеду на автобусе, потому что идёт дождь. Жди меня у входа.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "The requested meaning remains clear despite a recoverable form error. Judge communication separately from grammatical correction."
+      }
+    },
+    {
+      "id": "basic-motion-v1-writing-missing-detail",
+      "unit_id": "basic-motion-v1",
+      "stage": "writing",
+      "response": "Сегодня я поеду в библиотеку на автобусе. Жди меня у входа.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "partial",
+        "notes": "The reply omits part of the requested description or explanation."
+      }
+    },
+    {
+      "id": "basic-motion-v1-writing-fragment",
+      "unit_id": "basic-motion-v1",
+      "stage": "writing",
+      "response": "Я иду.",
+      "support": [],
+      "author_expectation": {
+        "outcome": "partial",
+        "notes": "Only a small relevant detail is supplied; the requested message is incomplete."
+      }
+    },
+    {
+      "id": "basic-motion-v1-writing-empty",
+      "unit_id": "basic-motion-v1",
+      "stage": "writing",
+      "response": "",
+      "support": [],
+      "author_expectation": {
+        "outcome": "insufficient_evidence",
+        "notes": "No observable reply. The live form blocks empty submissions; this is a rubric-review case."
+      }
+    },
+    {
+      "id": "basic-motion-v1-writing-supported",
+      "unit_id": "basic-motion-v1",
+      "stage": "writing",
+      "response": "Обычно я хожу в библиотеку пешком. Сегодня поеду на автобусе, потому что идёт дождь. Жди меня у входа.",
+      "support": [
+        "model_answer"
+      ],
+      "author_expectation": {
+        "outcome": "satisfied",
+        "notes": "Meaning is clear, but a supplied model answer prevents a claim of independent production."
+      }
+    }
+  ],
+  "listening_sha256": {
+    "basic-motion-listening-v1": "89ca115d1ac493ad179f001ae1dc9341a22ceb9b97b59de356c4b837bfbf888e",
+    "location-destination-listening-v1": "198b9be504ac291d8f44b9f179882e24764ed07aa8ab3fd46dc914ad26f03350",
+    "noun-adjective-agreement-listening-v1": "ba757f9403ac34a19359c57225eeeeaad13c4d3c2a1df28ae5215e03d78ad995",
+    "objects-recipients-listening-v1": "6833fdbf3d6cff925f865f99ec17491b5fc899d0dae3ee84f306e755c5525ca8",
+    "personal-reference-listening-v1": "0d6919a71ac8291f431987ec03c12e47d23da75f50dc6f714fc93b812e4bff11",
+    "possession-absence-listening-v1": "44a895fbbe8361ff1c93e161fd8075f7181d83fe0ca49284109e6034f49b98a8",
+    "time-routine-listening-v1": "034f6585ffba5e77bf6000c186ec4728888501821e907e378136b538242db227"
+  }
+}

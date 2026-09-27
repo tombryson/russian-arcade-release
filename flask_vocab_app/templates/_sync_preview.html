@@ -1,0 +1,50 @@
+<div class="modal-content">
+    <h2>{{ ui_t('vocab.sync_preview') }}</h2>
+    <p>{{ ui_t('vocab.sync_backup') }}</p>
+
+    {% if db_only and db_only|length > 0 %}
+    <h3>{{ ui_t('vocab.add_to_list') }} ({{ db_only|length }})</h3>
+    <ul class="modal-preview-list">
+        {% for word in db_only %}
+        <li>{{ word }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>{{ ui_t('vocab.no_add_to_list') }}</p>
+    {% endif %} {% if preview.to_add and preview.to_add|length > 0 %}
+    <h3>{{ ui_t('vocab.add_to_database') }} ({{ preview.to_add|length }})</h3>
+    <ul class="modal-preview-list">
+        {% for entry in preview.to_add %}
+        <li>
+            {{ entry.word }} {% if entry.reason %}
+            <span class="text-blue-500" title="{{ entry.reason }}"
+                >→ {{ entry.lemma }} ({{ entry.pos }})</span
+            >
+            {% else %} ({{ entry.pos }}) {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>{{ ui_t('vocab.no_add_to_database') }}</p>
+    {% endif %} {% if preview.rejected and preview.rejected|length > 0 %}
+    <h3>{{ ui_t('vocab.rejected') }} ({{ preview.rejected|length }})</h3>
+    <ul class="modal-preview-list">
+        {% for entry in preview.rejected %}
+        <li class="text-red-500" title="{{ entry.reason }}">
+            {{ entry.word }} ({{ entry.reason }})
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>{{ ui_t('vocab.none_rejected') }}</p>
+    {% endif %}
+
+    <div id="sync-preview-feedback"></div>
+    <script type="application/json" id="sync-to-add">
+        {{ (preview.to_add | default([])) | tojson | safe }}
+    </script>
+    <div class="button-row">
+        <button type="button" class="btn btn-primary" data-action="confirm-sync">{{ ui_t('vocab.confirm_sync') }}</button>
+        <button type="button" class="btn btn-secondary" data-close-modal="syncPreviewModal">{{ ui_t('common.cancel') }}</button>
+    </div>
+</div>

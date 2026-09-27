@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% from '_activity_header.html' import activity_header %}
+{% set page_title = lt('Lessons', 'Уроки') %}
+{% block main_content %}
+<main class="main-content{% if not lesson %} activity-entry{% endif %}" id="mainContent" data-page="lessons">
+<div class="lesson-page{% if not lesson %} activity-entry-content{% endif %}">
+{% if lesson %}<div id="lesson-content">{% include '_lesson_content.html' %}</div>{% else %}
+{% call activity_header(page_title, ui_t('lessons.entry_description'), 'lesson-page-title') %}
+<a class="btn btn-primary activity-header-action" href="#new-lesson" data-open-lesson>{{ lt('Add a lesson', 'Добавить урок') }} +</a>
+{% endcall %}
+{% if error %}<p class="alert alert-warning" role="alert">{{ error }}</p>{% endif %}
+{% if saved_lessons %}{% set recent=saved_lessons[0] %}
+<section class="lesson-paper lesson-resume"><div><p class="lesson-eyebrow">{{ lt('PICK UP HERE', 'ПРОДОЛЖИТЬ') }}</p><h2>{{ recent.plan.title[lesson_language] if recent.plan else recent.title }}</h2><p>{{ recent.plan.introduction[lesson_language] if recent.plan else lt('Your saved material and exercises are ready to open.', 'Откройте сохранённые материалы и задания.') }}</p><a class="btn btn-primary" href="/lessons/load/{{ recent.id }}">{{ lt('Open lesson', 'Открыть урок') }} →</a></div><aside><span aria-hidden="true">Aa</span><p>{{ lt('Read. Try it. Remember it.', 'Читайте. Пробуйте. Запоминайте.') }}</p></aside></section>
+<details class="lesson-library" open><summary>{{ lt('Saved lessons', 'Сохранённые уроки') }} <span>{{ saved_lessons|length }}</span></summary><div class="lesson-library-grid">{% for item in saved_lessons %}<a href="/lessons/load/{{ item.id }}"><strong>{{ item.plan.title[lesson_language] if item.plan else item.title }}</strong><small>{{ item.display_date }}{% if item.progress %} · {{ lt('Page', 'Страница') }} {{ item.progress.page }}{% endif %}</small><span>{{ lt('Continue practice', 'Продолжить практику') if item.plan else lt('Open materials', 'Открыть материалы') }} →</span></a>{% endfor %}</div></details>
+{% endif %}
+<details class="lesson-paper lesson-upload" id="new-lesson" {% if not saved_lessons or error %}open{% endif %}><summary>{{ lt('Add a lesson', 'Добавить урок') }}</summary><p>{{ lt('Upload the PDF or photos from your lesson, including handwritten notes. Up to 40 pages.', 'Загрузите PDF или фотографии урока с рукописными заметками. До 40 страниц.') }}</p><form action="/lessons/create" method="post" enctype="multipart/form-data" data-lesson-upload>
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><label for="title">{{ lt('Lesson title (optional)', 'Название урока (необязательно)') }}</label><input class="form-control" id="title" name="title" maxlength="200">
+<div class="lesson-upload-grid"><div><label for="pdf">PDF</label><input class="form-control" type="file" id="pdf" name="pdf" accept="application/pdf"></div><div><label for="images">{{ lt('Photos or screenshots', 'Фотографии или снимки экрана') }}</label><input class="form-control" type="file" id="images" name="images" accept="image/png,image/jpeg,image/webp" multiple></div></div>
+<details><summary>{{ lt('Add a focus or a note', 'Добавить цель или заметку') }}</summary><label class="visually-hidden" for="description">{{ lt('Lesson focus', 'Цель урока') }}</label><textarea class="form-control" id="description" name="description" rows="3" maxlength="2000" placeholder="{{ lt('For example: we covered pages 6–13 and practised the plural prepositional case.', 'Например: мы прошли страницы 6–13 и повторили предложный падеж множественного числа.') }}"></textarea></details>
+<button class="btn btn-primary" type="submit">{{ lt('Prepare my lesson', 'Подготовить урок') }} →</button><p data-upload-status role="status"></p></form></details>
+{% endif %}
+</div></main>
+{% endblock %}

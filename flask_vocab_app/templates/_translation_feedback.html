@@ -1,0 +1,27 @@
+{% macro advice(attempt) %}
+  <blockquote class="sentence-checked-answer" lang="ru">{{ attempt.response }}</blockquote>
+  <div class="sentence-feedback-grid"><div><h4>{{ ui_t('word_jumble.strength') }}</h4><p lang="{{ attempt.ui_language }}">{{ attempt.strength }}</p></div><div><h4>{{ ui_t('word_jumble.next_step') }}</h4><p lang="{{ attempt.ui_language }}">{{ attempt.next_step }}</p></div></div>
+  {% include '_sentence_criterion_feedback.html' %}
+{% endmacro %}
+{% if practice.attempts %}{% set latest = practice.attempts[0] %}
+<section class="sentence-feedback-card" aria-labelledby="translation-feedback-heading">
+  <div class="sentence-task-heading"><h3 id="translation-feedback-heading">{{ ui_t('word_jumble.last_check') }}</h3><span class="sentence-score">{{ latest.score }}/4</span></div>
+  <p class="sentence-muted">{{ ui_t('translation.feedback_scope') }}</p>{{ advice(latest) }}
+  <details class="sentence-suggestion translation-reference"><summary>{{ ui_t('translation.reference') }}</summary>
+    <p lang="ru">{{ practice.sentence }}</p>
+    <div class="translation-audio">{% if practice.audio_url %}{% with audio_url=practice.audio_url %}{% include '_translation_audio.html' %}{% endwith %}
+      {% else %}<button type="button" class="btn btn-outline-secondary" data-translation-audio="/sentence/audio/{{ practice.id }}" data-pending="{{ ui_t('translation.audio_loading') }}" data-error="{{ ui_t('translation.audio_failed') }}">{{ ui_t('translation.listen') }}</button><span data-audio-status role="status" aria-live="polite"></span>{% endif %}</div>
+    {% if latest.example != practice.sentence %}<p class="sentence-muted">{{ ui_t('translation.alternative') }}</p><p lang="ru">{{ latest.example }}</p>{% endif %}
+  </details>
+  <details class="sentence-rubric"><summary>{{ ui_t('translation.check_details') }}</summary>
+    <p>{{ ui_t('translation.rubric') }}</p>
+    {% if onboarding_state and onboarding_state.coins_introduced %}
+    {% if latest.coins_earned %}<p>{{ ui_t('translation.coins') }}: {{ latest.coins_earned }}</p>{% endif %}
+    <p>{{ 'За завершённую практику начисляются лингокоины: один раз за предложение в день, в пределах дневного лимита. Ошибки не уменьшают награду.' if ui_lang == 'ru' else 'Completed practice earns Lingocoins once per sentence each day, within the daily allowance. Mistakes do not reduce the reward.' }}</p>
+    {% endif %}
+  </details>
+</section>
+{% if practice.attempts|length > 1 %}<details class="sentence-history"><summary><span>{{ ui_t('word_jumble.history') }} <span class="sentence-count">{{ practice.attempts|length - 1 }}</span></span><span class="sentence-disclosure-icon" aria-hidden="true">+</span></summary>
+  {% for attempt in practice.attempts[1:] %}<article><h3>{{ ui_t('word_jumble.earlier_feedback') }} · {{ attempt.score }}/4</h3>{{ advice(attempt) }}<details class="sentence-suggestion"><summary>{{ ui_t('word_jumble.suggestion') }}</summary><p lang="ru">{{ attempt.example }}</p></details></article>{% endfor %}
+</details>{% endif %}
+{% endif %}

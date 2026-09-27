@@ -1,0 +1,298 @@
+{
+  "id": "time-routine-v1",
+  "level": "A1",
+  "topic_id": "daily_activities",
+  "title": "Time and daily routines",
+  "title_ru": "Время и распорядок дня",
+  "summary": "Give a day and time, and describe what you and other people do.",
+  "summary_ru": "Назовите день и время и расскажите, что делаете вы и другие люди.",
+  "practice_summary": "Read schedules and short messages. Check times, subjects and the order of events.",
+  "practice_summary_ru": "Прочитайте расписания и сообщения. Проверьте время, действующее лицо и порядок событий.",
+  "groups": [
+    {
+      "title": "A scheduled time · Когда?",
+      "title_ru": "Время встречи · Когда?",
+      "note": "Use в with an hour or weekday: в восемь, в пятницу. Утром, днём and вечером describe parts of the day without в.",
+      "note_ru": "Для часа и дня недели используйте в: в восемь, в пятницу. Утром, днём и вечером называют часть дня без в.",
+      "examples": [
+        {
+          "ru": "В пятницу урок в десять.",
+          "en": "On Friday, the lesson is at ten."
+        },
+        {
+          "ru": "Утром я завтракаю.",
+          "en": "I have breakfast in the morning."
+        }
+      ]
+    },
+    {
+      "title": "Who does it? · Кто?",
+      "title_ru": "Кто выполняет действие?",
+      "note": "Match the present-tense verb to the subject: я читаю, мы читаем. Some stems change: писать → я пишу. Learn those forms with an example.",
+      "note_ru": "Согласуйте глагол с подлежащим: я читаю, мы читаем. Основа может меняться: писать → я пишу. Запоминайте такие формы в примерах.",
+      "examples": [
+        {
+          "ru": "Я читаю вечером.",
+          "en": "I read in the evening."
+        },
+        {
+          "ru": "Мы пишем письма вечером.",
+          "en": "We write letters in the evening."
+        }
+      ]
+    },
+    {
+      "title": "Now, before and later",
+      "title_ru": "Сейчас, раньше и позже",
+      "note": "Use time words to locate an action. A past-tense verb agrees with gender or number: работал, работала, работали. Буду + infinitive can describe a future activity.",
+      "note_ru": "Слова времени показывают, когда происходит действие. Прошедшее время согласуется по роду или числу: работал, работала, работали. Буду + инфинитив может называть будущее занятие.",
+      "examples": [
+        {
+          "ru": "Вчера Нина работала. Сегодня она отдыхает.",
+          "en": "Nina worked yesterday. Today she is resting."
+        },
+        {
+          "ru": "Завтра я буду читать дома.",
+          "en": "Tomorrow I will read at home."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "changed-time",
+      "prompt": "Сообщение от Димы: «В субботу я работаю утром. Давай встретимся в три, а не в два. В воскресенье я занят весь день».\nКогда Дима предлагает встретиться?",
+      "choices": [
+        {
+          "id": "sat-two",
+          "text": "В субботу в два."
+        },
+        {
+          "id": "sat-three",
+          "text": "В субботу в три."
+        },
+        {
+          "id": "sun-three",
+          "text": "В воскресенье в три."
+        }
+      ],
+      "answer": "sat-three",
+      "hint": "Read the changed time after а не.",
+      "explanation": "Dima proposes Saturday at three; two is the rejected time, and Sunday is unavailable.",
+      "requirement_id": "a1.reading.practical-information",
+      "expectation": "Extract the proposed day and revised time, distinguishing rejected and unavailable alternatives."
+    },
+    {
+      "id": "weekday",
+      "prompt": "Урок завтра. Завтра пятница.\nУрок …",
+      "choices": [
+        {
+          "id": "friday",
+          "text": "в пятницу."
+        },
+        {
+          "id": "of-friday",
+          "text": "в пятницы."
+        },
+        {
+          "id": "at-friday",
+          "text": "в пятнице."
+        }
+      ],
+      "answer": "friday",
+      "hint": "For this weekday after в, пятница becomes пятницу.",
+      "explanation": "В пятницу gives the weekday of the lesson.",
+      "requirement_id": "a1.language.accusative-clock-weekday",
+      "expectation": "Choose в пятницу as the scheduled weekday, not a location-like ending."
+    },
+    {
+      "id": "plural-verb",
+      "prompt": "Я читаю, и Оля читает. Сейчас мы вместе …",
+      "choices": [
+        {
+          "id": "i-read",
+          "text": "читаю."
+        },
+        {
+          "id": "they-read",
+          "text": "читают."
+        },
+        {
+          "id": "we-read",
+          "text": "читаем."
+        }
+      ],
+      "answer": "we-read",
+      "hint": "The subject is мы: we.",
+      "explanation": "Мы читаем uses the first-person plural ending. Читают would go with они.",
+      "requirement_id": "a1.language.verb-conjugation",
+      "expectation": "Match the present verb to first-person plural мы in a supplied context."
+    },
+    {
+      "id": "changed-stem",
+      "prompt": "Ты пишешь письмо. Я тоже … письмо.",
+      "choices": [
+        {
+          "id": "i-write",
+          "text": "пишу"
+        },
+        {
+          "id": "you-write",
+          "text": "пишешь"
+        },
+        {
+          "id": "she-writes",
+          "text": "пишет"
+        }
+      ],
+      "answer": "i-write",
+      "hint": "Use the я form of писать.",
+      "explanation": "Я пишу is the first-person singular form; the stem is пиш-, not пис-.",
+      "requirement_id": "a1.language.verb-conjugation",
+      "expectation": "Select пишу for я, recognising the familiar stem alternation."
+    },
+    {
+      "id": "past-gender",
+      "prompt": "Вчера Маша была дома. Весь вечер она … книгу.",
+      "choices": [
+        {
+          "id": "past-male",
+          "text": "читал"
+        },
+        {
+          "id": "past-female",
+          "text": "читала"
+        },
+        {
+          "id": "future",
+          "text": "будет читать"
+        }
+      ],
+      "answer": "past-female",
+      "hint": "The action happened yesterday; Маша is feminine singular.",
+      "explanation": "Вчера она читала uses past tense and feminine singular agreement.",
+      "requirement_id": "a1.language.verb-tense",
+      "expectation": "Select feminine past читала for the completed time frame, without claiming a perfective-aspect requirement."
+    },
+    {
+      "id": "event-order",
+      "prompt": "В семь Сергей завтракает. Потом он идёт на работу. Вечером Сергей звонит маме и после этого читает.\nЧто Сергей делает вечером перед чтением?",
+      "choices": [
+        {
+          "id": "breakfast",
+          "text": "Завтракает."
+        },
+        {
+          "id": "call",
+          "text": "Звонит маме."
+        },
+        {
+          "id": "work",
+          "text": "Идёт на работу."
+        }
+      ],
+      "answer": "call",
+      "hint": "После этого links reading to the immediately preceding action.",
+      "explanation": "Сергей calls his mother immediately before reading. Breakfast and leaving for work happen earlier.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Use потом and после этого to identify the action immediately before reading, not merely any earlier event."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Time and daily routines · word forms",
+    "summary": "Write five time and verb forms in short sentences.",
+    "summary_ru": "Впишите пять форм времени и глаголов в короткие предложения.",
+    "questions": [
+      {
+        "id": "form-weekday",
+        "prompt": "Встреча будет в ___. (среда)\nВпиши пропущенную форму слова.",
+        "answer": "среду",
+        "accepted_answers": [
+          "среду",
+          "в среду"
+        ],
+        "hint": "For a weekday after в, среда becomes среду.",
+        "explanation": "В среду names the meeting day.",
+        "requirement_id": "a1.language.accusative-clock-weekday",
+        "expectation": "Produce среду in this sentence. Accept the listed equivalent phrase, without requiring a whole sentence."
+      },
+      {
+        "id": "form-we",
+        "prompt": "Каждый вечер мы ___ книги. (читать)\nВпиши пропущенную форму слова.",
+        "answer": "читаем",
+        "accepted_answers": [
+          "читаем",
+          "мы читаем"
+        ],
+        "hint": "Use the present мы form.",
+        "explanation": "Мы читаем agrees with the first-person plural subject.",
+        "requirement_id": "a1.language.verb-conjugation",
+        "expectation": "Produce читаем in this sentence. Accept the listed equivalent phrase, without requiring a whole sentence."
+      },
+      {
+        "id": "form-i",
+        "prompt": "Сейчас я ___ письмо. (писать)\nВпиши пропущенную форму слова.",
+        "answer": "пишу",
+        "accepted_answers": [
+          "пишу",
+          "я пишу"
+        ],
+        "hint": "The я form has the stem пиш-.",
+        "explanation": "Я пишу is the present first-person singular form of писать.",
+        "requirement_id": "a1.language.verb-conjugation",
+        "expectation": "Produce пишу in this sentence. Accept the listed equivalent phrase, without requiring a whole sentence."
+      },
+      {
+        "id": "form-past",
+        "prompt": "Вчера Ольга ___ дома. (работать)\nВпиши пропущенную форму слова.",
+        "answer": "работала",
+        "accepted_answers": [
+          "работала",
+          "Ольга работала"
+        ],
+        "hint": "Вчера calls for past tense; Ольга is feminine singular.",
+        "explanation": "Ольга работала uses feminine singular past tense.",
+        "requirement_id": "a1.language.verb-tense",
+        "expectation": "Produce работала in this sentence. Accept the listed equivalent phrase, without requiring a whole sentence."
+      },
+      {
+        "id": "form-future",
+        "prompt": "Сегодня мы отдыхаем. Завтра мы ___ работать. (быть)\nВпиши пропущенную форму слова.",
+        "answer": "будем",
+        "accepted_answers": [
+          "будем",
+          "мы будем"
+        ],
+        "hint": "Match the future auxiliary to мы.",
+        "explanation": "Мы будем работать describes a future activity. After будем, работать stays an infinitive.",
+        "requirement_id": "a1.language.verb-tense",
+        "expectation": "Produce будем in this sentence. Accept the listed equivalent phrase, without requiring a whole sentence."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Твой обычный день",
+    "title_en": "Your usual day",
+    "task": "Расскажи другу о своём обычном дне. Напиши, что делаешь утром и вечером, и укажи время одного занятия. Затем скажи, что собираешься делать завтра. Детали могут быть настоящими или вымышленными.",
+    "task_en": "Tell a friend about your usual day. Say what you do in the morning and evening, and give the time of one activity. Then say what you plan to do tomorrow. The details can be real or invented.",
+    "required_words": [
+      "утро",
+      "вечер",
+      "завтра"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.connected-description",
+    "id": "clear-routine-description",
+    "expectation": "Write connected original sentences describing a morning activity, an evening activity, the time of at least one activity, and a distinguishable plan for tomorrow. Accept natural present-with-future-time or future forms when meaning is clear. Do not require a particular verb, word count, or error-free conjugation. Report intelligible grammar mistakes separately from missing or contradictory information."
+  },
+  "writing_summary": "Describe your routine and one plan for tomorrow.",
+  "writing_summary_ru": "Опишите обычный день и один план на завтра.",
+  "speaking_href": "/#speaking/scenario/meet-someone?level=A1",
+  "speaking_title": "Talk about your day",
+  "speaking_title_ru": "Расскажите о своём дне",
+  "speaking_summary": "Meet someone and discuss everyday activities. This opens a separate Speaking scenario.",
+  "speaking_summary_ru": "Познакомьтесь с собеседником и поговорите о повседневных занятиях. Это отдельный разговор.",
+  "review_status": "application-authored; qualified language review pending"
+}

@@ -1,0 +1,34 @@
+.profile-course-progress { display:flex; align-items:baseline; justify-content:space-between; gap:12px 24px; flex-wrap:wrap; margin:24px 0; font-size:15px; }
+.profile-course-progress p { margin:0; }
+.profile-course-progress a { color:inherit; text-underline-offset:4px; }
+.profile-skill-progress {
+  margin:36px 0;
+  padding:28px 30px 22px;
+  border:1px solid var(--wp-border-subtle,#555b78);
+  border-radius:18px;
+  background:var(--wp-surface-sheet,#323854);
+  color:var(--wp-text-primary,#fff5db);
+  scroll-margin-top:40px;
+}
+.profile-skill-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:18px; }
+.profile-skill-heading h2 { margin:0; font-size:clamp(20px,3vw,26px); line-height:1.35; }
+.profile-skill-heading p { margin:8px 0 0; color:var(--wp-text-secondary,#c8c8da); font-size:16px; overflow-wrap:anywhere; }
+.profile-skill-rating-label { max-width:140px; flex-shrink:0; color:var(--wp-text-secondary,#c8c8da); text-align:right; font-size:12px; line-height:1.5; }
+.profile-skill-list { list-style:none; margin:0; padding:0; }
+.profile-skill-list li { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:19px 0; border-top:1px solid var(--wp-border-subtle,#555b78); }
+.profile-skill-description { display:grid; gap:6px; min-width:0; }
+.profile-skill-description strong { font-size:16px; line-height:1.45; font-weight:500; }
+.profile-skill-description>span { color:var(--wp-text-secondary,#c8c8da); font-size:13px; line-height:1.5; }
+.profile-skill-rating { flex-shrink:0; font-variant-numeric:tabular-nums; font-size:24px; line-height:1.3; font-weight:500; }
+.profile-skill-list .is-active .profile-skill-rating { color:var(--wp-accent-learning,#b5c4ff); }
+.profile-skill-explanation { border-top:1px solid var(--wp-border-subtle,#555b78); padding-top:18px; }
+.profile-skill-explanation summary { width:fit-content; cursor:pointer; font-size:14px; line-height:1.5; }
+.profile-skill-explanation summary:focus-visible { outline:3px solid var(--wp-accent-learning,#b5c4ff); outline-offset:5px; border-radius:2px; }
+.profile-skill-explanation p { max-width:700px; color:var(--wp-text-secondary,#c8c8da); font-size:14px; line-height:1.75; margin:14px 0 0; }
+@media(max-width:560px) {
+  .profile-skill-progress { margin:28px 0; padding:22px 20px 20px; }
+  .profile-skill-heading { gap:12px; }
+  .profile-skill-rating-label { max-width:84px; font-size:11px; }
+  .profile-skill-list li { gap:12px; padding:17px 0; }
+  .profile-skill-rating { font-size:22px; }
+}

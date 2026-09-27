@@ -1,0 +1,52 @@
+{
+  "version": "delivery-town-layouts-v1",
+  "layouts": [
+    {
+      "id": "market-square",
+      "name": "Market town",
+      "name_ru": "Торговый городок",
+      "block_gap_x": 3,
+      "block_gap_y": 3,
+      "river": false,
+      "central_landmark": "market",
+      "central_feature": "plaza",
+      "ground": {"x": -1, "y": -1, "width": 3, "height": 3, "kind": "market"},
+      "central_routes": [
+        {"points": [[-2, -2], [2, -2], [2, 2], [-2, 2], [-2, -2]], "kind": "residential"},
+        {"points": [[-6, 0], [-2, 0]], "kind": "residential"},
+        {"points": [[2, 0], [6, 0]], "kind": "residential"},
+        {"points": [[0, -6], [0, -2]], "kind": "residential"},
+        {"points": [[0, 2], [0, 6]], "kind": "residential"}
+      ],
+      "central_entrance": [0, 1],
+      "central_street": [0, 2]
+    },
+    {
+      "id": "garden-quarter",
+      "name": "Garden neighbourhood",
+      "name_ru": "Садовый квартал",
+      "block_gap_x": 3,
+      "block_gap_y": 3,
+      "river": false,
+      "central_landmark": "park",
+      "central_feature": "park",
+      "ground": {"x": -2, "y": -2, "width": 5, "height": 5, "kind": "park"},
+      "central_routes": [
+        {"points": [[-2, -2], [2, -2], [2, 2], [-2, 2], [-2, -2]], "kind": "path"},
+        {"points": [[-6, 0], [-2, 0]], "kind": "path"},
+        {"points": [[2, 0], [6, 0]], "kind": "path"}
+      ],
+      "central_entrance": [0, -1],
+      "central_street": [0, -2]
+    },
+    {
+      "id": "riverside",
+      "name": "Riverside town",
+      "name_ru": "Город у реки",
+      "block_gap_x": 1,
+      "block_gap_y": 0,
+      "river": true,
+      "central_routes": []
+    }
+  ]
+}

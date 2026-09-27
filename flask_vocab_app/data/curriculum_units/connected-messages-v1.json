@@ -1,0 +1,362 @@
+{
+  "id": "connected-messages-v1",
+  "level": "A1",
+  "topic_id": "daily_activities",
+  "title": "Reasons, questions and connected messages",
+  "title_ru": "Причины, вопросы и сообщения",
+  "summary": "Link a few sentences so someone understands the reason, order and people involved.",
+  "summary_ru": "Свяжите несколько фраз, чтобы были понятны причина, порядок событий и участники.",
+  "practice_summary": "Read eight short situations and choose the answer that fits.",
+  "practice_summary_ru": "Прочитайте восемь коротких ситуаций и выберите подходящий ответ.",
+  "groups": [
+    {
+      "title": "A reason · почему, потому что",
+      "title_ru": "Причина · почему, потому что",
+      "note": "Почему? asks for a reason. Потому что connects that reason to the main message. Do not reverse what happened and why.",
+      "note_ru": "Почему? спрашивает о причине. Потому что соединяет её с основной мыслью. Сохраняйте связь между действием и его причиной.",
+      "examples": [
+        {
+          "ru": "Почему ты дома? — Потому что я болею.",
+          "en": "Why are you at home? — Because I am ill."
+        },
+        {
+          "ru": "Я не пойду гулять, потому что я болею.",
+          "en": "I will not go for a walk because I am ill."
+        }
+      ]
+    },
+    {
+      "title": "Time and order · когда, сначала, потом",
+      "title_ru": "Время и порядок · когда, сначала, потом",
+      "note": "Когда links events in time. Сначала and потом show their order. They do not, by themselves, explain the reason.",
+      "note_ru": "Когда связывает события по времени. Сначала и потом показывают порядок, но сами по себе не называют причину.",
+      "examples": [
+        {
+          "ru": "Когда урок закончится, я позвоню тебе.",
+          "en": "When the lesson ends, I will call you."
+        },
+        {
+          "ru": "Сначала я поем, потом сделаю задание.",
+          "en": "First I will eat, then I will do the task."
+        }
+      ]
+    },
+    {
+      "title": "Questions and references",
+      "title_ru": "Вопросы и связь между фразами",
+      "note": "Keep the question tied to the answer: где? — дома; куда? — домой. In a longer message, use a pronoun only when it is clear who it refers to.",
+      "note_ru": "Вопрос должен подходить к ответу: где? — дома; куда? — домой. Используйте местоимение, если понятно, к кому оно относится.",
+      "examples": [
+        {
+          "ru": "Я не знаю, где Оля. — Она дома.",
+          "en": "I do not know where Olya is. — She is at home."
+        },
+        {
+          "ru": "Куда Оля идёт? — Она идёт домой.",
+          "en": "Where is Olya going? — She is going home."
+        }
+      ]
+    },
+    {
+      "title": "Negation · не, никто, никого",
+      "title_ru": "Отрицание · не, никто, никого",
+      "note": "Russian keeps не with a negative pronoun in these sentences: никто не пришёл, я никого не вижу. Это не мой билет denies ownership; it does not say there is no ticket.",
+      "note_ru": "В этих предложениях отрицательное местоимение употребляется с не: никто не пришёл, я никого не вижу. Это не мой билет отрицает принадлежность, а не наличие билета.",
+      "examples": [
+        {
+          "ru": "В комнате никто не сидит.",
+          "en": "Nobody is sitting in the room."
+        },
+        {
+          "ru": "Я никого не вижу.",
+          "en": "I do not see anybody."
+        },
+        {
+          "ru": "Билет есть, но это не мой билет.",
+          "en": "There is a ticket, but it is not mine."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "explicit-reason",
+      "prompt": "Катя осталась дома: она заболела.\nКакое сообщение прямо объясняет, почему Катя дома?",
+      "choices": [
+        {
+          "id": "reason",
+          "text": "Катя дома, потому что она болеет."
+        },
+        {
+          "id": "time",
+          "text": "Когда Катя дома, она читает."
+        },
+        {
+          "id": "order",
+          "text": "Сначала Катя дома, потом она в школе."
+        }
+      ],
+      "answer": "reason",
+      "hint": "Find the sentence that states the reason for staying home.",
+      "explanation": "Потому что links staying home to the stated reason: being ill.",
+      "requirement_id": "a1.language.time-and-reason-clauses",
+      "expectation": "Identify the reason clause that preserves illness as the explanation for staying home, rather than selecting a temporal or sequential statement."
+    },
+    {
+      "id": "call-after-class",
+      "prompt": "Урок закончится, и только после этого Миша позвонит маме.\nКакое сообщение сохраняет этот порядок?",
+      "choices": [
+        {
+          "id": "during",
+          "text": "Миша позвонит маме, когда урок начнётся."
+        },
+        {
+          "id": "after",
+          "text": "Когда урок закончится, Миша позвонит маме."
+        },
+        {
+          "id": "before",
+          "text": "Миша позвонит маме до урока."
+        }
+      ],
+      "answer": "after",
+      "hint": "The call comes after the end of the lesson.",
+      "explanation": "Когда урок закончится places the call after the lesson, as the situation requires.",
+      "requirement_id": "a1.language.time-and-reason-clauses",
+      "expectation": "Select the time clause preserving the stated end-of-lesson then phone-call order."
+    },
+    {
+      "id": "reason-question",
+      "prompt": "— ___ ты не идёшь в кино?\n— Потому что я работаю вечером.",
+      "choices": [
+        {
+          "id": "when",
+          "text": "Когда"
+        },
+        {
+          "id": "why",
+          "text": "Почему"
+        },
+        {
+          "id": "where",
+          "text": "Где"
+        }
+      ],
+      "answer": "why",
+      "hint": "The answer gives a reason.",
+      "explanation": "Почему? asks for the reason introduced by потому что.",
+      "requirement_id": "a1.language.adverb-reference",
+      "expectation": "Choose the question word that requests the reason supplied in the answer."
+    },
+    {
+      "id": "contrast",
+      "prompt": "Петя хочет встретиться, а у Оли нет времени.\nКак сказать об этом желании и препятствии?",
+      "choices": [
+        {
+          "id": "contrast",
+          "text": "Петя хочет встретиться, но Оля занята."
+        },
+        {
+          "id": "cause",
+          "text": "Петя хочет встретиться, потому что Оля занята."
+        },
+        {
+          "id": "alternative",
+          "text": "Петя хочет встретиться или Оля занята."
+        }
+      ],
+      "answer": "contrast",
+      "hint": "Her being busy is an obstacle, not the reason for his wish or an alternative fact.",
+      "explanation": "Но connects the wish with the contrasting obstacle.",
+      "requirement_id": "a1.language.coordination",
+      "expectation": "Choose a contrast conjunction preserving both the desire and the stated obstacle, rather than changing their logical relationship."
+    },
+    {
+      "id": "negated-owner",
+      "prompt": "На столе билет, но он принадлежит другому человеку.\nЧто можно сказать?",
+      "choices": [
+        {
+          "id": "absence",
+          "text": "На столе нет билета."
+        },
+        {
+          "id": "mine",
+          "text": "Это мой билет."
+        },
+        {
+          "id": "not-mine",
+          "text": "Это не мой билет."
+        }
+      ],
+      "answer": "not-mine",
+      "hint": "The ticket exists; only ownership is denied.",
+      "explanation": "Это не мой билет denies that it is mine without denying that a ticket is present.",
+      "requirement_id": "a1.language.sentence-negation",
+      "expectation": "Preserve the stated existence of a ticket while denying ownership, distinct from denying the item’s presence."
+    },
+    {
+      "id": "reported-location",
+      "prompt": "Анна пишет Саше: «Я уже дома».\nКак Саша может передать эту новость о ней?",
+      "choices": [
+        {
+          "id": "same",
+          "text": "Анна пишет, что она уже дома."
+        },
+        {
+          "id": "speaker",
+          "text": "Анна пишет, что я уже дома."
+        },
+        {
+          "id": "not",
+          "text": "Анна пишет, что она ещё не дома."
+        }
+      ],
+      "answer": "same",
+      "hint": "Keep Anna as the person whose location is reported.",
+      "explanation": "Она refers to Anna in the report, preserving who is at home.",
+      "requirement_id": "a1.language.reported-speech",
+      "expectation": "Convert the simple direct statement into a report retaining Anna as speaker and location referent, without reversing the negation."
+    },
+    {
+      "id": "new-meeting-plan",
+      "prompt": "Друг пишет: «Я не смогу прийти в пять, потому что ещё работаю. Встречаемся в шесть у метро. Если тебе подходит, напиши мне».\nВо сколько друг предлагает встретиться?",
+      "choices": [
+        {
+          "id": "five",
+          "text": "В пять."
+        },
+        {
+          "id": "six",
+          "text": "В шесть."
+        },
+        {
+          "id": "none",
+          "text": "Он отменяет встречу и не предлагает другое время."
+        }
+      ],
+      "answer": "six",
+      "hint": "Read the new proposal after the reason for changing it.",
+      "explanation": "The friend cannot meet at five and proposes six instead.",
+      "requirement_id": "a1.reading.practical-information",
+      "expectation": "Extract the revised meeting time from a written message containing both the cancelled time and its reason."
+    },
+    {
+      "id": "return-book",
+      "prompt": "Лена пишет брату: «У меня книга Нины. Сначала я закончу её читать. Потом отдам книгу Нине, а она даст её тебе».\nКто передаст книгу брату Лены?",
+      "choices": [
+        {
+          "id": "lena",
+          "text": "Лена."
+        },
+        {
+          "id": "nina",
+          "text": "Нина."
+        },
+        {
+          "id": "brother",
+          "text": "Брат Лены."
+        }
+      ],
+      "answer": "nina",
+      "hint": "Follow the book through the two handovers and identify она.",
+      "explanation": "Lena returns the book to Nina. Nina then passes it to Lena’s brother.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Resolve она to Nina and follow the second handover, rather than treating the sender as the final giver."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Reasons, questions and connected messages · word forms",
+    "summary": "Complete five short messages or sentences.",
+    "summary_ru": "Дополните пять коротких сообщений или предложений.",
+    "questions": [
+      {
+        "id": "form-reason-connector",
+        "prompt": "Назови причину: «Я заболел. Поэтому я остался дома».\nЯ остался дома, ___ я заболел.\nВпиши союз со значением причины.",
+        "answer": "потому что",
+        "accepted_answers": [
+          "потому что",
+          "так как",
+          "поскольку",
+          "ведь",
+          "ибо"
+        ],
+        "hint": "Потому что introduces the reason.",
+        "explanation": "Потому что connects staying home to being ill. Так как and the other accepted reason connectors also preserve this relationship.",
+        "requirement_id": "a1.language.time-and-reason-clauses",
+        "expectation": "Supply a grammatical causal connector preserving illness as the reason for staying home. Accept the listed natural equivalents, including alternatives beyond the teaching example."
+      },
+      {
+        "id": "form-time-connector",
+        "prompt": "Свяжи события по времени: «Урок закончится. После этого я позвоню».\n___ урок закончится, я позвоню.",
+        "answer": "Когда",
+        "accepted_answers": [
+          "Когда",
+          "Как только",
+          "Как",
+          "После того как"
+        ],
+        "hint": "Use a connector meaning when or as soon as.",
+        "explanation": "Когда and как только both place the call after the end of the lesson. Как только adds that the call follows immediately.",
+        "requirement_id": "a1.language.time-and-reason-clauses",
+        "expectation": "Supply когда, как только or the colloquial как to connect the future end of the lesson to the following call. Accept the more immediate timing as consistent with the prompt."
+      },
+      {
+        "id": "form-reason-question",
+        "prompt": "— ___ ты опоздал?\n— Потому что автобус пришёл поздно.\nВпиши вопросительное слово о причине.",
+        "answer": "Почему",
+        "accepted_answers": [
+          "Почему",
+          "Отчего"
+        ],
+        "hint": "Ask for the reason, rather than the time or place.",
+        "explanation": "Почему and отчего ask for a reason.",
+        "requirement_id": "a1.language.adverb-reference",
+        "expectation": "Supply a reason question word consistent with the explicit потому что answer; accept почему and отчего."
+      },
+      {
+        "id": "form-negative-person",
+        "prompt": "В комнате пусто. Там ___ не сидит.\nВпиши отрицательное местоимение, которое отвечает на вопрос «кто?».",
+        "answer": "никто",
+        "accepted_answers": [
+          "никто"
+        ],
+        "hint": "Nobody is the subject of сидит.",
+        "explanation": "Никто is the subject; Russian keeps не before the verb.",
+        "requirement_id": "a1.language.pronoun-reference",
+        "expectation": "Produce the negative subject pronoun никто in the explicitly empty-room context, rather than an object or positive pronoun."
+      },
+      {
+        "id": "form-negative-verb",
+        "prompt": "В комнате пусто. Я никого ___ вижу.\nВпиши отрицательную частицу.",
+        "answer": "не",
+        "accepted_answers": [
+          "не"
+        ],
+        "hint": "The negative pronoun никого is used with не here.",
+        "explanation": "Я никого не вижу uses both никого and не.",
+        "requirement_id": "a1.language.sentence-negation",
+        "expectation": "Produce не in the negative-pronoun construction without converting the sentence into an assertion of seeing someone."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Перенеси встречу",
+    "title_en": "Change the meeting using a notice",
+    "task": "Ты договорился встретиться с другом сегодня в библиотеке. На двери записка: «Сегодня библиотека закрыта. Завтра она открыта с десяти утра до шести вечера». Напиши другу: объясни, почему встречу нужно перенести, предложи время завтра, когда библиотека открыта, и уточни место встречи. Пиши своими словами.",
+    "task_en": "You arranged to meet a friend at the library today. The notice says: “The library is closed today. Tomorrow it is open from ten in the morning to six in the evening.” Write to your friend: explain why you need to change the meeting, suggest a time tomorrow within the opening hours, and give a clear meeting place. Use your own words.",
+    "required_words": [
+      "библиотека",
+      "завтра",
+      "встретиться"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.source-based-message",
+    "id": "rearrange-library-meeting",
+    "expectation": "Write an original intelligible message using the supplied notice: the library is closed today and open tomorrow from 10:00 to 18:00. Explain the changed meeting, propose a coherent time tomorrow within those hours, and specify a clear meeting place. Accept natural alternatives and short messages; do not demand the exact connector потому что or a copied notice. Treat distorted source details separately from grammatical errors that leave the arrangement clear."
+  },
+  "writing_summary": "Use a short notice to rearrange a meeting.",
+  "writing_summary_ru": "Перенесите встречу по информации из короткой записки.",
+  "review_status": "application-authored; qualified language review pending"
+}

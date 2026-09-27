@@ -1,0 +1,84 @@
+{
+  "version": "listening-v1",
+  "id": "personal-reference-listening-v1",
+  "unit_id": "personal-reference-v1",
+  "title": "Listen for who is meant",
+  "title_ru": "О ком говорят?",
+  "items": [
+    {
+      "id": "sister-waits",
+      "prompt": "Кому Паше нужно позвонить вечером?",
+      "choices": [
+        {
+          "id": "olya",
+          "text": "Оле."
+        },
+        {
+          "id": "caller",
+          "text": "Девушке, которая звонит."
+        },
+        {
+          "id": "both",
+          "text": "Им обеим."
+        }
+      ],
+      "answer": "olya",
+      "hint": "Follow the named person behind ей.",
+      "explanation": "Ей refers to Olya. The caller explicitly says that she does not need a call.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the intended recipient of a future call by resolving an unambiguous spoken pronoun.",
+      "transcript": "Паша, я сейчас с твоей сестрой Олей. Она забыла телефон дома. Позвони ей вечером, когда она вернётся. А мне звонить не надо, я всё уже знаю.",
+      "audio_url": "/static/audio/course/curriculum/personal-reference-listening-v1/sister-waits.mp3"
+    },
+    {
+      "id": "book-owner",
+      "prompt": "Чья это книга?",
+      "choices": [
+        {
+          "id": "katya",
+          "text": "Кати."
+        },
+        {
+          "id": "maxim",
+          "text": "Максима."
+        },
+        {
+          "id": "speaker",
+          "text": "Девушки, которая говорит."
+        }
+      ],
+      "answer": "maxim",
+      "hint": "The speaker distinguishes the book’s owner from the sister.",
+      "explanation": "Он and его refer to Maksim; the book will be returned to him.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the male owner through the spoken name and pronoun sequence.",
+      "transcript": "Это моя подруга Катя, а это её брат Максим. Он дал мне эту книгу. Книга его, не Катина. Завтра я верну её Максиму у школы.",
+      "audio_url": "/static/audio/course/curriculum/personal-reference-listening-v1/book-owner.mp3"
+    },
+    {
+      "id": "help-neighbour",
+      "prompt": "Кого нужно поблагодарить?",
+      "choices": [
+        {
+          "id": "ira",
+          "text": "Иру."
+        },
+        {
+          "id": "viktor",
+          "text": "Виктора."
+        },
+        {
+          "id": "both",
+          "text": "Иру и Виктора."
+        }
+      ],
+      "answer": "viktor",
+      "hint": "Who brought the bag?",
+      "explanation": "Его refers to Viktor, who brought the bag. Ira is the recipient of the message.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Resolve the object pronoun in the request for thanks to the named helper, distinct from the addressee.",
+      "transcript": "Ира, сосед Виктор принёс тебе сумку. Он оставил её у двери. У него сегодня много дел, поэтому он не зашёл. Поблагодари его, когда увидишь.",
+      "audio_url": "/static/audio/course/curriculum/personal-reference-listening-v1/help-neighbour.mp3"
+    }
+  ]
+}

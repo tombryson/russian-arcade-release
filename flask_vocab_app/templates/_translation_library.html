@@ -1,0 +1,9 @@
+<details class="sentence-library" id="translation-library">
+  <summary><span>{{ ui_t('translation.saved') }} <span class="sentence-count">{{ sentences|length }}</span></span><span class="sentence-disclosure-icon" aria-hidden="true">+</span></summary>
+  {% if sentences %}<ul>{% for item in sentences %}
+    <li><a data-practice-id="{{ item.id }}" href="/sentences/practice/{{ item.id }}" hx-get="/sentences/practice/{{ item.id }}" hx-target="#mainContent" hx-swap="outerHTML" hx-push-url="true" {% if practice and practice.id == item.id %}aria-current="page"{% endif %}>
+      <span><strong lang="en">{{ item.english }}</strong><small>{{ item.level_label }}{% if item.topic != 'any' %} · {{ item.topic_label }}{% endif %} · <span data-practice-date>{{ item.display_date }}</span></small></span>
+      <span class="sentence-state" data-practice-state>{{ ui_t('translation.' + item.state) }} <span aria-hidden="true">→</span></span>
+    </a></li>
+  {% endfor %}</ul>{% else %}<p>{{ ui_t('translation.empty') }}</p>{% endif %}
+</details>

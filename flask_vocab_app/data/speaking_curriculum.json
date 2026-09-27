@@ -1,0 +1,1496 @@
+{
+  "version": 2,
+  "groups": [
+    {
+      "scenario_id": "cafe",
+      "target_level": "A1",
+      "topic_id": "food",
+      "title": "At the café",
+      "title_ru": "В кафе",
+      "description": "Ask for food and a drink, choose where to eat and check the price.",
+      "description_ru": "Закажите еду и напиток, выберите место и узнайте цену.",
+      "opening": "Здравствуйте! Что будете заказывать?",
+      "opening_english": "Hello! What would you like to order?",
+      "grammar_focus": [
+        "Make a polite request with можно and an accusative object."
+      ],
+      "grammar_evidence_hint": "A learner reply requests a menu item with можно, e.g. Можно воду? Use the correct accusative form for the selected item.",
+      "bundles": [
+        {
+          "id": "takeaway",
+          "title": "Breakfast to take away",
+          "title_ru": "Завтрак с собой",
+          "description": "Get water and a bread roll to take away, then ask the total.",
+          "description_ru": "Возьмите воду и булочку с собой, затем спросите общую стоимость.",
+          "facts": {
+            "drink": "вода",
+            "food": "булочка",
+            "service": "с собой",
+            "total": 150
+          },
+          "goals": [
+            "Order water and a bread roll",
+            "Ask to take them away",
+            "Ask the total"
+          ],
+          "goals_ru": [
+            "Закажите воду и булочку",
+            "Попросите заказ с собой",
+            "Спросите общую стоимость"
+          ],
+          "completion_criteria": [
+            "Request water and one bread roll.",
+            "State that the order is to take away.",
+            "Ask the combined price."
+          ],
+          "worker_brief": "Вода стоит 60 рублей, булочка 90. Вместе 150. Упаковка бесплатная. Сначала прими заказ, затем уточни здесь или с собой, если посетитель ещё не сказал. Ответь на вопрос о цене; не добавляй товары.",
+          "menu": {
+            "вода": 60,
+            "чай": 100,
+            "булочка": 90,
+            "бутерброд": 130
+          }
+        },
+        {
+          "id": "warm-lunch",
+          "title": "A warm lunch",
+          "title_ru": "Горячий обед",
+          "description": "Order soup and tea, ask to sit inside and check the price.",
+          "description_ru": "Закажите суп и чай, попросите место в зале и узнайте цену.",
+          "facts": {
+            "drink": "чай",
+            "food": "суп",
+            "service": "в зале",
+            "total": 280
+          },
+          "goals": [
+            "Order soup and tea",
+            "Ask to eat inside",
+            "Ask the total"
+          ],
+          "goals_ru": [
+            "Закажите суп и чай",
+            "Попросите место в зале",
+            "Спросите общую стоимость"
+          ],
+          "completion_criteria": [
+            "Request one soup and one tea.",
+            "State the wish to eat in the café.",
+            "Ask the combined price."
+          ],
+          "worker_brief": "Суп стоит 180 рублей, чай 100. Вместе 280. В зале есть свободные столики. После выбора еды уточни здесь или с собой; можно остаться в зале.",
+          "menu": {
+            "суп": 180,
+            "чай": 100,
+            "вода": 60,
+            "булочка": 90
+          }
+        },
+        {
+          "id": "two-drinks",
+          "title": "A drink for a friend",
+          "title_ru": "Напиток для друга",
+          "description": "Ask for two teas and one sandwich to share, then check the total.",
+          "description_ru": "Закажите два чая и один бутерброд на двоих, затем уточните стоимость.",
+          "facts": {
+            "drink": "чай",
+            "drink_count": 2,
+            "food": "бутерброд",
+            "food_count": 1,
+            "total": 330
+          },
+          "goals": [
+            "Order two teas",
+            "Choose one sandwich for two people",
+            "Ask the total"
+          ],
+          "goals_ru": [
+            "Закажите два чая",
+            "Попросите один бутерброд на двоих",
+            "Спросите общую стоимость"
+          ],
+          "completion_criteria": [
+            "Request two teas rather than one.",
+            "Request exactly one sandwich to share.",
+            "Ask the total price of 330 roubles."
+          ],
+          "worker_brief": "Чай стоит 100 рублей, бутерброд 130. Два чая и один бутерброд стоят 330. Не добавляй второй бутерброд. Если количество неясно, уточни его.",
+          "menu": {
+            "чай": 100,
+            "кофе": 150,
+            "бутерброд": 130,
+            "булочка": 90
+          },
+          "grammar_focus": [
+            "Use taught quantity phrases два чая and один бутерброд."
+          ],
+          "grammar_evidence_hint": "A learner reply orders два чая or два чая и один бутерброд; the noun after два is genitive singular."
+        }
+      ]
+    },
+    {
+      "scenario_id": "cafe",
+      "target_level": "A2",
+      "topic_id": "restaurant",
+      "title": "At the café",
+      "title_ru": "В кафе",
+      "description": "Order for two, ask about an ingredient and agree on a suitable option.",
+      "description_ru": "Закажите еду на двоих, уточните состав и выберите подходящий вариант.",
+      "opening": "Здравствуйте! Вы готовы сделать заказ?",
+      "opening_english": "Hello! Are you ready to order?",
+      "grammar_focus": [
+        "Use без with the genitive to request or confirm the absence of an ingredient."
+      ],
+      "grammar_evidence_hint": "A learner reply uses без plus the correct genitive ingredient, not only a price question. The agent should let the learner make this request.",
+      "bundles": [
+        {
+          "id": "milk",
+          "title": "Choosing a drink",
+          "title_ru": "Выбираем напиток",
+          "description": "Order drinks and pancakes for two. Ask whether the cocoa contains milk, choose a drink without milk and ask for the bill.",
+          "description_ru": "Закажите напитки и блины на двоих. Узнайте, есть ли молоко в какао, выберите напиток без молока и попросите счёт.",
+          "facts": {
+            "people": 2,
+            "drink": "чай",
+            "food": "блины",
+            "excluded_ingredient": "молоко",
+            "drink_count": 2,
+            "food_count": 2,
+            "total": 640,
+            "initial_drink": "какао",
+            "initial_drink_contains": "молоко"
+          },
+          "goals": [
+            "Ask whether the cocoa contains milk",
+            "Order tea without milk and pancakes for two",
+            "Ask for the bill"
+          ],
+          "goals_ru": [
+            "Узнайте, есть ли молоко в какао",
+            "Закажите чай без молока и блины на двоих",
+            "Попросите счёт"
+          ],
+          "completion_criteria": [
+            "Ask whether the cocoa contains milk before choosing a drink.",
+            "After hearing that cocoa is prepared with milk, choose two teas without milk and two portions of pancakes.",
+            "Request the bill after the order is settled."
+          ],
+          "worker_brief": "Какао заранее приготовлено на молоке; подать его без молока нельзя. Чай заваривается на воде и стоит 100 рублей. Если спросят о молоке в какао, объясни и предложи чай; дай посетителю подтвердить выбор без молока. Порция блинов стоит 220. Две порции и два чая стоят 640. Просьба без молока относится только к напиткам: в блинах молоко есть. Не объясняй состав до вопроса посетителя.",
+          "menu": {
+            "чай": 100,
+            "блины": 220,
+            "вода": 60,
+            "суп": 180,
+            "какао": 150
+          }
+        },
+        {
+          "id": "onion",
+          "title": "Choosing a soup",
+          "title_ru": "Выбираем суп",
+          "description": "Order lunch for two. Ask whether the soup contains onion, choose soup without onion and ask for the bill.",
+          "description_ru": "Закажите обед на двоих. Узнайте, есть ли в супе лук, выберите суп без лука и попросите счёт.",
+          "facts": {
+            "people": 2,
+            "initial_food": "овощной суп",
+            "alternative_food": "томатный суп",
+            "excluded_ingredient": "лук",
+            "drink": "вода",
+            "total": 540,
+            "food": "томатный суп",
+            "food_count": 2,
+            "drink_count": 2
+          },
+          "goals": [
+            "Ask whether the vegetable soup contains onion",
+            "Order tomato soup without onion and water for two",
+            "Ask for the bill"
+          ],
+          "goals_ru": [
+            "Узнайте, есть ли лук в овощном супе",
+            "Закажите томатный суп без лука и воду на двоих",
+            "Попросите счёт"
+          ],
+          "completion_criteria": [
+            "Ask about onion in the vegetable soup before deciding.",
+            "Choose two tomato soups without onion and two waters after hearing the alternative.",
+            "Ask for the bill."
+          ],
+          "worker_brief": "В овощном супе есть лук, убрать его нельзя. В томатном супе лука нет; он стоит 210 рублей. Вода стоит 60. Два томатных супа и две воды стоят 540. Сообщи про лук только в ответ на вопрос, затем предложи томатный суп и дай посетителю подтвердить выбор.",
+          "menu": {
+            "овощной суп": 180,
+            "томатный суп": 210,
+            "вода": 60,
+            "чай": 100
+          }
+        },
+        {
+          "id": "sugar",
+          "title": "Something without sugar",
+          "title_ru": "Что-нибудь без сахара",
+          "description": "Order drinks and a slice of cake for two. Ask whether the iced tea is sweetened, choose a drink without sugar and ask for the bill.",
+          "description_ru": "Закажите напитки и кусок торта на двоих. Узнайте, есть ли сахар в холодном чае, выберите напиток без сахара и попросите счёт.",
+          "facts": {
+            "people": 2,
+            "drink": "кофе",
+            "drink_count": 2,
+            "food": "кусок торта",
+            "food_count": 1,
+            "excluded_ingredient": "сахар",
+            "total": 580,
+            "initial_drink": "холодный чай",
+            "initial_drink_contains": "сахар"
+          },
+          "goals": [
+            "Ask whether the iced tea contains sugar",
+            "Order two coffees without sugar and one slice of cake",
+            "Ask for the bill"
+          ],
+          "goals_ru": [
+            "Узнайте, есть ли сахар в холодном чае",
+            "Закажите два кофе без сахара и один кусок торта",
+            "Попросите счёт"
+          ],
+          "completion_criteria": [
+            "Ask whether the iced tea is already sweetened before choosing a drink.",
+            "Choose two coffees without sugar after hearing that the iced tea is already sweetened; order only one slice of cake to share.",
+            "Ask for the bill."
+          ],
+          "worker_brief": "Холодный чай заранее приготовлен с сахаром; убрать сахар нельзя. Кофе можно приготовить без сахара, он стоит 150 рублей. Кусок торта стоит 280. Два кофе и один кусок торта стоят 580. В ответ на вопрос о составе объясни, что холодный чай уже сладкий, предложи кофе без сахара и дай подтвердить выбор. В торте сахар есть: просьба без сахара относится к напиткам, не к торту.",
+          "menu": {
+            "кофе": 150,
+            "чай": 100,
+            "кусок торта": 280,
+            "холодный чай": 120
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "shop",
+      "target_level": "A1",
+      "topic_id": "clothing",
+      "title": "At the shops",
+      "title_ru": "В магазине",
+      "description": "Ask for an item, describe its colour and find out the price.",
+      "description_ru": "Попросите вещь нужного цвета и узнайте цену.",
+      "opening": "Здравствуйте! Что вы ищете?",
+      "opening_english": "Hello! What are you looking for?",
+      "grammar_focus": [
+        "Match a colour adjective to a clothing noun in an accusative request."
+      ],
+      "grammar_evidence_hint": "A learner reply includes an item and its colour in a request with correct agreement, e.g. синюю футболку.",
+      "bundles": [
+        {
+          "id": "tshirt",
+          "title": "A blue T-shirt",
+          "title_ru": "Синяя футболка",
+          "description": "Ask for a blue T-shirt, confirm the colour and ask the price.",
+          "description_ru": "Попросите синюю футболку, уточните цвет и узнайте цену.",
+          "facts": {
+            "item": "футболка",
+            "colour": "синий",
+            "request_form": "синюю футболку",
+            "price": 600
+          },
+          "goals": [
+            "Ask for the item",
+            "Specify the colour",
+            "Ask the price"
+          ],
+          "goals_ru": [
+            "Попросите нужную вещь",
+            "Уточните цвет",
+            "Спросите цену"
+          ],
+          "completion_criteria": [
+            "Request футболка.",
+            "Specify синий as the intended colour; assess whether the choice is clear, separately from adjective agreement.",
+            "Ask the price of 600 roubles."
+          ],
+          "worker_brief": "Покупатель ищет синюю футболку. Нужная вещь есть; цена 600 рублей. Есть также белый вариант той же вещи. Не называй нужный цвет сам: спроси, какой цвет нужен, если ещё не сказано. Размер не является заданием этого уровня.",
+          "grammar_focus": [
+            "Use синюю футболку as the object of a request."
+          ],
+          "grammar_evidence_hint": "A learner reply includes синюю футболку or an equally correct request for that item and colour."
+        },
+        {
+          "id": "hat",
+          "title": "A red hat",
+          "title_ru": "Красная шапка",
+          "description": "Ask for a red hat, confirm the colour and ask the price.",
+          "description_ru": "Попросите красную шапку, уточните цвет и узнайте цену.",
+          "facts": {
+            "item": "шапка",
+            "colour": "красный",
+            "request_form": "красную шапку",
+            "price": 450
+          },
+          "goals": [
+            "Ask for the item",
+            "Specify the colour",
+            "Ask the price"
+          ],
+          "goals_ru": [
+            "Попросите нужную вещь",
+            "Уточните цвет",
+            "Спросите цену"
+          ],
+          "completion_criteria": [
+            "Request шапка.",
+            "Specify красный as the intended colour; assess whether the choice is clear, separately from adjective agreement.",
+            "Ask the price of 450 roubles."
+          ],
+          "worker_brief": "Покупатель ищет красную шапку. Нужная вещь есть; цена 450 рублей. Есть также белый вариант той же вещи. Не называй нужный цвет сам: спроси, какой цвет нужен, если ещё не сказано. Размер не является заданием этого уровня.",
+          "grammar_focus": [
+            "Use красную шапку as the object of a request."
+          ],
+          "grammar_evidence_hint": "A learner reply includes красную шапку or an equally correct request for that item and colour."
+        },
+        {
+          "id": "trousers",
+          "title": "Black trousers",
+          "title_ru": "Чёрные брюки",
+          "description": "Ask for black trousers, confirm the colour and ask the price.",
+          "description_ru": "Попросите чёрные брюки, уточните цвет и узнайте цену.",
+          "facts": {
+            "item": "брюки",
+            "colour": "чёрный",
+            "request_form": "чёрные брюки",
+            "price": 900
+          },
+          "goals": [
+            "Ask for the item",
+            "Specify the colour",
+            "Ask the price"
+          ],
+          "goals_ru": [
+            "Попросите нужную вещь",
+            "Уточните цвет",
+            "Спросите цену"
+          ],
+          "completion_criteria": [
+            "Request брюки.",
+            "Specify чёрный as the intended colour; assess whether the choice is clear, separately from adjective agreement.",
+            "Ask the price of 900 roubles."
+          ],
+          "worker_brief": "Покупатель ищет чёрные брюки. Нужная вещь есть; цена 900 рублей. Есть также белый вариант той же вещи. Не называй нужный цвет сам: спроси, какой цвет нужен, если ещё не сказано. Размер не является заданием этого уровня.",
+          "grammar_focus": [
+            "Use чёрные брюки as the object of a request."
+          ],
+          "grammar_evidence_hint": "A learner reply includes чёрные брюки or an equally correct request for that item and colour."
+        }
+      ]
+    },
+    {
+      "scenario_id": "shop",
+      "target_level": "A2",
+      "topic_id": "shopping",
+      "title": "At the shops",
+      "title_ru": "В магазине",
+      "description": "Ask for another size, choose an item and check your change.",
+      "description_ru": "Попросите другой размер, выберите вещь и проверьте сдачу.",
+      "opening": "Здравствуйте! Чем могу помочь?",
+      "opening_english": "Hello! How can I help?",
+      "grammar_focus": [
+        "Use мне нужен / нужна / нужны with agreement when asking for a different size."
+      ],
+      "grammar_evidence_hint": "A learner reply uses мне нужен, мне нужна or мне нужны with a matching item or размер; provide an opportunity to ask for another size.",
+      "bundles": [
+        {
+          "id": "size",
+          "title": "A larger T-shirt",
+          "title_ru": "Футболка побольше",
+          "description": "The size you tried does not fit. Ask for size 46, buy it and check your change from 1000 roubles.",
+          "description_ru": "Примеренная вещь не подошла. Попросите размер 46, купите её и уточните сдачу с 1000 рублей.",
+          "facts": {
+            "item": "футболка",
+            "initial_size": 44,
+            "wanted_size": 46,
+            "price": 700,
+            "cash": 1000,
+            "change": 300
+          },
+          "goals": [
+            "Ask for size 46",
+            "Agree to buy and pay 1000 roubles",
+            "Check the change"
+          ],
+          "goals_ru": [
+            "Попросите размер 46",
+            "Подтвердите покупку и оплату 1000 рублями",
+            "Уточните сдачу"
+          ],
+          "completion_criteria": [
+            "Ask for футболка in size 46 instead of size 44.",
+            "Agree to buy at 700 roubles and communicate payment of 1000 roubles.",
+            "Ask about or confirm change of 300 roubles."
+          ],
+          "worker_brief": "Покупатель уже примерил размер 44; он не подошёл. Нужен размер 46; он есть. Вещь стоит 700 рублей. После выбора покупатель платит 1000 рублей, сдача 300. При первой реплике спроси, подошёл ли размер, но не назови правильный новый размер за покупателя. Не требуй настоящей оплаты.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Tried size",
+                "label_ru": "Примеренный размер",
+                "value": "44",
+                "value_ru": "44"
+              },
+              {
+                "label": "Needed size",
+                "label_ru": "Нужный размер",
+                "value": "46",
+                "value_ru": "46"
+              },
+              {
+                "label": "Cash",
+                "label_ru": "Наличные",
+                "value": "1000 roubles",
+                "value_ru": "1000 рублей"
+              }
+            ]
+          },
+          "opening": "Размер подошёл?",
+          "opening_english": "Did the size fit?"
+        },
+        {
+          "id": "smaller",
+          "title": "A smaller jacket",
+          "title_ru": "Куртка поменьше",
+          "description": "The size you tried does not fit. Ask for size 48, buy it and check your change from 2000 roubles.",
+          "description_ru": "Примеренная вещь не подошла. Попросите размер 48, купите её и уточните сдачу с 2000 рублей.",
+          "facts": {
+            "item": "куртка",
+            "initial_size": 50,
+            "wanted_size": 48,
+            "price": 1600,
+            "cash": 2000,
+            "change": 400
+          },
+          "goals": [
+            "Ask for size 48",
+            "Agree to buy and pay 2000 roubles",
+            "Check the change"
+          ],
+          "goals_ru": [
+            "Попросите размер 48",
+            "Подтвердите покупку и оплату 2000 рублями",
+            "Уточните сдачу"
+          ],
+          "completion_criteria": [
+            "Ask for куртка in size 48 instead of size 50.",
+            "Agree to buy at 1600 roubles and communicate payment of 2000 roubles.",
+            "Ask about or confirm change of 400 roubles."
+          ],
+          "worker_brief": "Покупатель уже примерил размер 50; он не подошёл. Нужен размер 48; он есть. Вещь стоит 1600 рублей. После выбора покупатель платит 2000 рублей, сдача 400. При первой реплике спроси, подошёл ли размер, но не назови правильный новый размер за покупателя. Не требуй настоящей оплаты.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Tried size",
+                "label_ru": "Примеренный размер",
+                "value": "50",
+                "value_ru": "50"
+              },
+              {
+                "label": "Needed size",
+                "label_ru": "Нужный размер",
+                "value": "48",
+                "value_ru": "48"
+              },
+              {
+                "label": "Cash",
+                "label_ru": "Наличные",
+                "value": "2000 roubles",
+                "value_ru": "2000 рублей"
+              }
+            ]
+          },
+          "opening": "Размер подошёл?",
+          "opening_english": "Did the size fit?"
+        },
+        {
+          "id": "shoes",
+          "title": "Trying another size",
+          "title_ru": "Другой размер обуви",
+          "description": "The boots you tried are too small. Ask for size 40, buy them and check your change from 3000 roubles.",
+          "description_ru": "Ботинки 39-го размера малы. Попросите 40-й размер, купите ботинки и уточните сдачу с 3000 рублей.",
+          "facts": {
+            "item": "ботинки",
+            "initial_size": 39,
+            "wanted_size": 40,
+            "price": 2300,
+            "cash": 3000,
+            "change": 700
+          },
+          "goals": [
+            "Ask for size 40",
+            "Agree to buy and pay 3000 roubles",
+            "Check the change"
+          ],
+          "goals_ru": [
+            "Попросите размер 40",
+            "Подтвердите покупку и оплату 3000 рублями",
+            "Уточните сдачу"
+          ],
+          "completion_criteria": [
+            "Ask for ботинки in size 40 instead of size 39.",
+            "Agree to buy at 2300 roubles and communicate payment of 3000 roubles.",
+            "Ask about or confirm change of 700 roubles."
+          ],
+          "worker_brief": "Покупатель уже примерил размер 39; он не подошёл. Нужен размер 40; он есть. Вещь стоит 2300 рублей. После выбора покупатель платит 3000 рублей, сдача 700. При первой реплике спроси, подошёл ли размер, но не назови правильный новый размер за покупателя. Не требуй настоящей оплаты.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Tried size",
+                "label_ru": "Примеренный размер",
+                "value": "39",
+                "value_ru": "39"
+              },
+              {
+                "label": "Needed size",
+                "label_ru": "Нужный размер",
+                "value": "40",
+                "value_ru": "40"
+              },
+              {
+                "label": "Cash",
+                "label_ru": "Наличные",
+                "value": "3000 roubles",
+                "value_ru": "3000 рублей"
+              }
+            ]
+          },
+          "opening": "Размер подошёл?",
+          "opening_english": "Did the size fit?"
+        }
+      ]
+    },
+    {
+      "scenario_id": "directions",
+      "target_level": "A1",
+      "topic_id": "places",
+      "title": "Asking directions",
+      "title_ru": "Как пройти?",
+      "description": "Ask where to go, check a short direction and thank the person.",
+      "description_ru": "Спросите дорогу, уточните короткое указание и поблагодарите собеседника.",
+      "opening": "Здравствуйте! Что вы ищете?",
+      "opening_english": "Hello! What are you looking for?",
+      "grammar_focus": [
+        "Use где for a location or как пройти with a destination."
+      ],
+      "grammar_evidence_hint": "A learner reply asks Где …? or Как пройти …? for the correct destination; later replies can confirm the direction without reciting a script.",
+      "bundles": [
+        {
+          "id": "park",
+          "title": "Where is the park?",
+          "title_ru": "Где парк?",
+          "description": "Find the park, check the direction and thank the person.",
+          "description_ru": "Найдите парк, уточните направление и поблагодарите собеседника.",
+          "facts": {
+            "destination": "парк",
+            "destination_accusative": "парк",
+            "route": "Идите прямо. Парк будет справа.",
+            "walking_minutes": 5
+          },
+          "goals": [
+            "Ask where the park is",
+            "Check the direction",
+            "Thank the person"
+          ],
+          "goals_ru": [
+            "Спросите, где находится парк",
+            "Уточните направление",
+            "Поблагодарите собеседника"
+          ],
+          "completion_criteria": [
+            "Ask for the location of парк.",
+            "Confirm a supplied direction or side, for example Парк справа?",
+            "Thank the speaker."
+          ],
+          "worker_brief": "Вы на площади. Идите прямо. Парк будет справа. Путь занимает пять минут. Сначала дай короткий ответ на вопрос о дороге; дай ученику проверить направление. Не добавляй повороты или препятствия.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Park",
+                "value_ru": "Парк"
+              }
+            ]
+          }
+        },
+        {
+          "id": "pharmacy",
+          "title": "Finding a pharmacy",
+          "title_ru": "Ищем аптеку",
+          "description": "Find the pharmacy, check the direction and thank the person.",
+          "description_ru": "Найдите аптеку, уточните направление и поблагодарите собеседника.",
+          "facts": {
+            "destination": "аптека",
+            "destination_accusative": "аптеку",
+            "route": "Поверните налево. Аптека рядом с магазином.",
+            "walking_minutes": 5
+          },
+          "goals": [
+            "Ask where the pharmacy is",
+            "Check the direction",
+            "Thank the person"
+          ],
+          "goals_ru": [
+            "Спросите, где находится аптека",
+            "Уточните направление",
+            "Поблагодарите собеседника"
+          ],
+          "completion_criteria": [
+            "Ask for the location of аптека.",
+            "Confirm a supplied direction or side, for example Налево?",
+            "Thank the speaker."
+          ],
+          "worker_brief": "Вы на площади. Поверните налево. Аптека рядом с магазином. Путь занимает пять минут. Сначала дай короткий ответ на вопрос о дороге; дай ученику проверить направление. Не добавляй повороты или препятствия.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Pharmacy",
+                "value_ru": "Аптека"
+              }
+            ]
+          }
+        },
+        {
+          "id": "post-office",
+          "title": "The nearest post office",
+          "title_ru": "Ближайшая почта",
+          "description": "Find the post office, check the direction and thank the person.",
+          "description_ru": "Найдите почту, уточните направление и поблагодарите собеседника.",
+          "facts": {
+            "destination": "почта",
+            "destination_accusative": "почту",
+            "route": "Идите прямо. Почта будет слева.",
+            "walking_minutes": 5
+          },
+          "goals": [
+            "Ask where the post office is",
+            "Check the direction",
+            "Thank the person"
+          ],
+          "goals_ru": [
+            "Спросите, где находится почта",
+            "Уточните направление",
+            "Поблагодарите собеседника"
+          ],
+          "completion_criteria": [
+            "Ask for the location of почта.",
+            "Confirm a supplied direction or side, for example Почта слева?",
+            "Thank the speaker."
+          ],
+          "worker_brief": "Вы на площади. Идите прямо. Почта будет слева. Путь занимает пять минут. Сначала дай короткий ответ на вопрос о дороге; дай ученику проверить направление. Не добавляй повороты или препятствия.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Post office",
+                "value_ru": "Почта"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "directions",
+      "target_level": "A2",
+      "topic_id": "places",
+      "title": "Asking directions",
+      "title_ru": "Как пройти?",
+      "description": "Follow several directions, check a landmark and clarify a route detail.",
+      "description_ru": "Разберите несколько указаний, уточните ориентир и детали маршрута.",
+      "opening": "Здравствуйте! Вам подсказать дорогу?",
+      "opening_english": "Hello! Do you need directions?",
+      "grammar_focus": [
+        "Use до or после with genitive when clarifying the order of route landmarks."
+      ],
+      "grammar_evidence_hint": "A learner reply asks or confirms до/после plus the appropriate genitive landmark, e.g. после парка. The local should give a route needing that distinction.",
+      "bundles": [
+        {
+          "id": "library",
+          "title": "A turn near the park",
+          "title_ru": "Поворот у парка",
+          "description": "Find the library and check whether to turn before or after the park. Ask how long the walk takes.",
+          "description_ru": "Найдите библиотеку и уточните, повернуть до парка или после него. Спросите, сколько идти.",
+          "facts": {
+            "destination": "библиотека",
+            "landmark": "парк",
+            "turn": "после парка направо",
+            "walking_minutes": 10
+          },
+          "goals": [
+            "Ask the way to the library",
+            "Check whether the turn is before or after the park",
+            "Ask how long it takes"
+          ],
+          "goals_ru": [
+            "Спросите дорогу в библиотеку",
+            "Уточните, повернуть до парка или после него",
+            "Спросите, сколько идти"
+          ],
+          "completion_criteria": [
+            "Ask how to reach the library.",
+            "Clarify the turn in relation to the park; the correct route turns right after the park.",
+            "Ask the walking time."
+          ],
+          "worker_brief": "Идите прямо до парка, после парка поверните направо; библиотека слева. Пешком десять минут. Не называй все детали в приветствии: сначала дождись вопроса. Если спрашивают «до парка?», уточни «нет, после парка».",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Library",
+                "value_ru": "Библиотека"
+              }
+            ]
+          }
+        },
+        {
+          "id": "museum",
+          "title": "Finding the entrance",
+          "title_ru": "Ищем вход",
+          "description": "Ask the way to the museum, check the turn after the bridge and find the entrance.",
+          "description_ru": "Спросите дорогу к музею, уточните поворот после моста и найдите вход.",
+          "facts": {
+            "destination": "музей",
+            "landmark": "мост",
+            "turn": "после моста налево",
+            "entrance": "со стороны площади"
+          },
+          "goals": [
+            "Ask the way to the museum",
+            "Check where to turn after the bridge",
+            "Ask which side the entrance is on"
+          ],
+          "goals_ru": [
+            "Спросите дорогу к музею",
+            "Уточните поворот после моста",
+            "Узнайте, с какой стороны вход"
+          ],
+          "completion_criteria": [
+            "Ask how to reach the museum.",
+            "Confirm turning left after the bridge rather than before it.",
+            "Ask about the entrance and establish that it faces the square."
+          ],
+          "worker_brief": "Идите прямо через мост, после моста поверните налево. Музей за аптекой. Вход со стороны площади, а не со стороны реки. Путь двенадцать минут. Объясни путь, но деталь входа сообщи в ответ на вопрос.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Museum",
+                "value_ru": "Музей"
+              }
+            ]
+          }
+        },
+        {
+          "id": "bus-stop",
+          "title": "Finding the right stop",
+          "title_ru": "Ищем нужную остановку",
+          "description": "Find the bus stop for the station, check which side of the road it is on and where to cross.",
+          "description_ru": "Найдите остановку автобуса до вокзала, уточните сторону дороги и место перехода.",
+          "facts": {
+            "destination": "остановка автобуса до вокзала",
+            "landmark": "банк",
+            "crossing": "после банка",
+            "side": "напротив банка"
+          },
+          "goals": [
+            "Ask where to catch the bus to the station",
+            "Check the side of the road",
+            "Ask where to cross"
+          ],
+          "goals_ru": [
+            "Спросите, где сесть на автобус до вокзала",
+            "Уточните сторону дороги",
+            "Спросите, где перейти дорогу"
+          ],
+          "completion_criteria": [
+            "Ask for the stop towards the station.",
+            "Establish that it is opposite the bank, not beside it.",
+            "Clarify that the crossing is after the bank."
+          ],
+          "worker_brief": "Автобус до вокзала останавливается напротив банка на другой стороне дороги. Переход после банка, не до него. До банка идти прямо две минуты. Сначала назови остановку, дай уточнить сторону, затем объясни переход. Не выдумывай перекрытия.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Station by bus",
+                "value_ru": "На вокзал на автобусе"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "station",
+      "target_level": "A1",
+      "topic_id": "travel",
+      "title": "At the station",
+      "title_ru": "На вокзале",
+      "description": "Ask for a ticket, check the departure time and find out the price.",
+      "description_ru": "Попросите билет, уточните время отправления и узнайте цену.",
+      "opening": "Здравствуйте! Куда поедете?",
+      "opening_english": "Hello! Where are you travelling?",
+      "grammar_focus": [
+        "Use в plus accusative for a destination in a ticket request."
+      ],
+      "grammar_evidence_hint": "A learner reply requests билет в followed by the appropriate destination form. Keep time answers at whole hours for A1.",
+      "bundles": [
+        {
+          "id": "lesnoy",
+          "title": "A day in Lesnoy",
+          "title_ru": "День в Лесном",
+          "description": "Get a ticket to Lesnoy, check the departure time and ask the price.",
+          "description_ru": "Купите билет в Лесной, уточните время отправления и цену.",
+          "facts": {
+            "destination": "Лесной",
+            "destination_accusative": "Лесной",
+            "departure_hour": 9,
+            "ticket_count": 1,
+            "unit_price": 400,
+            "day": "сегодня",
+            "total": 400
+          },
+          "goals": [
+            "Ask for a ticket to Lesnoy",
+            "Ask the departure time",
+            "Ask the price"
+          ],
+          "goals_ru": [
+            "Попросите билет в Лесной",
+            "Уточните время отправления",
+            "Спросите стоимость"
+          ],
+          "completion_criteria": [
+            "Request 1 ticket(s) to Лесной for сегодня.",
+            "Ask or confirm departure at 9:00.",
+            "Ask the total price of 400 roubles."
+          ],
+          "worker_brief": "Учебное расписание: в Лесной сегодня поезд в 9:00. Билет стоит 400 рублей, один билет стоит 400. Места есть. Не требуй пересадок, документов или оплаты. Время произноси словами, простым целым часом. Не отвечай сразу на все будущие вопросы.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Lesnoy",
+                "value_ru": "Лесной"
+              },
+              {
+                "label": "Tickets",
+                "label_ru": "Билеты",
+                "value": "1",
+                "value_ru": "1"
+              },
+              {
+                "label": "Day",
+                "label_ru": "Когда",
+                "value": "Today",
+                "value_ru": "Сегодня"
+              }
+            ]
+          }
+        },
+        {
+          "id": "lakes",
+          "title": "A trip to Ozyornaya",
+          "title_ru": "Поездка в Озёрную",
+          "description": "Get two tickets to Ozyornaya, check the departure time and ask the price.",
+          "description_ru": "Купите два билета в Озёрную, уточните время отправления и цену.",
+          "facts": {
+            "destination": "Озёрная",
+            "destination_accusative": "Озёрную",
+            "departure_hour": 11,
+            "ticket_count": 2,
+            "unit_price": 300,
+            "day": "сегодня",
+            "total": 600
+          },
+          "goals": [
+            "Ask for two tickets to Ozyornaya",
+            "Ask the departure time",
+            "Ask the price"
+          ],
+          "goals_ru": [
+            "Попросите два билета в Озёрную",
+            "Уточните время отправления",
+            "Спросите стоимость"
+          ],
+          "completion_criteria": [
+            "Request 2 ticket(s) to Озёрная for сегодня.",
+            "Ask or confirm departure at 11:00.",
+            "Ask the total price of 600 roubles."
+          ],
+          "worker_brief": "Учебное расписание: в Озёрную сегодня поезд в 11:00. Билет стоит 300 рублей, два билета стоят 600. Места есть. Не требуй пересадок, документов или оплаты. Время произноси словами, простым целым часом. Не отвечай сразу на все будущие вопросы.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Ozyornaya",
+                "value_ru": "Озёрная"
+              },
+              {
+                "label": "Tickets",
+                "label_ru": "Билеты",
+                "value": "2",
+                "value_ru": "2"
+              },
+              {
+                "label": "Day",
+                "label_ru": "Когда",
+                "value": "Today",
+                "value_ru": "Сегодня"
+              }
+            ]
+          }
+        },
+        {
+          "id": "tomorrow",
+          "title": "Tomorrow in Sosnovka",
+          "title_ru": "Завтра в Сосновке",
+          "description": "Get a ticket to Sosnovka, check the departure time and ask the price.",
+          "description_ru": "Купите билет в Сосновку, уточните время отправления и цену.",
+          "facts": {
+            "destination": "Сосновка",
+            "destination_accusative": "Сосновку",
+            "departure_hour": 10,
+            "ticket_count": 1,
+            "unit_price": 450,
+            "day": "завтра",
+            "total": 450
+          },
+          "goals": [
+            "Ask for a ticket to Sosnovka",
+            "Ask the departure time",
+            "Ask the price"
+          ],
+          "goals_ru": [
+            "Попросите билет в Сосновку",
+            "Уточните время отправления",
+            "Спросите стоимость"
+          ],
+          "completion_criteria": [
+            "Request 1 ticket(s) to Сосновка for завтра.",
+            "Ask or confirm departure at 10:00.",
+            "Ask the total price of 450 roubles."
+          ],
+          "worker_brief": "Учебное расписание: в Сосновку завтра поезд в 10:00. Билет стоит 450 рублей, один билет стоит 450. Места есть. Не требуй пересадок, документов или оплаты. Время произноси словами, простым целым часом. Не отвечай сразу на все будущие вопросы.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Sosnovka",
+                "value_ru": "Сосновка"
+              },
+              {
+                "label": "Tickets",
+                "label_ru": "Билеты",
+                "value": "1",
+                "value_ru": "1"
+              },
+              {
+                "label": "Day",
+                "label_ru": "Когда",
+                "value": "Tomorrow",
+                "value_ru": "Завтра"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "station",
+      "target_level": "A2",
+      "topic_id": "travel",
+      "title": "At the station",
+      "title_ru": "На вокзале",
+      "description": "Choose a train, ask where to change and confirm the connection.",
+      "description_ru": "Выберите поезд, узнайте место пересадки и уточните стыковку.",
+      "opening": "Здравствуйте! Куда хотите поехать?",
+      "opening_english": "Hello! Where would you like to travel?",
+      "grammar_focus": [
+        "Use в plus prepositional for the place where you change trains, contrasting it with a destination in accusative."
+      ],
+      "grammar_evidence_hint": "A learner reply asks or confirms a transfer using в plus a location, e.g. в Лесном or в Сосновке. Include the destination in another learner request to contrast location and direction.",
+      "bundles": [
+        {
+          "id": "connection",
+          "title": "Changing at Lesnoy",
+          "title_ru": "Пересадка в Лесном",
+          "description": "Buy a ticket to Ozyornaya, ask where to change and check when the second train leaves.",
+          "description_ru": "Купите билет в Озёрную, узнайте место пересадки и отправление второго поезда.",
+          "facts": {
+            "destination": "Озёрная",
+            "destination_accusative": "Озёрную",
+            "transfer": "Лесной",
+            "transfer_prepositional": "Лесном",
+            "first_departure": "09:00",
+            "transfer_arrival": "09:40",
+            "connection_departure": "10:00",
+            "arrival": "10:30",
+            "price": 550
+          },
+          "goals": [
+            "Ask for a ticket to Ozyornaya",
+            "Ask where to change trains",
+            "Confirm the second departure"
+          ],
+          "goals_ru": [
+            "Попросите билет в Озёрную",
+            "Узнайте, где пересесть",
+            "Уточните отправление второго поезда"
+          ],
+          "completion_criteria": [
+            "Request a ticket to Ozyornaya.",
+            "Ask or confirm changing trains in Lesnoy.",
+            "Confirm that the second train leaves at 10:00 after the 09:40 arrival."
+          ],
+          "worker_brief": "В Озёрную прямого поезда нет. Поезд в 09:00 прибывает в Лесной в 09:40. В Лесном пересадка: второй поезд в 10:00, в Озёрной в 10:30. Билет на весь путь 550 рублей. Сначала сообщи, что нужна пересадка, затем дай спросить где и когда. Не придумывай другие поезда.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Ozyornaya",
+                "value_ru": "Озёрная"
+              }
+            ]
+          }
+        },
+        {
+          "id": "deadline",
+          "title": "In time for a visit",
+          "title_ru": "Успеть к встрече",
+          "description": "Reach Sosnovka before noon. Ask where to change and choose a connection that arrives in time.",
+          "description_ru": "Доберитесь до Сосновки до полудня. Узнайте место пересадки и выберите подходящий поезд.",
+          "facts": {
+            "destination": "Сосновка",
+            "destination_accusative": "Сосновку",
+            "transfer": "Озёрная",
+            "transfer_prepositional": "Озёрной",
+            "deadline": "12:00",
+            "options": [
+              {
+                "departure": "09:00",
+                "change": "10:00",
+                "arrival": "11:00"
+              },
+              {
+                "departure": "11:00",
+                "change": "12:00",
+                "arrival": "13:00"
+              }
+            ],
+            "price": 650
+          },
+          "goals": [
+            "Explain that you need to arrive before noon",
+            "Ask where to change trains",
+            "Choose the connection that arrives in time"
+          ],
+          "goals_ru": [
+            "Скажите, что нужно приехать до полудня",
+            "Узнайте место пересадки",
+            "Выберите подходящий поезд"
+          ],
+          "completion_criteria": [
+            "State Sosnovka as the destination and arrival before noon as the constraint.",
+            "Ask or confirm changing trains in Ozyornaya.",
+            "Choose the 09:00 departure and 10:00 connection arriving at 11:00."
+          ],
+          "worker_brief": "В Сосновку нужна пересадка в Озёрной. Первый вариант: отправление 09:00, пересадка на поезд 10:00, прибытие 11:00. Второй: отправление 11:00, пересадка 12:00, прибытие 13:00. Оба стоят 650 рублей. Сначала узнай время, к которому нужно приехать; затем предложи варианты и дай выбрать. Не считай 13:00 прибытием до полудня.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Sosnovka",
+                "value_ru": "Сосновка"
+              },
+              {
+                "label": "Arrive",
+                "label_ru": "Прибытие",
+                "value": "Before noon",
+                "value_ru": "До полудня"
+              }
+            ]
+          }
+        },
+        {
+          "id": "platform",
+          "title": "Two tickets and a transfer",
+          "title_ru": "Два билета с пересадкой",
+          "description": "Travel to Lesnoy with a friend. Ask where to change and which platform the next train leaves from.",
+          "description_ru": "Поезжайте в Лесной с другом. Узнайте место пересадки и путь отправления следующего поезда.",
+          "facts": {
+            "destination": "Лесной",
+            "destination_accusative": "Лесной",
+            "transfer": "Сосновка",
+            "transfer_prepositional": "Сосновке",
+            "ticket_count": 2,
+            "connection_platform": 3,
+            "departure": "14:00",
+            "transfer_arrival": "14:40",
+            "connection_departure": "15:00",
+            "unit_price": 500,
+            "total": 1000
+          },
+          "goals": [
+            "Ask for two tickets to Lesnoy",
+            "Check where you need to change",
+            "Ask which platform the connection leaves from"
+          ],
+          "goals_ru": [
+            "Попросите два билета в Лесной",
+            "Уточните место пересадки",
+            "Узнайте путь отправления следующего поезда"
+          ],
+          "completion_criteria": [
+            "Request two tickets to Lesnoy.",
+            "Ask or confirm changing in Sosnovka.",
+            "Establish that the connection leaves from platform/track three."
+          ],
+          "worker_brief": "Два билета в Лесной стоят 1000 рублей. Отправление 14:00, в Сосновке 14:40; пересадка там на поезд 15:00 с третьего пути. Поезд туда приходит на первый путь. Дай спросить о месте пересадки и нужном пути отдельно. Не путай первый путь прибытия с третьим путём отправления.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Destination",
+                "label_ru": "Куда",
+                "value": "Lesnoy",
+                "value_ru": "Лесной"
+              },
+              {
+                "label": "Passengers",
+                "label_ru": "Пассажиры",
+                "value": "Two",
+                "value_ru": "Двое"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "meet-someone",
+      "target_level": "A1",
+      "topic_id": "greetings",
+      "title": "Meeting people",
+      "title_ru": "Знакомства и общение",
+      "description": "Exchange names, ask a simple question and say goodbye.",
+      "description_ru": "Познакомьтесь, задайте простой вопрос и попрощайтесь.",
+      "opening": "Привет! Как тебя зовут?",
+      "opening_english": "Hi! What is your name?",
+      "grammar_focus": [
+        "Use Меня зовут and a reciprocal name question in an introduction."
+      ],
+      "grammar_evidence_hint": "A learner reply uses Меня зовут with a real or invented name. The dialogue must offer a genuine introduction, not assume the learner already knows the character.",
+      "bundles": [
+        {
+          "id": "classmate",
+          "title": "A new classmate",
+          "title_ru": "Новый одноклассник",
+          "description": "Meet Dima before a Russian class. Exchange names and say goodbye until the next class.",
+          "description_ru": "Познакомьтесь с Димой перед уроком русского. Назовите себя, узнайте его имя и попрощайтесь до следующего урока.",
+          "facts": {
+            "character": "Дима",
+            "setting": "перед уроком русского",
+            "register": "ты"
+          },
+          "goals": [
+            "Introduce yourself",
+            "Ask your classmate’s name",
+            "Say goodbye"
+          ],
+          "goals_ru": [
+            "Представьтесь",
+            "Узнайте имя одноклассника",
+            "Попрощайтесь"
+          ],
+          "completion_criteria": [
+            "Introduce yourself using a real or invented name. Any understandable natural introduction meets this communicative goal; assess grammar separately.",
+            "Ask the classmate his name.",
+            "Say goodbye naturally."
+          ],
+          "worker_brief": "Ты Дима, новый ученик. Начни «Привет! Как тебя зовут?», но не представляйся до ответного вопроса. Урок скоро начинается. После знакомства скажи, что пора в класс, и дай попрощаться. Говори на ты, принимай вы.",
+          "opening": "Привет! Как тебя зовут?",
+          "opening_english": "Hi! What is your name?"
+        },
+        {
+          "id": "neighbour",
+          "title": "Saying hello next door",
+          "title_ru": "Знакомство с соседкой",
+          "description": "Meet your new neighbour. Introduce yourself, ask her name and say goodbye.",
+          "description_ru": "Познакомьтесь с новой соседкой. Представьтесь, узнайте её имя и попрощайтесь.",
+          "facts": {
+            "character": "Анна",
+            "setting": "у дома",
+            "register": "вы"
+          },
+          "goals": [
+            "Introduce yourself politely",
+            "Ask your neighbour’s name",
+            "Say goodbye"
+          ],
+          "goals_ru": [
+            "Вежливо представьтесь",
+            "Узнайте имя соседки",
+            "Попрощайтесь"
+          ],
+          "completion_criteria": [
+            "Introduce yourself using a real or invented name. Any understandable natural introduction meets this communicative goal; assess grammar separately.",
+            "Ask the neighbour’s name in a polite exchange.",
+            "Say goodbye."
+          ],
+          "worker_brief": "Ты Анна, новая соседка. Используй вы. Поздоровайся и спроси имя, но своё назови в ответ на вопрос. После знакомства скажи «Очень приятно». Не запрашивай адрес или номер квартиры.",
+          "opening": "Здравствуйте! Мы ещё не знакомы. Как вас зовут?",
+          "opening_english": "Hello! We haven’t met yet. What is your name?"
+        },
+        {
+          "id": "club",
+          "title": "Your first club meeting",
+          "title_ru": "Первая встреча в клубе",
+          "description": "Meet someone at a book club. Exchange names, say it is nice to meet them and say goodbye.",
+          "description_ru": "Познакомьтесь с участником книжного клуба. Обменяйтесь именами, скажите, что рады знакомству, и попрощайтесь.",
+          "facts": {
+            "character": "Саша",
+            "setting": "книжный клуб",
+            "register": "ты"
+          },
+          "goals": [
+            "Introduce yourself",
+            "Ask the other person’s name",
+            "Say that you are pleased to meet them and say goodbye"
+          ],
+          "goals_ru": [
+            "Представьтесь",
+            "Спросите имя собеседника",
+            "Скажите, что рады знакомству, и попрощайтесь"
+          ],
+          "completion_criteria": [
+            "Introduce yourself using a real or invented name. Any understandable natural introduction meets this communicative goal; assess grammar separately.",
+            "Ask the other club member’s name.",
+            "Use a natural pleased-to-meet-you expression and farewell."
+          ],
+          "worker_brief": "Ты Саша, участник книжного клуба. Говори доброжелательно, поздоровайся и спроси имя. Свое назови только после ответного вопроса. На «Очень приятно» ответь естественно. Встреча начинается; после знакомства пора попрощаться.",
+          "opening": "Привет! Как тебя зовут?",
+          "opening_english": "Hi! What is your name?"
+        }
+      ]
+    },
+    {
+      "scenario_id": "meet-someone",
+      "target_level": "A2",
+      "topic_id": "hobbies",
+      "title": "Meeting people",
+      "title_ru": "Знакомства и общение",
+      "description": "Compare interests, suggest an activity and agree when and where to meet.",
+      "description_ru": "Обсудите увлечения, предложите занятие и договоритесь о встрече.",
+      "opening": "Привет! Чем займёмся в выходные?",
+      "opening_english": "Hi! What shall we do this weekend?",
+      "grammar_focus": [
+        "Use a simple suggestion with давай/давайте plus an appropriate infinitive or first-person plural verb."
+      ],
+      "grammar_evidence_hint": "A learner reply proposes the activity with Давай/Давайте, e.g. Давай пойдём… or Давай играть…. Meeting time is a separate communicative objective, not required in this same sentence.",
+      "bundles": [
+        {
+          "id": "cycling",
+          "title": "A bike ride",
+          "title_ru": "Велопрогулка",
+          "description": "Find out whether Anya likes cycling, suggest a ride and agree on a time and meeting place.",
+          "description_ru": "Узнайте, любит ли Аня кататься на велосипеде, предложите прогулку и договоритесь о времени и месте.",
+          "facts": {
+            "character": "Аня",
+            "activity": "кататься на велосипеде",
+            "day": "суббота",
+            "available_time": "11:00",
+            "unavailable_time": "09:00",
+            "meeting_place": "у входа в парк"
+          },
+          "goals": [
+            "Ask about cycling and share your interest",
+            "Suggest a ride on Saturday",
+            "Agree on a time and meeting place"
+          ],
+          "goals_ru": [
+            "Обсудите велосипедные прогулки",
+            "Предложите прогулку в субботу",
+            "Договоритесь о времени и месте"
+          ],
+          "completion_criteria": [
+            "Ask about cycling or compare this interest with Anya.",
+            "Propose a bike ride on Saturday.",
+            "Agree on 11:00 at the park entrance after learning that 09:00 does not work."
+          ],
+          "worker_brief": "Ты Аня. Любишь велосипед. В субботу в девять занята, в одиннадцать свободна. Удобно встретиться у входа в парк. Начни с вопроса об увлечениях, потом обсуди предложение, время и место. Если предлагают девять, объясни коротко, что занята, предложи одиннадцать. Не отвергай все варианты.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Activity",
+                "label_ru": "Занятие",
+                "value": "Cycling",
+                "value_ru": "Велопрогулка"
+              },
+              {
+                "label": "Day",
+                "label_ru": "День",
+                "value": "Saturday",
+                "value_ru": "Суббота"
+              }
+            ]
+          },
+          "opening": "Привет! Ты любишь кататься на велосипеде?",
+          "opening_english": "Hi! Do you like cycling?"
+        },
+        {
+          "id": "cinema",
+          "title": "An afternoon at the cinema",
+          "title_ru": "Днём в кино",
+          "description": "Compare the films you like, suggest going to the cinema and choose a time that suits you both.",
+          "description_ru": "Обсудите любимые фильмы, предложите сходить в кино и выберите удобное время.",
+          "facts": {
+            "character": "Илья",
+            "activity": "сходить в кино",
+            "preference": "комедия",
+            "day": "воскресенье",
+            "available_time": "15:00",
+            "unavailable_time": "20:00",
+            "meeting_place": "у кинотеатра"
+          },
+          "goals": [
+            "Ask what kind of films Ilya likes",
+            "Suggest a comedy on Sunday",
+            "Agree on a time and place"
+          ],
+          "goals_ru": [
+            "Узнайте, какие фильмы любит Илья",
+            "Предложите комедию в воскресенье",
+            "Договоритесь о времени и месте"
+          ],
+          "completion_criteria": [
+            "Ask about film preferences and respond to Ilya’s preference for comedy.",
+            "Suggest seeing a comedy on Sunday.",
+            "Agree on 15:00 by the cinema; Ilya cannot go at 20:00."
+          ],
+          "worker_brief": "Ты Илья. Любишь комедии, не любишь фильмы ужасов. В воскресенье свободен в три часа дня, но не в восемь вечера. Встретиться можно у кинотеатра. Сначала обсуди вкусы, потом предложение и время. Не выдумывай реальные названия или сеансы.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Activity",
+                "label_ru": "Занятие",
+                "value": "Cinema",
+                "value_ru": "Кино"
+              },
+              {
+                "label": "Day",
+                "label_ru": "День",
+                "value": "Sunday",
+                "value_ru": "Воскресенье"
+              }
+            ]
+          },
+          "opening": "Привет! Какие фильмы тебе нравятся?",
+          "opening_english": "Hi! What kind of films do you like?"
+        },
+        {
+          "id": "badminton",
+          "title": "A game in the park",
+          "title_ru": "Игра в парке",
+          "description": "Compare sports you enjoy, suggest badminton and agree on a time and meeting place.",
+          "description_ru": "Обсудите любимые виды спорта, предложите бадминтон и договоритесь о встрече.",
+          "facts": {
+            "character": "Лена",
+            "activity": "играть в бадминтон",
+            "day": "суббота",
+            "available_time": "16:00",
+            "unavailable_time": "12:00",
+            "meeting_place": "у фонтана в парке",
+            "equipment": "ракетки у Лены"
+          },
+          "goals": [
+            "Ask which sports Lena enjoys",
+            "Suggest badminton on Saturday",
+            "Agree on a time and meeting place"
+          ],
+          "goals_ru": [
+            "Спросите, какой спорт нравится Лене",
+            "Предложите бадминтон в субботу",
+            "Договоритесь о времени и месте"
+          ],
+          "completion_criteria": [
+            "Ask about sports and respond to Lena’s interest in badminton.",
+            "Suggest playing badminton on Saturday.",
+            "Agree on 16:00 by the park fountain; noon is not possible."
+          ],
+          "worker_brief": "Ты Лена. Любишь бадминтон, у тебя есть две ракетки. В субботу в полдень занята, в четыре часа свободна. Удобно встретиться у фонтана в парке. Если спросят о ракетках, предложи свои. Не превращай необязательный вопрос о ракетках в дополнительное обязательное задание.",
+          "reference": {
+            "title": "Your plan",
+            "title_ru": "Ваш план",
+            "items": [
+              {
+                "label": "Activity",
+                "label_ru": "Занятие",
+                "value": "Badminton",
+                "value_ru": "Бадминтон"
+              },
+              {
+                "label": "Day",
+                "label_ru": "День",
+                "value": "Saturday",
+                "value_ru": "Суббота"
+              }
+            ]
+          },
+          "opening": "Привет! Во что ты любишь играть?",
+          "opening_english": "Hi! What games do you like playing?"
+        }
+      ]
+    }
+  ]
+}

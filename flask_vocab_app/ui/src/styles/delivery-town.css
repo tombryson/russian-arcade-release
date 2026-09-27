@@ -1,0 +1,32 @@
+.delivery-town { width:100%; color:#374f44; background:#e2e6c8; }
+.delivery-town-map { display:block; width:100%; height:clamp(410px,58dvh,720px); min-height:0; max-height:none; touch-action:none; user-select:none; cursor:grab; }
+.delivery-town-map:active { cursor:grabbing; }
+.delivery-town.is-overview .delivery-town-map { cursor:default; }
+.delivery-town.is-overview .delivery-town-map { height:auto; max-height:72dvh; }
+.delivery-town-district { font-family:var(--wp-font-reading); font-weight:650; letter-spacing:.7px; fill:#758269; paint-order:stroke; stroke:#e2e6c8; stroke-linejoin:round; }
+.delivery-town-place-label { font-family:var(--wp-font-reading); font-weight:650; text-anchor:middle; fill:#344d40; paint-order:stroke; stroke:#f2edda; stroke-linejoin:round; }
+.delivery-town-place-label.is-secondary { font-weight:550; }
+.delivery-town-entrance-label { font-family:var(--wp-font-reading); font-weight:650; fill:#365c4a; paint-order:stroke; stroke:#f2edda; stroke-linejoin:round; }
+.delivery-town-entrance.is-rear .delivery-town-entrance-label { fill:#7e613e; }
+.delivery-town-building.is-decorative { opacity:.88; }
+.delivery-town-node.is-available { cursor:pointer; }
+.delivery-town-node.is-available:hover>circle:nth-child(2) { fill:#f6c94f; }
+.delivery-town-node:focus-visible>circle:first-child { stroke:#294f82; stroke-width:3; fill:#fff1b33a; stroke-dasharray:4 4; }
+.delivery-town-tools { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:8px 12px; min-height:65px; padding:10px 14px; border-top:1px solid #bfc8a9; background:#eef0db; }
+.delivery-town-tools>div { display:flex; gap:5px; align-items:center; }
+.delivery-town-tools button { display:inline-flex; justify-content:center; align-items:center; min-height:42px; padding:8px 11px; border:1px solid #c4cbb3; border-radius:9px; background:#f8f7e8; color:#37574a; font:550 12px var(--wp-font-reading); cursor:pointer; }
+.delivery-town-tools button:hover:not(:disabled),.delivery-town-tools button[aria-pressed=true] { background:#dbe4c9; border-color:#9baa8a; }
+.delivery-town-tools button:focus-visible { outline:3px solid #4973a1; outline-offset:2px; }
+.delivery-town-tools .delivery-town-pan button,.delivery-town-tools .delivery-town-zoom button { width:38px; padding-inline:5px; font-size:20px; }
+.delivery-town-tools button:disabled { opacity:.4; cursor:default; }
+@media(min-width:1800px){.delivery-town-map { height:min(65dvh,850px); }}
+@media(max-width:1050px){.delivery-town-map { height:clamp(370px,54dvh,650px); }.delivery-town-tools { padding:9px; gap:8px; }.delivery-town-tools .delivery-town-pan button { width:32px; }}
+@media(max-width:760px){
+  .delivery-town.is-overview .delivery-town-districts { display:none; }
+  .delivery-town-map { height:clamp(360px,56dvh,560px); }
+  .delivery-town-tools { gap:8px; padding:9px 10px; }
+  .delivery-town-tools button { min-height:44px; padding-inline:9px; }
+  .delivery-town-pan { order:3; width:100%; justify-content:center; }
+  .delivery-town-tools .delivery-town-pan button { width:48px; }
+}
+@media(prefers-reduced-motion:reduce){.delivery-town-traveller { transition:none; }}

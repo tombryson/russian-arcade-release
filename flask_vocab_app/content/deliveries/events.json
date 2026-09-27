@@ -1,0 +1,46 @@
+{
+  "version": "delivery-events-v1",
+  "premises": [
+    {"id": "party-invitation", "item": "letter", "ru": "В письме — приглашение на праздник.", "en": "The letter contains an invitation to a celebration."},
+    {"id": "family-news", "item": "letter", "ru": "В письме — новости от семьи получателя.", "en": "The letter contains news from the recipient’s family."},
+    {"id": "return-book", "item": "parcel", "ru": "В посылке — книга, которую нужно вернуть владельцу.", "en": "The parcel contains a book that needs to be returned to its owner."},
+    {"id": "forgotten-gloves", "item": "parcel", "ru": "В посылке — забытые перчатки. Их нужно вернуть владельцу.", "en": "The parcel contains forgotten gloves. They need to be returned to their owner."}
+  ],
+  "circumstances": {
+    "sender-stays": {"ru": "Сейчас я не могу уйти отсюда. Спасибо за помощь с доставкой.", "en": "I cannot leave here right now. Thank you for helping with the delivery."},
+    "recipient-expects": {"ru": "Получатель уже ждёт.", "en": "The recipient is already waiting."},
+    "knows-address": {"ru": "Я знаю точный адрес и помогу тебе найти дорогу.", "en": "I know the exact address and will help you find the way."},
+    "informed-of-move": {"ru": "Мне оставили новый адрес, чтобы ты смог найти получателя.", "en": "I was given the new address so that you could find the recipient."}
+  },
+  "events": [
+    {
+      "id": "collection",
+      "weight": 1,
+      "required": true,
+      "requires": ["collection_point", "source_character"],
+      "effects": ["receive_item"],
+      "focus": ["destination", "landmark_relationship"]
+    },
+    {
+      "id": "address_clarification",
+      "weight": 0.6,
+      "requires": ["ambiguous_description", "informed_character"],
+      "effects": ["reveal_distinguishing_relationship"],
+      "focus": ["question", "landmark_relationship"]
+    },
+    {
+      "id": "entrance_choice",
+      "weight": 0.45,
+      "requires": ["separate_accessible_entrances"],
+      "effects": ["require_courtyard_entrance"],
+      "focus": ["entrance", "preposition"]
+    },
+    {
+      "id": "relocation",
+      "weight": 0.55,
+      "requires": ["informed_character", "reachable_second_address"],
+      "effects": ["replace_destination"],
+      "focus": ["changed_plan", "landmark_relationship"]
+    }
+  ]
+}

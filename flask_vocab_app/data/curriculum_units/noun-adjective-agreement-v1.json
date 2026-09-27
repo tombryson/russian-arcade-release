@@ -1,0 +1,292 @@
+{
+  "id": "noun-adjective-agreement-v1",
+  "level": "A1",
+  "topic_id": "clothing",
+  "title": "Describing clothes and objects",
+  "title_ru": "Описание вещей",
+  "summary": "Match an adjective to the item you are describing.",
+  "summary_ru": "Согласуйте прилагательное с названием вещи.",
+  "practice_summary": "Read the situations and choose the wording or detail that fits.",
+  "practice_summary_ru": "Прочитайте ситуации и выберите подходящую форму или нужную деталь.",
+  "groups": [
+    {
+      "title": "Singular · gender",
+      "title_ru": "Единственное число · род",
+      "note": "In a basic description, the adjective follows the noun’s gender: новый шарф, новая сумка, новое пальто. Пальто is neuter even though its ending does not change.",
+      "note_ru": "В описании прилагательное согласуется с существительным: новый шарф, новая сумка, новое пальто. Пальто — среднего рода; это слово не изменяется.",
+      "examples": [
+        {
+          "ru": "Это новый шарф.",
+          "en": "This is a new scarf."
+        },
+        {
+          "ru": "Это новая сумка.",
+          "en": "This is a new bag."
+        },
+        {
+          "ru": "Это новое пальто.",
+          "en": "This is a new coat."
+        }
+      ]
+    },
+    {
+      "title": "Plural · more than one",
+      "title_ru": "Множественное число",
+      "note": "A plural noun takes a plural adjective regardless of its singular gender. These examples use -ые; other adjectives can have -ие.",
+      "note_ru": "Во множественном числе род не различается. В этих примерах окончание -ые; у других прилагательных бывает -ие.",
+      "examples": [
+        {
+          "ru": "Это новые шарфы.",
+          "en": "These are new scarves."
+        },
+        {
+          "ru": "Это новые сумки.",
+          "en": "These are new bags."
+        },
+        {
+          "ru": "Это красные ботинки.",
+          "en": "These are red shoes."
+        }
+      ]
+    },
+    {
+      "title": "A different pattern · синий",
+      "title_ru": "Другие окончания · синий",
+      "note": "Learn синий, синяя, синее, синие together. These are nominative descriptions; forms after verbs and prepositions need their own patterns.",
+      "note_ru": "Запомните формы синий, синяя, синее, синие. Здесь предмет описывается в именительном падеже.",
+      "examples": [
+        {
+          "ru": "Шарф синий, а шапка синяя.",
+          "en": "The scarf is blue, and the hat is blue."
+        },
+        {
+          "ru": "Пальто синее, а ботинки синие.",
+          "en": "The coat is blue, and the shoes are blue."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "scarf-description",
+      "prompt": "Это шарф. Он совсем …",
+      "choices": [
+        {
+          "id": "new-m",
+          "text": "новый."
+        },
+        {
+          "id": "new-f",
+          "text": "новая."
+        },
+        {
+          "id": "new-n",
+          "text": "новое."
+        }
+      ],
+      "answer": "new-m",
+      "hint": "Шарф is masculine.",
+      "explanation": "Новый agrees with masculine шарф.",
+      "requirement_id": "a1.language.adjective-agreement",
+      "expectation": "Choose the masculine nominative adjective in the explicit scarf description."
+    },
+    {
+      "id": "coat-description",
+      "prompt": "На вешалке пальто. Это пальто …",
+      "choices": [
+        {
+          "id": "red-f",
+          "text": "красная."
+        },
+        {
+          "id": "red-n",
+          "text": "красное."
+        },
+        {
+          "id": "red-pl",
+          "text": "красные."
+        }
+      ],
+      "answer": "red-n",
+      "hint": "Пальто is neuter.",
+      "explanation": "Красное agrees with neuter пальто.",
+      "requirement_id": "a1.language.adjective-agreement",
+      "expectation": "Choose the neuter nominative adjective describing пальто."
+    },
+    {
+      "id": "shoes-description",
+      "prompt": "Эти ботинки … Мне нравится их цвет.",
+      "choices": [
+        {
+          "id": "blue-n",
+          "text": "синее."
+        },
+        {
+          "id": "blue-m",
+          "text": "синий."
+        },
+        {
+          "id": "blue-pl",
+          "text": "синие."
+        }
+      ],
+      "answer": "blue-pl",
+      "hint": "Ботинки is plural.",
+      "explanation": "Синие is the plural form of синий.",
+      "requirement_id": "a1.language.adjective-agreement",
+      "expectation": "Choose the plural adjective in the nominative description of ботинки."
+    },
+    {
+      "id": "shirt-description",
+      "prompt": "Это рубашка. Она …",
+      "choices": [
+        {
+          "id": "blue-f",
+          "text": "синяя."
+        },
+        {
+          "id": "blue-m",
+          "text": "синий."
+        },
+        {
+          "id": "blue-n",
+          "text": "синее."
+        }
+      ],
+      "answer": "blue-f",
+      "hint": "Рубашка is feminine.",
+      "explanation": "Синяя agrees with feminine рубашка.",
+      "requirement_id": "a1.language.adjective-agreement",
+      "expectation": "Choose the feminine nominative form синяя in the given description."
+    },
+    {
+      "id": "collection-note",
+      "prompt": "Нина пишет: «Моя сумка маленькая и чёрная. Большая чёрная сумка — не моя. Пожалуйста, принеси мою».\nКакая сумка нужна Нине?",
+      "choices": [
+        {
+          "id": "small-black",
+          "text": "Маленькая чёрная."
+        },
+        {
+          "id": "large-black",
+          "text": "Большая чёрная."
+        },
+        {
+          "id": "small-white",
+          "text": "Маленькая белая."
+        }
+      ],
+      "answer": "small-black",
+      "hint": "Both the size and the colour need to match.",
+      "explanation": "Nina describes her bag as small and black; she rules out the large black bag.",
+      "requirement_id": "a1.reading.practical-information",
+      "expectation": "Identify the requested bag using both size and colour, not either detail alone."
+    },
+    {
+      "id": "changed-coat",
+      "prompt": "У Веры два пальто: старое серое и новое зелёное. Сегодня холодно. Вера надела старое пальто, потому что оно тёплое.\nКакое пальто на Вере?",
+      "choices": [
+        {
+          "id": "new-green",
+          "text": "Новое зелёное."
+        },
+        {
+          "id": "old-grey",
+          "text": "Старое серое."
+        },
+        {
+          "id": "old-green",
+          "text": "Старое зелёное."
+        }
+      ],
+      "answer": "old-grey",
+      "hint": "Follow which coat she chose, not which one is new.",
+      "explanation": "Vera put on the old coat. The text identifies that coat as grey.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Connect старое пальто to the earlier grey-coat description and identify the coat chosen today."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Describing clothes and objects · word forms",
+    "summary": "Complete four short sentences.",
+    "summary_ru": "Дополните четыре коротких предложения.",
+    "questions": [
+      {
+        "id": "form-masculine",
+        "prompt": "Это ___ рюкзак. (новый)\nВпиши пропущенную форму слова.",
+        "answer": "новый",
+        "accepted_answers": [
+          "новый",
+          "новый рюкзак"
+        ],
+        "hint": "Рюкзак is masculine.",
+        "explanation": "Новый рюкзак is a masculine nominative description.",
+        "requirement_id": "a1.language.adjective-agreement",
+        "expectation": "Produce новый in the supplied construction. Accept only the listed word or equivalent phrase; this checks a controlled form, not free writing."
+      },
+      {
+        "id": "form-feminine",
+        "prompt": "Это ___ куртка. (новый)\nВпиши пропущенную форму слова.",
+        "answer": "новая",
+        "accepted_answers": [
+          "новая",
+          "новая куртка"
+        ],
+        "hint": "Куртка is feminine.",
+        "explanation": "Новая agrees with куртка.",
+        "requirement_id": "a1.language.adjective-agreement",
+        "expectation": "Produce новая in the supplied construction. Accept only the listed word or equivalent phrase; this checks a controlled form, not free writing."
+      },
+      {
+        "id": "form-neuter",
+        "prompt": "Это ___ платье. (синий)\nВпиши пропущенную форму слова.",
+        "answer": "синее",
+        "accepted_answers": [
+          "синее",
+          "синее платье"
+        ],
+        "hint": "Платье is neuter; use the синий pattern.",
+        "explanation": "Синее is the neuter form of синий.",
+        "requirement_id": "a1.language.adjective-agreement",
+        "expectation": "Produce синее in the supplied construction. Accept only the listed word or equivalent phrase; this checks a controlled form, not free writing."
+      },
+      {
+        "id": "form-plural",
+        "prompt": "Эти носки ___. (красный)\nВпиши пропущенную форму слова.",
+        "answer": "красные",
+        "accepted_answers": [
+          "красные"
+        ],
+        "hint": "Носки is plural.",
+        "explanation": "Красные describes more than one sock.",
+        "requirement_id": "a1.language.adjective-agreement",
+        "expectation": "Produce красные in the supplied construction. Accept only the listed word or equivalent phrase; this checks a controlled form, not free writing."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Чья это куртка?",
+    "title_en": "Describe your missing jacket",
+    "task": "Ты забыл куртку в гостях. Напиши хозяину дома: опиши цвет и размер куртки, скажи, где она, по твоему мнению, осталась, и попроси её найти. Детали можно придумать.",
+    "task_en": "You left a jacket at someone’s home. Write to your host: describe its colour and size, say where you think you left it, and ask them to find it. You may invent the details.",
+    "required_words": [
+      "куртка",
+      "цвет",
+      "найти"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.personal-message",
+    "id": "identify-missing-jacket",
+    "expectation": "Write an intelligible message to a host identifying a jacket by colour and size, giving a plausible last location, and asking for help finding it. Accept natural alternatives, invented details and short messages. Assess whether the host can act on the request; grammar feedback is separate from communicative success."
+  },
+  "writing_summary": "Describe a missing jacket so someone can find it.",
+  "writing_summary_ru": "Опишите потерянную куртку, чтобы её нашли.",
+  "review_status": "application-authored; qualified language review pending",
+  "speaking_href": "/#speaking/scenario/shop?level=A1",
+  "speaking_title": "Ask about clothes",
+  "speaking_title_ru": "Спросите об одежде",
+  "speaking_summary": "Use descriptions in a separate shop conversation.",
+  "speaking_summary_ru": "Попробуйте описывать вещи в отдельном разговоре в магазине."
+}

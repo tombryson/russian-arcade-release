@@ -1,0 +1,85 @@
+<nav
+    class="sidebar navbar navbar-dark bg-dark"
+    id="sidebar"
+    aria-label="{{ activity_navigation.title }}"
+>
+    <div class="container-fluid">
+        <div class="sidebar-brand-row">
+            <a class="sidebar-brand" href="/#home" hx-boost="false"><span lang="ru" aria-hidden="true">Я</span><strong>{{ ui_t('app.title') }}</strong></a>
+        </div>
+        <button
+            class="navbar-toggler d-lg-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#sidebarNav"
+            aria-controls="sidebarNav"
+            aria-expanded="false"
+            aria-label="{{ 'Открыть меню занятий' if ui_lang == 'ru' else 'Toggle activity navigation' }}"
+        >
+            <span class="navbar-toggler-icon"></span>
+            <span class="sidebar-mobile-label">{{ activity_navigation.title }}</span>
+        </button>
+        <div class="collapse navbar-collapse d-lg-block" id="sidebarNav">
+            <div class="sidebar-content">
+                <div class="sidebar-menu-scroll">
+                    <a class="sidebar-title" href="/#activities" hx-boost="false">{{ activity_navigation.title }}</a>
+                    <div
+                        class="sidebar-pages"
+                        hx-boost="true"
+                        hx-target="#mainContent"
+                        hx-select="#mainContent"
+                        hx-swap="outerHTML show:none"
+                        hx-push-url="true"
+                    >
+                        {% for item in activity_navigation.activities if item.page != 'curriculum' %}
+                        <a
+                            class="sidebar-link {% if active_page == item.page %}active{% endif %}"
+                            href="{{ item.href }}"
+                            {% if not item.boost %}hx-boost="false"{% endif %}
+                            {% if active_page == item.page %}aria-current="page"{% endif %}
+                        >{{ item.label }}</a>
+                        {% endfor %}
+                        <a class="sidebar-link" href="/#shop" hx-boost="false">{{ 'Магазин' if ui_lang == 'ru' else 'Shop' }}</a>
+                        {% for item in activity_navigation.activities if item.page == 'curriculum' %}
+                        <a class="sidebar-link {% if active_page == item.page %}active{% endif %}" href="{{ item.href }}" hx-boost="false"{% if active_page == item.page %} aria-current="page"{% endif %}>{{ item.label }}</a>
+                        {% endfor %}
+                    </div>
+                    <details class="sidebar-more-tools" {% if active_page == 'flashcards' %}open{% endif %}>
+                        <summary>{{ activity_navigation.more }}</summary>
+                        {% for item in activity_navigation.tools if item.page != 'sentences_saved' %}
+                        <a
+                            class="sidebar-link {% if active_page == item.page %}active{% endif %}"
+                            href="{{ item.href }}"
+                            hx-boost="{{ 'true' if item.boost else 'false' }}"
+                            hx-target="#mainContent"
+                            hx-select="#mainContent"
+                            hx-swap="outerHTML show:none"
+                            hx-push-url="true"
+                            {% if active_page == item.page %}aria-current="page"{% endif %}
+                        >{{ item.label }}</a>
+                        {% endfor %}
+                    </details>
+                </div>
+                <div class="sidebar-footer">
+                    <div class="sidebar-shortcuts">
+                        <a class="sidebar-shortcut sidebar-icon-link {% if active_page == 'sentences_saved' %}active{% endif %}" href="/sentences/saved" hx-boost="false" aria-label="{{ ui_t('sentences.saved_title') }}" title="{{ ui_t('sentences.saved_title') }}" {% if active_page == 'sentences_saved' %}aria-current="page"{% endif %}>
+                            <svg class="sidebar-icon-book" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+                        </a>
+                        <a class="sidebar-shortcut sidebar-icon-link {% if active_page == 'vocab' %}active{% endif %}" href="/vocab" hx-boost="false" aria-label="{{ ui_t('nav.my_words') }}" title="{{ ui_t('nav.my_words') }}" {% if active_page == 'vocab' %}aria-current="page"{% endif %}>
+                            <svg class="sidebar-icon-list" fill="currentColor" aria-hidden="true" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. --><path d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM16 232v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V232c0-13.3-10.7-24-24-24H40c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V392c0-13.3-10.7-24-24-24H40z"/></svg>
+                        </a>
+                    </div>
+                    <div class="sidebar-balance">{% include '_progression.html' %}</div>
+                    {% include '_skill_progress.html' %}
+                </div>
+                <div class="sidebar-account">
+                    <div class="sidebar-utilities">
+                        {% include '_user_session.html' %}
+                        {% include '_language_picker.html' %}
+                        {% include '_appearance_picker.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

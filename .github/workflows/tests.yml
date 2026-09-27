@@ -1,0 +1,29 @@
+name: Application tests
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install media and OCR tools
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg poppler-utils tesseract-ocr tesseract-ocr-rus
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+          cache-dependency-path: flask_vocab_app/ui/package-lock.json
+      - run: npm ci --prefix flask_vocab_app/ui
+      - run: npm run build --prefix flask_vocab_app/ui
+      - run: npm test --prefix flask_vocab_app/ui -- --maxWorkers=2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: flask_vocab_app/requirements.lock
+      - run: python -m pip install --require-hashes -r flask_vocab_app/requirements.lock
+      - run: python -m unittest discover -s flask_vocab_app/tests -t flask_vocab_app -v
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+          WORD_POST_REQUIRE_BUILD: '1'

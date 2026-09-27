@@ -1,0 +1,293 @@
+{
+  "id": "personal-reference-v1",
+  "level": "A1",
+  "topic_id": "family",
+  "title": "Referring to people",
+  "title_ru": "Как говорить о людях",
+  "summary": "Use a person’s name first, then keep pronouns tied to the right person and role.",
+  "summary_ru": "Назовите человека и выберите местоимение по его роли в предложении.",
+  "practice_summary": "Read the situations and choose the wording or detail that fits.",
+  "practice_summary_ru": "Прочитайте ситуации и выберите подходящую форму или нужную деталь.",
+  "groups": [
+    {
+      "title": "Who acts? · он, она, они",
+      "title_ru": "Кто действует? · он, она, они",
+      "note": "After naming someone, use он, она or они when the reference is clear. Repeat a name when two people could fit.",
+      "note_ru": "После имени можно использовать он, она или они, если понятно, о ком речь. Если есть двусмысленность, повторите имя.",
+      "examples": [
+        {
+          "ru": "Это Олег. Он мой брат.",
+          "en": "This is Oleg. He is my brother."
+        },
+        {
+          "ru": "Это Тамара. Она врач.",
+          "en": "This is Tamara. She is a doctor."
+        },
+        {
+          "ru": "Олег и Тамара дома. Они готовят ужин.",
+          "en": "Oleg and Tamara are at home. They are making dinner."
+        }
+      ]
+    },
+    {
+      "title": "Whom? To whom?",
+      "title_ru": "Кого? Кому?",
+      "note": "A pronoun changes with its role: вижу его/её, but звоню ему/ей. Learn these with the verb, not as interchangeable forms.",
+      "note_ru": "Форма зависит от роли: вижу его/её, но звоню ему/ей. Запоминайте местоимение вместе с глаголом.",
+      "examples": [
+        {
+          "ru": "Я вижу Олега. Я вижу его.",
+          "en": "I see Oleg. I see him."
+        },
+        {
+          "ru": "Я звоню Тамаре. Я звоню ей.",
+          "en": "I am calling Tamara. I am calling her."
+        },
+        {
+          "ru": "Я даю детям книгу. Я даю им книгу.",
+          "en": "I give the children a book. I give them a book."
+        }
+      ]
+    },
+    {
+      "title": "У него and его книга",
+      "title_ru": "У него и его книга",
+      "note": "After у, use него, неё, них for a person. Possessive его/её/их describes whose item it is and stays unchanged: его сумка, его книги.",
+      "note_ru": "После у: у него, у неё, у них. Притяжательные его/её/их не изменяются: его сумка, его книги.",
+      "examples": [
+        {
+          "ru": "У него есть сумка. Это его сумка.",
+          "en": "He has a bag. This is his bag."
+        },
+        {
+          "ru": "У неё есть книги. Это её книги.",
+          "en": "She has books. These are her books."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "named-person",
+      "prompt": "Это Ирина, а рядом её брат Павел. Он учится в школе.\nКто учится в школе?",
+      "choices": [
+        {
+          "id": "irina",
+          "text": "Ирина."
+        },
+        {
+          "id": "pavel",
+          "text": "Павел."
+        },
+        {
+          "id": "both",
+          "text": "Ирина и Павел."
+        }
+      ],
+      "answer": "pavel",
+      "hint": "Он refers to the named male person.",
+      "explanation": "Он refers to Павел, not Ирина.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Identify Павел as the unambiguous masculine subject-pronoun referent."
+    },
+    {
+      "id": "see-person",
+      "prompt": "Я вижу Анну у двери. Как заменить имя?",
+      "choices": [
+        {
+          "id": "her",
+          "text": "Я вижу её у двери."
+        },
+        {
+          "id": "to-her",
+          "text": "Я вижу ей у двери."
+        },
+        {
+          "id": "she",
+          "text": "Я вижу она у двери."
+        }
+      ],
+      "answer": "her",
+      "hint": "Вижу кого?",
+      "explanation": "Её replaces Анну as the person seen.",
+      "requirement_id": "a1.language.personal-pronoun-cases",
+      "expectation": "Replace the animate direct object Анну with её while retaining the verb role."
+    },
+    {
+      "id": "call-person",
+      "prompt": "Я звоню Диме. Как заменить имя?",
+      "choices": [
+        {
+          "id": "him",
+          "text": "Я звоню его."
+        },
+        {
+          "id": "to-him",
+          "text": "Я звоню ему."
+        },
+        {
+          "id": "he",
+          "text": "Я звоню он."
+        }
+      ],
+      "answer": "to-him",
+      "hint": "Звоню кому?",
+      "explanation": "Ему replaces Диме after звоню.",
+      "requirement_id": "a1.language.personal-pronoun-cases",
+      "expectation": "Use dative ему for the person receiving the call."
+    },
+    {
+      "id": "possessive-person",
+      "prompt": "Это Виктор. Рядом стоят … ботинки. Ботинки принадлежат Виктору.",
+      "choices": [
+        {
+          "id": "his",
+          "text": "его"
+        },
+        {
+          "id": "to-him",
+          "text": "ему"
+        },
+        {
+          "id": "after-prep",
+          "text": "него"
+        }
+      ],
+      "answer": "his",
+      "hint": "Whose shoes? There is no preposition before the pronoun.",
+      "explanation": "Его ботинки means his shoes. This possessive form does not agree with the plural noun.",
+      "requirement_id": "a1.language.pronoun-reference",
+      "expectation": "Choose possessive его to identify the stated owner, without adding the post-preposition н."
+    },
+    {
+      "id": "give-message",
+      "prompt": "Маша пишет Ване: «У меня твоя книга. Я дам её тебе завтра у школы».\nЧто Маша даст Ване?",
+      "choices": [
+        {
+          "id": "book",
+          "text": "Книгу."
+        },
+        {
+          "id": "school",
+          "text": "Школу."
+        },
+        {
+          "id": "message",
+          "text": "Записку."
+        }
+      ],
+      "answer": "book",
+      "hint": "Find the object referred to by её.",
+      "explanation": "Её refers to the book. Тебе refers to Vanya, the person receiving the message.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Resolve the object pronoun её to книга in the written handover message."
+    },
+    {
+      "id": "where-to-go",
+      "prompt": "Оля звонит брату: «У меня нет ключа. Наш сосед Андрей дома. Ключ у него. Попроси его открыть дверь».\nКого нужно попросить открыть дверь?",
+      "choices": [
+        {
+          "id": "olya",
+          "text": "Олю."
+        },
+        {
+          "id": "brother",
+          "text": "Брата."
+        },
+        {
+          "id": "andrey",
+          "text": "Андрея."
+        }
+      ],
+      "answer": "andrey",
+      "hint": "The key-holder is the neighbour named in the message.",
+      "explanation": "У него and попроси его both refer to Андрей. The brother is being asked to contact him.",
+      "requirement_id": "a1.reading.practical-information",
+      "expectation": "Identify the neighbour as the person to ask for help using the explicit pronoun chain, rather than the message sender or addressee."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Referring to people · word forms",
+    "summary": "Complete four short sentences.",
+    "summary_ru": "Дополните четыре коротких предложения.",
+    "questions": [
+      {
+        "id": "form-direct-object",
+        "prompt": "Это Борис. Я хорошо знаю ___. (он)\nВпиши пропущенную форму слова.",
+        "answer": "его",
+        "accepted_answers": [
+          "его",
+          "знаю его"
+        ],
+        "hint": "Знаю кого?",
+        "explanation": "Его is the object form after знаю.",
+        "requirement_id": "a1.language.personal-pronoun-cases",
+        "expectation": "Produce его in the supplied construction. Accept only the listed word or equivalent phrase; this checks a controlled form, not free writing."
+      },
+      {
+        "id": "form-recipient",
+        "prompt": "Это Нина. Я даю ___ билет. (она)\nВпиши пропущенную форму слова.",
+        "answer": "ей",
+        "accepted_answers": [
+          "ей",
+          "даю ей"
+        ],
+        "hint": "Даю кому?",
+        "explanation": "Ей identifies the recipient of the ticket.",
+        "requirement_id": "a1.language.personal-pronoun-cases",
+        "expectation": "Produce ей in the supplied construction. Accept only the listed word or equivalent phrase; this checks a controlled form, not free writing."
+      },
+      {
+        "id": "form-after-u",
+        "prompt": "Это Антон. У ___ есть машина. (он)\nВпиши пропущенную форму слова.",
+        "answer": "него",
+        "accepted_answers": [
+          "него",
+          "у него"
+        ],
+        "hint": "After у, он becomes него.",
+        "explanation": "У него uses н after the preposition у.",
+        "requirement_id": "a1.language.personal-pronoun-cases",
+        "expectation": "Produce него in the supplied construction. Accept only the listed word or equivalent phrase; this checks a controlled form, not free writing."
+      },
+      {
+        "id": "form-possessive",
+        "prompt": "Это Лена. Эта сумка принадлежит Лене. Это ___ сумка. (она)\nВпиши пропущенную форму слова.",
+        "answer": "её",
+        "accepted_answers": [
+          "её",
+          "её сумка"
+        ],
+        "hint": "Whose bag? Use the possessive form.",
+        "explanation": "Её сумка means her bag. There is no н in this possessive form.",
+        "requirement_id": "a1.language.pronoun-reference",
+        "expectation": "Produce её in the supplied construction. Accept only the listed word or equivalent phrase; this checks a controlled form, not free writing."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Познакомьтесь!",
+    "title_en": "Introduce someone to a friend",
+    "task": "Твой друг ещё не знает одного из твоих родственников или друзей. Напиши короткое знакомство: назови человека, расскажи, чем он занимается и что любит. Предложи встретиться вместе. Можно придумать человека.",
+    "task_en": "Your friend has not met one of your relatives or friends. Introduce that person in a short message: give their name, say what they do and what they enjoy. Suggest meeting together. You may invent the person.",
+    "required_words": [
+      "друг",
+      "любит",
+      "встретиться"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.personal-message",
+    "id": "introduce-person-message",
+    "expectation": "Introduce a clearly identifiable person to a friend, give an occupation or everyday activity and an interest, and propose meeting together. Accept invented people, natural names/pronouns and concise alternatives. The reader must be able to tell who each statement concerns; do not demand a fixed number of pronouns or perfect grammar."
+  },
+  "writing_summary": "Introduce someone and suggest meeting together.",
+  "writing_summary_ru": "Представьте человека и предложите встретиться.",
+  "review_status": "application-authored; qualified language review pending",
+  "speaking_href": "/#speaking/scenario/meet-someone?level=A1",
+  "speaking_title": "Meet someone",
+  "speaking_title_ru": "Познакомьтесь",
+  "speaking_summary": "Continue with a separate conversation about people and interests.",
+  "speaking_summary_ru": "Продолжите отдельным разговором о людях и интересах."
+}

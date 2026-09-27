@@ -1,0 +1,4235 @@
+{
+  "schema_version": 1,
+  "map_version": "curriculum-requirement-map-v1",
+  "reference_version": "torfl-reference-v1",
+  "legacy_catalogue_version": "a1-targets-v1",
+  "review": {
+    "kind": "model_review",
+    "reviewed_on": "2026-09-23",
+    "human_validated": false,
+    "note": "Definition-level editorial comparison only. No historical learner evidence is transferred and no task or exam equivalence is certified."
+  },
+  "policy": {
+    "automatic_evidence_transfer": false,
+    "legacy_item_links_establish_reference_coverage": false
+  },
+  "requirements": [
+    {
+      "requirement_id": "a1.language.noun-gender-number-animacy",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2, pp. 11–14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.nominative-subject",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.nominative-identification",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.nominative-address",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.nominative-role",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.nominative-event",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.nominative-existence",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.genitive-possession",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.genitive-part-whole",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.genitive-absence",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.genitive-quantity",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.genitive-calendar-month",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.genitive-origin",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.genitive-owner-u",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.dative-recipient",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.dative-age",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.dative-need",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.dative-person-destination",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.accusative-object",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.accusative-name-pattern",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.accusative-duration",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.accusative-destination",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.accusative-clock-weekday",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.instrumental-activity",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.instrumental-profession",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.instrumental-company",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.instrumental-ingredient",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.prepositional-topic",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.prepositional-location",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.prepositional-transport",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.personal-pronoun-cases",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.3, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.pronoun-reference",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.3, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.adjective-agreement",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.4, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.adjective-oblique-recognition",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.4, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.short-adjective-state",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.4, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.verb-conjugation",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.verb-tense",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.verb-aspect",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.imperative",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.verb-government",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.motion-basic-pairs",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.motion-departure-arrival",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.5, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.cardinal-and-ordinal",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.6, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.word-structure",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.1, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.adverb-reference",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.7, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.sentence-negation",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.1, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.impersonal-modal",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.7, p. 14; §2.3.1–2.3.2, pp. 14–15"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.coordination",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.4, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.time-and-reason-clauses",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.4, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.complement-clauses",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.4, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.relative-reference",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.4, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.reported-speech",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.5, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.language.neutral-word-order",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.3.6, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.reading.cyrillic-decoding",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.1, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.reading.practical-information",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.2, p. 7; §1.2.2, p. 9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.reading.narrative-meaning",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.2, p. 9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.2, p. 9; §2.3, pp. 14–16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.listening.sound-contrasts",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.1, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.listening.short-message",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.1 A, p. 8"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.listening.dialogue-intention",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.1 B, p. 8"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.writing.personal-message",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.3, p. 9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.writing.connected-description",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.3, p. 8; §1.2.3, p. 9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.writing.source-based-message",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.3, p. 9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.speaking.intelligibility",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.1, p. 11; §1.2.4, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.speaking.social-etiquette",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.1, p. 7; §1.2.4 B, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.speaking.personal-information",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.3, p. 8; §1.2.4 A, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.speaking.ask-and-answer",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.1–1.1.2, p. 7; §1.2.4 B, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.speaking.request-and-response",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.1, p. 7; §1.2.4 B, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.speaking.repair",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.1, p. 7; §1.2.4 B, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a1.speaking.simple-retelling",
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.4 A, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.nominative-needed-item",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.nominative-calendar-time",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.nominative-state-cause",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.genitive-partitive",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.genitive-absence-time",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.genitive-indefinite-quantity",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.genitive-event-date",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.genitive-person-location",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.genitive-person-origin",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.genitive-route-limit",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.genitive-time-relations",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.dative-age-named-person",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.dative-necessity-named-person",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, pp. 12–13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.dative-experiencer",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.dative-route-po",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.dative-medium-po",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.dative-subject-po",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.accusative-recurrence",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.instrumental-role-change",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.instrumental-interest",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.instrumental-spatial-relations",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.prepositional-calendar-time",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.adjective-case-agreement",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.4, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.adjective-comparison",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.4, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.possessive-svoj",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.3, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.determiner-reference",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.3, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.pronoun-oblique-agreement",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.3, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.motion-flying",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.5, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.motion-carrying",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.5, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.motion-conveying",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.5, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.motion-enter-exit",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.5, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.motion-leaving",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.5, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.motion-aspect-context",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.5, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.reflexive-complement",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.5, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.expanded-verb-forms",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.5, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.aspect-phase-and-result",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.5, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.ordinal-declension",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.6, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.noun-derivation",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.1, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.adjective-adverb-derivation",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.1, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.verb-derivation",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.1, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.question-and-negative-particles",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.8, p. 15"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.future-time-offset",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.2.8, p. 15"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.conditional-clause",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.3.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.purpose-clause",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.3.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.cause-consequence",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.3.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.indirect-questions-requests",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.3.6, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.relative-clause-agreement",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.3.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.indefinite-personal",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.3.1, p. 15"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.language.information-structure",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.3.4, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.reading.gist-and-detail",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.2.2, p. 9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.reading.strategy",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.2.2, p. 9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.reading.event-relations",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.2.2, p. 9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.reading.functional-response",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.1.2, p. 7; §1.2.2, p. 9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.listening.monologue-details",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.2.1 A, p. 8"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.listening.dialogue-intentions",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.2.1 B, p. 8"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.listening.practical-details",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.1.2, p. 7; §1.2.1, p. 8"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.listening.intonation-function",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§2.1, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.writing.personal-correspondence",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.2.3, p. 9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.writing.source-reformulation",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.2.3, p. 9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.writing.connected-narrative",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.2.3, p. 9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.writing.communicative-control",
+      "source_refs": [
+        {
+          "source_id": "bsu-a2-model-test",
+          "locator": "Writing assessment sheets, PDF pp. 31–33"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.speaking.initiate-and-sustain",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.2.4 B, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.speaking.clarify-and-repair",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.1.1, p. 7; §1.2.4 B, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.speaking.intention-and-advice",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.1.1, p. 7; §1.2.4 B, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.speaking.connected-account",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.1.3, p. 8; §1.2.4 A, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.speaking.retell-and-evaluate",
+      "source_refs": [
+        {
+          "source_id": "msu-a2-2001",
+          "locator": "§1.2.4 A, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "a2.speaking.communicative-intelligibility",
+      "source_refs": [
+        {
+          "source_id": "bsu-a2-model-test",
+          "locator": "Speaking assessment sheets, PDF pp. 38–41"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.word-formation",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.1, pp. 11–12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.listening.stress-intonation",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.1, p. 11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.noun-number-animacy",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.nominative-roles",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.genitive-quantity-possession",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.genitive-source-cause",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, pp. 13–14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.dative-recipient-experiencer",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.dative-direction-distribution",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.accusative-object",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 15"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.accusative-time-route",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 15"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.instrumental-role-means",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 15"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.instrumental-space-company",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, pp. 15–16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.prepositional-contexts",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.2, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.adjective-agreement",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.4, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.adjectives-short-comparison",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.4, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.pronoun-reference",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.3, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.pronoun-negation",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.3, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.numeral-phrases",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.6, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.adverb-meaning",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.7, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.verb-forms-tense",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, pp. 16–17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.aspect-in-context",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, pp. 16–17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.imperative-conditional",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.government-reflexivity",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.motion-direction-frequency",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.motion-prefixes",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.1, p. 12; §2.2.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.participles-active",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.participles-passive",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.adverbial-participles",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.subject-predicate-impersonal",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§§2.3.1–2.3.2, pp. 18–19"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.relative-complement-clauses",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.3.5, p. 21"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.time-cause-purpose",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.3.5, p. 21"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.condition-concession-comparison",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.3.5, p. 21"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.reported-speech",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.3.6, p. 21"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.language.word-order-particles",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.8, pp. 17–18; §2.3.4, p. 20"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.reading.main-point",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.2, pp. 9–10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.reading.details-sequence",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.2, pp. 9–10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.reading.attitude-reasons",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.2, pp. 9–10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.reading.summary-fidelity",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.2, pp. 9–10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.listening.main-point",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.1, pp. 8–9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.listening.detail-sequence",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.1, pp. 8–9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.listening.dialogue-intention",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.1, pp. 8–9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.listening.reasons-response",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.1, pp. 8–9"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.writing.connected-account",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.3, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.writing.summary-response",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.3, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.writing.purposeful-message",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.3, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.writing.opinion-reasons",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.3, p. 10"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.speaking.initiate-complete-exchange",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.4, pp. 10–11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.speaking.clarify-repair",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.1.1, p. 7; §1.2.4, pp. 10–11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.speaking.retell-experience",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.4, pp. 10–11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b1.speaking.view-and-reasons",
+      "source_refs": [
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§1.2.4, pp. 10–11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.derivation-meaning",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.1, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.listening.intonation-intention",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.1, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.nominative-description",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.2, p. 15"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.genitive-verbal-nouns",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.2, p. 15"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.genitive-negation-cause",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.2, p. 15"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.dative-logical-subject",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.2, p. 15"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.accusative-measure-time",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.2, p. 15"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.instrumental-function",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.2, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.prepositional-circumstance",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.2, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.adjectives-predicate-comparison",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.3, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.pronouns-indefinite-negative",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.4, p. 16"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.numerals-agreement",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2, numeral subsection, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.adverbs-degree-comparison",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.7, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.aspect-negation-mood",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.voice-reflexive-government",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.motion-developed-context",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.5, p. 17"
+        },
+        {
+          "source_id": "msu-b1-2009",
+          "locator": "§2.2.5, p. 17; inherited B1 motion coverage"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.participial-description",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.passive-state-event",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.adverbial-participle-relations",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.5, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.preposition-polysemy",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.8, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.particles-stance",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.2.8, p. 17"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.subject-predicate-structures",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.3.2, p. 18"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.cause-purpose-condition",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.3.4, p. 19; §2.3.6, p. 20"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.time-concession-manner",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.3.4, p. 19; §2.3.6, p. 20"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.reported-perspective",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.3.4, p. 20"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.word-order-focus",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.3.5, p. 20"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.active-passive-transformation",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.3.7, p. 20"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.relative-participle-transformation",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.3.7, p. 20"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.adverbial-clause-transformation",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.3.7, p. 20"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.nominal-verbal-reformulation",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.3.7, p. 20"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.register-selection",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.3.8, p. 21"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.language.lexical-collocation",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§2.4, p. 21"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.reading.find-relevant-information",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.2, pp. 11–12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.reading.argument-structure",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.2, pp. 11–12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.reading.author-evaluation",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.2, pp. 11–12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.reading.narrative-perspective",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.2, pp. 11–12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.reading.integrated-summary",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.2, pp. 11–12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.listening.natural-speed-information",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.1, pp. 10–11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.listening.intent-and-motive",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.1, pp. 10–11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.listening.conventional-implication",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.1, pp. 10–11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.listening.relationship-and-attitude",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.1, pp. 10–11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.listening.dialogue-development",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.1, pp. 10–11"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.writing.compress-source",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.3, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.writing.formal-document",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.3, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.writing.correspondence-register",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.3, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.writing.reasoned-evaluation",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.3, p. 12"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.writing.integrated-language-control",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.3, p. 12; §2.3.8, p. 21"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.speaking.manage-inquiry",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.4, pp. 12–13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.speaking.situation-tactics",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.4, pp. 12–13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.speaking.reasoned-monologue",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.4, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.speaking.unprepared-conversation",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.4, p. 13"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    },
+    {
+      "requirement_id": "b2.speaking.spoken-register-intonation",
+      "source_refs": [
+        {
+          "source_id": "msu-b2-1999",
+          "locator": "§1.2.4, pp. 12–13; §2.1, p. 14"
+        }
+      ],
+      "source_review": "model_reviewed",
+      "assessment_validation": "not_validated"
+    }
+  ],
+  "mappings": [
+    {
+      "legacy_target_id": "a1.greetings.polite-greeting.read",
+      "legacy_definition_sha256": "a624f67a74b18d53d09e1aae302d58cb0d3896ee7be5ebe56698afe4d0f43c80",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.speaking.social-etiquette",
+          "relation": "related",
+          "rationale": "Choosing a suitable written greeting is related to social etiquette but does not elicit original speech. No matching broad reading capability is established by this reply choice alone.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.greetings.polite-greeting.listen",
+      "legacy_definition_sha256": "5b8145235e3da5fba7ccee67793e1e3df0a6f4729ca58f61c2f7520252c9dfed",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.dialogue-intention",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: Relationship and exchange stage, rather than a complete account or range of intentions.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.greetings.polite-greeting.write",
+      "legacy_definition_sha256": "a12f5285c45eca5935ffde55135b86eedf2545e046aea4a97934532b73369fe9",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.writing.personal-message",
+          "relation": "partial",
+          "rationale": "A greeting/farewell omits the broader message content and etiquette purposes.",
+          "allowed_response_modes": [
+            "independent_writing"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.greetings.polite-greeting.speak",
+      "legacy_definition_sha256": "e41e6914254a53f6f048eca530075bb0a0b01aff3f0c064adcb363036e04a428",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.speaking.social-etiquette",
+          "relation": "partial",
+          "rationale": "A greeting/farewell omits the broader message content and etiquette purposes.",
+          "allowed_response_modes": [
+            "independent_speaking"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.greetings.exchange-names.read",
+      "legacy_definition_sha256": "8dd67b9cd80742b4faf264a68d9e1a596eda52761f6899a268f71f7fb9bbac98",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: The name and who is being addressed, rather than the broader everyday information inventory.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.greetings.exchange-names.listen",
+      "legacy_definition_sha256": "a68e960ad95fafc6d55f3f06f8b3d6fe45cb3a8641409fb61d50845d82eeb05a",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: The name and who is being addressed, rather than the broader everyday information inventory.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.greetings.exchange-names.write",
+      "legacy_definition_sha256": "3d9a7bb6fb261d2aed485282003d16164b2606cab476cf2cc7d213baccb9df97",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.writing.personal-message",
+          "relation": "partial",
+          "rationale": "A name exchange is a narrow purpose and does not establish a connected introduction.",
+          "allowed_response_modes": [
+            "independent_writing"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.greetings.exchange-names.speak",
+      "legacy_definition_sha256": "304c637855ba2f489556ce2f983742551c4f48bd29036947b00c76ef5bae686f",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.speaking.ask-and-answer",
+          "relation": "partial",
+          "rationale": "A name exchange is a narrow purpose and does not establish a connected introduction.",
+          "allowed_response_modes": [
+            "independent_speaking"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.greetings.personal-pronouns.select",
+      "legacy_definition_sha256": "f2f92843dbb9aacd2ae846fbe609f5537dc09ebccf9356396bbe196db711715f",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.personal-pronoun-cases",
+          "relation": "partial",
+          "rationale": "Only nominative personal reference in introductions is sampled; oblique role-preserving replacements remain untested.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.greetings.name-pattern.select",
+      "legacy_definition_sha256": "25d72195df055bbb6672d34ca8f9b0dadd37602094f48249f626bcad738ebc34",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.accusative-name-pattern",
+          "relation": "equivalent",
+          "rationale": "Both require the fixed naming pattern while distinguishing the person named from speaker and addressee; the selection mode matches.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.greetings.polite-address.select",
+      "legacy_definition_sha256": "82fb15840c4278a39e15925c43ce172f4864be81c615e70f4bcbcac29819f40e",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.pronoun-reference",
+          "relation": "partial",
+          "rationale": "Tests the familiar/polite address contrast only, not the broader pronoun reference inventory.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.numbers.recognise-number.read",
+      "legacy_definition_sha256": "b49e305d9a0d7f2ebffecd8ce3dada91da1be716a484f6e471e5b0100eafbc2d",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One number between one and ten, not connected message comprehension.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.numbers.recognise-number.listen",
+      "legacy_definition_sha256": "29fd8bb0fc301cbff63eb82031f497e44fbfb3eb67750e71dff51c2caad0549f",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One number between one and ten, not connected message comprehension.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.numbers.recognise-number.write",
+      "legacy_definition_sha256": "d50e0dd3da38e6ab007a04a20f97271862a3a9a0c27a76b6fd00f1d5e28ba846",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.numbers.recognise-number.speak",
+      "legacy_definition_sha256": "0024ed6821787d74c676d7e040519cfdd39534e8614587d96b436d97a0bb39a9",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.numbers.event-time.read",
+      "legacy_definition_sha256": "8ab0fefbcd7625913e4e858e798e6486cda00580dde07f0cb11cff7fb9e7f478",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One event time, not the wider source information requirement.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.numbers.event-time.listen",
+      "legacy_definition_sha256": "2f33e8f4fe064aa3fae1570cb0161ef776e0a7deeaf9beb2fe82ba9184d7f26a",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One event time, not the wider source information requirement.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.numbers.event-time.write",
+      "legacy_definition_sha256": "cda908abac5944ede703e4a71213f26831a1b4518d4d8759d6adad0c0a4e53f7",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.numbers.event-time.speak",
+      "legacy_definition_sha256": "03c1033b0ba943622f7ca01eb134e10a90531b23b05e60c00eeb54944695ad41",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.numbers.clock-hour-forms.select",
+      "legacy_definition_sha256": "e752a7995ec13c03cd23445f95d9fc6eec374164ecfa5fad4e1f4bff733e8eaa",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.genitive-quantity",
+          "relation": "partial",
+          "rationale": "Hour phrases sample noun quantity forms; other nouns, numbers and quantity contexts are not established.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.numbers.parts-of-day.select",
+      "legacy_definition_sha256": "ff1a6cf2c096316dac6bb19210055a125a53d6dfee2bc4207f16e29a581655ed",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.adverb-reference",
+          "relation": "partial",
+          "rationale": "Only morning/evening time adverbs are distinguished.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.numbers.time-versus-duration.select",
+      "legacy_definition_sha256": "70b053d5d7baee3fd8c0972dc9426e2fd59a75e860831ed92c7535230f3d2168",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.accusative-duration",
+          "relation": "partial",
+          "rationale": "Distinguishes event time from duration in a narrow hour construction.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.family.identify-relatives.read",
+      "legacy_definition_sha256": "2af384cea84e4f0ae1a3a56b2388f9fc129dcd2e43c738790d054a0237401bb3",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.reference-and-sequence",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One relationship and participant reference, not complete sequence or message coverage.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.family.identify-relatives.listen",
+      "legacy_definition_sha256": "bd8ebaaf734baa5beed8469046150a58a1709cc4eaef6b5782402e86c9eea315",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One relationship and participant reference, not complete sequence or message coverage.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.family.identify-relatives.write",
+      "legacy_definition_sha256": "30ce6c0fbf356a60b23a0c27a98316648c475515b01e42d3ffa819c2f63a286d",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.family.identify-relatives.speak",
+      "legacy_definition_sha256": "3dcdb00a2116f5c1d6684b85a912363563d961eaaf0fe7225788de290b9bca30",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.family.describe-family.read",
+      "legacy_definition_sha256": "aef095de7ece57b7c0a33bddde881db5e15117b9876210065505daa50a79c22f",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.reference-and-sequence",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: Family participant relationships, not the broader connected account requirement.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.family.describe-family.listen",
+      "legacy_definition_sha256": "e99fbd9c29eaa92c724161de9f1d9667e2d6b0f5f679d62f1bf00c928bc1851c",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: Family participant relationships, not the broader connected account requirement.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.family.describe-family.write",
+      "legacy_definition_sha256": "674410aaa1378788b57f303eeecd6c88c787d651ba5a6172182e412a5f80abaa",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.writing.connected-description",
+          "relation": "partial",
+          "rationale": "A family description samples this wider descriptive capability.",
+          "allowed_response_modes": [
+            "independent_writing"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.family.describe-family.speak",
+      "legacy_definition_sha256": "7249050d8b4a664f379c35404be5d774f8489f94deec3c89d2a5ce8dc0e3bc21",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.speaking.personal-information",
+          "relation": "partial",
+          "rationale": "A family description samples this wider descriptive capability.",
+          "allowed_response_modes": [
+            "independent_speaking"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.family.possessive-agreement.select",
+      "legacy_definition_sha256": "a360b3332bdc673c3bcb309a1605c456260687a09311ef7a7827b800e8cf335d",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.pronoun-reference",
+          "relation": "partial",
+          "rationale": "Possessive reference and gender/number agreement are sampled with family nouns only.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.family.introduce-person.select",
+      "legacy_definition_sha256": "a81828726f4e89d4581b76c51492d6a38f2a78785c771ce379e99880010fd670",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.nominative-identification",
+          "relation": "partial",
+          "rationale": "The Это introduction names people and relationships; object identification is outside this legacy target.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.family.possession-pattern.select",
+      "legacy_definition_sha256": "b24e3d9d6f9687ab4db8c53d1bceb2350c7576cab4806aa4538eec58fefa4d59",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.genitive-owner-u",
+          "relation": "partial",
+          "rationale": "The fixed У меня есть pattern is narrower than choosing the possessor across persons and noun phrases.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.home.identify-rooms-furniture.read",
+      "legacy_definition_sha256": "4a5d329a25c138072d809a69e32786ad9a429cf8a157b806fca864d11ebe892f",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A familiar room or furniture item, not the full practical information range.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.home.identify-rooms-furniture.listen",
+      "legacy_definition_sha256": "21775cb47cc9969208043c0559f46245c1ae66c193678714c0a896149e42539e",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A familiar room or furniture item, not the full practical information range.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.home.identify-rooms-furniture.write",
+      "legacy_definition_sha256": "92ee7e9b70266ee1b8e810db388a22617bb3a00296888eed089a65136c78edfb",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.home.identify-rooms-furniture.speak",
+      "legacy_definition_sha256": "786af130d59570d52ff1cf3cd0e11ecfe349aa93f552eb7adfd9f0ac3d58f709",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.home.locate-object.read",
+      "legacy_definition_sha256": "d42892cc635e2d88fe7a5a707938b7b786cddf20d6603a21b272426e37f138ef",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One object location, not the broader message range.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.home.locate-object.listen",
+      "legacy_definition_sha256": "fcc35ed655f9d2ffc48b77c044df77a9e68e9ab2f1eb0b839f0c3f2fc0706ba0",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One object location, not the broader message range.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.home.describe-location.write",
+      "legacy_definition_sha256": "0e206c0b5cc2b61de24297e9d38e21f9753429c6ff020bd70d9850fe48532ae1",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.writing.personal-message",
+          "relation": "related",
+          "rationale": "A location statement alone lacks the broader message or reciprocal exchange required.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.home.describe-location.speak",
+      "legacy_definition_sha256": "950f89a59c6156f699eccb8ca526117b9c2b4ce8385e21105af61aa81a92f50e",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.speaking.ask-and-answer",
+          "relation": "related",
+          "rationale": "A location statement alone lacks the broader message or reciprocal exchange required.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.home.location-prepositions.select",
+      "legacy_definition_sha256": "4cf47f3f3b986ccd68612b4d42db88a57554ef26a4149b4f3a0d862b705b881b",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.prepositional-location",
+          "relation": "partial",
+          "rationale": "Tests taught static в/на phrases; it does not necessarily contrast destination in the same item.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.home.singular-plural.select",
+      "legacy_definition_sha256": "1801424dfe9d4aaff2e4072ccc285351bcb60b23bc605ba4d42e9a5da21d42b1",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.noun-gender-number-animacy",
+          "relation": "partial",
+          "rationale": "Singular/plural recognition alone does not assess gender or animacy.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.home.adjective-agreement.select",
+      "legacy_definition_sha256": "c9e8103fa5f6927542229390ef1f7fd015d6ad4c60fc9320b01ae777911c9572",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.adjective-agreement",
+          "relation": "partial",
+          "rationale": "Home examples test gender; the reference also requires number agreement.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.food.identify-food-drink.read",
+      "legacy_definition_sha256": "14e6ca937dadfb4d759f817b0e0111a40ebd35a162f9524979d09ac7d817c102",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One familiar food/drink item, not broader information recovery.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.food.identify-food-drink.listen",
+      "legacy_definition_sha256": "9bf86ed2e73c4409058fa5d7741811821e5a51509afe4687adec444c07d4ff2c",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One familiar food/drink item, not broader information recovery.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.food.identify-food-drink.write",
+      "legacy_definition_sha256": "8312d9b583c0824b58636e5ba046a6d3a623bbc9db7a25408649a9a7a524f35e",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.food.identify-food-drink.speak",
+      "legacy_definition_sha256": "0a1d922ebfc39d72847bbd1b2f0327e33c79d0f0737f42694f775453f4be33e9",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.food.make-request.read",
+      "legacy_definition_sha256": "68c87e137c1dc8dd036ed074ced727794d6c84ff4294e0597dc83739d32a1b8f",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One food/drink request, not a range of everyday purposes.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.food.make-request.listen",
+      "legacy_definition_sha256": "3dca7c50006642c4cbe15e44388089b03d81d37f49cde1dffb708c95078bb0fc",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.dialogue-intention",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One food/drink request, not a range of everyday purposes.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.food.make-request.write",
+      "legacy_definition_sha256": "463d8604a67899cfa9c831fc86a3c8a84b83e01f9c0d72542ada9abbb86cab83",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.writing.personal-message",
+          "relation": "partial",
+          "rationale": "One request does not cover the written message or invitation/response range.",
+          "allowed_response_modes": [
+            "independent_writing"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.food.make-request.speak",
+      "legacy_definition_sha256": "7f6ba1709bf7c6a84b52ce4684c5c5b7e10f34e58fd65046b4f26c00e4f2873a",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.speaking.request-and-response",
+          "relation": "partial",
+          "rationale": "One request does not cover the written message or invitation/response range.",
+          "allowed_response_modes": [
+            "independent_speaking"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.food.want-pattern.select",
+      "legacy_definition_sha256": "af8f8462b61a5884204fc8038de151575d92555a634dc8d5da4251aefe4e2dfe",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.verb-government",
+          "relation": "partial",
+          "rationale": "Only complements of хочу are sampled, not government across familiar verbs.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.food.accusative-object.select",
+      "legacy_definition_sha256": "5ab7c33a8a45d6f7d1adc401d34dface83a29998917beb82a1e0f152e7c5f0fd",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.accusative-object",
+          "relation": "partial",
+          "rationale": "Familiar food/drink objects are tested; animate objects and broader noun patterns are not covered.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.food.polite-request.select",
+      "legacy_definition_sha256": "1bc650f0a0da426b3653f99b0eec9e7c8e6371ada77350764af0aa18a29358f1",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.impersonal-modal",
+          "relation": "partial",
+          "rationale": "One можно request construction does not establish the other modal and impersonal patterns.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.daily_activities.describe-routine.read",
+      "legacy_definition_sha256": "49e6839dbea80f4029dc3bd52f4df689e4a6c0e261d5a44cc1592701f4a33eea",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.narrative-meaning",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: Facts in a familiar routine, not general short-account comprehension.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.daily_activities.describe-routine.listen",
+      "legacy_definition_sha256": "ea4f2b10f90384113c2e243c6a26018a3e4fea4a1fb993b35ed9cc382f2743b5",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: Facts in a familiar routine, not general short-account comprehension.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.daily_activities.describe-routine.write",
+      "legacy_definition_sha256": "d74689e135bac52f08856abb621c2e7acfe14ef24bc3f00c52f866dd597c4763",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.writing.connected-description",
+          "relation": "partial",
+          "rationale": "A routine samples connected personal description but not its full range.",
+          "allowed_response_modes": [
+            "independent_writing"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.daily_activities.describe-routine.speak",
+      "legacy_definition_sha256": "5161dbeec3c8e1f94d29c53de52092e896efe0bfd18065173a53355c139908c6",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.speaking.personal-information",
+          "relation": "partial",
+          "rationale": "A routine samples connected personal description but not its full range.",
+          "allowed_response_modes": [
+            "independent_speaking"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.daily_activities.ask-current-activity.read",
+      "legacy_definition_sha256": "b5ca7d819bae041083fcd19efbaf01d5701e0470db83227f5e33ec9ae61db4ef",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A current-activity question, not a range of information or intentions.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.daily_activities.ask-current-activity.listen",
+      "legacy_definition_sha256": "0b2cbab65a679d79ec31e9b310c2b2bd46c694aff517aa76691b21260252cb36",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.dialogue-intention",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A current-activity question, not a range of information or intentions.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.daily_activities.ask-current-activity.write",
+      "legacy_definition_sha256": "4fd13f18519e7ae4f96ec573b1fe827ca441a21c1692a6d1bf77550594cbd52c",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.writing.personal-message",
+          "relation": "related",
+          "rationale": "One question alone cannot establish a message or question-and-follow-up exchange.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.daily_activities.ask-current-activity.speak",
+      "legacy_definition_sha256": "6d8f1d7674707cdd4028f8f902397d5078464f4bfb18f293e3349adb408f2950",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.speaking.ask-and-answer",
+          "relation": "related",
+          "rationale": "One question alone cannot establish a message or question-and-follow-up exchange.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.daily_activities.present-conjugation.select",
+      "legacy_definition_sha256": "ddf1b561d80ea3a4c0334f9042e3a3514d93a5847398a5f7ce921dee4d91d239",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.verb-conjugation",
+          "relation": "partial",
+          "rationale": "Samples present conjugation in daily routines; completeness of alternations is not established.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.daily_activities.irregular-present.select",
+      "legacy_definition_sha256": "39b632eafc8f82830d73aff0428314a6503fd2605b517a25e89c688bd613aba0",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.verb-conjugation",
+          "relation": "partial",
+          "rationale": "Only taught ем, сплю and иду forms are tested.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.daily_activities.subject-verb-time.select",
+      "legacy_definition_sha256": "aa33cc52ce2109cd7ed78d5c6fe858ef054537a09ecaf19cf2b3d6662ed0faf2",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.verb-tense",
+          "relation": "partial",
+          "rationale": "A present action and time are checked; past/future and tense contrasts remain untested.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.colors.identify-colour-size.read",
+      "legacy_definition_sha256": "a35722c2b19f2356f5489482f7000f9fac4c4b3e3be86d7b44e9a49a8bde550f",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: Colour or size for one referent, not broader message comprehension.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.colors.identify-colour-size.listen",
+      "legacy_definition_sha256": "634aff56511c1ab0c8f8588d46e9909800df2cd49a3e11eb827ca4d160ed0474",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: Colour or size for one referent, not broader message comprehension.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.colors.identify-colour-size.write",
+      "legacy_definition_sha256": "949f4842be0fefeb052b961f5bddd5eb3b29d6102ae28e2c37e89e10e9af67f3",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.colors.identify-colour-size.speak",
+      "legacy_definition_sha256": "75c5ccfd1b6929875f17b9c5795f330f70eb111f06f9db2226dcea54f33f79d9",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.colors.describe-object.read",
+      "legacy_definition_sha256": "39cc0c71edb47b24aed7db95562df3a6462e027bbc5314124576f94b61b2e0b1",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A familiar object description, not the full range of source information.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.colors.describe-object.listen",
+      "legacy_definition_sha256": "5ee3b1d6ec1d5ea29ead7bb6fcb610af8d46c9245d7c8259ebf793049d260b8e",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A familiar object description, not the full range of source information.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.colors.describe-object.write",
+      "legacy_definition_sha256": "623030473992932534241e3251f12aa2a45c6ae0e9c453451a9dd5e395c2ff29",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.writing.connected-description",
+          "relation": "partial",
+          "rationale": "A brief object description is related to connected description; personal-information speech is not elicited.",
+          "allowed_response_modes": [
+            "independent_writing"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.colors.describe-object.speak",
+      "legacy_definition_sha256": "a153798094f36615c1c16a33739561687df6384438894feee7a70a1f35b65467",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.speaking.personal-information",
+          "relation": "related",
+          "rationale": "A brief object description is related to connected description; personal-information speech is not elicited.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.colors.gender-agreement.select",
+      "legacy_definition_sha256": "7503316e547a9260c5d3ae2ae2ea6853186f96aab36a81044249bd478a33bb6a",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.adjective-agreement",
+          "relation": "partial",
+          "rationale": "Gender agreement is sampled without the plural contrast.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.colors.plural-agreement.select",
+      "legacy_definition_sha256": "4d4d76ed3d821ee46daaaa2cc1e7e18543a544eb413700aa3fee162ed7d01dd8",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.adjective-agreement",
+          "relation": "partial",
+          "rationale": "Plural agreement is sampled without singular gender contrasts.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.colors.demonstratives.select",
+      "legacy_definition_sha256": "12694f1ea0f707aa70f8c45949277ddb4459a256c7a13eb94b9780c2a6f41d00",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.pronoun-reference",
+          "relation": "partial",
+          "rationale": "Only demonstrative gender selection is tested.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.clothing.identify-clothes.read",
+      "legacy_definition_sha256": "95cd1c2c238c50e058e2a3256f05859f3094e2abc6d2b231f7b6da5219a085ca",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A familiar clothing item, not broader information recovery.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.clothing.identify-clothes.listen",
+      "legacy_definition_sha256": "1fb1e91ebbc9a2fdc7f9ef35fb0fb65c0b5b464880a403b3521cde86a5cb457e",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A familiar clothing item, not broader information recovery.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.clothing.identify-clothes.write",
+      "legacy_definition_sha256": "d6154e1e2b4ebec24611c687cc336bb73154bea0a38bdaa0d19f1a87cabe5a36",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.clothing.identify-clothes.speak",
+      "legacy_definition_sha256": "ba628cb4264b4b58b07afa5f256952d806bc342107496aa4fa84d23e78855d18",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.clothing.identify-clothing-description.read",
+      "legacy_definition_sha256": "b2f721b909f8510b7dc541a9d3c684faa6ae31ffb279ec540b545ca471da0c6e",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: Clothing colour/size, not a range of everyday information.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.clothing.identify-clothing-description.listen",
+      "legacy_definition_sha256": "66038a7d99c6f441323a16fccd9e13b29097327963cffd9bd7206e9785935d60",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: Clothing colour/size, not a range of everyday information.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.clothing.identify-clothing-description.write",
+      "legacy_definition_sha256": "253546491266b2c7299490b7c92c47e1cf704cb8bb6c39956d72e3c64a85db82",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.clothing.identify-clothing-description.speak",
+      "legacy_definition_sha256": "feb7b9db4d0546f0157110ec0268116fad1eebea3c4417fc39a1cf42cc299386",
+      "review_status": "model_reviewed",
+      "links": [],
+      "unmapped_reason": "Naming or confirming an isolated item does not match the new connected independent writing/speaking criteria. Author a controlled-production target instead."
+    },
+    {
+      "legacy_target_id": "a1.clothing.exceptional-nouns.select",
+      "legacy_definition_sha256": "0c2ab3d94165b2ae1229827c8662b94ba0e2c246e044bbccaf2fcf3843929a3d",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.noun-gender-number-animacy",
+          "relation": "partial",
+          "rationale": "Plural-only and indeclinable clothing nouns provide a narrow noun-form subset.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.clothing.accusative-object.select",
+      "legacy_definition_sha256": "dfbd18b935df7c26e2ca24fafe84afda4852da9cf7c10497c58a166964e1bb7b",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.accusative-object",
+          "relation": "partial",
+          "rationale": "Only clothing objects governed by носить are tested.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.clothing.adjective-agreement.select",
+      "legacy_definition_sha256": "80ddc1b0fda7eca9df05a48d003ac9e3204fa27eb1c18c313465feebb62806f2",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.adjective-agreement",
+          "relation": "partial",
+          "rationale": "Gender and number agreement are tested within a limited clothing lexicon.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.places.ask-location.read",
+      "legacy_definition_sha256": "b6600f093bec3fc39f1739689126d3a94786cf4074b16260fccd9156bafda2fe",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One location question, not broader request/response intentions.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.places.ask-location.listen",
+      "legacy_definition_sha256": "a763c1baac1ff9c6a3276cfe3444f8fc4b61dc98bebdbfe035a4dd1dbf9c6d94",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.dialogue-intention",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: One location question, not broader request/response intentions.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.places.ask-location.write",
+      "legacy_definition_sha256": "4fc810ae67ab1a038edd5d8828850c9fe102a29f0a10a7cdd3a49514125df49c",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.writing.personal-message",
+          "relation": "related",
+          "rationale": "One location question lacks a full written message or reciprocal follow-up.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.places.ask-location.speak",
+      "legacy_definition_sha256": "878b4704cbbb5cabdbf69f47529022b251631bc0b93bba8cf3fb0bfecbc53a49",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.speaking.ask-and-answer",
+          "relation": "related",
+          "rationale": "One location question lacks a full written message or reciprocal follow-up.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.places.follow-directions.read",
+      "legacy_definition_sha256": "b10da7891222194492091cbe7d43866ed2bbc6248a88855545e147c7e8aedde9",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.reference-and-sequence",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A short landmark direction, not general event/reference comprehension.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.places.follow-directions.listen",
+      "legacy_definition_sha256": "f776588a5b02c14d0157a998db03d1705460199814be6497762dedb2855402c5",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A short landmark direction, not general event/reference comprehension.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.places.follow-directions.write",
+      "legacy_definition_sha256": "f52cae3be4fbaa32be1350f643062eaa93ab4dc21705d28b7dbc8900eaefdd96",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.writing.personal-message",
+          "relation": "related",
+          "rationale": "One direction can support communication but does not require a complete message or exchange.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.places.follow-directions.speak",
+      "legacy_definition_sha256": "8a718ed7d54f5f66405588effbc5f918b797a1a1de79dd07dd01c6a1b6ec06c0",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.speaking.ask-and-answer",
+          "relation": "related",
+          "rationale": "One direction can support communication but does not require a complete message or exchange.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.places.location-versus-direction.select",
+      "legacy_definition_sha256": "82127eda4cccfdef418ff182376b5e7c142578081951e0b32443e4e9e3b75d74",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.prepositional-location",
+          "relation": "related",
+          "rationale": "Interpreting где/куда relates to location versus destination but does not require choosing the governed noun form.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.places.direction-commands.select",
+      "legacy_definition_sha256": "56ca13e12d5de9c389be6f86d84108b30a37aa893214ae1817e543f0d69e58e2",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.imperative",
+          "relation": "partial",
+          "rationale": "Recognises familiar route commands; person and polite/plural contrasts are not necessarily tested.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.places.place-prepositions.select",
+      "legacy_definition_sha256": "7054b10884b9d1e8b4a792647fd19c17ecef13058a9bae6cce09ed0cb5e64dc7",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.prepositional-location",
+          "relation": "partial",
+          "rationale": "Only taught static place phrases are tested; destination contrasts remain outside this definition.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.weather.understand-weather.read",
+      "legacy_definition_sha256": "21de75afbc7a71b52df2599d3cf3a9bfabdfeb7dc7fc4ff6b3c7374aef4120d6",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.practical-information",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A weather fact, not the full practical message inventory.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.weather.understand-weather.listen",
+      "legacy_definition_sha256": "d950f50354cc4582688984e422759cda9d3f31e184205dd483687ce35de81206",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A weather fact, not the full practical message inventory.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.weather.describe-weather.write",
+      "legacy_definition_sha256": "fa821a538eed70abd548f7731808bb36b6daa97bec567e47b3d73d232609e37a",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.writing.connected-description",
+          "relation": "related",
+          "rationale": "A weather statement is related but does not elicit connected personal description.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.weather.describe-weather.speak",
+      "legacy_definition_sha256": "940c6bd70d6c6871027ff67da2c1d8d9fbbe7db8359cb579e8c5ef62e8b28e4c",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.speaking.personal-information",
+          "relation": "related",
+          "rationale": "A weather statement is related but does not elicit connected personal description.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.weather.choose-weather-plan.read",
+      "legacy_definition_sha256": "3f2a32d3dcfc9e48e431a4121797fddf2d35faaf1c4c2a207263ab98adefb4a5",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.reading.narrative-meaning",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A weather-dependent plan, not a broad narrative or spoken account.",
+          "allowed_response_modes": [
+            "reading_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.weather.choose-weather-plan.listen",
+      "legacy_definition_sha256": "8e68d0fb606f90a01a584bc4e48c12b13683f2d7c0ec78849f25f929c1ba91ef",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.listening.short-message",
+          "relation": "partial",
+          "rationale": "Narrow source-dependent target: A weather-dependent plan, not a broad narrative or spoken account.",
+          "allowed_response_modes": [
+            "listening_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.weather.choose-weather-plan.write",
+      "legacy_definition_sha256": "f1b3a90757bdd1ffdb04231ecaefff77667be35bead53ed6bd0635af30b2c844",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.writing.personal-message",
+          "relation": "related",
+          "rationale": "A plan is related but does not by itself elicit correspondence or an invitation and response.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.weather.choose-weather-plan.speak",
+      "legacy_definition_sha256": "8fcff564727f636cc34264767c79fda025b9d3e6cfa90a423cb523b694c3d7de",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.speaking.request-and-response",
+          "relation": "related",
+          "rationale": "A plan is related but does not by itself elicit correspondence or an invitation and response.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.weather.impersonal-state.select",
+      "legacy_definition_sha256": "43e66ca98dd65ec1a7fdda23eabe7207626fab9ad98bdb9d57a3b3bd989cadd8",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.impersonal-modal",
+          "relation": "partial",
+          "rationale": "Only weather-state predicates are sampled, not the broader impersonal/modal inventory.",
+          "allowed_response_modes": [
+            "contextual_selection"
+          ]
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.weather.noun-adjective-state.select",
+      "legacy_definition_sha256": "b6cc2540fa1fcae91e3b4b8a61d36f416a38386abdead7000b49c37290a7ca15",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.word-structure",
+          "relation": "related",
+          "rationale": "Distinguishing noun, adjective and state word relates to derivation but does not establish root or morphological analysis.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    },
+    {
+      "legacy_target_id": "a1.weather.present-weather-patterns.select",
+      "legacy_definition_sha256": "c6e9bc42a2776a532a08fae80cb66f461fce225b0991c1a58e2144db94970af5",
+      "review_status": "model_reviewed",
+      "links": [
+        {
+          "requirement_id": "a1.language.verb-conjugation",
+          "relation": "related",
+          "rationale": "Recognising the fixed weather phrases does not necessarily discriminate person or number in conjugation.",
+          "allowed_response_modes": []
+        }
+      ],
+      "unmapped_reason": null
+    }
+  ]
+}

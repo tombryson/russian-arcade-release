@@ -1,0 +1,16 @@
+<details class="activities-menu" data-activities-menu>
+    <summary{% if active_page == 'games' or active_page in activity_navigation.activities | map(attribute='page') | list %} data-active="true"{% endif %}>
+        {{ ui_t('nav.activities') }}
+        <svg class="activities-menu-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </summary>
+    <div class="activities-menu-options">
+        {% for item in activity_navigation.activities if item.page != 'curriculum' %}
+        <a href="{{ item.href }}" hx-boost="false"{% if active_page == item.page %} aria-current="page"{% endif %}>{{ item.label }}</a>
+        {% endfor %}
+        <a href="/#games" hx-boost="false"{% if active_page == 'games' %} aria-current="page"{% endif %}>{{ ui_t('nav.games') }}</a>
+        <a class="activities-menu-all" href="/#activities" hx-boost="false">{{ ui_t('nav.all_activities') }} <span aria-hidden="true">↗</span></a>
+        {% for item in activity_navigation.activities if item.page == 'curriculum' %}
+        <a href="{{ item.href }}" hx-boost="false"{% if active_page == item.page %} aria-current="page"{% endif %}>{{ item.label }}</a>
+        {% endfor %}
+    </div>
+</details>

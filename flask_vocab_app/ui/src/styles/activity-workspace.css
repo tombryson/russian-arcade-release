@@ -1,0 +1,32 @@
+/* Native activities share the legacy menu and its 246px desktop column. */
+.activity-workspace { --activity-header-height: 100px; }
+.activity-layout { display: grid; grid-template-columns: 246px minmax(0, 1fr); align-items: start; }
+.activity-workspace-content { min-width: 0; container: flashcard-workspace / inline-size; }
+.activity-workspace-content > main { width: 100%; min-height: calc(100svh - var(--activity-header-height) - 70px); }
+.activity-sidebar { position: sticky; top: var(--activity-header-height); min-height: calc(100svh - var(--activity-header-height)); max-height: calc(100svh - var(--activity-header-height)); overflow-y: auto; padding: 18px 24px 28px; background: var(--wp-header-background); color: var(--wp-header-foreground); }
+.activity-sidebar-title { font-size: 12px; font-weight: 500; line-height: 1.5; letter-spacing: 1px; text-transform: uppercase; opacity: .8; padding: 0 12px; margin: 0 0 16px; }
+.activity-sidebar-links { display: grid; gap: 4px; }
+.activity-navigation a { display: flex; align-items: center; min-height: 48px; padding: 12px 15px; border-radius: 6px; font-size: 16px; color: inherit; text-decoration: none; }
+.activity-navigation a:hover, .activity-sidebar-more > summary:hover { background: #ffffff1f; }
+.activity-navigation a[aria-current="page"] { background: var(--wp-surface-ticket); color: var(--wp-text-onTicket); }
+.activity-sidebar-more { margin-top: 20px; padding-top: 12px; border-top: 1px solid #ffffff33; }
+.activity-sidebar-more > summary { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 10px 15px; border-radius: 6px; font-size: 14px; cursor: pointer; list-style: none; }
+.activity-sidebar-more > summary::-webkit-details-marker { display: none; }
+.activity-sidebar-more > summary::after { content: '+'; font-size: 18px; }
+.activity-sidebar-more[open] > summary::after { content: '−'; }
+.activity-sidebar-more a { font-size: 14px; }
+.activity-sidebar :focus-visible { outline-color: var(--wp-surface-ticket); }
+.activity-menu-toggle { display: none; }
+@media (max-width: 991.98px) {
+  .activity-layout { display: block; }
+  .activity-sidebar { min-height: 0; padding: 8px 20px; z-index: 1001; }
+  .activity-sidebar-title { display: none; }
+  .activity-menu-toggle { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 44px; padding: 8px 12px; border: 0; background: transparent; color: inherit; text-align: left; }
+  .activity-navigation[data-expanded="false"] { display: none; }
+  .activity-sidebar-links { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-top: 8px; }
+  .activity-sidebar-more { margin: 12px 0; }
+}
+@media (max-width: 600px) {
+  .activity-sidebar { padding-inline: 8px; }
+  .activity-navigation a { font-size: 14px; padding: 10px 12px; }
+}

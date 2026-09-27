@@ -1,0 +1,77 @@
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if story %}
+{% set listening = story.practice_mode == 'listening' %}
+<article class="reading-story" data-story-loaded {% if listening %}data-listening-task="{{ story.task_id }}" data-listened="{{ 'true' if story.listened else 'false' }}" data-transcript-visible="{{ 'true' if story.transcript_visible else 'false' }}"{% endif %}>
+    <header class="reading-story-heading">
+        <h2 id="reading-story-title" tabindex="-1" lang="{{ story.display_title_lang if story.display_title else ui_lang }}">{{ story.display_title or ui_t('comprehension.untitled') }}</h2>
+    </header>
+    {% if listening %}
+    <section class="comprehension-listening" aria-label="{{ 'Аудирование' if ui_lang == 'ru' else 'Listening' }}">
+        {% if story.audio_url %}
+        <audio controls preload="metadata" data-comprehension-audio aria-label="{{ 'Запись' if ui_lang == 'ru' else 'Story recording' }}" src="{{ story.audio_url }}"></audio>
+        {% else %}
+        <p>{{ 'Запись недоступна. Вы можете прочитать текст и ответить на вопросы.' if ui_lang == 'ru' else 'The recording is unavailable. You can read the transcript and answer the questions.' }}</p>
+        {% endif %}
+        <button type="button" class="comprehension-text-link" data-show-transcript {% if story.transcript_visible %}hidden{% endif %}>{{ 'Показать текст' if ui_lang == 'ru' else 'Show transcript' }}</button>
+        <button type="button" class="comprehension-text-link" data-retry-listened hidden>{{ 'Повторить сохранение' if ui_lang == 'ru' else 'Retry saving playback' }}</button>
+        <p class="comprehension-listening-status" data-listening-status role="status">{% if not story.listened and not story.transcript_visible %}{{ 'Прослушайте запись, затем ответьте на вопросы.' if ui_lang == 'ru' else 'Listen to the recording, then answer the questions.' }}{% endif %}</p>
+    </section>
+    {% endif %}
+    <div class="row" data-comprehension-transcript {% if listening and not story.transcript_visible %}hidden{% endif %}>
+        <div class="col-md-9">
+            <div id="story-container" class="story-text-mount" data-story-id="{{ story.id | default('') }}" data-story-key="{{ story.capture_key | default('') }}" data-task-id="{{ story.task_id | default('') }}" {% if not listening or story.transcript_visible %}data-words='{{ story.words | tojson | safe }}'{% endif %} data-visibility='{{ visibility | default('revealed') }}'><p lang="ru">{{ story.text }}</p></div>
+        </div>
+        <div class="col-md-3">
+            {% if story.image_url %}
+            <img
+                src="{{ story.image_url }}"
+                alt="{{ ui_t('comprehension.story_image_alt') }}"
+                class="img-fluid story-illustration"
+            />
+            {% endif %}
+        </div>
+    </div>
+    <div id="modal-container" class="d-none"></div>
+    <div id="notification" class="mt-2"></div>
+    {% if story.audio_url and not listening %}
+    <div class="audio-player">
+        <audio controls>
+            <source src="{{ story.audio_url }}" type="audio/mpeg" />
+            {{ ui_t('comprehension.audio_unsupported') }}
+        </audio>
+    </div>
+    {% endif %}
+    <h3 class="qa-heading">{{ ui_t('comprehension.questions') }}</h3>
+    <div id="questions-section" class="questions-container">
+        {% include '_questions_partial.html' %}
+    </div>
+    <button
+        id="generate-more-questions"
+        class="btn btn-info mt-3"
+        hx-post="/comprehension/generate_more_questions"
+        hx-target="#questions-section"
+        hx-include="#question-form"
+        hx-swap="innerHTML"
+    >
+        {{ ui_t('comprehension.more_questions') }}
+    </button>
+    {% if not story.task_id %}
+    <button
+        id="save-story"
+        class="btn btn-success mt-3"
+        hx-post="/comprehension/save"
+        hx-target="#save-feedback"
+        hx-include="#question-form"
+    >
+        {{ ui_t('comprehension.save_story') }}
+    </button>
+    {% endif %}
+    <div id="save-feedback" role="status" class="mt-2"></div>
+</article>
+{% elif not error %}
+<div class="alert alert-danger">
+    {{ ui_t('comprehension.not_loaded') }}
+</div>
+{% endif %}

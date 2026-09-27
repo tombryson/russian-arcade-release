@@ -1,0 +1,285 @@
+{
+  "id": "possession-absence-v1",
+  "level": "A1",
+  "topic_id": "home",
+  "title": "Possession and absence",
+  "title_ru": "Наличие и отсутствие",
+  "summary": "Say who has something, who owns it and what is missing.",
+  "summary_ru": "Скажите, у кого есть вещь, кому она принадлежит и чего нет.",
+  "practice_summary": "Read short situations and distinguish an owner, an available object and a missing one.",
+  "practice_summary_ru": "Прочитайте ситуации и определите владельца, наличие или отсутствие вещи.",
+  "groups": [
+    {
+      "title": "Having something · У кого?",
+      "title_ru": "У кого что есть?",
+      "note": "У + genitive names the person who has something. After есть, the available object is nominative. Here есть introduces an item; Russian does not need it in every possession statement.",
+      "note_ru": "У + родительный падеж называет владельца. После есть предмет стоит в именительном падеже. Есть нужно не в каждом предложении о принадлежности.",
+      "examples": [
+        {
+          "ru": "У Олега есть телефон.",
+          "en": "Oleg has a phone."
+        },
+        {
+          "ru": "У меня есть ручка.",
+          "en": "I have a pen."
+        }
+      ]
+    },
+    {
+      "title": "Something is missing · Чего нет?",
+      "title_ru": "Чего нет?",
+      "note": "After нет, put the missing item in the genitive: ручка → ручки. Keep the owner and the missing item separate.",
+      "note_ru": "После нет используйте родительный падеж: ручка → ручки. Владелец и отсутствующая вещь — разные части предложения.",
+      "examples": [
+        {
+          "ru": "У Олега нет телефона.",
+          "en": "Oleg does not have a phone."
+        },
+        {
+          "ru": "У меня нет ручки.",
+          "en": "I do not have a pen."
+        }
+      ]
+    },
+    {
+      "title": "An owner · Чья вещь?",
+      "title_ru": "Чья это вещь?",
+      "note": "A noun in the genitive can name an owner: сумка Олега. Having an object with you does not always mean that you own it.",
+      "note_ru": "Родительный падеж может называть владельца: сумка Олега. Вещь у человека может принадлежать кому-то другому.",
+      "examples": [
+        {
+          "ru": "Это сумка Олега.",
+          "en": "This is Oleg’s bag."
+        },
+        {
+          "ru": "Сумка Олега сейчас у Нины.",
+          "en": "Oleg’s bag is with Nina now."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "bag-message",
+      "prompt": "Лена пишет: «У меня есть хлеб и сыр, но нет воды. Купи воду, пожалуйста».\nЧто нужно купить?",
+      "choices": [
+        {
+          "id": "bread",
+          "text": "Хлеб."
+        },
+        {
+          "id": "water",
+          "text": "Воду."
+        },
+        {
+          "id": "cheese",
+          "text": "Сыр."
+        }
+      ],
+      "answer": "water",
+      "hint": "Which item is missing?",
+      "explanation": "Лена has bread and cheese. She asks for water because she has none.",
+      "requirement_id": "a1.reading.practical-information",
+      "expectation": "Find the missing item requested in the written message; do not select either available food."
+    },
+    {
+      "id": "present-item",
+      "prompt": "В сумке у Маши только одна ручка.\nУ Маши есть …",
+      "choices": [
+        {
+          "id": "pen",
+          "text": "ручка."
+        },
+        {
+          "id": "of-pen",
+          "text": "ручки."
+        },
+        {
+          "id": "to-pen",
+          "text": "ручке."
+        }
+      ],
+      "answer": "pen",
+      "hint": "Есть introduces the available object.",
+      "explanation": "Ручка names the available item after есть. The owner is already given by у Маши.",
+      "requirement_id": "a1.language.nominative-existence",
+      "expectation": "Choose ручка for the present item after есть, contrasting it with the absence form."
+    },
+    {
+      "id": "absent-item",
+      "prompt": "Дима хочет позвонить. Телефон остался дома.\nУ Димы сейчас нет …",
+      "choices": [
+        {
+          "id": "phone",
+          "text": "телефон."
+        },
+        {
+          "id": "of-phone",
+          "text": "телефона."
+        },
+        {
+          "id": "to-phone",
+          "text": "телефону."
+        }
+      ],
+      "answer": "of-phone",
+      "hint": "The item after нет takes the genitive.",
+      "explanation": "Нет телефона says that Dima does not have his phone with him now.",
+      "requirement_id": "a1.language.genitive-absence",
+      "expectation": "Choose телефона after нет in the stated present absence."
+    },
+    {
+      "id": "possessor",
+      "prompt": "Это Анна. У неё есть билет.\nКак сказать то же самое, используя имя?",
+      "choices": [
+        {
+          "id": "anna-has",
+          "text": "У Анны есть билет."
+        },
+        {
+          "id": "ticket-has",
+          "text": "У билета есть Анна."
+        },
+        {
+          "id": "anna-to",
+          "text": "У Анне есть билет."
+        }
+      ],
+      "answer": "anna-has",
+      "hint": "The person after у has the item.",
+      "explanation": "У Анны identifies Anna as the person who has the ticket.",
+      "requirement_id": "a1.language.genitive-owner-u",
+      "expectation": "Identify and form the possessor Анны after у without exchanging the owner and the object."
+    },
+    {
+      "id": "owner-form",
+      "prompt": "Это книга. Её владелец — Иван.\nЭто книга …",
+      "choices": [
+        {
+          "id": "ivan",
+          "text": "Иван."
+        },
+        {
+          "id": "of-ivan",
+          "text": "Ивана."
+        },
+        {
+          "id": "to-ivan",
+          "text": "Ивану."
+        }
+      ],
+      "answer": "of-ivan",
+      "hint": "Whose book is it?",
+      "explanation": "Книга Ивана means Ivan’s book. Ивана names the owner.",
+      "requirement_id": "a1.language.genitive-possession",
+      "expectation": "Choose Ивана as the owner in книга Ивана, distinct from nominative and dative."
+    },
+    {
+      "id": "borrowed-map",
+      "prompt": "У Пети есть карта. Это карта его сестры. Сегодня сестра дома, а Петя гуляет с картой.\nЧья это карта?",
+      "choices": [
+        {
+          "id": "petya",
+          "text": "Пети."
+        },
+        {
+          "id": "sister",
+          "text": "Его сестры."
+        },
+        {
+          "id": "both",
+          "text": "Пети и его сестры."
+        }
+      ],
+      "answer": "sister",
+      "hint": "The person carrying an item may not own it.",
+      "explanation": "The text says карта его сестры. Petya has it with him; his sister owns it.",
+      "requirement_id": "a1.reading.narrative-meaning",
+      "expectation": "Distinguish the owner of the borrowed map from the person currently carrying it in the short account."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Possession and absence · word forms",
+    "summary": "Complete four phrases about owners and missing things.",
+    "summary_ru": "Дополните четыре выражения о владельцах и отсутствии вещей.",
+    "questions": [
+      {
+        "id": "form-owner-u",
+        "prompt": "Мария дома. У ___ есть ключ. (Мария)\nВпиши пропущенную форму слова.",
+        "answer": "Марии",
+        "accepted_answers": [
+          "Марии",
+          "у Марии"
+        ],
+        "hint": "After у, Мария becomes Марии.",
+        "explanation": "У Марии names the person who has the key.",
+        "requirement_id": "a1.language.genitive-owner-u",
+        "expectation": "Produce Марии in this sentence. Accept the listed equivalent phrase, without requiring a whole sentence."
+      },
+      {
+        "id": "form-absence",
+        "prompt": "Я хочу читать, но у меня нет ___. (книга)\nВпиши пропущенную форму слова.",
+        "answer": "книги",
+        "accepted_answers": [
+          "книги",
+          "нет книги"
+        ],
+        "hint": "Use the genitive after нет.",
+        "explanation": "Нет книги means there is no book available to me.",
+        "requirement_id": "a1.language.genitive-absence",
+        "expectation": "Produce книги in this sentence. Accept the listed equivalent phrase, without requiring a whole sentence."
+      },
+      {
+        "id": "form-owned",
+        "prompt": "Этот рюкзак принадлежит брату. Это рюкзак ___. (брат)\nВпиши пропущенную форму слова.",
+        "answer": "брата",
+        "accepted_answers": [
+          "брата",
+          "рюкзак брата"
+        ],
+        "hint": "Name the owner with the genitive.",
+        "explanation": "Рюкзак брата identifies the brother as the owner.",
+        "requirement_id": "a1.language.genitive-possession",
+        "expectation": "Produce брата in this sentence. Accept the listed equivalent phrase, without requiring a whole sentence."
+      },
+      {
+        "id": "form-pronoun",
+        "prompt": "Ты хочешь открыть дверь? У ___ есть ключ? (ты)\nВпиши пропущенную форму слова.",
+        "answer": "тебя",
+        "accepted_answers": [
+          "тебя",
+          "у тебя"
+        ],
+        "hint": "The form of ты after у is тебя.",
+        "explanation": "У тебя есть ключ? asks whether you have a key.",
+        "requirement_id": "a1.language.genitive-owner-u",
+        "expectation": "Produce тебя in this sentence. Accept the listed equivalent phrase, without requiring a whole sentence."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Что взять с собой?",
+    "title_en": "What should we bring?",
+    "task": "Вы собираетесь на прогулку с другом. Напиши ему, что у тебя уже есть и чего нет. Попроси друга взять недостающую вещь. Выбери вещи сам.",
+    "task_en": "You are going for a walk with a friend. Tell them what you already have and what is missing. Ask them to bring the missing item. Choose the items yourself.",
+    "required_words": [
+      "есть",
+      "нет",
+      "взять"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.personal-message",
+    "id": "clear-packing-message",
+    "expectation": "Write an intelligible original message to a friend identifying an available item, a missing item, and asking the friend to bring the missing item. Accept short natural alternatives and different plausible items. Assess whether the friend can act on the message, not a required word count or perfect declension. Treat grammatical corrections separately from whether the message achieves its purpose."
+  },
+  "writing_summary": "Tell a friend what you have and what they should bring.",
+  "writing_summary_ru": "Скажите другу, что у вас есть и что ему взять.",
+  "speaking_href": "/#speaking/scenario/shop?level=A1",
+  "speaking_title": "Ask for an item",
+  "speaking_title_ru": "Попросите нужную вещь",
+  "speaking_summary": "Try asking what is available in a shop. This opens a separate Speaking scenario.",
+  "speaking_summary_ru": "Узнайте, что есть в магазине. Это отдельный разговор в разделе разговорной практики.",
+  "review_status": "application-authored; qualified language review pending"
+}

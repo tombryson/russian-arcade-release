@@ -1,0 +1,84 @@
+{
+  "version": "listening-v1",
+  "id": "noun-adjective-agreement-listening-v1",
+  "unit_id": "noun-adjective-agreement-v1",
+  "title": "Listen for the description",
+  "title_ru": "Как выглядит вещь?",
+  "items": [
+    {
+      "id": "scarf-left-behind",
+      "prompt": "Какой шарф нужно найти?",
+      "choices": [
+        {
+          "id": "long-green",
+          "text": "Длинный зелёный."
+        },
+        {
+          "id": "small-green",
+          "text": "Маленький зелёный."
+        },
+        {
+          "id": "long-blue",
+          "text": "Длинный синий."
+        }
+      ],
+      "answer": "long-green",
+      "hint": "Listen for both the size and the colour.",
+      "explanation": "The caller’s scarf is long and green. The small green scarf belongs to Vika’s son.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify an item by two stated descriptive features in a short recording.",
+      "transcript": "Алло, Вика? У тебя остался мой шарф. Он длинный и зелёный. Маленький зелёный шарф не мой, это шарф твоего сына. Посмотри, пожалуйста, на стуле.",
+      "audio_url": "/static/audio/course/curriculum/noun-adjective-agreement-listening-v1/scarf-left-behind.mp3"
+    },
+    {
+      "id": "coat-shopping",
+      "prompt": "Какое пальто девушка купила?",
+      "choices": [
+        {
+          "id": "blue",
+          "text": "Синее."
+        },
+        {
+          "id": "grey",
+          "text": "Серое."
+        },
+        {
+          "id": "both",
+          "text": "Оба пальто."
+        }
+      ],
+      "answer": "grey",
+      "hint": "Distinguish the attractive item from the one that fitted.",
+      "explanation": "She bought the grey coat because it fitted. The blue one was too small.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the actual purchase from the two described alternatives, rather than a merely considered item.",
+      "transcript": "Я смотрела два пальто: синее и серое. Синее красивое, но маленькое. Серое тоже красивое, и размер мой. Я купила серое. Покажу тебе вечером.",
+      "audio_url": "/static/audio/course/curriculum/noun-adjective-agreement-listening-v1/coat-shopping.mp3"
+    },
+    {
+      "id": "shoes-for-walk",
+      "prompt": "Какие ботинки Денису нужно взять?",
+      "choices": [
+        {
+          "id": "new-white",
+          "text": "Новые белые."
+        },
+        {
+          "id": "old-black",
+          "text": "Старые чёрные."
+        },
+        {
+          "id": "new-black",
+          "text": "Новые чёрные."
+        }
+      ],
+      "answer": "old-black",
+      "hint": "Listen for the pair suitable for today’s conditions.",
+      "explanation": "The speaker asks for the old black shoes and says to leave the new white shoes at home.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the requested pair using both age and colour from the spoken instruction.",
+      "transcript": "Денис, возьми старые ботинки. На улице грязно. Новые белые ботинки оставь дома. Старые чёрные стоят у двери. Они как раз для прогулки.",
+      "audio_url": "/static/audio/course/curriculum/noun-adjective-agreement-listening-v1/shoes-for-walk.mp3"
+    }
+  ]
+}

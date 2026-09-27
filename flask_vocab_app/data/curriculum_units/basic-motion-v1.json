@@ -1,0 +1,282 @@
+{
+  "id": "basic-motion-v1",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Walking and travelling",
+  "title_ru": "Пешком и на транспорте",
+  "summary": "Distinguish a journey in progress from repeated trips, and walking from travel by vehicle.",
+  "summary_ru": "Различайте поездку сейчас, регулярные поездки и передвижение пешком.",
+  "practice_summary": "Read the situations and choose the wording or detail that fits.",
+  "practice_summary_ru": "Прочитайте ситуации и выберите подходящую форму или нужную деталь.",
+  "groups": [
+    {
+      "title": "On the way now · идти, ехать",
+      "title_ru": "В пути сейчас · идти, ехать",
+      "note": "Идти describes walking in a direction. Ехать describes a journey by vehicle. In these examples the person is already on the way to a stated destination.",
+      "note_ru": "Идти — двигаться пешком в определённом направлении. Ехать — двигаться на транспорте. В примерах человек уже в пути.",
+      "examples": [
+        {
+          "ru": "Я иду пешком в школу.",
+          "en": "I am walking to school."
+        },
+        {
+          "ru": "Мы едем в аэропорт на автобусе.",
+          "en": "We are going to the airport by bus."
+        }
+      ]
+    },
+    {
+      "title": "Repeated trips · ходить, ездить",
+      "title_ru": "Регулярные поездки · ходить, ездить",
+      "note": "Ходить and ездить can describe regular trips, without focusing on one direction at this moment. Context matters: a timetable can also describe individual directed journeys.",
+      "note_ru": "Ходить и ездить могут описывать регулярные поездки без акцента на одном направлении сейчас. Выбор зависит от контекста, а не только от слов каждый день.",
+      "examples": [
+        {
+          "ru": "Обычно я хожу на работу пешком.",
+          "en": "I usually walk to work."
+        },
+        {
+          "ru": "По субботам мы ездим к бабушке на электричке.",
+          "en": "On Saturdays we travel to our grandmother’s by local train."
+        }
+      ]
+    },
+    {
+      "title": "Transport · на чём?",
+      "title_ru": "Транспорт · на чём?",
+      "note": "На автобусе, на поезде and на машине name the transport. В город names the destination. Пешком needs no preposition.",
+      "note_ru": "На автобусе, на поезде, на машине — транспорт. В город — направление. Перед пешком предлог не нужен.",
+      "examples": [
+        {
+          "ru": "Она едет в город на поезде.",
+          "en": "She is travelling to the town by train."
+        },
+        {
+          "ru": "До магазина близко. Мы идём пешком.",
+          "en": "The shop is nearby. We are walking."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "walking-now",
+      "prompt": "Илья сейчас на дороге между домом и школой. Он пешком, до школы ещё пять минут.\nКак описать его путь сейчас?",
+      "choices": [
+        {
+          "id": "walk",
+          "text": "Илья идёт в школу."
+        },
+        {
+          "id": "ride",
+          "text": "Илья едет в школу."
+        },
+        {
+          "id": "arrived",
+          "text": "Илья уже в школе."
+        }
+      ],
+      "answer": "walk",
+      "hint": "He is on foot and has not arrived.",
+      "explanation": "Идёт describes his walk towards school. Едет would mean a journey by vehicle.",
+      "requirement_id": "a1.language.motion-basic-pairs",
+      "expectation": "Identify the current directed walk from explicit on-foot and not-yet-arrived details."
+    },
+    {
+      "id": "bus-now",
+      "prompt": "Мы в автобусе. Автобус уже выехал из города, но до аэропорта ещё далеко.\nМы … в аэропорт.",
+      "choices": [
+        {
+          "id": "walk",
+          "text": "идём"
+        },
+        {
+          "id": "ride",
+          "text": "едем"
+        },
+        {
+          "id": "arrived",
+          "text": "приехали"
+        }
+      ],
+      "answer": "ride",
+      "hint": "The journey is under way in a vehicle.",
+      "explanation": "Едем fits the current bus journey. They have not arrived yet.",
+      "requirement_id": "a1.language.motion-basic-pairs",
+      "expectation": "Select едем for the explicit current vehicle journey rather than walking or completed arrival."
+    },
+    {
+      "id": "regular-travel",
+      "prompt": "Как сказать, что поездки к сестре — обычное дело каждую неделю, а не только поездка сейчас?",
+      "choices": [
+        {
+          "id": "habit",
+          "text": "Я езжу к сестре на поезде каждую неделю."
+        },
+        {
+          "id": "now",
+          "text": "Я сейчас еду к сестре на поезде."
+        },
+        {
+          "id": "walk",
+          "text": "Я сейчас иду к сестре пешком."
+        }
+      ],
+      "answer": "habit",
+      "hint": "Look for the sentence describing a regular pattern.",
+      "explanation": "Езжу and каждую неделю describe the repeated train trips. The other sentences describe a journey now.",
+      "requirement_id": "a1.language.motion-basic-pairs",
+      "expectation": "Distinguish the explicitly habitual statement from the two explicitly current journeys; do not claim a frequency phrase alone determines the verb."
+    },
+    {
+      "id": "transport-form",
+      "prompt": "Пешком до вокзала далеко. Мы едем туда …",
+      "choices": [
+        {
+          "id": "bus",
+          "text": "на автобусе."
+        },
+        {
+          "id": "to-bus",
+          "text": "в автобус."
+        },
+        {
+          "id": "bus-object",
+          "text": "автобус."
+        }
+      ],
+      "answer": "bus",
+      "hint": "Answer на чём? rather than куда?",
+      "explanation": "На автобусе names the means of transport.",
+      "requirement_id": "a1.language.prepositional-transport",
+      "expectation": "Choose the prepositional transport phrase на автобусе, distinct from a destination phrase."
+    },
+    {
+      "id": "late-message",
+      "prompt": "Аня пишет: «Обычно я хожу на работу пешком. Сегодня сильный дождь, и я еду на автобусе. Буду через десять минут».\nКак Аня добирается на работу сегодня?",
+      "choices": [
+        {
+          "id": "walk",
+          "text": "Пешком."
+        },
+        {
+          "id": "bus",
+          "text": "На автобусе."
+        },
+        {
+          "id": "train",
+          "text": "На поезде."
+        }
+      ],
+      "answer": "bus",
+      "hint": "Separate the usual routine from today’s journey.",
+      "explanation": "Today she is on the bus because of the rain; walking is her usual routine.",
+      "requirement_id": "a1.reading.practical-information",
+      "expectation": "Extract today’s transport from a message that contrasts it with the normal walking routine."
+    },
+    {
+      "id": "two-part-route",
+      "prompt": "Сначала Вадим ехал на поезде до города. Потом он вышел на вокзале и пошёл пешком в музей. Сейчас он ещё на улице возле музея.\nКак Вадим добирается до музея после вокзала?",
+      "choices": [
+        {
+          "id": "train",
+          "text": "На поезде."
+        },
+        {
+          "id": "walk",
+          "text": "Пешком."
+        },
+        {
+          "id": "car",
+          "text": "На машине."
+        }
+      ],
+      "answer": "walk",
+      "hint": "Follow the second part of the trip.",
+      "explanation": "The train brought him to the city. From the station, he walks to the museum.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Identify the walking leg after the train journey by following the explicit sequence."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Walking and travelling · word forms",
+    "summary": "Complete four short sentences.",
+    "summary_ru": "Дополните четыре коротких предложения.",
+    "questions": [
+      {
+        "id": "form-walk",
+        "prompt": "Я сейчас ___ пешком к остановке. (идти)\nВпиши пропущенную форму слова.",
+        "answer": "иду",
+        "accepted_answers": [
+          "иду"
+        ],
+        "hint": "The present я form of идти is иду.",
+        "explanation": "Я иду describes my current walk.",
+        "requirement_id": "a1.language.verb-conjugation",
+        "expectation": "Produce иду in the supplied construction. Accept only the listed word or equivalent phrase; this checks a controlled form, not free writing."
+      },
+      {
+        "id": "form-ride",
+        "prompt": "Мы сейчас ___ на поезде в другой город. (ехать)\nВпиши пропущенную форму слова.",
+        "answer": "едем",
+        "accepted_answers": [
+          "едем"
+        ],
+        "hint": "Use the мы form of ехать.",
+        "explanation": "Мы едем agrees with the plural subject.",
+        "requirement_id": "a1.language.verb-conjugation",
+        "expectation": "Produce едем in the supplied construction. Accept only the listed word or equivalent phrase; this checks a controlled form, not free writing."
+      },
+      {
+        "id": "form-repeated",
+        "prompt": "Это моя обычная дорога: я ___ на работу пешком. (ходить)\nВпиши пропущенную форму слова.",
+        "answer": "хожу",
+        "accepted_answers": [
+          "хожу"
+        ],
+        "hint": "Use the я form of the supplied verb ходить.",
+        "explanation": "Хожу is the я form of ходить, used here for a regular walk to work.",
+        "requirement_id": "a1.language.verb-conjugation",
+        "expectation": "Produce хожу in the supplied construction. Accept only the listed word or equivalent phrase; this checks a controlled form, not free writing."
+      },
+      {
+        "id": "form-transport",
+        "prompt": "До аэропорта далеко. Мы едем на ___. (автобус)\nВпиши пропущенную форму слова.",
+        "answer": "автобусе",
+        "accepted_answers": [
+          "автобусе",
+          "на автобусе"
+        ],
+        "hint": "Transport after на uses the prepositional here.",
+        "explanation": "На автобусе says which transport we use.",
+        "requirement_id": "a1.language.prepositional-transport",
+        "expectation": "Produce автобусе in the supplied construction. Accept only the listed word or equivalent phrase; this checks a controlled form, not free writing."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Как добраться до встречи?",
+    "title_en": "Explain your journey to a friend",
+    "task": "Ты собираешься встретиться с другом у библиотеки. Напиши, как ты обычно туда добираешься, как поедешь или пойдёшь сегодня и почему. Скажи другу, где тебя ждать. Можно придумать детали.",
+    "task_en": "You are meeting a friend at the library. Explain how you usually get there, how you will travel today and why. Tell your friend where to wait for you. You may invent the details.",
+    "required_words": [
+      "обычно",
+      "сегодня",
+      "ждать"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.personal-message",
+    "id": "explain-journey-message",
+    "expectation": "Write an intelligible message describing the usual way of reaching a library, today’s travel plan with a simple reason, and a clear waiting place. Today may use the same transport as usual if the reason makes sense. Accept natural motion-verb alternatives and concise phrases; judge communication separately from corrections and do not infer mastery of all motion pairs."
+  },
+  "writing_summary": "Tell a friend how you will get there and where to wait.",
+  "writing_summary_ru": "Скажите другу, как доберётесь и где вас ждать.",
+  "review_status": "application-authored; qualified language review pending",
+  "speaking_href": "/#speaking/scenario/directions?level=A1",
+  "speaking_title": "Ask the way",
+  "speaking_title_ru": "Узнайте дорогу",
+  "speaking_summary": "Use your travel plan in a separate directions conversation.",
+  "speaking_summary_ru": "Попробуйте отдельный разговор о том, как найти дорогу."
+}

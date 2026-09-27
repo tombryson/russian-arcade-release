@@ -1,0 +1,31 @@
+/* Learning screens put the current task ahead of repeated page furniture. */
+.lesson-workspace main { max-width:1240px; width:100%; }
+.page.lesson-player { max-width:none; padding:16px 32px 32px; }
+.lesson-player-nav { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:4px 24px; padding-bottom:12px; margin-bottom:16px; border-bottom:1px solid var(--wp-border-subtle); }
+.lesson-player-nav .lesson-head { margin:0; gap:16px; }
+.lesson-player-nav .text-link { font-size:14px; }
+.lesson-player-nav .lesson-name { color:var(--wp-text-secondary); font-size:14px; }
+.lesson-player > .letter { margin-top:0; padding:clamp(24px,3vw,40px); }
+.lesson-player .letter .lesson-counter { margin:0 0 12px; font-size:13px; color:var(--wp-text-secondary); }
+.lesson-player .lesson-task-heading { font:500 clamp(26px,2.6vw,34px)/1.35 var(--wp-font-reading); letter-spacing:0; max-width:52ch; white-space:pre-line; }
+.lesson-player .options { margin-block:24px 20px; }
+.lesson-player .word { min-width:160px; padding:18px 28px; }
+.lesson-player .tutorial-back { margin-top:12px; }
+.lesson-player .tutorial-welcome { grid-template-columns:minmax(0,1fr) 180px; margin-bottom:20px; gap:24px; }
+.lesson-player .tutorial-welcome .intro { margin-top:12px; }
+.lesson-player .tutorial-word-card .tutorial-new-word { margin-top:20px; }
+.lesson-player .letter .first-steps-word { margin-top:12px; }
+.lesson-player > .intro { margin-bottom:20px; }
+@media(max-width:900px) {
+  .lesson-player-nav { gap:8px 20px; }
+}
+@media(max-width:600px) {
+  .page.lesson-player { padding:12px 16px 24px; }
+  .lesson-player-nav { gap:2px 12px; margin-bottom:12px; padding-bottom:8px; }
+  .lesson-player-nav .lesson-head { gap:10px; width:100%; }
+  .lesson-player-nav .lesson-name { flex-basis:100%; }
+  .lesson-player > .letter { padding:22px 18px; }
+  .lesson-player .word { flex:1 1 auto; min-width:100px; padding:14px 20px; }
+  .lesson-player .tutorial-welcome { grid-template-columns:minmax(0,1fr); gap:12px; }
+  .lesson-player .tutorial-welcome-art { max-width:140px; justify-self:center; }
+}

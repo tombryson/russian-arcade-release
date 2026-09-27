@@ -1,0 +1,44 @@
+.page.game-shop { max-width:1220px; margin-inline:auto; padding-top:28px; }
+.game-shop-back { display:inline-block; font-size:14px; margin-bottom:22px; }
+.game-shop-hero { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(220px,.85fr); align-items:center; gap:24px; padding:32px 40px; background:#fff6da; color:#252649; border-radius:24px; overflow:hidden; }
+.game-shop-welcome { max-width:490px; }
+.game-shop-welcome h1 { margin:0 0 14px; font-size:clamp(27px,3vw,40px); line-height:1.3; }
+.game-shop-intro { font-size:17px; line-height:1.65; max-width:390px; margin:0; }
+.game-shop-wallet { display:flex; align-items:center; gap:22px; margin:23px 0 12px; }
+.game-shop-wallet>span { font-size:14px; }
+.game-shop-wallet>strong { font-size:27px; line-height:1; }
+.shop-coin-amount { display:inline-flex; align-items:center; gap:8px; white-space:nowrap; }
+.shop-coin { display:inline-grid; place-items:center; font:bold 19px/1 Georgia,serif; width:29px; height:29px; border-radius:50%; background:#f5c742; color:#74541e; border:2px solid #b89236; box-shadow:inset 0 0 0 2px #ffe69a; flex-shrink:0; }
+.game-shop-prices { margin:0 0 12px; max-width:370px; font-size:13px; line-height:1.6; color:#5a5261; }
+.game-shop-welcome>.text-link { color:#2947cc; font-size:13px; }
+.game-shop-illustration { justify-self:end; width:min(100%,335px); }
+.game-shop-illustration img { display:block; width:100%; height:auto; border-radius:18px; }
+.game-shop-notices:empty { display:none; }
+.game-shop-success,.game-shop-error,.game-shop-profile,.game-shop-demo { padding:16px 20px; margin:20px 0 0; border-radius:12px; font-size:14px; line-height:1.6; background:var(--wp-surface-sheet); }
+.game-shop-success { border-left:4px solid #71966b; }
+.game-shop-error { border-left:4px solid #b65b48; }
+.game-shop-error p { margin:0 0 8px; }
+.game-shop-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; margin-top:30px; }
+.game-shop-card { display:flex; flex-direction:column; min-width:0; background:var(--wp-surface-sheet); border:1px solid var(--wp-border-subtle); border-radius:18px; padding:17px; overflow:hidden; color:var(--wp-text-primary); }
+a.game-shop-card,a.game-shop-card:hover { text-decoration:none; color:var(--wp-text-primary); }
+a.game-shop-card:hover { border-color:#938654; }
+.game-shop-art { width:100%; max-width:170px; align-self:center; margin:0 auto 17px; }
+.game-shop-art .first-steps-art { width:100%; height:auto; aspect-ratio:1; margin:0; }
+.game-shop-art img { width:100%; height:100%; object-fit:contain; }
+.game-shop-card-copy { flex:1; }
+.game-shop-card-copy h2 { font:600 17px/1.45 var(--wp-font-reading); margin:0 0 9px; }
+.game-shop-card-copy p { font-size:13px; line-height:1.65; margin:0; color:var(--wp-text-secondary); }
+.game-shop-card-foot { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:20px; padding-top:14px; border-top:1px solid var(--wp-border-subtle); font-size:12px; }
+.game-shop-card-foot>span { color:var(--wp-text-secondary); }
+.game-shop-card-foot>strong { white-space:nowrap; }
+.game-shop-buy { flex-direction:column; align-items:stretch; }
+.game-shop-buy small { color:var(--wp-text-secondary); text-align:center; font-size:11px; }
+.game-shop-unlock { display:flex; justify-content:center; align-items:center; gap:8px; background:#2c47ca; color:#fff9e9; border:1px solid transparent; border-radius:9px; min-height:44px; padding:8px 10px; font:500 13px/1.4 var(--wp-font-reading); cursor:pointer; }
+.game-shop-unlock .shop-coin { width:22px; height:22px; font-size:15px; border-width:1px; }
+.game-shop-unlock .shop-coin-amount { gap:5px; }
+.game-shop-unlock:disabled { background:var(--wp-surface-paper); color:var(--wp-text-secondary); border-color:var(--wp-border-subtle); cursor:default; }
+.game-shop-unlock:not(:disabled):hover { background:#2038b5; }
+.game-shop a:focus-visible,.game-shop button:focus-visible { outline:3px solid #c59328; outline-offset:4px; }
+@media(max-width:1050px) { .game-shop-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } .game-shop-hero { padding:28px; } }
+@media(max-width:760px) { .game-shop-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .game-shop-hero { grid-template-columns:minmax(0,1fr) minmax(130px,.6fr); padding:24px; gap:15px; } .game-shop-wallet { gap:14px; } .game-shop-welcome h1 { font-size:27px; } .game-shop-intro { font-size:15px; } }
+@media(max-width:500px) { .game-shop-hero { grid-template-columns:minmax(0,1fr); } .game-shop-illustration { justify-self:center; width:190px; grid-row:1; } .game-shop-welcome { width:100%; } .game-shop-welcome h1 { font-size:27px; } .game-shop-grid { gap:12px; } .game-shop-card { padding:12px; border-radius:14px; } .game-shop-art { margin-bottom:12px; } .game-shop-card-copy h2 { font-size:15px; } .game-shop-card-copy p { font-size:12px; } .game-shop-card-foot { flex-wrap:wrap; } .game-shop-unlock { flex-wrap:wrap; font-size:12px; padding-inline:5px; } }

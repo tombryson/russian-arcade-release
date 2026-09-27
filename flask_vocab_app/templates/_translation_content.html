@@ -1,0 +1,14 @@
+<section class="sentence-workspace sentence-paper translation-workspace" data-game-id="{{ practice.id }}" data-leave-message="{{ ui_t('translation.leave') }}" data-network-error="{{ ui_t('translation.request_failed') }}" data-unsaved="{{ ui_t('word_jumble.unsaved') }}" data-checking="{{ ui_t('translation.checking') }}" data-saving="{{ ui_t('word_jumble.saving') }}">
+  <div class="sentence-task-heading"><h2>{{ ui_t('translation.prompt_label') }}</h2><span class="sentence-state">{{ practice.level_label }}{% if practice.topic != 'any' %} · {{ practice.topic_label }}{% endif %}</span></div>
+  <p class="translation-prompt" lang="en">{{ practice.english }}</p>
+  <form class="sentence-editor" action="/sentence/assess" method="post" data-translation-editor>
+    <input type="hidden" name="sentence_id" value="{{ practice.id }}"><input type="hidden" name="revision" value="{{ practice.revision }}">
+    <label for="translation-answer">{{ ui_t('sentences.your_translation') }}</label>
+    <textarea class="form-control" id="translation-answer" name="user_response" lang="ru" rows="4" maxlength="1000" required spellcheck="true" aria-describedby="translation-answer-help" data-saved-value="{{ practice.saved_draft }}">{{ practice.draft }}</textarea>
+    <p class="sentence-muted" id="translation-answer-help">{{ ui_t('translation.answer_help') }}</p>
+    <div class="sentence-actions"><button class="btn btn-primary" type="submit">{{ ui_t('translation.check') }}</button><button type="submit" class="btn btn-outline-secondary" formaction="/sentence/save" formnovalidate>{{ ui_t('word_jumble.save') }}</button><span class="sentence-draft-status sentence-muted" aria-live="polite">{% if practice.draft_saved_at %}{{ ui_t('word_jumble.saved_ok') }}{% endif %}</span></div>
+    <p class="sentence-provider-note">{{ ui_t('translation.check_help') }}</p>
+  </form>
+  <div id="sentence-action-status" role="status" aria-live="polite">{% if error %}<p class="alert alert-warning">{{ error }}</p>{% endif %}</div>
+  <div id="sentence-feedback">{% include '_translation_feedback.html' %}</div>
+</section>

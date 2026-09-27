@@ -1,0 +1,38 @@
+.language-picker { position: relative; flex: 0 0 auto; color: inherit; }
+.language-picker > summary {
+    display: flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px; padding: 0; list-style: none; cursor: pointer;
+    border: 0; border-radius: 50%; background: transparent;
+    font-size: 25px; line-height: 1;
+}
+.language-picker > summary::-webkit-details-marker { display: none; }
+.language-picker > summary svg { display: block; flex: 0 0 auto; }
+.language-picker > summary:hover, .language-picker[open] > summary { background: #ffffff18; }
+.language-picker .language-picker-options {
+    position: absolute; top: calc(100% + 10px); right: 0; z-index: 1100;
+    display: grid; gap: 4px; width: 188px; min-width: 0; margin: 0; padding: 8px;
+    color: #24264b; background: #fff5db; border: 1px solid #24264b30;
+    border-radius: 16px; box-shadow: 0 8px 24px #14162c30;
+}
+.language-picker-options button {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    width: 100%; min-height: 48px; padding: 10px 14px; margin: 0;
+    border: 0; border-radius: 10px; background: transparent; color: inherit;
+    text-align: left; font: inherit; cursor: pointer;
+}
+.language-picker-options button:hover, .language-picker-options button[aria-pressed="true"] { background: #24264b0e; }
+.language-selected { width: 1em; font-weight: 700; }
+.language-picker > summary:focus-visible { outline: 3px solid #f8ce52; outline-offset: 4px; }
+.language-picker-options button:focus-visible { outline: 3px solid #294acc; outline-offset: -2px; }
+.arcade-header-actions { display: flex; align-items: center; gap: 16px; }
+.arcade-header-actions nav { align-items: center; }
+.sidebar .language-picker { margin: 0 12px 20px; }
+.sidebar .language-picker-options { position: static; margin-top: 10px; }
+@media (max-width: 900px) {
+    .arcade-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; padding: 20px 20px 12px; }
+    .arcade-header-actions { display: contents; }
+    .arcade-header-actions > .language-picker { grid-column: 2; grid-row: 1; }
+    .arcade-header-actions > nav { grid-column: 1 / -1; grid-row: 2; justify-content: space-between; width: 100%; gap: 2px; }
+    .arcade-header-actions > nav a { padding: 8px 10px; font-size: 14px; }
+    .arcade-brand { min-width: 0; }
+}

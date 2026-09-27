@@ -1,0 +1,84 @@
+{
+  "version": "listening-v1",
+  "id": "origins-and-destinations-listening-v1",
+  "unit_id": "origins-and-destinations-v1",
+  "title": "Listen for the route",
+  "title_ru": "Откуда и куда идут?",
+  "items": [
+    {
+      "id": "after-doctor",
+      "transcript": "Лена, я уже вышел из поликлиники. К врачу сегодня больше не надо. Сейчас зайду в аптеку за лекарством, а потом приду к тебе. Подожди меня дома.",
+      "prompt": "Куда человек пойдёт сразу после поликлиники?",
+      "choices": [
+        {
+          "id": "doctor",
+          "text": "К врачу."
+        },
+        {
+          "id": "pharmacy",
+          "text": "В аптеку."
+        },
+        {
+          "id": "lena",
+          "text": "Сразу к Лене."
+        }
+      ],
+      "answer": "pharmacy",
+      "hint": "Identify the intermediate stop before visiting Lena.",
+      "explanation": "The pharmacy is the next stop; the visit to Lena comes afterwards.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the next destination while distinguishing the place just left and the later person-destination.",
+      "audio_url": "/static/audio/course/curriculum/origins-and-destinations-listening-v1/after-doctor.mp3"
+    },
+    {
+      "id": "leaving-sister",
+      "transcript": "Ира, я возвращаюсь от сестры. Сейчас иду домой, а не к тебе: нужно взять сумку. Потом зайду к тебе, и вместе пойдём на вокзал.",
+      "prompt": "Откуда человек сейчас возвращается?",
+      "choices": [
+        {
+          "id": "sister",
+          "text": "От сестры."
+        },
+        {
+          "id": "ira",
+          "text": "От Иры."
+        },
+        {
+          "id": "station",
+          "text": "С вокзала."
+        }
+      ],
+      "answer": "sister",
+      "hint": "The question asks where the journey started.",
+      "explanation": "The speaker is returning from the sister’s place. Ira’s home and the station are later stops.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Extract the stated person-origin from a spoken plan that also mentions several later destinations.",
+      "audio_url": "/static/audio/course/curriculum/origins-and-destinations-listening-v1/leaving-sister.mp3"
+    },
+    {
+      "id": "after-work",
+      "transcript": "Петя, я еду с работы. В магазин уже не успею. Купи, пожалуйста, хлеб сам. Я поеду прямо домой и там буду тебя ждать.",
+      "prompt": "Куда человек поедет после работы?",
+      "choices": [
+        {
+          "id": "shop",
+          "text": "В магазин."
+        },
+        {
+          "id": "home",
+          "text": "Домой."
+        },
+        {
+          "id": "petya",
+          "text": "На работу к Пете."
+        }
+      ],
+      "answer": "home",
+      "hint": "The shop visit has been ruled out.",
+      "explanation": "The speaker will go straight home and asks Petya to buy the bread.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the actual destination after a proposed stop has been explicitly ruled out in the recording.",
+      "audio_url": "/static/audio/course/curriculum/origins-and-destinations-listening-v1/after-work.mp3"
+    }
+  ]
+}

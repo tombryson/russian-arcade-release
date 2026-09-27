@@ -1,0 +1,22 @@
+{% if exercise %}
+<section class="sentence-workspace sentence-paper writing-workspace" data-game-id="{{ exercise.id }}" data-leave-message="{{ ui_t('writing.leave') }}" data-network-error="{{ ui_t('writing.request_failed') }}" data-unsaved="{{ ui_t('word_jumble.unsaved') }}" data-checking="{{ ui_t('writing.checking') }}" data-saving="{{ ui_t('word_jumble.saving') }}">
+  <div class="sentence-task-heading"><h2>{{ ui_t('writing.task') }}</h2><span class="sentence-state">{{ exercise.level_label }}{% if exercise.topic != 'any' %} · {{ exercise.topic_label }}{% endif %}</span></div>
+  <p class="writing-prompt" lang="{{ exercise.task_language }}">{{ exercise.display_task }}</p>
+  {% if exercise.task_language == 'en' %}<details class="writing-original"><summary>{{ ui_t('writing.original') }}</summary><p lang="ru">{{ exercise.task }}</p></details>{% endif %}
+  {% if exercise.required_words %}<div class="writing-word-bank"><h3>{{ ui_t('writing.use_words') }}</h3><p class="sentence-muted">{{ ui_t('writing.word_help') }}</p><div class="sentence-tiles">{% for word in exercise.required_words %}<button type="button" class="sentence-tile" lang="ru" data-insert-word="{{ word }}" aria-label="{{ ui_t('word_jumble.insert') }}: {{ word }}">{{ word }}</button>{% endfor %}</div></div>{% endif %}
+  <form class="sentence-editor" id="writing-form" action="/writing/assess" method="post" data-writing-editor>
+    <input type="hidden" name="exercise_id" value="{{ exercise.id }}"><input type="hidden" name="revision" value="{{ exercise.revision }}">
+    {% if household_enabled %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+    <div class="writing-editor-heading"><label for="user-response">{{ ui_t('writing.your_response') }}</label><span class="sentence-muted" data-writing-count>{{ ui_t('writing.word_count') }}: <span>{{ exercise.word_count }}</span></span></div>
+    <textarea class="form-control" id="user-response" name="user_response" lang="ru" rows="10" maxlength="20000" required spellcheck="true" data-saved-value="{{ exercise.saved_draft }}">{{ exercise.draft }}</textarea>
+    <div class="sentence-actions"><button class="btn btn-primary" type="submit">{{ ui_t('writing.check') }}</button><button class="btn btn-outline-secondary" type="submit" formaction="/writing/save" formnovalidate>{{ ui_t('word_jumble.save') }}</button><span class="sentence-draft-status sentence-muted" aria-live="polite">{% if exercise.draft != exercise.saved_draft %}{{ ui_t('word_jumble.unsaved') }}{% elif exercise.revision %}{{ ui_t('writing.saved_ok') }}{% endif %}</span></div>
+    <p class="sentence-provider-note">{{ ui_t('writing.check_help') }}</p>
+  </form>
+  <details class="writing-timer" data-writing-timer data-start="{{ ui_t('writing.timer_start') }}" data-pause="{{ ui_t('writing.timer_pause') }}" data-finished="{{ ui_t('writing.timer_finished') }}">
+    <summary>{{ ui_t('writing.timer') }}</summary><p class="sentence-muted">{{ ui_t('writing.timer_help') }}</p>
+    <div class="writing-timer-controls"><label for="writing-minutes">{{ ui_t('writing.minutes') }}</label><select class="form-select" id="writing-minutes"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option></select><output aria-label="{{ ui_t('writing.time_remaining') }}">10:00</output><button type="button" class="btn btn-outline-secondary" data-timer-toggle>{{ ui_t('writing.timer_start') }}</button><button type="button" class="sentence-text-button" data-timer-reset>{{ ui_t('writing.timer_reset') }}</button></div><p data-timer-status role="status"></p>
+  </details>
+  <div id="sentence-action-status" role="status" aria-live="polite">{% if error %}<p class="alert alert-warning">{{ error }}</p>{% endif %}</div>
+  <div id="sentence-feedback">{% include '_writing_feedback.html' %}</div>
+</section>
+{% elif error %}<p class="alert alert-warning" role="alert">{{ error }}</p>{% endif %}

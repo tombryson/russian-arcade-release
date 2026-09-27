@@ -1,0 +1,355 @@
+{
+  "id": "social-exchanges-v1",
+  "level": "A1",
+  "topic_id": "greetings",
+  "title": "Greetings and requests",
+  "title_ru": "Знакомство и просьбы",
+  "summary": "Recognise greetings, introduce someone and understand a request to repeat.",
+  "summary_ru": "Различайте приветствие и прощание, представляйтесь и узнавайте просьбу повторить.",
+  "practice_summary": "Read eight short situations and choose the answer that fits.",
+  "practice_summary_ru": "Прочитайте восемь коротких ситуаций и выберите подходящий ответ.",
+  "review_status": "application-authored; qualified language review pending",
+  "groups": [
+    {
+      "title": "Greeting and taking leave",
+      "title_ru": "Приветствие и прощание",
+      "note": "Привет and пока suit a familiar, informal exchange. Здравствуйте and до свидания are usual polite choices with a new adult contact. Ты addresses one person informally; вы can address one person politely or several people. The relationship matters, not just age.",
+      "note_ru": "Привет и пока подходят для неофициального общения со знакомыми. Здравствуйте и до свидания — обычные вежливые формы при знакомстве со взрослым. Ты — неофициальное обращение к одному человеку, вы — вежливое к одному или обращение к нескольким. Важны отношения между людьми.",
+      "examples": [
+        {
+          "ru": "— Привет, Оля! — Привет! Как дела?",
+          "en": "“Hi, Olya!” “Hi! How are you?”"
+        },
+        {
+          "ru": "— Здравствуйте, Анна Петровна. — Здравствуйте. Входите, пожалуйста.",
+          "en": "“Hello, Anna Petrovna.” “Hello. Please come in.”"
+        },
+        {
+          "ru": "— Спасибо за помощь. До свидания! — До свидания!",
+          "en": "“Thank you for your help. Goodbye!” “Goodbye!”"
+        }
+      ]
+    },
+    {
+      "title": "Asking and giving names",
+      "title_ru": "Как зовут?",
+      "note": "The naming pattern uses меня, тебя, вас, его or её: меня зовут… The name itself stays in its ordinary naming form. Как вас зовут? is polite; как тебя зовут? is informal.",
+      "note_ru": "В конструкции с зовут: меня, тебя, вас, его, её. Само имя остаётся в начальной форме. Как вас зовут? — вежливо; как тебя зовут? — неофициально.",
+      "examples": [
+        {
+          "ru": "— Как вас зовут? — Меня зовут Ирина.",
+          "en": "“What is your name?” “My name is Irina.”"
+        },
+        {
+          "ru": "Это мой брат. Его зовут Павел.",
+          "en": "This is my brother. His name is Pavel."
+        },
+        {
+          "ru": "— Как тебя зовут? — Меня зовут Дима.",
+          "en": "“What is your name?” “My name is Dima.”"
+        }
+      ]
+    },
+    {
+      "title": "A request, or a request to repeat",
+      "title_ru": "Просьба и уточнение",
+      "note": "Use a taught imperative with пожалуйста: повтори to one familiar person, повторите for polite or plural address. Извините, я не понимаю signals a problem; повторите, пожалуйста asks for repetition. Можно взять…? asks permission, rather than announcing what you will do.",
+      "note_ru": "Добавьте пожалуйста к просьбе: повтори — одному человеку на ты, повторите — на вы или нескольким людям. Извините, я не понимаю сообщает о затруднении, повторите, пожалуйста просит повторить. Можно взять…? — вопрос о разрешении.",
+      "examples": [
+        {
+          "ru": "Саша, повтори, пожалуйста. Я не понимаю.",
+          "en": "Sasha, please repeat that. I do not understand."
+        },
+        {
+          "ru": "Извините, повторите адрес, пожалуйста.",
+          "en": "Sorry, please repeat the address."
+        },
+        {
+          "ru": "— Можно взять эту ручку? — Да, пожалуйста.",
+          "en": "“May I take this pen?” “Yes, of course.”"
+        },
+        {
+          "ru": "— Скажите, пожалуйста, где касса? — Справа.",
+          "en": "“Please tell me, where is the ticket office?” “On the right.”"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "polite-arrival",
+      "prompt": "Новая ученица входит в класс. Она говорит: «Здравствуйте, Анна Петровна!» Учительница отвечает: «Здравствуйте! Проходите».\nЧто делает ученица?",
+      "choices": [
+        {
+          "id": "goodbye",
+          "text": "Прощается с учительницей."
+        },
+        {
+          "id": "greeting",
+          "text": "Здоровается с учительницей."
+        },
+        {
+          "id": "apology",
+          "text": "Просит прощения за опоздание."
+        }
+      ],
+      "answer": "greeting",
+      "hint": "The student is arriving; nobody says that she is late.",
+      "explanation": "The exchange is a greeting on arrival. There is no farewell or apology in the text.",
+      "requirement_id": "a1.reading.narrative-meaning",
+      "expectation": "Recognise the main event in a short written exchange as greeting a teacher, not actual performance of spoken etiquette."
+    },
+    {
+      "id": "introducing-brother",
+      "prompt": "Ира пишет: «Завтра придём я и мой брат. Его зовут Лев. Он любит музыку, а я люблю спорт».\nКак зовут брата Иры?",
+      "choices": [
+        {
+          "id": "lev",
+          "text": "Лев."
+        },
+        {
+          "id": "ira",
+          "text": "Ира."
+        },
+        {
+          "id": "unspecified",
+          "text": "В сообщении нет имени брата."
+        }
+      ],
+      "answer": "lev",
+      "hint": "Его and он refer to the brother, not the sender.",
+      "explanation": "Лев is the brother introduced in Ira’s message.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Resolve его and он to the named brother in a written introduction."
+    },
+    {
+      "id": "my-name",
+      "prompt": "Ты представляешься: «… зовут Антон».",
+      "choices": [
+        {
+          "id": "subject",
+          "text": "Я"
+        },
+        {
+          "id": "object",
+          "text": "Меня"
+        },
+        {
+          "id": "dative",
+          "text": "Мне"
+        }
+      ],
+      "answer": "object",
+      "hint": "In the naming pattern, the person is expressed with меня.",
+      "explanation": "Меня зовут Антон is the naming pattern. Мне is used in other patterns, such as мне нужно.",
+      "requirement_id": "a1.language.accusative-name-pattern",
+      "expectation": "Select меня for the person being named in a first-person introduction."
+    },
+    {
+      "id": "polite-name-question",
+      "prompt": "Ты обращаешься к новому взрослому знакомому на вы. «Как … зовут?»",
+      "choices": [
+        {
+          "id": "dative",
+          "text": "вам"
+        },
+        {
+          "id": "subject",
+          "text": "вы"
+        },
+        {
+          "id": "object",
+          "text": "вас"
+        }
+      ],
+      "answer": "object",
+      "hint": "Keep polite address and the naming construction together.",
+      "explanation": "Как вас зовут? keeps polite/plural вас in the naming pattern.",
+      "requirement_id": "a1.language.accusative-name-pattern",
+      "expectation": "Select accusative вас for the addressee of a polite naming question."
+    },
+    {
+      "id": "familiar-repeat",
+      "prompt": "Ты разговариваешь с другом на ты: «Саша, …, пожалуйста. Я не понимаю». (повторить)",
+      "choices": [
+        {
+          "id": "plural",
+          "text": "повторите"
+        },
+        {
+          "id": "singular",
+          "text": "повтори"
+        },
+        {
+          "id": "statement",
+          "text": "повторяю"
+        }
+      ],
+      "answer": "singular",
+      "hint": "The prompt explicitly says ты to one friend.",
+      "explanation": "Повтори is the singular familiar imperative. Повторите belongs to вы address.",
+      "requirement_id": "a1.language.imperative",
+      "expectation": "Choose the taught familiar singular imperative повтори for the specified ты relationship."
+    },
+    {
+      "id": "polite-information",
+      "prompt": "Ты обращаешься к преподавателю на вы: «…, пожалуйста, когда начинается урок». (сказать)",
+      "choices": [
+        {
+          "id": "familiar",
+          "text": "Скажи"
+        },
+        {
+          "id": "past",
+          "text": "Сказали"
+        },
+        {
+          "id": "polite",
+          "text": "Скажите"
+        }
+      ],
+      "answer": "polite",
+      "hint": "Choose a request addressed as вы, not a past statement.",
+      "explanation": "Скажите is the polite/plural imperative used to ask for information.",
+      "requirement_id": "a1.language.imperative",
+      "expectation": "Choose скажите to request information from someone explicitly addressed as вы."
+    },
+    {
+      "id": "repair-intention",
+      "prompt": "— Автобус отправляется в восемь пятнадцать.\n— Извините, повторите время, пожалуйста.\nЧто хочет узнать второй человек?",
+      "choices": [
+        {
+          "id": "repeat",
+          "text": "Ему нужно ещё раз услышать время отправления."
+        },
+        {
+          "id": "change",
+          "text": "Он хочет перенести отправление на другое время."
+        },
+        {
+          "id": "ticket",
+          "text": "Он хочет вернуть билет."
+        }
+      ],
+      "answer": "repeat",
+      "hint": "Look at what повторите asks the other person to do.",
+      "explanation": "The second person asks to hear the departure time again. They do not ask to change it or return a ticket.",
+      "requirement_id": "a1.reading.narrative-meaning",
+      "expectation": "Recognise a repetition request in a written dialogue without awarding independent speaking or listening evidence."
+    },
+    {
+      "id": "permission-request",
+      "prompt": "Ты хочешь узнать, разрешено ли взять ручку со стола. Какая фраза об этом спрашивает?",
+      "choices": [
+        {
+          "id": "announcement",
+          "text": "Я беру эту ручку."
+        },
+        {
+          "id": "permission",
+          "text": "Можно взять эту ручку?"
+        },
+        {
+          "id": "absence",
+          "text": "У меня нет ручки."
+        }
+      ],
+      "answer": "permission",
+      "hint": "A permission question asks whether the action is allowed.",
+      "explanation": "Можно взять эту ручку? asks permission. The other phrases announce an action or state an absence.",
+      "requirement_id": "a1.language.impersonal-modal",
+      "expectation": "Distinguish a subjectless можно plus infinitive permission question from an announcement and an absence statement."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Greetings and requests · word forms",
+    "summary": "Complete five short sentences. Write only the missing word or phrase.",
+    "summary_ru": "Дополните пять коротких предложений. Впишите только пропущенное слово или сочетание.",
+    "questions": [
+      {
+        "id": "form-my-name",
+        "prompt": "___ зовут Олег. (я)\nВпиши пропущенное местоимение.",
+        "answer": "Меня",
+        "accepted_answers": [
+          "Меня"
+        ],
+        "hint": "Use the naming pattern.",
+        "explanation": "Меня зовут gives the speaker’s name.",
+        "requirement_id": "a1.language.accusative-name-pattern",
+        "expectation": "Produce меня as the person named in the first-person naming pattern. This is a supplied-form task, not independent writing."
+      },
+      {
+        "id": "form-informal-name",
+        "prompt": "Ты спрашиваешь друга на ты: «Как ___ зовут?» (ты)\nВпиши местоимение.",
+        "answer": "тебя",
+        "accepted_answers": [
+          "тебя"
+        ],
+        "hint": "Как … зовут? uses the object form of ты.",
+        "explanation": "Как тебя зовут? asks one person informally for their name.",
+        "requirement_id": "a1.language.accusative-name-pattern",
+        "expectation": "Produce тебя in the explicitly informal naming question. This is a supplied-form task, not independent writing."
+      },
+      {
+        "id": "form-polite-repeat",
+        "prompt": "Ты обращаешься на вы: «___, пожалуйста. Я не понимаю». (повторить)\nВпиши форму просьбы.",
+        "answer": "Повторите",
+        "accepted_answers": [
+          "Повторите"
+        ],
+        "hint": "Use the polite/plural imperative.",
+        "explanation": "Повторите addresses one person politely or several people.",
+        "requirement_id": "a1.language.imperative",
+        "expectation": "Produce повторите in a supplied repetition request with explicit вы address. This is a supplied-form task, not independent writing."
+      },
+      {
+        "id": "form-familiar-information",
+        "prompt": "Ты обращаешься к другу на ты: «___, пожалуйста, где магазин». (сказать)\nВпиши форму просьбы.",
+        "answer": "Скажи",
+        "accepted_answers": [
+          "Скажи"
+        ],
+        "hint": "The request is addressed to one person as ты.",
+        "explanation": "Скажи is the familiar singular imperative of сказать.",
+        "requirement_id": "a1.language.imperative",
+        "expectation": "Produce скажи rather than the polite/plural скажите for the specified ты request. This is a supplied-form task, not independent writing."
+      },
+      {
+        "id": "form-polite-name",
+        "prompt": "Ты знакомишься с преподавателем и обращаешься на вы: «Как ___ зовут?» (вы)\nВпиши местоимение.",
+        "answer": "вас",
+        "accepted_answers": [
+          "вас"
+        ],
+        "hint": "Use the object form of вы in the naming pattern.",
+        "explanation": "Как вас зовут? is the polite naming question.",
+        "requirement_id": "a1.language.accusative-name-pattern",
+        "expectation": "Produce вас as the addressee of the supplied polite naming question. This is a supplied-form task, not independent writing."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Сообщение новому знакомому",
+    "title_en": "Message a new acquaintance",
+    "task": "Ты познакомился с человеком на занятии русского языка. Напиши ему первое сообщение: напомни, как тебя зовут, скажи, что тебе интересно, и предложи встретиться. Спроси, когда ему удобно. Можно придумать имя и интересы.",
+    "task_en": "You met someone in Russian class. Write your first message to them. Remind them of your name, mention an interest and suggest meeting. Ask when they are free. You may invent your name and interests.",
+    "required_words": [
+      "зовут",
+      "встретиться",
+      "когда"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.personal-message",
+    "id": "first-contact-message",
+    "expectation": "Write an original first-contact message with the sender’s name, one interest, a suggestion to meet and a question about availability. Accept either consistent ты or вы address and natural greetings; no set greeting, closing, length or flawless inflection is required. This is independent writing, not proof of spoken social etiquette."
+  },
+  "writing_summary": "Introduce yourself in a message and arrange to meet.",
+  "writing_summary_ru": "Представьтесь в сообщении и предложите встретиться.",
+  "speaking_href": "/#speaking/scenario/meet-someone?level=A1",
+  "speaking_title": "Meet someone",
+  "speaking_title_ru": "Познакомьтесь",
+  "speaking_summary": "Try a separate spoken introduction with a conversation partner.",
+  "speaking_summary_ru": "Попробуйте представиться собеседнику в отдельном разговоре."
+}

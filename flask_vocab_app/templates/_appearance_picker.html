@@ -1,0 +1,12 @@
+<details class="appearance-picker">
+    <summary aria-label="{{ 'Внешний вид' if ui_lang == 'ru' else 'Appearance' }}" title="{{ 'Внешний вид' if ui_lang == 'ru' else 'Appearance' }}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h2m6 0h8M4 17h8m6 0h2"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg>
+    </summary>
+    <form class="appearance-picker-options" action="/ui-navigation" method="post" hx-boost="false" aria-label="{{ 'Расположение меню' if ui_lang == 'ru' else 'Navigation layout' }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="next" value="{{ request.full_path if request.query_string else request.path }}">
+        {% for value, label in [('top', 'Верхнее меню' if ui_lang == 'ru' else 'Top navigation'), ('sidebar', 'Боковая панель' if ui_lang == 'ru' else 'Sidebar')] %}
+        <button type="submit" name="layout" value="{{ value }}" aria-pressed="{{ 'true' if navigation_layout == value else 'false' }}"><span>{{ label }}</span><span aria-hidden="true">{% if navigation_layout == value %}✓{% endif %}</span></button>
+        {% endfor %}
+    </form>
+</details>

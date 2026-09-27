@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} · Russian Arcade</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/static/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/css/account.css?v=2">
+</head>
+<body class="account-page">
+  <header class="account-header">
+    <a class="account-brand" href="/" aria-label="Russian Arcade home">
+      <img src="/static/images/favicon.svg" width="44" height="44" alt="">
+      <span>Russian Arcade</span>
+    </a>
+  </header>
+  <main class="account-main" id="main-content">
+    <section class="account-card" aria-labelledby="account-title">
+      <div id="account-title"><h1>{{ title }}</h1></div>
+      {% if not authenticated and not demo_active and title == 'Sign in' %}
+      <p class="account-intro">Save your words, cards and progress.</p>
+      {% endif %}
+      {% if authenticated %}
+      <div class="account-identity">
+        <span class="account-avatar" aria-hidden="true">{{ avatar }}</span>
+        <p>Signed in as <strong>{{ account_name }}</strong>.</p>
+      </div>
+      {% endif %}
+      {% if message %}<p class="account-message">{{ message }}</p>{% endif %}
+
+      {% if authenticated %}
+      <div class="account-actions">
+        <a class="account-primary" href="{{ next_url }}">Continue learning <span aria-hidden="true">→</span></a>
+        <form method="post" action="/trial/sign-out">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <button class="account-text-button" type="submit">Sign out</button>
+        </form>
+      </div>
+      {% if methods %}
+      <section class="account-methods" aria-labelledby="methods-title">
+        <h2 id="methods-title">Sign-in methods</h2>
+        {% for provider in methods %}
+        {% if provider.connected %}
+        <div class="account-connected">
+          <span class="account-method-name">{% include '_account_provider_icon.html' %}{{ provider.name }}</span>
+          <span class="account-connected-status"><span aria-hidden="true">✓</span> Connected</span>
+        </div>
+        {% elif provider.configured and link_csrf_token %}
+        <form method="post" action="/trial/connect/{{ provider.id }}">
+          <input type="hidden" name="csrf_token" value="{{ link_csrf_token }}">
+          <button class="account-provider account-provider-{{ provider.id }}" type="submit">
+            {% include '_account_provider_icon.html' %}<span>Connect {{ provider.name }}</span>
+          </button>
+        </form>
+        {% endif %}
+        {% endfor %}
+        {% if methods|selectattr('connected', 'equalto', false)|list and link_csrf_token %}
+        <p class="account-caption">Use either connected account to reach the same saved progress.</p>
+        {% endif %}
+      </section>
+      {% endif %}
+      {% if allowance_message %}
+      <details class="account-allowance">
+        <summary>AI allowance</summary>
+        <p>{{ allowance_message }}</p>
+      </details>
+      {% endif %}
+      {% else %}
+      {% if demo_active or demo_enabled %}
+      <div class="account-demo-entry">
+        <a class="account-primary" href="{{ next_url if demo_active else demo_url }}">{{ 'Continue demo' if demo_active else 'Try demo' }} <span aria-hidden="true">→</span></a>
+        {% if not demo_active %}<p class="account-caption">No sign-in needed. Try the activities with temporary progress and a shared AI allowance.</p>{% endif %}
+      </div>
+      {% endif %}
+      {% if methods %}
+      {% if demo_active or demo_enabled %}<p class="account-personal-label">Or sign in to your personal account</p>{% endif %}
+      <nav class="account-providers" aria-label="Sign in with your account">
+        {% for provider in methods %}
+        <a class="account-provider account-provider-{{ provider.id }}" href="{{ provider.sign_in_url }}">
+          {% include '_account_provider_icon.html' %}<span>Sign in with {{ provider.name }}</span>
+        </a>
+        {% endfor %}
+      </nav>
+      {% if existing_github_notice %}
+      <p class="account-caption account-existing">Already use GitHub here? Sign in with GitHub, then connect Google in your account to keep your saved progress.</p>
+      {% endif %}
+      {% endif %}
+      {% if not demo_active and not demo_enabled %}
+      <a class="account-guest" href="/">Explore the demo <span aria-hidden="true">→</span></a>
+      {% endif %}
+      {% if demo_active and allowance_message %}
+      <details class="account-allowance"><summary>AI allowance</summary><p>{{ allowance_message }}</p></details>
+      {% endif %}
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>

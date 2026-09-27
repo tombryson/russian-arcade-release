@@ -1,0 +1,29 @@
+{
+  "version": "curriculum-unit-audio-v1",
+  "content_id": "possession-absence-listening-v1",
+  "provider": "elevenlabs",
+  "source": "App-authored learning material with synthetic narration.",
+  "clips": {
+    "picnic-call": {
+      "text_sha256": "ead0eecc69161af6273feab500974ff359ee26af2665425e0bc3824c20d85080",
+      "audio_sha256": "6026110d6885e76558bd1fa288b81b66edb9bdc384f8e8d2b16410c56c86198c",
+      "duration": 9.456327,
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2"
+    },
+    "borrowed-key": {
+      "text_sha256": "28e887b104a7be888e775c4169534beea6d077b990da9709a93f1a4fe9e7da4f",
+      "audio_sha256": "76b1d70851d79d2f7cd5759318e087b986db2eb69a7d0b24da8b514eec6a9467",
+      "duration": 10.631837,
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2"
+    },
+    "borrowed-umbrella": {
+      "text_sha256": "00e39b2f9afc146819cabaa62b7fe20a6db598bf18daaa83a86a232bf30d6ff3",
+      "audio_sha256": "dd5481e442cc8d9f762ce933a5fe1ff42ff4ea31b9012d18da59cb4a05c3b74f",
+      "duration": 11.232653,
+      "voice_id": "ymDCYd8puC7gYjxIamPt",
+      "model": "eleven_multilingual_v2"
+    }
+  }
+}

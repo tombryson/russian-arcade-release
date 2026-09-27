@@ -1,0 +1,84 @@
+{
+  "version": "listening-v1",
+  "id": "possession-absence-listening-v1",
+  "unit_id": "possession-absence-v1",
+  "title": "Listen for what is needed",
+  "title_ru": "Что нужно?",
+  "items": [
+    {
+      "id": "picnic-call",
+      "prompt": "Что Лизе нужно купить?",
+      "choices": [
+        {
+          "id": "tea",
+          "text": "Чай."
+        },
+        {
+          "id": "sugar",
+          "text": "Сахар."
+        },
+        {
+          "id": "bread",
+          "text": "Хлеб."
+        }
+      ],
+      "answer": "sugar",
+      "hint": "Listen for the item that is missing.",
+      "explanation": "The speaker has tea; Boris is bringing bread. Liza is asked to buy sugar.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the requested missing item from the recording, distinguishing it from available tea and bread supplied by someone else.",
+      "transcript": "Лиза, привет! Чашки у меня есть, и чай тоже. А сахара нет. Хлеб покупать не надо: его принесёт Борис. Купи, пожалуйста, сахар. До встречи!",
+      "audio_url": "/static/audio/course/curriculum/possession-absence-listening-v1/picnic-call.mp3"
+    },
+    {
+      "id": "borrowed-key",
+      "prompt": "Чей ключ сейчас у Веры?",
+      "choices": [
+        {
+          "id": "vera",
+          "text": "Веры."
+        },
+        {
+          "id": "igor",
+          "text": "Игоря."
+        },
+        {
+          "id": "both",
+          "text": "У неё оба ключа."
+        }
+      ],
+      "answer": "igor",
+      "hint": "Distinguish who has the key from who owns it.",
+      "explanation": "Vera has Igor’s key; her own key is at home.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the owner of the key the speaker currently has, not merely the person holding it.",
+      "transcript": "Игорь, это Вера. У меня твой ключ. Мой ключ дома, а твой я нашла на столе в кафе. Я сейчас на работе. Забери его у меня вечером.",
+      "audio_url": "/static/audio/course/curriculum/possession-absence-listening-v1/borrowed-key.mp3"
+    },
+    {
+      "id": "borrowed-umbrella",
+      "prompt": "У кого сейчас два зонта?",
+      "choices": [
+        {
+          "id": "speaker",
+          "text": "У девушки, которая звонит."
+        },
+        {
+          "id": "dasha",
+          "text": "У Даши."
+        },
+        {
+          "id": "mother",
+          "text": "У мамы."
+        }
+      ],
+      "answer": "dasha",
+      "hint": "Listen for the person who has the available umbrellas.",
+      "explanation": "Dasha has two umbrellas and will lend the caller one.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Extract the stated possessor of the available umbrellas from the spoken message.",
+      "transcript": "Мама, я у Даши. На улице дождь, а у меня нет зонта. У Даши есть два зонта. Она даст мне один. Не приезжай, я дойду до дома сама.",
+      "audio_url": "/static/audio/course/curriculum/possession-absence-listening-v1/borrowed-umbrella.mp3"
+    }
+  ]
+}

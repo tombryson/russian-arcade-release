@@ -1,0 +1,23 @@
+{% set result = reading_result.assessment %}
+{% set ru = ui_lang == 'ru' %}
+<div class="reading-check-result">
+  {% for feedback in result.feedback %}
+  <div class="mb-3">
+    <strong>{{ ui_t('comprehension.question') }} {{ loop.index }} · {{ result.scores[loop.index0] }}/10</strong>
+    <p lang="ru">{{ reading_result.answers[loop.index0] }}</p>
+    <p>{{ feedback }}</p>
+  </div>
+  {% endfor %}
+  {% if result.criterion_reports %}
+  <details>
+    <summary>{{ 'Понимание содержания' if ru else 'Understanding the message' }}</summary>
+    {% for index, report in result.criterion_reports.items() %}
+    <p><strong>{{ ui_t('comprehension.question') }} {{ index|int + 1 }}:</strong> {{ report.judgements[0].feedback }}</p>
+    {% endfor %}
+  </details>
+  {% endif %}
+</div>
+{% if update_form %}
+<input type="hidden" id="reading-task-revision" name="task_revision" value="{{ reading_result.revision }}" hx-swap-oob="outerHTML" />
+<input type="hidden" id="reading-submission-id" name="submission_id" value="{{ reading_result.next_submission_id }}" hx-swap-oob="outerHTML" />
+{% endif %}

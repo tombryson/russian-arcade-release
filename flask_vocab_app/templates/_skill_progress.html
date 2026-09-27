@@ -1,0 +1,9 @@
+{% if onboarding_state and onboarding_state.progress_introduced %}
+<div class="skill-rail is-unavailable" data-skill-rail data-language="{{ ui_lang | default('en') }}">
+  <a class="skill-rail-link" href="/#journey" hx-boost="false" aria-label="{{ 'Загружаем прогресс главы. Открыть путешествие' if ui_lang == 'ru' else 'Loading chapter progress. Open your journey' }}">
+    <span class="skill-rail-track" aria-hidden="true"><span class="skill-rail-fill"></span></span>
+    <span class="skill-rail-runner" aria-hidden="true" hidden><img src="/static/images/barsik-progress-run-v1.webp" alt="" width="56" height="40" /></span>
+    <span class="sr-only" data-skill-bar role="progressbar" aria-label="{{ 'Подготовка к проверке' if ui_lang == 'ru' else 'Checkpoint preparation' }}" aria-valuemin="0" aria-valuemax="100" hidden></span>
+  </a>
+</div>
+{% endif %}

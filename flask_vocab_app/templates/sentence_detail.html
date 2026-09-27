@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% set page_title = ui_t('sentences.detail_title') %}
+{% block main_content %}
+<main class="main-content" id="mainContent" data-page="sentences_saved"><div class="sentence-page translation-page">
+  <header class="sentence-heading"><div><p class="sentence-eyebrow">{{ ui_t('translation.library_eyebrow') }}</p><h1 id="sentence-page-title" tabindex="-1">{{ ui_t('translation.saved_sentence') }}</h1></div><a class="sentence-text-link" href="/sentences/saved">{{ ui_t('sentences.saved_title') }} <span aria-hidden="true">↗</span></a></header>
+  <article class="sentence-paper"><p class="sentence-muted">{{ sentence.level_label }} · {{ sentence.topic_label }}</p><h2>{{ ui_t('sentences.english') }}</h2><p class="translation-prompt" lang="en">{{ sentence.english }}</p><h2>{{ ui_t('sentences.russian') }}</h2><p class="translation-detail-russian" lang="ru">{{ sentence.sentence }}</p>{% if sentence.audio_url %}{% with audio_url=sentence.audio_url %}{% include '_translation_audio.html' %}{% endwith %}{% endif %}<p class="translation-library-link"><a class="btn btn-primary" href="/sentences/practice/{{ sentence.id }}">{{ ui_t('translation.practise') }} <span aria-hidden="true">→</span></a></p></article>
+</div></main>
+{% endblock %}

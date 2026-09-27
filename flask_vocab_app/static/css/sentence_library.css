@@ -1,0 +1,85 @@
+/* The sentence library is a listening list; controls stay outside the rows. */
+.sentence-store .activity-header { align-items:center; }
+.sentence-store .sentence-store-toolbar { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin:0 0 20px; padding:0; }
+.sentence-store-search { position:relative; flex:1 1 220px; max-width:400px; }
+.sentence-store .sentence-store-search input { min-height:44px; padding-right:48px; font-size:16px; }
+.sentence-store-search button { position:absolute; inset:0 0 0 auto; width:44px; border:0; background:transparent; color:var(--wp-text-secondary); }
+.sentence-store-search svg,
+.sentence-store-action svg { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; }
+.sentence-store-action { display:flex; align-items:center; justify-content:center; gap:9px; min-height:44px; padding:9px 14px; margin:0; border:1px solid var(--wp-border-subtle); border-radius:8px; background:transparent; color:var(--wp-text-primary); font:500 15px/1.5 var(--wp-font-reading); list-style:none; cursor:pointer; white-space:nowrap; }
+.sentence-store-action::-webkit-details-marker { display:none; }
+.sentence-store-action:hover,
+.sentence-store-action[data-active=true] { background:var(--wp-surface-sheet); }
+.sentence-store-add,
+.sentence-store-filters { position:relative; }
+.sentence-store-add > summary > span { font-size:22px; line-height:1; font-weight:400; }
+.sentence-store .sentence-store-panel { position:absolute; z-index:10; top:calc(100% + 10px); width:320px; max-height:70vh; overflow:auto; padding:24px; border:1px solid var(--wp-border-subtle); border-radius:12px; background:var(--wp-surface-paper); color:var(--wp-text-primary); box-shadow:0 12px 36px #14162c30; text-align:left; }
+.sentence-store-add .sentence-store-panel { right:0; width:520px; max-width:calc(100vw - 40px); }
+.sentence-store-filters .sentence-store-panel { left:0; }
+.sentence-store .sentence-store-panel label { display:block; margin:16px 0 6px; font-size:14px; font-weight:500; }
+.sentence-store .sentence-store-panel > label:first-child { margin-top:0; }
+.sentence-store .sentence-store-panel :is(input,textarea,select) { font-size:16px; }
+.sentence-store-fields { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.sentence-store-fields > div { min-width:0; }
+.sentence-store .sentence-store-help { margin:8px 0 0; color:var(--wp-text-secondary); font-size:13px; line-height:1.5; }
+.sentence-store-form-actions { display:flex; align-items:center; gap:20px; margin-top:24px; }
+.sentence-store .sentence-store-panel .btn { min-height:44px; font-size:15px; }
+.sentence-store-cancel { padding:8px 0; border:0; background:none; color:var(--wp-text-secondary); font-size:15px; }
+.sentence-store [data-prepare-status] { margin:12px 0 0; font-size:14px; }
+.sentence-store [data-prepare-status]:empty { display:none; }
+.sentence-store-filter-count { display:grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--wp-surface-ticket); color:var(--wp-text-onTicket); font-size:12px; }
+.sentence-store-clear { font-size:14px; color:var(--wp-text-secondary); }
+.sentence-store-count { margin-left:auto; color:var(--wp-text-secondary); font-size:14px; }
+.sentence-store-table-wrap { container:sentence-library / inline-size; }
+.sentence-store .translation-library-table { width:100%; table-layout:fixed; border-collapse:collapse; }
+.sentence-store .translation-library-table th { padding:12px 16px; background:none; color:var(--wp-text-secondary); font-size:13px; font-weight:500; text-align:left; border-bottom:1px solid var(--wp-border-subtle); }
+.sentence-store .translation-library-table th:nth-child(1),
+.sentence-store .translation-library-table th:nth-child(2) { width:auto; }
+.sentence-store .translation-library-table th:nth-child(3) { width:240px; text-align:center; }
+.sentence-store-player-ready .translation-library-table th:nth-child(3) { width:76px; }
+.sentence-store .translation-library-table td { padding:12px 16px; vertical-align:middle; border-top:0; border-bottom:1px solid var(--wp-border-subtle); font-size:17px; line-height:1.55; white-space:pre-wrap; overflow-wrap:anywhere; }
+.sentence-store .translation-library-table .sentence-store-russian { font-weight:500; }
+.sentence-store-english { color:var(--wp-text-secondary); }
+.sentence-store .translation-library-table .sentence-store-audio { position:relative; text-align:center; white-space:normal; }
+.sentence-store-audio audio { display:block; width:100%; height:40px; }
+.sentence-store :is(audio,button,span)[hidden] { display:none !important; }
+.sentence-store-play { display:inline-grid; place-items:center; width:44px; height:44px; padding:10px; border:0; border-radius:50%; background:transparent; color:var(--wp-text-primary); cursor:pointer; vertical-align:middle; }
+.sentence-store-play:hover { background:var(--wp-surface-sheet); }
+.sentence-store-play[data-playing=true] { background:var(--wp-surface-ticket); color:var(--wp-text-onTicket); }
+.sentence-store-play svg { width:23px; height:23px; fill:currentColor; }
+.sentence-store-play .sentence-store-pause-icon,
+.sentence-store-play[data-playing=true] .sentence-store-play-icon { display:none; }
+.sentence-store-play[data-playing=true] .sentence-store-pause-icon { display:block; }
+.sentence-store [data-sentence-id]:target,
+.sentence-store [data-sentence-id]:has([data-playing=true]) { background:color-mix(in srgb, var(--wp-surface-ticket) 7%, transparent); }
+.sentence-store-audio-error { position:absolute; right:12px; top:calc(100% - 4px); z-index:2; width:210px; padding:8px 12px; border:1px solid var(--wp-border-subtle); border-radius:8px; background:var(--wp-surface-paper); color:var(--wp-text-primary); font-size:13px; box-shadow:0 4px 12px #14162c20; }
+.sentence-store-missing { color:var(--wp-text-secondary); }
+.sentence-store-empty { margin:24px 0; padding:24px 0; border-top:1px solid var(--wp-border-subtle); color:var(--wp-text-secondary); }
+.sentence-store :is(button,summary,input,select,textarea,a):focus-visible { outline:2px solid var(--wp-accent-learning); outline-offset:3px; }
+@container sentence-library (max-width:670px) {
+  .sentence-store .translation-library-table,
+  .sentence-store .translation-library-table tbody { display:block; width:100%; }
+  .sentence-store .translation-library-table thead { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+  .sentence-store .translation-library-table tr { display:grid; grid-template-columns:minmax(0,1fr) 44px; gap:4px 12px; padding:14px 0; border-bottom:1px solid var(--wp-border-subtle); }
+  .sentence-store .translation-library-table td { display:block; width:auto; margin:0; padding:0; border:0; font-size:16px; }
+  .sentence-store .translation-library-table .sentence-store-english { grid-column:1; font-size:15px; }
+  .sentence-store .translation-library-table .sentence-store-audio { grid-column:2; grid-row:1 / 3; align-self:center; }
+  .sentence-store:not(.sentence-store-player-ready) .translation-library-table .sentence-store-audio { grid-column:1 / -1; grid-row:auto; }
+  .sentence-store-audio-error { right:0; }
+}
+@media(max-width:700px) {
+  .sentence-store .activity-header { flex-direction:row; flex-wrap:wrap; gap:16px; margin-bottom:24px; }
+  .sentence-store .activity-header-copy { flex:1 1 200px; }
+  .sentence-store .activity-header h1 { font-size:28px; }
+  .sentence-store .activity-header-actions { position:static; }
+  .sentence-store .activity-header { position:relative; }
+  .sentence-store-add { position:static; }
+  .sentence-store-add .sentence-store-panel { left:0; right:0; width:100%; max-width:none; }
+  .sentence-store .sentence-store-toolbar { position:relative; gap:10px; }
+  .sentence-store-search { flex:1 1 180px; max-width:none; }
+  .sentence-store-count { flex:1 0 100%; margin:2px 0 0; font-size:13px; }
+  .sentence-store-filters { position:static; }
+  .sentence-store-filters .sentence-store-panel { top:54px; left:auto; right:0; width:min(320px, calc(100vw - 40px)); }
+  .sentence-store-panel { max-height:60vh; }
+  .sentence-store-fields { grid-template-columns:1fr; gap:0; }
+}

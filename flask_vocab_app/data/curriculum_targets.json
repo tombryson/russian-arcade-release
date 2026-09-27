@@ -1,0 +1,2961 @@
+{
+  "schema_version": 1,
+  "catalogue_version": "a1-targets-v1",
+  "curriculum_version": 1,
+  "levels": [
+    "A1"
+  ],
+  "response_modes": [
+    "reading_selection",
+    "listening_selection",
+    "independent_writing",
+    "independent_speaking",
+    "contextual_selection"
+  ],
+  "evidence_policy": {
+    "categories": [
+      "introduced",
+      "practised",
+      "demonstrated",
+      "needs_practice"
+    ],
+    "legacy_topic_scores_are_target_evidence": false,
+    "independent_production_required": false,
+    "required_target_preparation": [
+      "introduced",
+      "practised"
+    ],
+    "demonstration_requires": "A saved owner-bound response independently satisfying the target rubric. Record first answer, support, outcome, content and rubric versions; retain partial success.",
+    "supporting_grammar_references": "References describe teaching relationships only. Each grammar target needs its own discriminating response; objective success does not automatically establish grammar evidence.",
+    "listening_evidence": "A detail already answered by the displayed written message is not independent listening evidence.",
+    "scope": "A1 teaching targets and preparation subsets. This catalogue neither awards milestones nor specifies complete cumulative checkpoint coverage."
+  },
+  "sections": [
+    {
+      "id": "home",
+      "order": 1,
+      "level": "A1",
+      "title_en": "Leaving home",
+      "title_ru": "Перед выходом из дома",
+      "primary_topic_ids": [
+        "greetings",
+        "family",
+        "home"
+      ],
+      "required_target_ids": [
+        "a1.greetings.exchange-names.read",
+        "a1.family.identify-relatives.read",
+        "a1.family.possessive-agreement.select",
+        "a1.home.locate-object.read",
+        "a1.home.identify-rooms-furniture.read",
+        "a1.home.locate-object.listen",
+        "a1.family.identify-relatives.listen",
+        "a1.greetings.polite-greeting.read"
+      ],
+      "additional_practice_target_ids": [
+        "a1.greetings.polite-greeting.listen",
+        "a1.greetings.exchange-names.listen",
+        "a1.greetings.personal-pronouns.select",
+        "a1.greetings.name-pattern.select",
+        "a1.greetings.polite-address.select",
+        "a1.family.describe-family.read",
+        "a1.family.describe-family.listen",
+        "a1.family.introduce-person.select",
+        "a1.family.possession-pattern.select",
+        "a1.home.identify-rooms-furniture.listen",
+        "a1.home.location-prepositions.select",
+        "a1.home.singular-plural.select",
+        "a1.home.adjective-agreement.select"
+      ],
+      "independent_production_target_ids": [
+        "a1.greetings.polite-greeting.write",
+        "a1.greetings.polite-greeting.speak",
+        "a1.greetings.exchange-names.write",
+        "a1.greetings.exchange-names.speak",
+        "a1.family.identify-relatives.write",
+        "a1.family.identify-relatives.speak",
+        "a1.family.describe-family.write",
+        "a1.family.describe-family.speak",
+        "a1.home.identify-rooms-furniture.write",
+        "a1.home.identify-rooms-furniture.speak",
+        "a1.home.describe-location.write",
+        "a1.home.describe-location.speak"
+      ],
+      "independent_production_required": false
+    },
+    {
+      "id": "postoffice",
+      "order": 2,
+      "level": "A1",
+      "title_en": "The post office",
+      "title_ru": "На почте",
+      "primary_topic_ids": [
+        "numbers",
+        "daily_activities"
+      ],
+      "required_target_ids": [
+        "a1.numbers.recognise-number.read",
+        "a1.numbers.event-time.read",
+        "a1.numbers.event-time.listen",
+        "a1.numbers.clock-hour-forms.select",
+        "a1.numbers.time-versus-duration.select",
+        "a1.daily_activities.describe-routine.read",
+        "a1.daily_activities.ask-current-activity.read",
+        "a1.daily_activities.irregular-present.select"
+      ],
+      "additional_practice_target_ids": [
+        "a1.numbers.recognise-number.listen",
+        "a1.numbers.parts-of-day.select",
+        "a1.daily_activities.describe-routine.listen",
+        "a1.daily_activities.ask-current-activity.listen",
+        "a1.daily_activities.present-conjugation.select",
+        "a1.daily_activities.subject-verb-time.select"
+      ],
+      "independent_production_target_ids": [
+        "a1.numbers.recognise-number.write",
+        "a1.numbers.recognise-number.speak",
+        "a1.numbers.event-time.write",
+        "a1.numbers.event-time.speak",
+        "a1.daily_activities.describe-routine.write",
+        "a1.daily_activities.describe-routine.speak",
+        "a1.daily_activities.ask-current-activity.write",
+        "a1.daily_activities.ask-current-activity.speak"
+      ],
+      "independent_production_required": false
+    },
+    {
+      "id": "market",
+      "order": 3,
+      "level": "A1",
+      "title_en": "The market",
+      "title_ru": "На рынке",
+      "primary_topic_ids": [
+        "food",
+        "colors",
+        "clothing"
+      ],
+      "required_target_ids": [
+        "a1.food.identify-food-drink.read",
+        "a1.food.make-request.read",
+        "a1.food.polite-request.select",
+        "a1.colors.identify-colour-size.read",
+        "a1.colors.gender-agreement.select",
+        "a1.clothing.identify-clothes.read",
+        "a1.clothing.identify-clothing-description.listen",
+        "a1.clothing.exceptional-nouns.select"
+      ],
+      "additional_practice_target_ids": [
+        "a1.food.identify-food-drink.listen",
+        "a1.food.make-request.listen",
+        "a1.food.want-pattern.select",
+        "a1.food.accusative-object.select",
+        "a1.colors.identify-colour-size.listen",
+        "a1.colors.describe-object.read",
+        "a1.colors.describe-object.listen",
+        "a1.colors.plural-agreement.select",
+        "a1.colors.demonstratives.select",
+        "a1.clothing.identify-clothes.listen",
+        "a1.clothing.identify-clothing-description.read",
+        "a1.clothing.accusative-object.select",
+        "a1.clothing.adjective-agreement.select"
+      ],
+      "independent_production_target_ids": [
+        "a1.food.identify-food-drink.write",
+        "a1.food.identify-food-drink.speak",
+        "a1.food.make-request.write",
+        "a1.food.make-request.speak",
+        "a1.colors.identify-colour-size.write",
+        "a1.colors.identify-colour-size.speak",
+        "a1.colors.describe-object.write",
+        "a1.colors.describe-object.speak",
+        "a1.clothing.identify-clothes.write",
+        "a1.clothing.identify-clothes.speak",
+        "a1.clothing.identify-clothing-description.write",
+        "a1.clothing.identify-clothing-description.speak"
+      ],
+      "independent_production_required": false
+    },
+    {
+      "id": "leavingtown",
+      "order": 4,
+      "level": "A1",
+      "title_en": "Leaving town",
+      "title_ru": "Выезд из города",
+      "primary_topic_ids": [
+        "places",
+        "weather"
+      ],
+      "required_target_ids": [
+        "a1.places.ask-location.read",
+        "a1.places.follow-directions.read",
+        "a1.places.follow-directions.listen",
+        "a1.places.location-versus-direction.select",
+        "a1.places.direction-commands.select",
+        "a1.weather.understand-weather.read",
+        "a1.weather.choose-weather-plan.read",
+        "a1.weather.impersonal-state.select"
+      ],
+      "additional_practice_target_ids": [
+        "a1.places.ask-location.listen",
+        "a1.places.place-prepositions.select",
+        "a1.weather.understand-weather.listen",
+        "a1.weather.choose-weather-plan.listen",
+        "a1.weather.noun-adjective-state.select",
+        "a1.weather.present-weather-patterns.select"
+      ],
+      "independent_production_target_ids": [
+        "a1.places.ask-location.write",
+        "a1.places.ask-location.speak",
+        "a1.places.follow-directions.write",
+        "a1.places.follow-directions.speak",
+        "a1.weather.describe-weather.write",
+        "a1.weather.describe-weather.speak",
+        "a1.weather.choose-weather-plan.write",
+        "a1.weather.choose-weather-plan.speak"
+      ],
+      "independent_production_required": false
+    }
+  ],
+  "targets": [
+    {
+      "id": "a1.greetings.polite-greeting.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "greetings",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Select a suitable greeting, farewell or polite response.",
+      "title_ru": "Выбрать подходящее приветствие, прощание или вежливый ответ.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Greet someone and say goodbye politely."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Choose the response that fits the stated relationship and stage of the exchange. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.greetings.personal-pronouns.select",
+        "a1.greetings.name-pattern.select",
+        "a1.greetings.polite-address.select"
+      ]
+    },
+    {
+      "id": "a1.greetings.polite-greeting.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "greetings",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Select a suitable greeting, farewell or polite response.",
+      "title_ru": "Выбрать подходящее приветствие, прощание или вежливый ответ.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Greet someone and say goodbye politely."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Choose the response that fits the stated relationship and stage of the exchange. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.greetings.personal-pronouns.select",
+        "a1.greetings.name-pattern.select",
+        "a1.greetings.polite-address.select"
+      ]
+    },
+    {
+      "id": "a1.greetings.polite-greeting.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "greetings",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Greet someone and say goodbye appropriately.",
+      "title_ru": "Поприветствовать собеседника и уместно попрощаться.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Greet someone and say goodbye politely."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Greet someone and say goodbye appropriately. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.greetings.personal-pronouns.select",
+        "a1.greetings.name-pattern.select",
+        "a1.greetings.polite-address.select"
+      ]
+    },
+    {
+      "id": "a1.greetings.polite-greeting.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "greetings",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Greet someone and say goodbye appropriately.",
+      "title_ru": "Поприветствовать собеседника и уместно попрощаться.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Greet someone and say goodbye politely."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Greet someone and say goodbye appropriately. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.greetings.personal-pronouns.select",
+        "a1.greetings.name-pattern.select",
+        "a1.greetings.polite-address.select"
+      ]
+    },
+    {
+      "id": "a1.greetings.exchange-names.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "greetings",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Identify a speaker and an appropriate name question.",
+      "title_ru": "Определить имя собеседника и подходящий вопрос об имени.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Introduce yourself and ask someone their name."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Identify who has the stated name or choose the name question appropriate to the exchange. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.greetings.personal-pronouns.select",
+        "a1.greetings.name-pattern.select",
+        "a1.greetings.polite-address.select"
+      ]
+    },
+    {
+      "id": "a1.greetings.exchange-names.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "greetings",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Identify a speaker and an appropriate name question.",
+      "title_ru": "Определить имя собеседника и подходящий вопрос об имени.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Introduce yourself and ask someone their name."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Identify who has the stated name or choose the name question appropriate to the exchange. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.greetings.personal-pronouns.select",
+        "a1.greetings.name-pattern.select",
+        "a1.greetings.polite-address.select"
+      ]
+    },
+    {
+      "id": "a1.greetings.exchange-names.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "greetings",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Introduce yourself and ask someone their name.",
+      "title_ru": "Представиться и спросить имя собеседника.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Introduce yourself and ask someone their name."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Introduce yourself and ask someone their name. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.greetings.personal-pronouns.select",
+        "a1.greetings.name-pattern.select",
+        "a1.greetings.polite-address.select"
+      ]
+    },
+    {
+      "id": "a1.greetings.exchange-names.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "greetings",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Introduce yourself and ask someone their name.",
+      "title_ru": "Представиться и спросить имя собеседника.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Introduce yourself and ask someone their name."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Introduce yourself and ask someone their name. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.greetings.personal-pronouns.select",
+        "a1.greetings.name-pattern.select",
+        "a1.greetings.polite-address.select"
+      ]
+    },
+    {
+      "id": "a1.greetings.personal-pronouns.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "greetings",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Personal pronouns in introductions",
+      "title_ru": "Личные местоимения при знакомстве",
+      "source": {
+        "field": "grammar_focus",
+        "index": 0,
+        "text": "Personal pronouns in short introductions: Я Анна."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Distinguish who я, ты, вы or another taught personal pronoun refers to in a short introduction. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.greetings.name-pattern.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "greetings",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Меня зовут… and Как вас зовут?",
+      "title_ru": "Меня зовут… и Как вас зовут?",
+      "source": {
+        "field": "grammar_focus",
+        "index": 1,
+        "text": "Learn the fixed accusative patterns Меня зовут… and Как вас зовут?"
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select or interpret the taught fixed name pattern, keeping the speaker and addressee distinct. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.greetings.polite-address.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "greetings",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Informal ты and polite вы",
+      "title_ru": "Неформальное ты и вежливое вы",
+      "source": {
+        "field": "grammar_focus",
+        "index": 2,
+        "text": "Distinguish informal ты from polite вы."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select ты or вы from an explicit relationship or level of formality; do not infer formality from a name alone. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.numbers.recognise-number.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "numbers",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Identify a stated number from one to ten.",
+      "title_ru": "Распознать названное число от одного до десяти.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Recognise numbers from one to ten."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Select the quantity explicitly stated; distractors must include plausible nearby numbers. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.numbers.clock-hour-forms.select",
+        "a1.numbers.parts-of-day.select",
+        "a1.numbers.time-versus-duration.select"
+      ]
+    },
+    {
+      "id": "a1.numbers.recognise-number.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "numbers",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Identify a stated number from one to ten.",
+      "title_ru": "Распознать названное число от одного до десяти.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Recognise numbers from one to ten."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Select the quantity explicitly stated; distractors must include plausible nearby numbers. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.numbers.clock-hour-forms.select",
+        "a1.numbers.parts-of-day.select",
+        "a1.numbers.time-versus-duration.select"
+      ]
+    },
+    {
+      "id": "a1.numbers.recognise-number.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "numbers",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Name or confirm a number from one to ten.",
+      "title_ru": "Назвать или подтвердить число от одного до десяти.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Recognise numbers from one to ten."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Name or confirm a number from one to ten. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.numbers.clock-hour-forms.select",
+        "a1.numbers.parts-of-day.select",
+        "a1.numbers.time-versus-duration.select"
+      ]
+    },
+    {
+      "id": "a1.numbers.recognise-number.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "numbers",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Name or confirm a number from one to ten.",
+      "title_ru": "Назвать или подтвердить число от одного до десяти.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Recognise numbers from one to ten."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Name or confirm a number from one to ten. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.numbers.clock-hour-forms.select",
+        "a1.numbers.parts-of-day.select",
+        "a1.numbers.time-versus-duration.select"
+      ]
+    },
+    {
+      "id": "a1.numbers.event-time.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "numbers",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Identify when a daily event happens.",
+      "title_ru": "Определить время повседневного события.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Say when a simple daily event happens."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Identify both the event and its stated clock time or part of the day, including any explicit update. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.numbers.clock-hour-forms.select",
+        "a1.numbers.parts-of-day.select",
+        "a1.numbers.time-versus-duration.select"
+      ]
+    },
+    {
+      "id": "a1.numbers.event-time.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "numbers",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Identify when a daily event happens.",
+      "title_ru": "Определить время повседневного события.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Say when a simple daily event happens."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Identify both the event and its stated clock time or part of the day, including any explicit update. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.numbers.clock-hour-forms.select",
+        "a1.numbers.parts-of-day.select",
+        "a1.numbers.time-versus-duration.select"
+      ]
+    },
+    {
+      "id": "a1.numbers.event-time.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "numbers",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Say when a daily event happens.",
+      "title_ru": "Сказать, когда происходит повседневное событие.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Say when a simple daily event happens."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Say when a daily event happens. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.numbers.clock-hour-forms.select",
+        "a1.numbers.parts-of-day.select",
+        "a1.numbers.time-versus-duration.select"
+      ]
+    },
+    {
+      "id": "a1.numbers.event-time.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "numbers",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Say when a daily event happens.",
+      "title_ru": "Сказать, когда происходит повседневное событие.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Say when a simple daily event happens."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Say when a daily event happens. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.numbers.clock-hour-forms.select",
+        "a1.numbers.parts-of-day.select",
+        "a1.numbers.time-versus-duration.select"
+      ]
+    },
+    {
+      "id": "a1.numbers.clock-hour-forms.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "numbers",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "час, часа and часов in clock phrases",
+      "title_ru": "Час, часа и часов при указании времени",
+      "source": {
+        "field": "grammar_focus",
+        "index": 0,
+        "text": "Practise taught clock patterns: один час, два часа, пять часов."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select the taught clock phrase for one, two or five hours, with the appropriate час/часа/часов form. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.numbers.parts-of-day.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "numbers",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "утром and вечером",
+      "title_ru": "Утром и вечером",
+      "source": {
+        "field": "grammar_focus",
+        "index": 1,
+        "text": "Use утром and вечером as time expressions."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Distinguish утром from вечером in an explicit daily arrangement. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.numbers.time-versus-duration.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "numbers",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Event time and duration",
+      "title_ru": "Время события и длительность",
+      "source": {
+        "field": "grammar_focus",
+        "index": 2,
+        "text": "Distinguish a time from a duration in simple examples: в два часа; два часа."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Distinguish when an event starts (в два часа) from how long it lasts (два часа) in a complete context. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.family.identify-relatives.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "family",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Identify a family member, friend or relationship.",
+      "title_ru": "Определить члена семьи, друга или родственную связь.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name close family members and friends."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Identify the stated person or relationship from the message, without assuming relationships from names alone. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.family.possessive-agreement.select",
+        "a1.family.introduce-person.select",
+        "a1.family.possession-pattern.select"
+      ]
+    },
+    {
+      "id": "a1.family.identify-relatives.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "family",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Identify a family member, friend or relationship.",
+      "title_ru": "Определить члена семьи, друга или родственную связь.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name close family members and friends."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Identify the stated person or relationship from the message, without assuming relationships from names alone. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.family.possessive-agreement.select",
+        "a1.family.introduce-person.select",
+        "a1.family.possession-pattern.select"
+      ]
+    },
+    {
+      "id": "a1.family.identify-relatives.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "family",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Name close family members and friends.",
+      "title_ru": "Назвать близких родственников и друзей.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name close family members and friends."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Name close family members and friends. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.family.possessive-agreement.select",
+        "a1.family.introduce-person.select",
+        "a1.family.possession-pattern.select"
+      ]
+    },
+    {
+      "id": "a1.family.identify-relatives.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "family",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Name close family members and friends.",
+      "title_ru": "Назвать близких родственников и друзей.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name close family members and friends."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Name close family members and friends. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.family.possessive-agreement.select",
+        "a1.family.introduce-person.select",
+        "a1.family.possession-pattern.select"
+      ]
+    },
+    {
+      "id": "a1.family.describe-family.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "family",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Identify who belongs to a described family.",
+      "title_ru": "Определить, кто входит в описанную семью.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Describe who is in your family."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Distinguish the people explicitly included in the family from friends or other people in the message. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.family.possessive-agreement.select",
+        "a1.family.introduce-person.select",
+        "a1.family.possession-pattern.select"
+      ]
+    },
+    {
+      "id": "a1.family.describe-family.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "family",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Identify who belongs to a described family.",
+      "title_ru": "Определить, кто входит в описанную семью.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Describe who is in your family."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Distinguish the people explicitly included in the family from friends or other people in the message. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.family.possessive-agreement.select",
+        "a1.family.introduce-person.select",
+        "a1.family.possession-pattern.select"
+      ]
+    },
+    {
+      "id": "a1.family.describe-family.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "family",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Describe who is in a family.",
+      "title_ru": "Рассказать, кто входит в семью.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Describe who is in your family."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Describe who is in a family. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.family.possessive-agreement.select",
+        "a1.family.introduce-person.select",
+        "a1.family.possession-pattern.select"
+      ]
+    },
+    {
+      "id": "a1.family.describe-family.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "family",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Describe who is in a family.",
+      "title_ru": "Рассказать, кто входит в семью.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Describe who is in your family."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Describe who is in a family. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.family.possessive-agreement.select",
+        "a1.family.introduce-person.select",
+        "a1.family.possession-pattern.select"
+      ]
+    },
+    {
+      "id": "a1.family.possessive-agreement.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "family",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "мой, моя and мои with family nouns",
+      "title_ru": "Мой, моя и мои с названиями родственников",
+      "source": {
+        "field": "grammar_focus",
+        "index": 0,
+        "text": "Use мой, моя and мои with familiar family nouns."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Match мой, моя or мои to the stated familiar family noun, preserving the intended owner. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.family.introduce-person.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "family",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Это… with a nominative noun",
+      "title_ru": "Это… с существительным в именительном падеже",
+      "source": {
+        "field": "grammar_focus",
+        "index": 1,
+        "text": "Introduce someone with Это… and a nominative noun."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select a taught Это… introduction with the named person or relationship in the nominative. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.family.possession-pattern.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "family",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "У меня есть…",
+      "title_ru": "У меня есть…",
+      "source": {
+        "field": "grammar_focus",
+        "index": 2,
+        "text": "Learn У меня есть… as the basic possession pattern."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Interpret or select the fixed У меня есть… pattern, distinguishing the possessor from the family member. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.home.identify-rooms-furniture.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "home",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Identify a familiar room or piece of furniture.",
+      "title_ru": "Распознать знакомую комнату или предмет мебели.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name common rooms and furniture."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Identify the room or item of furniture described in the message; incidental vocabulary must not supply the answer. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.home.location-prepositions.select",
+        "a1.home.singular-plural.select",
+        "a1.home.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.home.identify-rooms-furniture.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "home",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Identify a familiar room or piece of furniture.",
+      "title_ru": "Распознать знакомую комнату или предмет мебели.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name common rooms and furniture."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Identify the room or item of furniture described in the message; incidental vocabulary must not supply the answer. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.home.location-prepositions.select",
+        "a1.home.singular-plural.select",
+        "a1.home.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.home.identify-rooms-furniture.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "home",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Name common rooms and furniture.",
+      "title_ru": "Назвать обычные комнаты и предметы мебели.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name common rooms and furniture."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Name common rooms and furniture. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.home.location-prepositions.select",
+        "a1.home.singular-plural.select",
+        "a1.home.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.home.identify-rooms-furniture.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "home",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Name common rooms and furniture.",
+      "title_ru": "Назвать обычные комнаты и предметы мебели.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name common rooms and furniture."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Name common rooms and furniture. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.home.location-prepositions.select",
+        "a1.home.singular-plural.select",
+        "a1.home.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.home.locate-object.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "home",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Locate a familiar object from the stated information.",
+      "title_ru": "Определить местонахождение знакомого предмета.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Say where a familiar object is."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Select the complete stated location of the specified object, respecting any later update. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.home.location-prepositions.select",
+        "a1.home.singular-plural.select",
+        "a1.home.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.home.locate-object.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "home",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Locate a familiar object from the stated information.",
+      "title_ru": "Определить местонахождение знакомого предмета.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Say where a familiar object is."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Select the complete stated location of the specified object, respecting any later update. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.home.location-prepositions.select",
+        "a1.home.singular-plural.select",
+        "a1.home.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.home.describe-location.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "home",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Say where a familiar object is.",
+      "title_ru": "Сказать, где находится знакомый предмет.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Say where a familiar object is."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Say where a familiar object is. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.home.location-prepositions.select",
+        "a1.home.singular-plural.select",
+        "a1.home.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.home.describe-location.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "home",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Say where a familiar object is.",
+      "title_ru": "Сказать, где находится знакомый предмет.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Say where a familiar object is."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Say where a familiar object is. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.home.location-prepositions.select",
+        "a1.home.singular-plural.select",
+        "a1.home.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.home.location-prepositions.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "home",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "в/на with taught location forms",
+      "title_ru": "В/на с изученными формами места",
+      "source": {
+        "field": "grammar_focus",
+        "index": 0,
+        "text": "Use в or на with taught prepositional forms: в комнате, на столе."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select or interpret a taught в/на location with a prepositional form such as в комнате or на столе. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.home.singular-plural.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "home",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Familiar singular and plural nouns",
+      "title_ru": "Знакомые формы единственного и множественного числа",
+      "source": {
+        "field": "grammar_focus",
+        "index": 1,
+        "text": "Contrast singular and plural in familiar nouns: окно — окна."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Distinguish one object from several using taught noun forms such as окно and окна in context. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.home.adjective-agreement.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "home",
+      "target_level": "A1",
+      "primary_section_id": "home",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Adjective agreement for home descriptions",
+      "title_ru": "Согласование прилагательных в описании дома",
+      "source": {
+        "field": "grammar_focus",
+        "index": 2,
+        "text": "Use simple adjective agreement: большой дом, большая комната."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Match an adjective to the gender of a familiar home noun, for example большой дом and большая комната. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.food.identify-food-drink.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "food",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Identify familiar food or drink in a message.",
+      "title_ru": "Распознать знакомую еду или напиток в сообщении.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name common foods and drinks."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Distinguish the food and drink explicitly named, including who eats, drinks or requests them. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.food.want-pattern.select",
+        "a1.food.accusative-object.select",
+        "a1.food.polite-request.select"
+      ]
+    },
+    {
+      "id": "a1.food.identify-food-drink.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "food",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Identify familiar food or drink in a message.",
+      "title_ru": "Распознать знакомую еду или напиток в сообщении.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name common foods and drinks."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Distinguish the food and drink explicitly named, including who eats, drinks or requests them. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.food.want-pattern.select",
+        "a1.food.accusative-object.select",
+        "a1.food.polite-request.select"
+      ]
+    },
+    {
+      "id": "a1.food.identify-food-drink.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "food",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Name common foods and drinks.",
+      "title_ru": "Назвать обычные продукты и напитки.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name common foods and drinks."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Name common foods and drinks. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.food.want-pattern.select",
+        "a1.food.accusative-object.select",
+        "a1.food.polite-request.select"
+      ]
+    },
+    {
+      "id": "a1.food.identify-food-drink.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "food",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Name common foods and drinks.",
+      "title_ru": "Назвать обычные продукты и напитки.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name common foods and drinks."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Name common foods and drinks. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.food.want-pattern.select",
+        "a1.food.accusative-object.select",
+        "a1.food.polite-request.select"
+      ]
+    },
+    {
+      "id": "a1.food.make-request.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "food",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Select the food or drink request that fits the situation.",
+      "title_ru": "Выбрать просьбу о еде или напитке по ситуации.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Ask for something to eat or drink."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Choose a reply that requests the specified item or action rather than merely naming a food. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.food.want-pattern.select",
+        "a1.food.accusative-object.select",
+        "a1.food.polite-request.select"
+      ]
+    },
+    {
+      "id": "a1.food.make-request.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "food",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Select the food or drink request that fits the situation.",
+      "title_ru": "Выбрать просьбу о еде или напитке по ситуации.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Ask for something to eat or drink."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Choose a reply that requests the specified item or action rather than merely naming a food. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.food.want-pattern.select",
+        "a1.food.accusative-object.select",
+        "a1.food.polite-request.select"
+      ]
+    },
+    {
+      "id": "a1.food.make-request.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "food",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Ask for something to eat or drink.",
+      "title_ru": "Попросить что-нибудь поесть или попить.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Ask for something to eat or drink."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Ask for something to eat or drink. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.food.want-pattern.select",
+        "a1.food.accusative-object.select",
+        "a1.food.polite-request.select"
+      ]
+    },
+    {
+      "id": "a1.food.make-request.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "food",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Ask for something to eat or drink.",
+      "title_ru": "Попросить что-нибудь поесть или попить.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Ask for something to eat or drink."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Ask for something to eat or drink. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.food.want-pattern.select",
+        "a1.food.accusative-object.select",
+        "a1.food.polite-request.select"
+      ]
+    },
+    {
+      "id": "a1.food.want-pattern.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "food",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "хочу with a noun or infinitive",
+      "title_ru": "Хочу с существительным или инфинитивом",
+      "source": {
+        "field": "grammar_focus",
+        "index": 0,
+        "text": "Use хочу with a noun or infinitive: хочу суп; хочу пить."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Distinguish or select a complete taught хочу request for an item or action, such as хочу суп or хочу пить. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.food.accusative-object.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "food",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Food and drink objects in the accusative",
+      "title_ru": "Винительный падеж названий еды и напитков",
+      "source": {
+        "field": "grammar_focus",
+        "index": 1,
+        "text": "Practise singular accusative objects: ем рыбу, пью воду."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select a familiar singular accusative object after the stated eating or drinking verb, such as ем рыбу or пью воду. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.food.polite-request.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "food",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Polite requests with можно",
+      "title_ru": "Вежливые просьбы со словом можно",
+      "source": {
+        "field": "grammar_focus",
+        "index": 2,
+        "text": "Learn a polite request pattern with можно."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select the можно request that fits the explicitly requested food or drink and the conversational context. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.daily_activities.describe-routine.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "daily_activities",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Identify who does an everyday activity and when.",
+      "title_ru": "Определить, кто и когда выполняет повседневное действие.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Describe a few activities in your usual day."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Match the stated person, action and time without substituting a different subject or routine. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.daily_activities.present-conjugation.select",
+        "a1.daily_activities.irregular-present.select",
+        "a1.daily_activities.subject-verb-time.select"
+      ]
+    },
+    {
+      "id": "a1.daily_activities.describe-routine.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "daily_activities",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Identify who does an everyday activity and when.",
+      "title_ru": "Определить, кто и когда выполняет повседневное действие.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Describe a few activities in your usual day."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Match the stated person, action and time without substituting a different subject or routine. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.daily_activities.present-conjugation.select",
+        "a1.daily_activities.irregular-present.select",
+        "a1.daily_activities.subject-verb-time.select"
+      ]
+    },
+    {
+      "id": "a1.daily_activities.describe-routine.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "daily_activities",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Describe a few activities in a usual day.",
+      "title_ru": "Рассказать о нескольких делах обычного дня.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Describe a few activities in your usual day."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Describe a few activities in a usual day. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.daily_activities.present-conjugation.select",
+        "a1.daily_activities.irregular-present.select",
+        "a1.daily_activities.subject-verb-time.select"
+      ]
+    },
+    {
+      "id": "a1.daily_activities.describe-routine.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "daily_activities",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Describe a few activities in a usual day.",
+      "title_ru": "Рассказать о нескольких делах обычного дня.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Describe a few activities in your usual day."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Describe a few activities in a usual day. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.daily_activities.present-conjugation.select",
+        "a1.daily_activities.irregular-present.select",
+        "a1.daily_activities.subject-verb-time.select"
+      ]
+    },
+    {
+      "id": "a1.daily_activities.ask-current-activity.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "daily_activities",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Interpret a question about what someone is doing now.",
+      "title_ru": "Понять вопрос о том, что собеседник делает сейчас.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Ask what someone is doing now."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Choose the question or answer about the current activity, distinguishing now from a usual daily routine. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.daily_activities.present-conjugation.select",
+        "a1.daily_activities.irregular-present.select",
+        "a1.daily_activities.subject-verb-time.select"
+      ]
+    },
+    {
+      "id": "a1.daily_activities.ask-current-activity.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "daily_activities",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Interpret a question about what someone is doing now.",
+      "title_ru": "Понять вопрос о том, что собеседник делает сейчас.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Ask what someone is doing now."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Choose the question or answer about the current activity, distinguishing now from a usual daily routine. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.daily_activities.present-conjugation.select",
+        "a1.daily_activities.irregular-present.select",
+        "a1.daily_activities.subject-verb-time.select"
+      ]
+    },
+    {
+      "id": "a1.daily_activities.ask-current-activity.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "daily_activities",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Ask what someone is doing now.",
+      "title_ru": "Спросить, что собеседник делает сейчас.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Ask what someone is doing now."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Ask what someone is doing now. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.daily_activities.present-conjugation.select",
+        "a1.daily_activities.irregular-present.select",
+        "a1.daily_activities.subject-verb-time.select"
+      ]
+    },
+    {
+      "id": "a1.daily_activities.ask-current-activity.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "daily_activities",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Ask what someone is doing now.",
+      "title_ru": "Спросить, что собеседник делает сейчас.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Ask what someone is doing now."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Ask what someone is doing now. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.daily_activities.present-conjugation.select",
+        "a1.daily_activities.irregular-present.select",
+        "a1.daily_activities.subject-verb-time.select"
+      ]
+    },
+    {
+      "id": "a1.daily_activities.present-conjugation.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "daily_activities",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Common present-tense verb forms",
+      "title_ru": "Частотные формы настоящего времени",
+      "source": {
+        "field": "grammar_focus",
+        "index": 0,
+        "text": "Use present-tense forms of common first- and second-conjugation verbs."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Match a taught first- or second-conjugation present form to the explicit subject of a daily action. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.daily_activities.irregular-present.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "daily_activities",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "ем, сплю and иду in context",
+      "title_ru": "Ем, сплю и иду в контексте",
+      "source": {
+        "field": "grammar_focus",
+        "index": 1,
+        "text": "Learn frequent irregular forms in context: ем, сплю, иду."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Interpret or select the taught forms ем, сплю and иду with their correct present meaning and subject. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.daily_activities.subject-verb-time.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "daily_activities",
+      "target_level": "A1",
+      "primary_section_id": "postoffice",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "A subject, present action and time",
+      "title_ru": "Подлежащее, действие и время",
+      "source": {
+        "field": "grammar_focus",
+        "index": 2,
+        "text": "Use simple time words with a subject and verb."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select a coherent statement connecting the specified subject, present-tense action and simple time word. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.colors.identify-colour-size.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "colors",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Distinguish an object by its colour and size.",
+      "title_ru": "Различить предмет по цвету и размеру.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Identify an object by colour and size."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Select the object matching both stated features when plausible alternatives share only one. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.colors.gender-agreement.select",
+        "a1.colors.plural-agreement.select",
+        "a1.colors.demonstratives.select"
+      ]
+    },
+    {
+      "id": "a1.colors.identify-colour-size.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "colors",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Distinguish an object by its colour and size.",
+      "title_ru": "Различить предмет по цвету и размеру.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Identify an object by colour and size."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Select the object matching both stated features when plausible alternatives share only one. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.colors.gender-agreement.select",
+        "a1.colors.plural-agreement.select",
+        "a1.colors.demonstratives.select"
+      ]
+    },
+    {
+      "id": "a1.colors.identify-colour-size.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "colors",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Identify an object using its colour and size.",
+      "title_ru": "Указать предмет, назвав его цвет и размер.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Identify an object by colour and size."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Identify an object using its colour and size. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.colors.gender-agreement.select",
+        "a1.colors.plural-agreement.select",
+        "a1.colors.demonstratives.select"
+      ]
+    },
+    {
+      "id": "a1.colors.identify-colour-size.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "colors",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Identify an object using its colour and size.",
+      "title_ru": "Указать предмет, назвав его цвет и размер.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Identify an object by colour and size."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Identify an object using its colour and size. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.colors.gender-agreement.select",
+        "a1.colors.plural-agreement.select",
+        "a1.colors.demonstratives.select"
+      ]
+    },
+    {
+      "id": "a1.colors.describe-object.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "colors",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Understand a short description of a familiar object.",
+      "title_ru": "Понять краткое описание знакомого предмета.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Give a short description of a familiar object."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Match a complete description to the intended object, including the expressed number and identifying features. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.colors.gender-agreement.select",
+        "a1.colors.plural-agreement.select",
+        "a1.colors.demonstratives.select"
+      ]
+    },
+    {
+      "id": "a1.colors.describe-object.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "colors",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Understand a short description of a familiar object.",
+      "title_ru": "Понять краткое описание знакомого предмета.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Give a short description of a familiar object."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Match a complete description to the intended object, including the expressed number and identifying features. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.colors.gender-agreement.select",
+        "a1.colors.plural-agreement.select",
+        "a1.colors.demonstratives.select"
+      ]
+    },
+    {
+      "id": "a1.colors.describe-object.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "colors",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Give a short description of a familiar object.",
+      "title_ru": "Кратко описать знакомый предмет.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Give a short description of a familiar object."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Give a short description of a familiar object. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.colors.gender-agreement.select",
+        "a1.colors.plural-agreement.select",
+        "a1.colors.demonstratives.select"
+      ]
+    },
+    {
+      "id": "a1.colors.describe-object.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "colors",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Give a short description of a familiar object.",
+      "title_ru": "Кратко описать знакомый предмет.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Give a short description of a familiar object."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Give a short description of a familiar object. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.colors.gender-agreement.select",
+        "a1.colors.plural-agreement.select",
+        "a1.colors.demonstratives.select"
+      ]
+    },
+    {
+      "id": "a1.colors.gender-agreement.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "colors",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Colour adjective gender agreement",
+      "title_ru": "Согласование прилагательных цвета по роду",
+      "source": {
+        "field": "grammar_focus",
+        "index": 0,
+        "text": "Match adjectives to noun gender: красный стол, красная сумка, красное яблоко."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Match the adjective to a familiar masculine, feminine or neuter noun, retaining the requested colour. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.colors.plural-agreement.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "colors",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Plural adjective agreement",
+      "title_ru": "Согласование прилагательных во множественном числе",
+      "source": {
+        "field": "grammar_focus",
+        "index": 1,
+        "text": "Use plural adjectives with familiar plural nouns: новые книги."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select a plural adjective with a familiar plural noun, for example новые книги, without changing the referent. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.colors.demonstratives.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "colors",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "этот, эта and это",
+      "title_ru": "Этот, эта и это",
+      "source": {
+        "field": "grammar_focus",
+        "index": 2,
+        "text": "Use этот, эта and это to identify an object."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Choose этот, эта or это to identify the specified familiar noun with the appropriate gender. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.clothing.identify-clothes.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "clothing",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Identify a common item of clothing.",
+      "title_ru": "Распознать обычный предмет одежды.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name common items of clothing."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Select the clothing item actually named, rather than an unrelated item inferred from the setting. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.clothing.exceptional-nouns.select",
+        "a1.clothing.accusative-object.select",
+        "a1.clothing.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.clothing.identify-clothes.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "clothing",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Identify a common item of clothing.",
+      "title_ru": "Распознать обычный предмет одежды.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name common items of clothing."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Select the clothing item actually named, rather than an unrelated item inferred from the setting. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.clothing.exceptional-nouns.select",
+        "a1.clothing.accusative-object.select",
+        "a1.clothing.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.clothing.identify-clothes.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "clothing",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Name common items of clothing.",
+      "title_ru": "Назвать обычные предметы одежды.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name common items of clothing."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Name common items of clothing. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.clothing.exceptional-nouns.select",
+        "a1.clothing.accusative-object.select",
+        "a1.clothing.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.clothing.identify-clothes.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "clothing",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Name common items of clothing.",
+      "title_ru": "Назвать обычные предметы одежды.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Name common items of clothing."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Name common items of clothing. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.clothing.exceptional-nouns.select",
+        "a1.clothing.accusative-object.select",
+        "a1.clothing.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.clothing.identify-clothing-description.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "clothing",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Select clothing with the stated colour and size.",
+      "title_ru": "Выбрать одежду указанного цвета и размера.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Identify clothing by colour and size."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Choose the item matching the full clothing description; distractors should differ in colour, size or item. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.clothing.exceptional-nouns.select",
+        "a1.clothing.accusative-object.select",
+        "a1.clothing.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.clothing.identify-clothing-description.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "clothing",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Select clothing with the stated colour and size.",
+      "title_ru": "Выбрать одежду указанного цвета и размера.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Identify clothing by colour and size."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Choose the item matching the full clothing description; distractors should differ in colour, size or item. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.clothing.exceptional-nouns.select",
+        "a1.clothing.accusative-object.select",
+        "a1.clothing.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.clothing.identify-clothing-description.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "clothing",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Identify clothing by colour and size.",
+      "title_ru": "Указать одежду по цвету и размеру.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Identify clothing by colour and size."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Identify clothing by colour and size. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.clothing.exceptional-nouns.select",
+        "a1.clothing.accusative-object.select",
+        "a1.clothing.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.clothing.identify-clothing-description.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "clothing",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Identify clothing by colour and size.",
+      "title_ru": "Указать одежду по цвету и размеру.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Identify clothing by colour and size."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Identify clothing by colour and size. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.clothing.exceptional-nouns.select",
+        "a1.clothing.accusative-object.select",
+        "a1.clothing.adjective-agreement.select"
+      ]
+    },
+    {
+      "id": "a1.clothing.exceptional-nouns.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "clothing",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Plural-only штаны and indeclinable пальто",
+      "title_ru": "Только множественное число штаны и несклоняемое пальто",
+      "source": {
+        "field": "grammar_focus",
+        "index": 0,
+        "text": "Treat штаны as a plural-only noun and пальто as indeclinable."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select a contextually correct form that treats штаны as plural-only and preserves the indeclinable form пальто. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.clothing.accusative-object.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "clothing",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Clothing after носить",
+      "title_ru": "Одежда после глагола носить",
+      "source": {
+        "field": "grammar_focus",
+        "index": 1,
+        "text": "Use familiar accusative forms after носить: ношу шапку."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select the familiar accusative clothing form after носить, for example ношу шапку. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.clothing.adjective-agreement.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "clothing",
+      "target_level": "A1",
+      "primary_section_id": "market",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "Adjectives with clothing nouns",
+      "title_ru": "Прилагательные с названиями одежды",
+      "source": {
+        "field": "grammar_focus",
+        "index": 2,
+        "text": "Match adjectives to clothing nouns: синяя куртка, синие штаны."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Match an adjective to the clothing noun in gender and number, including синяя куртка and синие штаны. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.places.ask-location.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "places",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Interpret a question about where a familiar place is.",
+      "title_ru": "Понять вопрос о местонахождении знакомого места.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Ask where a familiar place is."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Select the location question or the answer identifying the specified place, not a different destination. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.places.location-versus-direction.select",
+        "a1.places.direction-commands.select",
+        "a1.places.place-prepositions.select"
+      ]
+    },
+    {
+      "id": "a1.places.ask-location.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "places",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Interpret a question about where a familiar place is.",
+      "title_ru": "Понять вопрос о местонахождении знакомого места.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Ask where a familiar place is."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Select the location question or the answer identifying the specified place, not a different destination. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.places.location-versus-direction.select",
+        "a1.places.direction-commands.select",
+        "a1.places.place-prepositions.select"
+      ]
+    },
+    {
+      "id": "a1.places.ask-location.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "places",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Ask where a familiar place is.",
+      "title_ru": "Спросить, где находится знакомое место.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Ask where a familiar place is."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Ask where a familiar place is. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.places.location-versus-direction.select",
+        "a1.places.direction-commands.select",
+        "a1.places.place-prepositions.select"
+      ]
+    },
+    {
+      "id": "a1.places.ask-location.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "places",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Ask where a familiar place is.",
+      "title_ru": "Спросить, где находится знакомое место.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Ask where a familiar place is."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Ask where a familiar place is. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.places.location-versus-direction.select",
+        "a1.places.direction-commands.select",
+        "a1.places.place-prepositions.select"
+      ]
+    },
+    {
+      "id": "a1.places.follow-directions.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "places",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Follow a short direction using a stated landmark.",
+      "title_ru": "Следовать короткому указанию с названным ориентиром.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Follow a short direction using a visible landmark."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Select the route, turn or destination consistent with both the direction and the visible or described landmark. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.places.location-versus-direction.select",
+        "a1.places.direction-commands.select",
+        "a1.places.place-prepositions.select"
+      ]
+    },
+    {
+      "id": "a1.places.follow-directions.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "places",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Follow a short direction using a stated landmark.",
+      "title_ru": "Следовать короткому указанию с названным ориентиром.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Follow a short direction using a visible landmark."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Select the route, turn or destination consistent with both the direction and the visible or described landmark. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.places.location-versus-direction.select",
+        "a1.places.direction-commands.select",
+        "a1.places.place-prepositions.select"
+      ]
+    },
+    {
+      "id": "a1.places.follow-directions.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "places",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Give or confirm a short direction with a landmark.",
+      "title_ru": "Дать или подтвердить короткое указание с ориентиром.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Follow a short direction using a visible landmark."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Give or confirm a short direction with a landmark. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.places.location-versus-direction.select",
+        "a1.places.direction-commands.select",
+        "a1.places.place-prepositions.select"
+      ]
+    },
+    {
+      "id": "a1.places.follow-directions.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "places",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Give or confirm a short direction with a landmark.",
+      "title_ru": "Дать или подтвердить короткое указание с ориентиром.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Follow a short direction using a visible landmark."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Give or confirm a short direction with a landmark. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.places.location-versus-direction.select",
+        "a1.places.direction-commands.select",
+        "a1.places.place-prepositions.select"
+      ]
+    },
+    {
+      "id": "a1.places.location-versus-direction.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "places",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "где and куда",
+      "title_ru": "Где и куда",
+      "source": {
+        "field": "grammar_focus",
+        "index": 0,
+        "text": "Distinguish location где from direction куда in simple examples."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Distinguish a request for a location (где) from a request for a destination or direction (куда) in simple context. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.places.direction-commands.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "places",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "идите and поверните",
+      "title_ru": "Идите и поверните",
+      "source": {
+        "field": "grammar_focus",
+        "index": 1,
+        "text": "Learn common direction commands as useful forms: идите, поверните."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select the route action expressed by the taught commands идите or поверните with the stated landmark. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.places.place-prepositions.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "places",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "в/на with taught place expressions",
+      "title_ru": "В/на с изученными обозначениями места",
+      "source": {
+        "field": "grammar_focus",
+        "index": 2,
+        "text": "Use в and на with taught place expressions: в парке, на улице."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select or interpret the taught location expression such as в парке or на улице in the stated context. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.weather.understand-weather.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "weather",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Identify the weather at the stated time.",
+      "title_ru": "Определить погоду в указанное время.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Describe the weather today."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Identify the weather for the specified day or time, rather than another forecast entry. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.weather.impersonal-state.select",
+        "a1.weather.noun-adjective-state.select",
+        "a1.weather.present-weather-patterns.select"
+      ]
+    },
+    {
+      "id": "a1.weather.understand-weather.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "weather",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Identify the weather at the stated time.",
+      "title_ru": "Определить погоду в указанное время.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Describe the weather today."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Identify the weather for the specified day or time, rather than another forecast entry. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.weather.impersonal-state.select",
+        "a1.weather.noun-adjective-state.select",
+        "a1.weather.present-weather-patterns.select"
+      ]
+    },
+    {
+      "id": "a1.weather.describe-weather.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "weather",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Describe the weather today.",
+      "title_ru": "Описать сегодняшнюю погоду.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Describe the weather today."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Describe the weather today. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.weather.impersonal-state.select",
+        "a1.weather.noun-adjective-state.select",
+        "a1.weather.present-weather-patterns.select"
+      ]
+    },
+    {
+      "id": "a1.weather.describe-weather.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "weather",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Describe the weather today.",
+      "title_ru": "Описать сегодняшнюю погоду.",
+      "source": {
+        "field": "objectives",
+        "index": 0,
+        "text": "Describe the weather today."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Describe the weather today. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.weather.impersonal-state.select",
+        "a1.weather.noun-adjective-state.select",
+        "a1.weather.present-weather-patterns.select"
+      ]
+    },
+    {
+      "id": "a1.weather.choose-weather-plan.read",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "weather",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "reading_selection",
+      "title_en": "Choose the clothing or plan supported by a weather message.",
+      "title_ru": "Выбрать одежду или план по сообщению о погоде.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Choose simple clothing or plans for the weather."
+      },
+      "expected_response": "Read the saved message and select an answer or supplied reply.",
+      "marking_guidance": "Choose the plan that follows the explicit forecast and stated preference; do not grade unstated personal assumptions. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.weather.impersonal-state.select",
+        "a1.weather.noun-adjective-state.select",
+        "a1.weather.present-weather-patterns.select"
+      ]
+    },
+    {
+      "id": "a1.weather.choose-weather-plan.listen",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "weather",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "receptive",
+      "response_mode": "listening_selection",
+      "title_en": "Choose the clothing or plan supported by a weather message.",
+      "title_ru": "Выбрать одежду или план по сообщению о погоде.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Choose simple clothing or plans for the weather."
+      },
+      "expected_response": "Listen to the saved spoken message and select an answer without a transcript revealing the tested detail.",
+      "marking_guidance": "Choose the plan that follows the explicit forecast and stated preference; do not grade unstated personal assumptions. A correct selection demonstrates understanding only; it does not demonstrate independent writing or speaking.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.weather.impersonal-state.select",
+        "a1.weather.noun-adjective-state.select",
+        "a1.weather.present-weather-patterns.select"
+      ]
+    },
+    {
+      "id": "a1.weather.choose-weather-plan.write",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "weather",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_writing",
+      "title_en": "Explain a simple clothing choice or plan for the weather.",
+      "title_ru": "Объяснить простой выбор одежды или план с учётом погоды.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Choose simple clothing or plans for the weather."
+      },
+      "expected_response": "Write a Russian response independently, without selecting or copying a supplied answer.",
+      "marking_guidance": "Independently fulfil this task: Explain a simple clothing choice or plan for the weather. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.weather.impersonal-state.select",
+        "a1.weather.noun-adjective-state.select",
+        "a1.weather.present-weather-patterns.select"
+      ]
+    },
+    {
+      "id": "a1.weather.choose-weather-plan.speak",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "weather",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "objective",
+      "evidence_kind": "independent_production",
+      "response_mode": "independent_speaking",
+      "title_en": "Explain a simple clothing choice or plan for the weather.",
+      "title_ru": "Объяснить простой выбор одежды или план с учётом погоды.",
+      "source": {
+        "field": "objectives",
+        "index": 1,
+        "text": "Choose simple clothing or plans for the weather."
+      },
+      "expected_response": "Produce a Russian spoken response independently; a supplied script or step-through prompt is support.",
+      "marking_guidance": "Independently fulfil this task: Explain a simple clothing choice or plan for the weather. Accept intelligible contextually valid Russian alternatives; record meaning and form outcomes separately. Supplied-answer selection, copying or a supported rehearsal does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": [
+        "a1.weather.impersonal-state.select",
+        "a1.weather.noun-adjective-state.select",
+        "a1.weather.present-weather-patterns.select"
+      ]
+    },
+    {
+      "id": "a1.weather.impersonal-state.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "weather",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "холодно, тепло and жарко",
+      "title_ru": "Холодно, тепло и жарко",
+      "source": {
+        "field": "grammar_focus",
+        "index": 0,
+        "text": "Use impersonal weather statements: холодно, тепло, жарко."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Interpret or select an impersonal weather statement with the correct state word, without inventing a grammatical subject. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.weather.noun-adjective-state.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "weather",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "A weather noun, adjective and state word",
+      "title_ru": "Существительное, прилагательное и слово состояния о погоде",
+      "source": {
+        "field": "grammar_focus",
+        "index": 1,
+        "text": "Distinguish a noun or adjective from a state word: холод; холодный; холодно."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Distinguish холод, холодный and холодно by their role in a complete familiar sentence. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    },
+    {
+      "id": "a1.weather.present-weather-patterns.select",
+      "version": 1,
+      "curriculum_version": 1,
+      "topic_id": "weather",
+      "target_level": "A1",
+      "primary_section_id": "leavingtown",
+      "kind": "grammar",
+      "evidence_kind": "contextual_form",
+      "response_mode": "contextual_selection",
+      "title_en": "идёт дождь and светит солнце",
+      "title_ru": "Идёт дождь и светит солнце",
+      "source": {
+        "field": "grammar_focus",
+        "index": 2,
+        "text": "Use present weather patterns: идёт дождь, светит солнце."
+      },
+      "expected_response": "Select or distinguish a taught form in an authored sentence or exchange with enough context to determine its role.",
+      "marking_guidance": "Select or interpret the present weather pattern matching the stated rain or sunshine. The response must distinguish the tested form or meaning; its mere appearance in a passage is not evidence. This selection does not demonstrate independent production.",
+      "rubric_version": "a1-target-rubric-v1",
+      "supporting_grammar_target_ids": []
+    }
+  ]
+}

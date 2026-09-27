@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "pipeline": "SyncService.process_word + SyncService.enrich_words",
+  "generated_at": "2026-09-18T01:47:04.704507+00:00",
+  "models": {
+    "topics": "gpt-5-mini",
+    "mnemonics": "gpt-5.2"
+  },
+  "words": [
+    {
+      "lemma": "карта",
+      "pos": "NOUN",
+      "topics": [
+        "travel"
+      ],
+      "mnemonic": "KAR-ta map drawn on a car!"
+    },
+    {
+      "lemma": "налево",
+      "pos": "ADVB",
+      "topics": [
+        "grammar"
+      ],
+      "mnemonic": "Na-LEH-vo! Turn left—banana slips you!"
+    },
+    {
+      "lemma": "направо",
+      "pos": "ADVB",
+      "topics": [
+        "grammar"
+      ],
+      "mnemonic": "Na-PRAH-vo! Turn right—pirate parrot points!"
+    },
+    {
+      "lemma": "письмо",
+      "pos": "NOUN",
+      "topics": [
+        "social"
+      ],
+      "mnemonic": "Peas-mo letter stuffed with peas!"
+    },
+    {
+      "lemma": "пожалуйста",
+      "pos": "PRCL",
+      "topics": [
+        "grammar"
+      ],
+      "mnemonic": "Pa-ZHA-lusta—please, pass the lobster!"
+    },
+    {
+      "lemma": "показать",
+      "pos": "VERB",
+      "topics": [
+        "daily_activities"
+      ],
+      "mnemonic": "Pa-ka-ZAT! Point and show a zapping cat!"
+    },
+    {
+      "lemma": "потом",
+      "pos": "ADVB",
+      "topics": [
+        "grammar"
+      ],
+      "mnemonic": "Pa-TOM—later, a pot becomes Tom!"
+    },
+    {
+      "lemma": "привет",
+      "pos": "INTJ",
+      "topics": [
+        "greetings"
+      ],
+      "mnemonic": "Pree-vyet! Waving robot head greets you!"
+    },
+    {
+      "lemma": "прямо",
+      "pos": "ADVB",
+      "topics": [
+        "grammar"
+      ],
+      "mnemonic": "Prya-ma! March straight like a tin soldier!"
+    },
+    {
+      "lemma": "рынок",
+      "pos": "NOUN",
+      "topics": [
+        "shopping",
+        "places"
+      ],
+      "mnemonic": "RYE-nok market with rye bread monsters!"
+    },
+    {
+      "lemma": "спасибо",
+      "pos": "INTJ",
+      "topics": [
+        "social"
+      ],
+      "mnemonic": "Spa-see-ba! A bear says thanks in spa!"
+    },
+    {
+      "lemma": "сумка",
+      "pos": "NOUN",
+      "topics": [
+        "shopping"
+      ],
+      "mnemonic": "SOOM-ka bag bites your hand!"
+    },
+    {
+      "lemma": "там",
+      "pos": "ADVB",
+      "topics": [
+        "grammar"
+      ],
+      "mnemonic": "TAM—over there, a tam-tam drum!"
+    }
+  ]
+}

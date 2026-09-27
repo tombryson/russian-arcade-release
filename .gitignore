@@ -1,0 +1,70 @@
+# --- Secrets ---
+.env
+.env.*
+!.env.example
+API_key.py
+api_key.py
+*.pem
+*.key
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+.venv/
+env/
+
+# --- Flask runtime state ---
+flask_session/
+*.log
+
+# --- Database backups & WAL ---
+vocab.db_*.bak
+vocab.dev.db
+vocab.dev.db-wal
+vocab.dev.db-shm
+vocab.db-wal
+vocab.db-shm
+vocab_backup.db
+vocab_list_cache.txt
+
+# --- Generated media (regenerated on demand) ---
+flask_vocab_app/static/uploads/
+flask_vocab_app/static/media/sentence_*.mp3
+flask_vocab_app/static/media/story_*.mp3
+flask_vocab_app/static/media/story_*.png
+
+# --- Google OAuth artefacts ---
+flask_vocab_app/token.json
+
+# --- Frontend build artifacts ---
+node_modules/
+.astro/
+dist/
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+
+# --- Editor / IDE ---
+.vscode/
+.idea/
+*.swp
+
+# Personal data and generated artifacts stay local; see docs/operations.md.
+instance/
+*.db
+*.db-*
+*.db_*.bak
+*.pre-migration-*.bak
+**/credentials.json
+**/token.json
+**/static/media/
+**/static/uploads/
+anki_audio/
+anki_audio_english/
+anki_sentence_audio/
+anki_images/
+anki_flashcards.txt
+vocab-list.txt

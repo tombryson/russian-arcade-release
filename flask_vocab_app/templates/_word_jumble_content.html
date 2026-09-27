@@ -1,0 +1,23 @@
+{% if game %}
+<section class="sentence-workspace sentence-paper" data-leave-message="{{ ui_t('word_jumble.leave_draft') }}" data-network-error="{{ ui_t('word_jumble.request_failed') }}" data-unsaved="{{ ui_t('word_jumble.unsaved') }}" data-checking="{{ ui_t('word_jumble.checking') }}" data-saving="{{ ui_t('word_jumble.saving') }}" data-game-id="{{ game.id }}">
+  <div class="sentence-task-heading"><h2>{{ ui_t('word_jumble.words') }}</h2><span class="sentence-state">{{ game.level_label }}{% if game.topic != 'any' %} · {{ game.topic_label }}{% endif %}</span></div>
+  {% if game.task_instruction %}<p id="sentence-task-instruction">{{ game.task_instruction }}</p>{% else %}<p class="sentence-muted">{{ ui_t('word_jumble.word_help') }}</p>{% endif %}
+  <div class="sentence-tiles" role="group" aria-label="{{ ui_t('word_jumble.words') }}">
+    {% for word in game.words %}<button type="button" class="sentence-tile" data-insert-word="{{ word }}" aria-label="{{ ui_t('word_jumble.insert') }}: {{ word }}"><span lang="ru">{{ word }}</span><span aria-hidden="true">+</span></button>{% endfor %}
+  </div>
+  <form class="sentence-editor" action="/word_jumble/mark/{{ game.id }}" method="post" data-sentence-editor>
+    <input type="hidden" name="revision" value="{{ game.revision }}">
+    <label for="response-{{ game.id }}">{{ ui_t('word_jumble.prompt') }}</label>
+    <textarea class="form-control" id="response-{{ game.id }}" name="user_response" rows="5" maxlength="1000" required lang="ru" spellcheck="true" aria-describedby="sentence-writing-help{% if game.task_instruction %} sentence-task-instruction{% endif %}" data-saved-value="{{ game.saved_draft }}">{{ game.draft }}</textarea>
+    <p id="sentence-writing-help" class="sentence-muted">{{ ui_t('word_jumble.writing_help') }}</p>
+    <div class="sentence-actions">
+      <button type="submit" class="btn btn-primary">{{ ui_t('word_jumble.check') }}</button>
+      <button type="submit" class="btn btn-outline-secondary" formaction="/word_jumble/save/{{ game.id }}" formnovalidate>{{ ui_t('word_jumble.save') }}</button>
+      <span class="sentence-draft-status sentence-muted" aria-live="polite">{% if game.draft_saved_at %}{{ ui_t('word_jumble.saved_ok') }}{% endif %}</span>
+    </div>
+    <p class="sentence-provider-note">{{ ui_t('word_jumble.check_help') }}</p>
+  </form>
+  <div id="sentence-action-status" role="status" aria-live="polite">{% if error %}<p class="alert alert-warning">{{ error }}</p>{% endif %}</div>
+  <div id="sentence-feedback">{% include '_word_jumble_feedback.html' %}</div>
+</section>
+{% elif error %}<p class="alert alert-warning" role="alert">{{ error }}</p>{% endif %}

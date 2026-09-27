@@ -1,0 +1,21 @@
+{% set ru = session.get('ui_lang') == 'ru' %}
+<div id="dynamic-vocab-content">
+    {% if error %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endif %}
+    {% if source == 'db' %}
+    <div id="vocab-table"></div>
+    {% else %}
+    <section class="vocab-paper vocab-drive-paper">
+        <header><h2>{{ 'Слова из Google Drive' if ru else 'Words from Google Drive' }}</h2><p>{{ 'Ваш список для быстрого добавления слов. Синхронизация добавит их в словарь вместе с формами и сведениями.' if ru else 'Your capture list. Sync these words into the library to add their forms and details.' }}</p></header>
+        {% if words %}<ul class="vocab-drive-list">{% for word in words %}<li><strong lang="ru">{{ word.lemma }}</strong><div>
+            <button class="vocab-plain-button" data-edit-word="{{ word.lemma }}">{{ ui_t('vocab.edit') }}</button>
+            <button class="vocab-plain-button" hx-post="/delete_word" hx-target="#dynamic-vocab-content" hx-swap="outerHTML" hx-vals='{{ {"word":word.lemma}|tojson }}' hx-confirm="{{ ui_t('vocab.delete_confirm') }} '{{ word.lemma }}'?">{{ ui_t('vocab.delete') }}</button>
+        </div></li>{% endfor %}</ul>
+        {% else %}<p class="vocab-empty">{{ ui_t('vocab.none_found') }}</p>{% endif %}
+        {% if total_pages > 1 %}<nav class="vocab-pagination" aria-label="{{ 'Страницы Google Drive' if ru else 'Google Drive pages' }}">
+            {% if page > 1 %}<a href="/vocab?source=cloud&page={{ page-1 }}">{{ '← Назад' if ru else '← Previous' }}</a>{% else %}<span></span>{% endif %}
+            <span>{{ page }} / {{ total_pages }}</span>
+            {% if page < total_pages %}<a href="/vocab?source=cloud&page={{ page+1 }}">{{ 'Далее →' if ru else 'Next →' }}</a>{% else %}<span></span>{% endif %}
+        </nav>{% endif %}
+    </section>
+    {% endif %}
+</div>

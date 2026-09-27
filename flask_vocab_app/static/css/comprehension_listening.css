@@ -1,0 +1,11 @@
+.comprehension-mode {display:flex; align-items:center; gap:1rem; border:0; padding:0; margin:0 0 1rem; flex-wrap:wrap;}
+.comprehension-mode legend {float:none; width:auto; font-size:1rem; margin:0;}
+.comprehension-mode label {display:inline-flex; align-items:center; gap:.4rem; margin:0;}
+.comprehension-listening {display:flex; flex-wrap:wrap; align-items:center; gap:.7rem 1.25rem; margin:.5rem 0 1rem;}
+.comprehension-listening audio {width:min(100%, 30rem);}
+.comprehension-text-link {background:none; border:0; padding:.35rem 0; color:inherit; text-decoration:underline; text-underline-offset:.2em; cursor:pointer;}
+.comprehension-listening-status {flex-basis:100%; font-size:.9rem; margin:0;}
+.comprehension-listening-status:empty {display:none;}
+.reading-answer-fields {display:contents;}
+[data-comprehension-transcript][hidden], [data-show-transcript][hidden], [data-retry-listened][hidden] {display:none;}
+.reading-answer-fields:disabled {opacity:.65;}

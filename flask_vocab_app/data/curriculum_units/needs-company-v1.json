@@ -1,0 +1,351 @@
+{
+  "id": "needs-company-v1",
+  "level": "A1",
+  "topic_id": "daily_activities",
+  "title": "Needs and company",
+  "title_ru": "Что нужно и с кем",
+  "summary": "Say who needs something, how someone feels and who is going with them.",
+  "summary_ru": "Скажите, кому что нужно, как человек себя чувствует и с кем он идёт.",
+  "practice_summary": "Read eight short situations and choose the answer that fits.",
+  "practice_summary_ru": "Прочитайте восемь коротких ситуаций и выберите подходящий ответ.",
+  "review_status": "application-authored; qualified language review pending",
+  "groups": [
+    {
+      "title": "Who needs to act? How old are they?",
+      "title_ru": "Кому нужно? Сколько лет?",
+      "note": "With нужно and an infinitive, use a dative person: мне нужно идти, ей нужно работать. The same person forms appear with age: мне двадцать лет. Keep the person separate from the action or number.",
+      "note_ru": "С нужно и инфинитивом используйте дательный падеж: мне нужно идти, ей нужно работать. Эти же формы используются в возрасте: мне двадцать лет. Форма лица не зависит от числа лет.",
+      "examples": [
+        {
+          "ru": "Мне нужно купить хлеб. Тебе нужно отдохнуть.",
+          "en": "I need to buy bread. You need to rest."
+        },
+        {
+          "ru": "Ему нужно идти домой. Ей нужно позвонить маме.",
+          "en": "He needs to go home. She needs to call her mother."
+        },
+        {
+          "ru": "Мне двадцать лет, а ему двадцать три года.",
+          "en": "I am twenty, and he is twenty-three."
+        }
+      ]
+    },
+    {
+      "title": "How someone feels",
+      "title_ru": "Как человек себя чувствует",
+      "note": "Мне холодно describes how I feel; здесь холодно describes the place. There is no nominative subject in these patterns. A short adjective uses a different pattern: я занят, она занята.",
+      "note_ru": "Мне холодно говорит о состоянии человека, здесь холодно — о месте. В этих конструкциях нет подлежащего в именительном падеже. С кратким прилагательным другая конструкция: я занят, она занята.",
+      "examples": [
+        {
+          "ru": "Мне холодно. Я хочу горячий чай.",
+          "en": "I am cold. I want hot tea."
+        },
+        {
+          "ru": "Ей жарко. Она открывает окно.",
+          "en": "She feels hot. She is opening the window."
+        },
+        {
+          "ru": "— Ты свободна? — Нет, я занята.",
+          "en": "“Are you free?” “No, I am busy.”"
+        }
+      ]
+    },
+    {
+      "title": "With someone; with an ingredient",
+      "title_ru": "С кем? С чем?",
+      "note": "Use с plus instrumental for company: с другом, с сестрой. It also names an accompaniment: чай с молоком. The action decides whether с is needed: вижу друга means I see a friend, not I am with a friend.",
+      "note_ru": "Для совместного действия: с другом, с сестрой — с и творительный падеж. Так же можно назвать добавку: чай с молоком. Глагол определяет конструкцию: вижу друга не означает «я вместе с другом».",
+      "examples": [
+        {
+          "ru": "Я иду в парк с подругой. Он идёт с братом.",
+          "en": "I am going to the park with a female friend. He is going with his brother."
+        },
+        {
+          "ru": "— Ты идёшь со мной? — Да, с тобой.",
+          "en": "“Are you coming with me?” “Yes, with you.”"
+        },
+        {
+          "ru": "Я беру чай с молоком и бутерброд с сыром.",
+          "en": "I am having tea with milk and a cheese sandwich."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "need-to-call",
+      "prompt": "Это Анна. … нужно позвонить врачу.",
+      "choices": [
+        {
+          "id": "object",
+          "text": "Её"
+        },
+        {
+          "id": "subject",
+          "text": "Она"
+        },
+        {
+          "id": "dative",
+          "text": "Ей"
+        }
+      ],
+      "answer": "dative",
+      "hint": "Нужно позвонить describes what Anna needs to do.",
+      "explanation": "Ей нужно позвонить uses a dative person with нужно and an infinitive.",
+      "requirement_id": "a1.language.dative-need",
+      "expectation": "Choose ей to identify the female person who needs to make the call."
+    },
+    {
+      "id": "age-pronoun",
+      "prompt": "Это мой брат. … девятнадцать лет.",
+      "choices": [
+        {
+          "id": "dative",
+          "text": "Ему"
+        },
+        {
+          "id": "subject",
+          "text": "Он"
+        },
+        {
+          "id": "object",
+          "text": "Его"
+        }
+      ],
+      "answer": "dative",
+      "hint": "The number states his age.",
+      "explanation": "Ему девятнадцать лет identifies whose age is given using the dative.",
+      "requirement_id": "a1.language.dative-age",
+      "expectation": "Choose ему in a supplied age statement about the named brother."
+    },
+    {
+      "id": "cold-person",
+      "prompt": "Лена на улице. ___ холодно, поэтому она хочет домой.",
+      "choices": [
+        {
+          "id": "subject",
+          "text": "Она"
+        },
+        {
+          "id": "dative",
+          "text": "Ей"
+        },
+        {
+          "id": "possessive",
+          "text": "Её"
+        }
+      ],
+      "answer": "dative",
+      "hint": "Холодно describes what Lena feels.",
+      "explanation": "Ей холодно is a subjectless state construction with a dative experiencer.",
+      "requirement_id": "a1.language.impersonal-modal",
+      "expectation": "Choose ей in the taught impersonal cold-state construction, not a nominative subject or possessive/object form."
+    },
+    {
+      "id": "busy-reply",
+      "prompt": "— Маша, ты свободна?\n— Нет, я … Сейчас я работаю.",
+      "choices": [
+        {
+          "id": "masculine",
+          "text": "занят."
+        },
+        {
+          "id": "feminine",
+          "text": "занята."
+        },
+        {
+          "id": "plural",
+          "text": "заняты."
+        }
+      ],
+      "answer": "feminine",
+      "hint": "Masha is one female speaker.",
+      "explanation": "Занята is the feminine short adjective for Masha’s current state.",
+      "requirement_id": "a1.language.short-adjective-state",
+      "expectation": "Choose feminine singular занята as a short-adjective predicate for the explicitly named female speaker."
+    },
+    {
+      "id": "walk-with-sister",
+      "prompt": "Сестра идёт вместе со мной. Я иду в парк …",
+      "choices": [
+        {
+          "id": "object",
+          "text": "сестру."
+        },
+        {
+          "id": "companion",
+          "text": "с сестрой."
+        },
+        {
+          "id": "recipient",
+          "text": "сестре."
+        }
+      ],
+      "answer": "companion",
+      "hint": "The sister is a companion, not an object or recipient.",
+      "explanation": "С сестрой uses с and the instrumental to express company.",
+      "requirement_id": "a1.language.instrumental-company",
+      "expectation": "Choose с сестрой as the companion phrase matching the explicitly joint walk."
+    },
+    {
+      "id": "tea-with-milk",
+      "prompt": "Ты хочешь чай. В чай нужно добавить молоко. «Мне чай с …, пожалуйста».",
+      "choices": [
+        {
+          "id": "subject",
+          "text": "молоко"
+        },
+        {
+          "id": "genitive",
+          "text": "молока"
+        },
+        {
+          "id": "instrumental",
+          "text": "молоком"
+        }
+      ],
+      "answer": "instrumental",
+      "hint": "The ingredient follows с.",
+      "explanation": "Чай с молоком names milk as an accompaniment using the instrumental.",
+      "requirement_id": "a1.language.instrumental-ingredient",
+      "expectation": "Choose молоком after с to request tea containing milk."
+    },
+    {
+      "id": "who-needs-help",
+      "prompt": "Олег пишет: «Мне нужно работать до шести. Забери, пожалуйста, Лизу из школы. Она пойдёт домой с тобой, а я приду позже».\nКто пойдёт домой вместе?",
+      "choices": [
+        {
+          "id": "oleg-liza",
+          "text": "Олег и Лиза."
+        },
+        {
+          "id": "recipient-liza",
+          "text": "Лиза и человек, которому пишет Олег."
+        },
+        {
+          "id": "oleg-recipient",
+          "text": "Олег и человек, которому пишет Олег."
+        }
+      ],
+      "answer": "recipient-liza",
+      "hint": "С тобой points to the person receiving Oleg’s message.",
+      "explanation": "Лиза goes with the addressee. Oleg must work and will come later.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Resolve она and с тобой in a written message to identify the two people going home, keeping the working sender separate."
+    },
+    {
+      "id": "bring-for-picnic",
+      "prompt": "Катя пишет: «Я иду на пикник с братом. Мне нужен чай с молоком. Брат хочет воду. Хлеб уже есть, а сыра нет. Принеси сыр, пожалуйста».\nЧто Катя просит принести?",
+      "choices": [
+        {
+          "id": "bread",
+          "text": "Хлеб."
+        },
+        {
+          "id": "cheese",
+          "text": "Сыр."
+        },
+        {
+          "id": "milk",
+          "text": "Молоко."
+        }
+      ],
+      "answer": "cheese",
+      "hint": "Distinguish the explicit request from other foods mentioned.",
+      "explanation": "Katya explicitly asks for cheese. Bread is already available; milk is mentioned as part of her tea.",
+      "requirement_id": "a1.reading.practical-information",
+      "expectation": "Extract the requested item сыр from a written picnic message containing needs, company and available items."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Needs and company · word forms",
+    "summary": "Complete five short sentences. Write only the missing word or phrase.",
+    "summary_ru": "Дополните пять коротких предложений. Впишите только пропущенное слово или сочетание.",
+    "questions": [
+      {
+        "id": "form-need",
+        "prompt": "Сегодня ___ нужно рано встать. (я)\nВпиши местоимение.",
+        "answer": "мне",
+        "accepted_answers": [
+          "мне"
+        ],
+        "hint": "Use a dative person with нужно and the infinitive.",
+        "explanation": "Мне нужно рано встать says that I need to get up early.",
+        "requirement_id": "a1.language.dative-need",
+        "expectation": "Produce мне as the person needing to act in a supplied modal construction. This is a supplied-form task, not independent writing."
+      },
+      {
+        "id": "form-age",
+        "prompt": "Это Павел. ___ двадцать лет. (он)\nВпиши местоимение.",
+        "answer": "Ему",
+        "accepted_answers": [
+          "Ему"
+        ],
+        "hint": "Age uses the dative, not он.",
+        "explanation": "Ему двадцать лет gives Pavel’s age.",
+        "requirement_id": "a1.language.dative-age",
+        "expectation": "Produce ему as the dative person in an age statement. This is a supplied-form task, not independent writing."
+      },
+      {
+        "id": "form-hot",
+        "prompt": "Это Оля. ___ жарко. (она)\nВпиши местоимение.",
+        "answer": "Ей",
+        "accepted_answers": [
+          "Ей"
+        ],
+        "hint": "Жарко describes Olya’s experience.",
+        "explanation": "Ей жарко uses the dative experiencer in an impersonal state pattern.",
+        "requirement_id": "a1.language.impersonal-modal",
+        "expectation": "Produce ей in a supplied heat-state construction. This is a supplied-form task, not independent writing."
+      },
+      {
+        "id": "form-companion",
+        "prompt": "Я еду на дачу с ___. (друг)\nВпиши форму существительного.",
+        "answer": "другом",
+        "accepted_answers": [
+          "другом"
+        ],
+        "hint": "A companion after с takes the instrumental.",
+        "explanation": "С другом means with a friend.",
+        "requirement_id": "a1.language.instrumental-company",
+        "expectation": "Produce другом as the companion after supplied с, not the accusative direct object. This is a supplied-form task, not independent writing."
+      },
+      {
+        "id": "form-ingredient",
+        "prompt": "Я хочу бутерброд с ___. (сыр)\nВпиши форму существительного.",
+        "answer": "сыром",
+        "accepted_answers": [
+          "сыром"
+        ],
+        "hint": "The filling follows с.",
+        "explanation": "Бутерброд с сыром uses the instrumental to name the cheese filling.",
+        "requirement_id": "a1.language.instrumental-ingredient",
+        "expectation": "Produce сыром as the accompaniment after supplied с. This is a supplied-form task, not independent writing."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Договориться о встрече",
+    "title_en": "Arrange an afternoon together",
+    "task": "Ты хочешь встретиться с другом завтра. Напиши, что тебе нужно сделать до встречи, во сколько ты будешь свободен и с кем придёшь. Спроси друга, что взять из еды или напитков. Можно придумать планы и спутника.",
+    "task_en": "You want to meet a friend tomorrow. Say what you need to do before meeting, when you will be free and who will come with you. Ask what food or drink to bring. You may invent the plans and companion.",
+    "required_words": [
+      "нужно",
+      "вместе",
+      "взять"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.personal-message",
+    "id": "needs-and-company-message",
+    "expectation": "Write an original message to a friend giving one obligation before meeting, an available time and a companion, then ask what food or drink to bring. Accept natural paraphrases, any sensible invented plan and short intelligible sentences. Do not require a particular modal or instrumental form; assess communicative meaning, with grammar feedback kept separate."
+  },
+  "writing_summary": "Explain your plans and arrange what to bring.",
+  "writing_summary_ru": "Расскажите о планах и спросите, что принести.",
+  "speaking_href": "/#speaking/scenario/cafe?level=A1",
+  "speaking_title": "At the café",
+  "speaking_title_ru": "В кафе",
+  "speaking_summary": "Order food and drinks in a separate conversation.",
+  "speaking_summary_ru": "Закажите еду и напитки в отдельном разговоре."
+}

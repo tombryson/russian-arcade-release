@@ -1,0 +1,36 @@
+# Secrets
+.env
+.env.local
+API_key.py
+credentials.json
+token.json
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# Flask/runtime state
+flask_session/
+*.log
+vocab.db-wal
+vocab.db-shm
+vocab.db_*.bak
+vocab.dev.db
+vocab.dev.db-wal
+vocab.dev.db-shm
+vocab_backup.db
+vocab_list_cache.txt
+.fuse_hidden*
+
+# Generated uploads/media
+static/uploads/
+static/media/sentence_*.mp3
+static/media/story_*.mp3
+static/media/story_image_*.png
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,2735 @@
+{
+  "version": 1,
+  "title": "Russian Arcade curriculum",
+  "bands": [
+    {
+      "id": "A1",
+      "name_en": "Beginner",
+      "name_ru": "Начальный",
+      "lemma_target": {
+        "min": 100,
+        "max": 150
+      },
+      "summary_en": "Handle immediate needs with familiar words, short sentences and predictable exchanges.",
+      "summary_ru": "Простые фразы и короткие диалоги для повседневных ситуаций."
+    },
+    {
+      "id": "A2",
+      "name_en": "Elementary",
+      "name_ru": "Базовый",
+      "lemma_target": {
+        "min": 150,
+        "max": 200
+      },
+      "summary_en": "Manage everyday transactions, describe routines and link simple events.",
+      "summary_ru": "Повседневные задачи, описание привычек и простая последовательность событий."
+    },
+    {
+      "id": "B1",
+      "name_en": "Intermediate",
+      "name_ru": "Средний",
+      "lemma_target": {
+        "min": 200,
+        "max": 250
+      },
+      "summary_en": "Explain experiences and reasons, resolve familiar problems and follow connected accounts.",
+      "summary_ru": "Связные рассказы, объяснение причин и решение знакомых задач."
+    },
+    {
+      "id": "B2",
+      "name_en": "Upper intermediate",
+      "name_ru": "Выше среднего",
+      "lemma_target": {
+        "min": 150,
+        "max": 200
+      },
+      "summary_en": "Develop an argument, compare alternatives and handle less predictable exchanges.",
+      "summary_ru": "Развёрнутые аргументы, сравнение вариантов и менее предсказуемые диалоги."
+    },
+    {
+      "id": "C1-C2",
+      "name_en": "Advanced and proficient",
+      "name_ru": "Продвинутые уровни",
+      "lemma_target": {
+        "min": 100,
+        "max": 150
+      },
+      "summary_en": "Interpret complex material and communicate precisely across specialist, cultural and abstract topics.",
+      "summary_ru": "Сложные тексты, точное выражение мысли и обсуждение специальных и абстрактных тем."
+    }
+  ],
+  "levels": {
+    "A1": {
+      "label_en": "Beginner",
+      "label_ru": "Начальный",
+      "generation_guidance": [
+        "Use short concrete sentences and a predictable everyday situation. Introduce one new demand at a time.",
+        "Use the selected topic’s target words and taught patterns. Supply enough context to understand a small number of new words.",
+        "Practise basic present tense, familiar past forms where needed, and frequent case patterns in meaningful sentences.",
+        "Avoid unexplained participles, idioms, dense clauses or a requirement to master an entire paradigm.",
+        "Make the task achievable through a short phrase or simple sentence. Keep questions concrete and answerable from the material."
+      ]
+    },
+    "A2": {
+      "label_en": "Elementary",
+      "label_ru": "Базовый",
+      "generation_guidance": [
+        "Use connected everyday language about familiar people, plans, transactions and recent events.",
+        "Practise past and future, common case government, comparisons and an introductory aspect or motion contrast in context.",
+        "Include a simple change of plan, clarification or reason. Keep the communicative goal clear.",
+        "Introduce unfamiliar words through the situation and avoid unsupported specialist knowledge.",
+        "Expect short connected answers; do not demand advanced terminology or literary interpretation."
+      ]
+    },
+    "B1": {
+      "label_en": "Intermediate",
+      "label_ru": "Средний",
+      "generation_guidance": [
+        "Use a connected account or realistic problem with reasons, consequences and a modest complication.",
+        "Require understanding beyond one matching word: sequence, motive, contrast or a supported inference.",
+        "Practise productive case government, aspect in narration, motion verbs, reported speech and common subordinate clauses.",
+        "Ask for explanation, comparison or an achievable solution. Accept clear simpler constructions when they fulfil the task.",
+        "Use topic vocabulary in context and introduce useful additional words rather than restricting output to the saved list."
+      ]
+    },
+    "B2": {
+      "label_en": "Upper intermediate",
+      "label_ru": "Выше среднего",
+      "generation_guidance": [
+        "Create a substantive situation with competing needs, a supported argument or an implicit but recoverable viewpoint.",
+        "Use varied sentence structure, natural aspect choices and appropriate register. Include participles or adverbial participles only where natural.",
+        "Ask learners to justify a choice, qualify a claim or respond to a counterargument.",
+        "Preserve clear agency, conditions and factual uncertainty. Do not substitute obscure vocabulary for intellectual demand.",
+        "Provide the contextual facts needed for the task; success must not depend on specialist prior knowledge."
+      ]
+    },
+    "C1": {
+      "label_en": "Advanced",
+      "label_ru": "Продвинутый",
+      "generation_guidance": [
+        "Use sustained, natural Russian with implicit connections, register choices and competing interpretations.",
+        "Ask for synthesis, precise explanation or a well-supported argument within the selected advanced topic.",
+        "Use complex syntax, lexical collocations and idiomatic wording purposefully, with enough context for interpretation.",
+        "Require careful attribution, qualification and organisation. Do not equate advanced ability with long or obscure sentences.",
+        "Use invented factual material when a scenario needs evidence that has not been supplied; make its fictional status clear."
+      ]
+    },
+    "C2": {
+      "label_en": "Proficient",
+      "label_ru": "Свободное владение",
+      "generation_guidance": [
+        "Use the same advanced topic sequence with finer distinctions of implication, stance, register and pragmatic intent.",
+        "Ask learners to reconcile conflicting readings, reformulate for a different audience or defend a precise distinction.",
+        "Include ambiguity only when the context supports discussion of more than one interpretation; never hide an arbitrary expected answer.",
+        "Assess precision, flexibility and fidelity to meaning rather than inflated length, jargon or a single preferred phrasing.",
+        "Keep source claims and invented scenarios distinguishable; do not invent quotations or real-world authority."
+      ]
+    }
+  },
+  "topics": [
+    {
+      "id": "greetings",
+      "order": 1,
+      "band": "A1",
+      "title_en": "Greetings and Introductions",
+      "title_ru": "Знакомство и приветствия",
+      "lemmas": [
+        "привет",
+        "знакомый",
+        "имя",
+        "спасибо",
+        "пожалуйста",
+        "человек",
+        "знакомиться",
+        "звать",
+        "я",
+        "ты",
+        "вы",
+        "он",
+        "она",
+        "да",
+        "нет"
+      ],
+      "phrases": [
+        "Здравствуйте!",
+        "До свидания!",
+        "Как вас зовут?",
+        "Меня зовут…",
+        "Очень приятно."
+      ],
+      "objectives": [
+        "Greet someone and say goodbye politely.",
+        "Introduce yourself and ask someone their name."
+      ],
+      "grammar_focus": [
+        "Personal pronouns in short introductions: Я Анна.",
+        "Learn the fixed accusative patterns Меня зовут… and Как вас зовут?",
+        "Distinguish informal ты from polite вы."
+      ],
+      "practice": {
+        "reading": "A new neighbour introduces herself. Ask who she is and how the speakers greet one another.",
+        "writing": "Write a greeting and a short introduction for a new classmate.",
+        "translation": "Translate short greetings and introductions, choosing ты or вы from the stated relationship.",
+        "word_jumble": "Combine greeting words and a name into one plausible introduction.",
+        "speaking": "Meet a new classmate, exchange names and say goodbye."
+      },
+      "practice_ru": {
+        "word_jumble": "Поздоровайтесь и представьтесь, используя предложенные слова и имя."
+      }
+    },
+    {
+      "id": "numbers",
+      "order": 2,
+      "band": "A1",
+      "title_en": "Numbers and Time",
+      "title_ru": "Числа и время",
+      "lemmas": [
+        "один",
+        "два",
+        "три",
+        "четыре",
+        "пять",
+        "шесть",
+        "семь",
+        "восемь",
+        "девять",
+        "десять",
+        "час",
+        "день",
+        "утро",
+        "вечер",
+        "минута"
+      ],
+      "phrases": [
+        "Который час?",
+        "В два часа.",
+        "Доброе утро!"
+      ],
+      "objectives": [
+        "Recognise numbers from one to ten.",
+        "Say when a simple daily event happens."
+      ],
+      "grammar_focus": [
+        "Practise taught clock patterns: один час, два часа, пять часов.",
+        "Use утром and вечером as time expressions.",
+        "Distinguish a time from a duration in simple examples: в два часа; два часа."
+      ],
+      "practice": {
+        "reading": "Use a short timetable for a learner’s day. Ask when two events start.",
+        "writing": "Write three entries in a simple daily timetable.",
+        "translation": "Translate times and short arrangements using familiar clock phrases.",
+        "word_jumble": "Use a small set of time words to arrange a meeting.",
+        "speaking": "Agree on a time to meet and confirm the number of people."
+      },
+      "practice_ru": {
+        "word_jumble": "Договоритесь о встрече, используя слова для обозначения времени."
+      }
+    },
+    {
+      "id": "family",
+      "order": 3,
+      "band": "A1",
+      "title_en": "Family and People",
+      "title_ru": "Семья и люди",
+      "lemmas": [
+        "мама",
+        "папа",
+        "мать",
+        "отец",
+        "брат",
+        "сестра",
+        "друг",
+        "подруга",
+        "человек",
+        "ребёнок",
+        "семья",
+        "бабушка",
+        "дедушка",
+        "сын",
+        "дочь"
+      ],
+      "phrases": [
+        "Это моя семья.",
+        "У меня есть…"
+      ],
+      "objectives": [
+        "Name close family members and friends.",
+        "Describe who is in your family."
+      ],
+      "grammar_focus": [
+        "Use мой, моя and мои with familiar family nouns.",
+        "Introduce someone with Это… and a nominative noun.",
+        "Learn У меня есть… as the basic possession pattern."
+      ],
+      "practice": {
+        "reading": "Read a short family introduction. Ask who is related to whom.",
+        "writing": "Introduce three family members or invented characters.",
+        "translation": "Translate short descriptions of family relationships and possession.",
+        "word_jumble": "Use family nouns and possessives to introduce someone.",
+        "speaking": "Show a family photograph and answer simple questions about the people."
+      },
+      "practice_ru": {
+        "word_jumble": "Представьте кого-нибудь, используя названия членов семьи и притяжательные местоимения."
+      }
+    },
+    {
+      "id": "home",
+      "order": 4,
+      "band": "A1",
+      "title_en": "Home and Rooms",
+      "title_ru": "Дом и комнаты",
+      "lemmas": [
+        "дом",
+        "квартира",
+        "комната",
+        "кухня",
+        "стол",
+        "окно",
+        "дверь",
+        "стул",
+        "кровать",
+        "диван",
+        "лампа",
+        "пол",
+        "шкаф",
+        "ванная",
+        "спальня"
+      ],
+      "phrases": [
+        "Где стол?",
+        "На кухне.",
+        "У меня дома."
+      ],
+      "objectives": [
+        "Name common rooms and furniture.",
+        "Say where a familiar object is."
+      ],
+      "grammar_focus": [
+        "Use в or на with taught prepositional forms: в комнате, на столе.",
+        "Contrast singular and plural in familiar nouns: окно — окна.",
+        "Use simple adjective agreement: большой дом, большая комната."
+      ],
+      "practice": {
+        "reading": "Describe a small flat and the location of three objects. Ask which room contains each object.",
+        "writing": "Write a short description of one room.",
+        "translation": "Translate simple statements about where furniture and objects are.",
+        "word_jumble": "Build a sentence placing one object in a room.",
+        "speaking": "Help a visitor find an object in your home."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте предложение о том, где в комнате находится предмет."
+      }
+    },
+    {
+      "id": "food",
+      "order": 5,
+      "band": "A1",
+      "title_en": "Food and Drinks",
+      "title_ru": "Еда и напитки",
+      "lemmas": [
+        "хлеб",
+        "вода",
+        "суп",
+        "чай",
+        "кофе",
+        "молоко",
+        "сок",
+        "сыр",
+        "яблоко",
+        "банан",
+        "рис",
+        "мясо",
+        "рыба",
+        "еда",
+        "пить"
+      ],
+      "phrases": [
+        "Можно воды?",
+        "Я хочу чай.",
+        "Спасибо, очень вкусно."
+      ],
+      "objectives": [
+        "Name common foods and drinks.",
+        "Ask for something to eat or drink."
+      ],
+      "grammar_focus": [
+        "Use хочу with a noun or infinitive: хочу суп; хочу пить.",
+        "Practise singular accusative objects: ем рыбу, пью воду.",
+        "Learn a polite request pattern with можно."
+      ],
+      "practice": {
+        "reading": "A person chooses a simple breakfast. Ask what they eat and drink.",
+        "writing": "Write what you would like for breakfast.",
+        "translation": "Translate short food requests with a clear eater, drinker or customer.",
+        "word_jumble": "Use food words to make a complete request or statement.",
+        "speaking": "Ask for a drink and one item of food."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте просьбу или предложение с названиями продуктов и напитков."
+      }
+    },
+    {
+      "id": "daily_activities",
+      "order": 6,
+      "band": "A1",
+      "title_en": "Daily Activities",
+      "title_ru": "Повседневные занятия",
+      "lemmas": [
+        "спать",
+        "есть",
+        "работать",
+        "идти",
+        "читать",
+        "писать",
+        "жить",
+        "учиться",
+        "слушать",
+        "смотреть",
+        "гулять",
+        "завтракать",
+        "обедать",
+        "ужинать",
+        "отдыхать"
+      ],
+      "phrases": [
+        "Каждый день.",
+        "Я иду домой.",
+        "После обеда."
+      ],
+      "objectives": [
+        "Describe a few activities in your usual day.",
+        "Ask what someone is doing now."
+      ],
+      "grammar_focus": [
+        "Use present-tense forms of common first- and second-conjugation verbs.",
+        "Learn frequent irregular forms in context: ем, сплю, иду.",
+        "Use simple time words with a subject and verb."
+      ],
+      "practice": {
+        "reading": "Read a short account of an ordinary day. Ask who does each activity and when.",
+        "writing": "Describe your morning in short linked sentences.",
+        "translation": "Translate present-tense statements and questions about everyday activities.",
+        "word_jumble": "Combine a person, an activity and a time expression.",
+        "speaking": "Compare what you and a friend are doing today."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте предложение о том, кто, что и когда делает."
+      }
+    },
+    {
+      "id": "colors",
+      "order": 7,
+      "band": "A1",
+      "title_en": "Colors and Descriptions",
+      "title_ru": "Цвета и описания",
+      "lemmas": [
+        "красный",
+        "синий",
+        "зелёный",
+        "жёлтый",
+        "белый",
+        "чёрный",
+        "большой",
+        "маленький",
+        "новый",
+        "старый",
+        "хороший",
+        "плохой",
+        "красивый",
+        "длинный",
+        "короткий"
+      ],
+      "phrases": [
+        "Какого цвета?",
+        "Вот этот.",
+        "Очень красивый."
+      ],
+      "objectives": [
+        "Identify an object by colour and size.",
+        "Give a short description of a familiar object."
+      ],
+      "grammar_focus": [
+        "Match adjectives to noun gender: красный стол, красная сумка, красное яблоко.",
+        "Use plural adjectives with familiar plural nouns: новые книги.",
+        "Use этот, эта and это to identify an object."
+      ],
+      "practice": {
+        "reading": "Describe similar objects that differ in colour or size. Ask which object a person needs.",
+        "writing": "Describe two objects so another person can tell them apart.",
+        "translation": "Translate object descriptions with consistent adjective agreement.",
+        "word_jumble": "Build an identifying phrase and a complete sentence from colour and object words.",
+        "speaking": "Choose an object by explaining its colour and size."
+      },
+      "practice_ru": {
+        "word_jumble": "Опишите предмет и составьте о нём предложение, указав его цвет или размер."
+      }
+    },
+    {
+      "id": "clothing",
+      "order": 8,
+      "band": "A1",
+      "title_en": "Clothing",
+      "title_ru": "Одежда",
+      "lemmas": [
+        "футболка",
+        "штаны",
+        "обувь",
+        "шапка",
+        "рубашка",
+        "платье",
+        "юбка",
+        "куртка",
+        "пальто",
+        "свитер",
+        "носок",
+        "ботинок",
+        "шарф",
+        "перчатка",
+        "одежда"
+      ],
+      "phrases": [
+        "На мне…",
+        "Мне нужна…",
+        "Это мой размер."
+      ],
+      "objectives": [
+        "Name common items of clothing.",
+        "Identify clothing by colour and size."
+      ],
+      "grammar_focus": [
+        "Treat штаны as a plural-only noun and пальто as indeclinable.",
+        "Use familiar accusative forms after носить: ношу шапку.",
+        "Match adjectives to clothing nouns: синяя куртка, синие штаны."
+      ],
+      "practice": {
+        "reading": "A person packs clothes for one day. Ask what they take and which item is described.",
+        "writing": "Describe a simple outfit using colours.",
+        "translation": "Translate short clothing descriptions and requests.",
+        "word_jumble": "Use an item of clothing and an adjective in a complete sentence.",
+        "speaking": "Ask a shop assistant for an item in a particular colour."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте предложение с названием предмета одежды и прилагательным."
+      }
+    },
+    {
+      "id": "places",
+      "order": 9,
+      "band": "A1",
+      "title_en": "Places and Directions",
+      "title_ru": "Места и направления",
+      "lemmas": [
+        "город",
+        "улица",
+        "площадь",
+        "дом",
+        "магазин",
+        "школа",
+        "парк",
+        "налево",
+        "направо",
+        "прямо",
+        "рядом",
+        "далеко",
+        "близко",
+        "здесь",
+        "там"
+      ],
+      "phrases": [
+        "Где находится…?",
+        "Идите прямо.",
+        "Поверните направо."
+      ],
+      "objectives": [
+        "Ask where a familiar place is.",
+        "Follow a short direction using a visible landmark."
+      ],
+      "grammar_focus": [
+        "Distinguish location где from direction куда in simple examples.",
+        "Learn common direction commands as useful forms: идите, поверните.",
+        "Use в and на with taught place expressions: в парке, на улице."
+      ],
+      "practice": {
+        "reading": "Give a short route with one turn and a named destination. Ask which way to go.",
+        "writing": "Write two simple directions to a familiar place.",
+        "translation": "Translate brief directions whose starting point and destination are explicit.",
+        "word_jumble": "Build a direction containing a place and a direction word.",
+        "speaking": "Ask for a nearby place, repeat the direction and thank the speaker."
+      },
+      "practice_ru": {
+        "word_jumble": "Объясните, куда идти, указав место и направление."
+      }
+    },
+    {
+      "id": "weather",
+      "order": 10,
+      "band": "A1",
+      "title_en": "Weather",
+      "title_ru": "Погода",
+      "lemmas": [
+        "солнце",
+        "дождь",
+        "снег",
+        "ветер",
+        "погода",
+        "холод",
+        "тепло",
+        "жарко",
+        "холодно",
+        "тёплый",
+        "холодный",
+        "солнечный",
+        "пасмурный",
+        "сегодня",
+        "завтра"
+      ],
+      "phrases": [
+        "Идёт дождь.",
+        "Сегодня тепло.",
+        "Какая погода?"
+      ],
+      "objectives": [
+        "Describe the weather today.",
+        "Choose simple clothing or plans for the weather."
+      ],
+      "grammar_focus": [
+        "Use impersonal weather statements: холодно, тепло, жарко.",
+        "Distinguish a noun or adjective from a state word: холод; холодный; холодно.",
+        "Use present weather patterns: идёт дождь, светит солнце."
+      ],
+      "practice": {
+        "reading": "Read a simple forecast for two days. Ask which day suits a proposed activity.",
+        "writing": "Write a short weather message to a friend.",
+        "translation": "Translate short weather statements without inventing a grammatical subject.",
+        "word_jumble": "Combine weather and time words in a sentence.",
+        "speaking": "Ask about the weather and agree on a simple plan."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте предложение о погоде, указав время."
+      }
+    },
+    {
+      "id": "shopping",
+      "order": 11,
+      "band": "A2",
+      "title_en": "Shopping",
+      "title_ru": "Покупки",
+      "lemmas": [
+        "магазин",
+        "цена",
+        "деньги",
+        "товар",
+        "покупать",
+        "купить",
+        "продавец",
+        "покупатель",
+        "касса",
+        "чек",
+        "сдача",
+        "скидка",
+        "размер",
+        "дорогой",
+        "дешёвый",
+        "платить",
+        "оплатить",
+        "выбирать",
+        "стоить",
+        "рубль"
+      ],
+      "phrases": [
+        "Сколько это стоит?",
+        "Можно оплатить картой?",
+        "У вас есть другой размер?"
+      ],
+      "objectives": [
+        "Ask about a price, size or available item.",
+        "Complete a purchase and explain a simple problem."
+      ],
+      "grammar_focus": [
+        "Use стоить with taught number-and-ruble patterns.",
+        "Contrast buying as a process and a completed purchase: покупать — купить.",
+        "Use dative experiencers in needs: мне нужен чек, мне нужна сумка."
+      ],
+      "practice": {
+        "reading": "A customer compares two items and buys one. Ask about the choice, price and problem.",
+        "writing": "Write a short message asking a shop about an item.",
+        "translation": "Translate a short purchase exchange with prices and a polite request.",
+        "word_jumble": "Use shopping words to explain a choice or purchase.",
+        "speaking": "Buy an item, ask about another size and check the change."
+      },
+      "practice_ru": {
+        "word_jumble": "Объясните свой выбор или расскажите о покупке, используя предложенные слова."
+      }
+    },
+    {
+      "id": "travel",
+      "order": 12,
+      "band": "A2",
+      "title_en": "Travel and Transport",
+      "title_ru": "Поездки и транспорт",
+      "lemmas": [
+        "поезд",
+        "автобус",
+        "билет",
+        "дорога",
+        "машина",
+        "самолёт",
+        "вокзал",
+        "станция",
+        "остановка",
+        "метро",
+        "ехать",
+        "ездить",
+        "приехать",
+        "уехать",
+        "отправляться",
+        "прибывать",
+        "багаж",
+        "пассажир",
+        "пересадка",
+        "расписание"
+      ],
+      "phrases": [
+        "Билет в одну сторону.",
+        "Где нужно пересесть?",
+        "Во сколько отправляется поезд?"
+      ],
+      "objectives": [
+        "Ask about departure, destination and a simple connection.",
+        "Describe a recent or planned journey."
+      ],
+      "grammar_focus": [
+        "Contrast ехать for a particular trip with ездить for repeated travel.",
+        "Use в or на plus accusative for destination and prepositional for location.",
+        "Use на plus prepositional for transport: на автобусе."
+      ],
+      "practice": {
+        "reading": "A journey includes one connection. Ask where, when and how the traveller changes transport.",
+        "writing": "Write a short travel plan with a departure time and destination.",
+        "translation": "Translate travel arrangements with explicit transport and direction.",
+        "word_jumble": "Build a travel sentence using a motion verb and destination.",
+        "speaking": "Buy a ticket and ask where to change trains."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте предложение о поездке, указав направление и используя глагол движения."
+      }
+    },
+    {
+      "id": "restaurant",
+      "order": 13,
+      "band": "A2",
+      "title_en": "Restaurant and Dining",
+      "title_ru": "В ресторане",
+      "lemmas": [
+        "меню",
+        "счёт",
+        "еда",
+        "напиток",
+        "официант",
+        "столик",
+        "заказ",
+        "заказывать",
+        "заказать",
+        "порция",
+        "закуска",
+        "салат",
+        "десерт",
+        "вилка",
+        "ложка",
+        "нож",
+        "тарелка",
+        "стакан",
+        "вкусный",
+        "острый"
+      ],
+      "phrases": [
+        "Принесите счёт, пожалуйста.",
+        "Без сахара.",
+        "Можно заказать?"
+      ],
+      "objectives": [
+        "Order a meal and state a simple preference.",
+        "Ask about ingredients or correct a mistaken order."
+      ],
+      "grammar_focus": [
+        "Use polite imperatives and можно with an infinitive.",
+        "Use без plus genitive for ingredients: без сахара.",
+        "Practise accusative objects and simple quantity phrases when ordering."
+      ],
+      "practice": {
+        "reading": "A group places an order and changes one item. Ask what each person finally receives.",
+        "writing": "Write a short food order with one preference or restriction.",
+        "translation": "Translate a restaurant exchange that includes a request and clarification.",
+        "word_jumble": "Use restaurant words to ask for or describe an order.",
+        "speaking": "Order food for two people, clarify an ingredient and ask for the bill."
+      },
+      "practice_ru": {
+        "word_jumble": "Попросите что-нибудь принести или расскажите о заказе в ресторане."
+      }
+    },
+    {
+      "id": "body",
+      "order": 14,
+      "band": "A2",
+      "title_en": "Body and Health",
+      "title_ru": "Тело и самочувствие",
+      "lemmas": [
+        "голова",
+        "рука",
+        "боль",
+        "врач",
+        "нога",
+        "глаз",
+        "ухо",
+        "нос",
+        "рот",
+        "зуб",
+        "спина",
+        "живот",
+        "горло",
+        "сердце",
+        "болеть",
+        "чувствовать",
+        "устать",
+        "здоровый",
+        "больной",
+        "температура"
+      ],
+      "phrases": [
+        "У меня болит голова.",
+        "Как вы себя чувствуете?",
+        "Мне плохо."
+      ],
+      "objectives": [
+        "Say where you have pain and describe simple symptoms.",
+        "Ask how someone feels and understand basic advice."
+      ],
+      "grammar_focus": [
+        "Match болит or болят to the painful body part.",
+        "Use dative experiencers: мне холодно, ему плохо.",
+        "Use нужно and нельзя with an infinitive for simple advice."
+      ],
+      "practice": {
+        "reading": "A person explains why they cannot attend a lesson. Ask about symptoms and the next step.",
+        "writing": "Write a short message explaining that you feel unwell.",
+        "translation": "Translate simple descriptions of symptoms and requests for help.",
+        "word_jumble": "Build a sentence describing a symptom or current feeling.",
+        "speaking": "Describe a minor fictional illness and answer simple follow-up questions."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте предложение о симптоме или самочувствии."
+      }
+    },
+    {
+      "id": "school",
+      "order": 15,
+      "band": "A2",
+      "title_en": "School and Education",
+      "title_ru": "Школа и учёба",
+      "lemmas": [
+        "учитель",
+        "книга",
+        "урок",
+        "школа",
+        "ученик",
+        "класс",
+        "тетрадь",
+        "ручка",
+        "карандаш",
+        "доска",
+        "задание",
+        "ответ",
+        "вопрос",
+        "оценка",
+        "перемена",
+        "предмет",
+        "читать",
+        "писать",
+        "объяснять",
+        "понимать"
+      ],
+      "phrases": [
+        "Можно задать вопрос?",
+        "Я не понял.",
+        "Повторите, пожалуйста."
+      ],
+      "objectives": [
+        "Ask for an explanation or repetition during a lesson.",
+        "Describe school subjects and a homework task."
+      ],
+      "grammar_focus": [
+        "Distinguish учить a subject from учиться somewhere.",
+        "Use dative recipients with explaining and giving: объяснить ученику.",
+        "Connect simple reasons with потому что."
+      ],
+      "practice": {
+        "reading": "A pupil checks homework instructions. Ask what must be done and what remains unclear.",
+        "writing": "Write a short message to a teacher about a task.",
+        "translation": "Translate lesson requests, questions and simple explanations.",
+        "word_jumble": "Use school words to explain a homework task or ask for help.",
+        "speaking": "Ask a teacher to explain a task and confirm what you need to do."
+      },
+      "practice_ru": {
+        "word_jumble": "Объясните домашнее задание или попросите помощи, используя предложенные слова."
+      }
+    },
+    {
+      "id": "hobbies",
+      "order": 16,
+      "band": "A2",
+      "title_en": "Hobbies and Leisure",
+      "title_ru": "Увлечения и досуг",
+      "lemmas": [
+        "спорт",
+        "музыка",
+        "кино",
+        "игра",
+        "хобби",
+        "читать",
+        "рисовать",
+        "петь",
+        "танцевать",
+        "плавать",
+        "гулять",
+        "фотографировать",
+        "путешествовать",
+        "собирать",
+        "играть",
+        "отдыхать",
+        "свободный",
+        "интересный",
+        "любимый",
+        "выходной"
+      ],
+      "phrases": [
+        "В свободное время.",
+        "Мне нравится…",
+        "Играть на гитаре."
+      ],
+      "objectives": [
+        "Describe a hobby and how often you do it.",
+        "Invite someone to an activity and respond to an invitation."
+      ],
+      "grammar_focus": [
+        "Use нравиться with a dative experiencer: мне нравится музыка.",
+        "Contrast играть в a game with играть на an instrument.",
+        "Use любить with an infinitive and simple frequency phrases."
+      ],
+      "practice": {
+        "reading": "Two friends plan their weekend around different hobbies. Ask what they agree to do.",
+        "writing": "Write about a hobby and invite a friend to join you.",
+        "translation": "Translate preferences and invitations with correct verb patterns.",
+        "word_jumble": "Build a sentence explaining a hobby or preference.",
+        "speaking": "Compare hobbies and arrange an activity for the weekend."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте предложение о своём увлечении или предпочтении."
+      }
+    },
+    {
+      "id": "animals",
+      "order": 17,
+      "band": "A2",
+      "title_en": "Animals",
+      "title_ru": "Животные",
+      "lemmas": [
+        "собака",
+        "кошка",
+        "птица",
+        "рыба",
+        "лошадь",
+        "корова",
+        "свинья",
+        "овца",
+        "медведь",
+        "волк",
+        "лиса",
+        "заяц",
+        "мышь",
+        "животное",
+        "хвост",
+        "лапа",
+        "крыло",
+        "кормить",
+        "ухаживать",
+        "дикий"
+      ],
+      "phrases": [
+        "У меня есть кошка.",
+        "Гулять с собакой.",
+        "Кормить два раза в день."
+      ],
+      "objectives": [
+        "Describe an animal and its daily care.",
+        "Explain where an animal lives and what it does."
+      ],
+      "grammar_focus": [
+        "Practise animate accusative objects: вижу собаку, вижу медведя.",
+        "Use с plus instrumental for companionship: с собакой.",
+        "Use possessives and body-part nouns in short descriptions."
+      ],
+      "practice": {
+        "reading": "A neighbour leaves instructions for caring for a pet. Ask when to feed or walk it.",
+        "writing": "Write short care instructions for a pet.",
+        "translation": "Translate descriptions and care routines for familiar animals.",
+        "word_jumble": "Use animal words to describe an action or appearance.",
+        "speaking": "Explain how to look after your pet while you are away."
+      },
+      "practice_ru": {
+        "word_jumble": "Опишите внешность животного или его действия."
+      }
+    },
+    {
+      "id": "nature",
+      "order": 18,
+      "band": "A2",
+      "title_en": "Nature",
+      "title_ru": "Природа",
+      "lemmas": [
+        "дерево",
+        "река",
+        "лес",
+        "небо",
+        "гора",
+        "озеро",
+        "море",
+        "поле",
+        "цветок",
+        "трава",
+        "лист",
+        "берег",
+        "остров",
+        "земля",
+        "камень",
+        "песок",
+        "расти",
+        "течь",
+        "высокий",
+        "глубокий"
+      ],
+      "phrases": [
+        "На берегу реки.",
+        "В лесу.",
+        "Рядом с озером."
+      ],
+      "objectives": [
+        "Describe a simple natural landscape.",
+        "Explain where to go on a short outdoor trip."
+      ],
+      "grammar_focus": [
+        "Use prepositions with familiar location patterns: у реки, рядом с лесом.",
+        "Practise comparative adjectives: выше, глубже.",
+        "Distinguish location and destination with в or на in a clear context."
+      ],
+      "practice": {
+        "reading": "Describe a walk past two natural features. Ask where the walkers stop and why.",
+        "writing": "Describe a place outdoors that you like.",
+        "translation": "Translate landscape descriptions and simple outdoor plans.",
+        "word_jumble": "Build a sentence locating one natural feature relative to another.",
+        "speaking": "Choose a place for a walk and explain what can be seen there."
+      },
+      "practice_ru": {
+        "word_jumble": "Объясните, где находится один природный объект по отношению к другому."
+      }
+    },
+    {
+      "id": "jobs",
+      "order": 19,
+      "band": "A2",
+      "title_en": "Jobs and Occupations",
+      "title_ru": "Профессии",
+      "lemmas": [
+        "врач",
+        "учитель",
+        "работа",
+        "офис",
+        "инженер",
+        "водитель",
+        "продавец",
+        "повар",
+        "строитель",
+        "художник",
+        "музыкант",
+        "журналист",
+        "медсестра",
+        "полицейский",
+        "профессия",
+        "работать",
+        "помогать",
+        "готовить",
+        "строить",
+        "водить"
+      ],
+      "phrases": [
+        "Кем вы работаете?",
+        "Я работаю врачом.",
+        "Работать в офисе."
+      ],
+      "objectives": [
+        "Say what someone does for work.",
+        "Describe a simple workday and common responsibilities."
+      ],
+      "grammar_focus": [
+        "Use instrumental professions after работать: работать врачом.",
+        "Use present and past tense to describe work routines and changes.",
+        "Practise verb-object patterns: водить автобус, помогать людям."
+      ],
+      "practice": {
+        "reading": "Introduce two people with different jobs. Ask what each person does and where they work.",
+        "writing": "Describe a real or invented person’s job.",
+        "translation": "Translate short statements about jobs and workplace routines.",
+        "word_jumble": "Use occupation words to describe a person and their work.",
+        "speaking": "Introduce your job and ask someone about their workday."
+      },
+      "practice_ru": {
+        "word_jumble": "Расскажите о человеке и его работе, используя названия профессий."
+      }
+    },
+    {
+      "id": "holidays",
+      "order": 20,
+      "band": "A2",
+      "title_en": "Holidays and Celebrations",
+      "title_ru": "Праздники",
+      "lemmas": [
+        "праздник",
+        "подарок",
+        "торт",
+        "цветок",
+        "день",
+        "рождение",
+        "год",
+        "гость",
+        "приглашать",
+        "поздравлять",
+        "дарить",
+        "получать",
+        "отмечать",
+        "праздновать",
+        "встречать",
+        "желать",
+        "радость",
+        "открытка",
+        "свеча",
+        "традиция"
+      ],
+      "phrases": [
+        "С днём рождения!",
+        "С Новым годом!",
+        "Всего хорошего!"
+      ],
+      "objectives": [
+        "Invite someone to a celebration and congratulate them.",
+        "Describe a recent celebration and exchanged gifts."
+      ],
+      "grammar_focus": [
+        "Use dative recipients for gifts (подарить другу) and accusative plus с with instrumental for congratulations (поздравить друга с праздником).",
+        "Use past-tense gender and number in an account of a celebration.",
+        "Learn event names as phrases: день рождения, Новый год."
+      ],
+      "practice": {
+        "reading": "A short invitation and follow-up describe a birthday. Ask who attended and what happened.",
+        "writing": "Write an invitation or a short birthday message.",
+        "translation": "Translate congratulations, invitations and a simple account of a celebration.",
+        "word_jumble": "Use celebration words to describe giving a gift or inviting a guest.",
+        "speaking": "Invite a friend, agree on a time and discuss what to bring."
+      },
+      "practice_ru": {
+        "word_jumble": "Расскажите о подарке или приглашении на праздник."
+      }
+    },
+    {
+      "id": "city",
+      "order": 21,
+      "band": "B1",
+      "title_en": "City and Services",
+      "title_ru": "Город и службы",
+      "lemmas": [
+        "банк",
+        "почта",
+        "парк",
+        "метро",
+        "больница",
+        "библиотека",
+        "аптека",
+        "мэрия",
+        "отделение",
+        "справка",
+        "очередь",
+        "заявление",
+        "документ",
+        "паспорт",
+        "посылка",
+        "перевод",
+        "услуга",
+        "приём",
+        "запись",
+        "адрес",
+        "ремонт",
+        "обращаться",
+        "получать",
+        "отправлять",
+        "талон"
+      ],
+      "phrases": [
+        "Записаться на приём.",
+        "Отправить посылку.",
+        "Подскажите, куда обратиться."
+      ],
+      "objectives": [
+        "Explain a routine service request and supply the needed details.",
+        "Resolve a problem with an appointment, document or delivery."
+      ],
+      "grammar_focus": [
+        "Choose aspect for a service process and its result: отправлять — отправить.",
+        "Use purpose clauses with чтобы: пришёл, чтобы получить справку.",
+        "Use case patterns after к, в, из and с when explaining a route between offices."
+      ],
+      "practice": {
+        "reading": "A resident visits two offices to resolve a delivery problem. Ask what prevented completion and what solved it.",
+        "writing": "Write a clear request to a local service, including the problem and desired result.",
+        "translation": "Translate a connected exchange about a service problem and the next steps.",
+        "word_jumble": "Use service-related words to explain a problem and a proposed solution.",
+        "speaking": "Report an undelivered parcel, clarify the address and agree on collection."
+      },
+      "practice_ru": {
+        "word_jumble": "Объясните проблему при обращении в городскую службу и предложите решение."
+      }
+    },
+    {
+      "id": "technology",
+      "order": 22,
+      "band": "B1",
+      "title_en": "Technology and Devices",
+      "title_ru": "Техника и устройства",
+      "lemmas": [
+        "телефон",
+        "компьютер",
+        "интернет",
+        "экран",
+        "клавиатура",
+        "мышь",
+        "зарядка",
+        "батарея",
+        "приложение",
+        "пароль",
+        "файл",
+        "папка",
+        "устройство",
+        "сообщение",
+        "сеть",
+        "связь",
+        "настройка",
+        "обновление",
+        "загрузка",
+        "сохранять",
+        "удалять",
+        "подключать",
+        "включать",
+        "выключать",
+        "работать"
+      ],
+      "phrases": [
+        "Забыть пароль.",
+        "Подключиться к сети.",
+        "Сохранить изменения."
+      ],
+      "objectives": [
+        "Describe a familiar device problem in sequence.",
+        "Understand and give practical instructions."
+      ],
+      "grammar_focus": [
+        "Use paired commands to describe a procedure: включите, проверьте, сохраните.",
+        "Distinguish reflexive and transitive uses: подключаться — подключать.",
+        "Use если and когда for conditions and sequence."
+      ],
+      "practice": {
+        "reading": "A troubleshooting note explains a device failure and repair. Ask which step addresses which symptom.",
+        "writing": "Write a short support request with the steps already tried.",
+        "translation": "Translate instructions and problem descriptions with clear sequence and result.",
+        "word_jumble": "Build a sentence describing a technical problem and a condition for fixing it.",
+        "speaking": "Explain why your device cannot connect and follow support instructions."
+      },
+      "practice_ru": {
+        "word_jumble": "Опишите техническую проблему и условие, при котором её можно решить."
+      }
+    },
+    {
+      "id": "environment",
+      "order": 23,
+      "band": "B1",
+      "title_en": "Environment",
+      "title_ru": "Окружающая среда",
+      "lemmas": [
+        "природа",
+        "мусор",
+        "вода",
+        "воздух",
+        "загрязнение",
+        "отходы",
+        "пластик",
+        "бумага",
+        "стекло",
+        "металл",
+        "переработка",
+        "контейнер",
+        "энергия",
+        "электричество",
+        "ресурс",
+        "лес",
+        "растение",
+        "животное",
+        "охрана",
+        "чистый",
+        "вредный",
+        "экономить",
+        "сортировать",
+        "защищать",
+        "выбрасывать"
+      ],
+      "phrases": [
+        "Сортировать отходы.",
+        "Экономить воду.",
+        "Заботиться о природе."
+      ],
+      "objectives": [
+        "Describe a local environmental problem and its effects.",
+        "Suggest practical action and explain a reason."
+      ],
+      "grammar_focus": [
+        "Connect causes and consequences with потому что, поэтому and из-за.",
+        "Use нужно, следует and можно for advice with different force.",
+        "Use comparative structures to compare practical options."
+      ],
+      "practice": {
+        "reading": "A neighbourhood changes its waste collection. Ask about the problem, reasons and proposed solution.",
+        "writing": "Write a proposal for one practical environmental improvement.",
+        "translation": "Translate advice and explanations about everyday environmental choices.",
+        "word_jumble": "Use environmental vocabulary in a cause-and-effect sentence.",
+        "speaking": "Discuss a local problem and agree on an achievable change."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте предложение об экологической проблеме, связав причину и следствие."
+      }
+    },
+    {
+      "id": "sports",
+      "order": 24,
+      "band": "B1",
+      "title_en": "Sports",
+      "title_ru": "Спорт",
+      "lemmas": [
+        "футбол",
+        "бег",
+        "игра",
+        "мяч",
+        "команда",
+        "игрок",
+        "тренер",
+        "матч",
+        "соревнование",
+        "победа",
+        "поражение",
+        "счёт",
+        "стадион",
+        "бассейн",
+        "площадка",
+        "тренировка",
+        "упражнение",
+        "скорость",
+        "сила",
+        "выносливость",
+        "выигрывать",
+        "проигрывать",
+        "тренироваться",
+        "участвовать",
+        "болеть"
+      ],
+      "phrases": [
+        "Болеть за команду.",
+        "Участвовать в соревновании.",
+        "Занять первое место."
+      ],
+      "objectives": [
+        "Describe a match or sporting event in order.",
+        "Explain training plans, preferences and results."
+      ],
+      "grammar_focus": [
+        "Use aspect to distinguish training habits from completed achievements.",
+        "Use comparative adjectives and adverbs: быстрее, сильнее.",
+        "Use verb-preposition patterns: участвовать в, болеть за."
+      ],
+      "practice": {
+        "reading": "A match report describes a turning point. Ask how the result changed and why.",
+        "writing": "Write an account of a real or invented sporting event.",
+        "translation": "Translate connected descriptions of training, competition and results.",
+        "word_jumble": "Use sports words to explain a result or training goal.",
+        "speaking": "Compare two sports and agree on a training plan with a friend."
+      },
+      "practice_ru": {
+        "word_jumble": "Объясните результат соревнования или цель тренировки."
+      }
+    },
+    {
+      "id": "music",
+      "order": 25,
+      "band": "B1",
+      "title_en": "Music and Arts",
+      "title_ru": "Музыка и искусство",
+      "lemmas": [
+        "песня",
+        "картина",
+        "театр",
+        "танец",
+        "музыка",
+        "искусство",
+        "концерт",
+        "выставка",
+        "сцена",
+        "зритель",
+        "певец",
+        "актёр",
+        "художник",
+        "инструмент",
+        "гитара",
+        "пианино",
+        "оркестр",
+        "мелодия",
+        "ритм",
+        "жанр",
+        "спектакль",
+        "выступать",
+        "исполнять",
+        "изображать",
+        "впечатление"
+      ],
+      "phrases": [
+        "Произвести впечатление.",
+        "Играть на сцене.",
+        "Сходить на выставку."
+      ],
+      "objectives": [
+        "Describe an artistic event and your response.",
+        "Compare works or performances and explain a preference."
+      ],
+      "grammar_focus": [
+        "Use relative clauses with который to identify a work or performer.",
+        "Contrast идти with сходить in plans and completed visits.",
+        "Give supported opinions with мне кажется and я считаю, что."
+      ],
+      "practice": {
+        "reading": "Two short reviews disagree about a performance. Ask what each reviewer liked and why.",
+        "writing": "Write a brief review with one specific observation.",
+        "translation": "Translate opinions about a concert, exhibition or performance.",
+        "word_jumble": "Build a sentence linking an artistic detail to an impression.",
+        "speaking": "Choose an event with a friend and explain your preferences."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте предложение о том, как конкретная деталь произведения повлияла на ваше впечатление."
+      }
+    },
+    {
+      "id": "feelings",
+      "order": 26,
+      "band": "B1",
+      "title_en": "Feelings and Emotions",
+      "title_ru": "Чувства и эмоции",
+      "lemmas": [
+        "счастье",
+        "грусть",
+        "любовь",
+        "страх",
+        "радость",
+        "злость",
+        "удивление",
+        "надежда",
+        "тревога",
+        "спокойствие",
+        "настроение",
+        "чувство",
+        "эмоция",
+        "обида",
+        "уверенность",
+        "волноваться",
+        "радоваться",
+        "сердиться",
+        "бояться",
+        "скучать",
+        "переживать",
+        "надеяться",
+        "удивляться",
+        "расстраиваться",
+        "успокаивать"
+      ],
+      "phrases": [
+        "Я рад, что…",
+        "Мне стало легче.",
+        "Не стоит волноваться."
+      ],
+      "objectives": [
+        "Explain how you feel and what caused the feeling.",
+        "Respond to another person with support or reassurance."
+      ],
+      "grammar_focus": [
+        "Use governed cases: радоваться чему, бояться чего, сердиться на кого.",
+        "Describe changes with стало plus a state word: стало грустно.",
+        "Use conditional advice with бы in familiar patterns."
+      ],
+      "practice": {
+        "reading": "A character faces a setback and receives support. Ask how their feelings change and what helps.",
+        "writing": "Write a supportive reply to a friend explaining a difficult day.",
+        "translation": "Translate feelings and their causes while preserving who experiences them.",
+        "word_jumble": "Use emotion words in a sentence that explains a cause.",
+        "speaking": "Listen to a friend’s problem, ask a follow-up question and offer support."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте предложение, объясняющее причину чувства или эмоции."
+      }
+    },
+    {
+      "id": "news",
+      "order": 27,
+      "band": "B1",
+      "title_en": "News and Media",
+      "title_ru": "Новости и СМИ",
+      "lemmas": [
+        "газета",
+        "новость",
+        "телевизор",
+        "радио",
+        "статья",
+        "журнал",
+        "журналист",
+        "интервью",
+        "репортаж",
+        "заголовок",
+        "источник",
+        "событие",
+        "факт",
+        "мнение",
+        "сообщение",
+        "передача",
+        "выпуск",
+        "ведущий",
+        "зритель",
+        "слушатель",
+        "сообщать",
+        "обсуждать",
+        "публиковать",
+        "проверять",
+        "происходить"
+      ],
+      "phrases": [
+        "По словам…",
+        "Сообщается, что…",
+        "Узнать из новостей."
+      ],
+      "objectives": [
+        "Summarise the main point of a short news report.",
+        "Distinguish reported information from the speaker’s opinion."
+      ],
+      "grammar_focus": [
+        "Use reported speech with что and whether questions with ли.",
+        "Sequence past events with сначала, затем and после этого.",
+        "Use time expressions that identify when an event happened."
+      ],
+      "practice": {
+        "reading": "Write a short local news report with a quoted opinion. Ask which details are facts and who gave the opinion.",
+        "writing": "Summarise a short report and add a clearly separate opinion.",
+        "translation": "Translate a brief news account with source attribution.",
+        "word_jumble": "Build a sentence reporting a fact or someone’s statement.",
+        "speaking": "Discuss a local news item, clarify the source and explain your reaction."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте предложение, в котором сообщается факт или передаются чьи-либо слова."
+      }
+    },
+    {
+      "id": "housekeeping",
+      "order": 28,
+      "band": "B1",
+      "title_en": "Housekeeping",
+      "title_ru": "Домашние дела",
+      "lemmas": [
+        "уборка",
+        "стирка",
+        "готовка",
+        "ремонт",
+        "пыль",
+        "пятно",
+        "мусор",
+        "посуда",
+        "бельё",
+        "полотенце",
+        "ведро",
+        "тряпка",
+        "пылесос",
+        "машина",
+        "хозяйство",
+        "средство",
+        "порядок",
+        "обязанность",
+        "мыть",
+        "стирать",
+        "убирать",
+        "чинить",
+        "готовить",
+        "вытирать",
+        "распределять"
+      ],
+      "phrases": [
+        "Мыть посуду.",
+        "Выносить мусор.",
+        "По очереди.",
+        "Моющее средство.",
+        "Стиральная машина."
+      ],
+      "objectives": [
+        "Agree on shared household tasks.",
+        "Explain a problem and a practical order of work."
+      ],
+      "grammar_focus": [
+        "Contrast regular duties and finished tasks through aspect.",
+        "Use temporal clauses with перед тем как and после того как.",
+        "Use obligation and requests with нужно, должен and не мог бы."
+      ],
+      "practice": {
+        "reading": "Housemates divide tasks before guests arrive. Ask who does what and which tasks depend on others.",
+        "writing": "Write a practical message agreeing household responsibilities.",
+        "translation": "Translate instructions and polite requests for shared chores.",
+        "word_jumble": "Use household words to explain what needs doing and when.",
+        "speaking": "Agree how to divide household tasks and resolve a missed chore."
+      },
+      "practice_ru": {
+        "word_jumble": "Объясните, какое домашнее дело нужно сделать и когда."
+      }
+    },
+    {
+      "id": "social",
+      "order": 29,
+      "band": "B1",
+      "title_en": "Social Interactions",
+      "title_ru": "Общение",
+      "lemmas": [
+        "разговор",
+        "встреча",
+        "друг",
+        "гость",
+        "знакомый",
+        "сосед",
+        "коллега",
+        "приглашение",
+        "просьба",
+        "совет",
+        "помощь",
+        "согласие",
+        "отказ",
+        "причина",
+        "план",
+        "договорённость",
+        "обещание",
+        "приглашать",
+        "соглашаться",
+        "отказываться",
+        "предлагать",
+        "советовать",
+        "извиняться",
+        "договариваться",
+        "переносить"
+      ],
+      "phrases": [
+        "Давай договоримся.",
+        "К сожалению, не получится.",
+        "Извини, что опоздал."
+      ],
+      "objectives": [
+        "Make, change or decline an arrangement politely.",
+        "Explain a misunderstanding and suggest a resolution."
+      ],
+      "grammar_focus": [
+        "Use reported requests with чтобы: попросил, чтобы я позвонил.",
+        "Use conditional suggestions with бы.",
+        "Choose aspect when making or changing plans."
+      ],
+      "practice": {
+        "reading": "A misunderstanding changes a meeting plan. Ask what each person understood and how they resolve it.",
+        "writing": "Write a polite message changing an arrangement and giving a reason.",
+        "translation": "Translate invitations, refusals and apologies with suitable politeness.",
+        "word_jumble": "Build a sentence proposing or explaining a change of plan.",
+        "speaking": "Reschedule a meeting while recognising the other person’s plans."
+      },
+      "practice_ru": {
+        "word_jumble": "Предложите изменить планы или объясните, почему их нужно изменить."
+      }
+    },
+    {
+      "id": "history",
+      "order": 30,
+      "band": "B1",
+      "title_en": "History and Culture",
+      "title_ru": "История и культура",
+      "lemmas": [
+        "история",
+        "музей",
+        "традиция",
+        "памятник",
+        "культура",
+        "прошлое",
+        "век",
+        "эпоха",
+        "событие",
+        "народ",
+        "страна",
+        "город",
+        "правитель",
+        "война",
+        "мир",
+        "праздник",
+        "обычай",
+        "наследие",
+        "здание",
+        "основать",
+        "построить",
+        "сохранять",
+        "помнить",
+        "отмечать",
+        "происходить"
+      ],
+      "phrases": [
+        "В прошлом веке.",
+        "С тех пор.",
+        "По традиции."
+      ],
+      "objectives": [
+        "Describe a historical place or cultural tradition.",
+        "Explain the order and simple significance of past events."
+      ],
+      "grammar_focus": [
+        "Use dates and centuries in taught case patterns.",
+        "Use past tense and aspect to distinguish background from a completed event.",
+        "Use relative clauses to connect a person or place with its history."
+      ],
+      "practice": {
+        "reading": "Describe the history of a local building or tradition using clearly framed factual or fictional material. Ask about sequence and purpose.",
+        "writing": "Write a short account of a tradition or historical place.",
+        "translation": "Translate a connected historical description with dates and sequence.",
+        "word_jumble": "Use cultural vocabulary to connect an event with a place or period.",
+        "speaking": "Explain a familiar tradition to a visitor and answer follow-up questions."
+      },
+      "practice_ru": {
+        "word_jumble": "Свяжите историческое событие с местом или периодом, используя предложенные слова."
+      }
+    },
+    {
+      "id": "work",
+      "order": 31,
+      "band": "B2",
+      "title_en": "Work and Business",
+      "title_ru": "Работа и бизнес",
+      "lemmas": [
+        "компания",
+        "зарплата",
+        "проект",
+        "клиент",
+        "сотрудник",
+        "руководитель",
+        "договор",
+        "срок",
+        "задача",
+        "отдел",
+        "совещание",
+        "переговоры",
+        "предложение",
+        "условие",
+        "ответственность",
+        "результат",
+        "прибыль",
+        "расход",
+        "нанимать",
+        "согласовывать"
+      ],
+      "phrases": [
+        "Соблюдать сроки.",
+        "Нести ответственность.",
+        "Прийти к соглашению."
+      ],
+      "objectives": [
+        "Present a work proposal and justify priorities.",
+        "Negotiate responsibilities, deadlines or conditions."
+      ],
+      "grammar_focus": [
+        "Use purpose, concession and condition clauses to explain trade-offs.",
+        "Use impersonal and passive constructions appropriate to work correspondence.",
+        "Distinguish process, completion and repeated obligation through aspect."
+      ],
+      "practice": {
+        "reading": "Two proposals compete for a limited budget and deadline. Ask about assumptions, trade-offs and the recommended choice.",
+        "writing": "Write a concise work proposal or a response negotiating a deadline.",
+        "translation": "Translate professional exchanges while preserving conditions and degree of commitment.",
+        "word_jumble": "Use work vocabulary to express a reasoned condition or compromise.",
+        "speaking": "Negotiate a project deadline when the client changes the requirements."
+      },
+      "practice_ru": {
+        "word_jumble": "Сформулируйте условие или предложите компромисс в рабочей ситуации и объясните его причину."
+      }
+    },
+    {
+      "id": "education",
+      "order": 32,
+      "band": "B2",
+      "title_en": "Education and Learning",
+      "title_ru": "Образование и обучение",
+      "lemmas": [
+        "университет",
+        "экзамен",
+        "наука",
+        "знание",
+        "образование",
+        "исследование",
+        "степень",
+        "специальность",
+        "поступление",
+        "стипендия",
+        "преподаватель",
+        "лекция",
+        "семинар",
+        "программа",
+        "навык",
+        "метод",
+        "оценивание",
+        "требование",
+        "изучать",
+        "доказывать"
+      ],
+      "phrases": [
+        "Получить образование.",
+        "Сдать экзамен.",
+        "Проводить исследование."
+      ],
+      "objectives": [
+        "Compare approaches to learning and assessment.",
+        "Explain an academic goal using supporting reasons."
+      ],
+      "grammar_focus": [
+        "Use relative and participial constructions to identify courses or research.",
+        "Express comparison and concession with тогда как and хотя.",
+        "Use abstract nouns with governed complements: требование к, подготовка к."
+      ],
+      "practice": {
+        "reading": "Compare two study programmes or assessment methods. Ask which evidence supports each claim.",
+        "writing": "Write a reasoned comparison of two approaches to learning.",
+        "translation": "Translate academic explanations without changing the strength of a claim.",
+        "word_jumble": "Use education vocabulary to state an argument and a qualification.",
+        "speaking": "Discuss a course choice and challenge a proposed assessment method politely."
+      },
+      "practice_ru": {
+        "word_jumble": "Сформулируйте аргумент об образовании и укажите, в каких условиях он справедлив."
+      }
+    },
+    {
+      "id": "health",
+      "order": 33,
+      "band": "B2",
+      "title_en": "Health and Medicine",
+      "title_ru": "Здоровье и медицина",
+      "lemmas": [
+        "болезнь",
+        "лечение",
+        "врач",
+        "больница",
+        "здоровье",
+        "симптом",
+        "диагноз",
+        "обследование",
+        "анализ",
+        "лекарство",
+        "побочный",
+        "эффект",
+        "профилактика",
+        "риск",
+        "восстановление",
+        "хронический",
+        "острый",
+        "назначать",
+        "рекомендовать",
+        "обращаться"
+      ],
+      "phrases": [
+        "Побочный эффект.",
+        "Обратиться за помощью.",
+        "Снизить риск."
+      ],
+      "objectives": [
+        "Explain a sequence of symptoms and earlier treatment.",
+        "Clarify general health information and its uncertainty."
+      ],
+      "grammar_focus": [
+        "Use participles and passive forms in common medical descriptions.",
+        "Distinguish onset, ongoing symptoms and recovery through tense and aspect.",
+        "Use conditional and reported advice without presenting it as certainty."
+      ],
+      "practice": {
+        "reading": "A fictional patient clarifies a clinic information sheet. Ask what is known, what is uncertain and what the patient asks next.",
+        "writing": "Write a clear non-diagnostic account of symptoms and questions for a clinician.",
+        "translation": "Translate general health information while preserving uncertainty and instructions.",
+        "word_jumble": "Use health vocabulary to describe a timeline or clarify a statement.",
+        "speaking": "Explain a fictional health concern and ask a clinician to clarify their explanation."
+      },
+      "practice_ru": {
+        "word_jumble": "Опишите последовательность событий, связанных со здоровьем, или уточните смысл сказанного."
+      }
+    },
+    {
+      "id": "tourism",
+      "order": 34,
+      "band": "B2",
+      "title_en": "Travel and Tourism",
+      "title_ru": "Путешествия и туризм",
+      "lemmas": [
+        "путешествие",
+        "отель",
+        "карта",
+        "гид",
+        "маршрут",
+        "бронирование",
+        "размещение",
+        "достопримечательность",
+        "экскурсия",
+        "впечатление",
+        "страховка",
+        "отмена",
+        "задержка",
+        "возврат",
+        "условие",
+        "сезон",
+        "граница",
+        "виза",
+        "возмещать",
+        "организовывать"
+      ],
+      "phrases": [
+        "Отменить бронирование.",
+        "Вернуть деньги.",
+        "В стоимость входит…"
+      ],
+      "objectives": [
+        "Compare travel options and explain constraints.",
+        "Resolve a booking problem and negotiate an alternative."
+      ],
+      "grammar_focus": [
+        "Use conditional clauses for booking conditions and alternatives.",
+        "Use aspect and passive constructions when explaining cancellations or delays.",
+        "Use comparative and concessive clauses to justify a travel choice."
+      ],
+      "practice": {
+        "reading": "A booking changes after a delay. Ask which terms apply and which alternatives meet the traveller’s needs.",
+        "writing": "Write a booking complaint with a precise request and supporting details.",
+        "translation": "Translate booking conditions and polite negotiation without omitting restrictions.",
+        "word_jumble": "Use travel vocabulary to explain a problem and a conditional solution.",
+        "speaking": "Resolve a cancelled reservation and agree an acceptable replacement."
+      },
+      "practice_ru": {
+        "word_jumble": "Объясните проблему в поездке и условие, при котором её можно решить."
+      }
+    },
+    {
+      "id": "cuisine",
+      "order": 35,
+      "band": "B2",
+      "title_en": "Food and Cuisine",
+      "title_ru": "Кулинария",
+      "lemmas": [
+        "рецепт",
+        "кухня",
+        "блюдо",
+        "вкус",
+        "ингредиент",
+        "приправа",
+        "пряность",
+        "соус",
+        "тесто",
+        "начинка",
+        "способ",
+        "приготовление",
+        "сочетание",
+        "аромат",
+        "консистенция",
+        "порция",
+        "жарить",
+        "запекать",
+        "тушить",
+        "варить"
+      ],
+      "phrases": [
+        "По вкусу.",
+        "Довести до кипения.",
+        "На медленном огне."
+      ],
+      "objectives": [
+        "Explain a cooking method and why a step matters.",
+        "Compare dishes and adapt a recipe to a constraint."
+      ],
+      "grammar_focus": [
+        "Use verbal aspect to distinguish repeated actions from completed steps.",
+        "Use adverbial participles only when the same subject performs both actions.",
+        "Use quantity and partitive constructions naturally in recipe context."
+      ],
+      "practice": {
+        "reading": "A recipe explains a substitution and its effect. Ask why the order and method matter.",
+        "writing": "Explain how to adapt a dish for an unavailable ingredient.",
+        "translation": "Translate cooking instructions while preserving sequence, quantities and conditions.",
+        "word_jumble": "Use cooking vocabulary to explain a step and its purpose.",
+        "speaking": "Explain a recipe and agree a substitution without losing the intended result."
+      },
+      "practice_ru": {
+        "word_jumble": "Объясните этап приготовления блюда и его цель."
+      }
+    },
+    {
+      "id": "fashion",
+      "order": 36,
+      "band": "B2",
+      "title_en": "Fashion and Style",
+      "title_ru": "Мода и стиль",
+      "lemmas": [
+        "мода",
+        "одежда",
+        "стиль",
+        "бренд",
+        "коллекция",
+        "ткань",
+        "материал",
+        "покрой",
+        "фасон",
+        "узор",
+        "оттенок",
+        "сочетание",
+        "аксессуар",
+        "качество",
+        "тенденция",
+        "производство",
+        "устойчивый",
+        "индивидуальность",
+        "соответствовать",
+        "подчёркивать"
+      ],
+      "phrases": [
+        "Выйти из моды.",
+        "Подойти по размеру.",
+        "Сочетаться с…"
+      ],
+      "objectives": [
+        "Describe how design choices create an impression.",
+        "Discuss practical and ethical considerations in clothing."
+      ],
+      "grammar_focus": [
+        "Use participles to describe materials and production.",
+        "Use verbs with governed cases: соответствовать чему, сочетаться с чем.",
+        "Express concession when comparing style, price and practicality."
+      ],
+      "practice": {
+        "reading": "Two clothing brands make different claims about quality and production. Ask which details support those claims.",
+        "writing": "Write a comparison of two clothing choices for a defined purpose.",
+        "translation": "Translate descriptions and opinions with precise qualifiers rather than exaggerated claims.",
+        "word_jumble": "Use fashion vocabulary to explain a contrast or design choice.",
+        "speaking": "Choose an outfit for an occasion and defend the balance of style, cost and comfort."
+      },
+      "practice_ru": {
+        "word_jumble": "Объясните различие между двумя вариантами одежды или обоснуйте выбор стиля."
+      }
+    },
+    {
+      "id": "literature",
+      "order": 37,
+      "band": "B2",
+      "title_en": "Literature and Books",
+      "title_ru": "Литература",
+      "lemmas": [
+        "книга",
+        "автор",
+        "роман",
+        "поэзия",
+        "рассказ",
+        "повесть",
+        "стихотворение",
+        "сюжет",
+        "герой",
+        "персонаж",
+        "повествователь",
+        "образ",
+        "тема",
+        "мотив",
+        "конфликт",
+        "развязка",
+        "метафора",
+        "описывать",
+        "изображать",
+        "толковать"
+      ],
+      "phrases": [
+        "От первого лица.",
+        "Главный герой.",
+        "На мой взгляд."
+      ],
+      "objectives": [
+        "Summarise a plot without confusing narrator and author.",
+        "Support an interpretation with details from a text."
+      ],
+      "grammar_focus": [
+        "Use relative and participial constructions to connect character and action.",
+        "Distinguish actual events from hypothetical alternatives with бы.",
+        "Use reported speech and tense consistently in literary discussion."
+      ],
+      "practice": {
+        "reading": "Use an original short literary passage with a character’s implied motive. Ask for evidence supporting an interpretation.",
+        "writing": "Write a short interpretation of a character’s choice using textual evidence.",
+        "translation": "Translate literary discussion while preserving viewpoint and uncertainty.",
+        "word_jumble": "Use literary terms to connect a detail with an interpretation.",
+        "speaking": "Discuss a character’s decision and respond to a different interpretation."
+      },
+      "practice_ru": {
+        "word_jumble": "Свяжите деталь литературного произведения с её возможным толкованием."
+      }
+    },
+    {
+      "id": "politics",
+      "order": 38,
+      "band": "B2",
+      "title_en": "Politics and Government",
+      "title_ru": "Политика и государство",
+      "lemmas": [
+        "закон",
+        "президент",
+        "политика",
+        "выборы",
+        "государство",
+        "правительство",
+        "парламент",
+        "партия",
+        "гражданин",
+        "власть",
+        "решение",
+        "реформа",
+        "общество",
+        "голос",
+        "право",
+        "обязанность",
+        "поддержка",
+        "оппозиция",
+        "голосовать",
+        "обсуждать"
+      ],
+      "phrases": [
+        "Принять решение.",
+        "Выступать за…",
+        "Высказаться против…"
+      ],
+      "objectives": [
+        "Explain competing positions on a public decision.",
+        "Distinguish a reported position from your own argument."
+      ],
+      "grammar_focus": [
+        "Use reported statements with explicit attribution.",
+        "Use concession and condition to present competing arguments.",
+        "Use passive and impersonal forms without hiding who acts when that matters."
+      ],
+      "practice": {
+        "reading": "A fictional local council debates a proposal. Ask what each side argues and what evidence is missing.",
+        "writing": "Write a balanced account of two positions and state a supported conclusion.",
+        "translation": "Translate civic arguments while preserving attribution and degree of certainty.",
+        "word_jumble": "Use civic vocabulary to state a position and acknowledge a counterargument.",
+        "speaking": "Discuss a fictional local policy, ask for evidence and propose a compromise."
+      },
+      "practice_ru": {
+        "word_jumble": "Изложите позицию по общественному вопросу и признайте существование встречного аргумента."
+      }
+    },
+    {
+      "id": "economy",
+      "order": 39,
+      "band": "B2",
+      "title_en": "Economy and Finance",
+      "title_ru": "Экономика и финансы",
+      "lemmas": [
+        "деньги",
+        "рынок",
+        "бюджет",
+        "цена",
+        "доход",
+        "расход",
+        "прибыль",
+        "убыток",
+        "налог",
+        "кредит",
+        "процент",
+        "инфляция",
+        "инвестиция",
+        "сбережение",
+        "стоимость",
+        "спрос",
+        "предложение",
+        "потребитель",
+        "производитель",
+        "расти"
+      ],
+      "phrases": [
+        "Рост цен.",
+        "Сократить расходы.",
+        "Составить бюджет."
+      ],
+      "objectives": [
+        "Explain a simple economic trend and its effects.",
+        "Compare options using costs, risks and assumptions."
+      ],
+      "grammar_focus": [
+        "Distinguish change by an amount from change to a value: на десять; до десяти.",
+        "Use cause, consequence and conditional clauses with quantitative information.",
+        "Use nominal phrases for trends without losing the acting subject."
+      ],
+      "practice": {
+        "reading": "Use a fictional budget or price comparison. Ask which conclusion the figures support and which depends on an assumption.",
+        "writing": "Explain a fictional household or business budget choice.",
+        "translation": "Translate financial comparisons while preserving quantities and conditions.",
+        "word_jumble": "Use economic vocabulary to explain a trend and possible consequence.",
+        "speaking": "Compare two fictional spending plans and justify a choice using the supplied costs and assumptions."
+      },
+      "practice_ru": {
+        "word_jumble": "Объясните экономическую тенденцию и её возможное последствие."
+      }
+    },
+    {
+      "id": "religion",
+      "order": 40,
+      "band": "B2",
+      "title_en": "Religion and Beliefs",
+      "title_ru": "Религия и убеждения",
+      "lemmas": [
+        "вера",
+        "церковь",
+        "праздник",
+        "обряд",
+        "религия",
+        "убеждение",
+        "традиция",
+        "община",
+        "храм",
+        "молитва",
+        "пост",
+        "священный",
+        "духовный",
+        "светский",
+        "уважение",
+        "различие",
+        "значение",
+        "соблюдать",
+        "верить",
+        "отмечать"
+      ],
+      "phrases": [
+        "С уважением относиться к…",
+        "По религиозным убеждениям.",
+        "Соблюдать традицию."
+      ],
+      "objectives": [
+        "Explain a belief or practice without assuming everyone shares it.",
+        "Compare interpretations of a tradition respectfully."
+      ],
+      "grammar_focus": [
+        "Use attribution and qualification when describing beliefs.",
+        "Use governed patterns: верить в, относиться к, соблюдать что.",
+        "Use comparison and concession to describe similarities and differences."
+      ],
+      "practice": {
+        "reading": "A community member explains a tradition and notes different interpretations. Ask which statements describe practice and which express belief.",
+        "writing": "Write an explanation of a tradition for an unfamiliar reader.",
+        "translation": "Translate explanations of belief while preserving the speaker’s perspective.",
+        "word_jumble": "Use belief-related vocabulary to explain a practice and its significance.",
+        "speaking": "Ask respectful questions about a tradition and explain a practice familiar to you."
+      },
+      "practice_ru": {
+        "word_jumble": "Объясните религиозную или культурную практику и её значение."
+      }
+    },
+    {
+      "id": "law",
+      "order": 41,
+      "band": "C1-C2",
+      "title_en": "Law and Justice",
+      "title_ru": "Право и правосудие",
+      "lemmas": [
+        "суд",
+        "закон",
+        "право",
+        "адвокат",
+        "правосудие",
+        "доказательство",
+        "обвинение",
+        "защита",
+        "приговор",
+        "ответственность",
+        "нарушение",
+        "разбирательство",
+        "полномочие",
+        "обжаловать",
+        "презумпция"
+      ],
+      "phrases": [
+        "Презумпция невиновности.",
+        "Вступить в силу.",
+        "Нести ответственность."
+      ],
+      "objectives": [
+        "Explain a legal argument while distinguishing allegation from established fact.",
+        "Compare interpretations of a fictional rule and identify ambiguity."
+      ],
+      "grammar_focus": [
+        "Control scope in complex conditions, exceptions and negation.",
+        "Use passive, impersonal and nominal constructions with clear agency.",
+        "Preserve qualification and attribution when reporting contested claims."
+      ],
+      "practice": {
+        "reading": "Present a fictional dispute with a rule, exception and conflicting accounts. Ask which conclusions are justified and which remain disputed.",
+        "writing": "Write a reasoned analysis of a fictional rule with a counterargument.",
+        "translation": "Translate a fictional formal passage while preserving conditions, exceptions and attribution.",
+        "word_jumble": "Build a precise sentence connecting a claim, evidence and a qualification.",
+        "speaking": "Discuss a fictional dispute, distinguish fact from allegation and test competing readings of a rule."
+      },
+      "practice_ru": {
+        "word_jumble": "Свяжите утверждение с доказательством и уточните границы этого утверждения."
+      }
+    },
+    {
+      "id": "science",
+      "order": 42,
+      "band": "C1-C2",
+      "title_en": "Science and Technology",
+      "title_ru": "Наука и технологии",
+      "lemmas": [
+        "наука",
+        "технология",
+        "эксперимент",
+        "машина",
+        "гипотеза",
+        "методология",
+        "переменная",
+        "выборка",
+        "погрешность",
+        "воспроизводимость",
+        "закономерность",
+        "достоверность",
+        "интерпретация",
+        "обосновывать",
+        "опровергать"
+      ],
+      "phrases": [
+        "Статистически значимый.",
+        "При прочих равных.",
+        "Не следует из…"
+      ],
+      "objectives": [
+        "Explain a research claim, its method and its limitations.",
+        "Challenge an inference without overstating the evidence."
+      ],
+      "grammar_focus": [
+        "Use participial and adverbial-participial constructions with unambiguous reference.",
+        "Control evidential qualification and hypothesis in complex sentences.",
+        "Choose verbal or nominal formulations to suit an expert or general audience."
+      ],
+      "practice": {
+        "reading": "Present an invented experiment with a plausible limitation. Ask what the result establishes and what requires further evidence.",
+        "writing": "Explain a fictional research result for both specialist and general readers.",
+        "translation": "Translate methodological argument while retaining uncertainty, scope and causality.",
+        "word_jumble": "Build a sentence stating an inference and a limitation.",
+        "speaking": "Defend an interpretation of a fictional experiment and respond to a methodological objection."
+      },
+      "practice_ru": {
+        "word_jumble": "Сформулируйте вывод и укажите ограничение, которое нужно учитывать."
+      }
+    },
+    {
+      "id": "philosophy",
+      "order": 43,
+      "band": "C1-C2",
+      "title_en": "Philosophy and Ethics",
+      "title_ru": "Философия и этика",
+      "lemmas": [
+        "философия",
+        "мораль",
+        "истина",
+        "идея",
+        "этика",
+        "сознание",
+        "бытие",
+        "свобода",
+        "долг",
+        "ценность",
+        "суждение",
+        "противоречие",
+        "предпосылка",
+        "обосновывать",
+        "предполагать"
+      ],
+      "phrases": [
+        "С одной стороны… с другой стороны…",
+        "Само по себе.",
+        "Из этого не следует, что…"
+      ],
+      "objectives": [
+        "Construct an argument with clear premises and a conclusion.",
+        "Evaluate a counterexample and refine a definition."
+      ],
+      "grammar_focus": [
+        "Control conditionals, concession and negation across several linked claims.",
+        "Use abstract nominal groups without ambiguous attachment.",
+        "Distinguish assertion, hypothesis and reported position."
+      ],
+      "practice": {
+        "reading": "Present two arguments about a concrete ethical dilemma. Ask which premise each relies on and what a counterexample challenges.",
+        "writing": "Argue for a position on a defined dilemma and address a serious objection.",
+        "translation": "Translate argumentation while preserving logical scope and distinctions.",
+        "word_jumble": "Build a sentence expressing a premise, qualification or counterexample.",
+        "speaking": "Discuss a concrete ethical dilemma and revise your position when challenged."
+      },
+      "practice_ru": {
+        "word_jumble": "Сформулируйте исходное положение, уточнение или контрпример для аргумента."
+      }
+    },
+    {
+      "id": "psychology",
+      "order": 44,
+      "band": "C1-C2",
+      "title_en": "Psychology",
+      "title_ru": "Психология",
+      "lemmas": [
+        "поведение",
+        "эмоция",
+        "память",
+        "разум",
+        "восприятие",
+        "внимание",
+        "мотивация",
+        "личность",
+        "установка",
+        "предубеждение",
+        "привязанность",
+        "самооценка",
+        "воздействие",
+        "осознавать",
+        "интерпретировать"
+      ],
+      "phrases": [
+        "Когнитивное искажение.",
+        "Принимать во внимание.",
+        "Склонность к…"
+      ],
+      "objectives": [
+        "Compare explanations of behaviour without diagnosing a person.",
+        "Distinguish observation, interpretation and causal claim."
+      ],
+      "grammar_focus": [
+        "Use hedging and source attribution to qualify interpretations.",
+        "Control reflexive, passive and causative patterns.",
+        "Use complex comparisons while maintaining a clear referent."
+      ],
+      "practice": {
+        "reading": "Compare two interpretations of a fictional everyday behaviour. Ask what is observed and what remains an inference.",
+        "writing": "Write a cautious analysis of a fictional behaviour with alternative explanations.",
+        "translation": "Translate psychological discussion without strengthening correlation into causation.",
+        "word_jumble": "Build a sentence contrasting an observation with an interpretation.",
+        "speaking": "Discuss competing explanations of a fictional behaviour and identify needed evidence."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте предложение, показывающее различие между наблюдением и его интерпретацией."
+      }
+    },
+    {
+      "id": "sociology",
+      "order": 45,
+      "band": "C1-C2",
+      "title_en": "Sociology and Society",
+      "title_ru": "Социология и общество",
+      "lemmas": [
+        "общество",
+        "культура",
+        "равенство",
+        "группа",
+        "неравенство",
+        "идентичность",
+        "институт",
+        "сообщество",
+        "норма",
+        "стратификация",
+        "мобильность",
+        "солидарность",
+        "отчуждение",
+        "взаимодействие",
+        "интеграция"
+      ],
+      "phrases": [
+        "Социальная мобильность.",
+        "С точки зрения…",
+        "Принадлежать к группе."
+      ],
+      "objectives": [
+        "Explain a social pattern at individual and institutional levels.",
+        "Evaluate how definitions and sampling affect a social claim."
+      ],
+      "grammar_focus": [
+        "Use quantified and qualified statements without unsupported generalisation.",
+        "Connect perspectives through concession and contrast.",
+        "Control case government within dense abstract noun phrases."
+      ],
+      "practice": {
+        "reading": "Present contrasting accounts of a fictional community change. Ask how perspective and evidence affect the conclusions.",
+        "writing": "Analyse a defined social issue using more than one perspective.",
+        "translation": "Translate social analysis while preserving qualification and group distinctions.",
+        "word_jumble": "Build a precise comparison between an individual experience and an institutional pattern.",
+        "speaking": "Discuss a community change and challenge an overgeneralised claim."
+      },
+      "practice_ru": {
+        "word_jumble": "Сопоставьте личный опыт с закономерностью в работе общественных институтов."
+      }
+    },
+    {
+      "id": "architecture",
+      "order": 46,
+      "band": "C1-C2",
+      "title_en": "Architecture and Design",
+      "title_ru": "Архитектура и дизайн",
+      "lemmas": [
+        "здание",
+        "дизайн",
+        "стиль",
+        "проект",
+        "архитектура",
+        "пространство",
+        "фасад",
+        "планировка",
+        "пропорция",
+        "конструкция",
+        "наследие",
+        "доступность",
+        "функциональность",
+        "реконструкция",
+        "вписывать"
+      ],
+      "phrases": [
+        "Вписываться в окружение.",
+        "Безбарьерная среда.",
+        "Сохранить исторический облик."
+      ],
+      "objectives": [
+        "Explain the relationship between design, use and surroundings.",
+        "Defend a design choice against practical and cultural constraints."
+      ],
+      "grammar_focus": [
+        "Use detailed spatial relations with precise case government.",
+        "Use participles and subordinate clauses to identify structural relationships.",
+        "Control concession and priority when evaluating competing requirements."
+      ],
+      "practice": {
+        "reading": "Two plans propose different uses for a historic site. Ask how each addresses access, function and preservation.",
+        "writing": "Write a design assessment with clear criteria and a justified recommendation.",
+        "translation": "Translate architectural descriptions while preserving spatial and structural relationships.",
+        "word_jumble": "Build a sentence explaining a design decision and its consequence.",
+        "speaking": "Defend a fictional renovation plan and negotiate an accessibility constraint."
+      },
+      "practice_ru": {
+        "word_jumble": "Объясните проектное решение и его последствие."
+      }
+    },
+    {
+      "id": "cinema",
+      "order": 47,
+      "band": "C1-C2",
+      "title_en": "Cinema and Film",
+      "title_ru": "Кино",
+      "lemmas": [
+        "фильм",
+        "режиссёр",
+        "актёр",
+        "сценарий",
+        "монтаж",
+        "кадр",
+        "ракурс",
+        "кинематограф",
+        "постановка",
+        "подтекст",
+        "трактовка",
+        "повествование",
+        "экранизация",
+        "достоверность",
+        "воплощать"
+      ],
+      "phrases": [
+        "За кадром.",
+        "Отсылать к…",
+        "Держать зрителя в напряжении."
+      ],
+      "objectives": [
+        "Analyse how film technique shapes interpretation.",
+        "Compare an adaptation with its source or another interpretation."
+      ],
+      "grammar_focus": [
+        "Use information structure and word order to distinguish contrast and emphasis.",
+        "Maintain clear attribution among actor, character, director and narrator.",
+        "Use concessive and hypothetical constructions to evaluate an interpretation."
+      ],
+      "practice": {
+        "reading": "Describe an original film scene through two critical readings. Ask how specific techniques support each interpretation.",
+        "writing": "Write a concise critical analysis supported by two concrete details.",
+        "translation": "Translate film criticism while retaining register, implication and evaluative nuance.",
+        "word_jumble": "Build a sentence linking a technical choice with an interpretation.",
+        "speaking": "Discuss a film interpretation and respond to a plausible alternative reading."
+      },
+      "practice_ru": {
+        "word_jumble": "Свяжите технический приём в фильме с его возможным толкованием."
+      }
+    },
+    {
+      "id": "global_issues",
+      "order": 48,
+      "band": "C1-C2",
+      "title_en": "Global Issues",
+      "title_ru": "Глобальные проблемы",
+      "lemmas": [
+        "климат",
+        "война",
+        "мир",
+        "глобализация",
+        "устойчивость",
+        "миграция",
+        "безопасность",
+        "сотрудничество",
+        "суверенитет",
+        "взаимозависимость",
+        "неравенство",
+        "последствие",
+        "компромисс",
+        "урегулирование",
+        "прогноз"
+      ],
+      "phrases": [
+        "Устойчивое развитие.",
+        "В долгосрочной перспективе.",
+        "С учётом последствий."
+      ],
+      "objectives": [
+        "Explain an international issue through several competing interests.",
+        "Assess a proposal under uncertainty and identify unintended effects."
+      ],
+      "grammar_focus": [
+        "Use multilayer conditions and concessions with clear scope.",
+        "Attribute contested claims and separate prediction from fact.",
+        "Choose register suitable for an analytical briefing or public discussion."
+      ],
+      "practice": {
+        "reading": "Present a fictional international negotiation with competing aims. Ask which assumptions and trade-offs each proposal contains.",
+        "writing": "Write a balanced briefing with alternatives, uncertainties and a reasoned recommendation.",
+        "translation": "Translate policy argument without losing attribution, conditions or uncertainty.",
+        "word_jumble": "Build a sentence connecting a policy choice, a trade-off and a possible consequence.",
+        "speaking": "Negotiate a fictional shared-resource agreement while accounting for several interests."
+      },
+      "practice_ru": {
+        "word_jumble": "Свяжите политическое решение с его преимуществами, издержками и возможным последствием."
+      }
+    },
+    {
+      "id": "linguistics",
+      "order": 49,
+      "band": "C1-C2",
+      "title_en": "Linguistics and Language",
+      "title_ru": "Языкознание и язык",
+      "lemmas": [
+        "язык",
+        "грамматика",
+        "слово",
+        "перевод",
+        "лемма",
+        "падеж",
+        "спряжение",
+        "вид",
+        "значение",
+        "контекст",
+        "омонимия",
+        "многозначность",
+        "сочетаемость",
+        "регистр",
+        "высказывание"
+      ],
+      "phrases": [
+        "В данном контексте.",
+        "Оттенок значения.",
+        "Прямой эквивалент."
+      ],
+      "objectives": [
+        "Explain a Russian form or meaning through its context.",
+        "Compare translation choices without assuming one-to-one equivalence."
+      ],
+      "grammar_focus": [
+        "Analyse case government, aspect and information structure in authentic-looking examples.",
+        "Distinguish citation forms from the forms used in an utterance.",
+        "Discuss ambiguity and register without confusing a gloss with a complete translation."
+      ],
+      "practice": {
+        "reading": "Compare two uses of the same Russian spelling in different contexts. Ask which grammatical and contextual clues change the interpretation.",
+        "writing": "Explain two defensible translations of a short passage and their trade-offs.",
+        "translation": "Translate context-sensitive passages and briefly justify a difficult choice.",
+        "word_jumble": "Build a precise explanation of a form, meaning or translation choice.",
+        "speaking": "Discuss why two translations differ and defend a contextual interpretation."
+      },
+      "practice_ru": {
+        "word_jumble": "Точно объясните грамматическую форму, значение или выбор перевода."
+      }
+    },
+    {
+      "id": "russian_culture",
+      "order": 50,
+      "band": "C1-C2",
+      "title_en": "Russian Culture and Idioms",
+      "title_ru": "Русская культура и устойчивые выражения",
+      "lemmas": [
+        "пословица",
+        "фольклор",
+        "Россия",
+        "Сибирь",
+        "поговорка",
+        "образность",
+        "аллюзия",
+        "наследие",
+        "самобытность",
+        "уклад",
+        "традиция",
+        "мировоззрение",
+        "быт",
+        "гостеприимство",
+        "переосмысление"
+      ],
+      "phrases": [
+        "Делать из мухи слона.",
+        "После дождичка в четверг.",
+        "Ни пуха ни пера!",
+        "Без труда не вытащишь и рыбку из пруда."
+      ],
+      "objectives": [
+        "Interpret a common idiom from context and use it in a suitable register.",
+        "Explain a cultural reference without reducing diverse practices to a stereotype."
+      ],
+      "grammar_focus": [
+        "Recognise fixed forms in idioms without treating them as productive general rules.",
+        "Distinguish literal meaning, implied meaning and pragmatic force.",
+        "Adjust register and attribution when explaining cultural interpretations."
+      ],
+      "practice": {
+        "reading": "Use a short original dialogue with one or two idioms and enough context to infer their purpose. Ask how literal and intended meanings differ.",
+        "writing": "Explain an idiom to a learner and write a suitable example exchange.",
+        "translation": "Translate culturally marked language for a stated audience, preserving intended meaning rather than copying words.",
+        "word_jumble": "Build a natural sentence around an idiom whose context is specified.",
+        "speaking": "Explain a cultural expression, respond to a misunderstanding and give a more neutral paraphrase."
+      },
+      "practice_ru": {
+        "word_jumble": "Составьте естественное предложение с устойчивым выражением в заданной ситуации."
+      }
+    }
+  ]
+}

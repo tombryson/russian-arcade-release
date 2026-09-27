@@ -1,0 +1,27 @@
+{% if profile_skill_progress %}
+{% set ru = ui_lang == 'ru' %}
+<section id="skill-progress" class="profile-skill-progress" aria-labelledby="profile-skill-heading" data-profile-id="{{ profile_skill_progress.profile_id }}" lang="{{ ui_lang }}">
+  <header class="profile-skill-heading">
+    <div><h2 id="profile-skill-heading">{{ 'Прогресс навыков' if ru else 'Skill progress' }}</h2><p>{{ profile_skill_progress.display_name }}</p></div>
+    <span class="profile-skill-rating-label">{{ 'Предварительный Эло' if ru else 'Provisional Elo' }}</span>
+  </header>
+  <ul class="profile-skill-list">
+    {% for skill in profile_skill_progress.skills %}
+    {% set measured = skill.rating is not none and skill.observations > 0 %}
+    <li data-profile-skill="{{ skill.id }}"{% if measured and skill.id == profile_skill_progress.active_skill %} class="is-active"{% endif %}>
+      <div class="profile-skill-description">
+        <strong>{{ skill.label_ru if ru else skill.label }}</strong>
+        {% if measured %}<span>{{ 'Этап' if ru else 'Stage' }} {{ skill.stage }} <span aria-hidden="true">·</span> {% if ru %}Проверено попыток: {{ skill.observations }}{% else %}{{ skill.observations }} checked {{ 'attempt' if skill.observations == 1 else 'attempts' }}{% endif %}</span>
+        {% else %}<span>{{ 'Ещё не начато' if ru else 'Not started' }}</span>{% endif %}
+      </div>
+      <span class="profile-skill-rating">{% if measured %}{{ '{:,}'.format(skill.rating).replace(',', ' ') if ru else '{:,}'.format(skill.rating) }}{% else %}—{% endif %}</span>
+    </li>
+    {% endfor %}
+  </ul>
+  <details class="profile-skill-explanation">
+    <summary>{{ 'Как это работает' if ru else 'How this works' }}</summary>
+    <p>{{ 'Учитывается первая проверка каждого задания и до одного разговора на каждый вариант сценария в день. Повторные исправления и самооценки карточек не меняют рейтинг.' if ru else 'The first check of each task counts, plus up to one conversation per scenario variation each day. Repeated corrections and flashcard self-ratings do not change the rating.' }}</p>
+    <p>{{ 'Рейтинг может расти и снижаться. Эти этапы отражают прогресс в практике, а не уровень ТРКИ.' if ru else 'Ratings can rise or fall. These stages describe practice progress, not TORFL qualifications.' }}</p>
+  </details>
+</section>
+{% endif %}

@@ -1,0 +1,46 @@
+{% macro attempt_content(attempt) %}
+  <blockquote class="sentence-checked-answer" lang="ru">{{ attempt.response }}</blockquote>
+  {% if attempt.tutor_feedback %}
+  {% set tutor = attempt.tutor_feedback %}
+  <div class="sentence-tutor-response" lang="{{ attempt.ui_language }}">
+    <p class="sentence-tutor-commentary">{{ tutor.commentary }}</p>
+    {% if tutor.corrections %}
+    <ul class="sentence-corrections" aria-label="{{ ui_t('word_jumble.corrections') }}">
+      {% for correction in tutor.corrections %}
+      <li><p class="sentence-correction-forms"><span lang="ru">{{ correction.original }}</span> <span aria-hidden="true">→</span><span class="visually-hidden">{{ ui_t('word_jumble.replace_with') }}</span> <strong lang="ru">{{ correction.replacement }}</strong></p>
+        <p>{{ correction.explanation }}</p></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if tutor.polished_sentence %}
+    <details class="sentence-suggestion sentence-polished"><summary>{{ ui_t('word_jumble.polished') }}</summary>
+      <p lang="ru">{{ tutor.polished_sentence }}</p>
+      {% if tutor.phrasing_note %}<div class="sentence-phrasing-note"><p>{{ tutor.phrasing_note }}</p></div>{% endif %}
+    </details>
+    {% endif %}
+    {% if tutor.extension %}<p class="sentence-extension">{{ tutor.extension }}</p>{% endif %}
+  </div>
+  {% elif attempt.source == 'sentence-v1' and attempt.strength %}
+  <div class="sentence-tutor-response" lang="{{ attempt.ui_language }}">
+    <p>{{ attempt.strength }}</p><p>{{ attempt.next_step }}</p>
+  </div>
+  {% if attempt.example %}<details class="sentence-suggestion"><summary>{{ ui_t('word_jumble.suggestion') }}</summary><p lang="ru">{{ attempt.example }}</p></details>{% endif %}
+  {% else %}<p class="sentence-old-feedback">{{ attempt.feedback }}</p>{% endif %}
+  {% include '_sentence_criterion_feedback.html' %}
+{% endmacro %}
+{% if game.attempts %}
+{% set latest = game.attempts[0] %}
+<section class="sentence-feedback-card word-jumble-feedback" aria-labelledby="sentence-feedback-heading">
+  <div class="sentence-task-heading"><h3 id="sentence-feedback-heading">{{ ui_t('word_jumble.last_check') if latest.source == 'sentence-v1' else ui_t('word_jumble.earlier_feedback') }}</h3>
+    {% if latest.score_max %}<span class="sentence-score">{{ latest.score }}/{{ latest.score_max }}</span>{% endif %}
+  </div>
+  <p class="sentence-muted">{{ ui_t('word_jumble.feedback_scope') }}</p>
+  {{ attempt_content(latest) }}
+  {% if latest.source == 'sentence-v1' %}<details class="sentence-rubric"><summary>{{ ui_t('word_jumble.rubric_label') }}</summary><p>{{ ui_t('word_jumble.rubric') }}</p></details>{% endif %}
+</section>
+{% if game.attempts|length > 1 %}
+<details class="sentence-history"><summary>{{ ui_t('word_jumble.history') }} <span class="sentence-count">{{ game.attempts|length - 1 }}</span></summary>
+  {% for attempt in game.attempts[1:] %}<article><h3>{{ ui_t('word_jumble.earlier_feedback') }}{% if attempt.score_max %} · {{ attempt.score }}/{{ attempt.score_max }}{% endif %}</h3>{{ attempt_content(attempt) }}</article>{% endfor %}
+</details>
+{% endif %}
+{% endif %}

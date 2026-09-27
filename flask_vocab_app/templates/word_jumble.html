@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% from '_activity_header.html' import activity_header %}
+{% set page_title = ui_t('word_jumble.title') %}
+{% block main_content %}
+<main class="main-content{% if not game %} activity-entry{% endif %}" id="mainContent" data-page="word_jumble">
+  <div class="sentence-page{% if not game %} activity-entry-content{% endif %}">
+    {% if game %}
+    <header class="sentence-heading">
+      <div><p class="sentence-eyebrow">{{ ui_t('word_jumble.eyebrow') }}</p>
+        <h1 id="sentence-page-title" tabindex="-1">{{ ui_t('word_jumble.title') }}</h1>
+        <p>{{ ui_t('word_jumble.intro') }}</p></div>
+      <a class="sentence-text-link" href="/word_jumble" hx-get="/word_jumble" hx-target="#mainContent" hx-swap="outerHTML" hx-push-url="true">{{ ui_t('word_jumble.start_another') }} <span aria-hidden="true">↗</span></a>
+    </header>
+    {% else %}
+    {{ activity_header(ui_t('word_jumble.title'), ui_t('word_jumble.entry_description'), 'sentence-page-title') }}
+    {% endif %}
+    <div id="jumble-content">
+      {% if game %}{% include '_word_jumble_content.html' %}
+      {% else %}
+      {% if error %}<p class="alert alert-warning" role="alert">{{ error }}</p>{% endif %}
+      <section class="sentence-start sentence-paper" aria-labelledby="sentence-start-title">
+        <div>
+          <h2 id="sentence-start-title">{{ ui_t('word_jumble.create_new') }}</h2>
+          <p class="sentence-muted">{{ ui_t('word_jumble.setup_help') }}</p>
+          <form action="/word_jumble/create" method="post" data-curriculum-setup {% if level_explicit %}data-level-explicit="true"{% endif %} data-jumble-setup data-preparing="{{ ui_t('word_jumble.preparing') }}">
+            <label for="topic">{{ ui_t('word_jumble.topic') }}</label>
+            <select class="form-select" id="topic" name="topic" data-curriculum-topic>
+              <option value="any">{{ ui_t('word_jumble.any') }}</option>
+              {% for band in topics|selectattr('band')|groupby('band') %}<optgroup label="{{ band.grouper }}">{% for topic in band.list %}<option value="{{ topic.value }}" {% if selected_topic == topic.value %}selected{% endif %} data-level="{{ topic.level }}">{{ topic.label }}</option>{% endfor %}</optgroup>{% endfor %}
+              {% for topic in topics if not topic.band %}<option value="{{ topic.value }}" {% if selected_topic == topic.value %}selected{% endif %}>{{ topic.label }}</option>{% endfor %}
+            </select>
+            <label for="jumble-level">{{ ui_t('word_jumble.difficulty') }}</label>
+            <select class="form-select" id="jumble-level" name="difficulty" data-curriculum-level>
+              {% for level in curriculum_levels %}<option value="{{ level.value }}" {% if selected_level|default('A1') == level.value %}selected{% endif %}>{{ level.label }}</option>{% endfor %}
+            </select>
+            <button class="btn btn-primary" type="submit">{{ ui_t('word_jumble.create') }} <span aria-hidden="true">→</span></button>
+            <p class="sentence-muted" role="status" data-preparation-status></p>
+          </form>
+        </div>
+        <aside class="sentence-example" aria-labelledby="sentence-example-title">
+          <p class="sentence-eyebrow" id="sentence-example-title">{{ ui_t('word_jumble.example_label') }}</p>
+          <div class="sentence-example-words" lang="ru"><span>кот</span><span>спать</span><span>дом</span></div>
+          <p class="sentence-example-answer" lang="ru">Кот спит дома.</p>
+          <p>{{ ui_t('word_jumble.example_translation') }}</p>
+          <p class="sentence-example-hint">{{ ui_t('word_jumble.example_help') }}</p>
+        </aside>
+      </section>
+      {% endif %}
+    </div>
+    <details class="sentence-library" id="saved-practice">
+      <summary><span>{{ ui_t('word_jumble.saved') }} <span class="sentence-count">{{ saved_games|length }}</span></span><span class="sentence-disclosure-icon" aria-hidden="true">+</span></summary>
+      {% if saved_games %}
+      <ul>
+        {% for saved in saved_games %}
+        <li><a data-practice-id="{{ saved.id }}" href="/word_jumble/load/{{ saved.id }}" hx-get="/word_jumble/load/{{ saved.id }}" hx-target="#mainContent" hx-swap="outerHTML" hx-push-url="true" {% if game and game.id == saved.id %}aria-current="page"{% endif %}>
+          <span><strong lang="ru">{{ saved.words|join(' · ') }}</strong><small>{{ saved.level_label }}{% if saved.topic != 'any' %} · {{ saved.topic_label }}{% endif %} · <span data-practice-date>{{ saved.display_date }}</span></small></span>
+          <span class="sentence-state" data-practice-state>{{ ui_t('word_jumble.' + saved.state) }} <span aria-hidden="true">→</span></span>
+        </a></li>
+        {% endfor %}
+      </ul>
+      {% else %}<p>{{ ui_t('word_jumble.none_saved') }}</p>{% endif %}
+    </details>
+  </div>
+</main>
+{% endblock %}

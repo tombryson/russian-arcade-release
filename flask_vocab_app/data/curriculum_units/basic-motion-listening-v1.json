@@ -1,0 +1,84 @@
+{
+  "version": "listening-v1",
+  "id": "basic-motion-listening-v1",
+  "unit_id": "basic-motion-v1",
+  "title": "Listen for the journey",
+  "title_ru": "Как добираются?",
+  "items": [
+    {
+      "id": "rainy-journey",
+      "prompt": "Как человек добирается сейчас?",
+      "choices": [
+        {
+          "id": "walking",
+          "text": "Пешком."
+        },
+        {
+          "id": "bus",
+          "text": "На автобусе."
+        },
+        {
+          "id": "train",
+          "text": "На поезде."
+        }
+      ],
+      "answer": "bus",
+      "hint": "Listen for the current trip, rather than the usual one.",
+      "explanation": "The speaker usually walks, but is on the bus now because of the rain.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the current means of transport from a spoken contrast with the normal routine.",
+      "transcript": "Костя, я обычно хожу к тебе пешком. Но сейчас сильный дождь, и я еду на автобусе. Уже вижу твою остановку. Скоро буду!",
+      "audio_url": "/static/audio/course/curriculum/basic-motion-listening-v1/rainy-journey.mp3"
+    },
+    {
+      "id": "walk-after-station",
+      "prompt": "Как люди добираются от вокзала до гостиницы?",
+      "choices": [
+        {
+          "id": "train",
+          "text": "На поезде."
+        },
+        {
+          "id": "walking",
+          "text": "Пешком."
+        },
+        {
+          "id": "taxi",
+          "text": "На такси."
+        }
+      ],
+      "answer": "walking",
+      "hint": "Separate the completed train journey from the next part.",
+      "explanation": "They arrived by train and are now walking to the nearby hotel; they do not need a taxi.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the current walking leg after a completed train journey.",
+      "transcript": "Мы уже приехали в город на поезде. Сейчас идём пешком от вокзала в гостиницу. Тут близко, всего одна улица. Не надо вызывать такси.",
+      "audio_url": "/static/audio/course/curriculum/basic-motion-listening-v1/walk-after-station.mp3"
+    },
+    {
+      "id": "weekend-trips",
+      "prompt": "Как человек обычно добирается к родителям?",
+      "choices": [
+        {
+          "id": "car",
+          "text": "На машине."
+        },
+        {
+          "id": "walking",
+          "text": "Пешком."
+        },
+        {
+          "id": "bus",
+          "text": "На автобусе."
+        }
+      ],
+      "answer": "car",
+      "hint": "The question asks about the regular trip, not today’s location.",
+      "explanation": "The regular trips are by car. Today the parents have come to the speaker instead.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Extract the usual transport from a message that also gives a different current situation.",
+      "transcript": "По выходным я езжу к родителям на машине. Они живут далеко. Но сегодня я дома: родители сами приехали ко мне. Мы готовим обед.",
+      "audio_url": "/static/audio/course/curriculum/basic-motion-listening-v1/weekend-trips.mp3"
+    }
+  ]
+}

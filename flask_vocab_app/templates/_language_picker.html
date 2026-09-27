@@ -1,0 +1,14 @@
+<details class="language-picker">
+    <summary aria-label="Language / Язык" title="Language / Язык">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h12M9 3v2M12 5c-1 5-4 8-8 10M5 8c1 3 4 6 7 7M13 21l4.5-11L22 21M15 17h5"/></svg>
+    </summary>
+    <form class="language-picker-options" action="/ui-language" method="post" hx-boost="false" aria-label="{{ ui_t('ui.language') }}">
+        <input type="hidden" name="next" value="{{ request.full_path if request.query_string else request.path }}" />
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        {% for code, label in [('en', 'English'), ('ru', 'Русский')] %}
+        <button type="submit" name="lang" value="{{ code }}" lang="{{ code }}" aria-pressed="{{ 'true' if ui_lang == code else 'false' }}">
+            <span>{{ label }}</span><span class="language-selected" aria-hidden="true">{% if ui_lang == code %}✓{% endif %}</span>
+        </button>
+        {% endfor %}
+    </form>
+</details>

@@ -1,0 +1,19 @@
+/* Shared top-navigation disclosure for the native and Flask pages. */
+.activities-menu { position:relative; flex:0 0 auto; color:inherit; }
+.activities-menu > summary { display:flex; align-items:center; justify-content:center; gap:8px; min-height:48px; margin:0; padding:10px 18px; border:0; border-radius:30px; color:inherit; font:inherit; list-style:none; cursor:pointer; white-space:nowrap; }
+.activities-menu > summary::-webkit-details-marker { display:none; }
+.activities-menu > summary:hover { background:#ffffff1a; }
+.activities-menu > summary[data-active=true] { color:var(--wp-header-background,#24264b); background:var(--wp-header-foreground,#fff5db); }
+.activities-menu-chevron { display:block; flex:0 0 14px; width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+.activities-menu[open] .activities-menu-chevron { transform:rotate(180deg); }
+.activities-menu:not([open]) > .activities-menu-options { display:none; }
+.activities-menu .activities-menu-options { position:absolute; top:calc(100% + 10px); left:50%; transform:translateX(-50%); z-index:1100; display:flex; flex-direction:column; width:264px; max-width:calc(100vw - 32px); max-height:calc(100dvh - var(--skill-header-height,160px) - 24px); overflow-y:auto; overscroll-behavior:contain; padding:8px; border:1px solid var(--wp-border-subtle,#d9ccb1); border-radius:14px; background:var(--wp-surface-paper,#fff5db); color:var(--wp-text-primary,#24264b); box-shadow:0 12px 32px #14162c30; }
+.activities-menu .activities-menu-options a { display:flex; align-items:center; justify-content:space-between; flex:0 0 auto; gap:16px; width:100%; min-height:44px; margin:0; padding:10px 14px; border-radius:7px; color:inherit; background:none; font:400 16px/1.5 var(--wp-font-reading,sans-serif); white-space:normal; text-decoration:none; }
+.activities-menu .activities-menu-options a:hover,
+.activities-menu .activities-menu-options a[aria-current=page] { color:var(--wp-text-primary,#24264b); background:var(--wp-surface-sheet,#fffcf1); }
+.activities-menu .activities-menu-options .activities-menu-all { margin-top:8px; padding-top:14px; padding-bottom:12px; border-top:1px solid var(--wp-border-subtle,#d9ccb1); border-radius:0 0 7px 7px; font-weight:500; }
+.activities-menu > summary:focus-visible { outline:2px solid var(--wp-surface-ticket,#f8c843); outline-offset:3px; }
+.activities-menu .activities-menu-options a:focus-visible { outline:2px solid var(--wp-accent-learning,#294acc); outline-offset:-2px; }
+@media(max-width:600px) {
+  .activities-menu > summary { padding:8px 12px; font-size:14px; }
+}

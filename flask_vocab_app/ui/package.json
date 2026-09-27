@@ -1,0 +1,33 @@
+{
+  "name": "word-post",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.15.0 <25"
+  },
+  "scripts": {
+    "tokens": "node scripts/generate-tokens.mjs",
+    "prebuild": "npm run tokens",
+    "build": "tsc --noEmit && vite build",
+    "watch": "npm run tokens && vite build --watch",
+    "pretest": "npm run tokens",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource/golos-text": "5.3.0",
+    "@fontsource/unbounded": "5.3.0",
+    "preact": "10.29.8"
+  },
+  "devDependencies": {
+    "@babel/core": "7.29.7",
+    "@preact/preset-vite": "2.10.6",
+    "@testing-library/preact": "3.2.4",
+    "@types/node": "^24.13.5",
+    "jsdom": "30.0.1",
+    "typescript": "7.0.2",
+    "vite": "8.2.2",
+    "vitest": "5.0.0"
+  }
+}

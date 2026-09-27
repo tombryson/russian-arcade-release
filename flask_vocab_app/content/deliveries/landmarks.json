@@ -1,0 +1,451 @@
+{
+  "version": "delivery-landmarks-v1",
+  "landmarks": [
+    {
+      "id": "post",
+      "kind": "post",
+      "label": "Почта",
+      "label_en": "Post office",
+      "forms": {
+        "nom": "почта",
+        "gen": "почты",
+        "dat": "почте",
+        "acc": "почту",
+        "inst": "почтой",
+        "prep": "почте"
+      },
+      "tags": [
+        "staffed",
+        "collection",
+        "public"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "bank": "west"
+    },
+    {
+      "id": "bakery",
+      "kind": "bakery",
+      "label": "Пекарня",
+      "label_en": "Bakery",
+      "forms": {
+        "nom": "пекарня",
+        "gen": "пекарни",
+        "dat": "пекарне",
+        "acc": "пекарню",
+        "inst": "пекарней",
+        "prep": "пекарне"
+      },
+      "tags": [
+        "staffed",
+        "collection",
+        "shop",
+        "public"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "id": "market",
+      "kind": "market",
+      "label": "Рынок",
+      "label_en": "Market",
+      "forms": {
+        "nom": "рынок",
+        "gen": "рынка",
+        "dat": "рынку",
+        "acc": "рынок",
+        "inst": "рынком",
+        "prep": "рынке"
+      },
+      "tags": [
+        "staffed",
+        "collection",
+        "shop",
+        "public"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "id": "park",
+      "kind": "park",
+      "label": "Парк",
+      "label_en": "Park",
+      "forms": {
+        "nom": "парк",
+        "gen": "парка",
+        "dat": "парку",
+        "acc": "парк",
+        "inst": "парком",
+        "prep": "парке"
+      },
+      "tags": [
+        "public",
+        "meeting",
+        "green"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "id": "library",
+      "kind": "library",
+      "label": "Библиотека",
+      "label_en": "Library",
+      "forms": {
+        "nom": "библиотека",
+        "gen": "библиотеки",
+        "dat": "библиотеке",
+        "acc": "библиотеку",
+        "inst": "библиотекой",
+        "prep": "библиотеке"
+      },
+      "tags": [
+        "staffed",
+        "collection",
+        "public"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "bank": "east"
+    },
+    {
+      "id": "cafe",
+      "kind": "cafe",
+      "label": "Кафе",
+      "label_en": "Café",
+      "forms": {
+        "nom": "кафе",
+        "gen": "кафе",
+        "dat": "кафе",
+        "acc": "кафе",
+        "inst": "кафе",
+        "prep": "кафе"
+      },
+      "tags": [
+        "staffed",
+        "collection",
+        "public"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "id": "station",
+      "kind": "station",
+      "label": "Вокзал",
+      "label_en": "Station",
+      "forms": {
+        "nom": "вокзал",
+        "gen": "вокзала",
+        "dat": "вокзалу",
+        "acc": "вокзал",
+        "inst": "вокзалом",
+        "prep": "вокзале"
+      },
+      "tags": [
+        "staffed",
+        "public",
+        "transport"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "id": "pharmacy",
+      "kind": "pharmacy",
+      "label": "Аптека",
+      "label_en": "Pharmacy",
+      "forms": {
+        "nom": "аптека",
+        "gen": "аптеки",
+        "dat": "аптеке",
+        "acc": "аптеку",
+        "inst": "аптекой",
+        "prep": "аптеке"
+      },
+      "tags": [
+        "staffed",
+        "collection",
+        "shop",
+        "public"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "id": "bank-west",
+      "kind": "bank-office",
+      "label": "Банк",
+      "label_en": "Bank",
+      "forms": {
+        "nom": "банк",
+        "gen": "банка",
+        "dat": "банку",
+        "acc": "банк",
+        "inst": "банком",
+        "prep": "банке"
+      },
+      "tags": [
+        "staffed",
+        "public",
+        "ambiguous"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "bank": "west"
+    },
+    {
+      "id": "yellow-house-west",
+      "kind": "house",
+      "label": "Жёлтый дом",
+      "label_en": "Yellow house",
+      "forms": {
+        "nom": "жёлтый дом",
+        "gen": "жёлтого дома",
+        "dat": "жёлтому дому",
+        "acc": "жёлтый дом",
+        "inst": "жёлтым домом",
+        "prep": "жёлтом доме"
+      },
+      "tags": [
+        "residential",
+        "ambiguous"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "bank": "west",
+      "colour": "yellow"
+    },
+    {
+      "id": "blue-house-west",
+      "kind": "house",
+      "label": "Синий дом",
+      "label_en": "Blue house",
+      "forms": {
+        "nom": "синий дом",
+        "gen": "синего дома",
+        "dat": "синему дому",
+        "acc": "синий дом",
+        "inst": "синим домом",
+        "prep": "синем доме"
+      },
+      "tags": [
+        "residential",
+        "ambiguous"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "bank": "west",
+      "colour": "blue"
+    },
+    {
+      "id": "bank-east",
+      "kind": "bank-office",
+      "label": "Банк",
+      "label_en": "Bank",
+      "forms": {
+        "nom": "банк",
+        "gen": "банка",
+        "dat": "банку",
+        "acc": "банк",
+        "inst": "банком",
+        "prep": "банке"
+      },
+      "tags": [
+        "staffed",
+        "public",
+        "ambiguous"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "bank": "east"
+    },
+    {
+      "id": "yellow-house",
+      "kind": "house",
+      "label": "Жёлтый дом",
+      "label_en": "Yellow house",
+      "forms": {
+        "nom": "жёлтый дом",
+        "gen": "жёлтого дома",
+        "dat": "жёлтому дому",
+        "acc": "жёлтый дом",
+        "inst": "жёлтым домом",
+        "prep": "жёлтом доме"
+      },
+      "tags": [
+        "residential",
+        "ambiguous"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "bank": "east",
+      "colour": "yellow"
+    },
+    {
+      "id": "blue-house",
+      "kind": "house",
+      "label": "Синий дом",
+      "label_en": "Blue house",
+      "forms": {
+        "nom": "синий дом",
+        "gen": "синего дома",
+        "dat": "синему дому",
+        "acc": "синий дом",
+        "inst": "синим домом",
+        "prep": "синем доме"
+      },
+      "tags": [
+        "residential",
+        "ambiguous"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "bank": "east",
+      "colour": "blue"
+    },
+    {
+      "id": "courtyard-house",
+      "kind": "house",
+      "label": "Дом с двором",
+      "label_en": "Courtyard house",
+      "forms": {
+        "nom": "дом с двором",
+        "gen": "дома с двором",
+        "dat": "дому с двором",
+        "acc": "дом с двором",
+        "inst": "домом с двором",
+        "prep": "доме с двором"
+      },
+      "tags": [
+        "residential",
+        "courtyard"
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "colour": "coral"
+    }
+  ]
+}

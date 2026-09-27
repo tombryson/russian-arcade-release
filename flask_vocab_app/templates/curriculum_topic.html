@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% from '_activity_header.html' import activity_header %}
+{% set russian = language == 'ru' %}
+{% set page_title = topic.title_ru if russian else topic.title_en %}
+{% block main_content %}
+<main class="main-content activity-entry curriculum" id="mainContent" data-page="curriculum-topic">
+  <div class="activity-entry-content">
+    <nav class="curriculum-unit-nav" aria-label="{{ 'Учебная программа' if russian else 'Curriculum' }}">
+      <a href="{{ url_for('curriculum.index') }}#topic-{{ topic.id }}" hx-boost="false">← {{ 'Учебная программа' if russian else 'Curriculum' }}</a>
+      <span>{{ band.id|replace('-', '–') }}</span>
+    </nav>
+    {{ activity_header(page_title, '') }}
+    {% include '_curriculum_topic.html' %}
+  </div>
+</main>
+{% endblock %}

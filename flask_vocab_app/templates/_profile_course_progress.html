@@ -1,0 +1,8 @@
+{% if profile_course_progress %}
+{% set course = profile_course_progress %}
+<section class="profile-course-progress" aria-label="{{ 'Этапы курса' if ui_lang == 'ru' else 'Course milestones' }}" data-course-profile="{{ course.profile_id }}">
+  <p><strong>{{ course.band }}</strong> · {% if ui_lang == 'ru' %}Пройдено этапов: {{ course.completed_milestones }} из {{ course.chapter_count }}{% else %}{{ course.completed_milestones }} of {{ course.chapter_count }} milestones complete{% endif %}</p>
+  <a href="/curriculum#level-{{ course.band }}">{{ 'Учебная программа' if ui_lang == 'ru' else 'View curriculum' }} →</a>
+  <a href="/#assessment">{{ 'Проверить навыки A1' if ui_lang == 'ru' else 'Check your A1 skills' }} →</a>
+</section>
+{% endif %}

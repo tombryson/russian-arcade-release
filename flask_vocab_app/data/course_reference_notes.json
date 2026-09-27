@@ -1,0 +1,709 @@
+{
+  "version": 1,
+  "releases": {
+    "a1-journey-v2": {
+      "home-introductions": {
+        "groups": [
+          {
+            "id": "greetings",
+            "title": "Greetings",
+            "title_ru": "Приветствия",
+            "items": [
+              {
+                "label": "Formal",
+                "label_ru": "Официально",
+                "ru": "Здравствуйте!",
+                "en": "Hello!"
+              },
+              {
+                "label": "Informal",
+                "label_ru": "Неформально",
+                "ru": "Привет!",
+                "en": "Hi!"
+              }
+            ]
+          },
+          {
+            "id": "names",
+            "title": "Introductions",
+            "title_ru": "Знакомство",
+            "items": [
+              {
+                "label": "Introducing yourself",
+                "label_ru": "Представиться",
+                "ru": "Меня зовут Нина.",
+                "en": "My name is Nina."
+              },
+              {
+                "label": "Formal question",
+                "label_ru": "Официальный вопрос",
+                "ru": "Как вас зовут?",
+                "en": "What is your name?"
+              },
+              {
+                "label": "Informal question",
+                "label_ru": "Неформальный вопрос",
+                "ru": "Как тебя зовут?",
+                "en": "What is your name?"
+              }
+            ]
+          },
+          {
+            "id": "thanks",
+            "title": "Thanks",
+            "title_ru": "Благодарность",
+            "items": [
+              {
+                "label": "Thanking someone",
+                "label_ru": "Поблагодарить",
+                "ru": "Спасибо за помощь!",
+                "en": "Thank you for your help!"
+              }
+            ]
+          },
+          {
+            "id": "farewells",
+            "title": "Farewells",
+            "title_ru": "Прощание",
+            "items": [
+              {
+                "label": "Goodbye",
+                "label_ru": "Попрощаться",
+                "ru": "До свидания!",
+                "en": "Goodbye!"
+              },
+              {
+                "label": "See you",
+                "label_ru": "До следующей встречи",
+                "ru": "До встречи!",
+                "en": "See you!"
+              }
+            ]
+          }
+        ]
+      },
+      "home-family": {
+        "groups": [
+          {
+            "id": "people",
+            "title": "Personal pronouns",
+            "title_ru": "Личные местоимения",
+            "items": [
+              {
+                "label": "I",
+                "label_ru": "Я",
+                "ru": "Я Барсик.",
+                "en": "I am Barsik."
+              },
+              {
+                "label": "He",
+                "label_ru": "Он",
+                "ru": "Он мой брат.",
+                "en": "He is my brother."
+              },
+              {
+                "label": "She",
+                "label_ru": "Она",
+                "ru": "Она моя сестра.",
+                "en": "She is my sister."
+              }
+            ]
+          },
+          {
+            "id": "possessives",
+            "title": "Possessives",
+            "title_ru": "Притяжательные местоимения",
+            "items": [
+              {
+                "label": "Masculine",
+                "label_ru": "Мужской род",
+                "ru": "Мой брат.",
+                "en": "My brother."
+              },
+              {
+                "label": "Feminine",
+                "label_ru": "Женский род",
+                "ru": "Моя сестра.",
+                "en": "My sister."
+              },
+              {
+                "label": "Plural",
+                "label_ru": "Множественное число",
+                "ru": "Мои дети.",
+                "en": "My children."
+              }
+            ]
+          },
+          {
+            "id": "family",
+            "title": "Introducing family",
+            "title_ru": "Знакомство с семьёй",
+            "items": [
+              {
+                "label": "This is…",
+                "label_ru": "Это…",
+                "ru": "Это моя мама.",
+                "en": "This is my mum."
+              },
+              {
+                "label": "I have…",
+                "label_ru": "У меня есть…",
+                "ru": "У меня есть брат.",
+                "en": "I have a brother."
+              }
+            ]
+          }
+        ]
+      },
+      "home-locations": {
+        "groups": [
+          {
+            "id": "location",
+            "title": "Location",
+            "title_ru": "Местоположение",
+            "items": [
+              {
+                "label": "On",
+                "label_ru": "На",
+                "ru": "Ключ на столе.",
+                "en": "The key is on the table."
+              },
+              {
+                "label": "In",
+                "label_ru": "В",
+                "ru": "Сумка в шкафу.",
+                "en": "The bag is in the wardrobe."
+              },
+              {
+                "label": "At home",
+                "label_ru": "Дома",
+                "ru": "Я дома.",
+                "en": "I am at home."
+              }
+            ]
+          },
+          {
+            "id": "number",
+            "title": "Singular and plural",
+            "title_ru": "Единственное и множественное число",
+            "items": [
+              {
+                "label": "Singular",
+                "label_ru": "Единственное число",
+                "ru": "Стул.",
+                "en": "A chair."
+              },
+              {
+                "label": "Plural",
+                "label_ru": "Множественное число",
+                "ru": "Стулья.",
+                "en": "Chairs."
+              }
+            ]
+          },
+          {
+            "id": "size",
+            "title": "Describing rooms and objects",
+            "title_ru": "Описание комнат и предметов",
+            "items": [
+              {
+                "label": "Masculine",
+                "label_ru": "Мужской род",
+                "ru": "Большой дом.",
+                "en": "A big house."
+              },
+              {
+                "label": "Feminine",
+                "label_ru": "Женский род",
+                "ru": "Большая комната.",
+                "en": "A big room."
+              },
+              {
+                "label": "Neuter",
+                "label_ru": "Средний род",
+                "ru": "Большое окно.",
+                "en": "A big window."
+              }
+            ]
+          }
+        ]
+      },
+      "postoffice-times": {
+        "groups": [
+          {
+            "id": "clock",
+            "title": "Telling the time",
+            "title_ru": "Который час",
+            "items": [
+              {
+                "label": "One",
+                "label_ru": "Один",
+                "ru": "Сейчас один час.",
+                "en": "It is one o’clock."
+              },
+              {
+                "label": "Two",
+                "label_ru": "Два",
+                "ru": "Сейчас два часа.",
+                "en": "It is two o’clock."
+              },
+              {
+                "label": "Five",
+                "label_ru": "Пять",
+                "ru": "Сейчас пять часов.",
+                "en": "It is five o’clock."
+              }
+            ]
+          },
+          {
+            "id": "when-how-long",
+            "title": "Time and duration",
+            "title_ru": "Время и длительность",
+            "items": [
+              {
+                "label": "When?",
+                "label_ru": "Когда?",
+                "ru": "Встреча в два часа.",
+                "en": "The meeting is at two o’clock."
+              },
+              {
+                "label": "How long?",
+                "label_ru": "Как долго?",
+                "ru": "Я работаю два часа.",
+                "en": "I work for two hours."
+              }
+            ]
+          },
+          {
+            "id": "parts-of-day",
+            "title": "Parts of the day",
+            "title_ru": "Время суток",
+            "items": [
+              {
+                "label": "Morning",
+                "label_ru": "Утро",
+                "ru": "Утром я читаю.",
+                "en": "I read in the morning."
+              },
+              {
+                "label": "Evening",
+                "label_ru": "Вечер",
+                "ru": "Вечером я отдыхаю.",
+                "en": "I rest in the evening."
+              }
+            ]
+          }
+        ]
+      },
+      "postoffice-routines": {
+        "groups": [
+          {
+            "id": "routine-now",
+            "title": "Routine and current activity",
+            "title_ru": "Обычно и сейчас",
+            "items": [
+              {
+                "label": "Every day",
+                "label_ru": "Каждый день",
+                "ru": "Каждый день я читаю дома.",
+                "en": "Every day I read at home."
+              },
+              {
+                "label": "Right now",
+                "label_ru": "Сейчас",
+                "ru": "Сейчас я читаю письмо.",
+                "en": "I am reading a letter now."
+              }
+            ]
+          },
+          {
+            "id": "verb-person",
+            "title": "Verb endings",
+            "title_ru": "Окончания глаголов",
+            "items": [
+              {
+                "label": "I",
+                "label_ru": "Я",
+                "ru": "Я работаю.",
+                "en": "I work."
+              },
+              {
+                "label": "She",
+                "label_ru": "Она",
+                "ru": "Она работает.",
+                "en": "She works."
+              },
+              {
+                "label": "We",
+                "label_ru": "Мы",
+                "ru": "Мы работаем.",
+                "en": "We work."
+              }
+            ]
+          },
+          {
+            "id": "common-verbs",
+            "title": "Common verbs",
+            "title_ru": "Частые глаголы",
+            "items": [
+              {
+                "label": "Eating",
+                "label_ru": "Еда",
+                "ru": "Я ем суп.",
+                "en": "I am eating soup."
+              },
+              {
+                "label": "Sleeping",
+                "label_ru": "Сон",
+                "ru": "Ночью я сплю.",
+                "en": "I sleep at night."
+              },
+              {
+                "label": "Going",
+                "label_ru": "Движение",
+                "ru": "Я иду на почту.",
+                "en": "I am going to the post office."
+              }
+            ]
+          }
+        ]
+      },
+      "market-requests": {
+        "groups": [
+          {
+            "id": "requests",
+            "title": "Asking for food and drink",
+            "title_ru": "Просьбы о еде и напитках",
+            "items": [
+              {
+                "label": "Polite request",
+                "label_ru": "Вежливая просьба",
+                "ru": "Можно воду, пожалуйста?",
+                "en": "May I have water, please?"
+              },
+              {
+                "label": "Saying what you want",
+                "label_ru": "Что хочется",
+                "ru": "Я хочу суп.",
+                "en": "I want soup."
+              }
+            ]
+          },
+          {
+            "id": "object-form",
+            "title": "Noun forms",
+            "title_ru": "Формы существительного",
+            "items": [
+              {
+                "label": "Naming the item",
+                "label_ru": "Название",
+                "ru": "Это рыба.",
+                "en": "This is fish."
+              },
+              {
+                "label": "As the object",
+                "label_ru": "Объект действия",
+                "ru": "Я ем рыбу.",
+                "en": "I am eating fish."
+              }
+            ]
+          },
+          {
+            "id": "change-order",
+            "title": "Changing an order",
+            "title_ru": "Изменение заказа",
+            "items": [
+              {
+                "label": "Replacing an item",
+                "label_ru": "Замена",
+                "ru": "Не сок, а воду, пожалуйста.",
+                "en": "Water instead of juice, please."
+              }
+            ]
+          }
+        ]
+      },
+      "market-descriptions": {
+        "groups": [
+          {
+            "id": "colour-gender",
+            "title": "Colour and gender",
+            "title_ru": "Цвет и род",
+            "items": [
+              {
+                "label": "Masculine",
+                "label_ru": "Мужской род",
+                "ru": "Красный стол.",
+                "en": "A red table."
+              },
+              {
+                "label": "Feminine",
+                "label_ru": "Женский род",
+                "ru": "Красная сумка.",
+                "en": "A red bag."
+              },
+              {
+                "label": "Neuter",
+                "label_ru": "Средний род",
+                "ru": "Красное яблоко.",
+                "en": "A red apple."
+              }
+            ]
+          },
+          {
+            "id": "number",
+            "title": "Singular and plural",
+            "title_ru": "Единственное и множественное число",
+            "items": [
+              {
+                "label": "Singular",
+                "label_ru": "Единственное число",
+                "ru": "Большое яблоко.",
+                "en": "A big apple."
+              },
+              {
+                "label": "Plural",
+                "label_ru": "Множественное число",
+                "ru": "Большие яблоки.",
+                "en": "Big apples."
+              }
+            ]
+          },
+          {
+            "id": "pointing",
+            "title": "Pointing to an object",
+            "title_ru": "Указание на предмет",
+            "items": [
+              {
+                "label": "Masculine",
+                "label_ru": "Мужской род",
+                "ru": "Этот стол.",
+                "en": "This table."
+              },
+              {
+                "label": "Feminine",
+                "label_ru": "Женский род",
+                "ru": "Эта сумка.",
+                "en": "This bag."
+              },
+              {
+                "label": "Neuter",
+                "label_ru": "Средний род",
+                "ru": "Это яблоко.",
+                "en": "This apple."
+              }
+            ]
+          }
+        ]
+      },
+      "market-clothes": {
+        "groups": [
+          {
+            "id": "descriptions",
+            "title": "Describing clothes",
+            "title_ru": "Описание одежды",
+            "items": [
+              {
+                "label": "Singular",
+                "label_ru": "Единственное число",
+                "ru": "Синяя куртка.",
+                "en": "A blue jacket."
+              },
+              {
+                "label": "Plural",
+                "label_ru": "Множественное число",
+                "ru": "Синие штаны.",
+                "en": "Blue trousers."
+              }
+            ]
+          },
+          {
+            "id": "clothing-object",
+            "title": "Noun and adjective endings",
+            "title_ru": "Окончания существительного и прилагательного",
+            "items": [
+              {
+                "label": "Naming the item",
+                "label_ru": "Название",
+                "ru": "Это красная шапка.",
+                "en": "This is a red hat."
+              },
+              {
+                "label": "Wearing the item",
+                "label_ru": "Что носим",
+                "ru": "Я ношу красную шапку.",
+                "en": "I wear a red hat."
+              }
+            ]
+          },
+          {
+            "id": "unchanged-coat",
+            "title": "An unchanging noun",
+            "title_ru": "Неизменяемое существительное",
+            "items": [
+              {
+                "label": "Naming the item",
+                "label_ru": "Название",
+                "ru": "Это новое пальто.",
+                "en": "This is a new coat."
+              },
+              {
+                "label": "Choosing the item",
+                "label_ru": "Выбор",
+                "ru": "Я беру новое пальто.",
+                "en": "I am taking a new coat."
+              }
+            ]
+          }
+        ]
+      },
+      "leavingtown-directions": {
+        "groups": [
+          {
+            "id": "location-destination",
+            "title": "Location and destination",
+            "title_ru": "Место и направление",
+            "items": [
+              {
+                "label": "Where?",
+                "label_ru": "Где?",
+                "ru": "Я в парке.",
+                "en": "I am in the park."
+              },
+              {
+                "label": "Where to?",
+                "label_ru": "Куда?",
+                "ru": "Я иду в парк.",
+                "en": "I am going to the park."
+              }
+            ]
+          },
+          {
+            "id": "asking",
+            "title": "Asking the way",
+            "title_ru": "Как спросить дорогу",
+            "items": [
+              {
+                "label": "Finding a place",
+                "label_ru": "Поиск места",
+                "ru": "Где почта?",
+                "en": "Where is the post office?"
+              }
+            ]
+          },
+          {
+            "id": "directions",
+            "title": "Following directions",
+            "title_ru": "Указания пути",
+            "items": [
+              {
+                "label": "Straight ahead",
+                "label_ru": "Прямо",
+                "ru": "Идите прямо.",
+                "en": "Go straight ahead."
+              },
+              {
+                "label": "Left",
+                "label_ru": "Налево",
+                "ru": "Поверните налево.",
+                "en": "Turn left."
+              },
+              {
+                "label": "Right",
+                "label_ru": "Направо",
+                "ru": "Поверните направо.",
+                "en": "Turn right."
+              }
+            ]
+          },
+          {
+            "id": "landmarks",
+            "title": "Landmarks",
+            "title_ru": "Ориентиры",
+            "items": [
+              {
+                "label": "Next to",
+                "label_ru": "Рядом с",
+                "ru": "Почта рядом с парком.",
+                "en": "The post office is next to the park."
+              },
+              {
+                "label": "By",
+                "label_ru": "У",
+                "ru": "Я жду у школы.",
+                "en": "I am waiting by the school."
+              }
+            ]
+          }
+        ]
+      },
+      "leavingtown-weather": {
+        "groups": [
+          {
+            "id": "weather-forms",
+            "title": "Describing the cold",
+            "title_ru": "Как сказать о холоде",
+            "items": [
+              {
+                "label": "Noun",
+                "label_ru": "Существительное",
+                "ru": "Холод.",
+                "en": "The cold."
+              },
+              {
+                "label": "Adjective",
+                "label_ru": "Прилагательное",
+                "ru": "Холодный день.",
+                "en": "A cold day."
+              },
+              {
+                "label": "Conditions",
+                "label_ru": "Состояние",
+                "ru": "На улице холодно.",
+                "en": "It is cold outside."
+              }
+            ]
+          },
+          {
+            "id": "rain-sun",
+            "title": "Rain and sunshine",
+            "title_ru": "Дождь и солнце",
+            "items": [
+              {
+                "label": "Rain",
+                "label_ru": "Дождь",
+                "ru": "Идёт дождь.",
+                "en": "It is raining."
+              },
+              {
+                "label": "Sunshine",
+                "label_ru": "Солнце",
+                "ru": "Светит солнце.",
+                "en": "The sun is shining."
+              }
+            ]
+          },
+          {
+            "id": "plans",
+            "title": "Plans for the weather",
+            "title_ru": "Планы по погоде",
+            "items": [
+              {
+                "label": "Hot weather",
+                "label_ru": "Жара",
+                "ru": "Сегодня жарко. Я беру воду.",
+                "en": "It is hot today. I am taking water."
+              },
+              {
+                "label": "Cold weather",
+                "label_ru": "Холод",
+                "ru": "Сегодня холодно. Я беру пальто.",
+                "en": "It is cold today. I am taking a coat."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

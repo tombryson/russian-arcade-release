@@ -1,0 +1,84 @@
+{
+  "version": "listening-v1",
+  "id": "numbers-quantities-listening-v1",
+  "unit_id": "numbers-quantities-v1",
+  "title": "Listen for quantities and prices",
+  "title_ru": "Количество и цены на слух",
+  "items": [
+    {
+      "id": "changed-order",
+      "prompt": "Сколько яблок нужно купить?",
+      "choices": [
+        {
+          "id": "two",
+          "text": "Два."
+        },
+        {
+          "id": "four",
+          "text": "Четыре."
+        },
+        {
+          "id": "five",
+          "text": "Пять."
+        }
+      ],
+      "answer": "four",
+      "hint": "Listen for the final apple quantity, not the earlier one or the pears.",
+      "explanation": "The speaker changes the apple order from two to four; five is the number of pears.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the revised apple quantity in a short spoken shopping request.",
+      "transcript": "Купи два яблока и пять груш. Нет, подожди: яблок нужно четыре. Я хочу приготовить пирог. Груш всё равно пять.",
+      "audio_url": "/static/audio/course/curriculum/numbers-quantities-listening-v1/changed-order.mp3"
+    },
+    {
+      "id": "ticket-price",
+      "prompt": "Сколько стоит детский билет?",
+      "choices": [
+        {
+          "id": "adult",
+          "text": "Пятьдесят рублей."
+        },
+        {
+          "id": "child",
+          "text": "Двадцать рублей."
+        },
+        {
+          "id": "free",
+          "text": "Бесплатно."
+        }
+      ],
+      "answer": "child",
+      "hint": "Separate the adult price from the child price.",
+      "explanation": "The adult ticket costs fifty roubles; the child ticket costs twenty.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Extract the child-ticket price from two distinct prices in a spoken message.",
+      "transcript": "Взрослый билет стоит пятьдесят рублей. Детский билет дешевле, двадцать рублей. Касса уже открыта. Можно купить билеты сейчас.",
+      "audio_url": "/static/audio/course/curriculum/numbers-quantities-listening-v1/ticket-price.mp3"
+    },
+    {
+      "id": "lesson-order",
+      "prompt": "Какой урок сегодня второй?",
+      "choices": [
+        {
+          "id": "russian",
+          "text": "Русский язык."
+        },
+        {
+          "id": "music",
+          "text": "Музыка."
+        },
+        {
+          "id": "sport",
+          "text": "Спорт."
+        }
+      ],
+      "answer": "russian",
+      "hint": "Listen for the order, not merely the subjects mentioned.",
+      "explanation": "Music comes first and Russian second; sport is tomorrow.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the second lesson from a spoken timetable with a separate next-day activity.",
+      "transcript": "Сегодня сначала музыка, а второй урок — русский язык. На спорт мы идём завтра. Не забудь тетрадь по русскому языку.",
+      "audio_url": "/static/audio/course/curriculum/numbers-quantities-listening-v1/lesson-order.mp3"
+    }
+  ]
+}

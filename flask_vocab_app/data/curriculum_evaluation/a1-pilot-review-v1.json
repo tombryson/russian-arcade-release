@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "id": "a1-pilot-review-v1",
+  "blueprint_sha256": "521a6a770c3fd08cad5af20089c57b00d83e2888f8231f962dae353134922bdb",
+  "status": "Optional editorial QA; no independent human review or calibration recorded."
+}

@@ -1,0 +1,84 @@
+{
+  "version": "listening-v1",
+  "id": "needs-company-listening-v1",
+  "unit_id": "needs-company-v1",
+  "title": "Listen for needs and company",
+  "title_ru": "Кому что нужно и с кем идут",
+  "items": [
+    {
+      "id": "who-is-cold",
+      "prompt": "Кому холодно?",
+      "choices": [
+        {
+          "id": "nina",
+          "text": "Нине."
+        },
+        {
+          "id": "brother",
+          "text": "Брату Нины."
+        },
+        {
+          "id": "both",
+          "text": "Им обоим."
+        }
+      ],
+      "answer": "brother",
+      "hint": "One person is comfortable; the other needs a coat.",
+      "explanation": "Nina says she is warm, but her brother is cold.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the person experiencing cold in a spoken contrast between two people.",
+      "transcript": "Это Нина. Мы с братом на улице. Мне тепло, а ему холодно. Принеси ему куртку, пожалуйста.",
+      "audio_url": "/static/audio/course/curriculum/needs-company-listening-v1/who-is-cold.mp3"
+    },
+    {
+      "id": "visit-companion",
+      "prompt": "С кем Оля придёт?",
+      "choices": [
+        {
+          "id": "brother",
+          "text": "С братом."
+        },
+        {
+          "id": "friend",
+          "text": "С подругой."
+        },
+        {
+          "id": "alone",
+          "text": "Одна."
+        }
+      ],
+      "answer": "friend",
+      "hint": "The brother is mentioned, but his plans change.",
+      "explanation": "Olya’s brother has to work, so she will come with her friend instead.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the final companion after a changed plan involving another named person.",
+      "transcript": "Привет, это Оля. Брат не сможет прийти: ему нужно работать. Я приду с подругой. Мы будем у тебя в семь.",
+      "audio_url": "/static/audio/course/curriculum/needs-company-listening-v1/visit-companion.mp3"
+    },
+    {
+      "id": "drink-ingredient",
+      "prompt": "Какой кофе просит человек?",
+      "choices": [
+        {
+          "id": "black",
+          "text": "Чёрный, без сахара."
+        },
+        {
+          "id": "milk",
+          "text": "С молоком, без сахара."
+        },
+        {
+          "id": "sweet",
+          "text": "С молоком и сахаром."
+        }
+      ],
+      "answer": "milk",
+      "hint": "Listen for both the ingredient and what is excluded.",
+      "explanation": "The requested coffee contains milk but no sugar.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify a drink order by combining its stated accompaniment with an explicit exclusion.",
+      "transcript": "Мне кофе с молоком, пожалуйста. Сахар не нужен. А другу чай. Мы с ним будем пить здесь.",
+      "audio_url": "/static/audio/course/curriculum/needs-company-listening-v1/drink-ingredient.mp3"
+    }
+  ]
+}

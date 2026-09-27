@@ -1,0 +1,6 @@
+<details class="sentence-library" id="saved-writing">
+  <summary><span>{{ ui_t('writing.saved') }} <span class="sentence-count">{{ saved_exercises|length }}</span></span><span class="sentence-disclosure-icon" aria-hidden="true">+</span></summary>
+  {% if saved_exercises %}<ul>{% for saved in saved_exercises %}<li><a data-practice-id="{{ saved.id }}" href="/writing/load/{{ saved.id }}" hx-get="/writing/load/{{ saved.id }}" hx-target="#mainContent" hx-swap="outerHTML" hx-push-url="true" {% if exercise and exercise.id == saved.id %}aria-current="page"{% endif %}>
+    <span><strong>{{ saved.display_title }}</strong><small>{{ saved.level_label }} · {{ saved.topic_label }} · <span data-practice-date>{{ saved.display_date }}</span></small></span><span class="sentence-state" data-practice-state>{{ ui_t('writing.'+saved.state) }} <span aria-hidden="true">→</span></span>
+  </a></li>{% endfor %}</ul>{% else %}<p>{{ ui_t('writing.none_saved') }}</p>{% endif %}
+</details>

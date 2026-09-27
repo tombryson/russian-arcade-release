@@ -1,0 +1,84 @@
+{
+  "version": "listening-v1",
+  "id": "social-exchanges-listening-v1",
+  "unit_id": "social-exchanges-v1",
+  "title": "Listen to short exchanges",
+  "title_ru": "Короткие разговоры на слух",
+  "items": [
+    {
+      "id": "repeat-time",
+      "prompt": "Чего хочет второй человек?",
+      "choices": [
+        {
+          "id": "change",
+          "text": "Изменить время встречи."
+        },
+        {
+          "id": "repeat",
+          "text": "Ещё раз услышать время встречи."
+        },
+        {
+          "id": "cancel",
+          "text": "Отменить встречу."
+        }
+      ],
+      "answer": "repeat",
+      "hint": "Listen for the requested action.",
+      "explanation": "The speaker asks for the time to be repeated, not changed or cancelled.",
+      "requirement_id": "a1.listening.dialogue-intention",
+      "expectation": "Recognise a repetition request from the audio rather than claim the learner can produce one.",
+      "transcript": "— Встречаемся у школы в половине шестого.\n— Извините, я не расслышал время. Повторите, пожалуйста.",
+      "audio_url": "/static/audio/course/curriculum/social-exchanges-listening-v1/repeat-time.mp3"
+    },
+    {
+      "id": "decline-drink",
+      "prompt": "Что делает второй человек?",
+      "choices": [
+        {
+          "id": "accept",
+          "text": "Соглашается выпить чай."
+        },
+        {
+          "id": "decline",
+          "text": "Отказывается от чая."
+        },
+        {
+          "id": "more",
+          "text": "Просит ещё чаю."
+        }
+      ],
+      "answer": "decline",
+      "hint": "Listen to the reply, including нет.",
+      "explanation": "The second speaker politely declines because they need to go.",
+      "requirement_id": "a1.listening.dialogue-intention",
+      "expectation": "Recognise a polite refusal in a short spoken offer-and-reply exchange.",
+      "transcript": "— Хотите чаю?\n— Нет, спасибо. Мне уже нужно идти. До свидания!",
+      "audio_url": "/static/audio/course/curriculum/social-exchanges-listening-v1/decline-drink.mp3"
+    },
+    {
+      "id": "permission-pen",
+      "prompt": "Что хочет сделать человек?",
+      "choices": [
+        {
+          "id": "take",
+          "text": "Взять ручку."
+        },
+        {
+          "id": "buy",
+          "text": "Купить новую ручку."
+        },
+        {
+          "id": "give",
+          "text": "Подарить ручку."
+        }
+      ],
+      "answer": "take",
+      "hint": "The speaker asks permission to use an available object.",
+      "explanation": "The speaker asks to take the pen on the table to write an address. There is no purchase or gift.",
+      "requirement_id": "a1.listening.dialogue-intention",
+      "expectation": "Recognise the requested action in a spoken permission question.",
+      "transcript": "Извините, можно взять эту ручку со стола? Мне нужно записать адрес. Я сразу верну её.",
+      "audio_url": "/static/audio/course/curriculum/social-exchanges-listening-v1/permission-pen.mp3"
+    }
+  ]
+}
