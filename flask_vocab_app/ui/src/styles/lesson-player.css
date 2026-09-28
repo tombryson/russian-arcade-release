@@ -1,4 +1,6 @@
 /* Learning screens put the current task ahead of repeated page furniture. */
+/* Reserve the rail space before Barsik is introduced so the task stays put. */
+.navigation-layout-top.lesson-workspace > .top { padding-bottom:42px; }
 .lesson-workspace main { max-width:1240px; width:100%; }
 .page.lesson-player { max-width:none; padding:16px 32px 32px; }
 .lesson-player-nav { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:4px 24px; padding-bottom:12px; margin-bottom:16px; border-bottom:1px solid var(--wp-border-subtle); }

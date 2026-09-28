@@ -20,34 +20,59 @@
 .tutorial-word-card .tutorial-word-meaning { margin:0 0 22px; font-size:24px; }
 .tutorial-word-card .cta { margin-top:14px; }
 
-/* Keep the opening explanation and its next action together in the viewport. */
-.page.lesson-player.first-delivery-intro { max-width:1180px; padding:20px 32px 32px; }
-.first-delivery-intro .lesson-player-nav { border:0; margin-bottom:12px; padding:0; }
-.first-delivery-intro h1 { margin:0 0 8px; font:500 clamp(30px,3.6vw,42px)/1.25 var(--wp-font-display); letter-spacing:-1px; }
-.first-delivery-intro .onboarding-intro-copy { margin:0 0 24px; font-size:19px; line-height:1.5; color:var(--wp-text-secondary); }
-.onboarding-coins { display:grid; grid-template-columns:minmax(0,1fr) 208px; gap:16px 32px; align-items:center; padding:28px 32px; border:1px solid var(--wp-border-subtle); border-radius:12px; background:var(--wp-surface-sheet); }
+/* One frame for the introduction, teaching cards, answers and completion. */
+.page.lesson-player.first-delivery { max-width:1180px; margin-inline:auto; padding:20px 32px 32px; }
+.first-delivery .lesson-player-nav { border:0; margin-bottom:12px; padding:0; }
+.first-delivery-stage { display:grid; grid-template-rows:auto 1fr auto; gap:20px; min-height:500px; padding:24px 28px; border:1px solid var(--wp-border-subtle); border-radius:12px; background:var(--wp-surface-sheet); }
+.first-delivery-heading { display:flex; flex-direction:column; gap:6px; }
+.first-delivery-heading h1 { margin:0; font:500 clamp(26px,2.6vw,34px)/1.35 var(--wp-font-display); letter-spacing:-1px; text-wrap:initial; }
+.first-delivery-heading .lesson-counter { margin:0; min-height:21px; font-size:13px; color:var(--wp-text-secondary); }
+.first-delivery-content { min-width:0; }
+.first-delivery-content p { max-width:64ch; }
+.first-delivery .onboarding-intro-copy { margin:0 0 20px; font-size:19px; line-height:1.5; color:var(--wp-text-secondary); }
+.page.first-delivery .tutorial-word-card .tutorial-new-word { margin:0 0 4px; }
+.first-delivery .tutorial-word-card .tutorial-word-meaning { margin-bottom:10px; }
+.first-delivery .tutorial-progress-introduction p { margin-top:12px; }
+.page.first-delivery .options { margin:0 0 20px; }
+.first-delivery .answer-label { margin:0 0 12px; }
+.first-delivery .answer-text { margin:0 0 16px; font-size:30px; color:var(--wp-accent-learning); }
+.first-delivery .first-delivery-actions { display:grid; grid-template-columns:280px minmax(0,1fr); margin:0; min-height:58px; gap:8px 20px; }
+.first-delivery-actions .cta { min-width:220px; margin:0; padding:12px 22px; font-size:18px; }
+.first-delivery-actions .text-link { grid-column:2; justify-self:start; font-size:16px; }
+.onboarding-coins { display:grid; grid-template-columns:minmax(0,1fr) 160px; gap:16px 28px; align-items:center; }
 .onboarding-coins-copy { min-width:0; }
-.first-delivery-intro .onboarding-coins h2 { display:flex; align-items:center; gap:12px; margin:0 0 16px; font:500 28px/1.3 var(--wp-font-display); }
-.onboarding-coins .lingocoin { width:44px; height:44px; font-size:25px; box-shadow:1px 2px 0 var(--wp-text-onTicket); }
-.onboarding-coins-copy p { max-width:54ch; font-size:19px; line-height:1.55; }
+.first-delivery .onboarding-coins h2 { display:flex; align-items:center; gap:12px; margin:0 0 16px; font:500 24px/1.3 var(--wp-font-display); }
+.onboarding-coins .lingocoin { width:40px; height:40px; font-size:23px; box-shadow:1px 2px 0 var(--wp-text-onTicket); }
+.onboarding-coins-copy p { max-width:54ch; font-size:18px; line-height:1.55; }
 .onboarding-coins-copy .onboarding-bonus { margin-top:16px; color:var(--wp-text-secondary); font-size:17px; }
 .onboarding-bonus strong { color:var(--wp-text-primary); }
-.onboarding-coins-art { display:block; width:208px; max-width:100%; height:auto; }
+.onboarding-coins-art { display:block; width:160px; max-width:100%; height:auto; }
 .onboarding-coin-rules { grid-column:1/-1; border-top:1px solid var(--wp-border-subtle); font-size:15px; }
 .onboarding-coin-rules summary { width:fit-content; cursor:pointer; min-height:44px; padding-top:14px; }
 .onboarding-coin-rules ul { margin:0 0 8px; padding-left:20px; }
 .onboarding-coin-rules p { margin:6px 0 0; max-width:72ch; }
-.first-delivery-intro .onboarding-intro-actions { margin-top:16px; gap:8px 20px; }
-.onboarding-intro-actions .cta { padding:12px 22px; font-size:18px; }
-.onboarding-intro-actions .text-link { font-size:16px; }
-@media(max-width:600px) {
-  .page.lesson-player.first-delivery-intro { padding:8px 16px 24px; }
-  .first-delivery-intro .lesson-player-nav { margin-bottom:8px; }
-  .first-delivery-intro .onboarding-intro-copy { margin-bottom:16px; font-size:17px; }
-  .onboarding-coins { grid-template-columns:minmax(0,1fr) 88px; gap:14px; padding:18px 16px; align-items:start; }
+@media(min-width:601px) and (max-width:800px) {
+  .first-delivery-stage { min-height:600px; }
+  .first-delivery-heading h1 { min-height:2.7em; }
+  .onboarding-coins { grid-template-columns:minmax(0,1fr) 88px; gap:14px; align-items:start; }
   .onboarding-coins-copy { display:contents; }
-  .first-delivery-intro .onboarding-coins h2 { grid-column:1; align-self:center; gap:8px; font-size:22px; margin:0; }
+  .first-delivery .onboarding-coins h2 { grid-column:1; align-self:center; margin:0; }
   .onboarding-coins-art { grid-column:2; grid-row:1; width:88px; }
+  .onboarding-coins-copy p { grid-column:1/-1; }
+  .onboarding-coins-copy .onboarding-bonus { margin:0; }
+}
+@media(max-width:600px) {
+  .page.lesson-player.first-delivery { padding:12px 16px 24px; }
+  .first-delivery .lesson-player-nav { margin-bottom:12px; }
+  .first-delivery-stage { min-height:640px; padding:20px 18px; gap:16px; }
+  .first-delivery-heading h1 { min-height:2.7em; }
+  .first-delivery .onboarding-intro-copy { margin-bottom:16px; font-size:17px; }
+  .first-delivery .first-delivery-actions { grid-template-columns:minmax(0,1fr); grid-template-rows:58px 48px; min-height:114px; }
+  .first-delivery-actions .text-link { grid-column:1; grid-row:2; justify-self:stretch; justify-content:center; }
+  .onboarding-coins { grid-template-columns:minmax(0,1fr) 72px; gap:14px; align-items:start; }
+  .onboarding-coins-copy { display:contents; }
+  .first-delivery .onboarding-coins h2 { grid-column:1; align-self:center; gap:8px; font-size:20px; margin:0; }
+  .onboarding-coins-art { grid-column:2; grid-row:1; width:72px; }
   .onboarding-coins-copy p { grid-column:1/-1; font-size:17px; }
   .onboarding-coins-copy .onboarding-bonus { margin:0; font-size:15px; }
   .onboarding-coins .lingocoin { width:30px; height:30px; font-size:18px; }
