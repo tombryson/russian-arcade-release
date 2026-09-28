@@ -77,11 +77,12 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles' 
     </div>
     {step === 0 ? <>
       <h1 ref={heading} tabIndex={-1}>Before we set off…</h1>
+      <p class="onboarding-intro-copy">Practise Russian and help Barsik deliver your letter.</p>
       <div class="onboarding-coins">
         <div class="onboarding-coins-copy">
-          <h2><span class="lingocoin" aria-hidden="true">Л</span>Lingocoins</h2>
-          <p>Earn Lingocoins from activities and flashcards to buy games in <a href="#shop">the shop</a>.</p>
-          <p class="onboarding-bonus">Your first activity earns <strong>3 coins.</strong></p>
+          <h2><span class="lingocoin" aria-hidden="true">Л</span>Earn coins as you learn.</h2>
+          <p>Complete activities and review flashcards to earn Lingocoins. Spend them on new games in <a href="#shop">the shop</a>.</p>
+          <p class="onboarding-bonus">Learn your first three words to earn <strong>3 Lingocoins</strong>.</p>
         </div>
         <img class="onboarding-coins-art" src={settingOffArt} width="1254" height="1254" decoding="async" alt="Barsik holding a Lingocoin." />
         <details class="onboarding-coin-rules"><summary>How do I earn coins?</summary>
