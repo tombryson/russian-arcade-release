@@ -219,6 +219,8 @@ class JourneyGameMediaRouteTests(unittest.TestCase):
 
     def post(self, url, data=None, *, client=None, status=200):
         client = client or self.client
+        if url.startswith('/api/v1/first-steps'):
+            url += '?version=first-steps-v1'
         token = client.get('/api/v1/onboarding').json['csrf_token']
         result = client.post(url, json=data or {}, headers={'X-CSRF-Token': token})
         self.assertEqual(result.status_code, status, result.text)
@@ -235,7 +237,7 @@ class JourneyGameMediaRouteTests(unittest.TestCase):
             self.post(base + 'answer', {'question_id': question['id'], 'answer': question['answer']})
             self.post(base + 'continue', {'question_id': question['id']})
         self.post(base + 'complete')
-        lesson = next(item for item in chapter_content()['lessons'] if item['id'] == 'bag')
+        lesson = next(item for item in chapter_content('first-steps-v1')['lessons'] if item['id'] == 'bag')
         base = '/api/v1/first-steps/bag/'
         self.post(base + 'start')
         for card in lesson['teaching']:

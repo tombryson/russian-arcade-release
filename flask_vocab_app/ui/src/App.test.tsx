@@ -192,6 +192,7 @@ describe('Russian Arcade activity home', () => {
     vi.stubGlobal('fetch', fetch);
     render(<App householdEnabled />);
     await screen.findByRole('heading', { name: 'Your first lesson is complete.' });
+    expect(screen.getByRole('link',{name:'Next lesson: Name what you see'}).getAttribute('href')).toBe('#first-steps/bag?version=first-steps-v2');
     expect(screen.getByRole('link', { name: 'Choose a learner' }).getAttribute('href')).toBe('/post/household');
     expect(fetch.mock.calls.filter(([url])=>url==='/api/v1/household')).toHaveLength(1);
     expect(fetch.mock.calls.every(([url])=>['/api/v1/household','/api/v1/onboarding','/api/v1/onboarding/practice'].includes(url))).toBe(true);
@@ -329,4 +330,19 @@ it('uses the published course welcome for a signed-out visitor',async()=>{
   render(<App initialProfile={null} defaultCourseRelease="a1-journey-v2"/>);
   expect(await screen.findByText('Your first delivery · a little adventure')).toBeTruthy();
   expect(screen.queryByRole('link',{name:/See the journey/})).toBeNull();expect(screen.queryByRole('link',{name:/See all five lessons/})).toBeNull();
+});
+
+it('opens a versioned first-steps history link without falling back to the current lesson',async()=>{
+  window.history.replaceState(null,'','/#first-steps/bag?version=first-steps-v1');
+  const fetch=vi.fn((url:string)=>response(url==='/api/v1/first-steps/bag?version=first-steps-v1' ? {
+    version:'first-steps-v1',profile_id:null,lesson:{id:'bag',position:2,title:'Earlier bag lesson',description:'Saved practice.',href:'#first-steps/bag?version=first-steps-v1',total_lessons:5},
+    attempt:{id:'old-bag',version:'first-steps-v1',phase:'completed',teaching_index:1,total_teaching:1,question_index:1,total_questions:1,teaching:null,question:null,answers:[{question_id:'old-q',answer:'bag',answer_text:'сумка',correct:true,correct_answer:'сумка',feedback:'Your original answer.',hint_used:false,acknowledged:true}],completed_at:1},
+    teaching_cards:[],reward:null,pending_reward:0,next_lesson:null,chapter_complete:false,
+  } : {}));vi.stubGlobal('fetch',fetch);
+  render(<App initialProfile={null} defaultCourseRelease="a1-journey-v2"/>);
+  expect(await screen.findByRole('heading',{name:'Earlier bag lesson'})).toBeTruthy();
+  expect(screen.getByText('Your original answer.')).toBeTruthy();
+  expect(screen.getByRole('link',{name:'First steps',exact:true}).getAttribute('href')).toBe('#first-steps?version=first-steps-v1');
+  expect(fetch.mock.calls.map(([url])=>url)).toContain('/api/v1/first-steps/bag?version=first-steps-v1');
+  expect(fetch.mock.calls.map(([url])=>url)).not.toContain('/api/v1/first-steps/bag');
 });

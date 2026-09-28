@@ -117,6 +117,13 @@ def freeze_evidence(conn, activity, content_key, source_key, target_level, evide
         questions = lesson['questions']
         if acknowledged != [question['id'] for question in questions] or any(question['id'] not in answers for question in questions):
             return result
+        if row[2] == 'first-steps-v2':
+            # The revised introduction checks language immediately after its
+            # teaching cards. English gender labels and audio recognition are
+            # supported practice, never independent Reading/Elo evidence.
+            result.update(basis='guided_intro_practice', lesson_id=row[1], version=row[2],
+                          question_count=len(questions), supported=True)
+            return result
         unassisted = [question for question in questions if not answers[question['id']]['hint_used']]
         result.update({'basis': 'first_unassisted_answers', 'lesson_id': row[1], 'version': row[2],
                        'question_count': len(questions), 'unassisted_count': len(unassisted)})

@@ -34,7 +34,7 @@ def start_sample(game_id, request_id):
         if game_id == 'directions':
             content = build_routes(game, seed, {'source': 'sample', 'rounds': 5, 'word_policy': 'mixed-v1'})
         else:
-            chapter = chapter_content()
+            chapter = chapter_content('first-steps-v1')
             lessons = [dict(lesson, version=chapter['version']) for lesson in chapter['lessons']]
             lesson = dict(next(lesson for lesson in lessons if lesson['id'] == game['lesson_id']), related_lessons=lessons)
             content = _content(game, lesson, seed)

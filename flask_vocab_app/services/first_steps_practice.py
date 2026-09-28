@@ -109,12 +109,12 @@ def _game_word(conn, candidate):
     return resolved
 
 
-def _completed(conn, credential, now):
+def _completed(conn, credential, now, version):
     from services.first_steps import completed_lessons
     access = require_access(conn, credential, now, adult=True)
     if not access['profile_id']:
         raise LearningError('profile_required', 'Choose your profile to save this practice.', 403)
-    return access['profile_id'], completed_lessons(conn, access['profile_id'])
+    return access['profile_id'], completed_lessons(conn, access['profile_id'], version=version)
 
 
 def _selection(lessons, lesson_id):
@@ -128,15 +128,20 @@ def _selection(lessons, lesson_id):
     return selected
 
 
-def create_flashcards(generator, credential, lesson_id):
+def create_flashcards(generator, credential, lesson_id, *, version=None):
     """Freeze authored clozes; the native batch runner supplies all three media."""
+    from services.first_steps import LEGACY_VERSION, chapter_href, lesson_href, resolve_version
+    version = resolve_version(version, lesson_id)
     def source(conn):
-        _, lessons = _completed(conn, credential, generator.clock())
+        _, lessons = _completed(conn, credential, generator.clock(), version)
         selected = _selection(lessons, lesson_id)
         title = 'First steps with Barsik' if lesson_id == 'chapter' else selected[0]['title']
-        url = '/#first-delivery' if lesson_id == 'hello' else '/#first-steps' + ('' if lesson_id == 'chapter' else '/' + lesson_id)
+        url = '/' + (chapter_href(version) if lesson_id == 'chapter' else lesson_href(lesson_id, version))
+        request_prefix = 'first-steps:' + lesson_id
+        if version != LEGACY_VERSION and lesson_id != 'hello':
+            request_prefix += ':' + version
         return ([word for lesson in selected for word in lesson.get('vocabulary', [])],
-                {'lesson_id': lesson_id, 'title': title, 'url': url}, 'first-steps:' + lesson_id)
+                {'lesson_id': lesson_id, 'title': title, 'url': url, 'version': version}, request_prefix)
     return _create_context_flashcards(generator, credential, source)
 
 
@@ -237,13 +242,15 @@ def _create_context_flashcards(generator, credential, source_loader):
     return generator.read(credential, batch_id)
 
 
-def create_word_jumble(db_path, credential, now):
+def create_word_jumble(db_path, credential, now, *, version=None):
     """An ordinary saved Word Jumble game, using language from the chapter."""
+    from services.first_steps import resolve_version
+    version = resolve_version(version)
     with transaction(db_path, write=True) as conn:
-        profile_id, lessons = _completed(conn, credential, now)
+        profile_id, lessons = _completed(conn, credential, now, version)
         _selection(lessons, 'chapter')
         # A repeat click opens the same saved practice instead of making clutter.
-        game_id = 'first-steps-' + payload_hash({'profile': profile_id, 'chapter': 'first-steps-v1'})[:32]
+        game_id = 'first-steps-' + payload_hash({'profile': profile_id, 'chapter': version})[:32]
         if not conn.execute('SELECT 1 FROM word_jumble_games WHERE id=? AND owner_profile_id=?', (game_id, profile_id)).fetchone():
             conn.execute('INSERT INTO word_jumble_games(id,topic,difficulty,words,created_at,owner_profile_id) VALUES (?,?,?,?,?,?)',
                          (game_id, 'first_steps', 'easy', encoded(['это', 'письмо', 'сумка']), datetime.fromtimestamp(now, timezone.utc).isoformat(), profile_id))

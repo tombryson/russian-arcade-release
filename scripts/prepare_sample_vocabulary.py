@@ -45,7 +45,7 @@ def main(argv=None):
         database = str(Path(directory) / 'vocab.db')
         upgrade_database(database, backup=False)
         with transaction(database, write=True) as conn:
-            for lesson in [HELLO, *chapter_content()['lessons']]:
+            for lesson in [HELLO, *chapter_content('first-steps-v1')['lessons']]:
                 for word in lesson['vocabulary']:
                     LessonCards.resolve(conn, {**word, 'surface': word['form']})
         pipeline = SyncService(database, drive_service=object(), api_key=settings['OPENAI_API_KEY'], config=settings)

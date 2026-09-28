@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Feedback, Sheet } from './components';
 import {firstDeliveryState,saveFirstDelivery,type FirstDeliveryAction,type FirstDeliveryState} from './first-delivery-api';
+import {LessonAudio} from './LessonAudio';
 import settingOffArt from './assets/barsik-setting-off-transparent-v2.webp';
 import './styles/tutorial.css';
 
 type NextAction = { href: string; label: string; description: string };
 type RetryRequest={action:FirstDeliveryAction;body:unknown}|{action:'load'};
 
-export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles', courseJourney=false }: { next: NextAction; onIntroduce?: (milestone: 'coins' | 'progress') => void; profileHref?:string;courseJourney?:boolean }) {
+export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles' }: { next: NextAction; onIntroduce?: (milestone: 'coins' | 'progress') => void; profileHref?:string;courseJourney?:boolean }) {
   const [step, setStep] = useState(0);
   const [practice,setPractice]=useState<FirstDeliveryState>();
   const [busy,setBusy]=useState(false);
@@ -102,9 +103,11 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
         <p class="lesson-counter">{`${attempt!.phase==='learn' ? 'Learn' : 'Try'} · Word ${attempt!.question_index+1} of ${attempt!.total_questions}`}</p>
         <h1 class="lesson-task-heading" ref={heading} tabIndex={-1}>{attempt?.phase==='learn' && question.lesson ? question.title : question.prompt}</h1>
         {attempt?.phase==='learn' && question.lesson ? <div class="tutorial-word-card">
-          <p class="tutorial-new-word" lang="ru">{question.lesson.word}</p>
-          <p class="tutorial-word-meaning">{question.lesson.meaning}</p>
+          <p class="tutorial-new-word" lang="ru">{question.lesson.word_display ?? question.lesson.word}</p>
+          <p class="tutorial-word-meaning" lang="en">{question.lesson.meaning}</p>
+          <LessonAudio key={question.id} src={question.lesson.audio_url} label={question.lesson.word}/>
           <p>{question.lesson.explanation}</p>
+          {question.lesson.reading_help && <details class="tutorial-reading-help"><summary>Read this word</summary><p>{question.lesson.reading_help}</p></details>}
           <button class="cta" disabled={busy} onClick={()=>void save('learn',{question_id:question.id})}>{busy ? 'Saving…' : attempt.question_index+1===attempt.total_questions ? 'Try these words' : 'Next word'} <span aria-hidden="true">→</span></button>
         </div> : <>
           {attempt?.phase==='feedback' && feedback ? <>
@@ -113,7 +116,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
             <Feedback>{feedback.feedback}</Feedback>
             <button class="cta" disabled={busy} onClick={()=>void save('continue',{question_id:question.id})}>{busy ? 'Saving…' : attempt.question_index+1===attempt.total_questions ? 'Finish activity' : 'Next word'} <span aria-hidden="true">→</span></button>
           </> : <>
-            <div class="options">{question.choices.map(choice=><button class="word" lang="ru" key={choice.id} disabled={busy} onClick={()=>void save('answer',{question_id:question.id,answer:choice.id})}>{choice.text}</button>)}</div>
+            <div class="options">{question.choices.map(choice=><div class="tutorial-word-choice" key={choice.id}><button class="word" lang="ru" disabled={busy} onClick={()=>void save('answer',{question_id:question.id,answer:choice.id})}>{choice.text}</button><LessonAudio compact src={choice.audio_url} label={choice.text}/></div>)}</div>
             {question.hint ? <Feedback>{question.hint}</Feedback> : <button class="text-link" disabled={busy} onClick={()=>void save('hint',{question_id:question.id})}>Show a hint</button>}
             {busy && <p class="quiet" role="status">Saving…</p>}
           </>}
@@ -122,9 +125,9 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
       <button class="text-link tutorial-back" disabled={busy} onClick={replay}>Back to the introduction</button>
     </> : <>
       <p class="kicker">Hello, Barsik!</p><h1 ref={heading} tabIndex={-1}>Your first lesson is complete.</h1>
-      <Sheet><p>{courseJourney ? 'You’ve met Barsik and practised your first three Russian words. His journey starts at home, with a message from a friend.' : 'You’ve met Barsik and practised your first three Russian words. Next, help him check what’s in his bag.'}</p>
+      <Sheet><p>You’ve met Barsik and practised your first three Russian words. Next, help him check what’s in his bag.</p>
         {practice?.reward && practice.reward.amount>0 && (practice.reward.status==='pending' ? <div class="tutorial-reward"><p><strong>{practice.reward.amount} Lingocoins earned</strong></p><p>{profileHref.startsWith('/post/household') ? 'Choose a learner to start saving your practice.' : 'Create a profile to save your coins and first activity.'}</p><>{profileHref !== next.href && <a class="text-link" href={profileHref}>{profileHref.startsWith('/post/household') ? 'Choose a learner' : 'Create a profile'} <span aria-hidden="true">→</span></a>}</></div> : <div class="tutorial-reward" role="status"><p><strong>{practice.reward.awarded_now ? `+${practice.reward.amount} Lingocoins` : `${practice.reward.amount} Lingocoins earned`}</strong></p><p>{practice.reward.awarded_now ? 'Your first activity bonus is saved.' : 'Your first activity bonus is already saved.'}</p></div>)}
-        {!!practice?.teaching_cards?.length && <details class="coin-rules"><summary>Revisit your first words</summary><ul class="tutorial-answer-review">{practice.teaching_cards.map(item=><li key={item.id}><p><strong lang="ru">{item.word}</strong> · <span lang="en">{item.meaning}</span></p></li>)}</ul></details>}
+        {!!practice?.teaching_cards?.length && <details class="coin-rules"><summary>Revisit your first words</summary><ul class="tutorial-answer-review">{practice.teaching_cards.map(item=><li key={item.id}><p><strong lang="ru">{item.word_display ?? item.word}</strong> · <span lang="en">{item.meaning}</span></p><LessonAudio compact src={item.audio_url} label={item.word}/></li>)}</ul></details>}
         {!!practice?.previous_attempt?.answers.length && <details class="coin-rules"><summary>Earlier first activity</summary><ol class="tutorial-answer-review">{practice.previous_attempt.answers.map(item=><li key={item.question_id}><p><strong>{item.answer_text}</strong></p><p>{item.feedback}</p></li>)}</ol></details>}
       </Sheet>
       <p class="intro">{next.description}</p><div class="action-row"><a class="cta" href={next.href}>{next.label} <span aria-hidden="true">→</span></a><button class="text-link" onClick={replay}>Revisit the introduction</button></div>

@@ -1,5 +1,18 @@
 # First steps with Barsik
 
+The current introduction is `first-steps-v2`: first words, naming objects,
+introductions, noun gender and possessive agreement. See
+[the beginner lesson design](beginner-first-steps.md) for its teaching goals,
+practice sequence and pronunciation support. The first three words retain their
+original saved activity and welcome reward. New lessons do not award independent
+Reading ratings or complete a journey checkpoint.
+
+The earlier edition remains available through
+`/#first-steps?version=first-steps-v1`. Its saved answers, contextual card sources
+and rewards are retained. The following sections describe that earlier edition.
+
+## Earlier introduction: first-steps-v1
+
 This optional five-lesson opening gets Barsik ready to leave the post office with the learner’s letter. The learner meets useful Russian, then uses it to name what he carries, follow directions and ask the clerk for help. Completing it establishes the post-office checkpoint; the letter is still on its way to the learner.
 
 First steps is available to every learner, including existing profiles, and ordinary activities remain direct alternatives. Home shows the learner’s actual next lesson and resumes saved work. Post-office links, including the older journey route, open this chapter rather than a separate introductory quiz.

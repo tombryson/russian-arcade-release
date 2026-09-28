@@ -32,7 +32,7 @@ import sleepingBarsik from './assets/barsik-sleeping-v1.webp';
 import './styles/lesson-player.css';
 
 type Page = 'home' | 'activities' | 'words' | 'practice' | 'assessment' | 'first-delivery' | 'first-steps' | 'flashcards' | 'review' | 'generate' | 'conversation' | 'speech-lab' | 'speaking' | 'journey' | 'game' | 'games' | 'shop';
-type Route = { page: Page; gameId?:string; sessionId?: string; worldId?:string; chapterId?:string; courseReleaseId?:string; checkpointId?:string;coursePracticeId?:string;courseSectionId?:string; wordId?: number; lessonId?: string; topic?:string; scenarioId?:string; speakingLevel?:PracticeLevel; speakingMode?:'fluent'|'step'; canonicalHash?: string };
+type Route = { page: Page; gameId?:string; sessionId?: string; worldId?:string; chapterId?:string; courseReleaseId?:string; checkpointId?:string;coursePracticeId?:string;courseSectionId?:string; wordId?: number; lessonId?: string; firstStepsVersion?:string; topic?:string; scenarioId?:string; speakingLevel?:PracticeLevel; speakingMode?:'fluent'|'step'; canonicalHash?: string };
 function route(): Route {
   const hash = window.location.hash.slice(1);
   const assessment = /^assessment(?:\/([A-Za-z0-9_-]+))?$/.exec(hash);
@@ -41,8 +41,8 @@ function route(): Route {
   if(gameSession)return {page:'game',sessionId:gameSession[1]};
   const game=/^games\/([a-z][a-z0-9-]{1,48})$/.exec(hash);
   if(game)return {page:'game',gameId:game[1]};
-  const firstSteps=/^first-steps(?:\/([a-z-]+))?$/.exec(hash);
-  if (firstSteps) return {page:'first-steps',lessonId:firstSteps[1]};
+  const firstSteps=/^first-steps(?:\/([a-z-]+))?(?:\?(.*))?$/.exec(hash);
+  if (firstSteps) return {page:'first-steps',lessonId:firstSteps[1],firstStepsVersion:new URLSearchParams(firstSteps[2]).get('version') ?? undefined};
   if (hash === 'journey/post-office') return {page:'first-steps',canonicalHash:'#first-steps'};
   const releasedCourse=parseReleasedCourse(hash);
   if(releasedCourse)return {page:'journey',...releasedCourse};
@@ -240,8 +240,8 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
   const resumable = state.home?.sessions.find(item => item.status === 'active' && item.content_status === 'published');
   const nextChapter=progression.data?.course?.chapters.find(chapter=>chapter.id===progression.data?.course?.current_chapter_id);
   const courseJourney=(progression.data?.course?.release_id ?? (signedOut ? defaultCourseRelease : undefined))==='a1-journey-v2';
-  const tutorialNext = courseJourney ? {href:courseHref(progression.data?.course?.release_id ?? defaultCourseRelease,'home'),label:'Start at home',description:'Meet the people helping Barsik prepare for his journey.'} : {
-    href: '#first-steps/bag', label: 'What’s in the bag?',
+  const tutorialNext = {
+    href: '#first-steps/bag?version=first-steps-v2', label: 'Next lesson: Name what you see',
     description: 'Next, help Barsik check his bag before he sets off.',
   };
 
@@ -283,7 +283,7 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
         : state.mode === 'loading' ? <section class="page"><h1 ref={heading} tabIndex={-1}>Opening your activities…</h1><p role="status">Checking your saved learning.</p></section>
         : state.mode === 'error' ? <section class="page"><h1 ref={heading} tabIndex={-1}>Your activities could not open.</h1><p role="alert">{state.error}</p><div class="action-row"><button class="cta" onClick={() => setRefresh(value => value + 1)}>Try again</button>{householdEnabled ? <a href="/post/household">Choose a learner</a> : <a href="#activities">Back to activities</a>}</div></section>
         : location.page === 'game' ? <JourneyGame key={`${profile?.id ?? state.mode}:${location.sessionId ?? location.gameId}`} gameId={location.gameId} sessionId={location.sessionId} profileHref={householdEnabled ? '/post/household' : '/post/profiles'}/>
-        : location.page === 'first-steps' ? <FirstSteps key={`${profile?.id ?? state.mode}:${location.lessonId ?? 'overview'}`} lessonId={location.lessonId} profileHref={householdEnabled ? '/post/household' : '/post/profiles'} />
+        : location.page === 'first-steps' ? <FirstSteps key={`${profile?.id ?? state.mode}:${location.firstStepsVersion ?? ''}:${location.lessonId ?? 'overview'}`} lessonId={location.lessonId} version={location.firstStepsVersion} journeyHref={courseHref(progression.data?.course?.release_id ?? defaultCourseRelease,'home')} profileHref={householdEnabled ? '/post/household' : '/post/profiles'} />
         : location.page === 'shop' ? <GameShop key={profile?.id ?? state.mode} profileHref={householdEnabled ? '/post/household' : '/post/profiles'} />
         : location.page === 'games' ? <section class="page activity-entry games-page"><div class="activity-entry-content"><ActivityHeader title={language === 'ru' ? 'Игры' : 'Games'} description={language === 'ru' ? 'Выберите игру. Новые игры можно открыть в магазине.' : 'Choose a game to play. Unlock more in the shop.'} headingRef={heading} headingTabIndex={-1} actions={<a class="text-link" href="#shop">{language === 'ru' ? 'Магазин' : 'Shop'} <span aria-hidden="true">→</span></a>} /><GameCatalogue key={profile?.id ?? state.mode} context="games" /></div></section>
         : location.page === 'first-delivery' ? <><FirstDelivery key={state.home?.profile.id ?? state.mode} next={tutorialNext} courseJourney={courseJourney} onIntroduce={onboarding.introduce} profileHref={householdEnabled ? "/post/household" : "/post/profiles"} />{onboarding.error && <div class="page onboarding-save-note" role="status"><p>{language==='ru' ? 'Не удалось сохранить знакомство с приложением.' : 'Your introduction could not be saved.'} {onboarding.error}</p><button class="text-link" onClick={()=>void onboarding.retry()}>{language==='ru' ? 'Попробовать ещё раз' : 'Try saving again'}</button></div>}</>

@@ -11,7 +11,7 @@ from services.journey_game_content import DIRECTION_WORDS, NEW_GAMES, PICTURES, 
 
 class JourneyGameContentTests(unittest.TestCase):
     def setUp(self):
-        content = chapter_content()
+        content = chapter_content('first-steps-v1')
         self.lessons = {lesson['id']: deepcopy(lesson) | {'chapter_id': content['id'], 'version': content['version']}
                         for lesson in content['lessons']}
         self.lessons['hello'] = deepcopy(HELLO)

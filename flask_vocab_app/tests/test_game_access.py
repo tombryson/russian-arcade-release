@@ -28,7 +28,7 @@ class GameAccessTests(unittest.TestCase):
         self.app = isolated_app(self, signed_in=False)
         self.client = self.app.test_client()
         self.db = self.app.config['DB_PATH']
-        self.content = chapter_content()
+        self.content = chapter_content('first-steps-v1')
         select_test_profile(self.client)
 
     def receipt(self, conn, amount, activity='reading', profile='personal-learning', *, eligible=1, event=True):

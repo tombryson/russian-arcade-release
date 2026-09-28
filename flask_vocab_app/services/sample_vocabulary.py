@@ -54,7 +54,9 @@ def seed_sample_items(conn, prefix):
     from services.lesson_cards import LessonCards, normal
     from utils.story_processing import get_morph
     items = []
-    for lesson in [HELLO, *chapter_content()['lessons']]:
+    # Keep the published sample collection stable. New lesson words enter via
+    # the normal enrichment and card pipelines when a learner requests them.
+    for lesson in [HELLO, *chapter_content('first-steps-v1')['lessons']]:
         for word in lesson['vocabulary']:
             prepared = prepared_vocabulary().get((word['lemma'], word['pos']))
             if not prepared:

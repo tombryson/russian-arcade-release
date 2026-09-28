@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 from repositories.learning_repository import encoded, transaction
 from services.first_delivery import GUEST_ATTEMPT_KEY, QUESTIONS
-from services.first_steps import CHAPTER_ID, LESSON_IDS, chapter_content, completed_lessons
+from services.first_steps import LEGACY_CHAPTER_ID as CHAPTER_ID, LEGACY_LESSON_IDS as LESSON_IDS, chapter_content, completed_lessons
 from services.progression import award, snapshot
 from tests.support import isolated_app, select_test_profile
 
@@ -16,7 +16,7 @@ class FirstStepsTests(unittest.TestCase):
         self.app = isolated_app(self, signed_in=False)
         self.client = self.app.test_client()
         self.db = self.app.config['DB_PATH']
-        self.content = chapter_content()
+        self.content = chapter_content('first-steps-v1')
 
     def token(self, client=None):
         return (client or self.client).get('/api/v1/onboarding').json['csrf_token']
@@ -28,16 +28,16 @@ class FirstStepsTests(unittest.TestCase):
         return response.json
 
     def post(self, lesson, operation, data=None, *, client=None, status=200):
-        return self.request(f'/api/v1/first-steps/{lesson}/{operation}', data, client=client, status=status)
+        return self.request(f'/api/v1/first-steps/{lesson}/{operation}?version=first-steps-v1', data, client=client, status=status)
 
     def chapter(self, client=None):
-        response = (client or self.client).get('/api/v1/first-steps')
+        response = (client or self.client).get('/api/v1/first-steps?version=first-steps-v1')
         self.assertEqual(response.status_code, 200, response.text)
         self.assertEqual(response.headers['Cache-Control'], 'no-store')
         return response.json
 
     def read(self, lesson, client=None):
-        response = (client or self.client).get('/api/v1/first-steps/' + lesson)
+        response = (client or self.client).get('/api/v1/first-steps/' + lesson + '?version=first-steps-v1')
         self.assertEqual(response.status_code, 200, response.text)
         self.assertEqual(response.headers['Cache-Control'], 'no-store')
         return response.json
@@ -98,7 +98,7 @@ class FirstStepsTests(unittest.TestCase):
         self.assertEqual(chapter['completed_count'], 0)
         self.assertFalse(chapter['complete'])
         self.post('bag', 'start', status=409)
-        self.assertEqual(self.client.get('/api/v1/first-steps/bag').status_code, 409)
+        self.assertEqual(self.client.get('/api/v1/first-steps/bag?version=first-steps-v1').status_code, 409)
         self.assertEqual(self.counts(), before)
         self.hello()
         chapter = self.chapter()
@@ -306,10 +306,10 @@ class FirstStepsTests(unittest.TestCase):
         old_token = self.token()
         self.create_profile('Another')
         self.assertEqual(self.chapter()['completed_count'], 0)
-        self.assertEqual(self.client.get('/api/v1/first-steps', headers={'X-Profile-ID': 'personal-learning'}).status_code, 409)
-        self.assertEqual(self.client.get('/api/v1/first-steps/bag', headers={'X-Profile-ID': 'personal-learning'}).status_code, 409)
-        self.assertEqual(self.client.post('/api/v1/first-steps/bag/start', json={}, headers={'X-CSRF-Token': old_token}).status_code, 403)
-        self.assertEqual(self.client.post('/api/v1/first-steps/bag/start', json={}, headers={'X-CSRF-Token': self.token(), 'X-Profile-ID': 'personal-learning'}).status_code, 409)
+        self.assertEqual(self.client.get('/api/v1/first-steps?version=first-steps-v1', headers={'X-Profile-ID': 'personal-learning'}).status_code, 409)
+        self.assertEqual(self.client.get('/api/v1/first-steps/bag?version=first-steps-v1', headers={'X-Profile-ID': 'personal-learning'}).status_code, 409)
+        self.assertEqual(self.client.post('/api/v1/first-steps/bag/start?version=first-steps-v1', json={}, headers={'X-CSRF-Token': old_token}).status_code, 403)
+        self.assertEqual(self.client.post('/api/v1/first-steps/bag/start?version=first-steps-v1', json={}, headers={'X-CSRF-Token': self.token(), 'X-Profile-ID': 'personal-learning'}).status_code, 409)
         guest = self.app.test_client()
         self.assertEqual(self.chapter(guest)['completed_count'], 0)
         select_test_profile(self.client)
@@ -326,7 +326,7 @@ class FirstStepsTests(unittest.TestCase):
         self.post('bag', 'unknown', status=404)
         self.post('bag', 'start')
         self.post('bag', 'learn', {'teaching_id': []}, status=400)
-        self.assertEqual(self.client.post('/api/v1/first-steps/bag/complete', json={}).status_code, 403)
+        self.assertEqual(self.client.post('/api/v1/first-steps/bag/complete?version=first-steps-v1', json={}).status_code, 403)
         self.prepare('bag')
         for answer in ('unknown', None, 1, [], {}):
             self.post('bag', 'answer', {'question_id': 'bag-name-letter', 'answer': answer}, status=400)
@@ -338,7 +338,7 @@ class FirstStepsTests(unittest.TestCase):
         def command(operation):
             def send(pair):
                 client, token = pair
-                return client.post(f'/api/v1/first-steps/bag/{operation}', json={}, headers={'X-CSRF-Token': token})
+                return client.post(f'/api/v1/first-steps/bag/{operation}?version=first-steps-v1', json={}, headers={'X-CSRF-Token': token})
             with ThreadPoolExecutor(max_workers=2) as pool:
                 responses = list(pool.map(send, zip(clients, tokens)))
             self.assertEqual([response.status_code for response in responses], [200, 200])

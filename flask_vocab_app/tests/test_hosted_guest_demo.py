@@ -342,11 +342,13 @@ class HostedGuestCompositionTests(unittest.TestCase):
     def test_practice_recordings_are_public_and_support_partial_playback(self):
         from hosted import create_hosted_app
         from services.course_targets import practice_catalogue
+        from services.first_steps_audio import authored_clips
         app = create_hosted_app()
         client = app.test_client()
         paths = {item['question']['audio_url'] for item in practice_catalogue()['items']
                  if item['question'].get('audio_url')}
         self.assertEqual(len(paths), 5)
+        paths.update(authored_clips())
         for path in paths:
             for prefix in ('', '/demo'):
                 with self.subTest(path=prefix + path):

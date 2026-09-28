@@ -63,9 +63,31 @@ async function learnWords() {
   fireEvent.click(screen.getByRole('button',{name:'Try these words'}));await screen.findByRole('button',{name:'Привет!'});
 }
 beforeEach(()=>vi.stubGlobal('scrollTo',vi.fn()));
-afterEach(()=>vi.unstubAllGlobals());
+afterEach(()=>{vi.unstubAllGlobals();vi.restoreAllMocks();});
 
 describe('Your first words',()=>{
+  it('offers recorded pronunciation and slow replay alongside the stressed first word',async()=>{
+    vi.spyOn(HTMLMediaElement.prototype,'play').mockResolvedValue();
+    const teaching={...words[0],word_display:'Приве́т!',audio_url:'/static/audio/first-steps-v2/hello-word-hello.mp3',reading_help:'The second syllable is stressed.'};
+    const api=server({...empty(),attempt:attempt({phase:'learn',question:{...question(0,true),lesson:teaching}})});
+    const view=render(<FirstDelivery next={next}/>);
+    expect((await screen.findByText('Приве́т!')).getAttribute('lang')).toBe('ru');
+    expect(screen.getByText('Hello',{exact:true}).getAttribute('lang')).toBe('en');
+    fireEvent.click(screen.getByRole('button',{name:'Slow replay of Привет!'}));
+    await screen.findByRole('button',{name:'Pause Привет!'});
+    expect(view.container.querySelector('audio')!.playbackRate).toBe(.75);
+    expect(screen.getByText('Read this word').closest('details')!.open).toBe(false);
+    expect(api.posts()).toHaveLength(0);
+  });
+  it('lets a learner hear a choice without submitting that answer',async()=>{
+    vi.spyOn(HTMLMediaElement.prototype,'play').mockResolvedValue();
+    const current=question();current.choices=current.choices.map(choice=>({...choice,audio_url:`/static/audio/${choice.id}.mp3`}));
+    const api=server({...empty(),attempt:attempt({question:current})});render(<FirstDelivery next={next}/>);
+    fireEvent.click(await screen.findByRole('button',{name:'Listen to Привет!'}));
+    await screen.findByRole('button',{name:'Pause Привет!'});
+    expect(screen.getByRole('button',{name:'Привет!',exact:true})).toBeTruthy();
+    expect(api.posts()).toHaveLength(0);expect(api.state.value.attempt?.answers).toEqual([]);
+  });
   it('introduces coins then progress without a dummy quiz or an early reward',async()=>{
     const api=server();const onIntroduce=vi.fn();render(<FirstDelivery next={next} onIntroduce={onIntroduce} courseJourney />);
     expect(screen.getByRole('link',{name:'First steps'}).getAttribute('href')).toBe('#first-steps');

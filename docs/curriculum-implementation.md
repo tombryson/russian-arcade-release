@@ -1,5 +1,29 @@
 # Curriculum implementation status
 
+## Introductory foundation sequence — 28 September 2026
+
+The revised five-lesson introduction teaches first words, naming objects,
+introductions, noun gender and possessive agreement in that order. Both the home
+ticket and the first lesson's completion link continue through the five lessons
+before offering the journey. See [the lesson design](beginner-first-steps.md).
+
+`first-steps-v2` uses a separate chapter identity in the existing attempt table.
+The original edition, saved answers and vocabulary sources remain available.
+Lesson one reuses its existing completion and welcome reward. New introductory
+practice earns ordinary participation coins, but is not independent skill
+evidence or a passed journey checkpoint. The audio preparation command uses the
+existing speech provider; playback makes no AI call.
+
+Release status: the lesson content, API and interface are implemented locally.
+The 21 recordings still need to be generated and checked. ElevenLabs has 92
+characters available; this set needs 291. Keep the deployed version unchanged
+until the recordings and browser playback checks pass.
+
+The introduction does not teach all the grammar in Leaving home. Location
+endings, relatives and more complex listening still need a gradual teaching
+sequence after these foundations. The existing focused practice remains
+available; completion of the introduction is not proof of A1 proficiency.
+
 ## Beginner practice revision — 28 September 2026
 
 The introduction now shows one recap of the first three words. The eight

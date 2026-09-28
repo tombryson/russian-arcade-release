@@ -18,6 +18,7 @@ class FirstStepsPracticeTests(unittest.TestCase):
         self.db=self.app.config['DB_PATH'];self.gen=self.app.extensions['learning']['generator']
 
     def post(self,path,data=None,status=200):
+        if path.startswith('/api/v1/first-steps') and '?' not in path:path += '?version=first-steps-v1'
         result=self.client.post(path,json=data or {},headers={'X-CSRF-Token':self.csrf})
         self.assertEqual(result.status_code,status,result.text)
         return result.json
@@ -34,7 +35,7 @@ class FirstStepsPracticeTests(unittest.TestCase):
 
     def chapter(self):
         self.hello()
-        for lesson in chapter_content()['lessons']:
+        for lesson in chapter_content('first-steps-v1')['lessons']:
             base='/api/v1/first-steps/'+lesson['id']+'/'
             self.post(base+'start')
             for t in lesson['teaching']:self.post(base+'learn',{'teaching_id':t['id']})

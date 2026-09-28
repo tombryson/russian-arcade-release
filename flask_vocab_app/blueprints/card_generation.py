@@ -25,7 +25,7 @@ def create_card_generation_blueprint(generator, authoring):
         from services.first_steps_practice import create_flashcards
         if body():
             raise LearningError('invalid_input', 'Use the words from this lesson.')
-        return jsonify(create_flashcards(generator, access_id(), lesson_id)), 201
+        return jsonify(create_flashcards(generator, access_id(), lesson_id, version=request.args.get('version'))), 201
 
     @bp.post('/api/v1/first-steps/practice/word-jumble')
     @access_policy('adult')
@@ -33,7 +33,7 @@ def create_card_generation_blueprint(generator, authoring):
         from services.first_steps_practice import create_word_jumble
         if body():
             raise LearningError('invalid_input', 'Use the words from this chapter.')
-        return jsonify(create_word_jumble(generator.db_path, access_id(), generator.clock())), 201
+        return jsonify(create_word_jumble(generator.db_path, access_id(), generator.clock(), version=request.args.get('version'))), 201
 
     @bp.post('/api/v1/games/sessions/<session_id>/flashcards')
     @access_policy('adult')

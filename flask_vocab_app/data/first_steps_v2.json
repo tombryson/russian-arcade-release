@@ -1,0 +1,994 @@
+{
+  "id": "first-steps-v2",
+  "version": "first-steps-v2",
+  "title": "First steps with Barsik",
+  "description": "Five short lessons: learn your first words, name things, introduce yourself and say what is yours.",
+  "first_lesson": {
+    "id": "hello",
+    "position": 1,
+    "source": "first-delivery-v2",
+    "title": "Hello, Barsik!",
+    "description": "Learn hello, letter and thank you, then try your first Russian words.",
+    "vocabulary": [
+      {
+        "lemma": "привет",
+        "form": "Привет",
+        "pos": "INTJ",
+        "sentence": "Привет, Барсик!",
+        "translation": "Hello, Barsik!",
+        "target_meaning": "hello",
+        "grammar": {}
+      },
+      {
+        "lemma": "письмо",
+        "form": "письмо",
+        "pos": "NOUN",
+        "sentence": "Это письмо.",
+        "translation": "This is a letter.",
+        "target_meaning": "a letter",
+        "grammar": {
+          "case": "nomn",
+          "number": "sing",
+          "gender": "neut",
+          "animacy": "inan"
+        }
+      },
+      {
+        "lemma": "спасибо",
+        "form": "Спасибо",
+        "pos": "INTJ",
+        "sentence": "Спасибо, Барсик!",
+        "translation": "Thank you, Barsik!",
+        "target_meaning": "thank you",
+        "grammar": {}
+      }
+    ]
+  },
+  "lessons": [
+    {
+      "id": "bag",
+      "position": 2,
+      "title": "Name what you see",
+      "description": "Use это to name a letter, a bag, a house and a map.",
+      "resolution": "You can name four things with это. Next, learn how to introduce yourself.",
+      "teaching": [
+        {
+          "id": "bag-letter",
+          "title": "Say what something is",
+          "word": "Это письмо.",
+          "meaning": "This is a letter.",
+          "explanation": "Это means “this is”. Add the name of the thing. Russian needs no separate word for “is” in this sentence.",
+          "audio_text": "Это письмо.",
+          "audio_url": "/static/audio/first-steps-v2/bag-letter.mp3",
+          "word_display": "Э́то письмо́.",
+          "reading_help": "EH-tuh pees-MOH",
+          "visual": "letter"
+        },
+        {
+          "id": "bag-bag",
+          "title": "Name the bag",
+          "word": "Это сумка.",
+          "meaning": "This is a bag.",
+          "explanation": "Сумка means “a bag”. Use the same pattern: это + the thing you are naming.",
+          "audio_text": "Это сумка.",
+          "audio_url": "/static/audio/first-steps-v2/bag-bag.mp3",
+          "word_display": "Э́то су́мка.",
+          "reading_help": "EH-tuh SOOM-kuh",
+          "visual": "bag"
+        },
+        {
+          "id": "bag-house",
+          "title": "Name the house",
+          "word": "Это дом.",
+          "meaning": "This is a house.",
+          "explanation": "Дом means “a house” or “home”. Here you are naming a house.",
+          "audio_text": "Это дом.",
+          "audio_url": "/static/audio/first-steps-v2/bag-house.mp3",
+          "word_display": "Э́то дом.",
+          "reading_help": "EH-tuh dohm",
+          "visual": "house"
+        },
+        {
+          "id": "bag-map",
+          "title": "Name the map",
+          "word": "Это карта.",
+          "meaning": "This is a map.",
+          "explanation": "Карта means “a map” here. You can name it with это too.",
+          "audio_text": "Это карта.",
+          "audio_url": "/static/audio/first-steps-v2/bag-map.mp3",
+          "word_display": "Э́то ка́рта.",
+          "reading_help": "EH-tuh KAR-tuh",
+          "visual": "map"
+        }
+      ],
+      "questions": [
+        {
+          "id": "bag-name-letter",
+          "prompt": "Name the letter.",
+          "choices": [
+            {
+              "id": "letter",
+              "text": "Это письмо."
+            },
+            {
+              "id": "bag",
+              "text": "Это сумка."
+            }
+          ],
+          "answer": "letter",
+          "hint": "Письмо means “a letter”. Это means “this is”.",
+          "feedback": "Это письмо means “This is a letter”.",
+          "choices_language": "ru",
+          "visual": "letter"
+        },
+        {
+          "id": "bag-name-bag",
+          "prompt": "Name the bag.",
+          "choices": [
+            {
+              "id": "house",
+              "text": "Это дом."
+            },
+            {
+              "id": "bag",
+              "text": "Это сумка."
+            },
+            {
+              "id": "letter",
+              "text": "Это письмо."
+            }
+          ],
+          "answer": "bag",
+          "hint": "Сумка means “a bag”.",
+          "feedback": "Это сумка means “This is a bag”.",
+          "choices_language": "ru",
+          "visual": "bag"
+        },
+        {
+          "id": "bag-name-house",
+          "prompt": "Name the house.",
+          "choices": [
+            {
+              "id": "map",
+              "text": "Это карта."
+            },
+            {
+              "id": "letter",
+              "text": "Это письмо."
+            },
+            {
+              "id": "house",
+              "text": "Это дом."
+            }
+          ],
+          "answer": "house",
+          "hint": "Дом is the word for a house.",
+          "feedback": "Это дом means “This is a house”.",
+          "choices_language": "ru",
+          "visual": "house"
+        },
+        {
+          "id": "bag-name-map",
+          "prompt": "Name the map.",
+          "choices": [
+            {
+              "id": "bag",
+              "text": "Это сумка."
+            },
+            {
+              "id": "map",
+              "text": "Это карта."
+            },
+            {
+              "id": "house",
+              "text": "Это дом."
+            }
+          ],
+          "answer": "map",
+          "hint": "Карта means “a map” here.",
+          "feedback": "Это карта means “This is a map”.",
+          "choices_language": "ru",
+          "visual": "map"
+        },
+        {
+          "id": "bag-listen-object",
+          "prompt": "Listen. Which thing did you hear?",
+          "choices": [
+            {
+              "id": "map",
+              "text": "карта"
+            },
+            {
+              "id": "bag",
+              "text": "сумка"
+            },
+            {
+              "id": "letter",
+              "text": "письмо"
+            }
+          ],
+          "answer": "bag",
+          "hint": "Listen for the word after это. You can replay the recording.",
+          "feedback": "The speaker says «Это сумка» — “This is a bag”.",
+          "choices_language": "ru",
+          "audio_text": "Это сумка.",
+          "transcript": "Это сумка.",
+          "audio_url": "/static/audio/first-steps-v2/bag-listen-object.mp3"
+        }
+      ],
+      "vocabulary": [
+        {
+          "lemma": "письмо",
+          "form": "письмо",
+          "pos": "NOUN",
+          "sentence": "Это письмо.",
+          "translation": "This is a letter.",
+          "target_meaning": "a letter",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "neut",
+            "animacy": "inan"
+          }
+        },
+        {
+          "lemma": "сумка",
+          "form": "сумка",
+          "pos": "NOUN",
+          "sentence": "Это сумка.",
+          "translation": "This is a bag.",
+          "target_meaning": "a bag",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "femn",
+            "animacy": "inan"
+          }
+        },
+        {
+          "lemma": "дом",
+          "form": "дом",
+          "pos": "NOUN",
+          "sentence": "Это дом.",
+          "translation": "This is a house.",
+          "target_meaning": "a house",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "masc",
+            "animacy": "inan"
+          }
+        },
+        {
+          "lemma": "карта",
+          "form": "карта",
+          "pos": "NOUN",
+          "sentence": "Это карта.",
+          "translation": "This is a map.",
+          "target_meaning": "a map",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "femn",
+            "animacy": "inan"
+          }
+        }
+      ]
+    },
+    {
+      "id": "introductions",
+      "position": 3,
+      "title": "Introduce yourself",
+      "description": "Say your name and ask for someone else’s.",
+      "resolution": "You can introduce yourself with Меня зовут… and ask А тебя? Next, look at the words for things you already know.",
+      "teaching": [
+        {
+          "id": "introductions-name",
+          "title": "Say your name",
+          "word": "Меня зовут Дима.",
+          "meaning": "My name is Dima.",
+          "explanation": "Меня зовут… means “My name is…”. Keep those two words together and put your name after them. Dima is the example name.",
+          "audio_text": "Меня зовут Дима.",
+          "audio_url": "/static/audio/first-steps-v2/introductions-name.mp3",
+          "word_display": "Меня́ зову́т Ди́ма.",
+          "reading_help": "mee-NYA zah-VOOT DEE-muh",
+          "visual": "dialogue",
+          "name_slot": true
+        },
+        {
+          "id": "introductions-ask",
+          "title": "Ask for their name",
+          "word": "А тебя?",
+          "meaning": "And yours?",
+          "explanation": "After saying your name, use А тебя? to ask a friend for theirs. Learn it as one short question.",
+          "audio_text": "А тебя?",
+          "audio_url": "/static/audio/first-steps-v2/introductions-ask.mp3",
+          "word_display": "А тебя́?",
+          "reading_help": "ah tee-BYA",
+          "visual": "dialogue"
+        },
+        {
+          "id": "introductions-exchange",
+          "title": "Put the exchange together",
+          "word": "Меня зовут Дима. А тебя? Меня зовут Аня.",
+          "meaning": "My name is Dima. And yours? My name is Anya.",
+          "explanation": "The first person gives their name and asks back. The second person uses the same phrase with a different name.",
+          "audio_text": "Меня зовут Дима. А тебя? Меня зовут Аня.",
+          "audio_url": "/static/audio/first-steps-v2/introductions-exchange.mp3",
+          "word_display": "Меня́ зову́т Ди́ма. А тебя́? Меня́ зову́т А́ня.",
+          "reading_help": "AH-nyuh is the name Аня.",
+          "visual": "dialogue",
+          "examples": [
+            {
+              "ru": "— Меня зовут Дима. А тебя?",
+              "en": "— My name is Dima. And yours?"
+            },
+            {
+              "ru": "— Меня зовут Аня.",
+              "en": "— My name is Anya."
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "introductions-name-phrase",
+          "prompt": "Which phrase starts “My name is…”?",
+          "choices": [
+            {
+              "id": "name",
+              "text": "Меня зовут…"
+            },
+            {
+              "id": "thing",
+              "text": "Это…"
+            }
+          ],
+          "answer": "name",
+          "hint": "Меня зовут… is the whole phrase used before your name.",
+          "feedback": "Меня зовут… starts an introduction. Это… names a thing.",
+          "choices_language": "ru"
+        },
+        {
+          "id": "introductions-read-name",
+          "prompt": "What is this person’s name?",
+          "choices": [
+            {
+              "id": "anya",
+              "text": "Аня"
+            },
+            {
+              "id": "dima",
+              "text": "Дима"
+            }
+          ],
+          "answer": "dima",
+          "hint": "The name comes after Меня зовут.",
+          "feedback": "The name after Меня зовут is Дима: Dima.",
+          "choices_language": "ru",
+          "passage": "Меня зовут Дима."
+        },
+        {
+          "id": "introductions-ask-back",
+          "prompt": "You have said your name. Ask a friend for theirs.",
+          "choices": [
+            {
+              "id": "thanks",
+              "text": "Спасибо!"
+            },
+            {
+              "id": "question",
+              "text": "А тебя?"
+            },
+            {
+              "id": "greeting",
+              "text": "Привет!"
+            }
+          ],
+          "answer": "question",
+          "hint": "А тебя? means “And yours?” in this exchange.",
+          "feedback": "А тебя? asks for the other person’s name after you have given yours.",
+          "choices_language": "ru"
+        },
+        {
+          "id": "introductions-listen-name",
+          "prompt": "Listen. Which name did you hear?",
+          "choices": [
+            {
+              "id": "dima",
+              "text": "Дима"
+            },
+            {
+              "id": "anya",
+              "text": "Аня"
+            }
+          ],
+          "answer": "anya",
+          "hint": "Listen for the name after Меня зовут. Replay the recording if you need to.",
+          "feedback": "The speaker says «Меня зовут Аня» — “My name is Anya”.",
+          "choices_language": "ru",
+          "audio_text": "Привет! Меня зовут Аня.",
+          "transcript": "Привет! Меня зовут Аня.",
+          "audio_url": "/static/audio/first-steps-v2/introductions-listen-name.mp3"
+        },
+        {
+          "id": "introductions-answer",
+          "prompt": "Dima asks for a name. Which reply introduces someone?",
+          "choices": [
+            {
+              "id": "object",
+              "text": "Привет! Это карта."
+            },
+            {
+              "id": "name",
+              "text": "Привет! Меня зовут Аня."
+            }
+          ],
+          "answer": "name",
+          "hint": "An introduction uses Меня зовут… followed by a name.",
+          "feedback": "Привет! Меня зовут Аня means “Hello! My name is Anya”. You can use the same phrase with your own name.",
+          "choices_language": "ru",
+          "passage": "— Меня зовут Дима. А тебя?"
+        }
+      ],
+      "vocabulary": [
+        {
+          "lemma": "я",
+          "form": "Меня",
+          "pos": "NPRO",
+          "sentence": "Меня зовут Дима.",
+          "translation": "My name is Dima.",
+          "target_meaning": "me, in the phrase “my name is”",
+          "grammar": {
+            "case": "accs",
+            "number": "sing",
+            "person": "1per"
+          }
+        },
+        {
+          "lemma": "звать",
+          "form": "зовут",
+          "pos": "VERB",
+          "sentence": "Меня зовут Дима.",
+          "translation": "My name is Dima.",
+          "target_meaning": "call, in the phrase “my name is”",
+          "grammar": {
+            "number": "plur",
+            "person": "3per",
+            "tense": "pres",
+            "mood": "indc",
+            "aspect": "impf"
+          }
+        },
+        {
+          "lemma": "ты",
+          "form": "тебя",
+          "pos": "NPRO",
+          "sentence": "Меня зовут Дима. А тебя?",
+          "translation": "My name is Dima. And yours?",
+          "target_meaning": "you, in the question “and yours?”",
+          "grammar": {
+            "case": "accs",
+            "number": "sing",
+            "person": "2per"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gender",
+      "position": 4,
+      "title": "Noun gender",
+      "description": "Learn the three noun groups using words you already know.",
+      "resolution": "Дом is masculine, сумка and карта are feminine, and письмо is neuter. Next, use these groups to say “my”.",
+      "teaching": [
+        {
+          "id": "gender-groups",
+          "title": "Three noun groups",
+          "word": "Дом. Сумка. Письмо.",
+          "meaning": "A house. A bag. A letter.",
+          "explanation": "A noun names a person, place or thing. Russian nouns have a grammatical gender: masculine, feminine or neuter. Learn the group with the word.",
+          "audio_text": "Дом. Сумка. Письмо.",
+          "audio_url": "/static/audio/first-steps-v2/gender-groups.mp3",
+          "word_display": "Дом. Су́мка. Письмо́.",
+          "reading_help": "dohm · SOOM-kuh · pees-MOH",
+          "examples": [
+            {
+              "ru": "дом",
+              "en": "a house · masculine"
+            },
+            {
+              "ru": "сумка",
+              "en": "a bag · feminine"
+            },
+            {
+              "ru": "письмо",
+              "en": "a letter · neuter"
+            }
+          ]
+        },
+        {
+          "id": "gender-masculine",
+          "title": "Masculine: дом",
+          "word": "Дом.",
+          "meaning": "A house · masculine",
+          "explanation": "Дом is masculine. It ends in the consonant м (m). Many nouns ending in a consonant belong to this group.",
+          "audio_text": "Дом.",
+          "audio_url": "/static/audio/first-steps-v2/gender-masculine.mp3",
+          "word_display": "Дом.",
+          "reading_help": "dohm",
+          "visual": "house"
+        },
+        {
+          "id": "gender-feminine",
+          "title": "Feminine: сумка and карта",
+          "word": "Сумка. Карта.",
+          "meaning": "A bag. A map. · feminine",
+          "explanation": "Сумка and карта are feminine. Both end in -а, a common feminine ending. Look at the ending of each word.",
+          "audio_text": "Сумка. Карта.",
+          "audio_url": "/static/audio/first-steps-v2/gender-feminine.mp3",
+          "word_display": "Су́мка. Ка́рта.",
+          "reading_help": "SOOM-kuh · KAR-tuh",
+          "examples": [
+            {
+              "ru": "сумка",
+              "en": "a bag · feminine"
+            },
+            {
+              "ru": "карта",
+              "en": "a map · feminine"
+            }
+          ]
+        },
+        {
+          "id": "gender-neuter",
+          "title": "Neuter: письмо",
+          "word": "Письмо.",
+          "meaning": "A letter · neuter",
+          "explanation": "Письмо is neuter. It ends in -о, a common neuter ending. Grammatical gender belongs to the noun; it does not depend on who is speaking.",
+          "audio_text": "Письмо.",
+          "audio_url": "/static/audio/first-steps-v2/gender-neuter.mp3",
+          "word_display": "Письмо́.",
+          "reading_help": "pees-MOH",
+          "visual": "letter"
+        }
+      ],
+      "questions": [
+        {
+          "id": "gender-house",
+          "prompt": "Which group does дом belong to?",
+          "choices": [
+            {
+              "id": "masculine",
+              "text": "Masculine"
+            },
+            {
+              "id": "feminine",
+              "text": "Feminine"
+            },
+            {
+              "id": "neuter",
+              "text": "Neuter"
+            }
+          ],
+          "answer": "masculine",
+          "hint": "Дом ends in the consonant м. You learned it as a masculine noun.",
+          "feedback": "Дом is masculine. Its consonant ending follows the pattern you have just learned.",
+          "choices_language": "en",
+          "passage": "дом",
+          "visual": "house"
+        },
+        {
+          "id": "gender-bag",
+          "prompt": "Which group does сумка belong to?",
+          "choices": [
+            {
+              "id": "neuter",
+              "text": "Neuter"
+            },
+            {
+              "id": "feminine",
+              "text": "Feminine"
+            },
+            {
+              "id": "masculine",
+              "text": "Masculine"
+            }
+          ],
+          "answer": "feminine",
+          "hint": "Look at the final -а in сумка.",
+          "feedback": "Сумка is feminine. It has the common feminine ending -а.",
+          "choices_language": "en",
+          "passage": "сумка",
+          "visual": "bag"
+        },
+        {
+          "id": "gender-letter",
+          "prompt": "Which group does письмо belong to?",
+          "choices": [
+            {
+              "id": "feminine",
+              "text": "Feminine"
+            },
+            {
+              "id": "masculine",
+              "text": "Masculine"
+            },
+            {
+              "id": "neuter",
+              "text": "Neuter"
+            }
+          ],
+          "answer": "neuter",
+          "hint": "Look at the final -о in письмо.",
+          "feedback": "Письмо is neuter. It has the common neuter ending -о.",
+          "choices_language": "en",
+          "passage": "письмо",
+          "visual": "letter"
+        },
+        {
+          "id": "gender-map",
+          "prompt": "Which group does карта belong to?",
+          "choices": [
+            {
+              "id": "feminine",
+              "text": "Feminine"
+            },
+            {
+              "id": "neuter",
+              "text": "Neuter"
+            },
+            {
+              "id": "masculine",
+              "text": "Masculine"
+            }
+          ],
+          "answer": "feminine",
+          "hint": "Карта ends in -а, just like сумка.",
+          "feedback": "Карта is feminine, like сумка. Both have the ending -а.",
+          "choices_language": "en",
+          "passage": "карта",
+          "visual": "map"
+        },
+        {
+          "id": "gender-match-group",
+          "prompt": "Сумка is feminine. Choose another noun from the same group.",
+          "choices": [
+            {
+              "id": "letter",
+              "text": "письмо"
+            },
+            {
+              "id": "house",
+              "text": "дом"
+            },
+            {
+              "id": "map",
+              "text": "карта"
+            }
+          ],
+          "answer": "map",
+          "hint": "Compare the endings of the three words with сумка.",
+          "feedback": "Карта and сумка are both feminine nouns. They share the ending -а.",
+          "choices_language": "ru"
+        }
+      ],
+      "vocabulary": [
+        {
+          "lemma": "письмо",
+          "form": "письмо",
+          "pos": "NOUN",
+          "sentence": "Это письмо.",
+          "translation": "This is a letter.",
+          "target_meaning": "a letter",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "neut",
+            "animacy": "inan"
+          }
+        },
+        {
+          "lemma": "сумка",
+          "form": "сумка",
+          "pos": "NOUN",
+          "sentence": "Это сумка.",
+          "translation": "This is a bag.",
+          "target_meaning": "a bag",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "femn",
+            "animacy": "inan"
+          }
+        },
+        {
+          "lemma": "дом",
+          "form": "дом",
+          "pos": "NOUN",
+          "sentence": "Это дом.",
+          "translation": "This is a house.",
+          "target_meaning": "a house",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "masc",
+            "animacy": "inan"
+          }
+        },
+        {
+          "lemma": "карта",
+          "form": "карта",
+          "pos": "NOUN",
+          "sentence": "Это карта.",
+          "translation": "This is a map.",
+          "target_meaning": "a map",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "femn",
+            "animacy": "inan"
+          }
+        }
+      ],
+      "title_ru": "Род существительных"
+    },
+    {
+      "id": "ownership",
+      "position": 5,
+      "title": "Say what is yours",
+      "description": "Choose мой, моя or моё to match the thing you are talking about.",
+      "resolution": "You can greet someone, introduce yourself, name familiar things and say which are yours. These are your first building blocks for Russian.",
+      "teaching": [
+        {
+          "id": "ownership-masculine",
+          "title": "“My” with a masculine noun",
+          "word": "Мой дом.",
+          "meaning": "My house.",
+          "explanation": "Russian has different forms of “my”. The form matches the noun. Дом is masculine, so use мой: мой дом.",
+          "audio_text": "Мой дом.",
+          "audio_url": "/static/audio/first-steps-v2/ownership-masculine.mp3",
+          "word_display": "Мой дом.",
+          "reading_help": "moy dohm",
+          "visual": "house"
+        },
+        {
+          "id": "ownership-feminine",
+          "title": "“My” with a feminine noun",
+          "word": "Моя сумка.",
+          "meaning": "My bag.",
+          "explanation": "Сумка is feminine, so use моя: моя сумка. This is true whoever is speaking.",
+          "audio_text": "Моя сумка.",
+          "audio_url": "/static/audio/first-steps-v2/ownership-feminine.mp3",
+          "word_display": "Моя́ су́мка.",
+          "reading_help": "mah-YA SOOM-kuh",
+          "visual": "bag"
+        },
+        {
+          "id": "ownership-neuter",
+          "title": "“My” with a neuter noun",
+          "word": "Моё письмо.",
+          "meaning": "My letter.",
+          "explanation": "Письмо is neuter, so use моё: моё письмо. Listen to the ё in моё; it sounds like “yo”.",
+          "audio_text": "Моё письмо.",
+          "audio_url": "/static/audio/first-steps-v2/ownership-neuter.mp3",
+          "word_display": "Моё письмо́.",
+          "reading_help": "mah-YO pees-MOH",
+          "visual": "letter"
+        },
+        {
+          "id": "ownership-worked",
+          "title": "Build the sentence",
+          "word": "Это моя сумка.",
+          "meaning": "This is my bag.",
+          "explanation": "Start with сумка: it is feminine. Choose моя to match it. Add это to name the thing: Это моя сумка.",
+          "audio_text": "Это моя сумка.",
+          "audio_url": "/static/audio/first-steps-v2/ownership-worked.mp3",
+          "word_display": "Э́то моя́ су́мка.",
+          "reading_help": "EH-tuh mah-YA SOOM-kuh",
+          "visual": "bag",
+          "examples": [
+            {
+              "ru": "мой дом",
+              "en": "my house · masculine"
+            },
+            {
+              "ru": "моя сумка",
+              "en": "my bag · feminine"
+            },
+            {
+              "ru": "моё письмо",
+              "en": "my letter · neuter"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "ownership-guided-house",
+          "prompt": "Дом is masculine. Complete “This is my house.”",
+          "choices": [
+            {
+              "id": "feminine",
+              "text": "моя"
+            },
+            {
+              "id": "masculine",
+              "text": "мой"
+            },
+            {
+              "id": "neuter",
+              "text": "моё"
+            }
+          ],
+          "answer": "masculine",
+          "hint": "Match “my” to дом: a masculine noun uses мой.",
+          "feedback": "Это мой дом. Дом is masculine, so “my” takes the form мой.",
+          "choices_language": "ru",
+          "passage": "Это [...] дом.",
+          "visual": "house"
+        },
+        {
+          "id": "ownership-guided-bag",
+          "prompt": "Сумка is feminine. Complete “This is my bag.”",
+          "choices": [
+            {
+              "id": "neuter",
+              "text": "моё"
+            },
+            {
+              "id": "masculine",
+              "text": "мой"
+            },
+            {
+              "id": "feminine",
+              "text": "моя"
+            }
+          ],
+          "answer": "feminine",
+          "hint": "Match “my” to сумка: a feminine noun uses моя.",
+          "feedback": "Это моя сумка. Сумка is feminine, so use моя.",
+          "choices_language": "ru",
+          "passage": "Это [...] сумка.",
+          "visual": "bag"
+        },
+        {
+          "id": "ownership-letter",
+          "prompt": "Complete “This is my letter.”",
+          "choices": [
+            {
+              "id": "neuter",
+              "text": "моё"
+            },
+            {
+              "id": "feminine",
+              "text": "моя"
+            },
+            {
+              "id": "masculine",
+              "text": "мой"
+            }
+          ],
+          "answer": "neuter",
+          "hint": "Письмо is neuter. Which form of “my” did you learn with neuter nouns?",
+          "feedback": "Это моё письмо. Письмо is neuter, so use моё.",
+          "choices_language": "ru",
+          "passage": "Это [...] письмо.",
+          "visual": "letter"
+        },
+        {
+          "id": "ownership-map",
+          "prompt": "Complete “This is my map.”",
+          "choices": [
+            {
+              "id": "masculine",
+              "text": "мой"
+            },
+            {
+              "id": "feminine",
+              "text": "моя"
+            },
+            {
+              "id": "neuter",
+              "text": "моё"
+            }
+          ],
+          "answer": "feminine",
+          "hint": "Карта belongs to the same group as сумка. Use the same form of “my”.",
+          "feedback": "Это моя карта. Карта is feminine, just like сумка, so use моя.",
+          "choices_language": "ru",
+          "passage": "Это [...] карта.",
+          "visual": "map"
+        },
+        {
+          "id": "ownership-introduce-letter",
+          "prompt": "Which introduction says that the letter belongs to the speaker?",
+          "choices": [
+            {
+              "id": "bag",
+              "text": "Привет! Меня зовут Аня. Это моя сумка."
+            },
+            {
+              "id": "letter",
+              "text": "Привет! Меня зовут Аня. Это моё письмо."
+            },
+            {
+              "id": "house",
+              "text": "Привет! Меня зовут Аня. Это мой дом."
+            }
+          ],
+          "answer": "letter",
+          "hint": "All three replies introduce Anya. Choose the one about письмо, the letter.",
+          "feedback": "Привет! Меня зовут Аня. Это моё письмо. “Hello! My name is Anya. This is my letter.” You can change the example name to your own.",
+          "choices_language": "ru"
+        },
+        {
+          "id": "ownership-listen-exchange",
+          "prompt": "Listen. Which item does Dima say is his?",
+          "choices": [
+            {
+              "id": "bag",
+              "text": "сумка"
+            },
+            {
+              "id": "letter",
+              "text": "письмо"
+            },
+            {
+              "id": "map",
+              "text": "карта"
+            }
+          ],
+          "answer": "map",
+          "hint": "Listen for the noun after Это моя. Replay the recording if you need to.",
+          "feedback": "Dima says «Это моя карта» — “This is my map”.",
+          "choices_language": "ru",
+          "audio_text": "Привет! Меня зовут Дима. Это моя карта. Спасибо!",
+          "transcript": "Привет! Меня зовут Дима. Это моя карта. Спасибо!",
+          "audio_url": "/static/audio/first-steps-v2/ownership-listen-exchange.mp3"
+        }
+      ],
+      "vocabulary": [
+        {
+          "lemma": "мой",
+          "form": "мой",
+          "pos": "ADJF",
+          "sentence": "Это мой дом.",
+          "translation": "This is my house.",
+          "target_meaning": "my",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "masc"
+          }
+        },
+        {
+          "lemma": "мой",
+          "form": "моя",
+          "pos": "ADJF",
+          "sentence": "Это моя сумка.",
+          "translation": "This is my bag.",
+          "target_meaning": "my",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "femn"
+          }
+        },
+        {
+          "lemma": "мой",
+          "form": "моё",
+          "pos": "ADJF",
+          "sentence": "Это моё письмо.",
+          "translation": "This is my letter.",
+          "target_meaning": "my",
+          "grammar": {
+            "case": "nomn",
+            "number": "sing",
+            "gender": "neut"
+          }
+        }
+      ]
+    }
+  ]
+}

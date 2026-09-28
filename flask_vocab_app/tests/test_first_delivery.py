@@ -5,6 +5,7 @@ from unittest.mock import patch
 
 from repositories.learning_repository import encoded, transaction
 from services.first_delivery import GUEST_ATTEMPT_KEY, QUESTIONS, V1_QUESTIONS, VERSION, claim_guest_practice
+from services.first_steps_audio import intro_speech
 from services.progression import WELCOME_POLICY, award, award_first_delivery, reverse, snapshot
 from tests.support import isolated_app, select_test_profile
 
@@ -102,7 +103,7 @@ class FirstDeliveryTests(unittest.TestCase):
             self.assertEqual(state['attempt']['phase'], 'learn')
             self.assertEqual(state['attempt']['question_index'], index)
             self.assertEqual(state['attempt']['learned_count'], index)
-            self.assertEqual(state['attempt']['question']['lesson'], question['lesson'])
+            self.assertEqual(state['attempt']['question']['lesson'], {**question['lesson'], **intro_speech(question['id'])})
             self.assertEqual(state['attempt']['question']['title'], question['title'])
             self.assertEqual(state['attempt']['question']['choices'], [])
             self.assertEqual(self.read()['attempt'], state['attempt'])
@@ -264,7 +265,7 @@ class FirstDeliveryTests(unittest.TestCase):
         self.assertEqual(completed['attempt']['phase'], 'completed')
         self.assertEqual(completed['reward'], {'amount': 3, 'status': 'credited', 'awarded_now': True})
         self.assertEqual(completed['pending_reward'], 0)
-        self.assertEqual(completed['teaching_cards'], [{'id': question['id'], 'title': question['title'], **question['lesson']} for question in QUESTIONS])
+        self.assertEqual(completed['teaching_cards'], [{'id': question['id'], 'title': question['title'], **question['lesson'], **intro_speech(question['id'])} for question in QUESTIONS])
         reading = completed['progression']['skill']['skills'][0]
         self.assertEqual((reading['rating'], reading['observations']), (1012, 1))
         self.assertEqual(reading['progress'], .06)

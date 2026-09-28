@@ -27,11 +27,11 @@ export function WelcomeHero({ headingRef, profileKey, nextDestination, courseJou
     document.addEventListener('visibilitychange',visible);
     return()=>{clearTimeout(timer);window.removeEventListener('lingo:progression',refresh);document.removeEventListener('visibilitychange',visible);};
   },[]);
-  const next=courseJourney ? chapter?.lessons.find(lesson=>lesson.id==='hello') : chapter?.next_lesson;
-  const complete=courseJourney ? !!chapter?.lessons.find(lesson=>lesson.id==='hello' && lesson.status==='completed') || !!chapter?.complete : chapter?.complete;
+  const next=chapter?.next_lesson;
+  const complete=chapter?.complete;
   const title=complete ? nextDestination?.title ?? 'Barsik’s journey' : next?.title ?? 'First steps with Barsik';
   const href=complete ? nextDestination?.href ?? '#journey' : next?.href ?? '#first-steps';
-  const label=complete ? courseJourney ? 'Your journey' : 'Introduction complete · the journey continues' : courseJourney ? 'Your first delivery · a little adventure' : next ? `First steps · ${next.position} of ${chapter!.lessons.length}` : 'Five short lessons to get started';
+  const label=complete ? courseJourney ? 'Your journey' : 'Introduction complete · the journey continues' : courseJourney && next?.position===1 ? 'Your first delivery · a little adventure' : next ? `First steps · ${next.position} of ${chapter!.lessons.length}` : 'Five short lessons to get started';
   const action=complete ? 'Continue the journey' : !next ? 'Open first steps' : next.status==='active' ? 'Continue' : next.position>1 ? 'Next lesson' : 'Let’s begin';
   return <section class="hero" aria-labelledby="welcome-title">
     <div class="hero-copy">

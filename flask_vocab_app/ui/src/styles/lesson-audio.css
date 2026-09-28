@@ -1,0 +1,14 @@
+.lesson-audio {margin:10px 0 18px}
+.lesson-audio>audio {display:none}
+.lesson-audio-controls {display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.lesson-audio-button {display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:7px 12px;border:1px solid var(--wp-border-subtle);border-radius:7px;background:transparent;color:inherit;font:inherit;font-size:13px;line-height:1.4;cursor:pointer}
+.lesson-audio-button:hover {background:var(--wp-surface-sheet)}
+.lesson-audio .lesson-audio-error {font-size:13px;line-height:1.5;margin:8px 0}
+.lesson-audio-error .text-link {font-size:inherit;padding:0;min-height:32px}
+.lesson-audio.is-compact {margin:0}
+.lesson-audio.is-compact .lesson-audio-button {min-width:40px}
+.tutorial-word-choice {display:flex;align-items:center;gap:8px;flex:1 1 160px;min-width:0}
+.tutorial-word-choice>.word {flex:1;min-width:0}
+.tutorial-reading-help {font-size:14px;margin:12px 0 20px}
+.tutorial-reading-help summary {cursor:pointer;padding-block:8px}
+.tutorial-reading-help p {margin-block:8px}

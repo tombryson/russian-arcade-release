@@ -20,7 +20,7 @@ class JourneyGamePracticeTests(unittest.TestCase):
     finish_batch = practice.FirstStepsPracticeTests.finish_batch
 
     def test_game_media_allowance_denial_returns_429_and_keeps_saved_example(self):
-        candidate = chapter_content()['lessons'][0]['vocabulary'][0]
+        candidate = chapter_content('first-steps-v1')['lessons'][0]['vocabulary'][0]
         endpoint = self.game(candidates=[candidate])
         batch = self.post(endpoint, status=201)
         self.gen.next(self.access, batch['id'])
@@ -56,7 +56,7 @@ class JourneyGamePracticeTests(unittest.TestCase):
 
     def test_selected_contexts_are_validated_and_reused_without_new_duplicates(self):
         from services.first_steps_practice import _identity
-        candidates = next(item for item in chapter_content()['lessons'] if item['id'] == 'bag')['vocabulary']
+        candidates = next(item for item in chapter_content('first-steps-v1')['lessons'] if item['id'] == 'bag')['vocabulary']
         endpoint = self.game()
         chosen = _identity(candidates[1])
         for items in ([], ['foreign'], [chosen, chosen], [123], 'all', None):
@@ -73,7 +73,7 @@ class JourneyGamePracticeTests(unittest.TestCase):
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM native_card_generation_items').fetchone()[0], 1)
 
     def game(self, session_id='saved-game', *, lesson='bag', complete=True, owner='personal-learning', candidates=None):
-        source = next(item for item in chapter_content()['lessons'] if item['id'] == lesson)
+        source = next(item for item in chapter_content('first-steps-v1')['lessons'] if item['id'] == lesson)
         content = {'title': 'Saved contextual game', 'vocabulary_refs': candidates if candidates is not None else source['vocabulary']}
         with transaction(self.db, write=True) as conn:
             conn.execute('INSERT INTO journey_game_sessions '
@@ -115,7 +115,7 @@ class JourneyGamePracticeTests(unittest.TestCase):
         audio = self.post('/api/v1/games/media/' + key + '/prepare')
         self.assertEqual(audio['status'], 'ready')
         provider = self.app.extensions['learning']['card_media'].provider
-        candidate = chapter_content()['lessons'][0]['vocabulary'][0]
+        candidate = chapter_content('first-steps-v1')['lessons'][0]['vocabulary'][0]
         batch = self.post(self.game(candidates=[candidate]), status=201)
         self.finish_batch(batch)
         speech_calls = [spec for kind, spec in provider.calls if kind == 'sentence_audio']

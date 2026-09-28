@@ -13,23 +13,23 @@ def create_first_steps_blueprint():
     @bp.get('')
     @access_policy('public')
     def chapter():
-        return jsonify(**read_chapter(), csrf_token=csrf_token())
+        return jsonify(**read_chapter(request.args.get('version')), csrf_token=csrf_token())
 
     @bp.get('/<lesson_id>')
     @access_policy('public')
     def lesson(lesson_id):
-        return jsonify(**read_lesson(lesson_id), csrf_token=csrf_token())
+        return jsonify(**read_lesson(lesson_id, request.args.get('version')), csrf_token=csrf_token())
 
     @bp.post('/<lesson_id>/<operation>')
     @access_policy('public')
     def command(lesson_id, operation):
-        required = {'start': set(), 'learn': {'teaching_id'}, 'hint': {'question_id'},
+        required = {'start': set(), 'learn': {'teaching_id'}, 'hint': {'question_id'}, 'review': {'question_id'},
                     'answer': {'question_id', 'answer'}, 'continue': {'question_id'}, 'complete': set()}
         if operation not in required:
             raise LearningError('not_found', 'This lesson action was not found.', 404)
         if not request.is_json:
             raise LearningError('json_required', 'Send a JSON object for this operation.', 415)
         data = fields(request.get_json(silent=True), required[operation])
-        return jsonify(**lesson_command(lesson_id, operation, data), csrf_token=csrf_token())
+        return jsonify(**lesson_command(lesson_id, operation, data, request.args.get('version')), csrf_token=csrf_token())
 
     return bp

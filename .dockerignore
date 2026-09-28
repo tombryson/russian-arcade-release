@@ -31,6 +31,7 @@
 !flask_vocab_app/static/images/**
 !flask_vocab_app/static/audio/deliveries/**
 !flask_vocab_app/static/audio/course/**
+!flask_vocab_app/static/audio/first-steps-v2/**
 !flask_vocab_app/ui/package*.json
 !flask_vocab_app/ui/tsconfig.json
 !flask_vocab_app/ui/vite.config.ts

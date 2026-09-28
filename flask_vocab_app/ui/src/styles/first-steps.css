@@ -23,6 +23,30 @@
 .first-steps .letter .first-steps-passage { white-space:pre-line; font-size:clamp(22px,3vw,29px); line-height:1.6; margin-bottom:24px; }
 .first-steps .options { align-items:stretch; }
 .first-steps .word { flex:1 1 160px; }
+.first-steps-choice {display:flex;align-items:center;gap:8px;flex:1 1 160px;min-width:0}
+.first-steps-choice>.word {flex:1;min-width:0}
+.first-steps .letter .first-steps-meaning {margin-bottom:10px;font-size:20px}
+.first-steps .letter .first-steps-word.is-phrase {font-size:clamp(24px,3.7vw,34px);line-height:1.45}
+.first-steps-examples {list-style:none;display:grid;gap:12px;margin:18px 0;padding:16px 0 0;border-top:1px solid var(--wp-border-subtle)}
+.first-steps .letter .first-steps-examples p {margin:0;line-height:1.5}
+.first-steps .letter .first-steps-examples p[lang=ru] {font-size:21px}
+.first-steps .letter .first-steps-examples p[lang=en] {font-size:14px;color:var(--wp-text-secondary);margin-top:3px}
+.first-steps-reading-help {font-size:14px;margin-block:12px}
+.first-steps-reading-help summary {padding-block:8px;cursor:pointer}
+.first-steps-name-slot {margin:18px 0;padding-top:14px;border-top:1px solid var(--wp-border-subtle)}
+.first-steps-name-slot label {display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:14px}
+.first-steps-name-slot input {max-width:100%;min-width:0;padding:10px 12px;border:1px solid var(--wp-border-subtle);border-radius:6px;color:inherit;background:transparent;font:inherit}
+.first-steps-name-slot output {display:block;margin-top:12px;font-size:22px}
+.first-steps .letter .first-steps-name-slot .quiet {font-size:13px;margin-top:8px}
+.first-steps-question-review {margin-block:16px}
+.first-steps-question-review>.text-link {font-size:14px}
+.first-steps-review-examples {list-style:none;padding:0;margin:12px 0 18px;display:grid;gap:18px}
+.first-steps-review-examples>li {padding:14px 16px;border:1px solid var(--wp-border-subtle);border-radius:8px}
+.first-steps-review-examples strong {font-size:23px;font-weight:500}
+.first-steps .letter .first-steps-review-examples>li>p {font-size:14px;margin:6px 0;line-height:1.6}
+.first-steps-review-word {display:flex;align-items:center;gap:12px}
+.first-steps-version-note {font-size:13px;line-height:1.6;color:var(--wp-text-secondary);margin-block:18px}
+.first-steps-version-note a {text-underline-offset:3px}
 .first-steps-question-count { margin-top:26px; color:var(--wp-text-secondary); font-size:13px; }
 .first-steps-reward { margin-top:24px; padding:18px 22px; border-radius:14px; background:#f5ebcb; color:#263b33; }
 .first-steps-reward strong { font-size:21px; }
@@ -48,4 +72,5 @@
   .first-steps .letter .first-steps-word { font-size:clamp(28px,7vw,36px); }
   .first-steps-teaching .first-steps-art { flex-basis:70px; width:70px; height:70px; }
   .first-steps .word { flex-basis:100%; }
+  .first-steps-choice {flex-basis:100%}
 }

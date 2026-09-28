@@ -6,6 +6,7 @@ from flask import current_app, session
 
 from repositories.learning_repository import LearningError, encoded, identifier, timestamp, transaction
 from services.onboarding import onboarding_state
+from services.first_steps_audio import intro_speech
 from services.progression import WELCOME_COINS, award_first_delivery, snapshot as progression_snapshot
 from utils.household_access import access_id, csrf_token
 
@@ -88,8 +89,12 @@ def _serialize_attempt(row):
         public_question = {key: question[key] for key in ('id', 'passage', 'prompt', 'choices')}
         public_question['title'] = question.get('title', question['prompt'])
         if phase == 'learn':
-            public_question['lesson'] = question['lesson']
+            public_question['lesson'] = {**question['lesson'], **intro_speech(question['id'])}
             public_question['choices'] = []
+        elif row['version'] == VERSION:
+            # Add pronunciation support without rewriting saved questions or answers.
+            public_question['choices'] = [dict(choice, audio_url=intro_speech('word-' + choice['id'])['audio_url'])
+                                           for choice in question['choices']]
         if question['id'] in hints:
             public_question['hint'] = question['hint']
     public_answers = []
@@ -126,7 +131,7 @@ def _public_state(conn, profile_id, row, *, awarded_now=False):
         return result
     result['attempt'] = _serialize_attempt(row)
     if row['version'] == 'first-delivery-v2' and row['completed_at'] is not None:
-        result['teaching_cards'] = [{'id': question['id'], 'title': question['title'], **question['lesson']}
+        result['teaching_cards'] = [{'id': question['id'], 'title': question['title'], **question['lesson'], **intro_speech(question['id'])}
                                     for question in VERSIONS['first-delivery-v2']]
     previous = _previous_attempt(row)
     if previous:
