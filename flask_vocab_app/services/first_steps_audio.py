@@ -13,12 +13,14 @@ INTRO_SPEECH = {
                     'reading_help': 'Stress си: спа-СИ-бо. Listen to the last vowel; an unstressed Russian о sounds different from a stressed о.'},
 }
 PREFIX = '/static/audio/first-steps-v2/'
+RECORDING_REVISIONS = {'word-letter': 'hello-word-letter-r2.mp3'}
 CONTENT = Path(__file__).resolve().parents[1] / 'data' / 'first_steps_v2.json'
 
 
 def intro_speech(question_id):
     speech = INTRO_SPEECH.get(question_id)
-    return {**speech, 'audio_url': PREFIX + 'hello-' + question_id + '.mp3'} if speech else {}
+    filename = RECORDING_REVISIONS.get(question_id, 'hello-' + question_id + '.mp3')
+    return {**speech, 'audio_url': PREFIX + filename} if speech else {}
 
 
 @lru_cache(maxsize=1)

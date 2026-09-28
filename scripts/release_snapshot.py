@@ -48,7 +48,7 @@ CURRICULUM_AUDIO_PATHS = {
     for filename in ('manifest.json', *(f'{clip}.mp3' for clip in clips))
 }
 FIRST_STEPS_AUDIO = {
-    'hello': ('word-hello', 'word-letter', 'word-thanks'),
+    'hello': ('word-hello', 'word-letter-r2', 'word-thanks'),
     'bag': ('letter', 'bag', 'house', 'map', 'listen-object'),
     'introductions': ('name', 'ask', 'exchange', 'listen-name'),
     'gender': ('groups', 'masculine', 'feminine', 'neuter'),

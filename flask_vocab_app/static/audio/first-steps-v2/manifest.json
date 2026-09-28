@@ -9,13 +9,13 @@
       "duration": 1.464,
       "bytes": 23424
     },
-    "/static/audio/first-steps-v2/hello-word-letter.mp3": {
+    "/static/audio/first-steps-v2/hello-word-letter-r2.mp3": {
       "text_sha256": "b1602df3adb7e186c1b437317b2cf59041fc62f14416227f644e57b5626e0d7c",
-      "voice_id": "cedar",
+      "voice_id": "marin",
       "model": "gpt-4o-mini-tts",
-      "audio_sha256": "53bcf11dd604c84943750182b7b4f9d71973770cefef9b062d0f7809ce970b57",
-      "duration": 1.608,
-      "bytes": 25728
+      "audio_sha256": "7705c802c0e796886f37460f213ca9187e6ce8264a77fe09d4ed1241d0f81af5",
+      "duration": 1.464,
+      "bytes": 23424
     },
     "/static/audio/first-steps-v2/hello-word-thanks.mp3": {
       "text_sha256": "0f977c221be4ffa031363db3f16e546f1e3ec0eaf11ff33a6beb6aeccfb5ddbf",

@@ -147,7 +147,13 @@ voices, identified as such in the player. See the
 `scripts/prepare_first_steps_audio.py --provider openai --dry-run` verifies the
 manifest without generating recordings. A normal run preserves verified audio,
 limits new requests and stops on the first failure. Text changes require a new
-recording URL. Tests check file hashes, decoding and public byte-range playback.
+recording URL. Tests check file hashes, decoding, audible signal and public
+byte-range playback. Generated clips must pass the signal check before they are
+published. This rejects silent files even when their duration and format are valid.
+
+The first-word письмо recording uses a revised URL after its original generated
+file was found to be silent. Its replacement uses `marin`; a Russian transcription
+check returned «Письмо.». The new URL avoids reusing a cached silent recording.
 Automated playback checks do not constitute a human pronunciation review.
 
 ### Later teaching

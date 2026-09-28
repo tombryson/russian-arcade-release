@@ -4,15 +4,41 @@ The finite authored catalogue, recording limit and character limit bound the
 run. Published audio is immutable; a rerun verifies and reuses completed files.
 """
 import argparse
+from array import array
 import hashlib
 import json
 from pathlib import Path
 import random
+import subprocess
 import sys
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 APP = ROOT / 'flask_vocab_app'
 sys.path.insert(0, str(APP))
+
+
+def validate_authored_speech(path):
+    """Require audible signal in packaged speech, beyond a valid audio container."""
+    from services.speech_provider import audio_info
+    duration = audio_info(path)
+    try:
+        result = subprocess.run(
+            ['ffmpeg', '-nostdin', '-v', 'error', '-i', str(path), '-t', '91',
+             '-vn', '-ac', '1', '-ar', '16000', '-f', 's16le', 'pipe:1'],
+            capture_output=True, timeout=30, check=True,
+        )
+    except (OSError, subprocess.SubprocessError):
+        raise ValueError('The authored recording could not be decoded.') from None
+    samples = array('h')
+    samples.frombytes(result.stdout)
+    if sys.byteorder != 'little':
+        samples.byteswap()
+    # At least 0.10 seconds of samples above -45 dBFS. This deliberately low
+    # threshold rejects empty/near-silent responses without normalizing voices.
+    if sum(abs(sample) >= 185 for sample in samples) < 1600:
+        raise ValueError('The authored recording is silent or too quiet.')
+    return duration
 
 
 def main(argv=None):
@@ -31,7 +57,7 @@ def main(argv=None):
         load_dotenv(path, override=False)
     from config import app_config
     from services.first_steps_audio import authored_clips
-    from services.speech_provider import SpeechProvider, audio_info
+    from services.speech_provider import SpeechProvider
     from prepare_delivery_audio import _write_atomic, _save_manifest
     directory = APP / 'static/audio/first-steps-v2'
     manifest = directory / 'manifest.json'
@@ -48,6 +74,10 @@ def main(argv=None):
         if previous.get('audio_sha256'):
             if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != previous['audio_sha256']:
                 raise SystemExit(f'Restore the published recording for {path.name}.')
+            try:
+                validate_authored_speech(path)
+            except ValueError as error:
+                raise SystemExit(f'{path.name}: {error} Use a new recording URL to replace it.') from None
         else:
             if path.exists():
                 raise SystemExit(f'Unverified recording exists for {path.name}; check it before continuing.')
@@ -91,8 +121,11 @@ def main(argv=None):
         _save_manifest(manifest, saved)
         try:
             data = speak(text, clip['voice_id'])
+            with tempfile.TemporaryDirectory() as tmp:
+                candidate = Path(tmp) / path.name
+                candidate.write_bytes(data)
+                duration = validate_authored_speech(candidate)
             _write_atomic(path, data)
-            duration = audio_info(path)
         except Exception as error:
             raise SystemExit(f'Recording stopped ({type(error).__name__}); completed clips are preserved.') from None
         clip.update(audio_sha256=hashlib.sha256(data).hexdigest(), duration=duration, bytes=len(data))
