@@ -23,8 +23,6 @@
 .first-steps .letter .first-steps-passage { white-space:pre-line; font-size:clamp(22px,3vw,29px); line-height:1.6; margin-bottom:24px; }
 .first-steps .options { align-items:stretch; }
 .first-steps .word { flex:1 1 160px; }
-.first-steps-choice {display:flex;align-items:center;gap:8px;flex:1 1 160px;min-width:0}
-.first-steps-choice>.word {flex:1;min-width:0}
 .first-steps .letter .first-steps-meaning {margin-bottom:10px;font-size:20px}
 .first-steps .letter .first-steps-word.is-phrase {font-size:clamp(24px,3.7vw,34px);line-height:1.45}
 .first-steps-examples {list-style:none;display:grid;gap:12px;margin:18px 0;padding:16px 0 0;border-top:1px solid var(--wp-border-subtle)}

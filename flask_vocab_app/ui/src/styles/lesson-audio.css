@@ -8,8 +8,13 @@
 .lesson-audio-error .text-link {font-size:inherit;padding:0;min-height:32px}
 .lesson-audio.is-compact {margin:0}
 .lesson-audio.is-compact .lesson-audio-button {min-width:40px}
-.tutorial-word-choice {display:flex;align-items:center;gap:8px;flex:1 1 160px;min-width:0}
-.tutorial-word-choice>.word {flex:1;min-width:0}
+/* One visible word card, with separate answer and playback buttons inside it. */
+.tutorial-word-choice,.first-steps-choice {display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;flex:1 1 180px;min-width:0;background:var(--wp-surface-sheet);border:2px solid var(--wp-accent-learning);border-radius:6px;box-shadow:0 4px 0 var(--wp-accent-learning);color:var(--wp-accent-learning)}
+.lesson-player :is(.tutorial-word-choice,.first-steps-choice)>.word {align-self:stretch;min-width:0;padding:18px 16px;background:transparent;border:0;box-shadow:none;overflow-wrap:anywhere}
+:is(.tutorial-word-choice,.first-steps-choice)>.lesson-audio {display:contents}
+:is(.tutorial-word-choice,.first-steps-choice) .lesson-audio-controls {padding:6px}
+:is(.tutorial-word-choice,.first-steps-choice) .lesson-audio-button {min-width:44px;min-height:44px;padding:8px;border:0;color:inherit}
+:is(.tutorial-word-choice,.first-steps-choice) .lesson-audio-error {grid-column:1/-1;margin:0 12px 12px}
 .tutorial-reading-help {font-size:14px;margin:12px 0 20px}
 .tutorial-reading-help summary {cursor:pointer;padding-block:8px}
 .tutorial-reading-help p {margin-block:8px}
