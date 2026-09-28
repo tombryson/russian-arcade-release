@@ -1,6 +1,7 @@
 .lesson-audio {margin:10px 0 18px}
 .lesson-audio>audio {display:none}
 .lesson-audio-controls {display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.lesson-audio-source {font-size:12px;opacity:.75}
 .lesson-audio-button {display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:7px 12px;border:1px solid var(--wp-border-subtle);border-radius:7px;background:transparent;color:inherit;font:inherit;font-size:13px;line-height:1.4;cursor:pointer}
 .lesson-audio-button:hover {background:var(--wp-surface-sheet)}
 .lesson-audio .lesson-audio-error {font-size:13px;line-height:1.5;margin:8px 0}

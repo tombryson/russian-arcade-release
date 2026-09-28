@@ -18,6 +18,8 @@ sys.path.insert(0, str(APP))
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--env-file', type=Path, action='append', default=[])
+    parser.add_argument('--provider', choices=('elevenlabs', 'openai'), default='elevenlabs',
+                        help='Explicit provider for these packaged recordings only.')
     parser.add_argument('--dry-run', action='store_true')
     parser.add_argument('--max-new', type=int, default=40)
     parser.add_argument('--max-characters', type=int, default=2000)
@@ -33,7 +35,9 @@ def main(argv=None):
     from prepare_delivery_audio import _write_atomic, _save_manifest
     directory = APP / 'static/audio/first-steps-v2'
     manifest = directory / 'manifest.json'
-    saved = json.loads(manifest.read_text()) if manifest.exists() else {'provider': 'elevenlabs', 'clips': {}}
+    saved = json.loads(manifest.read_text()) if manifest.exists() else {'provider': args.provider, 'clips': {}}
+    if saved['provider'] != args.provider:
+        raise SystemExit('Use the provider recorded in the existing manifest; published clips are immutable.')
     pending = []
     for url, text in authored_clips().items():
         path = APP / 'static' / url.removeprefix('/static/')
@@ -55,26 +59,38 @@ def main(argv=None):
     if len(pending) > args.max_new or characters > args.max_characters:
         raise SystemExit('Preparation limit exceeded; no speech calls made.')
     config = app_config()
-    voices = config.get('ELEVENLABS_VOICE_IDS') or ()
-    if not voices or not config.get('ELEVENLABS_API_KEY'):
-        raise SystemExit('Configured ElevenLabs credentials and voices are required.')
-    import requests
-    response = requests.get('https://api.elevenlabs.io/v1/user/subscription',
-                            headers={'xi-api-key': config['ELEVENLABS_API_KEY']}, timeout=(10, 20))
-    if not response.ok:
-        raise SystemExit('Could not verify the speech allowance; no speech calls made.')
-    account = response.json()
-    remaining = account.get('character_limit', 0) - account.get('character_count', 0)
-    if characters > remaining:
-        raise SystemExit(f'Recordings need {characters} characters; {remaining} remain. No speech calls made.')
+    if args.provider == 'elevenlabs':
+        voices = config.get('ELEVENLABS_VOICE_IDS') or ()
+        if not voices or not config.get('ELEVENLABS_API_KEY'):
+            raise SystemExit('Configured ElevenLabs credentials and voices are required.')
+        import requests
+        response = requests.get('https://api.elevenlabs.io/v1/user/subscription',
+                                headers={'xi-api-key': config['ELEVENLABS_API_KEY']}, timeout=(10, 20))
+        if not response.ok:
+            raise SystemExit('Could not verify the speech allowance; no speech calls made.')
+        account = response.json()
+        remaining = account.get('character_limit', 0) - account.get('character_count', 0)
+        if characters > remaining:
+            raise SystemExit(f'Recordings need {characters} characters; {remaining} remain. No speech calls made.')
+        model = config.get('ELEVENLABS_MODEL')
+        provider = SpeechProvider(config)
+        speak = provider.speak
+    else:
+        if not config.get('OPENAI_API_KEY'):
+            raise SystemExit('Configured OpenAI credentials are required.')
+        from openai import OpenAI
+        client = OpenAI(api_key=config['OPENAI_API_KEY'], timeout=60, max_retries=0)
+        voices, model = ('marin', 'cedar'), 'gpt-4o-mini-tts'
+        def speak(text, voice):
+            return client.audio.speech.create(model=model, voice=voice, input=text,
+                response_format='mp3', instructions='Read only the supplied Russian text. Use natural standard Russian pronunciation, clear word stress and a calm, friendly pace for a beginner. Do not translate, explain or add words.').content
     directory.mkdir(parents=True, exist_ok=True)
-    provider = SpeechProvider(config)
     for url, text, digest, path in pending:
         clip = saved['clips'].setdefault(url, {'text_sha256': digest, 'voice_id': random.choice(voices),
-                                              'model': config.get('ELEVENLABS_MODEL')})
+                                              'model': model})
         _save_manifest(manifest, saved)
         try:
-            data = provider.speak(text, clip['voice_id'])
+            data = speak(text, clip['voice_id'])
             _write_atomic(path, data)
             duration = audio_info(path)
         except Exception as error:

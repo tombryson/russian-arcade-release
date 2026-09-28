@@ -79,6 +79,16 @@ class ReleaseSnapshotTests(unittest.TestCase):
             with self.subTest(path=path):
                 self.assertIsNotNone(release.exclusion(path))
 
+    def test_first_steps_audio_export_is_limited_to_authored_recordings(self):
+        from services.first_steps_audio import authored_clips
+        paths = {'flask_vocab_app' + url for url in authored_clips()}
+        paths.add('flask_vocab_app/static/audio/first-steps-v2/manifest.json')
+        self.assertEqual(paths, release.FIRST_STEPS_AUDIO_PATHS)
+        for path in paths:
+            self.assertTrue((SCRIPT.parent.parent / path).is_file())
+            self.assertIsNone(release.exclusion(path))
+        self.assertIsNotNone(release.exclusion('flask_vocab_app/static/audio/first-steps-v2/learner-recording.mp3'))
+
     def test_export_refuses_to_follow_file_or_directory_symlinks(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

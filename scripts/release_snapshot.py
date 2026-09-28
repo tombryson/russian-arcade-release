@@ -47,6 +47,17 @@ CURRICULUM_AUDIO_PATHS = {
     for unit, clips in CURRICULUM_AUDIO.items()
     for filename in ('manifest.json', *(f'{clip}.mp3' for clip in clips))
 }
+FIRST_STEPS_AUDIO = {
+    'hello': ('word-hello', 'word-letter', 'word-thanks'),
+    'bag': ('letter', 'bag', 'house', 'map', 'listen-object'),
+    'introductions': ('name', 'ask', 'exchange', 'listen-name'),
+    'gender': ('groups', 'masculine', 'feminine', 'neuter'),
+    'ownership': ('masculine', 'feminine', 'neuter', 'worked', 'listen-exchange'),
+}
+FIRST_STEPS_AUDIO_PATHS = {'flask_vocab_app/static/audio/first-steps-v2/manifest.json'} | {
+    f'flask_vocab_app/static/audio/first-steps-v2/{lesson}-{clip}.mp3'
+    for lesson, clips in FIRST_STEPS_AUDIO.items() for clip in clips
+}
 
 
 def git(root: Path, *args: str) -> str:
@@ -118,6 +129,8 @@ def exclusion(path: str) -> str | None:
     ):
         return None
     if path in CURRICULUM_AUDIO_PATHS:
+        return None
+    if path in FIRST_STEPS_AUDIO_PATHS:
         return None
     return 'outside reviewed source locations'
 

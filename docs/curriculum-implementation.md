@@ -11,13 +11,15 @@ before offering the journey. See [the lesson design](beginner-first-steps.md).
 The original edition, saved answers and vocabulary sources remain available.
 Lesson one reuses its existing completion and welcome reward. New introductory
 practice earns ordinary participation coins, but is not independent skill
-evidence or a passed journey checkpoint. The audio preparation command uses the
-existing speech provider; playback makes no AI call.
+evidence or a passed journey checkpoint. The 21 packaged recordings use OpenAI
+speech because the existing ElevenLabs allowance could not cover this set.
+The app's normal ElevenLabs configuration and voice selection are unchanged.
+Playback makes no AI call.
 
-Release status: the lesson content, API and interface are implemented locally.
-The 21 recordings still need to be generated and checked. ElevenLabs has 92
-characters available; this set needs 291. Keep the deployed version unchanged
-until the recordings and browser playback checks pass.
+Release checks pass: all recording hashes and durations are verified, and the
+public and demo routes support audio seeking. Browser checks confirmed normal
+playback, completion and slow replay. The production UI build and focused lesson
+tests also pass. This verifies operation, not a human pronunciation review.
 
 The introduction does not teach all the grammar in Leaving home. Location
 endings, relatives and more complex listening still need a gradual teaching

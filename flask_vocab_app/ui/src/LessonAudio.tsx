@@ -35,6 +35,7 @@ export function LessonAudio({src,label='the recording',compact=false}:{src?:stri
     <div class="lesson-audio-controls" role="group" aria-label={`Audio for ${label}`}>
       <button type="button" class="lesson-audio-button" onClick={()=>playing?pause():void replay(1)} aria-label={`${playing?'Pause':'Listen to'} ${label}`}><span aria-hidden="true">{playing?'Ⅱ':'▶'}</span>{!compact && <span>{playing?'Pause':'Listen'}</span>}</button>
       {!compact && <button type="button" class="lesson-audio-button" onClick={()=>void replay(.75)} aria-label={`Slow replay of ${label}`}>Slow replay</button>}
+      {!compact && <span class="lesson-audio-source">AI voice</span>}
     </div>
     {failed && <p class="lesson-audio-error" role="alert">The recording couldn’t play. <button type="button" class="text-link" onClick={()=>void replay(rate.current)}>Retry audio</button></p>}
   </div>;

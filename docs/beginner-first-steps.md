@@ -133,17 +133,22 @@ answer saving, resume behaviour and the transition between lessons.
 
 ### Release checks
 
-The implementation is on `codex/beginner-first-steps`. It is not deployed.
 The production UI build, 89 focused UI tests and 150 focused backend tests pass.
-The remaining public-demo checks pass except for the missing introductory audio.
-The teaching layout has been checked in the local browser.
+An additional 33 audio, hosted-demo and release-packaging tests pass. The teaching
+layout and normal/slow audio playback have been checked in the local browser.
 
-Generate the 21 recordings with `scripts/prepare_first_steps_audio.py` after
-speech capacity is available. Its dry run currently reports 291 characters.
-Then run `tests.test_first_steps_audio` and the hosted demo playback checks.
-Verify normal playback, slow replay and switching between recordings in a browser
-before merging or deploying. Those audio checks currently fail because the files
-are absent; they must not be skipped for release.
+All 21 recordings are packaged with the application. They were generated from
+291 authored Russian characters using `gpt-4o-mini-tts`, with variation between
+the `marin` and `cedar` voices. ElevenLabs lacked sufficient capacity for this
+set; its application configuration remains unchanged. These are AI-generated
+voices, identified as such in the player. See the
+[speech API reference](https://developers.openai.com/api/docs/guides/text-to-speech).
+
+`scripts/prepare_first_steps_audio.py --provider openai --dry-run` verifies the
+manifest without generating recordings. A normal run preserves verified audio,
+limits new requests and stops on the first failure. Text changes require a new
+recording URL. Tests check file hashes, decoding and public byte-range playback.
+Automated playback checks do not constitute a human pronunciation review.
 
 ### Later teaching
 

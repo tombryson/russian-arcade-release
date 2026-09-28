@@ -1,0 +1,173 @@
+{
+  "provider": "openai",
+  "clips": {
+    "/static/audio/first-steps-v2/hello-word-hello.mp3": {
+      "text_sha256": "b2b11afc89e6a4635f13e1fe404909ee873b2aa9b4d62ce414d327d39fef258e",
+      "voice_id": "cedar",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "cd99dd5169e3c1ef78a70d0e9c5558e142d7c608018572db58bf1f3882a33498",
+      "duration": 1.464,
+      "bytes": 23424
+    },
+    "/static/audio/first-steps-v2/hello-word-letter.mp3": {
+      "text_sha256": "b1602df3adb7e186c1b437317b2cf59041fc62f14416227f644e57b5626e0d7c",
+      "voice_id": "cedar",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "53bcf11dd604c84943750182b7b4f9d71973770cefef9b062d0f7809ce970b57",
+      "duration": 1.608,
+      "bytes": 25728
+    },
+    "/static/audio/first-steps-v2/hello-word-thanks.mp3": {
+      "text_sha256": "0f977c221be4ffa031363db3f16e546f1e3ec0eaf11ff33a6beb6aeccfb5ddbf",
+      "voice_id": "marin",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "ca294328a10a059c536df1b243e0e2bca71db484f175bea8cc1f396462239c3e",
+      "duration": 1.464,
+      "bytes": 23424
+    },
+    "/static/audio/first-steps-v2/bag-letter.mp3": {
+      "text_sha256": "8f252737558989fbe970e75830aa0f24fba06f15decc281714710e552ebec472",
+      "voice_id": "marin",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "ef41f6f88127f8e5fccc633be72a2f2a2aad491610152a28b887c3862d85ad42",
+      "duration": 1.512,
+      "bytes": 24192
+    },
+    "/static/audio/first-steps-v2/bag-bag.mp3": {
+      "text_sha256": "ea4445b63588fb88fbab07041427fc698aa410873f25fb173a99c400a8414ea8",
+      "voice_id": "cedar",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "f911a43cfda544624f1eb868b7c5fbb32bdd9b9b6d917da1d390ede32924aa4b",
+      "duration": 1.752,
+      "bytes": 28032
+    },
+    "/static/audio/first-steps-v2/bag-house.mp3": {
+      "text_sha256": "0c6ae23deccb4923a69020e3e415a93b66ac2f0109b32bf20e0fe050ef20d427",
+      "voice_id": "cedar",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "20fb45d14df43b2230860a69962412c57f55932f8681006b8d926d5bbc867db7",
+      "duration": 1.32,
+      "bytes": 21120
+    },
+    "/static/audio/first-steps-v2/bag-map.mp3": {
+      "text_sha256": "3656c7ce7e0dd20adabe15ce13fc073d9599509d99105912545da7d67238eb9d",
+      "voice_id": "cedar",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "f75d1fc151e8433644122a42b514a2c32e3cd8a0a2e498127a4e706c98752e6c",
+      "duration": 1.752,
+      "bytes": 28032
+    },
+    "/static/audio/first-steps-v2/bag-listen-object.mp3": {
+      "text_sha256": "ea4445b63588fb88fbab07041427fc698aa410873f25fb173a99c400a8414ea8",
+      "voice_id": "cedar",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "1bb84103b185fe720ba8fbc8cf0ae5455269186825dad81fd499bba45b6a36cf",
+      "duration": 1.656,
+      "bytes": 26496
+    },
+    "/static/audio/first-steps-v2/introductions-name.mp3": {
+      "text_sha256": "fe910311bea7f95a4333f3a552c902016542c36adeb93a66600b991f5d205b7f",
+      "voice_id": "marin",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "d90f5107a10cb1092685c9d07c19e166f59b5dcd3c81da468a788f3632f69d3f",
+      "duration": 2.016,
+      "bytes": 32256
+    },
+    "/static/audio/first-steps-v2/introductions-ask.mp3": {
+      "text_sha256": "b46c2cd29adaaa97636db0e5369057f084299b7ff915a8e32ef21f308d819bf3",
+      "voice_id": "marin",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "1cc0aeabb10816a74e88b07f41741567ca04efa74eb73bc3f6276ab5ae5478b1",
+      "duration": 1.416,
+      "bytes": 22656
+    },
+    "/static/audio/first-steps-v2/introductions-exchange.mp3": {
+      "text_sha256": "eab8d945c54d2078e26deb3c2d2004002e1bdcdd6959d6c34b0a66e1696a9c19",
+      "voice_id": "marin",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "085e4dde2cded3d0b86b0cff661db480e90c3100b30dbc7211d2b9e06b75aa7c",
+      "duration": 4.416,
+      "bytes": 70656
+    },
+    "/static/audio/first-steps-v2/introductions-listen-name.mp3": {
+      "text_sha256": "f6afbea4feb64387db11cd3927670e89e126bff474c1875fe11ef1562700929f",
+      "voice_id": "cedar",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "2692dedb1bef655117d5039f7f7d64f2f8c5ee3938a9fbf8966fee58e2935e32",
+      "duration": 2.808,
+      "bytes": 44928
+    },
+    "/static/audio/first-steps-v2/gender-groups.mp3": {
+      "text_sha256": "31c6640827b1f2de9fa828a4ab4d2e8f9b8fa7ae57e26692942ef82486fdce77",
+      "voice_id": "cedar",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "c8315275774784e398737700d55d246715eaf919908df7952355a7fa7a5a2887",
+      "duration": 2.712,
+      "bytes": 43392
+    },
+    "/static/audio/first-steps-v2/gender-masculine.mp3": {
+      "text_sha256": "76198438e73038644ca7868d80a0f752640df7df5973322016c1fea435e9e64e",
+      "voice_id": "cedar",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "44ea77802da9e453f05311fbc43fa72ae659e9520670bbda2ed2a77639650c88",
+      "duration": 1.008,
+      "bytes": 16128
+    },
+    "/static/audio/first-steps-v2/gender-feminine.mp3": {
+      "text_sha256": "5a1c626d9da74dd15adf6a7330537fc1bcb9876108c42eacc4ac25095d29fe93",
+      "voice_id": "cedar",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "5b0d16ec844c7d0fe5870ced8557fb94ee3c6ad350dfdd5c04ef9737a3a2e7fd",
+      "duration": 1.848,
+      "bytes": 29568
+    },
+    "/static/audio/first-steps-v2/gender-neuter.mp3": {
+      "text_sha256": "b1602df3adb7e186c1b437317b2cf59041fc62f14416227f644e57b5626e0d7c",
+      "voice_id": "cedar",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "aa4ab646cf68de67fa3fa7f1ee9530ee3fd6f31caa90141c9c4d247091433774",
+      "duration": 1.008,
+      "bytes": 16128
+    },
+    "/static/audio/first-steps-v2/ownership-masculine.mp3": {
+      "text_sha256": "cd5954435e3fa71e2dc387389ee7484861b0307905c919c5fb7c953ad83cf694",
+      "voice_id": "marin",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "6f380be26d38f49d533ac70ec1fe45f6865567fdff0e1acae5fbd164fd80d0e9",
+      "duration": 1.2,
+      "bytes": 19200
+    },
+    "/static/audio/first-steps-v2/ownership-feminine.mp3": {
+      "text_sha256": "22693aac1db9af47a9b25a92db20bee2d4143a1eb9882aa8207fb9862c347318",
+      "voice_id": "cedar",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "270b01a2d1a33d5d5ff7e62666facb96ffec1086a69756ad69da3fa9e8bd7e58",
+      "duration": 1.512,
+      "bytes": 24192
+    },
+    "/static/audio/first-steps-v2/ownership-neuter.mp3": {
+      "text_sha256": "11184bc6e7f7930d9ad3526d85ae030ee9fa7ec0edcf7027f86ae2cc0cc56c6f",
+      "voice_id": "marin",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "e2990e192d83593740d6e4d3504fef39f443385d6839cf983150dfc8a3a15cad",
+      "duration": 1.56,
+      "bytes": 24960
+    },
+    "/static/audio/first-steps-v2/ownership-worked.mp3": {
+      "text_sha256": "c7b961d25876feddc76f99990b50b135063134256c96fb6d5d40d3b61828709f",
+      "voice_id": "marin",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "2446ee67531b279c26a9ab9bfcbc43adedfc05fe4be9464a1da331c72055b0e6",
+      "duration": 2.76,
+      "bytes": 44160
+    },
+    "/static/audio/first-steps-v2/ownership-listen-exchange.mp3": {
+      "text_sha256": "36526226411e08e414128b5f5b6f683e455d8a1690b3b08d8b473ba5f73a408b",
+      "voice_id": "marin",
+      "model": "gpt-4o-mini-tts",
+      "audio_sha256": "cfa3fe575bb4e56cf56d24a0c94edd1938062e34e7965bd370a6280b33f586ad",
+      "duration": 5.16,
+      "bytes": 82560
+    }
+  }
+}
