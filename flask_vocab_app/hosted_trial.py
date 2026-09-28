@@ -10,6 +10,7 @@ from hashlib import sha256
 import base64
 import hmac
 import json
+import logging
 import re
 from pathlib import Path
 import secrets
@@ -37,6 +38,7 @@ GUEST_STORAGE_BYTES = 32 * 1024 * 1024
 DEFAULT_MAX_GUESTS = 32
 DEFAULT_TENANT_STORAGE_BYTES = 100 * 1024 * 1024
 MAX_STORAGE_CONFIG_BYTES = 64 * 1024
+logger = logging.getLogger(__name__)
 
 
 def safe_return_url(value):
@@ -725,8 +727,22 @@ class HostedTrialDispatcher:
         directory = self.root / 'tenants' / sha256(identity.encode()).hexdigest()
         occupied = sum(path.stat().st_size for path in directory.rglob('*') if path.is_file() and not path.is_symlink())
         reservation = max(length, 1024 * 1024)
-        if occupied + self.storage_reserved.get(identity, 0) + reservation > self._storage_limit(identity) or shutil.disk_usage(self.root).free - reservation < 256 * 1024 * 1024:
-            return self._json({'error': {'code': 'storage_limit', 'message': 'The demo workspace is full. Saved activities remain available.'}}, 507), 0
+        reserved = self.storage_reserved.get(identity, 0)
+        limit = self._storage_limit(identity)
+        if occupied + reserved + reservation > limit:
+            logger.warning('Workspace storage admission denied: occupied=%d reserved=%d requested=%d limit=%d',
+                           occupied, reserved, reservation, limit)
+            message = ('This demo has reached its storage limit. Saved activities remain available.' if guest
+                       else 'Your account has reached its storage limit. Saved activities remain available.')
+            return self._json({'error': {'code': 'storage_limit', 'message': message}}, 507), 0
+        free = shutil.disk_usage(self.root).free
+        if free - reservation < 256 * 1024 * 1024:
+            logger.warning('Server storage admission denied: free=%d requested=%d reserve=%d',
+                           free, reservation, 256 * 1024 * 1024)
+            response = self._json({'error': {'code': 'server_storage_low',
+                'message': 'We couldn’t save this just now. Please try again shortly.'}}, 507)
+            response.headers['Retry-After'] = '30'
+            return response, 0
         self.storage_reserved[identity] = self.storage_reserved.get(identity, 0) + reservation
         return None, reservation
 

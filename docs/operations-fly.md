@@ -141,6 +141,12 @@ keys are the SHA-256 hex digests of verified identities such as `github:12345`.
 Values are positive integer byte limits; 256 MiB is `268435456` bytes. The identity
 must come from the identity registry, not a display name or browser request.
 
+Write admission distinguishes a full workspace (`storage_limit`) from low free
+space on the server (`server_storage_low`). Both return HTTP 507; the latter asks
+the learner to retry and sets `Retry-After: 30`. Server logs include the byte
+counts for the failed check without recording account identities or file paths.
+Raising a workspace allowance does not resolve low server disk space.
+
 Write this file atomically and keep the operator directory outside tenant upload
 and media directories. Overrides are read on each write admission. Missing,
 invalid or oversized configuration keeps the default limit. Upload limits, free

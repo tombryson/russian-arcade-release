@@ -225,8 +225,44 @@ class HostedGuestDemoTests(unittest.TestCase):
         media = Path(first['database']).parent / 'huge.dat'
         with media.open('wb') as output:
             output.truncate(GUEST_STORAGE_BYTES)
-        self.assertEqual(self.a.post('/demo/notes', base_url=self.base, json={'note': 'full'}).status_code, 507)
+        response = self.a.post('/demo/notes', base_url=self.base, json={'note': 'full'}, buffered=True)
+        self.assertEqual(response.status_code, 507)
+        self.assertEqual(response.json['error']['code'], 'storage_limit')
+        self.assertIn('demo has reached its storage limit', response.json['error']['message'])
+        self.assertEqual(self.dispatch.storage_reserved.get(first['identity'], 0), 0)
         self.assertEqual(self.get(self.a, '/demo/notes').status_code, 200)
+
+    def test_low_server_storage_blocks_writes_then_recovers_in_same_demo(self):
+        first = self.start(self.a)
+        identity = first['identity']
+        with patch('hosted_trial.shutil.disk_usage') as disk:
+            # The workspace has room, but this write would cross the server's
+            # minimum free-space reserve by one byte.
+            disk.return_value.free = 257 * 1024 * 1024 - 1
+            with self.assertLogs('hosted_trial', level='WARNING') as captured:
+                response = self.a.post('/demo/notes', base_url=self.base,
+                    json={'note': 'saved after retry'}, buffered=True)
+            self.assertEqual(response.status_code, 507)
+            self.assertEqual(response.json['error']['code'], 'server_storage_low')
+            self.assertIn('try again shortly', response.json['error']['message'])
+            self.assertEqual(response.headers['Retry-After'], '30')
+            self.assertEqual(self.dispatch.storage_reserved.get(identity, 0), 0)
+            self.assertEqual(self.dispatch.inflight.get(identity, 0), 0)
+            self.assertIn('Server storage admission denied', captured.output[0])
+            self.assertNotIn(identity, captured.output[0])
+            self.assertNotIn(str(self.root), captured.output[0])
+            saved = self.get(self.a, '/demo/notes')
+            self.assertEqual(saved.status_code, 200)
+            self.assertEqual(saved.json, [])
+
+            disk.return_value.free = 1024 ** 3
+            response = self.a.post('/demo/notes', base_url=self.base,
+                json={'note': 'saved after retry'}, buffered=True)
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.json, ['saved after retry'])
+            self.assertEqual(self.dispatch.storage_reserved[identity], 0)
+            self.assertEqual(self.dispatch.inflight[identity], 0)
+            self.assertEqual(self.get(self.a, '/demo/who').json, first)
 
     def test_guests_share_existing_global_dollar_limit(self):
         first, second = self.start(self.a), self.start(self.b)
