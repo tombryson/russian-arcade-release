@@ -23,7 +23,7 @@ def strip_curriculum_sequences(conn):
                   'learning_session_drafts', 'curriculum_transfer_exposure',
                   'curriculum_unit_requests', 'curriculum_unit_bindings', 'curriculum_unit_runs'):
         conn.execute('DROP TABLE IF EXISTS ' + table)
-    conn.execute('DELETE FROM schema_migrations WHERE version IN (56,57,58,59,60,62,63)')
+    conn.execute('DELETE FROM schema_migrations WHERE version IN (56,57,58,59,60,62,63,64)')
 
 
 def strip_course_progression(conn):

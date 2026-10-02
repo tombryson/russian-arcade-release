@@ -55,11 +55,18 @@ class AssessmentPilotReviewPacketTests(unittest.TestCase):
             pilot.build_packet({**pilot.read_fixture(), 'blueprint_sha256': '0' * 64})
 
     def test_current_unit_packet_includes_all_source_and_available_recording_material(self):
+        from services.curriculum_units import UNIT_IDS, LISTENING_IDS
         fixture = units.read_fixture(units.CURRENT_FIXTURE)
-        self.assertEqual(len(fixture['unit_sha256']), 15)
-        self.assertEqual(len(fixture['listening_sha256']), 14)
-        self.assertEqual(len(fixture['cases']), 297)
+        self.assertEqual(set(fixture['unit_sha256']), set(UNIT_IDS))
+        self.assertEqual(set(fixture['listening_sha256']), set(LISTENING_IDS.values()))
+        self.assertEqual(fixture['id'], 'a1-units-review-v6')
+        self.assertEqual(len(fixture['cases']), 365)
         packet = units.build_packet(fixture)
+        self.assertEqual({row['unit_id'] for row in packet['reviewer.json']['units']}, set(UNIT_IDS))
+        self.assertEqual({row['unit_id'] for row in packet['author-key.json']['units']}, set(UNIT_IDS))
+        self.assertEqual([row['source_id'] for row in packet['author-key.json']['cases']],
+                         [case['id'] for case in fixture['cases']])
+        self.assertEqual(len(packet['reviewer.json']['cases']), len(fixture['cases']))
         items = [row['item'] for unit in packet['reviewer.json']['units'] for row in unit['questions'] if row['stage'] == 'listening']
         self.assertEqual(len(items), 42)
         self.assertEqual(sum(item['audio_file'] is not None for item in items), 42)

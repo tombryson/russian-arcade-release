@@ -108,6 +108,7 @@ class PracticeIdentityTests(unittest.TestCase):
         strip_curriculum_sequences(self.conn)
         self.conn.execute('DELETE FROM schema_migrations WHERE version=55')
         self.conn.commit()
+        self.assertEqual(migrations.schema_version(self.conn), 54)
         tables = ('course_target_practice_attempts', 'course_target_practice_requests',
                   'course_target_practice_receipts', 'course_target_observations', 'course_chapter_passes')
         before = {table: list(self.conn.execute('SELECT * FROM ' + table)) for table in tables}
