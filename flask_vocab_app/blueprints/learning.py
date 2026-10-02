@@ -160,6 +160,20 @@ def create_learning_blueprint(household, content, learning, store):
     def read_session(session_id):
         return jsonify(learning.read(access_id(), session_id))
 
+    @bp.get('/api/v1/learning-sessions/<session_id>/items/<item_id>/audio')
+    @access_policy('child')
+    def session_audio(session_id, item_id):
+        path = learning.audio_path(access_id(), session_id, item_id)
+        response = send_file(path, mimetype='audio/mpeg', conditional=True, max_age=0)
+        response.headers['Cache-Control'] = 'private, no-store'
+        return response
+
+    @bp.post('/api/v1/learning-sessions/<session_id>/draft')
+    @access_policy('child')
+    def save_draft(session_id):
+        return jsonify(learning.save_draft(access_id(), session_id, body(
+            {'submission_id', 'item_id', 'expected_revision', 'expected_draft_revision', 'response'})))
+
     @bp.post('/api/v1/learning-sessions/<session_id>/attempts')
     @access_policy('child')
     def attempt(session_id):

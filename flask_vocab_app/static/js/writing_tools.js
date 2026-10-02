@@ -33,6 +33,22 @@
         display();
     };
     document.addEventListener('input', event => { if (event.target.matches('[data-writing-editor] textarea')) count(); });
+    document.addEventListener('submit', async event => {
+        const form = event.target;
+        if (!form.matches('[data-writing-model-answer]') || !window.fetch) return;
+        event.preventDefault();
+        const button = form.querySelector('button');
+        if (button.disabled) return;
+        const root = form.closest('.writing-workspace'), editor = root.querySelector('[data-writing-editor]');
+        const output = form.querySelector('[data-writing-example-result]');
+        button.disabled = true; output.textContent = root.dataset.saving;
+        try {
+            const response = await fetch(form.action, {method:'POST', headers:{Accept:'application/json','Content-Type':'application/json','X-CSRF-Token':form.elements.csrf_token.value}, body:JSON.stringify({expected_revision:Number(editor.elements.revision.value)})});
+            const result = await response.json();
+            if (!response.ok || typeof result.model_answer !== 'string') throw new Error(result.error?.message || root.dataset.networkError);
+            output.textContent = result.model_answer; output.lang = 'ru'; button.hidden = true;
+        } catch (error) {output.textContent = error.message || root.dataset.networkError; button.disabled = false;}
+    });
     document.addEventListener('change', event => { if (event.target.matches('[data-writing-timer] select')) { init(); reset(); } });
     document.addEventListener('click', event => {
         if (!event.target.closest('[data-timer-toggle], [data-timer-reset]')) return;

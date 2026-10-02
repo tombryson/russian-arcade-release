@@ -73,3 +73,48 @@
   .curriculum-practice-links { gap:12px 18px; }
   .curriculum-unit-examples,.curriculum-unit-practice { grid-template-columns:1fr; gap:16px; }
 }
+
+/* Sequence navigation stays a compact list within the existing lesson page. */
+.curriculum-sequence { margin:0 0 24px; max-width:900px; }
+.curriculum-sequence-action { display:flex; flex-wrap:wrap; align-items:center; gap:8px 20px; margin-bottom:16px; }
+.curriculum-sequence-action p { margin:0; color:var(--wp-text-secondary); font-size:14px; }
+.curriculum-sequence-action > a { color:inherit; }
+.curriculum-sequence-steps { list-style:none; padding:0; margin:0; border-top:1px solid var(--wp-border-subtle); }
+.curriculum-sequence-steps li { display:grid; grid-template-columns:minmax(130px,1fr) minmax(0,1.6fr) auto; gap:8px 20px; align-items:center; padding:10px 0; border-bottom:1px solid var(--wp-border-subtle); font-size:14px; }
+.curriculum-sequence-steps strong { font-weight:500; }
+.curriculum-sequence-steps span { color:var(--wp-text-secondary); }
+.curriculum-sequence-steps button,.curriculum-sequence-steps a { background:none; border:0; color:inherit; padding:8px 0; text-decoration:underline; text-underline-offset:4px; cursor:pointer; }
+.curriculum-sequence button:focus-visible,.curriculum-unit-teaching summary:focus-visible { outline:2px solid var(--wp-accent-learning); outline-offset:4px; }
+.curriculum-sequence [role=alert] { margin-top:12px; }
+.curriculum-sequence [role=alert] button { margin-left:12px; }
+.curriculum-unit-teaching { max-width:1000px; margin-top:20px; scroll-margin-top:100px; }
+.curriculum-unit-teaching summary { cursor:pointer; font-size:16px; margin-bottom:16px; width:fit-content; }
+.curriculum-example-audio { display:block; width:260px; max-width:100%; height:44px; margin:8px 0 16px; }
+.curriculum-example-audio-error { display:block; font-size:13px; margin:6px 0 12px; }
+.curriculum-example-audio-error[hidden] { display:none; }
+.curriculum-sequence-results { margin:12px 0 20px; }
+.curriculum-sequence-results dl>div { display:grid;grid-template-columns:minmax(8rem,1fr) 2fr;gap:16px;padding:10px 0;border-bottom:1px solid var(--wp-border-subtle); }
+.curriculum-sequence-results dd { margin:0; }
+.curriculum-sequence-results small { display:block;margin-top:4px; }
+.sequence-draft-recovery textarea { display:block;width:100%;min-height:6rem;margin:8px 0; }
+.sequence-draft-recovery button+button { margin-left:12px; }
+@media(max-width:480px) { .curriculum-sequence-results dl>div { grid-template-columns:1fr;gap:4px; } }
+@media(max-width:560px) {
+  .curriculum-sequence-steps li { grid-template-columns:minmax(0,1fr) auto; gap:2px 12px; }
+  .curriculum-sequence-steps li strong { grid-column:1; }
+  .curriculum-sequence-steps li span { grid-column:1; grid-row:2; }
+  .curriculum-sequence-steps li button,.curriculum-sequence-steps li a { grid-column:2; grid-row:1/3; }
+}
+.curriculum-sequence-advice { color:var(--wp-text-secondary); font-size:14px; margin:14px 0; }
+.curriculum-sequence-advice a { color:inherit; }
+.curriculum-place-map { max-width:680px; margin:0 0 20px; }
+.curriculum-map-places { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.curriculum-map-place { min-height:110px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border:1px solid var(--wp-border-subtle); border-radius:12px; background:var(--wp-surface-sheet); }
+.curriculum-map-place strong { font-size:clamp(13px,3vw,20px); }
+.curriculum-map-place > span:last-child,.curriculum-place-map figcaption { color:var(--wp-text-secondary); font-size:13px; }
+.curriculum-map-marker { font-size:24px; color:var(--wp-accent-learning); }
+.curriculum-place-map figcaption { margin-top:8px; }
+.curriculum-word-help { margin:0 0 20px; }
+.curriculum-word-help dl { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px 24px; }
+.curriculum-word-help dt { font-weight:500; }
+.curriculum-word-help dd { color:var(--wp-text-secondary); margin:0; font-size:14px; }

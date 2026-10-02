@@ -1,0 +1,347 @@
+{
+  "kind": "synthetic-provider-smoke-check",
+  "at": "2026-10-02T07:53:38.556542+00:00",
+  "model": "gpt-5-mini",
+  "asset": "location-message-v2",
+  "cases": [
+    {
+      "id": "correct",
+      "state": "passed",
+      "response": "Я в школе. Иду в библиотеку. Встретимся в библиотеке.",
+      "contract_sha256": "8a65e246e5b575548c424baa1defc72e2d5867eb7f6b62dae04d8d474a00c02b",
+      "judgements": [
+        {
+          "criterion_id": "current-place",
+          "outcome": "satisfied",
+          "score": 1,
+          "feedback": "The message communicates the current place clearly.",
+          "evidence": [
+            {
+              "quote": "Я в школе.",
+              "start": 0,
+              "end": 10
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "next-place",
+          "outcome": "satisfied",
+          "score": 1,
+          "feedback": "The destination is stated directly and is intelligible.",
+          "evidence": [
+            {
+              "quote": "Иду в библиотеку.",
+              "start": 11,
+              "end": 28
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "meeting-place",
+          "outcome": "satisfied",
+          "score": 1,
+          "feedback": "The meeting place is given in a natural meeting phrase.",
+          "evidence": [
+            {
+              "quote": "Встретимся в библиотеке.",
+              "start": 29,
+              "end": 53
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "location-form",
+          "outcome": "satisfied",
+          "score": 2,
+          "feedback": "Location expressions use the preposition в with the prepositional case correctly.",
+          "evidence": [
+            {
+              "quote": "в школе",
+              "start": 2,
+              "end": 9
+            },
+            {
+              "quote": "в библиотеке",
+              "start": 40,
+              "end": 52
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "destination-form",
+          "outcome": "satisfied",
+          "score": 2,
+          "feedback": "Destination uses в with the accusative case correctly (в библиотеку).",
+          "evidence": [
+            {
+              "quote": "в библиотеку",
+              "start": 15,
+              "end": 27
+            }
+          ],
+          "reason_code": null
+        }
+      ],
+      "assessor": {
+        "model": "gpt-5-mini",
+        "prompt_sha256": "164ceceafa0b8d011576bb094a21788a06b186378917c10067becee2e2d2d934",
+        "rubric_version": "writing-feedback-v1"
+      }
+    },
+    {
+      "id": "wrong-ending",
+      "state": "passed",
+      "response": "Я в школе. Иду в библиотека. Встретимся в библиотеке.",
+      "contract_sha256": "b824ec0acb8381a5adc95bb2a3439ce7b4bef4b6f4a45856311fb37f2cd01f3d",
+      "judgements": [
+        {
+          "criterion_id": "current-place",
+          "outcome": "satisfied",
+          "score": 1,
+          "feedback": "Current place communicated clearly.",
+          "evidence": [
+            {
+              "quote": "Я в школе.",
+              "start": 0,
+              "end": 10
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "next-place",
+          "outcome": "satisfied",
+          "score": 1,
+          "feedback": "Destination is communicated (you say you are going somewhere).",
+          "evidence": [
+            {
+              "quote": "Иду в библиотека.",
+              "start": 11,
+              "end": 28
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "meeting-place",
+          "outcome": "satisfied",
+          "score": 1,
+          "feedback": "Meeting place is communicated clearly with a natural meeting phrase.",
+          "evidence": [
+            {
+              "quote": "Встретимся в библиотеке.",
+              "start": 29,
+              "end": 53
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "location-form",
+          "outcome": "satisfied",
+          "score": 2,
+          "feedback": "Location phrases with в + prepositional are used correctly (в школе; в библиотеке).",
+          "evidence": [
+            {
+              "quote": "Я в школе.",
+              "start": 0,
+              "end": 10
+            },
+            {
+              "quote": "Встретимся в библиотеке.",
+              "start": 29,
+              "end": 53
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "destination-form",
+          "outcome": "not_satisfied",
+          "score": 0,
+          "feedback": "The destination with в + accusative is attempted but the noun ending is incorrect: use accusative (в библиотеку).",
+          "evidence": [
+            {
+              "quote": "Иду в библиотека.",
+              "start": 11,
+              "end": 28
+            }
+          ],
+          "reason_code": null
+        }
+      ],
+      "assessor": {
+        "model": "gpt-5-mini",
+        "prompt_sha256": "164ceceafa0b8d011576bb094a21788a06b186378917c10067becee2e2d2d934",
+        "rubric_version": "writing-feedback-v1"
+      }
+    },
+    {
+      "id": "natural-alternative",
+      "state": "passed",
+      "response": "Я в школе. Иду к библиотеке. Встретимся у библиотеки.",
+      "contract_sha256": "6d878f0c97d089653aedc45dbb73751f1536e96289825d4dfa2c0c5847aefce1",
+      "judgements": [
+        {
+          "criterion_id": "current-place",
+          "outcome": "satisfied",
+          "score": 1,
+          "feedback": "Current place is communicated clearly.",
+          "evidence": [
+            {
+              "quote": "Я в школе.",
+              "start": 0,
+              "end": 10
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "next-place",
+          "outcome": "satisfied",
+          "score": 1,
+          "feedback": "Destination is communicated intelligibly.",
+          "evidence": [
+            {
+              "quote": "Иду к библиотеке.",
+              "start": 11,
+              "end": 28
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "meeting-place",
+          "outcome": "satisfied",
+          "score": 1,
+          "feedback": "Meeting place is expressed with a natural phrase.",
+          "evidence": [
+            {
+              "quote": "Встретимся у библиотеки.",
+              "start": 29,
+              "end": 53
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "location-form",
+          "outcome": "satisfied",
+          "score": 2,
+          "feedback": "You used the preposition в with a correct location form (prepositional).",
+          "evidence": [
+            {
+              "quote": "в школе",
+              "start": 2,
+              "end": 9
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "destination-form",
+          "outcome": "insufficient_evidence",
+          "score": null,
+          "feedback": "You did not use в or на for the destination; you used к библиотеке instead, which is a valid alternative construction.",
+          "evidence": [
+            {
+              "quote": "к библиотеке",
+              "start": 15,
+              "end": 27
+            }
+          ],
+          "reason_code": "valid_alternative"
+        }
+      ],
+      "assessor": {
+        "model": "gpt-5-mini",
+        "prompt_sha256": "164ceceafa0b8d011576bb094a21788a06b186378917c10067becee2e2d2d934",
+        "rubric_version": "writing-feedback-v1"
+      }
+    },
+    {
+      "id": "omitted-details",
+      "state": "passed",
+      "response": "Я в школе.",
+      "contract_sha256": "a84fd30993a4ac867a7ad7739022782b9b654dc20b3fcb094d1ece8c90ba210a",
+      "judgements": [
+        {
+          "criterion_id": "current-place",
+          "outcome": "satisfied",
+          "score": 1,
+          "feedback": "The message communicates the current place clearly.",
+          "evidence": [
+            {
+              "quote": "Я в школе.",
+              "start": 0,
+              "end": 10
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "next-place",
+          "outcome": "not_satisfied",
+          "score": 0,
+          "feedback": "No destination is given in the message.",
+          "evidence": [
+            {
+              "quote": "Я в школе.",
+              "start": 0,
+              "end": 10
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "meeting-place",
+          "outcome": "not_satisfied",
+          "score": 0,
+          "feedback": "There is no information about where you and your friend will meet.",
+          "evidence": [
+            {
+              "quote": "Я в школе.",
+              "start": 0,
+              "end": 10
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "location-form",
+          "outcome": "satisfied",
+          "score": 2,
+          "feedback": "You used the correct preposition and case for location: «в школе».",
+          "evidence": [
+            {
+              "quote": "в школе",
+              "start": 2,
+              "end": 9
+            }
+          ],
+          "reason_code": null
+        },
+        {
+          "criterion_id": "destination-form",
+          "outcome": "insufficient_evidence",
+          "score": null,
+          "feedback": "No destination form (в/на + accusative) was attempted in the response.",
+          "evidence": [],
+          "reason_code": "feature_not_used"
+        }
+      ],
+      "assessor": {
+        "model": "gpt-5-mini",
+        "prompt_sha256": "164ceceafa0b8d011576bb094a21788a06b186378917c10067becee2e2d2d934",
+        "rubric_version": "writing-feedback-v1"
+      }
+    }
+  ],
+  "independent_review": false,
+  "proficiency_validated": false,
+  "passed": true
+}

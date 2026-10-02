@@ -25,6 +25,20 @@ function submit(form,submitter) {form.dispatchEvent(new SubmitEvent('submit',{bu
 function result(ok,data) {return {ok,headers:new Headers({'content-type':'application/json'}),json:async()=>data};}
 
 describe('writing editor and aids',()=>{
+    it('reveals an example only after the support receipt is saved and keeps the current draft',async()=>{
+        const {form,field}=setup('Мой черновик.');
+        const root=form.closest('.sentence-workspace');root.classList.add('writing-workspace');
+        root.insertAdjacentHTML('beforeend','<form data-writing-model-answer action="/writing/support/1"><input name="csrf_token" value="test-token"><button type="submit">Show example</button><p data-writing-example-result></p></form>');
+        form.elements.revision.value='3';
+        const help=root.querySelector('[data-writing-model-answer]'), button=help.querySelector('button');
+        let resolve;const fetch=vi.fn().mockReturnValue(new Promise(done=>{resolve=done;}));vi.stubGlobal('fetch',fetch);
+        submit(help,button);
+        expect(root.textContent).not.toContain('Я сейчас в школе.');
+        expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({expected_revision:3});
+        resolve(result(true,{id:'receipt',model_answer:'Я сейчас в школе.'}));
+        await waitFor(()=>expect(root.querySelector('[data-writing-example-result]').textContent).toBe('Я сейчас в школе.'));
+        expect(field.value).toBe('Мой черновик.');expect(button.hidden).toBe(true);
+    });
     it('counts Russian writing and inserts a word at the caret',()=>{
         const {field}=setup('Привет, мир! Где-то дома.');
         expect(document.querySelector('[data-writing-count] span').textContent).toBe('4');
@@ -59,6 +73,18 @@ describe('writing editor and aids',()=>{
         expect(field.value).toBe('Мой город красивый.');
         expect(document.getElementById('sentence-feedback').textContent).toBe('Previous feedback');
         expect(form.elements.revision.value).toBe('0');
+    });
+    it('retains a saved original and later edits when a sequence review is unavailable',async()=>{
+        const {form,field,check}=setup('Original reply');form.dataset.sequenceDraft='writing';form.dataset.draftLanguage='en';
+        let resolve;vi.stubGlobal('fetch',vi.fn().mockReturnValue(new Promise(done=>{resolve=done;})));
+        submit(form,check);fireEvent.input(field,{target:{value:'Later edit'}});
+        resolve(result(false,{error:'Feedback unavailable.',revision:1,review_submission:{id:'saved-original',work_state:'review_unavailable'}}));
+        await waitFor(()=>expect(check.disabled).toBe(false));
+        expect(field.value).toBe('Later edit');expect(field.dataset.savedValue).toBe('Original reply');
+        expect(form.elements.revision.value).toBe('1');expect(form.dataset.reviewPending).toBe('true');
+        const retry=document.querySelector('#sentence-action-status form');
+        expect(retry.getAttribute('action')).toBe('/writing/review/saved-original');
+        expect(retry.textContent).toContain('Retry feedback on saved reply');
     });
     it('starts only on request, pauses accurately and never locks the editor at expiry',()=>{
         vi.useFakeTimers(); const {field,check,save}=setup();

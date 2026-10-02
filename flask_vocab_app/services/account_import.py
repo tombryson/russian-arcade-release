@@ -48,6 +48,10 @@ HOSTED_OVERLAY_TABLES = CATALOGUE_TABLES | AUTH_TABLES | {
     # Course attempts, evidence, passes and continuation rights remain guarded.
     'course_enrolments',
 }
+SEQUENCE_FROZEN_TABLES = {'comprehension_task_drafts', 'curriculum_unit_runs', 'curriculum_unit_bindings', 'curriculum_unit_requests',
+    'curriculum_transfer_exposure', 'learning_session_drafts', 'learning_session_draft_requests',
+    'activity_review_submissions', 'curriculum_unit_exchanges', 'curriculum_unit_exchange_turns',
+    'curriculum_unit_exchange_playback', 'activity_support_disclosures', 'learning_prior_feedback', 'learning_hint_usage'}
 
 
 def quoted(name):
@@ -84,7 +88,9 @@ def inspect(conn):
         tables[name] = {'sql': row['sql'], 'columns': [item['name'] for item in info],
                         'pk': pk, 'info': info,
                         'foreign': [dict(item) for item in conn.execute('PRAGMA foreign_key_list(' + quoted(name) + ')')],
-                        'rows': [dict(item) for item in conn.execute('SELECT * FROM ' + quoted(name))]}
+                        # Original insertion order breaks ties between saved
+                        # submissions made within the same second.
+                        'rows': [dict(item) for item in conn.execute('SELECT * FROM ' + quoted(name) + ' ORDER BY rowid')]}
     return tables
 
 
@@ -134,6 +140,9 @@ def transform(name, table, row, maps, schemas):
         # feedback against the same saved original after installation.
         result.update(state='failed', claim_token=None, lease_until=0, report_json=None,
                       error='Review interrupted by account import; retry feedback.')
+    if name == 'activity_review_submissions' and row['review_status'] == 'reviewing':
+        result.update(review_status='review_unavailable', review_token=None, review_started_at=None,
+                      review_error='provider_unavailable')
     if len(table['pk']) == 1:
         key = table['pk'][0]
         result[key] = _mapped(maps, name, result[key])
@@ -144,7 +153,7 @@ def transform(name, table, row, maps, schemas):
     # IDs embedded in typed JSON are references. Do not replace arbitrary
     # numbers, Russian text, dates, answers or model output with matching digits.
     for column, value in row.items():
-        if name in PILOT_TABLES:
+        if name in PILOT_TABLES or name in SEQUENCE_FROZEN_TABLES:
             # Pilot identifiers are UUIDs in typed columns. All JSON here is
             # frozen content, an original response, or its evidence snapshot.
             # Even JSON-looking learner text must remain byte for byte intact.
@@ -176,7 +185,7 @@ def transform(name, table, row, maps, schemas):
                 raise ImportConflict('Criterion contract has an invalid task identity.')
             table_name = 'writing_exercises' if row['activity'] == 'writing' else 'sentences'
             result['task_key'] = str(_mapped(maps, table_name, int(row['task_key'])))
-        elif row['activity'] not in ('curriculum_unit', 'speaking', 'comprehension', 'word_jumble'):
+        elif row['activity'] not in ('curriculum_unit', 'speaking', 'comprehension', 'word_jumble', 'unit_exchange'):
             raise ImportConflict('Activity criterion contracts need an explicit activity import adapter.')
     if name == 'activity_criterion_reports':
         contracts = {item['id']: item for item in schemas['activity_task_contracts']['rows']}
@@ -191,7 +200,7 @@ def transform(name, table, row, maps, schemas):
         elif contract['activity'] == 'speaking':
             if row['source_key'] != contract['task_key']:
                 raise ImportConflict('Speaking criterion evidence belongs to another recorded conversation.')
-        elif contract['activity'] not in ('curriculum_unit', 'comprehension'):
+        elif contract['activity'] not in ('curriculum_unit', 'comprehension', 'unit_exchange'):
             raise ImportConflict('Activity criterion reports need an explicit activity import adapter.')
     if name == 'progression_events' and row['activity'] in ACTIVITY_NAMES:
         target = ACTIVITY_NAMES[row['activity']]
@@ -209,6 +218,17 @@ def transform(name, table, row, maps, schemas):
         column = 'content_key' if name == 'progression_claims' else 'reward_key'
         result[column] = _activity_key(row[column], maps)
     return result
+
+
+def _assert_sequence_reference_mapping(tables, maps):
+    """Do not rehash frozen requests/originals to hide an identity collision."""
+    for row in tables.get('curriculum_unit_bindings', {}).get('rows', []):
+        if row['activity'] == 'writing' and _mapped(maps, 'writing_exercises', int(row['task_key'])) != int(row['task_key']):
+            raise ImportConflict('A bound Writing task identity collides; preserving frozen lesson receipts requires an explicit mapping policy.')
+    for row in tables.get('activity_review_submissions', {}).get('rows', []):
+        task = json.loads(row['task_json'])
+        if row['activity'] == 'comprehension' and _mapped(maps, 'saved_stories', task['story_id']) != task['story_id']:
+            raise ImportConflict('A saved Comprehension original references a colliding story identity; no frozen snapshot was rewritten.')
 
 
 def _allocate(existing, incoming, table, *, field='id', natural=None):
@@ -384,7 +404,7 @@ def _verify_speaking_audio(tables, audio_root):
         raise ImportConflict('Original speaking audio could not be verified; no artifact was produced.') from error
 
 
-def build_account_import(local_path, hosted_path, output_path, *, local_audio_root=None, local_pilot_audio_root=None):
+def build_account_import(local_path, hosted_path, output_path, *, local_audio_root=None, local_pilot_audio_root=None, local_unit_exchange_audio_root=None):
     """Create an integrity-checked output file; never modify either input.
 
     Inputs must be offline snapshots. Speaking criterion reports additionally
@@ -417,6 +437,11 @@ def build_account_import(local_path, hosted_path, output_path, *, local_audio_ro
             if unsupported:
                 raise ImportConflict('Hosted history needs an additional merge policy: ' + ', '.join(sorted(unsupported)))
             verified_audio = _verify_speaking_audio(local, local_audio_root)
+            from services.activity_review_submissions import validate_saved_reviews
+            try:
+                verified_unit_audio = validate_saved_reviews(left, unit_exchange_audio_root=local_unit_exchange_audio_root, require_audio=True)
+            except (OSError, ValueError, LookupError, TypeError, KeyError, wave.Error, EOFError) as error:
+                raise ImportConflict('Lesson originals could not be verified; provide --local-unit-exchange-audio-root for saved Speaking replies.') from error
             try:
                 verified_pilot_audio = validate_saved_pilot(left, audio_root=local_pilot_audio_root, require_audio=True)
             except (OSError, ValueError, LookupError, TypeError, KeyError, wave.Error, EOFError) as error:
@@ -433,6 +458,7 @@ def build_account_import(local_path, hosted_path, output_path, *, local_audio_ro
         local_maps, hosted_maps = {}, {}
         for name in ACTIVITY_TABLES:
             local_maps[name] = _allocate(hosted[name]['rows'], local[name]['rows'], name)
+        _assert_sequence_reference_mapping(local, local_maps)
         hosted_maps['words'] = _allocate(local['words']['rows'], hosted['words']['rows'], 'words', natural=('lemma', 'pos'))
         rewritten_forms = [dict(row, word_id=_mapped(hosted_maps, 'words', row['word_id'])) for row in hosted['forms']['rows']]
         hosted_maps['forms'] = _allocate(local['forms']['rows'], rewritten_forms, 'forms', natural=('word_id', 'form', 'tags'))
@@ -488,7 +514,9 @@ def build_account_import(local_path, hosted_path, output_path, *, local_audio_ro
                 raise ImportConflict('Merged database failed integrity validation.')
             from services.activity_evidence import validate_saved_evidence
             try:
-                validate_saved_evidence(conn)
+                validate_saved_evidence(conn, unit_exchange_audio_root=local_unit_exchange_audio_root)
+                if validate_saved_reviews(conn, unit_exchange_audio_root=local_unit_exchange_audio_root, require_audio=True) != verified_unit_audio:
+                    raise ValueError('Lesson original audio changed during artifact construction.')
             except (ValueError, LookupError, TypeError, KeyError) as error:
                 raise ImportConflict('Imported activity evidence does not match its frozen task and response.') from error
             try:
@@ -504,6 +532,8 @@ def build_account_import(local_path, hosted_path, output_path, *, local_audio_ro
             raise ImportConflict('Original speaking audio changed during the import; retry from offline snapshots.')
         with closing(readonly(upgraded)) as source:
             try:
+                if validate_saved_reviews(source, unit_exchange_audio_root=local_unit_exchange_audio_root, require_audio=True) != verified_unit_audio:
+                    raise ValueError('Unit exchange original audio changed during import.')
                 if validate_saved_pilot(source, audio_root=local_pilot_audio_root, require_audio=True) != verified_pilot_audio:
                     raise ValueError('Pilot source audio changed during import.')
             except (OSError, ValueError, LookupError, TypeError, KeyError, wave.Error, EOFError) as error:
@@ -522,4 +552,5 @@ def build_account_import(local_path, hosted_path, output_path, *, local_audio_ro
             'excluded_credentials': sorted(AUTH_TABLES),
             'verified_speaking_recordings': len(verified_audio),
             'verified_pilot_recordings': len(verified_pilot_audio) // 2,
+            'verified_unit_exchange_recordings': len(verified_unit_audio) // 2,
             'media_copied': False}

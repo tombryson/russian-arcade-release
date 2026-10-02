@@ -153,6 +153,15 @@ class CurriculumUnitAudioCommandTests(unittest.TestCase):
 
 
 class CurriculumUnitPublishedAudioTests(unittest.TestCase):
+    def test_missing_media_hides_listening_without_blocking_the_unit(self):
+        from services.curriculum_units import get_unit
+        from repositories.learning_repository import LearningError
+        from unittest.mock import patch
+        with patch('services.learning_listening.verify_audio', side_effect=LearningError('audio_unavailable', 'Missing', 409)):
+            unit = get_unit('objects-recipients-v1')
+            self.assertFalse(unit['listening_available'])
+            self.assertTrue(unit['questions'])
+
     def test_three_authored_listening_messages_have_matching_playable_recordings(self):
         source = json.loads(SOURCE.read_text())
         directory = ROOT / 'flask_vocab_app/static/audio/course/curriculum' / command.UNIT_ID
@@ -178,6 +187,13 @@ class CurriculumUnitPublishedAudioTests(unittest.TestCase):
                     source, ROOT / 'flask_vocab_app/static/audio/course' / directory, audio_info)
                 self.assertEqual(todo, [])
                 self.assertEqual(len(manifest['clips']), count)
+
+    def test_both_pilot_forms_have_verified_recordings(self):
+        source_path, directory, count = command.content_layout(command.PILOT_CONTENT_ID)
+        source = json.loads((ROOT / 'flask_vocab_app/data' / source_path).read_text())
+        manifest, todo = command.plan_recordings(source, ROOT / 'flask_vocab_app/static/audio/course' / directory, audio_info)
+        self.assertEqual(todo, [])
+        self.assertEqual(len(manifest['clips']), count)
 
 
 if __name__ == '__main__':

@@ -18,10 +18,7 @@ UNIT_IDS = ('location-destination-v1', 'possession-absence-v1',
             'numbers-quantities-v1', 'social-exchanges-v1', 'needs-company-v1',
             'action-aspect-v1', 'origins-and-destinations-v1', 'connected-messages-v1')
 DATA_DIR = Path(__file__).resolve().parents[1] / 'data' / 'curriculum_units'
-LISTENING_IDS = {
-    'location-destination-v1': 'location-destination-listening-v1',
-    'possession-absence-v1': 'possession-absence-listening-v1',
-}
+LISTENING_IDS = {unit_id: unit_id.removesuffix('-v1') + '-listening-v1' for unit_id in UNIT_IDS}
 
 
 def listening_content(unit_id):
@@ -44,6 +41,19 @@ def listening_content(unit_id):
     return content
 
 
+def listening_available(unit_id):
+    """Offer playback only when every clip still matches its saved manifest."""
+    if unit_id not in LISTENING_IDS:
+        return False
+    from services.learning_listening import verify_audio
+    try:
+        for item in _pack({'id': unit_id}, 'listening')['items']:
+            verify_audio(item)
+    except (LearningError, ValueError, OSError, KeyError):
+        return False
+    return True
+
+
 @lru_cache(maxsize=32)
 def _load(unit_id):
     if unit_id not in UNIT_IDS:
@@ -53,7 +63,7 @@ def _load(unit_id):
         raise ValueError('Learning unit identity changed.')
     # Each issued stage has its own immutable pack identity. The original
     # choice pack stays unchanged when a later response mode is introduced.
-    for stage in ('practice', 'forms') + (('listening',) if unit_id in LISTENING_IDS else ()):
+    for stage in ('practice', 'forms') + (('listening',) if listening_available(unit_id) else ()):
         pack = validate_pack(_pack(unit, stage))
         for question, item in zip(_questions(unit, stage), pack['items']):
             _practice_contract(unit, item, question, 'validation')
@@ -68,7 +78,7 @@ def get_unit(unit_id):
     unit = deepcopy(_load(unit_id))
     # Presentation availability is derived from prepared media, not a promise
     # in a content draft. It is not included in an issued task contract.
-    unit['listening_available'] = unit_id in LISTENING_IDS
+    unit['listening_available'] = listening_available(unit_id)
     if unit['listening_available']:
         listening = listening_content(unit_id)
         unit['listening_title'] = listening['title']
@@ -145,6 +155,8 @@ def _unit_for_pack(pack):
     prefix = 'curriculum-unit:'
     if not pack['id'].startswith(prefix):
         return None
+    if pack['id'].startswith('curriculum-unit:sequence:'):
+        return None
     identity = pack['id'][len(prefix):]
     unit_id, separator, version = identity.partition(':')
     unit = get_unit(unit_id)
@@ -174,6 +186,10 @@ def freeze_practice(conn, profile_id, session_id, pack):
 def observe_answer(conn, profile_id, session_id, pack, item, attempt_id, answer, assisted, *, support=None):
     if not pack['id'].startswith('curriculum-unit:'):
         return
+    if pack['id'].startswith('curriculum-unit:sequence:'):
+        from services.curriculum_sequences import observe_answer as observe_sequence_answer
+        return observe_sequence_answer(conn, profile_id, session_id, item, attempt_id, answer,
+                                       support if support is not None else ['hint'] if assisted else [])
     task_key = session_id + ':' + item['id']
     contract = load_contract(conn, profile_id, 'curriculum_unit', task_key)
     if contract is None:
@@ -202,6 +218,18 @@ def start_practice(db_path, credential, unit_id, request_id, *, expected_profile
     from services.learning_service import LearningService
     key(request_id, 'Request ID')
     unit = get_unit(unit_id)
+    if stage == 'listening' and not unit['listening_available']:
+        # A missing recording must not strand an already issued activity: its
+        # saved transcript remains available as explicitly supported practice.
+        with transaction(db_path) as conn:
+            profile = require_access(conn, credential, timestamp(), profile_id=expected_profile_id)
+            active = conn.execute(
+                "SELECT s.id FROM learning_sessions s JOIN learning_content_versions v ON v.id=s.version_id "
+                "WHERE s.profile_id=? AND v.content_id=? AND s.status='active' ORDER BY s.created_at DESC LIMIT 1",
+                (profile['id'], 'curriculum-unit:' + unit_id + ':listening-v1')).fetchone()
+        if active:
+            return LearningService(db_path).read(credential, active['id'])
+        raise LearningError('audio_unavailable', 'This recording is unavailable. Your other practice is still available.', 409)
     pack = _pack(unit, stage)
     with transaction(db_path, write=True) as conn:
         profile = require_access(conn, credential, timestamp(), profile_id=expected_profile_id)

@@ -16,6 +16,7 @@ def verify_audio(item):
     if (not path.is_file() or not path.resolve().is_relative_to(STATIC_ROOT.resolve())
             or hashlib.sha256(path.read_bytes()).hexdigest() != item['audio']['sha256']):
         raise LearningError('audio_unavailable', 'This recording is unavailable. Try again or read the transcript.', 409)
+    return path
 
 
 def item_support(conn, session_id, item):
@@ -27,6 +28,65 @@ def item_support(conn, session_id, item):
         raise ValueError('Listening receipt does not match its saved recording.')
     return {'listened': row[1] is not None,
             'support': (['hint'] if row[3] is not None else []) + (['transcript'] if row[2] is not None else [])}
+
+
+def same_recording(left, right):
+    return (left.get('type') == right.get('type') == 'listening_choice'
+            and left.get('audio', {}).get('sha256') == right.get('audio', {}).get('sha256')
+            and left.get('transcript') == right.get('transcript'))
+
+
+def feedback_is_deferred(pack, current_index, item):
+    """One message may answer several questions; hold its key until all are done."""
+    return any(same_recording(item, pending) for pending in pack['items'][current_index:])
+
+
+def recording_transcript_disclosed(conn, session_id, item, items):
+    return any(same_recording(item, other) and 'transcript' in item_support(conn, session_id, other)['support']
+               for other in items)
+
+
+def current_item_support(conn, session_id, item, pack=None, current_index=None):
+    """Project earlier disclosure of this message without changing past answers."""
+    result = item_support(conn, session_id, item)
+    if 'transcript' in result['support']:
+        return result
+    if pack is None or current_index is None:
+        row = conn.execute('SELECT v.payload,s.current_index FROM learning_sessions s '
+                           'JOIN learning_content_versions v ON v.id=s.version_id WHERE s.id=?', (session_id,)).fetchone()
+        if row is None:
+            return result
+        pack, current_index = json.loads(row[0]), row[1]
+    # Completed items must retain the help recorded when their answer was saved.
+    if current_index >= len(pack['items']) or pack['items'][current_index]['id'] != item['id']:
+        return result
+    if recording_transcript_disclosed(conn, session_id, item, pack['items'][:current_index]):
+        return {**result, 'support': [*result['support'], 'transcript']}
+    # Another tab can expose the whole recording before saving any answer.
+    # Match the same owner's frozen version, not just a reused media URL.
+    disclosed = conn.execute('SELECT r.item_id FROM learning_item_support r '
+        'JOIN learning_sessions other ON other.id=r.session_id '
+        'JOIN learning_sessions current ON current.id=? AND current.profile_id=other.profile_id '
+        'AND current.version_id=other.version_id '
+        'WHERE other.id<>current.id AND r.transcript_at IS NOT NULL AND r.audio_sha256=?',
+        (session_id, item['audio']['sha256'])).fetchall()
+    by_id = {entry['id']: entry for entry in pack['items']}
+    if any(row[0] in by_id and same_recording(item, by_id[row[0]]) for row in disclosed):
+        return {**result, 'support': [*result['support'], 'transcript']}
+    return result
+
+
+def capture_shared_transcript(conn, session_id, pack, now):
+    """Freeze inherited help only for the now-current question, before exposure."""
+    index = conn.execute('SELECT current_index FROM learning_sessions WHERE id=?', (session_id,)).fetchone()[0]
+    if index >= len(pack['items']):
+        return
+    item = pack['items'][index]
+    if item['type'] != 'listening_choice':
+        return
+    support = current_item_support(conn, session_id, item, pack, index)
+    if 'transcript' in support['support']:
+        record_support(conn, session_id, item, 'transcript', now)
 
 
 def record_support(conn, session_id, item, operation, now):

@@ -35,6 +35,9 @@ def _criterion_report_schema(contract):
                      'feedback': {'type': 'string', 'minLength': 1, 'maxLength': 1500},
                      'evidence': {'type': 'array', 'items': span, 'maxItems': 12}},
                  'required': ['criterion_id', 'outcome', 'score', 'feedback', 'evidence']}
+    if contract['schema_version'] == 2:
+        judgement['properties']['reason_code'] = {'type': ['string', 'null'], 'enum': [None, 'feature_not_used', 'valid_alternative', 'insufficient_response', 'unclear_audio']}
+        judgement['required'].append('reason_code')
     return {'type': 'object', 'additionalProperties': False,
             'properties': {
                 'contract_sha256': {'type': 'string', 'enum': [contract['contract_sha256']]},
@@ -113,7 +116,7 @@ def _freeze_generated_focus(task, candidates, topic, level):
 class WritingService:
     def __init__(self, db_path, openai_service, api_key, config=None):
         self.config = config_snapshot(config)
-        self.client = LazyService('OpenAI client',lambda: openai_client(config=self.config, api_key=api_key,timeout=60.0))
+        self.client = LazyService('OpenAI client',lambda: openai_client(config=self.config, api_key=api_key,timeout=60.0,max_retries=0))
 
     def structured(self, name, properties, instruction, payload, *, include_provenance=False):
         try:
@@ -253,6 +256,24 @@ When a communication criterion's requested information is intelligible and compl
 Suggested vocabulary is not an additional criterion: do not require literal use of suggested words unless the saved criterion explicitly requires it.
 Give each criterion's concise feedback in {'Russian' if language == 'ru' else 'English'}. Never claim to award or save anything.'''
         instruction += '\nUse feedback_language for every explanation, including strength, next_step and criterion feedback. The Russian task and learner response do not change that language. Only the example and quoted Russian forms stay in Russian.'
+        if contract is not None and contract['schema_version'] == 2:
+            instruction += '''
+For every v2 judgement include reason_code: null when scored. For insufficient_evidence use feature_not_used when the
+requested grammatical feature was absent, valid_alternative when an acceptable paraphrase avoided it, or insufficient_response
+when there is not enough response to judge. unclear_audio is only for original audio, never written responses.
+Mark communication separately from grammar. A clear message that omits a requested detail can receive not_satisfied for
+that detail, citing the full original message. Do not invent a quote for missing words. An unattempted grammatical form is
+unobserved, not an error. Do not sum these criteria into an A1 percentage.'''
+            instruction += '''
+For a written_language_use feature, examine only uses of that feature: score 2 when attributable uses are correct,
+1 only when this response contains both a correct use AND an incorrect use of that same feature, and 0 when its
+attempted uses are incorrect. A correct preposition with an incorrect noun ending is one incorrect use, not mixed use.
+An unrelated correct location does not earn partial credit for an incorrect destination.
+For max_score=1 communication criteria, use only 1/satisfied or 0/not_satisfied when the response can be judged;
+never return a fractional or partial score. Grammar alone cannot remove clearly communicated information.
+An acceptable construction outside the feature's declared prepositions leaves that grammar feature unscored
+(insufficient_evidence, score null, reason_code valid_alternative), while its communicated detail can still receive credit.
+Do not penalise choosing outside a building rather than inside unless the saved task explicitly required inside.'''
         if include_provenance:
             assessment, provenance = self.structured('writing_feedback', properties, instruction, payload, include_provenance=True)
         else:

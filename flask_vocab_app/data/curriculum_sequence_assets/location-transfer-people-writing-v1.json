@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "id": "location-transfer-people-writing-v1",
+  "version": "location-transfer-people-writing-v1",
+  "unit_id": "location-destination-v2",
+  "kind": "writing",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Send your plan",
+  "title_ru": "Отправь свои планы",
+  "status": "draft",
+  "review": {
+    "kind": "internal_model",
+    "independently_validated": false
+  },
+  "content": {
+    "title": "Отправь свои планы",
+    "title_en": "Send your plan",
+    "task": "Сейчас: библиотека. Следующее место: школа. Место встречи: школа. Напиши Нине короткое сообщение: где ты сейчас, куда идёшь и где вы встретитесь.",
+    "task_en": "You are in the library and are going to school. Tell Nina where you are, where you are going and that you will meet at school.",
+    "required_words": [
+      "сейчас",
+      "идти",
+      "встретиться"
+    ],
+    "scene": {
+      "current_place": "library",
+      "destination": "school",
+      "meeting_place": "school"
+    },
+    "model_answer": "Я сейчас в библиотеке. Иду в школу. Встретимся в школе.",
+    "model_answer_en": "An example is available only on request; opening it marks the response as supported."
+  },
+  "criteria": [
+    {
+      "id": "current-place",
+      "target_id": "unit.location-transfer-people-writing-v1.current-place",
+      "requirement_id": "a1.writing.personal-message",
+      "response_mode": "independent_writing",
+      "evidence_scope": "reference",
+      "expectation": "Communicate the current place intelligibly. Accept short natural replies.",
+      "max_score": 1,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.3, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "next-place",
+      "target_id": "unit.location-transfer-people-writing-v1.next-place",
+      "requirement_id": "a1.writing.personal-message",
+      "response_mode": "independent_writing",
+      "evidence_scope": "reference",
+      "expectation": "Communicate the destination intelligibly. Accept short natural replies.",
+      "max_score": 1,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.3, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "meeting-place",
+      "target_id": "unit.location-transfer-people-writing-v1.meeting-place",
+      "requirement_id": "a1.writing.personal-message",
+      "response_mode": "independent_writing",
+      "evidence_scope": "reference",
+      "expectation": "Communicate where the friend should meet the writer. Accept a natural meeting phrase; no greeting or word minimum is required.",
+      "max_score": 1,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.3, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "location-form",
+      "target_id": "unit.location-transfer-people-writing-v1.location-form",
+      "requirement_id": "a1.language.prepositional-location",
+      "response_mode": "independent_writing",
+      "evidence_scope": "written_language_use",
+      "expectation": "Assess the attempted location form with в or на. Leave a valid alternative construction unobserved; communication is scored separately.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "elicitation": "Assess the attempted location form with в or на. Leave a valid alternative construction unobserved; communication is scored separately.",
+      "feature": {
+        "function": "location",
+        "prepositions": [
+          "в",
+          "на"
+        ],
+        "case": "prepositional"
+      }
+    },
+    {
+      "id": "destination-form",
+      "target_id": "unit.location-transfer-people-writing-v1.destination-form",
+      "requirement_id": "a1.language.accusative-destination",
+      "response_mode": "independent_writing",
+      "evidence_scope": "written_language_use",
+      "expectation": "Assess the attempted destination form with в or на. Leave a valid alternative construction unobserved; communication is scored separately.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "elicitation": "Assess the attempted destination form with в or на. Leave a valid alternative construction unobserved; communication is scored separately.",
+      "feature": {
+        "function": "destination",
+        "prepositions": [
+          "в",
+          "на"
+        ],
+        "case": "accusative"
+      }
+    }
+  ],
+  "support": {
+    "allowed": [
+      "hint",
+      "translation",
+      "model_answer"
+    ],
+    "independence_breakers": [
+      "hint",
+      "translation",
+      "model_answer"
+    ]
+  }
+}

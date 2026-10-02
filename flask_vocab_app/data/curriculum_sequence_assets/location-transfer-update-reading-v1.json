@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "location-transfer-update-reading-v1",
+  "version": "location-transfer-update-reading-v1",
+  "unit_id": "location-destination-v2",
+  "kind": "reading",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "A new meeting plan",
+  "title_ru": "Новый план встречи",
+  "status": "draft",
+  "review": {
+    "kind": "internal_model",
+    "independently_validated": false
+  },
+  "content": {
+    "passage": "Анна: «Встретимся в парке!» Потом Анна пишет: «Нет, парк закрыт. Я сейчас в библиотеке. Иду в школу. Давай встретимся в школе!»",
+    "questions": [
+      {
+        "id": "reading-1",
+        "prompt": "Где Анна сейчас?",
+        "prompt_ru": "Где Анна сейчас?",
+        "expected_answer": "Anna is currently in the library."
+      },
+      {
+        "id": "reading-2",
+        "prompt": "Куда идёт Анна?",
+        "prompt_ru": "Куда идёт Анна?",
+        "expected_answer": "Anna is going to school."
+      },
+      {
+        "id": "reading-3",
+        "prompt": "Где Анна хочет встретиться теперь?",
+        "prompt_ru": "Где Анна хочет встретиться теперь?",
+        "expected_answer": "The final meeting place is school, replacing the park."
+      }
+    ],
+    "word_help": []
+  },
+  "criteria": [
+    {
+      "id": "reading-1",
+      "target_id": "unit.location-transfer-update-reading-v1.reading-1",
+      "requirement_id": "a1.reading.practical-information",
+      "response_mode": "reading_response",
+      "evidence_scope": "reading_comprehension",
+      "expectation": "Anna is currently in the library.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.2, p. 7; §1.2.2, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "reading-2",
+      "target_id": "unit.location-transfer-update-reading-v1.reading-2",
+      "requirement_id": "a1.reading.practical-information",
+      "response_mode": "reading_response",
+      "evidence_scope": "reading_comprehension",
+      "expectation": "Anna is going to school.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.2, p. 7; §1.2.2, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "reading-3",
+      "target_id": "unit.location-transfer-update-reading-v1.reading-3",
+      "requirement_id": "a1.reading.practical-information",
+      "response_mode": "reading_response",
+      "evidence_scope": "reading_comprehension",
+      "expectation": "The final meeting place is school, replacing the park.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.2, p. 7; §1.2.2, p. 9"
+        }
+      ]
+    }
+  ],
+  "support": {
+    "allowed": [
+      "hint",
+      "translation",
+      "model_answer"
+    ],
+    "independence_breakers": [
+      "hint",
+      "translation",
+      "model_answer"
+    ]
+  }
+}

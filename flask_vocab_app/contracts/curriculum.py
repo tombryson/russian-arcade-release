@@ -16,6 +16,9 @@ from services.torfl_requirements import LEVELS, VERSION
 from services.vocabulary_topics import TOPICS
 
 CONTRACT_VERSION = 'curriculum-task-v1'
+PRODUCTION_CONTRACT_VERSION = 'curriculum-task-v2'
+CONTRACT_VERSIONS = {CONTRACT_VERSION: 1, PRODUCTION_CONTRACT_VERSION: 2}
+NULL_REASONS = {'feature_not_used', 'valid_alternative', 'insufficient_response', 'unclear_audio'}
 RESPONSE_MODES = {'contextual_selection', 'reading_selection', 'listening_selection',
                   'controlled_text', 'reading_response', 'listening_response', 'independent_writing', 'independent_speaking'}
 SUPPORT_TYPES = {'hint', 'translation', 'transcript', 'model_answer', 'audio_replay'}
@@ -82,8 +85,11 @@ def _number(value, label):
 
 def _validate_spec(spec):
     _fields(spec, _SPEC_FIELDS, 'Task specification')
-    if (type(spec['schema_version']) is not int or spec['schema_version'] != 1
-            or spec['contract_version'] != CONTRACT_VERSION or spec['reference_version'] != VERSION):
+    if (type(spec['schema_version']) is not int
+            or not isinstance(spec['contract_version'], str)
+            or spec['contract_version'] not in CONTRACT_VERSIONS
+            or spec['schema_version'] != CONTRACT_VERSIONS[spec['contract_version']]
+            or spec['reference_version'] != VERSION):
         raise ValueError('Unsupported curriculum contract version.')
     for name in ('task_id', 'activity', 'content_version', 'rubric_version'):
         _key(spec[name], name)
@@ -103,8 +109,14 @@ def _validate_spec(spec):
         raise ValueError('A task needs between one and 24 explicit criteria.')
     refs, ids, target_ids = requirement_index(), set(), set()
     for criterion in criteria:
-        _fields(criterion, ('id', 'target_id', 'requirement_id', 'response_mode', 'evidence_scope',
-                            'expectation', 'max_score', 'source_refs'), 'Criterion')
+        if not isinstance(criterion, dict):
+            raise ValueError('Criterion requires an object.')
+        production = criterion.get('evidence_scope') in ('written_language_use', 'spoken_language_use')
+        fields = {'id', 'target_id', 'requirement_id', 'response_mode', 'evidence_scope',
+                  'expectation', 'max_score', 'source_refs'}
+        if production and spec['contract_version'] == PRODUCTION_CONTRACT_VERSION:
+            fields |= {'elicitation', 'feature'}
+        _fields(criterion, fields, 'Criterion')
         for key in ('id', 'target_id', 'requirement_id'):
             _key(criterion[key], key)
         rid = criterion['requirement_id']
@@ -131,6 +143,27 @@ def _validate_spec(spec):
             if (mode != 'listening_response' or ref['domain'] != 'listening'
                     or ref['response_mode'] != 'listening_selection' or criterion['target_id'] == rid):
                 raise ValueError('Open listening responses need a distinct application target and a listening reference.')
+        elif production:
+            required_mode = 'independent_writing' if scope == 'written_language_use' else 'independent_speaking'
+            if (spec['contract_version'] != PRODUCTION_CONTRACT_VERSION or mode != required_mode
+                    or ref['domain'] != 'language_use' or criterion['target_id'] == rid):
+                raise ValueError('Original language use requires a v2 scoped production target and language-use reference.')
+            _text(criterion['elicitation'], 'Production elicitation', 1500)
+            feature = criterion['feature']
+            _fields(feature, ('function', 'prepositions', 'case'), 'Grammatical feature')
+            # Deliberately bounded to the implemented location/destination slice.
+            # Additional features require an explicit validator extension.
+            expected_features = {
+                'location': ('prepositional', 'a1.language.prepositional-location'),
+                'destination': ('accusative', 'a1.language.accusative-destination'),
+            }
+            function = feature['function']
+            if (not isinstance(function, str) or function not in expected_features
+                    or (feature['case'], rid) != expected_features[function]):
+                raise ValueError('Grammatical feature must match the supported source requirement.')
+            _distinct(feature['prepositions'], ('в', 'на'), 'Feature prepositions')
+            if not feature['prepositions'] or criterion['max_score'] != 2 or type(criterion['max_score']) is bool:
+                raise ValueError('Production grammar requires declared prepositions and the 0–2 rubric.')
         else:
             raise ValueError('Use reference or an explicitly scoped application evidence mode.')
         _text(criterion['expectation'], 'Observable criterion')
@@ -194,7 +227,10 @@ def validate_judgements(contract, report, *, response_text=None, audio_duration_
         raise ValueError('Return exactly one judgement for every saved criterion.')
     seen = set()
     for judgement in judgements:
-        _fields(judgement, ('criterion_id', 'outcome', 'score', 'feedback', 'evidence'), 'Criterion judgement')
+        fields = {'criterion_id', 'outcome', 'score', 'feedback', 'evidence'}
+        if contract['contract_version'] == PRODUCTION_CONTRACT_VERSION:
+            fields.add('reason_code')
+        _fields(judgement, fields, 'Criterion judgement')
         cid = judgement['criterion_id']
         if not isinstance(cid, str) or cid not in expected or cid in seen:
             raise ValueError('A judgement cannot add or duplicate criterion IDs.')
@@ -208,10 +244,25 @@ def validate_judgements(contract, report, *, response_text=None, audio_duration_
         if outcome == 'insufficient_evidence':
             if judgement['score'] is not None:
                 raise ValueError('Insufficient evidence is unscored, not a zero.')
+            if contract['contract_version'] == PRODUCTION_CONTRACT_VERSION:
+                reason = judgement['reason_code']
+                if not isinstance(reason, str) or reason not in NULL_REASONS:
+                    raise ValueError('Unscored v2 findings need a declared reason.')
+                if reason == 'unclear_audio' and criterion['response_mode'] != 'independent_speaking':
+                    raise ValueError('Audio uncertainty belongs only to original speech.')
+                if reason in ('feature_not_used', 'valid_alternative') and criterion['evidence_scope'] not in ('written_language_use', 'spoken_language_use'):
+                    raise ValueError('Feature absence belongs only to a scoped production criterion.')
         else:
+            if contract['contract_version'] == PRODUCTION_CONTRACT_VERSION and judgement['reason_code'] is not None:
+                raise ValueError('Scored v2 findings cannot also carry an unscored reason.')
             score = judgement['score']
             _number(score, 'Criterion score')
             maximum = criterion['max_score']
+            if criterion['evidence_scope'] in ('written_language_use', 'spoken_language_use') and score not in (0, 1, 2):
+                raise ValueError('Scoped production grammar uses only the declared 0, 1 or 2 scores.')
+            if (contract['contract_version'] == PRODUCTION_CONTRACT_VERSION
+                    and criterion['evidence_scope'] == 'reference' and maximum == 1 and score not in (0, 1)):
+                raise ValueError('Binary communication criteria use only zero or one.')
             if (not 0 <= score <= maximum or (outcome == 'satisfied' and score != maximum)
                     or (outcome == 'not_satisfied' and score != 0)
                     or (outcome == 'partial' and not 0 < score < maximum)):

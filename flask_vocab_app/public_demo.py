@@ -20,7 +20,9 @@ READ_ENDPOINTS = frozenset({
     'word_post.home', 'word_post.legacy_home', 'word_post.assets', 'word_post.licenses', 'static',
     'ui_preferences.appearance',
     'curriculum.index', 'curriculum.outcomes_page', 'curriculum.topic_page', 'curriculum.unit_page', 'learning.read_session',
+    'curriculum.read_run', 'curriculum.assessed_summary',
     'vocab.vocab_list', 'vocab.inventory', 'learning.state', 'learning.asset',
+    'learning.session_audio',
     'live_conversation.scenarios', 'live_conversation.options', 'user_sessions.read',
     'step_conversation.options', 'step_conversation.history',
     'onboarding.read', 'onboarding.practice_read', 'first_steps.chapter', 'first_steps.lesson',
@@ -39,6 +41,7 @@ WRITE_ENDPOINTS = frozenset({
     'ui_preferences.set_navigation',
     'journey_games.start', 'journey_games.command', 'journey_games.route_command',
     'curriculum.unit_start', 'learning.attempt', 'learning.help_item', 'learning.listened_item', 'learning.transcript_item',
+    'curriculum.start_run', 'curriculum.start_run_step', 'curriculum.retry_run_step', 'curriculum.navigate_run', 'learning.save_draft',
 })
 
 

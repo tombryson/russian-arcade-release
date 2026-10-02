@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "id": "location-transfer-people-listening-v1",
+  "version": "location-transfer-people-listening-v1",
+  "unit_id": "location-destination-v2",
+  "kind": "listening",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Listen to the new plan",
+  "title_ru": "Послушай новый план",
+  "status": "draft",
+  "review": {
+    "kind": "internal_model",
+    "independently_validated": false
+  },
+  "content": {
+    "items": [
+      {
+        "id": "listen-1",
+        "type": "listening_choice",
+        "prompt": "Где Миша сейчас?",
+        "choices": [
+          {
+            "id": "0",
+            "text": "В школе."
+          },
+          {
+            "id": "1",
+            "text": "В парке."
+          },
+          {
+            "id": "2",
+            "text": "В библиотеке."
+          }
+        ],
+        "answer": "0",
+        "hint": "Listen for the requested person and whether this is now or afterwards.",
+        "explanation": "Misha is at school.",
+        "transcript": "Рита сейчас в парке, а Миша в школе. Рита идёт в библиотеку. Миша тоже идёт в библиотеку. Они хотят встретиться в библиотеке.",
+        "audio": {
+          "url": "/static/audio/course/curriculum/location-destination-sequence-v1/b32049f0c4a37026057ecd5b9dfda0aab2184c352a57ce965050cc3795283628.mp3",
+          "sha256": "71d053122c0d08ec86dc2cde4f08e319cb29e7128613fdfaefac482beb5c6632",
+          "duration_ms": 10632
+        },
+        "audio_key": "location-transfer-people-listening-v1-message",
+        "hint_ru": "Не перепутайте, где Рита, а где Миша.",
+        "explanation_ru": "Миша сейчас в школе."
+      },
+      {
+        "id": "listen-2",
+        "type": "listening_choice",
+        "prompt": "Куда идёт Рита?",
+        "choices": [
+          {
+            "id": "0",
+            "text": "В школу."
+          },
+          {
+            "id": "1",
+            "text": "В библиотеку."
+          },
+          {
+            "id": "2",
+            "text": "В парк."
+          }
+        ],
+        "answer": "1",
+        "hint": "Listen for the requested person and whether this is now or afterwards.",
+        "explanation": "Rita is going to the library.",
+        "transcript": "Рита сейчас в парке, а Миша в школе. Рита идёт в библиотеку. Миша тоже идёт в библиотеку. Они хотят встретиться в библиотеке.",
+        "audio": {
+          "url": "/static/audio/course/curriculum/location-destination-sequence-v1/b32049f0c4a37026057ecd5b9dfda0aab2184c352a57ce965050cc3795283628.mp3",
+          "sha256": "71d053122c0d08ec86dc2cde4f08e319cb29e7128613fdfaefac482beb5c6632",
+          "duration_ms": 10632
+        },
+        "audio_key": "location-transfer-people-listening-v1-message",
+        "hint_ru": "Слушайте, куда идёт именно Рита.",
+        "explanation_ru": "Рита идёт в библиотеку."
+      },
+      {
+        "id": "listen-3",
+        "type": "listening_choice",
+        "prompt": "Где встретятся Рита и Миша?",
+        "choices": [
+          {
+            "id": "0",
+            "text": "В парке."
+          },
+          {
+            "id": "1",
+            "text": "В школе."
+          },
+          {
+            "id": "2",
+            "text": "В библиотеке."
+          }
+        ],
+        "answer": "2",
+        "hint": "Listen for the requested person and whether this is now or afterwards.",
+        "explanation": "They plan to meet in the library.",
+        "transcript": "Рита сейчас в парке, а Миша в школе. Рита идёт в библиотеку. Миша тоже идёт в библиотеку. Они хотят встретиться в библиотеке.",
+        "audio": {
+          "url": "/static/audio/course/curriculum/location-destination-sequence-v1/b32049f0c4a37026057ecd5b9dfda0aab2184c352a57ce965050cc3795283628.mp3",
+          "sha256": "71d053122c0d08ec86dc2cde4f08e319cb29e7128613fdfaefac482beb5c6632",
+          "duration_ms": 10632
+        },
+        "audio_key": "location-transfer-people-listening-v1-message",
+        "hint_ru": "Слушайте, где они хотят встретиться.",
+        "explanation_ru": "Рита и Миша хотят встретиться в библиотеке."
+      }
+    ]
+  },
+  "criteria": [
+    {
+      "id": "listen-1",
+      "target_id": "unit.location-transfer-people-listening-v1.listen-1",
+      "requirement_id": "a1.listening.short-message",
+      "response_mode": "listening_selection",
+      "evidence_scope": "reference",
+      "expectation": "Misha is at school.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.1 A, p. 8"
+        }
+      ]
+    },
+    {
+      "id": "listen-2",
+      "target_id": "unit.location-transfer-people-listening-v1.listen-2",
+      "requirement_id": "a1.listening.short-message",
+      "response_mode": "listening_selection",
+      "evidence_scope": "reference",
+      "expectation": "Rita is going to the library.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.1 A, p. 8"
+        }
+      ]
+    },
+    {
+      "id": "listen-3",
+      "target_id": "unit.location-transfer-people-listening-v1.listen-3",
+      "requirement_id": "a1.listening.short-message",
+      "response_mode": "listening_selection",
+      "evidence_scope": "reference",
+      "expectation": "They plan to meet in the library.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.1 A, p. 8"
+        }
+      ]
+    }
+  ],
+  "support": {
+    "allowed": [
+      "hint",
+      "transcript",
+      "model_answer"
+    ],
+    "independence_breakers": [
+      "hint",
+      "transcript",
+      "model_answer"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "version": "curriculum-unit-audio-v1",
+  "content_id": "needs-company-listening-v1",
+  "provider": "elevenlabs",
+  "source": "App-authored learning material with synthetic narration.",
+  "clips": {
+    "who-is-cold": {
+      "text_sha256": "0fc8b44b5e900fd6b771c06366da0378e460e12bb584d2c21e98c2e8bfda2c72",
+      "audio_sha256": "b82a66597f536ee64def1191a8d43e524cf35b2a6a15e247e9d3ab6b6e74d7d5",
+      "duration": 6.164898,
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2"
+    },
+    "visit-companion": {
+      "text_sha256": "fdeed24b11860215005ebaf9aed8e6af0a22f028125a58da5c16b2226618e69a",
+      "audio_sha256": "52ceea5ca1a0ec7f39669912e278f83194499cc3868c0275b5831a910e609845",
+      "duration": 8.124082,
+      "voice_id": "sRk0zCqhS2Cmv0bzx5wA",
+      "model": "eleven_multilingual_v2"
+    },
+    "drink-ingredient": {
+      "text_sha256": "245a0237ff285b76de22e6ede2c70149a4ffb6f8e80c35a6f3a3ea915555fdae",
+      "audio_sha256": "57494c68fa38cecfb239afb16d9ed21478ff82ef0581df2ca7a2e13211a7fd7e",
+      "duration": 5.381224,
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2"
+    }
+  }
+}

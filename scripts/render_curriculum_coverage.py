@@ -7,6 +7,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'flask_vocab_app'))
 from services.curriculum_requirement_map import coverage_report
+from services.curriculum_coverage import delivery_report, STAGES
 from services.curriculum_units import UNIT_IDS, LISTENING_IDS, get_unit, listening_content
 from services.torfl_requirements import LEVELS
 
@@ -15,6 +16,8 @@ OUTPUT = ROOT / 'docs' / 'curriculum-coverage.md'
 
 def render():
     data = coverage_report()
+    delivery = delivery_report()
+    allocations = {row['requirement_id']: row for row in delivery['requirements']}
     lines = [
         '# Curriculum coverage inventory', '',
         'Generated with `python scripts/render_curriculum_coverage.py`; use `--check` to verify this document.', '',
@@ -60,16 +63,36 @@ def render():
     lines += ['', 'These task definitions use frozen contracts at runtime. They do not establish full requirement coverage, '
               'human validation or independent proficiency. The mapped A1 Speaking situations have a narrow original-audio diagnostic; '
               'support independence remains unverified. Controlled-text items are application practice targets, not a change to the source exam format.', '']
+    lines += ['## Delivery allocations', '',
+              'The versioned delivery catalogue allocates every source requirement. P1 contains the drafted location/destination sequence; '
+              'P2 allocates the remaining A1 work; P4 reserves separate A2, B1 and B2 units and assessment families. '
+              'An existing unit is a starting point, not evidence that its full source scope is covered.', '',
+              'The four counts below are **teaching / recognition / production / diagnostic assessment** associations. '
+              'They count partial authored assets, not validated requirements or learner proficiency. A dash means the stage does not apply. '
+              'A zero is a visible gap. Production includes controlled forms and original responses; these remain distinct in the machine-readable report.', '',
+              'The two-turn Speaking tasks only elicit answers to related questions. They do not yet test learner-initiated questions, '
+              'general interaction or fluency. No task in this catalogue establishes an official TORFL level.', '',
+              '| Draft asset | Recording readiness |', '| --- | --- |']
+    for identity, media in delivery['media'].items():
+        if media:
+            lines.append(f"| `{identity}` | {sum(r['status'] == 'verified' for r in media)} / {len(media)} recordings verified |")
+    lines += ['', 'Recording readiness is separate from content status. Missing audio remains visible and must not be presented as playable. '
+              'The content entries retain prerequisites, source locators, criterion IDs, response modes, version hashes and review status. '
+              'All current sequence associations are draft and partial; independent language and assessment validation remain pending.', '']
     for level in LEVELS:
         lines += [f'## {level} requirement coverage', '',
-                  '| Requirement | Legacy definition links | Teaching / practice / checkpoint candidates | Authored reference tasks |',
-                  '| --- | --- | --- | ---: |']
+                  '| Requirement | Legacy definition links | Teaching / practice / checkpoint candidates | Authored reference tasks | Next delivery allocation; T / R / P / A |',
+                  '| --- | --- | --- | ---: | --- |']
         for row in data['requirements']:
             if row['level'] != level:
                 continue
             links = '<br>'.join(f"`{link['legacy_target_id']}` ({link['relation']})" for link in row['legacy_links']) or 'Unallocated'
             counts = f"{row['teaching_item_count']} / {row['practice_item_count']} / {row['checkpoint_item_count']}"
-            lines.append(f"| `{row['requirement_id']}` — {row['label_en']} | {links} | {counts} | {len(row['direct_task_contracts'])} |")
+            planned = allocations[row['requirement_id']]
+            allocation = planned['allocation']
+            stages = ' / '.join(str(len(planned[s])) if planned['applicability'][s]['applicable'] else '—' for s in STAGES)
+            next_work = f"{allocation['package']}: `{allocation['unit_candidate']}` ({allocation['unit_status'].replace('_', ' ')}); {stages}"
+            lines.append(f"| `{row['requirement_id']}` — {row['label_en']} | {links} | {counts} | {len(row['direct_task_contracts'])} | {next_work} |")
         lines += ['', 'Every row above remains **not validated** for new-reference assessment. '
                   'Source locators and response modes are recorded in [the requirements catalogue](curriculum-requirements.md).', '']
     lines += ['## Legacy target crosswalk', '',

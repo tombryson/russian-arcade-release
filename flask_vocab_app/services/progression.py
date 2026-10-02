@@ -233,7 +233,8 @@ def award_speaking(conn, session, report):
         now=finished_at,
         evidence={'basis':'independent_audio_review','grammar':report.get('grammar'),'fluency':report.get('fluency'),
                   'speech_status':report.get('speech_status'),'russian_word_count':len(words),
-                  'goals':report.get('goals',[]),'rubric_version':report.get('rubric_version')})
+                  'goals':report.get('goals',[]),'rubric_version':report.get('rubric_version'),
+                  **({'assisted': True} if report.get('assisted') is True or report.get('skill_evidence_eligible') is False else {})})
 
 
 def snapshot(conn, profile_id):

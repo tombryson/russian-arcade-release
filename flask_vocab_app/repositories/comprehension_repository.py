@@ -191,6 +191,8 @@ class ComprehensionRepository:
         with connect_db(self.db_path) as conn:
             conn.execute('BEGIN IMMEDIATE')
             task = self._task(conn, task_id, activity_profile_id(conn))
+            if task['payload'].get('authored_unit_version'):
+                raise ComprehensionConflict('Lesson questions stay fixed. Return to the lesson for another task.')
             if not task['latest'] or type(revision) is not int or revision != task['revision']:
                 raise ComprehensionConflict('This story has a newer check or question set. Reload it to continue.')
             if task['checking_submission_id'] and timestamp() - task['checking_started_at'] < 180:
@@ -212,9 +214,25 @@ class ComprehensionRepository:
             result = {**task['payload'], 'title': task['title'], 'title_en': task['title_en'], 'id': task['story_id'],
                     'task_id': task_id, 'revision': task['revision'], 'submission_id': identifier(),
                     'answers': json.loads(row[0]) if row else [], 'assessment': json.loads(row[1]) if row else None,
+                    'reviewed_answers': json.loads(row[0]) if row else [],
                     'criterion_support': json.loads(row[2]) if row else [],
                     'practice_mode': task['payload'].get('practice_mode', 'reading'),
                     **{key: state[key] for key in ('listened', 'transcript_visible', 'support')}}
+            draft = conn.execute('SELECT answers_json,revision FROM comprehension_task_drafts '
+                'WHERE task_id=? AND profile_id=? AND task_revision=?', (task_id, task['profile_id'], task['revision'])).fetchone()
+            result['draft_revision'] = draft['revision'] if draft else 0
+            if draft:
+                result['answers'] = json.loads(draft['answers_json'])
+            original = conn.execute("SELECT id,review_status,original_json FROM activity_review_submissions WHERE profile_id=? AND activity='comprehension' AND task_key=? ORDER BY rowid DESC LIMIT 1",
+                                    (task['profile_id'], task_id)).fetchone()
+            if original and original['review_status'] != 'reviewed':
+                result['pending_review'] = {'id': original['id'], 'review_status': original['review_status']}
+                result['answers'] = json.loads(original['original_json'])['answers']
+            # Authored private answer keys stay in the server's frozen task.
+            result.pop('authored_asset', None)
+            result.pop('contracts', None)
+            from services.curriculum_sequences import activity_context
+            result['sequence'] = activity_context(conn, task['profile_id'], 'comprehension', task_id)
             if result['practice_mode'] == 'listening':
                 result.pop('contracts', None)
                 result['audio_available'] = False
@@ -227,6 +245,48 @@ class ComprehensionRepository:
                 result.pop('audio', None)
                 if not state['transcript_visible']:
                     result.update(text='', words=[], image_url='', title='Аудирование', title_en='Listening practice', capture_key='')
+            return result
+
+    def save_draft(self, task_id, data):
+        """Save partial answers without spending credits or creating evidence."""
+        from repositories.learning_repository import LearningError, transaction
+        from repositories.curriculum_sequence_repository import receipt, save_receipt, binding_for_task
+        fields = {'submission_id', 'expected_revision', 'expected_draft_revision', 'response'}
+        if (not isinstance(data, dict) or set(data) != fields
+                or type(data['expected_revision']) is not int or data['expected_revision'] < 0
+                or type(data['expected_draft_revision']) is not int or data['expected_draft_revision'] < 0
+                or not isinstance(data['response'], dict) or set(data['response']) != {'answers'}):
+            raise LearningError('invalid_input', 'Send your draft and its saved revision.')
+        with transaction(self.db_path, write=True) as conn:
+            owner = activity_profile_id(conn)
+            if not binding_for_task(conn, owner, 'comprehension', task_id):
+                raise LearningError('not_found', 'This reading task is not available in your lesson.', 404)
+            task = self._task(conn, task_id, owner)
+            answers = data['response']['answers']
+            if (not isinstance(answers, list) or len(answers) != len(task['payload']['questions'])
+                    or any(not isinstance(answer, str) or len(answer) > 4000 or '\x00' in answer for answer in answers)):
+                raise LearningError('invalid_input', 'Keep each answer under 4,000 characters.')
+            payload = {'task_id': task_id, **data}
+            digest, cached = receipt(conn, owner, data['submission_id'], 'comprehension_draft', payload)
+            if cached is not None:
+                return cached
+            if task['revision'] != data['expected_revision'] or not task['latest']:
+                raise LearningError('stale_revision', 'The saved task changed. Reload it before saving this draft.', 409)
+            if (conn.execute("SELECT 1 FROM activity_review_submissions WHERE profile_id=? AND activity='comprehension' "
+                             "AND task_key=? AND review_status!='reviewed'", (owner, task_id)).fetchone()
+                    or task['checking_token']):
+                raise LearningError('review_pending', 'Your answers are submitted. Finish their feedback before editing.', 409)
+            draft = conn.execute('SELECT revision FROM comprehension_task_drafts WHERE task_id=? '
+                                 'AND profile_id=? AND task_revision=?', (task_id, owner, task['revision'])).fetchone()
+            revision = draft['revision'] if draft else 0
+            if revision != data['expected_draft_revision']:
+                raise LearningError('stale_revision', 'A newer draft was saved in another tab. Your text is still here.', 409)
+            conn.execute('''INSERT INTO comprehension_task_drafts VALUES (?,?,?,?,?,?)
+                ON CONFLICT(task_id) DO UPDATE SET task_revision=excluded.task_revision,revision=excluded.revision,
+                answers_json=excluded.answers_json,updated_at=excluded.updated_at''',
+                (task_id, owner, task['revision'], revision + 1, encoded(answers), timestamp()))
+            result = {'task_id': task_id, 'revision': task['revision'], 'draft_revision': revision + 1, 'answers': answers}
+            save_receipt(conn, owner, data['submission_id'], 'comprehension_draft', digest, result)
             return result
 
     def record_support(self, task_id, revision, request_key, operation, *, word=None):
@@ -265,6 +325,9 @@ class ComprehensionRepository:
                 return {key: value for key, value in support_state(conn, task).items() if key != 'receipt_ids'}
             if not task['latest'] or task['revision'] != revision:
                 raise ComprehensionConflict('This story has changed. Reload it to continue.')
+            if conn.execute("SELECT 1 FROM activity_review_submissions WHERE profile_id=? AND activity='comprehension' AND task_key=? AND review_status!='reviewed' LIMIT 1",
+                            (task['profile_id'], task_id)).fetchone():
+                raise ComprehensionBusy('Your reply is saved. Finish its feedback before using more support.')
             if task['checking_submission_id']:
                 if timestamp() - task['checking_started_at'] < 180:
                     raise ComprehensionBusy('Wait for this answer check before using more support.')

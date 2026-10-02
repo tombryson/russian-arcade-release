@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "id": "location-destination-sequence-v1",
+  "unit_id": "location-destination-v2",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Where shall we meet?",
+  "title_ru": "Где мы встретимся?",
+  "summary": "Tell a friend where you are and arrange where to meet.",
+  "summary_ru": "Расскажи другу, где ты, и договорись о месте встречи.",
+  "status": "draft",
+  "next_unit_id": "origins-and-destinations-v1",
+  "steps": [
+    {
+      "id": "learn",
+      "adapter": "teaching",
+      "content_id": "location-teaching-v2",
+      "content_sha256": "91d5fcf0c6a27082641603ffebc1231ef5f0fb83159871da95a23e7abe9f052a",
+      "title": "Where shall we meet?",
+      "title_ru": "Где мы встретимся?",
+      "effects_policy": "existing-activity-effects-v1",
+      "reward_family": "unit.location-destination.learn",
+      "reward_aliases": [],
+      "requirement_ids": []
+    },
+    {
+      "id": "choices",
+      "adapter": "unit_practice",
+      "content_id": "location-choices-v2",
+      "content_sha256": "0b003fa7614fb87738364a40eac937235eae3981be4a31f38027cb89e84dc1ab",
+      "title": "Where or where to?",
+      "title_ru": "Где или куда?",
+      "effects_policy": "existing-activity-effects-v1",
+      "reward_family": "unit.location-destination.choices",
+      "reward_aliases": [
+        "curriculum-unit:location-destination-v1"
+      ],
+      "requirement_ids": [
+        "a1.language.accusative-destination",
+        "a1.language.prepositional-location"
+      ]
+    },
+    {
+      "id": "forms",
+      "adapter": "unit_forms",
+      "content_id": "location-forms-v2",
+      "content_sha256": "c8533b65125f7dffb32e6eafc65b68c10d7164b2fc5003c66c90e19462736ab0",
+      "title": "Use the place form",
+      "title_ru": "Выбери форму названия места",
+      "effects_policy": "existing-activity-effects-v1",
+      "reward_family": "unit.location-destination.forms",
+      "reward_aliases": [
+        "curriculum-unit:location-destination-v1:forms-v1"
+      ],
+      "requirement_ids": [
+        "a1.language.accusative-destination",
+        "a1.language.prepositional-location"
+      ]
+    },
+    {
+      "id": "reading",
+      "adapter": "comprehension",
+      "content_id": "location-reading-v1",
+      "content_sha256": "dbab867369b943b6ddd7a4576398e994505b451ea25a713aef9b2b92c97b9692",
+      "title": "A message from Anna",
+      "title_ru": "Сообщение от Анны",
+      "effects_policy": "existing-activity-effects-v1",
+      "reward_family": "unit.location-destination.reading",
+      "reward_aliases": [],
+      "requirement_ids": [
+        "a1.reading.practical-information"
+      ]
+    },
+    {
+      "id": "listening",
+      "adapter": "unit_listening",
+      "content_id": "location-listening-v2",
+      "content_sha256": "2bc7becd8a208766df0d24d9eff08ae247694b693d5613afa12f0b5143ebb637",
+      "title": "A voice message from Nina",
+      "title_ru": "Голосовое сообщение от Нины",
+      "effects_policy": "existing-activity-effects-v1",
+      "reward_family": "unit.location-destination.listening",
+      "reward_aliases": [
+        "curriculum-unit:location-destination-v1:listening-v1"
+      ],
+      "requirement_ids": [
+        "a1.listening.short-message"
+      ]
+    },
+    {
+      "id": "writing",
+      "adapter": "writing",
+      "content_id": "location-message-v2",
+      "content_sha256": "ddb0e822329904f2ca5f51380344bf20862a789baa36a043bf5e97e87a8c2ba9",
+      "title": "Arrange a meeting",
+      "title_ru": "Договоримся о встрече",
+      "effects_policy": "existing-activity-effects-v1",
+      "reward_family": "unit.location-destination.writing",
+      "reward_aliases": [],
+      "requirement_ids": [
+        "a1.language.accusative-destination",
+        "a1.language.prepositional-location",
+        "a1.writing.personal-message"
+      ]
+    },
+    {
+      "id": "speaking",
+      "adapter": "unit_exchange",
+      "content_id": "location-exchange-v1",
+      "content_sha256": "d4bfbd868f08960e4b96c3ba51e4dc9e76ebeb1f43c7aaad5a9a79669cf1143e",
+      "title": "Tell Nina your plan",
+      "title_ru": "Расскажи Нине о своих планах",
+      "effects_policy": "existing-activity-effects-v1",
+      "reward_family": "unit.location-destination.speaking",
+      "reward_aliases": [],
+      "requirement_ids": [
+        "a1.language.accusative-destination",
+        "a1.language.prepositional-location",
+        "a1.speaking.ask-and-answer",
+        "a1.speaking.intelligibility"
+      ]
+    },
+    {
+      "id": "transfer",
+      "adapter": "task_group",
+      "content_id": "location-transfer-v1",
+      "content_sha256": "125afd31a414fd872fc6fc49c1adcce271e5540e5270112cc08f079b97091a3b",
+      "title": "Try a new situation",
+      "title_ru": "Попробуй новую ситуацию",
+      "effects_policy": "unit-transfer-no-effects-v1",
+      "reward_family": "unit.location-destination.transfer",
+      "reward_aliases": [],
+      "requirement_ids": []
+    }
+  ],
+  "completion_paths": {
+    "guided": [
+      "choices",
+      "forms",
+      "reading",
+      "listening",
+      "writing",
+      "speaking",
+      "transfer"
+    ],
+    "challenge": [
+      "transfer"
+    ]
+  },
+  "completion_policy": "responses-reviewed-v1",
+  "transfer_families": [
+    {
+      "id": "people",
+      "exposure_family_id": "location-meeting-people-v1",
+      "task_ids": [
+        "location-transfer-people-forms-v1",
+        "location-transfer-people-reading-v1",
+        "location-transfer-people-listening-v1",
+        "location-transfer-people-writing-v1",
+        "location-transfer-people-speaking-v1"
+      ],
+      "content_hashes": {
+        "location-transfer-people-forms-v1": "abd23668643342239df97409b3414728814f7698b3b26abdd4135fe646c4099c",
+        "location-transfer-people-reading-v1": "3e6cbb974f1854d61063841bf609715353002e0467956f3bb3ddc9813dfeb05c",
+        "location-transfer-people-listening-v1": "f28b31606ab9925100640c50d1dee9960e2f6d36face2ff5e1e7a94130b2ddee",
+        "location-transfer-people-writing-v1": "e62a5093f1f02f62527ae9a5656d2f53bbd7c3b7f8d18d77b6904079f895ec0e",
+        "location-transfer-people-speaking-v1": "ce1c0581665fb62fbb5e18a184b277288602eb3137d67339b964504adfc16df8"
+      }
+    },
+    {
+      "id": "update",
+      "exposure_family_id": "location-meeting-update-v1",
+      "task_ids": [
+        "location-transfer-update-forms-v1",
+        "location-transfer-update-reading-v1",
+        "location-transfer-update-listening-v1",
+        "location-transfer-update-writing-v1",
+        "location-transfer-update-speaking-v1"
+      ],
+      "content_hashes": {
+        "location-transfer-update-forms-v1": "b8d4c1dc383a322077b528e9bd3a4b3c93cc2c35a8e4d335493ce5fbf965142e",
+        "location-transfer-update-reading-v1": "f4380e7f0c60e66bccaed79a64febd587cf14e962a015e74d282f02a3b8a0cbb",
+        "location-transfer-update-listening-v1": "50b1a59c729d15a6a7ea06d101980c48ce3d9e0754638ad53cd7f5d318427acc",
+        "location-transfer-update-writing-v1": "0bae51f700fad7c894ea6f645fb1d77da1892d197f9f5d2bba4538acf3cdaa9d",
+        "location-transfer-update-speaking-v1": "8ae69eba5f06762f502bab24a59cfa8f757600dd5c453f636a4d182994ebf102"
+      }
+    }
+  ],
+  "prerequisites": {
+    "advice": "Start with First steps if the Russian words are unfamiliar. You can open the word help and continue here.",
+    "advice_ru": "Если русские слова незнакомы, начни с Первых шагов или открой подсказки и продолжай здесь.",
+    "href": "/#first-steps"
+  },
+  "remediation": {
+    "a1.language.prepositional-location": "choices",
+    "a1.language.accusative-destination": "forms",
+    "a1.reading.practical-information": "reading",
+    "a1.listening.short-message": "listening",
+    "a1.writing.personal-message": "writing",
+    "a1.speaking.ask-and-answer": "speaking",
+    "a1.speaking.intelligibility": "speaking"
+  }
+}

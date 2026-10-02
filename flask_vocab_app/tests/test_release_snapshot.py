@@ -53,19 +53,33 @@ class ReleaseSnapshotTests(unittest.TestCase):
             with self.subTest(path=path):
                 self.assertIsNone(release.exclusion(path))
 
-    def test_every_bundled_curriculum_manifest_and_recording_can_be_exported(self):
+    def test_every_bundled_curriculum_and_pilot_recording_can_be_exported(self):
         root = SCRIPT.parent.parent
         audio = root / 'flask_vocab_app/static/audio/course/curriculum'
-        manifests = sorted(audio.glob('*/manifest.json'))
+        manifests = sorted(audio.glob('*/manifest.json')) + [audio.parent / 'assessment-pilot/manifest.json']
         self.assertTrue(manifests, 'Bundled curriculum recordings must be present in source')
+        expected = set()
         for manifest in manifests:
             content = json.loads(manifest.read_text())
             self.assertTrue(content['clips'])
             paths = [manifest, *(manifest.parent / f'{clip}.mp3' for clip in content['clips'])]
             for path in paths:
+                expected.add(path.relative_to(root).as_posix())
                 with self.subTest(path=str(path.relative_to(root))):
                     self.assertTrue(path.is_file(), 'Authored recording is missing')
                     self.assertIsNone(release.exclusion(path.relative_to(root).as_posix()))
+        self.assertEqual(expected, release.CURRICULUM_AUDIO_PATHS | release.ASSESSMENT_PILOT_AUDIO_PATHS)
+
+    def test_authored_sequence_sources_are_exported_without_broadening_data_policy(self):
+        root = SCRIPT.parent.parent
+        for directory in ('curriculum_sequences', 'curriculum_sequence_assets', 'curriculum_coverage'):
+            paths = sorted((root / 'flask_vocab_app/data' / directory).glob('*.json'))
+            self.assertTrue(paths, directory)
+            for path in paths:
+                with self.subTest(path=path.name):
+                    self.assertIsNone(release.exclusion(path.relative_to(root).as_posix()))
+        for filename in ('credentials.json', 'token.json', 'responses.db', 'responses.csv'):
+            self.assertIsNotNone(release.exclusion(f'flask_vocab_app/data/curriculum_sequence_assets/{filename}'))
 
     def test_curriculum_audio_allowlist_does_not_admit_unreviewed_recordings(self):
         prefix = 'flask_vocab_app/static/audio/course/curriculum'
@@ -75,6 +89,15 @@ class ReleaseSnapshotTests(unittest.TestCase):
             f'{prefix}/objects-recipients-listening-v1/borrowed-key.mp3',
             f'{prefix}/learner-listening-v1/manifest.json',
             f'{prefix}/learner-listening-v1/borrowed-key.mp3',
+            f'{prefix}/location-destination-sequence-v1/learner-recording.mp3',
+            f'{prefix}/location-destination-sequence-v1/' + '0' * 64 + '.mp3',
+            f'{prefix}/location-destination-sequence-v2/manifest.json',
+            f'{prefix}/action-aspect-listening-v1/learner-recording.mp3',
+            f'{prefix}/basic-motion-listening-v1/dinner-progress.mp3',
+            'flask_vocab_app/static/audio/course/assessment-pilot/learner-recording.mp3',
+            'flask_vocab_app/static/audio/course/assessment-pilot/a1-pilot-c-v1.mp3',
+            'flask_vocab_app/static/audio/course/assessment-pilot/a1-pilot-a-v2.mp3',
+            'flask_vocab_app/static/audio/course/assessment-pilot/recordings/a1-pilot-a-v1.mp3',
         ):
             with self.subTest(path=path):
                 self.assertIsNotNone(release.exclusion(path))

@@ -1,11 +1,14 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks';
 import { api, ApiError, type PracticeSession } from './learning-api';
 import { Feedback, Sheet } from './components';
+import {appUrl} from './app-url';
+import {usePracticeDraft} from './usePracticeDraft';
 
 type Operation = 'attempts' | 'help' | 'listened' | 'transcript';
 type Command = {url: string; body: object; operation: Operation};
 
-export function Practice({ sessionId, profileId, onFinish }: { sessionId: string; profileId: string; onFinish: () => void }) {
+export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { sessionId: string; profileId: string; onFinish: () => void; language?: 'en'|'ru' }) {
+  const t = (en: string, ru: string) => language === 'ru' ? ru : en;
   const [saved, setSaved] = useState<PracticeSession>();
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
@@ -22,6 +25,8 @@ export function Practice({ sessionId, profileId, onFinish }: { sessionId: string
   const controller = useRef<AbortController>();
   const requestEpoch = useRef(0);
   const heading = useRef<HTMLHeadingElement>(null);
+  const draft = usePracticeDraft(saved, answerText, setAnswerText, language);
+  const [conflictedText, setConflictedText] = useState('');
 
   useEffect(() => {
     const request = new AbortController(); controller.current = request;
@@ -33,7 +38,7 @@ export function Practice({ sessionId, profileId, onFinish }: { sessionId: string
       if (request.signal.aborted || requestEpoch.current !== epoch) return;
       if (value.profile_id !== profileId) throw new Error('Choose the learner who started this activity.');
       setSaved(value); setFeedback(true);
-    }).catch(reason => { if (!request.signal.aborted) setError(reason instanceof Error ? reason.message : 'This activity could not open.'); });
+    }).catch(reason => { if (!request.signal.aborted) setError(reason instanceof Error ? reason.message : t('This activity could not open.','Не удалось открыть задание.')); });
     return () => request.abort();
   }, [sessionId, profileId, reload]);
   useEffect(() => { heading.current?.focus(); }, [saved?.completed_items, feedback]);
@@ -42,6 +47,8 @@ export function Practice({ sessionId, profileId, onFinish }: { sessionId: string
     if (!saved?.item || sending.current || blocked || saved.id !== sessionId || saved.profile_id !== profileId) return;
     if (pending.current && pending.current.operation !== operation) return;
     if (operation === 'attempts' && saved.item.type === 'listening_choice' && !saved.item.listened && !saved.item.transcript) return;
+    if (draft.active && !await draft.flush()) return;
+    if (sending.current || blocked) return;
     if (operation === 'attempts') audio.current?.pause();
     const epoch = requestEpoch.current;
     const signal = controller.current?.signal;
@@ -59,11 +66,13 @@ export function Practice({ sessionId, profileId, onFinish }: { sessionId: string
     } catch (reason) {
       if (signal?.aborted || requestEpoch.current !== epoch) return;
       if (reason instanceof ApiError && reason.code === 'stale_revision' && reason.currentSession?.profile_id === profileId) {
+        if (answerText) setConflictedText(answerText);
         pending.current = undefined; setSaved(reason.currentSession); setFeedback(true); setAnswerText('');
         setError('Practice changed in another tab. The latest saved answer is shown here.');
       } else if (reason instanceof ApiError && reason.code === 'audio_unavailable' && operation === 'listened') {
         pending.current = undefined; setCompletedAudio(null); setAudioFailed(playbackKey); setError('');
       } else if (reason instanceof ApiError && ['locked', 'profile_changed', 'account_changed', 'access_required', 'adult_required', 'learner_required', 'content_unavailable', 'not_found', 'csrf_failed'].includes(reason.code)) {
+        if (answerText) setConflictedText(answerText);
         pending.current = undefined; setBlocked(true); setSaved(undefined); setError(reason.message);
       } else setError(operation === 'listened'
         ? 'We could not save your listening progress. Try saving again; you do not need to replay the audio.'
@@ -102,31 +111,39 @@ export function Practice({ sessionId, profileId, onFinish }: { sessionId: string
     try { await player.play(); }
     catch { if (activePlayback.current === key) setAudioFailed(playbackKey); }
   }
-  return <section class="page practice-page"><div class="lesson-head"><a class="text-link" href={saved?.origin?.href ?? "#activities"}>{saved?.origin ? saved.origin.title : "Back to activities"}</a><span class="quiet">{busy ? 'Saving…' : pending.current ? 'Save not confirmed' : saved?.origin ? `${Math.min(saved.completed_items + (showResult || saved.status === 'completed' ? 0 : 1), saved.total_items)} of ${saved.total_items}` : saved ? 'Progress saved' : ''}</span></div>
-    {!saved ? <><h1 ref={heading} tabIndex={-1}>{error ? 'This activity could not open.' : 'Opening your practice…'}</h1>{error ? <><p role="alert">{error}</p><div class="action-row">{!blocked && <button class="cta" onClick={() => { pending.current = undefined; setReload(value => value + 1); }}>Try again</button>}<a href="/post/profiles">Choose a profile</a></div></> : <p role="status">Loading your saved answers.</p>}</>
-      : <>{!saved.origin && <p class="kicker">{saved.title}</p>}{(!saved.origin || showResult || saved.status === 'completed') && <h1 ref={heading} tabIndex={-1}>{showResult ? last.outcome === 'correct' ? 'That’s right.' : 'Let’s look at the answer.' : saved.status === 'completed' ? 'Practice complete.' : `Question ${saved.completed_items + 1} of ${saved.total_items}`}</h1>}
-        {showResult ? <Sheet>{saved.attempts.at(-1)?.prompt && <p class="practice-prompt">{saved.attempts.at(-1)?.prompt}</p>}{last.response_text !== undefined && <><p class="answer-label">Your answer</p><p class="answer-text" lang="ru">{last.response_text}</p></>}{(last.response_text === undefined || last.outcome !== 'correct') && <><p class="answer-label">{last.outcome === 'correct' ? 'Your answer' : 'The correct answer'}</p><p class="answer-text" lang="ru">{last.answer}</p></>}{last.transcript && <div class="practice-transcript"><p class="answer-label">Transcript</p><p lang="ru">{last.transcript}</p></div>}{last.explanation && <p>{last.explanation}</p>}<p>{last.support?.includes('transcript') ? 'Transcript used' : last.assisted ? 'You used a hint for this question.' : 'Your answer has been saved.'}</p><button class="cta" onClick={() => setFeedback(false)}>{saved.status === 'completed' ? 'Finish practice' : 'Next question'} <span aria-hidden="true">→</span></button></Sheet>
-          : saved.status === 'completed' ? <Sheet><h2>You answered {saved.total_items} {saved.total_items === 1 ? 'question' : 'questions'}.</h2><p>Your answers are saved. Choose another activity when you’re ready.</p><details class="answer-history"><summary>Review your answers</summary><ol>{saved.attempts.map(attempt => <li key={attempt.id}>{attempt.feedback.answer} — {attempt.feedback.outcome === 'correct' ? 'answered correctly' : 'answer shown'}{attempt.feedback.support?.includes('transcript') ? ' · Transcript used' : attempt.feedback.assisted ? ' with a hint' : ''}</li>)}</ol></details>{saved.origin ? <a class="cta" href={saved.origin.href}>Continue learning →</a> : <button class="cta" onClick={onFinish}>Back to activities</button>}</Sheet>
-            : saved.item && <Sheet>{saved.origin ? <h1 class="practice-prompt" ref={heading} tabIndex={-1} lang="ru">{saved.item.prompt}</h1> : <h2 class="practice-prompt">{saved.item.prompt}</h2>}
+  return <section class="page practice-page"><div class="lesson-head"><a class="text-link" href={appUrl(saved?.sequence?.lesson_url ?? saved?.origin?.href ?? "#activities")}>{saved?.origin ? saved.origin.title : saved?.sequence ? t("Back to lesson", "К уроку") : t("Back to activities", "К занятиям")}</a><span class="quiet">{draft.active ? draft.status : busy ? t('Saving…','Сохраняем…') : pending.current ? t('Save not confirmed','Сохранение не подтверждено') : saved?.sequence ? (language === 'ru' ? saved.sequence.step_label_ru : saved.sequence.step_label) : saved?.origin ? `${Math.min(saved.completed_items + (showResult || saved.status === 'completed' ? 0 : 1), saved.total_items)} of ${saved.total_items}` : saved ? t('Progress saved','Прогресс сохранён') : ''}</span></div>
+    {!saved ? <><h1 ref={heading} tabIndex={-1}>{error ? t('This activity could not open.','Не удалось открыть задание.') : t('Opening your practice…','Открываем практику…')}</h1>{error ? <><p role="alert">{error}</p><div class="action-row">{!blocked && <button class="cta" onClick={() => { pending.current = undefined; setReload(value => value + 1); }}>{t('Try again','Повторить')}</button>}<a href="/post/profiles">{t('Choose a profile','Выбрать профиль')}</a></div></> : <p role="status">{t('Loading your saved answers.','Загружаем сохранённые ответы.')}</p>}</>
+      : <>{!saved.origin && !saved.sequence && <p class="kicker">{saved.title}</p>}{(!saved.origin && !saved.sequence || showResult || saved.status === 'completed') && <h1 ref={heading} tabIndex={-1}>{showResult ? last.deferred ? t('Reply saved.','Ответ сохранён.') : last.outcome === 'correct' ? t('That’s right.','Верно.') : t('Let’s look at the answer.','Посмотрим на ответ.') : saved.status === 'completed' ? t('Practice complete.','Практика завершена.') : t(`Question ${saved.completed_items + 1} of ${saved.total_items}`,`Вопрос ${saved.completed_items + 1} из ${saved.total_items}`)}</h1>}
+        {showResult ? <Sheet>{saved.attempts.at(-1)?.prompt && <p class="practice-prompt">{saved.attempts.at(-1)?.prompt}</p>}{last.response_text !== undefined && <><p class="answer-label">{t('Your answer','Ваш ответ')}</p><p class="answer-text" lang="ru">{last.response_text}</p></>}{!last.deferred && (last.response_text === undefined || last.outcome !== 'correct') && <><p class="answer-label">{last.outcome === 'correct' ? t('Your answer','Ваш ответ') : t('The correct answer','Правильный ответ')}</p><p class="answer-text" lang="ru">{last.answer}</p></>}{last.transcript && <div class="practice-transcript"><p class="answer-label">{t('Transcript','Текст записи')}</p><p lang="ru">{last.transcript}</p></div>}{last.explanation && <p>{last.explanation}</p>}{last.deferred && <p>{t('Feedback follows after the questions about this recording.','Обратная связь появится после вопросов к этой записи.')}</p>}<p>{last.support?.includes('transcript') ? t('Transcript used','Использован текст записи') : last.support?.includes('model_answer') ? t('You have seen this answer before.','Вы уже видели этот ответ.') : last.assisted ? t('You used a hint for this question.','Вы использовали подсказку.') : t('Your answer has been saved.','Ваш ответ сохранён.')}</p><button class="cta" onClick={() => setFeedback(false)}>{saved.status === 'completed' ? t('Finish practice','Завершить практику') : t('Next question','Следующий вопрос')} <span aria-hidden="true">→</span></button></Sheet>
+          : saved.status === 'completed' ? <Sheet><h2>{t(`You answered ${saved.total_items} ${saved.total_items === 1 ? 'question' : 'questions'}.`, `Вы ответили на вопросы: ${saved.total_items}.`)}</h2><p>{t('Your answers are saved. Choose another activity when you’re ready.','Ответы сохранены. Выберите следующее занятие, когда будете готовы.')}</p><details class="answer-history"><summary>{t('Review your answers','Посмотреть ответы')}</summary><ol>{saved.attempts.map(attempt => <li key={attempt.id}>
+                {attempt.prompt && <p><strong lang="ru">{attempt.prompt}</strong></p>}
+                <p><span lang="ru">{attempt.feedback.response_text ?? attempt.feedback.answer}</span> — {attempt.feedback.outcome === 'correct' ? t('answered correctly','правильный ответ') : t('try again','попробуйте ещё раз')}{attempt.feedback.support?.includes('transcript') ? t(' · Transcript used',' · Использован текст записи') : attempt.feedback.support?.includes('model_answer') ? t(' · Answer seen before',' · Ответ уже был показан') : attempt.feedback.assisted ? t(' with a hint',' с подсказкой') : ''}</p>
+                {attempt.feedback.outcome !== 'correct' && attempt.feedback.response_text !== undefined && <p>{t('Correct answer: ','Правильный ответ: ')}<span lang="ru">{attempt.feedback.answer}</span></p>}
+                {attempt.feedback.explanation && <p>{attempt.feedback.explanation}</p>}
+              </li>)}</ol></details>{saved.origin || saved.sequence ? <a class="cta" href={appUrl(saved.sequence?.next_action?.url ?? saved.sequence?.lesson_url ?? saved.origin?.href ?? '/curriculum')}>{(language === 'ru' ? saved.sequence?.next_action?.label_ru : saved.sequence?.next_action?.label) ?? t('Continue learning','Продолжить урок')} →</a> : <button class="cta" onClick={onFinish}>{t('Back to activities','К занятиям')}</button>}</Sheet>
+            : saved.item && <Sheet>{saved.origin || saved.sequence ? <h1 class="practice-prompt" ref={heading} tabIndex={-1} lang="ru">{saved.item.prompt}</h1> : <h2 class="practice-prompt">{saved.item.prompt}</h2>}
               {isListening && <div class="practice-listening">
-                {saved.item.audio && <audio key={playbackKey} ref={audio} controls preload="none" aria-label="Listen to the message" src={saved.item.audio.url}
+                {saved.item.audio && <audio key={playbackKey} ref={audio} controls preload="none" aria-label={t('Listen to the message','Послушать сообщение')} src={appUrl(saved.item.audio.url)}
                   onEnded={() => { if (playbackKey && activePlayback.current === playbackKey) setCompletedAudio(playbackKey); }}
                   onError={() => { if (playbackKey && activePlayback.current === playbackKey) setAudioFailed(playbackKey); }} />}
-                {audioFailed === playbackKey && playbackKey && <div class="practice-audio-error" role="alert"><span>The audio is unavailable.</span><button class="text-link" disabled={busy || !!pending.current} onClick={() => void retryAudio()}>Retry audio</button></div>}
-                {!saved.item.audio && <p>The audio is unavailable. You can read the transcript.</p>}
-                {saved.item.has_transcript && !saved.item.transcript && <button class="text-link" disabled={busy || !!pending.current} onClick={() => void submit('transcript')}>Show transcript</button>}
-                {saved.item.transcript && <div class="practice-transcript"><p class="answer-label">Transcript</p><p lang="ru">{saved.item.transcript}</p></div>}
+                {audioFailed === playbackKey && playbackKey && <div class="practice-audio-error" role="alert"><span>{t('The audio is unavailable.','Аудио недоступно.')}</span><button class="text-link" disabled={busy || !!pending.current} onClick={() => void retryAudio()}>{t('Retry audio','Повторить аудио')}</button></div>}
+                {!saved.item.audio && <p>{t('The audio is unavailable. You can read the transcript.','Аудио недоступно. Можно прочитать текст.')}</p>}
+                {saved.item.has_transcript && !saved.item.transcript && <button class="text-link" disabled={busy || !!pending.current} onClick={() => void submit('transcript')}>{t('Show transcript','Показать текст')}</button>}
+                {saved.item.transcript && <div class="practice-transcript"><p class="answer-label">{t('Transcript','Текст записи')}</p><p lang="ru">{saved.item.transcript}</p></div>}
               </div>}
               {saved.item.type === 'controlled_text' ? <form class="practice-answer-form" onSubmit={event => {event.preventDefault(); if(answerText.trim()) void submit('attempts', {text: answerText});}}>
-                <label class="answer-label" htmlFor="practice-form-answer">Your answer in Russian</label>
+                <label class="answer-label" htmlFor="practice-form-answer">{t('Your answer in Russian','Ваш ответ по-русски')}</label>
                 <input id="practice-form-answer" type="text" lang="ru" autoComplete="off" autoCapitalize="off" spellcheck={false} maxLength={200} value={answerText} disabled={busy || !!pending.current} onInput={event => setAnswerText(event.currentTarget.value)} />
-                <button class="cta" type="submit" disabled={busy || !!pending.current || !answerText.trim()}>Check answer</button>
-              </form> : <><p>{listeningReady ? 'Choose one answer.' : 'Listen, then choose an answer.'}</p><div class="options">{saved.item.choices?.map(choice => <button key={choice.id} class="word" disabled={busy || !!pending.current || !listeningReady} onClick={() => void submit('attempts', {choice_id: choice.id})}>{choice.text}</button>)}</div></>}
-              {saved.item.has_hint && !saved.item.hint && <button class="text-link" disabled={busy || !!pending.current} onClick={() => void submit('help')}>Show a hint</button>}
+                <button class="cta" type="submit" disabled={busy || !!pending.current || !answerText.trim()}>{t('Check answer','Проверить ответ')}</button>
+              </form> : <><p>{listeningReady ? t('Choose one answer.','Выберите ответ.') : t('Listen, then choose an answer.','Послушайте и выберите ответ.')}</p><div class="options">{saved.item.choices?.map(choice => <button key={choice.id} class="word" disabled={busy || !!pending.current || !listeningReady} onClick={() => void submit('attempts', {choice_id: choice.id})}>{choice.text}</button>)}</div></>}
+              {saved.item.has_hint && !saved.item.hint && <button class="text-link" disabled={busy || !!pending.current} onClick={() => void submit('help')}>{t('Show a hint','Показать подсказку')}</button>}
               {saved.item.hint && <Feedback>{saved.item.hint}</Feedback>}
-              {!!saved.item.asset_ids?.length && <div class="activity-media">{saved.item.asset_ids.map((id, index) => <a key={id} class="text-link" href={`/api/v1/assets/${id}`} target="_blank" rel="noopener">Open supporting picture or audio {index + 1}</a>)}</div>}
+              {!!saved.item.asset_ids?.length && <div class="activity-media">{saved.item.asset_ids.map((id, index) => <a key={id} class="text-link" href={appUrl(`/api/v1/assets/${id}`)} target="_blank" rel="noopener">{t('Open supporting picture or audio','Открыть изображение или аудио')} {index + 1}</a>)}</div>}
             </Sheet>}
-        {error && <div role="alert" class="error-note"><p>{error}</p>{pending.current && <button class="cta" disabled={busy} onClick={() => void submit(pending.current!.operation)}>Try saving again</button>}</div>}
+        {error && <div role="alert" class="error-note"><p>{error}</p>{pending.current && <button class="cta" disabled={busy} onClick={() => void submit(pending.current!.operation)}>{t('Try saving again','Повторить сохранение')}</button>}</div>}
       </>}
+    {draft.message && <div class="error-note" role="alert"><p>{draft.message}</p>{draft.state === 'failed' && <button class="text-link" onClick={() => void draft.flush()}>{t('Retry save','Повторить сохранение')}</button>}{draft.state === 'conflict' && <button class="text-link" onClick={() => {setConflictedText(answerText); setReload(value => value + 1);}}>{t('Load saved version','Загрузить сохранённую версию')}</button>}</div>}
+    {draft.leaving && draft.state !== 'saving' && <div class="error-note" role="alert"><p>{t('Save your draft before leaving this activity.','Сохраните черновик перед выходом из задания.')}</p><div class="action-row"><button class="text-link" onClick={draft.cancelLeave}>{t('Stay here','Остаться')}</button><button class="text-link" onClick={draft.discardAndLeave}>{t('Leave without saving','Выйти без сохранения')}</button></div></div>}
+    {conflictedText && <details class="answer-history" open><summary>{t('Your unsaved text','Ваш несохранённый текст')}</summary><textarea aria-label={t('Copy your unsaved text','Скопируйте несохранённый текст')} readOnly value={conflictedText} lang="ru" /></details>}
   </section>;
 }

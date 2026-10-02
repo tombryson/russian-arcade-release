@@ -8,7 +8,7 @@
     {% include '_favicon.html' %}
   {% for filename in assets.styles %}<link rel="stylesheet" href="{{ url_for('word_post.assets', filename=filename) }}">{% endfor %}
   <link rel="stylesheet" href="/static/css/user_sessions.css?v=1">
-  <link rel="stylesheet" href="/static/css/profile_skill_progress.css?v=1">
+  <link rel="stylesheet" href="/static/css/profile_skill_progress.css?v=3">
   <link rel="stylesheet" href="/static/css/appearance_picker.css?v=1">
   <script src="/static/js/appearance_picker.js?v=1" defer></script>
   <script src="/static/js/user_sessions.js?v=3" defer></script>
@@ -33,6 +33,7 @@
     </div>
     {% include '_profile_course_progress.html' %}
     {% include '_profile_skill_progress.html' %}
+    {% include '_profile_curriculum_results.html' %}
     {% include '_navigation_preferences.html' %}
     <details class="user-profile-add" {% if not state.profiles or error | default('') %}open{% endif %}>
       <summary>{{ 'Добавить профиль' if ui_lang == 'ru' else 'Add a profile' }}</summary>

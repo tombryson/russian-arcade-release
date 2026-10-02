@@ -96,7 +96,7 @@ class EverydayUnitContentTests(unittest.TestCase):
         self.assertEqual(company['tea-with-milk']['requirement_id'], 'a1.language.instrumental-ingredient')
         self.assertIn('добавить молоко', company['tea-with-milk']['prompt'])
 
-    def test_listening_sources_validate_but_do_not_claim_prepared_audio(self):
+    def test_prepared_listening_sources_keep_their_authored_contracts(self):
         scripts = set()
         for unit_id in UNITS:
             unit = get_unit(unit_id)
@@ -106,7 +106,7 @@ class EverydayUnitContentTests(unittest.TestCase):
             self.assertEqual(source['id'], content_id)
             self.assertEqual(len(source['items']), 3)
             self.assertLess(sum(len(q['transcript']) for q in source['items']), 750)
-            self.assertFalse(unit['listening_available'])
+            self.assertTrue(unit['listening_available'])
             prepared = deepcopy(source)
             for item in prepared['items']:
                 self.assertNotIn(item['transcript'], scripts)
@@ -114,8 +114,8 @@ class EverydayUnitContentTests(unittest.TestCase):
                 self.assertTrue(item['requirement_id'].startswith('a1.listening.'))
                 expected = '/static/audio/course/curriculum/'+content_id+'/'+item['id']+'.mp3'
                 self.assertEqual(item['audio_url'], expected)
-                # Synthetic metadata exists only inside this validator test;
-                # the draft has no recording or published manifest.
+                # Synthetic metadata exercises only the task validator;
+                # the published-media tests check the actual recording hashes.
                 item['audio'] = {'url': expected, 'sha256': '0'*64, 'duration_ms': 1000}
             with patch('services.curriculum_units.listening_content', return_value=prepared):
                 pack = validate_pack(_pack(unit, 'listening'))
@@ -141,7 +141,7 @@ class EverydayUnitIntegrationTests(unittest.TestCase):
             entry = self.client.get('/curriculum/units/' + unit_id)
             self.assertEqual(entry.status_code, 200)
             self.assertIn(unit['title'], entry.text)
-            self.assertNotIn('/' + unit_id + '/listening', entry.text)
+            self.assertIn('/' + unit_id + '/listening', entry.text)
             for stage in ('practice', 'forms'):
                 pack = _pack(unit, stage)
                 response = self.client.post('/curriculum/units/'+unit_id+'/'+stage,

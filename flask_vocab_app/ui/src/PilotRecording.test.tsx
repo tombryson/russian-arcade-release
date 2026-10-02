@@ -47,9 +47,30 @@ describe('Pilot original recording', () => {
   });
   it('shows a recoverable message when microphone permission is denied', async () => {
     vi.mocked(navigator.mediaDevices.getUserMedia).mockRejectedValue(new Error('permission'));
-    render(<PilotRecording disabled={false} onReady={vi.fn()} />); fireEvent.click(screen.getByRole('button', { name: 'Record your reply' }));
+    const lock=vi.fn();
+    render(<PilotRecording disabled={false} onReady={vi.fn()} onLockChange={lock} />); fireEvent.click(screen.getByRole('button', { name: 'Record your reply' }));
     expect((await screen.findByRole('alert')).textContent).toContain('Allow microphone access');
     expect(screen.getByRole('button', { name: 'Record your reply' }).hasAttribute('disabled')).toBe(false);
+    expect(lock).toHaveBeenLastCalledWith(false);
+  });
+  it('locks playback before requesting the microphone and keeps Stop usable if a parent request becomes pending', async () => {
+    const lock=vi.fn(),ready=vi.fn();
+    const {rerender}=render(<PilotRecording disabled={false} onReady={ready} onLockChange={lock}/>);
+    lock.mockClear();
+    vi.mocked(navigator.mediaDevices.getUserMedia).mockImplementation(async()=>{
+      expect(lock).toHaveBeenLastCalledWith(true);
+      return media as unknown as MediaStream;
+    });
+    fireEvent.click(screen.getByRole('button',{name:'Record your reply'}));
+    await screen.findByRole('button',{name:'Stop recording'});
+    rerender(<PilotRecording disabled={true} onReady={ready} onLockChange={lock}/>);
+    const button=screen.getByRole('button',{name:'Stop recording'}) as HTMLButtonElement;
+    expect(button.disabled).toBe(false);
+    fireEvent.click(button);
+    expect(Recorder.instances[0].state).toBe('inactive');
+    expect(stop).toHaveBeenCalled();
+    expect(await screen.findByLabelText('Listen to your recording')).toBeTruthy();
+    expect(ready.mock.calls.at(-1)?.[0]).toBeInstanceOf(Blob);
   });
   it('keeps skill navigation locked until an unsent preview is submitted or discarded', async () => {
     const lock = vi.fn(); const ready = vi.fn();

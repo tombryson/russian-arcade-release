@@ -2,7 +2,7 @@
 {% from '_activity_header.html' import activity_header %}
 {% set page_title = 'Ваш профиль' if ui_lang == 'ru' else 'Your profile' %}
 {% block page_styles %}
-<link rel="stylesheet" href="/static/css/profile_skill_progress.css?v=2">
+<link rel="stylesheet" href="/static/css/profile_skill_progress.css?v=3">
 {% endblock %}
 {% block main_content %}
 <main class="main-content activity-entry profile-overview" id="mainContent">
@@ -12,6 +12,7 @@
     {% endcall %}
     {% include '_profile_course_progress.html' %}
     {% include '_profile_skill_progress.html' %}
+    {% include '_profile_curriculum_results.html' %}
     {% if not profile_skill_progress %}
     <p class="profile-overview-start">{{ 'Результаты ваших занятий появятся здесь.' if ui_lang == 'ru' else 'Your practice results will appear here.' }} <a href="/#activities" hx-boost="false">{{ 'Выбрать занятие' if ui_lang == 'ru' else 'Choose an activity' }} →</a></p>
     {% endif %}

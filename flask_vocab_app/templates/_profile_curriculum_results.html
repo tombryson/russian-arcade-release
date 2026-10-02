@@ -1,0 +1,35 @@
+{% if curriculum_results and curriculum_results.domains %}
+<section class="profile-assessed-work" aria-labelledby="assessed-work-title">
+  <h2 id="assessed-work-title">{{ 'Последние проверенные задания' if ui_lang == 'ru' else 'Recent assessed work' }}</h2>
+  <dl>
+  {% for domain in curriculum_results.domains %}
+    <div class="profile-assessed-row">
+      <dt>{{ domain.label_ru if ui_lang == 'ru' else domain.label }}</dt>
+      <dd>
+        {% if domain.latest %}
+        <span class="profile-assessed-outcome">{% if domain.latest.outcome == 'demonstrated_in_task' %}{{ 'Получилось в этом задании' if ui_lang == 'ru' else 'Demonstrated in this task' }}{% elif domain.latest.outcome == 'more_evidence_needed' %}{{ 'Нужно больше примеров' if ui_lang == 'ru' else 'More evidence needed' }}{% else %}{{ 'Есть что потренировать' if ui_lang == 'ru' else 'More practice needed' }}{% endif %}</span>
+        <small>{{ domain.latest.level }} · {{ domain.latest.scope_label_ru|default('Это задание', true) if ui_lang == 'ru' else domain.latest.scope_label|default('This task', true) }} · {{ domain.latest.date }}{% if domain.latest.support|default([]) or domain.latest.condition == 'assisted' %} · {{ 'С помощью' if ui_lang == 'ru' else 'With help' }}{% endif %}</small>
+        {% if domain.latest.condition == 'unverified' %}<small>{{ 'Самостоятельность выполнения не проверялась.' if ui_lang == 'ru' else 'Independent conditions were not checked.' }}</small>{% endif %}
+        {% else %}<span>{{ 'Пока не проверено' if ui_lang == 'ru' else 'Not assessed' }}</span>{% endif %}
+        {% if domain.pending %}<small>{% if domain.pending.state == 'review_unavailable' %}{{ 'Ответ сохранён; отзыв пока недоступен.' if ui_lang == 'ru' else 'Reply saved; feedback is unavailable.' }}{% else %}{{ 'Ответ сохранён; ожидается отзыв.' if ui_lang == 'ru' else 'Reply saved; feedback pending.' }}{% endif %}</small>{% endif %}
+        {% set action = domain.next_action|default({}) %}
+        {% if action.url %}<a href="{{ action.url }}" hx-boost="false">
+          {% if action.kind == 'resume' %}{{ 'Продолжить задание' if ui_lang == 'ru' else 'Resume task' }}
+          {% elif action.kind == 'retry_review' %}{{ 'Открыть ответ и повторить проверку' if ui_lang == 'ru' else 'Open reply to retry feedback' }}
+          {% elif action.kind == 'open_saved_reply' %}{{ 'Открыть сохранённый ответ' if ui_lang == 'ru' else 'Open saved reply' }}
+          {% elif action.kind == 'unavailable' %}{{ 'Посмотреть доступные задания' if ui_lang == 'ru' else 'See available lesson activities' }}
+          {% elif action.kind == 'continue_lesson' %}{{ 'Продолжить урок' if ui_lang == 'ru' else 'Continue lesson' }}
+          {% elif action.kind == 'choose_task' %}{{ 'Выбрать задание' if ui_lang == 'ru' else 'Choose a task' }}
+          {% elif action.kind == 'focused_practice' %}{{ action.label_ru|default('Потренировать этот навык', true) if ui_lang == 'ru' else action.label|default('Practise this skill', true) }}
+          {% elif action.kind == 'new_example' %}{{ action.label_ru|default('Попробовать другой пример', true) if ui_lang == 'ru' else action.label|default('Try another example', true) }}
+          {% else %}{{ 'Посмотреть отзыв' if ui_lang == 'ru' else 'Open feedback' }}{% endif %}
+        </a>{% endif %}
+        {% if domain.latest and action.url != domain.latest.url %}<a href="{{ domain.latest.url }}" hx-boost="false">{{ 'Последний отзыв' if ui_lang == 'ru' else 'Latest feedback' }}</a>{% endif %}
+        {% if domain.pending and domain.pending.url != action.url %}<a href="{{ domain.pending.url }}" hx-boost="false">{{ 'Открыть сохранённый ответ' if ui_lang == 'ru' else 'Open saved reply' }}</a>{% endif %}
+        {% if domain.scopes|default([])|length > 1 %}<details><summary>{{ 'Другие проверенные задания' if ui_lang == 'ru' else 'Other assessed work' }}</summary>{% for scope in domain.scopes[1:] %}<p><a href="{{ scope.url }}" hx-boost="false">{{ scope.scope_label_ru if ui_lang == 'ru' else scope.scope_label }}</a><small>{{ scope.level }} · {{ scope.date }} · {% if scope.outcome == 'demonstrated_in_task' %}{{ 'Получилось в этом задании' if ui_lang == 'ru' else 'Demonstrated in this task' }}{% elif scope.outcome == 'more_evidence_needed' %}{{ 'Нужно больше примеров' if ui_lang == 'ru' else 'More evidence needed' }}{% else %}{{ 'Есть что потренировать' if ui_lang == 'ru' else 'More practice needed' }}{% endif %}</small></p>{% endfor %}</details>{% endif %}
+      </dd>
+    </div>
+  {% endfor %}
+  </dl>
+</section>
+{% endif %}

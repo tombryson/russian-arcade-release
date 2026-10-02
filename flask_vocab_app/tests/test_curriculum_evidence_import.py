@@ -253,6 +253,8 @@ class CurriculumEvidenceImportTests(unittest.TestCase):
             self.comprehension.finish_check(task_id, 0, submission, answers, assessment_for(task['payload'], answers),
                                             expected_owner=OWNER, lease_token=task['check_token'])
         with self.connection() as conn:
+            from tests.support import strip_curriculum_sequences
+            strip_curriculum_sequences(conn)
             for table in ('assessment_pilot_requests', 'assessment_pilot_reviews', 'assessment_pilot_submissions',
                           'assessment_pilot_support', 'assessment_pilot_components', 'assessment_pilot_sessions'):
                 conn.execute('DROP TABLE ' + table)

@@ -66,6 +66,9 @@ class WritingRepository:
                 if str(attempt['id']) in reports:
                     attempt['criterion_report'] = reports[str(attempt['id'])]['report']
                     attempt['criterion_support'] = reports[str(attempt['id'])]['support']
+            row = conn.execute("SELECT id,review_status FROM activity_review_submissions WHERE profile_id=? AND activity='writing' AND task_key=? ORDER BY rowid DESC LIMIT 1",
+                               (profile_id, str(exercise_id))).fetchone()
+            item['pending_review'] = dict(row) if row and row['review_status'] != 'reviewed' else None
         return item
 
     @staticmethod
@@ -146,6 +149,36 @@ class WritingRepository:
     def check_revision(self, exercise_id, revision):
         with connect_db(self.db_path) as conn:
             self.assert_revision(conn,exercise_id,revision)
+
+    def save_lesson_draft(self, exercise_id, response, revision, request_id):
+        """Acknowledge a retried save without overwriting newer lesson work."""
+        from repositories.learning_repository import LearningError, transaction
+        from repositories.curriculum_sequence_repository import binding_for_task, receipt, save_receipt
+        self.validate_answer(response)
+        if type(revision) is not int or revision < 0 or '\x00' in response:
+            raise ValueError('Invalid writing draft')
+        with transaction(self.db_path, write=True) as conn:
+            owner = activity_profile_id(conn)
+            if (not binding_for_task(conn, owner, 'writing', str(exercise_id))
+                    or not conn.execute("SELECT 1 FROM writing_exercises WHERE id=? "
+                                        "AND COALESCE(owner_profile_id,'personal-learning')=?",
+                                        (exercise_id, owner)).fetchone()):
+                raise LookupError('Writing not found')
+            payload = {'exercise_id': exercise_id, 'response': response, 'revision': revision}
+            digest, cached = receipt(conn, owner, request_id, 'writing_draft', payload)
+            if cached is not None:
+                return cached['revision']
+            if conn.execute("SELECT 1 FROM activity_review_submissions WHERE profile_id=? "
+                            "AND activity='writing' AND task_key=? AND review_status!='reviewed'",
+                            (owner, str(exercise_id))).fetchone():
+                raise LearningError('review_pending', 'Your reply is submitted. Finish its feedback before editing.', 409)
+            self.assert_revision(conn, exercise_id, revision)
+            conn.execute('''INSERT INTO writing_drafts(exercise_id,response,revision,updated_at) VALUES (?,?,?,?)
+                ON CONFLICT(exercise_id) DO UPDATE SET response=excluded.response,
+                revision=excluded.revision,updated_at=excluded.updated_at''',
+                (exercise_id, response, revision + 1, timestamp()))
+            save_receipt(conn, owner, request_id, 'writing_draft', digest, {'revision': revision + 1})
+            return revision + 1
 
     @staticmethod
     def validate_assessment(assessment):

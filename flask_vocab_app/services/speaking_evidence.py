@@ -90,6 +90,13 @@ def speaking_task_contract(scenario):
 
 def validate_speaking_contract(contract, scenario):
     frozen = validate_task_contract(contract)
+    if frozen['schema_version'] == 2 and scenario.get('scenario_id') == 'curriculum-unit-exchange':
+        from services.unit_exchange import scenario_for_contract
+        if (frozen['activity'] != 'speaking' or scenario_for_contract(frozen) != scenario
+                or len(frozen['content'].get('turns', [])) != 2
+                or any(c['response_mode'] != 'independent_speaking' for c in frozen['criteria'])):
+            raise ValueError('Unit Speaking criteria must match the exact two-turn prompt bundle.')
+        return frozen
     if (frozen['activity'] != 'speaking' or frozen['content'].get('scenario') != scenario
             or frozen['level'] != scenario.get('target_level')
             or any(c['response_mode'] != 'independent_speaking' for c in frozen['criteria'])):
@@ -101,8 +108,12 @@ def validate_speaking_judgements(contract, review, duration_ms):
     """Audio bounds are structural proof only; uncertainty must remain unscored."""
     report = review.get('criterion_report')
     validate_judgements(contract, report, audio_duration_ms=duration_ms)
-    uncertain = (review.get('speech_status') in ('no_russian', 'unclear')
-                 or bool(review.get('uncertain_phrases')))
+    if contract['schema_version'] == 2 and review.get('uncertain_phrases') and review.get('speech_status') not in ('no_russian', 'unclear'):
+        grammar = {c['id'] for c in contract['criteria'] if c['evidence_scope'] == 'spoken_language_use'}
+        if any(j['criterion_id'] in grammar and j['outcome'] != 'insufficient_evidence' for j in report['judgements']):
+            raise ValueError('Uncertain original forms cannot receive grammar credit.')
+        return report
+    uncertain = (review.get('speech_status') in ('no_russian', 'unclear') or bool(review.get('uncertain_phrases')))
     if uncertain and any(j['outcome'] != 'insufficient_evidence' for j in report['judgements']):
         raise ValueError('Unclear speech cannot become scored Speaking criterion evidence.')
     return report

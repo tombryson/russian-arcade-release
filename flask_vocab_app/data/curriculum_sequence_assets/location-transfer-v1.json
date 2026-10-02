@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "location-transfer-v1",
+  "version": "location-transfer-v1",
+  "unit_id": "location-destination-v2",
+  "kind": "task_group",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Try a new situation",
+  "title_ru": "Попробуй новую ситуацию",
+  "status": "draft",
+  "review": {
+    "kind": "internal_model",
+    "independently_validated": false
+  },
+  "content": {
+    "families": [
+      {
+        "id": "people",
+        "exposure_family_id": "location-meeting-people-v1",
+        "task_ids": [
+          "location-transfer-people-forms-v1",
+          "location-transfer-people-reading-v1",
+          "location-transfer-people-listening-v1",
+          "location-transfer-people-writing-v1",
+          "location-transfer-people-speaking-v1"
+        ]
+      },
+      {
+        "id": "update",
+        "exposure_family_id": "location-meeting-update-v1",
+        "task_ids": [
+          "location-transfer-update-forms-v1",
+          "location-transfer-update-reading-v1",
+          "location-transfer-update-listening-v1",
+          "location-transfer-update-writing-v1",
+          "location-transfer-update-speaking-v1"
+        ]
+      }
+    ]
+  },
+  "criteria": [],
+  "support": {
+    "allowed": [
+      "hint"
+    ],
+    "independence_breakers": [
+      "hint"
+    ]
+  }
+}

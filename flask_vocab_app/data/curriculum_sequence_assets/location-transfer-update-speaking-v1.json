@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "id": "location-transfer-update-speaking-v1",
+  "version": "location-transfer-update-speaking-v1",
+  "unit_id": "location-destination-v2",
+  "kind": "speaking",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Explain your plan",
+  "title_ru": "Расскажи о своих планах",
+  "status": "draft",
+  "review": {
+    "kind": "internal_model",
+    "independently_validated": false
+  },
+  "content": {
+    "speaker": "Нина",
+    "scene": {
+      "current_place": "library",
+      "destination": "school",
+      "instruction": "You are in the library. Your destination has changed from the park to school. Tell Nina where you are and where you are going now.",
+      "instruction_ru": "Сейчас: библиотека. Следующее место: школа (раньше — парк). Ответь Нине: где ты сейчас и куда идёшь?"
+    },
+    "turns": [
+      {
+        "id": "location",
+        "prompt": "Привет! Где ты сейчас?",
+        "audio": {
+          "url": "/static/audio/course/curriculum/location-destination-sequence-v1/1b77b14ae77b021511ef0b5b91b8e583b3d14b5e927cf170238064509afab6ee.mp3",
+          "sha256": "23ae6fe2735c8d2fdde73430bb73a94735a0df30fe2c7258859e07b6070b911a",
+          "duration_ms": 1985,
+          "text_sha256": "1b77b14ae77b021511ef0b5b91b8e583b3d14b5e927cf170238064509afab6ee",
+          "size_bytes": 32226
+        },
+        "audio_key": "location-transfer-update-speaking-v1-location"
+      },
+      {
+        "id": "destination",
+        "prompt": "Понятно. А куда ты идёшь?",
+        "audio": {
+          "url": "/static/audio/course/curriculum/location-destination-sequence-v1/c4a03c3fb2e4008825b22f113012c2c3b88e78806f4cdba2a3691f687afc4a89.mp3",
+          "sha256": "9b67ddcb586d76c77cc1b16cade6505d6dbf8d41e88b9f329cdf69dd4af2b6ff",
+          "duration_ms": 2220,
+          "text_sha256": "c4a03c3fb2e4008825b22f113012c2c3b88e78806f4cdba2a3691f687afc4a89",
+          "size_bytes": 35988
+        },
+        "audio_key": "location-transfer-update-speaking-v1-destination"
+      }
+    ],
+    "closing": {
+      "text": "Хорошо, до встречи!",
+      "audio": {
+        "url": "/static/audio/course/curriculum/location-destination-sequence-v1/dcbb702e0f95833cea7d659f919d2a26ea93862e879497fb415c5fd3a7ce51ef.mp3",
+        "sha256": "23d87d8b217a001098bb5697ea507792a1287e5358928aee9c83134253a3f670",
+        "duration_ms": 1567,
+        "text_sha256": "dcbb702e0f95833cea7d659f919d2a26ea93862e879497fb415c5fd3a7ce51ef",
+        "size_bytes": 25539
+      },
+      "audio_key": "location-transfer-update-speaking-v1-closing"
+    },
+    "repeat_limit": 1,
+    "feedback_after_turns": 2,
+    "criterion_turns": {
+      "current-place": [
+        "location"
+      ],
+      "next-place": [
+        "destination"
+      ],
+      "location-form": [
+        "location"
+      ],
+      "destination-form": [
+        "destination"
+      ],
+      "understandable-places": [
+        "location",
+        "destination"
+      ]
+    }
+  },
+  "criteria": [
+    {
+      "id": "current-place",
+      "target_id": "unit.location-transfer-update-speaking-v1.current-place",
+      "requirement_id": "a1.speaking.ask-and-answer",
+      "response_mode": "independent_speaking",
+      "evidence_scope": "reference",
+      "expectation": "Communicate the current place intelligibly. Accept short natural replies.",
+      "max_score": 1,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.1–1.1.2, p. 7; §1.2.4 B, p. 10"
+        }
+      ]
+    },
+    {
+      "id": "next-place",
+      "target_id": "unit.location-transfer-update-speaking-v1.next-place",
+      "requirement_id": "a1.speaking.ask-and-answer",
+      "response_mode": "independent_speaking",
+      "evidence_scope": "reference",
+      "expectation": "Communicate the destination intelligibly. Accept short natural replies.",
+      "max_score": 1,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.1–1.1.2, p. 7; §1.2.4 B, p. 10"
+        }
+      ]
+    },
+    {
+      "id": "location-form",
+      "target_id": "unit.location-transfer-update-speaking-v1.location-form",
+      "requirement_id": "a1.language.prepositional-location",
+      "response_mode": "independent_speaking",
+      "evidence_scope": "spoken_language_use",
+      "expectation": "Assess the attempted location form with в or на. Leave a valid alternative construction unobserved; communication is scored separately.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ],
+      "elicitation": "Assess the attempted location form with в or на. Leave a valid alternative construction unobserved; communication is scored separately.",
+      "feature": {
+        "function": "location",
+        "prepositions": [
+          "в",
+          "на"
+        ],
+        "case": "prepositional"
+      }
+    },
+    {
+      "id": "destination-form",
+      "target_id": "unit.location-transfer-update-speaking-v1.destination-form",
+      "requirement_id": "a1.language.accusative-destination",
+      "response_mode": "independent_speaking",
+      "evidence_scope": "spoken_language_use",
+      "expectation": "Assess the attempted destination form with в or на. Leave a valid alternative construction unobserved; communication is scored separately.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ],
+      "elicitation": "Assess the attempted destination form with в or на. Leave a valid alternative construction unobserved; communication is scored separately.",
+      "feature": {
+        "function": "destination",
+        "prepositions": [
+          "в",
+          "на"
+        ],
+        "case": "accusative"
+      }
+    },
+    {
+      "id": "understandable-places",
+      "target_id": "unit.location-transfer-update-speaking-v1.understandable-places",
+      "requirement_id": "a1.speaking.intelligibility",
+      "response_mode": "independent_speaking",
+      "evidence_scope": "reference",
+      "expectation": "The requested place information is understandable in the original audio. Accent differences alone are not errors.",
+      "max_score": 1,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.1, p. 11; §1.2.4, p. 10"
+        }
+      ]
+    }
+  ],
+  "support": {
+    "allowed": [
+      "hint",
+      "translation",
+      "model_answer"
+    ],
+    "independence_breakers": [
+      "hint",
+      "translation",
+      "model_answer"
+    ]
+  }
+}

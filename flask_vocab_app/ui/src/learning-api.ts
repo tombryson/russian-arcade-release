@@ -7,11 +7,15 @@ export type LearningHome = {
   sessions: { id: string; title: string; status: string; content_status: string }[];
 };
 export type Progress = { profile_id: string; evidence: { word_id: number; lemma: string }[] };
-export type AnswerFeedback = { outcome: string; answer: string; assisted: boolean; explanation?: string; response_text?: string; support?: string[]; listened?: boolean; transcript?: string };
+export type AnswerFeedback = { outcome: string; answer?: string; deferred?: boolean; assisted: boolean; explanation?: string; response_text?: string; support?: string[]; listened?: boolean; transcript?: string };
+export type PracticeDraft = {response: {text: string}; revision: number};
+export type SequenceAction = {step_id: string; label?: string; label_ru?: string; url?: string};
+export type PracticeSequence = {run_id: string; step_id: string; step_label?: string; step_label_ru?: string; lesson_url: string; next_action?: SequenceAction | null};
 export type PracticeSession = {
   id: string; profile_id: string; title: string; revision: number; status: string;
   completed_items: number; total_items: number;
   origin?: {href: string; title: string};
+  draft_enabled?: boolean; draft?: PracticeDraft; sequence?: PracticeSequence;
   item: { id: string; type?: 'choice' | 'controlled_text' | 'listening_choice'; prompt: string; choices?: { id: string; text: string }[]; has_hint: boolean; hint?: string; asset_ids?: string[]; audio?: {url: string; sha256: string; duration_ms: number}; listened?: boolean; transcript?: string | null; has_transcript?: boolean } | null;
   attempts: { id: string; prompt?: string; feedback: AnswerFeedback }[];
 };

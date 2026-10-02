@@ -28,6 +28,16 @@ def backup_learning_store(db_path, store, destination, lesson_upload_folder=None
             step_recordings = []
             lesson_files = []
             legacy_lessons = []
+            unit_audio = {}
+            if snapshot.execute("SELECT 1 FROM sqlite_master WHERE name='activity_review_submissions'").fetchone():
+                from services.activity_review_submissions import validate_saved_reviews
+                try:
+                    unit_audio = validate_saved_reviews(snapshot,
+                        unit_exchange_audio_root=Path(db_path).resolve().parent / 'unit-exchange-audio', require_audio=True)
+                except (OSError, ValueError, LookupError, TypeError, KeyError) as error:
+                    raise LearningError('backup_invalid', 'A lesson original or recording could not be verified; the backup is incomplete.') from error
+                snapshot.execute("UPDATE activity_review_submissions SET review_status='review_unavailable',review_token=NULL,review_started_at=NULL,review_error='provider_unavailable' WHERE review_status='reviewing'")
+                snapshot.commit()
             if snapshot.execute("SELECT 1 FROM sqlite_master WHERE name='lesson_files'").fetchone():
                 if snapshot.execute("SELECT 1 FROM lesson_revisions WHERE state='processing' AND lease_until>?",(int(time.time()),)).fetchone() or snapshot.execute("SELECT 1 FROM lesson_attempts WHERE state='checking' AND lease_until>?",(int(time.time()),)).fetchone():
                     raise LearningError('backup_busy', 'Let lesson preparation and answer checking finish before backing up.')
@@ -67,6 +77,19 @@ def backup_learning_store(db_path, store, destination, lesson_upload_folder=None
         if target.stat().st_size != asset['byte_size'] or hashlib.sha256(target.read_bytes()).hexdigest() != asset['sha256']:
             raise LearningError('backup_invalid', 'An asset failed its checksum; the backup is incomplete.')
     audio_manifest = []
+    unit_manifest = []
+    for source_name, expected_hash in sorted(unit_audio.items()):
+        source = Path(source_name)
+        target = destination / 'unit-exchange-audio' / source.name
+        target.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+        try:
+            shutil.copyfile(source, target)
+            target.chmod(0o600)
+            if hashlib.sha256(target.read_bytes()).hexdigest() != expected_hash:
+                raise ValueError('Recording bytes changed.')
+        except (OSError, ValueError) as error:
+            raise LearningError('backup_invalid', 'A lesson recording changed or is missing; the backup is incomplete.') from error
+        unit_manifest.append({'file': 'unit-exchange-audio/' + source.name, 'sha256': expected_hash, 'byte_size': target.stat().st_size})
     for name in sorted(set(recordings)):
         if Path(name).name != name:
             raise LearningError('backup_invalid', 'Invalid conversation recording path in the database.')
@@ -136,6 +159,7 @@ def backup_learning_store(db_path, store, destination, lesson_upload_folder=None
     manifest = {'schema': 1, 'database': {'file': 'vocab.db', 'sha256': hashlib.sha256(database.read_bytes()).hexdigest()},
                 'assets': assets, 'conversation_audio': audio_manifest, 'live_conversation_audio': live_manifest,
                 'step_conversation_audio': step_manifest,
+                'unit_exchange_audio': unit_manifest,
                 'lesson_files':list(lesson_manifest.values()),
                 'scope': 'Application SQLite database, Word Post assets, lesson originals/pages and private conversation recordings. Other legacy media, external Anki and Drive are separate backups.'}
     (destination / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2))

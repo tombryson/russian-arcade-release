@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "id": "location-forms-v2",
+  "version": "location-forms-v2",
+  "unit_id": "location-destination-v2",
+  "kind": "controlled_text",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Use the place form",
+  "title_ru": "Выбери форму названия места",
+  "status": "draft",
+  "review": {
+    "kind": "internal_model",
+    "independently_validated": false
+  },
+  "content": {
+    "items": [
+      {
+        "id": "school-destination",
+        "type": "controlled_text",
+        "prompt": "— Куда ты идёшь?\n— Я иду в ___. (школа)",
+        "answer": "школу",
+        "accepted_answers": [
+          "школу",
+          "в школу"
+        ],
+        "hint": "A destination: школа changes to школу.",
+        "explanation": "В школу gives the destination.",
+        "hint_ru": "Куда? Здесь слово «школа» меняется на «школу».",
+        "explanation_ru": "«В школу» — цель движения: куда ты идёшь."
+      },
+      {
+        "id": "library-location",
+        "type": "controlled_text",
+        "prompt": "Я сейчас в ___. (библиотека)",
+        "answer": "библиотеке",
+        "accepted_answers": [
+          "библиотеке",
+          "в библиотеке"
+        ],
+        "hint": "A current location uses библиотеке here.",
+        "explanation": "В библиотеке gives the current place.",
+        "hint_ru": "Где? Здесь нужна форма «библиотеке».",
+        "explanation_ru": "«В библиотеке» — место, где ты сейчас находишься."
+      },
+      {
+        "id": "park-meeting",
+        "type": "controlled_text",
+        "prompt": "Встретимся в ___. (парк)",
+        "answer": "парке",
+        "accepted_answers": [
+          "парке",
+          "в парке"
+        ],
+        "hint": "The meeting takes place inside the park.",
+        "explanation": "В парке gives the meeting place.",
+        "hint_ru": "Встреча будет внутри парка. Где?",
+        "explanation_ru": "«В парке» — место встречи."
+      }
+    ]
+  },
+  "criteria": [
+    {
+      "id": "school-destination",
+      "target_id": "unit.location-forms-v2.school-destination",
+      "requirement_id": "a1.language.accusative-destination",
+      "response_mode": "controlled_text",
+      "evidence_scope": "controlled_production",
+      "expectation": "В школу gives the destination.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ]
+    },
+    {
+      "id": "library-location",
+      "target_id": "unit.location-forms-v2.library-location",
+      "requirement_id": "a1.language.prepositional-location",
+      "response_mode": "controlled_text",
+      "evidence_scope": "controlled_production",
+      "expectation": "В библиотеке gives the current place.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "park-meeting",
+      "target_id": "unit.location-forms-v2.park-meeting",
+      "requirement_id": "a1.language.prepositional-location",
+      "response_mode": "controlled_text",
+      "evidence_scope": "controlled_production",
+      "expectation": "В парке gives the meeting place.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ]
+    }
+  ],
+  "support": {
+    "allowed": [
+      "hint",
+      "model_answer"
+    ],
+    "independence_breakers": [
+      "hint",
+      "model_answer"
+    ]
+  }
+}

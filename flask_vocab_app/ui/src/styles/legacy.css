@@ -249,6 +249,17 @@ html { scroll-padding-top: 116px; }
 .arcade-workspace .writing-guide > p { color: var(--wp-text-secondary); line-height: 1.6; }
 .arcade-workspace .writing-task-preview, .arcade-workspace .writing-prompt { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.7; }
 .arcade-workspace .writing-prompt { font-size: clamp(18px, 2vw, 21px); margin: 18px 0 12px; max-width: 65ch; }
+.arcade-workspace .writing-place-map { max-width: 580px; margin: 16px 0 24px; }
+.arcade-workspace .writing-place-map-cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
+.arcade-workspace .writing-place-map-card { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 12px 4px; border: 1px solid var(--wp-border-subtle); border-radius: 8px; }
+.arcade-workspace .writing-place-map-card svg { color: var(--wp-accent-learning); }
+.arcade-workspace .writing-place-map-card strong { font-size: clamp(13px,3vw,18px); }
+.arcade-workspace .writing-place-map-card small { color: var(--wp-text-secondary); }
+.arcade-workspace .writing-sequence-page .sentence-heading { align-items: center; gap: 8px 16px; margin-bottom: 20px; }
+.arcade-workspace .writing-sequence-page .sentence-heading h1 { font-size: clamp(22px,3vw,32px); margin: 0; }
+.arcade-workspace .writing-sequence-page .writing-prompt { font-size: 16px; line-height: 1.6; }
+.arcade-workspace .writing-sequence-page .writing-workspace textarea { min-height: 160px; }
+.arcade-workspace .writing-sequence-page .writing-workspace > details { margin: 14px 0; }
 .arcade-workspace .writing-original { margin-bottom: 24px; }
 .arcade-workspace .writing-original summary { color: var(--wp-text-secondary); padding: 10px 0; cursor: pointer; }
 .arcade-workspace .writing-original p { white-space: pre-wrap; line-height: 1.7; margin-top: 12px; }

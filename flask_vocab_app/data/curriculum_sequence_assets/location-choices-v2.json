@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "id": "location-choices-v2",
+  "version": "location-choices-v2",
+  "unit_id": "location-destination-v2",
+  "kind": "choice",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Where or where to?",
+  "title_ru": "Где или куда?",
+  "status": "draft",
+  "review": {
+    "kind": "internal_model",
+    "independently_validated": false
+  },
+  "content": {
+    "items": [
+      {
+        "id": "at-school",
+        "type": "choice",
+        "prompt": "Анна сейчас в школе. Анна …",
+        "choices": [
+          {
+            "id": "0",
+            "text": "в школе."
+          },
+          {
+            "id": "1",
+            "text": "в школу."
+          }
+        ],
+        "answer": "0",
+        "hint": "Ask где? — where is she now?",
+        "explanation": "В школе gives Anna’s location.",
+        "hint_ru": "Где Анна сейчас?",
+        "explanation_ru": "«В школе» отвечает на вопрос «где?»: это место, где сейчас Анна."
+      },
+      {
+        "id": "to-library",
+        "type": "choice",
+        "prompt": "— Куда идёт Анна?\n— Анна идёт …",
+        "choices": [
+          {
+            "id": "0",
+            "text": "в библиотеке."
+          },
+          {
+            "id": "1",
+            "text": "в библиотеку."
+          }
+        ],
+        "answer": "1",
+        "hint": "Ask куда? — where is she going?",
+        "explanation": "В библиотеку names the destination.",
+        "hint_ru": "Куда идёт Анна?",
+        "explanation_ru": "«В библиотеку» отвечает на вопрос «куда?»: это цель движения."
+      },
+      {
+        "id": "to-park",
+        "type": "choice",
+        "prompt": "— Куда ты идёшь потом?\n— Я иду …",
+        "choices": [
+          {
+            "id": "0",
+            "text": "в парке."
+          },
+          {
+            "id": "1",
+            "text": "в парк."
+          }
+        ],
+        "answer": "1",
+        "hint": "Потом means afterwards. This is where you are going.",
+        "explanation": "В парк names the next destination.",
+        "hint_ru": "Потом — значит после этого. Куда ты идёшь?",
+        "explanation_ru": "«В парк» называет место, куда ты идёшь дальше."
+      },
+      {
+        "id": "walk-inside",
+        "type": "choice",
+        "prompt": "Мы уже в парке. Мы гуляем …",
+        "choices": [
+          {
+            "id": "0",
+            "text": "в парк."
+          },
+          {
+            "id": "1",
+            "text": "в парке."
+          }
+        ],
+        "answer": "1",
+        "hint": "Гуляем describes the walk; the place is where it happens.",
+        "explanation": "The walk takes place inside the park: в парке.",
+        "hint_ru": "Мы уже внутри парка. Где мы гуляем?",
+        "explanation_ru": "Мы гуляем внутри парка: «в парке» отвечает на вопрос «где?»."
+      }
+    ]
+  },
+  "criteria": [
+    {
+      "id": "at-school",
+      "target_id": "unit.location-choices-v2.at-school",
+      "requirement_id": "a1.language.prepositional-location",
+      "response_mode": "contextual_selection",
+      "evidence_scope": "reference",
+      "expectation": "В школе gives Anna’s location.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "to-library",
+      "target_id": "unit.location-choices-v2.to-library",
+      "requirement_id": "a1.language.accusative-destination",
+      "response_mode": "contextual_selection",
+      "evidence_scope": "reference",
+      "expectation": "В библиотеку names the destination.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ]
+    },
+    {
+      "id": "to-park",
+      "target_id": "unit.location-choices-v2.to-park",
+      "requirement_id": "a1.language.accusative-destination",
+      "response_mode": "contextual_selection",
+      "evidence_scope": "reference",
+      "expectation": "В парк names the next destination.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ]
+    },
+    {
+      "id": "walk-inside",
+      "target_id": "unit.location-choices-v2.walk-inside",
+      "requirement_id": "a1.language.prepositional-location",
+      "response_mode": "contextual_selection",
+      "evidence_scope": "reference",
+      "expectation": "The walk takes place inside the park: в парке.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ]
+    }
+  ],
+  "support": {
+    "allowed": [
+      "hint",
+      "model_answer"
+    ],
+    "independence_breakers": [
+      "hint",
+      "model_answer"
+    ]
+  }
+}

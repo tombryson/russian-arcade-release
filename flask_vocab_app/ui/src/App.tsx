@@ -12,6 +12,7 @@ import { GameShop } from './GameShop';
 import { api, type Household, type LearningHome, type Progress, type PracticeSession } from './learning-api';
 import { Practice } from './Practice';
 import { AssessmentPilot } from './AssessmentPilot';
+import {UnitExchange} from './UnitExchange';
 import { Flashcards, FlashcardsSetup } from './Flashcards';
 import { GenerateCards } from './GenerateCards';
 import { NativeReview } from './NativeReview';
@@ -32,9 +33,11 @@ import sleepingBarsik from './assets/barsik-sleeping-v1.webp';
 import './styles/lesson-player.css';
 
 type Page = 'home' | 'activities' | 'words' | 'practice' | 'assessment' | 'first-delivery' | 'first-steps' | 'flashcards' | 'review' | 'generate' | 'conversation' | 'speech-lab' | 'speaking' | 'journey' | 'game' | 'games' | 'shop';
-type Route = { page: Page; gameId?:string; sessionId?: string; worldId?:string; chapterId?:string; courseReleaseId?:string; checkpointId?:string;coursePracticeId?:string;courseSectionId?:string; wordId?: number; lessonId?: string; firstStepsVersion?:string; topic?:string; scenarioId?:string; speakingLevel?:PracticeLevel; speakingMode?:'fluent'|'step'; canonicalHash?: string };
+type Route = { unitExchangeId?:string; page: Page; gameId?:string; sessionId?: string; worldId?:string; chapterId?:string; courseReleaseId?:string; checkpointId?:string;coursePracticeId?:string;courseSectionId?:string; wordId?: number; lessonId?: string; firstStepsVersion?:string; topic?:string; scenarioId?:string; speakingLevel?:PracticeLevel; speakingMode?:'fluent'|'step'; canonicalHash?: string };
 function route(): Route {
   const hash = window.location.hash.slice(1);
+  const unitExchange = /^unit-exchange\/([A-Za-z0-9_-]+)$/.exec(hash);
+  if (unitExchange) return {page:'speaking',unitExchangeId:unitExchange[1]};
   const assessment = /^assessment(?:\/([A-Za-z0-9_-]+))?$/.exec(hash);
   if (assessment) return { page: 'assessment', sessionId: assessment[1] };
   const gameSession=/^games\/session\/([A-Za-z0-9_-]+)$/.exec(hash);
@@ -290,7 +293,7 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
         : location.page === 'journey' && location.worldId && !onboarding.state.coins_introduced ? <section class="page"><h1>Your first delivery</h1><p>Meet Barsik and see how your practice helps his journey.</p><a class="cta" href="#first-delivery">Let’s begin</a></section>
         : location.page === 'journey' && (location.coursePracticeId || location.courseSectionId) ? <CoursePreparation key={`${profile?.id ?? state.mode}:${location.courseReleaseId ?? ''}:${location.coursePracticeId ?? location.courseSectionId}`} releaseId={location.courseReleaseId} practiceId={location.coursePracticeId} sectionId={location.courseSectionId} language={language} progression={progression}/>
         : location.page === 'journey' ? location.worldId ? <Journey key={`${profile?.id ?? state.mode}:${location.worldId}`} worldId={location.worldId} language={language} progression={progression} /> : <CourseJourney key={`${profile?.id ?? state.mode}:${location.courseReleaseId ?? ''}:${location.chapterId ?? location.checkpointId ?? 'overview'}`} releaseId={location.courseReleaseId} chapterId={location.chapterId} attemptId={location.checkpointId} language={language} progression={progression} />
-        : location.page === 'speaking' ? location.speakingMode==='step' && location.sessionId
+        : location.page === 'speaking' ? location.unitExchangeId ? <UnitExchange key={`${profile?.id}:${location.unitExchangeId}`} id={location.unitExchangeId} profileId={profile?.id} language={language} /> : location.speakingMode==='step' && location.sessionId
           ? <StepThroughConversation key={`${state.home?.profile.id}:${location.sessionId}`} sessionId={location.sessionId} language={language} />
           : <LiveConversation key={`${state.home?.profile.id}:${location.sessionId ?? location.scenarioId ?? 'new'}:${location.speakingLevel ?? 'A1'}`} sessionId={location.sessionId} initialScenarioId={location.scenarioId} initialLevel={location.speakingLevel} language={language} />
         : ['conversation','speech-lab'].includes(location.page) ? <Conversation key={`${state.home?.profile.id}:${location.sessionId ?? location.page}`} sessionId={location.sessionId} lab={location.page==='speech-lab'} language={language} />
@@ -300,7 +303,7 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
           ? location.page === 'review' && location.sessionId ? <NativeReview key={`${state.home.profile.id}:${location.sessionId}`} profileId={state.home.profile.id} sessionId={location.sessionId} language={language} personal={!householdEnabled} /> : <Flashcards key={`${state.home.profile.id}:${location.wordId ?? "all"}:${location.lessonId ?? "all"}:${location.topic ?? ''}`} wordId={location.wordId} lessonId={location.lessonId} topic={location.topic} profileId={state.home.profile.id} language={language} personal={!householdEnabled} />
           : <FlashcardsSetup adult={state.mode === 'adult'} language={language} />
         : location.page === 'assessment' && profile ? <AssessmentPilot key={`${profile.id}:${location.sessionId ?? 'overview'}`} sessionId={location.sessionId} profileId={profile.id} language={language} />
-        : location.page === 'practice' ? (state.mode === 'child' || state.mode === 'personal') && state.home && location.sessionId ? <Practice key={`${state.home.profile.id}:${location.sessionId}`} sessionId={location.sessionId} profileId={state.home.profile.id} onFinish={() => { window.location.hash = 'activities'; setRefresh(value => value + 1); }} />
+        : location.page === 'practice' ? (state.mode === 'child' || state.mode === 'personal') && state.home && location.sessionId ? <Practice language={language} key={`${state.home.profile.id}:${location.sessionId}`} sessionId={location.sessionId} profileId={state.home.profile.id} onFinish={() => { window.location.hash = 'activities'; setRefresh(value => value + 1); }} />
           : <section class="page"><h1 ref={heading} tabIndex={-1}>Choose a profile to continue.</h1><p>Open the profile that started this practice.</p><a class="text-link" href="/post/profiles">Choose a profile</a></section>
         : location.page === 'home' ? <>
           <WelcomeHero key={profile?.id ?? state.mode} courseJourney={courseJourney} headingRef={heading} profileKey={profile?.id} nextDestination={nextChapter ? {title:language==='ru' ? nextChapter.title_ru : nextChapter.title,href:nextChapter.active_attempt_id ? `#journey/checkpoint/${nextChapter.active_attempt_id}` : courseHref(progression.data?.course?.release_id,nextChapter.id)} : undefined} />

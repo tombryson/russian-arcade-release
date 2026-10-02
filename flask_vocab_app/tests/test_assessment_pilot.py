@@ -153,6 +153,18 @@ class AssessmentPilotTests(unittest.TestCase):
         self.assertEqual(result['support'], ['transcript'])
         self.assertTrue(all(item['score'] is None for item in result['criteria']))
 
+    def test_profile_projection_keeps_pilot_and_unit_scopes_separate(self):
+        saved = self.start()
+        checked = self.request(saved, 'language_use', 'attempts', response=self.answers(saved, 'language_use'))
+        self.assertEqual(checked.status_code, 200)
+        result = self.client.get('/api/v1/curriculum/summary').json
+        row = next(item for item in result['domains'] if item['id'] == 'language_use')
+        self.assertEqual(row['latest']['activity'], 'assessment_pilot')
+        self.assertTrue(row['latest']['scope_id'].startswith('pilot:'))
+        self.assertEqual(row['latest']['url'], '/#assessment/' + saved['id'])
+        self.assertEqual(row['latest']['outcome'], 'demonstrated_in_task')
+        self.assertTrue(all(item['latest'] is None for item in result['domains'] if item['id'] != 'language_use'))
+
     def test_missing_recordings_do_not_block_other_skills_or_invent_a_listening_result(self):
         path = self.service.static / 'audio/course/assessment-pilot/a1-pilot-a-v1.mp3'
         original = path.read_bytes(); path.unlink()

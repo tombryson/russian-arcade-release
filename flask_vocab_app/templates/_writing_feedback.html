@@ -8,6 +8,7 @@
     {% for criterion in attempt.criterion_details %}<div><h4>{{ criterion.label }} · {{ criterion.outcome }}</h4><p lang="{{ attempt.ui_language }}">{{ criterion.feedback }}</p></div>{% endfor %}
   </details>{% endif %}
   <details class="sentence-suggestion"><summary>{{ ui_t('writing.checked_text') }}</summary><blockquote class="sentence-checked-answer" lang="ru">{{ attempt.response }}</blockquote></details>
+  {% if attempt.study_actions %}<div class="action-row">{% for action in attempt.study_actions %}<a class="text-link" href="{{ action.href }}">{{ action.label_ru if session.get('ui_lang') == 'ru' else action.label }} →</a>{% endfor %}</div>{% endif %}
 {% endmacro %}
 {% if exercise.attempts %}{% set latest = exercise.attempts[0] %}
 <section class="sentence-feedback-card" aria-labelledby="writing-feedback-heading">

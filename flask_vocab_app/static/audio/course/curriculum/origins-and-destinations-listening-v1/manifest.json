@@ -1,0 +1,29 @@
+{
+  "version": "curriculum-unit-audio-v1",
+  "content_id": "origins-and-destinations-listening-v1",
+  "provider": "elevenlabs",
+  "source": "App-authored learning material with synthetic narration.",
+  "clips": {
+    "after-doctor": {
+      "text_sha256": "98efe55af7bc0bd620598c0e9631269d52c5227f39b82081f31c83d4056cdedd",
+      "audio_sha256": "16b3a08bf6bd657c7e55f66ba1f05e97dfc0718c6662a266f09a0ca427aab059",
+      "duration": 8.071837,
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2"
+    },
+    "leaving-sister": {
+      "text_sha256": "bda32b288bb11dd30f468126b23853470273ef3700326fec08533c1980de39b2",
+      "audio_sha256": "7ea5fb71b96333fc0202b9f7c00e6b88890dc52ce49c86b7a06789423fa1e45b",
+      "duration": 8.489796,
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2"
+    },
+    "after-work": {
+      "text_sha256": "fbecf234e933ab26845bf4074c37bd9223c97d115a184228ca9bfb6f7bffc21f",
+      "audio_sha256": "a46c7482c610da8c5e5af9b61091d20eef1cf272b5613228a987a15ef3c1df5c",
+      "duration": 10.213878,
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2"
+    }
+  }
+}

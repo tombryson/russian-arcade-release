@@ -7,6 +7,7 @@ from utils.activity_owner import activity_profile_id, PERSONAL_PROFILE
 import re
 import base64
 import json
+import hashlib
 import asyncio
 import logging
 import math
@@ -43,7 +44,7 @@ class ComprehensionService:
         self.db_path = db_path
         self.openai_service = openai_service
         self.config = config_snapshot(config)
-        self.client = LazyService("OpenAI client", lambda: openai_client(config=self.config, api_key=api_key, timeout=60.0))
+        self.client = LazyService("OpenAI client", lambda: openai_client(config=self.config, api_key=api_key, timeout=60.0, max_retries=0))
         self.elevenlabs_service = elevenlabs_service
         self.media_dir = media_dir
         self.story_model = story_model
@@ -470,7 +471,7 @@ class ComprehensionService:
                     continue
                 raise ValueError('The answers could not be checked. Please try again.') from None
 
-    def assess_task(self, task, answers):
+    def assess_task(self, task, answers, *, include_provenance=False, language=None):
         """Assess a saved comprehension task; persistence and rewards stay outside."""
         if not task.get('contracts'):
             feedback, scores, total = self._evaluate_answers(
@@ -482,7 +483,11 @@ class ComprehensionService:
                        or '\x00' in answer for answer in answers)):
             raise ValueError('Write an answer to each saved question before checking.')
         from flask import has_request_context, session
-        language = 'Russian' if has_request_context() and session.get('ui_lang') == 'ru' else 'English'
+        if language is None:
+            language = 'ru' if has_request_context() and session.get('ui_lang') == 'ru' else 'en'
+        if language not in ('ru', 'en'):
+            raise ValueError('Unsupported feedback language.')
+        language = 'Russian' if language == 'ru' else 'English'
         count = len(answers)
         properties = {
             'feedback': {'type': 'array', 'minItems': count, 'maxItems': count,
@@ -509,6 +514,11 @@ question, corrected text or your feedback. quote must match exactly; start/end a
 end exclusive, including spaces and line breaks. Do not repair the quoted Russian. Give criterion feedback in {language}.
 Do not add a grammar criterion or claim listening skill because story audio exists. Never claim to save or award progress."""
         listening = task.get('practice_mode') == 'listening'
+        if task.get('authored_unit_version') == 'unit-reading-v1':
+            instruction = instruction.replace('Additional questions after the first five receive ordinary feedback only.',
+                'Assess each supplied authored question against its own frozen criterion.')
+            instruction = instruction.replace('only for the four frozen contracts supplied', 'only for the frozen contracts supplied')
+            instruction += '\nEvery v2 judgement includes reason_code: null for a scored judgement, or insufficient_response for insufficient_evidence. Never penalise grammar that leaves the understood meaning clear.'
         if listening:
             instruction = instruction.replace('reading tutor', 'listening tutor').replace('reading score', 'listening score')
             instruction = instruction.replace('reading comprehension', 'listening comprehension').replace('reading observations', 'listening observations')
@@ -519,8 +529,9 @@ Do not add a grammar criterion or claim listening skill because story audio exis
         payload = {'text': task['text'], 'questions': task['questions'], 'answers': answers,
                    'topic': task['topic'], 'difficulty': task['difficulty'], 'contracts': contracts}
         try:
+            model = model_for('OPENAI_MODEL_FAST')
             response = self.client.responses.create(
-                model=model_for('OPENAI_MODEL_FAST'), reasoning={'effort': 'low'}, max_output_tokens=4096, store=False,
+                model=model, reasoning={'effort': 'low'}, max_output_tokens=4096, store=False,
                 input=[{'role': 'system', 'content': instruction},
                        {'role': 'user', 'content': json.dumps(payload, ensure_ascii=False)}],
                 text={'format': {'type': 'json_schema', 'name': 'comprehension_feedback', 'strict': True,
@@ -550,8 +561,12 @@ Do not add a grammar criterion or claim listening skill because story audio exis
                         judgement.update(outcome='insufficient_evidence', score=None, evidence=[], feedback=(
                             'Аудиозапись недоступна; это обратная связь по тексту.' if language == 'Russian' else
                             'No recording was available; this feedback uses the transcript.'))
-            return {'feedback': feedback, 'scores': scores, 'total_score': sum(scores) / count,
-                    'criterion_reports': grounded}
+            assessment = {'feedback': feedback, 'scores': scores, 'total_score': sum(scores) / count,
+                          'criterion_reports': grounded}
+            if include_provenance:
+                assessment['assessment_provenance'] = {'model': model, 'prompt_sha256': hashlib.sha256(instruction.encode()).hexdigest(),
+                                                       'rubric_version': 'comprehension-feedback-v1'}
+            return assessment
         except TrialDenied:
             raise
         except Exception as error:

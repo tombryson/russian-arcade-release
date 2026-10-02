@@ -238,6 +238,8 @@ class AssessmentPilotIntegrityTests(unittest.TestCase):
         conn = self.connection()
         task = writing_task(get_unit('location-destination-v1'))
         WritingRepository.create_in_transaction(conn, task, 'places', 'A1', 30, 'personal-learning')
+        from tests.support import strip_curriculum_sequences
+        strip_curriculum_sequences(conn)
         for table in reversed(PILOT_TABLES): conn.execute('DROP TABLE ' + table)
         conn.execute('DELETE FROM schema_migrations WHERE version>53'); conn.commit()
         original = digest(self.local)

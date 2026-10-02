@@ -1,1 +1,7 @@
 <div class="alert alert-danger" role="alert">{{ message }}</div>
+{% if pending_review %}<div data-reading-review-pending>
+  <form action="{{ url_for('comprehension.retry_saved_review', identity=pending_review.id) }}" method="post" hx-boost="false">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" class="sentence-text-button">{{ 'Повторить разбор сохранённого ответа' if ui_lang == 'ru' else 'Retry feedback on saved reply' }}</button>
+  </form>
+</div>{% endif %}

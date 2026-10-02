@@ -1,0 +1,22 @@
+{
+  "version": "curriculum-unit-audio-v1",
+  "content_id": "a1-pilot-listening-v1",
+  "provider": "elevenlabs",
+  "source": "App-authored learning material with synthetic narration.",
+  "clips": {
+    "a1-pilot-a-v1": {
+      "text_sha256": "8b2e34acfe2e53af7c5664f4cce2c14e1e0cda91db9cbf5aea775124ac740635",
+      "audio_sha256": "e4c6ccae9b6eb2295ac149b174343c9acb3d3c961ba3a70455f7b9d0bd520dac",
+      "duration": 13.270204,
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2"
+    },
+    "a1-pilot-b-v1": {
+      "text_sha256": "72730dd7e24607d7777778024dfc52a6199967ef8a578473139f8cd3bc6d94ec",
+      "audio_sha256": "79e67a0de493e6478d210c75260041fdd9eab4cb939ecb78059eb59f3cb67869",
+      "duration": 13.087347,
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2"
+    }
+  }
+}

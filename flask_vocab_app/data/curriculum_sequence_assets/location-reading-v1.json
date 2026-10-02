@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "location-reading-v1",
+  "version": "location-reading-v1",
+  "unit_id": "location-destination-v2",
+  "kind": "reading",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "A message from Anna",
+  "title_ru": "Сообщение от Анны",
+  "status": "draft",
+  "review": {
+    "kind": "internal_model",
+    "independently_validated": false
+  },
+  "content": {
+    "passage": "Дима, привет! Я сейчас в школе. Потом иду в библиотеку. Встретимся в библиотеке! Анна.",
+    "questions": [
+      {
+        "id": "reading-1",
+        "prompt": "Где Анна сейчас?",
+        "prompt_ru": "Где Анна сейчас?",
+        "expected_answer": "Anna is at school now."
+      },
+      {
+        "id": "reading-2",
+        "prompt": "Куда идёт Анна?",
+        "prompt_ru": "Куда идёт Анна?",
+        "expected_answer": "Anna is going to the library."
+      },
+      {
+        "id": "reading-3",
+        "prompt": "Где Анна хочет встретиться с Димой?",
+        "prompt_ru": "Где Анна хочет встретиться с Димой?",
+        "expected_answer": "Anna wants to meet Dima in the library."
+      }
+    ],
+    "word_help": []
+  },
+  "criteria": [
+    {
+      "id": "reading-1",
+      "target_id": "unit.location-reading-v1.reading-1",
+      "requirement_id": "a1.reading.practical-information",
+      "response_mode": "reading_response",
+      "evidence_scope": "reading_comprehension",
+      "expectation": "Anna is at school now.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.2, p. 7; §1.2.2, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "reading-2",
+      "target_id": "unit.location-reading-v1.reading-2",
+      "requirement_id": "a1.reading.practical-information",
+      "response_mode": "reading_response",
+      "evidence_scope": "reading_comprehension",
+      "expectation": "Anna is going to the library.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.2, p. 7; §1.2.2, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "reading-3",
+      "target_id": "unit.location-reading-v1.reading-3",
+      "requirement_id": "a1.reading.practical-information",
+      "response_mode": "reading_response",
+      "evidence_scope": "reading_comprehension",
+      "expectation": "Anna wants to meet Dima in the library.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.2, p. 7; §1.2.2, p. 9"
+        }
+      ]
+    }
+  ],
+  "support": {
+    "allowed": [
+      "hint",
+      "translation",
+      "model_answer"
+    ],
+    "independence_breakers": [
+      "hint",
+      "translation",
+      "model_answer"
+    ]
+  }
+}

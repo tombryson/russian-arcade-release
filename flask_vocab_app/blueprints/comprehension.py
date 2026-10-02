@@ -14,6 +14,7 @@ from markupsafe import escape
 
 from repositories import StoryRepository
 from repositories.comprehension_repository import ComprehensionRepository, ComprehensionConflict
+from repositories.learning_repository import LearningError
 from utils.shell import render_page, is_shell_navigation
 from utils.story_display import present_story
 from utils.story_processing import process_story_words
@@ -27,10 +28,34 @@ def create_comprehension_blueprint(db_path, comprehension_service, drive_service
     story_repository = StoryRepository(db_path)
     reading_repository = ComprehensionRepository(db_path)
 
-    def reading_error(error, status):
+    @blueprint.get('/comprehension/tasks/<task_id>')
+    def open_owned_task(task_id):
+        task = reading_repository.load(task_id)
+        return redirect(f"/comprehension/load/{task['story_id']}", code=303)
+
+    @blueprint.post('/api/v1/comprehension/tasks/<task_id>/submissions')
+    def save_original(task_id):
+        from services.activity_review_submissions import submit
+        return jsonify(submit(db_path, 'comprehension', task_id, request.get_json(silent=True), language=session.get('ui_lang', 'en')))
+
+    @blueprint.post('/api/v1/comprehension/tasks/<task_id>/draft')
+    def save_task_draft(task_id):
+        return jsonify(reading_repository.save_draft(task_id, request.get_json(silent=True)))
+
+    @blueprint.get('/api/v1/comprehension/submissions/<identity>')
+    def read_original(identity):
+        from services.activity_review_submissions import load
+        return jsonify(load(db_path, identity, 'comprehension'))
+
+    @blueprint.post('/api/v1/comprehension/submissions/<identity>/review')
+    def review_original(identity):
+        from services.activity_review_submissions import review
+        return jsonify(review(db_path, identity, comprehension_service, activity='comprehension'))
+
+    def reading_error(error, status, pending_review=None):
         # Preserve the answer form on failure. Provider/internal errors are
         # logged, never interpolated into the learner's page.
-        return render_template('_comprehension_check_error.html', message=str(error)), status
+        return render_template('_comprehension_check_error.html', message=str(error), pending_review=pending_review), status
 
     def check_reading_task():
         task_id = request.form.get('task_id', '')
@@ -38,6 +63,21 @@ def create_comprehension_blueprint(db_path, comprehension_service, drive_service
         try:
             revision = int(request.form.get('task_revision', '-1'))
             answers = request.form.getlist('answers[]')
+            from repositories.learning_repository import transaction, identifier
+            from utils.activity_owner import activity_profile_id
+            from services.activity_review_submissions import binding_for_task, submit, review
+            with transaction(db_path) as conn:
+                bound = binding_for_task(conn, activity_profile_id(conn), 'comprehension', task_id)
+            if bound:
+                saved = submit(db_path, 'comprehension', task_id, {'submission_id': submission_id,
+                    'expected_revision': revision, 'response': {'answers': answers}}, language=session.get('ui_lang', 'en'))
+                checked = review(db_path, saved['id'], comprehension_service, activity='comprehension')
+                if checked['work_state'] != 'reviewed':
+                    return reading_error(checked['message'], 503, pending_review=checked)
+                current = reading_repository.load(task_id)
+                return render_template('_comprehension_checked.html', reading_result={
+                    'assessment': checked['feedback'], 'answers': checked['original']['answers'],
+                    'revision': current['revision'], 'next_submission_id': identifier()}, task_id=task_id, update_form=True)
             task, saved = reading_repository.begin_check(task_id, revision, submission_id, answers)
             if saved is None:
                 try:
@@ -52,6 +92,8 @@ def create_comprehension_blueprint(db_path, comprehension_service, drive_service
             return reading_error('This story is not available in the selected profile.', 404)
         except ComprehensionConflict as error:
             return reading_error(error, 409)
+        except LearningError as error:
+            return reading_error(error, error.status)
         except ValueError:
             return reading_error('Your answers could not be checked. They are still here; please try again.', 400)
         except Exception:
@@ -71,6 +113,13 @@ def create_comprehension_blueprint(db_path, comprehension_service, drive_service
                 pass  # The existing legacy parser reports malformed forms.
         if raw_id and reading_repository.latest(raw_id):
             raise ComprehensionConflict('This story uses a newer answer form. Reload it to continue.')
+
+    @blueprint.post('/comprehension/review/<identity>')
+    def retry_saved_review(identity):
+        from services.activity_review_submissions import review
+        saved = review(db_path, identity, comprehension_service, activity='comprehension')
+        task = reading_repository.load(saved['task_key'])
+        return redirect(f"/comprehension/load/{task['story_id']}", code=303)
 
     def story_for_display(story):
         displayed = present_story(story, session.get("ui_lang", "en"))

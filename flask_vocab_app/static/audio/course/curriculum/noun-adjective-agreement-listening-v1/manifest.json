@@ -1,0 +1,29 @@
+{
+  "version": "curriculum-unit-audio-v1",
+  "content_id": "noun-adjective-agreement-listening-v1",
+  "provider": "elevenlabs",
+  "source": "App-authored learning material with synthetic narration.",
+  "clips": {
+    "scarf-left-behind": {
+      "text_sha256": "9a49be9113cb8c9aafe84cbd1a1e9983efd6e32cfd2f1b40d9089b862748a0ca",
+      "audio_sha256": "d9974c6adc162ba031003d5292651e540a1998d55c5b1f6acaf43cbd531f9e02",
+      "duration": 9.613061,
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2"
+    },
+    "coat-shopping": {
+      "text_sha256": "f6c25f86e862c6f8df5eed2b3278d0a5e1754c729871b113c86c945788dff849",
+      "audio_sha256": "a46833432b7ad53a7c3a4f864f6c769861cb758d61f6c2e41c41458c8b560f6b",
+      "duration": 14.628571,
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2"
+    },
+    "shoes-for-walk": {
+      "text_sha256": "0ce1a3f44ce41c42fdda4f12d1be76fb7cddceca55afdd2959856a08cd45a6b0",
+      "audio_sha256": "936a6c7b0168209ba45f723088f1373af91a3df341947bbd3edd555406b1c146",
+      "duration": 11.546122,
+      "voice_id": "ymDCYd8puC7gYjxIamPt",
+      "model": "eleven_multilingual_v2"
+    }
+  }
+}

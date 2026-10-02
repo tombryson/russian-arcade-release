@@ -37,15 +37,52 @@ ACCOUNT_FONT_FILES = {
     'unbounded-latin-500-normal.woff2', 'google-sans-latin-500-normal.woff2',
     'golos-text-OFL.txt', 'unbounded-OFL.txt', 'google-sans-OFL.txt',
 }
+# Exact reviewed bundles, never a directory or hash-pattern allowance: adding a
+# local recording or editing a media manifest cannot make it public by itself.
 CURRICULUM_AUDIO = {
+    'action-aspect-listening-v1': ('dinner-progress', 'reading-update', 'future-letter'),
+    'basic-motion-listening-v1': ('rainy-journey', 'walk-after-station', 'weekend-trips'),
+    'connected-messages-listening-v1': ('meeting-change', 'who-will-call', 'why-wait'),
     'location-destination-listening-v1': ('shop-now', 'after-pharmacy', 'inside-museum'),
-    'objects-recipients-listening-v1': ('hand-over-envelope',),
+    'location-destination-sequence-v1': (
+        '1b77b14ae77b021511ef0b5b91b8e583b3d14b5e927cf170238064509afab6ee',
+        'c4a03c3fb2e4008825b22f113012c2c3b88e78806f4cdba2a3691f687afc4a89',
+        'dcbb702e0f95833cea7d659f919d2a26ea93862e879497fb415c5fd3a7ce51ef',
+        '1156015bd4c3feaf0ccaf83858e8e48caf352d8abfb50e972b9f144fe74b31ef',
+        'aeb8d578385e611f30bbe22b272f0d6b6fb30cec3ef59271bf324643910d7183',
+        '91fa9a41493f42f925f13fffc30c580ede933f42e01a5f4b251f2e104d63103d',
+        '82877f2e2c0a32a21ba7ea9b0d7a9212c230524f25628a977789af4237003e56',
+        'd95379582948e65f0f034b2291266470145324843cfa54ff4fc485c7ca9ee3f4',
+        'c31b0a45c10b1f3944721c48c43bde5953c76f93fbddf6b6d86544246438afce',
+        'dc005dbdbea20cb070618e9ffc965b59a758c0a36765c47d5a7962c3be844a98',
+        'd9bf2fa46769708533be6f7c262a631504fe80ffe8f8974143399d9d3bf3a05c',
+        '382671aa50450d1938c218d56787e149fe658594920ff6cf69add474aa6a42e1',
+        'bd73b9ee949f4b450c4beb4768bfc22910df986ddf7164420cd36305ca9e5843',
+        '2abd4b87aa59ad8cf79fd769db943e096c2b5bacefde024d0cb81d1fadd14733',
+        '9da224d32723d1b0239b5a5b69b56873bbd6b151452d82821449b896eef0169f',
+        '2bf4a4fd87f085e9165ff6f05e8cff396bf325b2a6ec4b74cab6409db5bf3f5f',
+        'b98c1ee4c397e0d46f4cc74745eab363e245f5d32fda920dc609f3a216e13daf',
+        'b32049f0c4a37026057ecd5b9dfda0aab2184c352a57ce965050cc3795283628',
+        '58d83fe3242766466730163a783c41b230a01b030a4916f167d666f6b99dc571',
+    ),
+    'needs-company-listening-v1': ('who-is-cold', 'visit-companion', 'drink-ingredient'),
+    'noun-adjective-agreement-listening-v1': ('scarf-left-behind', 'coat-shopping', 'shoes-for-walk'),
+    'numbers-quantities-listening-v1': ('changed-order', 'ticket-price', 'lesson-order'),
+    'objects-recipients-listening-v1': ('hand-over-envelope', 'ticket-recipient', 'two-purchases'),
+    'origins-and-destinations-listening-v1': ('after-doctor', 'leaving-sister', 'after-work'),
+    'personal-reference-listening-v1': ('sister-waits', 'book-owner', 'help-neighbour'),
     'possession-absence-listening-v1': ('picnic-call', 'borrowed-key', 'borrowed-umbrella'),
+    'social-exchanges-listening-v1': ('repeat-time', 'decline-drink', 'permission-pen'),
+    'time-routine-listening-v1': ('changed-visit', 'class-day', 'evening-order'),
 }
 CURRICULUM_AUDIO_PATHS = {
     f'flask_vocab_app/static/audio/course/curriculum/{unit}/{filename}'
     for unit, clips in CURRICULUM_AUDIO.items()
     for filename in ('manifest.json', *(f'{clip}.mp3' for clip in clips))
+}
+ASSESSMENT_PILOT_AUDIO_PATHS = {
+    f'flask_vocab_app/static/audio/course/assessment-pilot/{filename}'
+    for filename in ('manifest.json', 'a1-pilot-a-v1.mp3', 'a1-pilot-b-v1.mp3')
 }
 FIRST_STEPS_AUDIO = {
     'hello': ('word-hello', 'word-letter-r2', 'word-thanks'),
@@ -128,7 +165,7 @@ def exclusion(path: str) -> str | None:
         r'flask_vocab_app/static/audio/course/(?:a1-journey-v2|a1-targets-v1)/[a-z0-9-]+\.mp3', path
     ):
         return None
-    if path in CURRICULUM_AUDIO_PATHS:
+    if path in CURRICULUM_AUDIO_PATHS or path in ASSESSMENT_PILOT_AUDIO_PATHS:
         return None
     if path in FIRST_STEPS_AUDIO_PATHS:
         return None

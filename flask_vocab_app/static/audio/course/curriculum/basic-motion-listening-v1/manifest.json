@@ -1,0 +1,29 @@
+{
+  "version": "curriculum-unit-audio-v1",
+  "content_id": "basic-motion-listening-v1",
+  "provider": "elevenlabs",
+  "source": "App-authored learning material with synthetic narration.",
+  "clips": {
+    "rainy-journey": {
+      "text_sha256": "cb023581a65355c8f4a30e044840801626a70f721dd50dfed7bd28768d525c88",
+      "audio_sha256": "efcae736b1dd7e978d2643d1f3846a4dc97744c865204c444acd5bb9f69df618",
+      "duration": 9.038367,
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2"
+    },
+    "walk-after-station": {
+      "text_sha256": "ae75dde801b59eae9b0a93cd581dc1816c7bbbe772e629c957622b25e21ce17f",
+      "audio_sha256": "ed5541a435d1e5e477ce6636f4a7c254cea5ab71bfa4f5cee46a950ea8c9e6ac",
+      "duration": 10.710204,
+      "voice_id": "ymDCYd8puC7gYjxIamPt",
+      "model": "eleven_multilingual_v2"
+    },
+    "weekend-trips": {
+      "text_sha256": "b9052a455acbd970186c562c23d0e64cd022a0b141513e13cd066f9e53a3ae4d",
+      "audio_sha256": "e4c02535e7bbef786f25a747e7b84f80d1c89b5a6052355f7f364bb7cca12aeb",
+      "duration": 11.128163,
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2"
+    }
+  }
+}

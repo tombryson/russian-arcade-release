@@ -1,5 +1,22 @@
 # Curriculum implementation status
 
+## Connected lesson and recordings — 2 October 2026
+
+The new edition of the location/destination unit connects teaching, contextual choices,
+typed forms, Reading, Listening, Writing and a two-turn spoken exchange. Two transfer
+situations offer a challenge-first route. Owned lesson runs preserve their original
+content, drafts and submissions across interruptions. Profile shows scoped results and
+relevant next actions. Corrected examples can enter Phrasebook or the existing
+flashcard preparation flow by explicit learner choice.
+
+All 39 recordings for the original 13 unit packs and both pilot recordings are now
+present. The connected lesson adds 19 distinct teaching, listening and interlocutor
+recordings. The earlier missing-media counts below describe previous snapshots.
+
+See the [implementation record](torfl-implementation-2026-10-02.md) for storage,
+validation and remaining work. Full A1 coverage, broader assessment validation and
+A2–B2 teaching remain unfinished. These repository changes are not a deployment record.
+
 ## Introductory foundation sequence — 28 September 2026
 
 The revised five-lesson introduction teaches first words, naming objects,

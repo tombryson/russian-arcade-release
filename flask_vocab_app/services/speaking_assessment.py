@@ -299,7 +299,7 @@ class SpeakingAssessment:
     def __init__(self, config):
         self.config = config_snapshot(config)
 
-    def assess(self, audio_path, scenario, dialogue, language='en', *, curriculum_contract=None, include_provenance=False):
+    def assess(self, audio_path, scenario, dialogue, language='en', *, curriculum_contract=None, include_provenance=False, recording_turns=None):
         if not self.config.get('OPENAI_API_KEY'):
             logger.warning('Speaking feedback unavailable: OPENAI_API_KEY is not configured')
             raise SpeechError('Speaking feedback is currently unavailable. Your recording is saved.')
@@ -324,6 +324,17 @@ class SpeakingAssessment:
                        'interface_language': 'Russian' if language == 'ru' else 'English'}
             instruction = _INSTRUCTIONS + _language_instruction(language)
             duration_ms = frames * 1000 // rate
+            if scenario.get('scenario_id') == 'curriculum-unit-exchange':
+                from services.unit_exchange import turn_windows
+                context['recorded_replies'] = turn_windows(contract, recording_turns, duration_ms)
+                instruction += ('\nThe recorded_replies are server-verified boundaries of separate learner responses, '
+                    'in the concatenated audio. Each includes the question heard immediately before that reply. '
+                    'For each criterion, use only evidence wholly within the replies named by content.criterion_turns. '
+                    'Do not credit an answer to the second question using speech from the first reply. '
+                    'A scored criterion assigned to both replies requires a separate evidence span in EACH reply. '
+                    'Silence, noise, or an uncertain response cannot count as answering a question: leave that criterion '
+                    'unscored with insufficient_response or unclear_audio. Do not silently correct audible endings. '
+                    'Keep all evidence offsets relative to the start of the concatenated audio.')
             if contract is not None:
                 context['curriculum_contract'] = contract
                 context['original_audio_duration_ms'] = duration_ms
@@ -355,6 +366,21 @@ proficiency, a pass or rewards. Never return audio hashes, source metadata or an
                     if scenario.get('scenario_id') == 'assessment-pilot-recorded-message':
                         instruction += (' A recorded message is not an interactive conversation: do not invent replies, repair exchanges, '
                                         'or turn-taking evidence.')
+                if contract['schema_version'] == 2:
+                    instruction = instruction.replace('Each judgement has exactly criterion_id, outcome, score, feedback and evidence.',
+                        'Each judgement has exactly criterion_id, outcome, score, feedback, evidence and reason_code.')
+                    instruction = instruction.replace('If speech_status is no_russian or unclear, or any uncertain_phrases are reported, leave all criteria unscored.',
+                        'If speech_status is no_russian or unclear, leave all criteria unscored. If uncertain_phrases are reported, '
+                        'leave spoken_language_use grammar criteria unscored; an independently clear communicative detail can still receive credit.')
+                    instruction += (' For scored judgements reason_code is null. For unscored judgements use feature_not_used for absent grammatical features, '
+                        'valid_alternative for an acceptable paraphrase that avoids the feature, insufficient_response for insufficient material, '
+                        'or unclear_audio for an ambiguous original recording. Mark communication independently of form accuracy. '
+                        'For each grammar feature, score 2 only when all audible attempts of that feature have correct preposition and case; '
+                        'score 0 when its sole attempt is wrong, or all attempts are wrong. A correct preposition with a wrong ending is 0, not 1. '
+                        'Score 1 only for mixed evidence containing both a correct and an incorrect attempt of that same feature. '
+                        'A 1-point communication criterion is binary: satisfied/1 for an intelligibly communicated requested detail, '
+                        'not_satisfied/0 when a clear completed reply omits or contradicts it. Use insufficient_evidence/null only when the material cannot support judging it. '
+                        'Only the two saved learner replies establish the exchange; do not infer broad fluency from them.')
         except (OSError, ValueError, TypeError, AttributeError, wave.Error, EOFError):
             raise SpeechError('The saved recording could not be prepared for feedback. It has been kept.') from None
 
@@ -378,6 +404,9 @@ proficiency, a pass or rewards. Never return audio hashes, source metadata or an
                 raise ValueError('Invalid response')
             result = validate_assessment(json.loads(content), goals, language,
                                          curriculum_contract=contract, audio_duration_ms=duration_ms)
+            if scenario.get('scenario_id') == 'curriculum-unit-exchange':
+                from services.unit_exchange import validate_turn_evidence
+                validate_turn_evidence(contract, result, {'duration_ms': duration_ms, 'recordings': recording_turns})
         except TrialDenied:
             raise
         except Exception:

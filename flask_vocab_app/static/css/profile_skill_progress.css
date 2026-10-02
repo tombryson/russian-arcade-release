@@ -7,6 +7,14 @@
 .profile-overview .profile-skill-description { flex:1; grid-template-columns:minmax(160px,240px) minmax(0,1fr); gap:12px; align-items:baseline; }
 .profile-overview-start { color:var(--wp-text-secondary); }
 .profile-overview-start a { color:var(--wp-text-primary); text-underline-offset:4px; }
+.profile-assessed-work { margin-block:24px; }
+.profile-assessed-work h2 { font-size:20px; margin-bottom:12px; }
+.profile-assessed-work dl { margin:0; }
+.profile-assessed-row { display:grid; grid-template-columns:minmax(130px,1fr) 3fr; gap:12px; padding:10px 0; border-top:1px solid var(--wp-border-subtle,#555b78); }
+.profile-assessed-row dd { margin:0; display:flex; flex-wrap:wrap; gap:8px 16px; }
+.profile-assessed-row a { color:inherit; text-underline-offset:3px; }
+.profile-assessed-row small { color:var(--wp-text-secondary,#c8c8da); }
+@media(max-width:560px) { .profile-assessed-row { grid-template-columns:1fr; gap:4px; } }
 .profile-skill-progress {
   margin:36px 0;
   padding:28px 30px 22px;
@@ -39,3 +47,13 @@
   .profile-skill-list li { gap:12px; padding:17px 0; }
   .profile-skill-rating { font-size:22px; }
 }
+.profile-assessed-work { margin:24px 0; }
+.profile-assessed-work h2 { margin:0 0 12px; font:500 20px/1.4 var(--wp-font-reading,sans-serif); }
+.profile-assessed-work dl { margin:0; }
+.profile-assessed-row { display:grid; grid-template-columns:minmax(140px,220px) minmax(0,1fr); gap:12px 24px; padding:12px 0; border-top:1px solid var(--wp-border-subtle); }
+.profile-assessed-row dt { font-weight:500; }
+.profile-assessed-row dd { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 16px; margin:0; }
+.profile-assessed-row a { color:inherit; text-underline-offset:4px; }
+.profile-assessed-row small { flex-basis:100%; color:var(--wp-text-secondary); font-size:13px; }
+.profile-assessed-outcome { font-size:14px; }
+@media(max-width:560px) { .profile-assessed-row { grid-template-columns:1fr; gap:6px; } }

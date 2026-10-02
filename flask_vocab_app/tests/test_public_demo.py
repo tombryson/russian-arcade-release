@@ -116,6 +116,38 @@ class PublicDemoTests(unittest.TestCase):
         self.assertEqual(self.b.get(url, base_url=self.base).status_code, 404)
 
     @patch('utils.lazy.LazyService._get', side_effect=AssertionError('Course demo must not resolve providers'))
+    def test_connected_lesson_preview_is_owned_and_explicitly_partial(self, provider):
+        state = self.state(self.a)
+        headers = {'X-CSRF-Token': state['csrf_token']}
+        start = self.a.post('/api/v1/curriculum/units/location-destination-v2/runs', base_url=self.base,
+            headers=headers, json={'submission_id': 'sequence-preview', 'sequence_id': 'location-destination-sequence-v1'})
+        self.assertEqual(start.status_code, 200, start.text)
+        run = start.json
+        for step in run['steps']:
+            if step['id'] in ('reading', 'writing', 'speaking', 'transfer'):
+                self.assertEqual(step['availability'], 'unsupported_workspace')
+        root = '/api/v1/curriculum/runs/' + run['id']
+        self.assertEqual(self.a.get(root, base_url=self.base).status_code, 200)
+        blocked = self.a.post(root + '/steps/writing/start', base_url=self.base, headers=headers,
+            json={'submission_id': 'no-paid-writing', 'expected_revision': run['revision']})
+        self.assertEqual(blocked.status_code, 409)
+        self.assertEqual(blocked.json['error']['code'], 'unsupported_workspace')
+        opened = self.a.post(root + '/steps/forms/start', base_url=self.base, headers=headers,
+            json={'submission_id': 'open-forms', 'expected_revision': run['revision']})
+        self.assertEqual(opened.status_code, 200, opened.text)
+        session_id = opened.json['url'].rsplit('/', 1)[1]
+        url = '/api/v1/learning-sessions/' + session_id
+        task = self.a.get(url, base_url=self.base).json
+        draft = self.a.post(url + '/draft', base_url=self.base, headers=headers, json={
+            'submission_id': 'save-form', 'item_id': task['item']['id'], 'expected_revision': task['revision'],
+            'expected_draft_revision': 0, 'response': {'text': 'школу'}})
+        self.assertEqual(draft.status_code, 200, draft.text)
+        self.assertEqual(self.a.get(url, base_url=self.base).json['draft']['response']['text'], 'школу')
+        self.state(self.b)
+        self.assertEqual(self.b.get(root, base_url=self.base).status_code, 404)
+        self.assertEqual(self.b.get(url, base_url=self.base).status_code, 404)
+
+    @patch('utils.lazy.LazyService._get', side_effect=AssertionError('Course demo must not resolve providers'))
     def test_course_checkpoints_are_playable_owned_and_provider_free(self, provider):
         import json
         from repositories.learning_repository import transaction

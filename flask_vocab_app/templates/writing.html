@@ -3,12 +3,12 @@
 {% set page_title = exercise.display_title if exercise else ui_t('writing.title') %}
 {% block main_content %}
 <main class="main-content{% if not exercise %} activity-entry{% endif %}" id="mainContent" data-page="writing">
-  <div class="sentence-page writing-page{% if not exercise %} activity-entry-content{% endif %}">
+  <div class="sentence-page writing-page{% if not exercise %} activity-entry-content{% elif exercise.sequence %} writing-sequence-page{% endif %}">
     {% if exercise %}
     <header class="sentence-heading">
-      <div><p class="sentence-eyebrow">{{ ui_t('writing.eyebrow') }}</p>
+      <div>{% if not exercise.sequence %}<p class="sentence-eyebrow">{{ ui_t('writing.eyebrow') }}</p>{% endif %}
         <h1 id="sentence-page-title" tabindex="-1">{{ exercise.display_title }}</h1>
-        <p>{{ ui_t('writing.intro') }}</p></div>
+        {% if not exercise.sequence %}<p>{{ ui_t('writing.intro') }}</p>{% endif %}</div>
       {% if exercise.curriculum_origin %}<a class="sentence-text-link" href="{{ exercise.curriculum_origin.href }}" hx-boost="false">← {{ exercise.curriculum_origin.title }}</a>{% else %}<a class="sentence-text-link" href="/writing" hx-get="/writing" hx-target="#mainContent" hx-swap="outerHTML" hx-push-url="true">{{ ui_t('writing.choose_another') }}</a>{% endif %}
     </header>
     {% else %}

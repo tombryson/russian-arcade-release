@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "id": "location-transfer-people-forms-v1",
+  "version": "location-transfer-people-forms-v1",
+  "unit_id": "location-destination-v2",
+  "kind": "controlled_text",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Use the forms in a new plan",
+  "title_ru": "Формы в новом плане",
+  "status": "draft",
+  "review": {
+    "kind": "internal_model",
+    "independently_validated": false
+  },
+  "content": {
+    "items": [
+      {
+        "id": "transfer-location",
+        "type": "controlled_text",
+        "prompt": "Мы сейчас в ___. (школа)",
+        "answer": "школе",
+        "accepted_answers": [
+          "школе",
+          "в школе"
+        ],
+        "hint": "The question is where, not where to.",
+        "explanation": "A current location uses the prepositional form here.",
+        "hint_ru": "Вопрос «где?», а не «куда?».",
+        "explanation_ru": "«В школе» отвечает на вопрос «где?». Здесь нужен предложный падеж."
+      },
+      {
+        "id": "transfer-destination",
+        "type": "controlled_text",
+        "prompt": "Куда потом? Мы идём в ___. (библиотека)",
+        "answer": "библиотеку",
+        "accepted_answers": [
+          "библиотеку",
+          "в библиотеку"
+        ],
+        "hint": "The question is where to.",
+        "explanation": "A destination with в uses the accusative form.",
+        "hint_ru": "Вопрос «куда?».",
+        "explanation_ru": "«В библиотеку» — цель движения. После «в» здесь нужен винительный падеж."
+      }
+    ]
+  },
+  "criteria": [
+    {
+      "id": "transfer-location",
+      "target_id": "unit.location-transfer-people-forms-v1.transfer-location",
+      "requirement_id": "a1.language.prepositional-location",
+      "response_mode": "controlled_text",
+      "evidence_scope": "controlled_production",
+      "expectation": "A current location uses the prepositional form here.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 13"
+        }
+      ]
+    },
+    {
+      "id": "transfer-destination",
+      "target_id": "unit.location-transfer-people-forms-v1.transfer-destination",
+      "requirement_id": "a1.language.accusative-destination",
+      "response_mode": "controlled_text",
+      "evidence_scope": "controlled_production",
+      "expectation": "A destination with в uses the accusative form.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§2.2.2, p. 12"
+        }
+      ]
+    }
+  ],
+  "support": {
+    "allowed": [
+      "hint",
+      "model_answer"
+    ],
+    "independence_breakers": [
+      "hint",
+      "model_answer"
+    ]
+  }
+}

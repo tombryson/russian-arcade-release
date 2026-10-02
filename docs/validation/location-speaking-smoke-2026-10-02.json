@@ -1,0 +1,447 @@
+{
+  "kind": "synthetic-original-audio-provider-smoke-check",
+  "at": "2026-10-02T08:30:44.867546+00:00",
+  "asset": "location-exchange-v1",
+  "asset_sha256": "d4bfbd868f08960e4b96c3ba51e4dc9e76ebeb1f43c7aaad5a9a79669cf1143e",
+  "synthesis": {
+    "provider": "elevenlabs",
+    "model": "eleven_multilingual_v2",
+    "voice_id": "gXMhWmiqsFkrcssqVb5k"
+  },
+  "assessment_model": "gpt-audio-1.5",
+  "maximum_calls": {
+    "tts": 4,
+    "audio_assessment": 2
+  },
+  "calls": {
+    "tts": 3,
+    "audio_assessment": 2
+  },
+  "automatic_retries": 0,
+  "learner_asr_supplied": false,
+  "independent_audio_review": false,
+  "audible_ground_truth_verified": false,
+  "proficiency_validated": false,
+  "state": "complete",
+  "clips": {
+    "location": {
+      "synthesis_script": "Я сейчас в школе.",
+      "script_sha256": "5dae611a5d5ff40942ef9d4f4e20663bb7ac8696ff598836444eae8122b91371",
+      "original_file": "location.mp3",
+      "original_sha256": "a7f624257a6f269ff50a7a823f5d7a0848caefae86c98d44805063e8e1057b3c",
+      "original_size_bytes": 24285,
+      "review_file": "location.wav",
+      "review_sha256": "1850c9dc3b67c1a31f4764216f0fbf794fe923e5540243b5ab837fbd242d3384",
+      "duration_ms": 1439
+    },
+    "destination-correct": {
+      "synthesis_script": "Я иду в библиотеку.",
+      "script_sha256": "605cf9299befcf13c0b915c27947dec62752bd675749017fa2b3d6ebc27b0b6b",
+      "original_file": "destination-correct.mp3",
+      "original_sha256": "469d046b421f8e9a1cc41b88e22d9f908bc53528b70aa68ca43efbb3d6bb0c4e",
+      "original_size_bytes": 25539,
+      "review_file": "destination-correct.wav",
+      "review_sha256": "8a2510b74c805f2689970085e8b675917c2e2ca6bc4761e86c62a1b6efd80e40",
+      "duration_ms": 1532
+    },
+    "destination-wrong-ending": {
+      "synthesis_script": "Я иду в библиотека.",
+      "script_sha256": "c2028fc53739adbe6542bfa2e3d0fc453820d656b85b766f4dca6589b9b13968",
+      "original_file": "destination-wrong-ending.mp3",
+      "original_sha256": "38b312cf0a8eb9bed3fa651a4b069ce5b89477b77ca6ce5d602b6b07dc4ea6aa",
+      "original_size_bytes": 25539,
+      "review_file": "destination-wrong-ending.wav",
+      "review_sha256": "2f2954bb4cf7bc685d7f7433c90ebb6a171fc0055823e36b0d725cc71b3f7113",
+      "duration_ms": 1532
+    }
+  },
+  "cases": [
+    {
+      "id": "correct",
+      "state": "matches_script_expectation_unverified",
+      "contract_sha256": "8b7ba2e052fc886a767046065675fa1126f0b14560f7606fe44182cb98bffd9c",
+      "original_bundle_file": "correct-original-bundle.wav",
+      "original_audio": {
+        "sha256": "7caf7e3ff6324ec194368e909a4a6adc84e7c8837c0d39a04349ef2ef6b66134",
+        "duration_ms": 2972,
+        "recordings": [
+          {
+            "turn_id": "location",
+            "sha256": "a7f624257a6f269ff50a7a823f5d7a0848caefae86c98d44805063e8e1057b3c",
+            "assessment_sha256": "1850c9dc3b67c1a31f4764216f0fbf794fe923e5540243b5ab837fbd242d3384",
+            "start_ms": 0,
+            "end_ms": 1439
+          },
+          {
+            "turn_id": "destination",
+            "sha256": "469d046b421f8e9a1cc41b88e22d9f908bc53528b70aa68ca43efbb3d6bb0c4e",
+            "assessment_sha256": "8a2510b74c805f2689970085e8b675917c2e2ca6bc4761e86c62a1b6efd80e40",
+            "start_ms": 1439,
+            "end_ms": 2972
+          }
+        ]
+      },
+      "turn_windows": [
+        {
+          "turn_id": "location",
+          "prompt": "Привет! Где ты сейчас?",
+          "start_ms": 0,
+          "end_ms": 1439,
+          "criterion_ids": [
+            "current-place",
+            "location-form",
+            "understandable-places"
+          ]
+        },
+        {
+          "turn_id": "destination",
+          "prompt": "Понятно. А куда ты идёшь?",
+          "start_ms": 1439,
+          "end_ms": 2972,
+          "criterion_ids": [
+            "next-place",
+            "destination-form",
+            "understandable-places"
+          ]
+        }
+      ],
+      "expected_from_script_only": {
+        "destination-form": {
+          "outcome": "satisfied",
+          "score": 2
+        }
+      },
+      "script_expectations_met": true,
+      "assessment": {
+        "transcript": "я сейчас в школе. я иду в библиотеку.",
+        "speech_status": "russian",
+        "uncertain_phrases": [],
+        "grammar": {
+          "score": 5,
+          "reason": "Both location and destination forms are correct and appropriately used.",
+          "evidence": [
+            "я сейчас в школе",
+            "я иду в библиотеку"
+          ]
+        },
+        "fluency": {
+          "score": 5,
+          "reason": "The speech flows naturally with no noticeable hesitations.",
+          "evidence": [
+            "я сейчас в школе",
+            "я иду в библиотеку"
+          ]
+        },
+        "goals": [
+          {
+            "id": "current-place",
+            "status": "completed",
+            "evidence": [
+              "я сейчас в школе"
+            ]
+          },
+          {
+            "id": "next-place",
+            "status": "completed",
+            "evidence": [
+              "я иду в библиотеку"
+            ]
+          },
+          {
+            "id": "understandable-places",
+            "status": "completed",
+            "evidence": [
+              "я сейчас в школе",
+              "я иду в библиотеку"
+            ]
+          }
+        ],
+        "summary": "You clearly stated where you are and where you are going, with correct forms and smooth delivery.",
+        "next_step": "Practice using other places in similar sentences to reinforce your mastery of location and destination forms.",
+        "corrections": [],
+        "uncertainty": "",
+        "criterion_report": {
+          "contract_sha256": "8b7ba2e052fc886a767046065675fa1126f0b14560f7606fe44182cb98bffd9c",
+          "judgements": [
+            {
+              "criterion_id": "current-place",
+              "outcome": "satisfied",
+              "score": 1,
+              "feedback": "You clearly communicated your current place.",
+              "evidence": [
+                {
+                  "start_ms": 0,
+                  "end_ms": 800
+                }
+              ],
+              "reason_code": null
+            },
+            {
+              "criterion_id": "next-place",
+              "outcome": "satisfied",
+              "score": 1,
+              "feedback": "You clearly communicated your destination.",
+              "evidence": [
+                {
+                  "start_ms": 1440,
+                  "end_ms": 2200
+                }
+              ],
+              "reason_code": null
+            },
+            {
+              "criterion_id": "location-form",
+              "outcome": "satisfied",
+              "score": 2,
+              "feedback": "You correctly used \"в\" with the prepositional case to indicate location.",
+              "evidence": [
+                {
+                  "start_ms": 0,
+                  "end_ms": 800
+                }
+              ],
+              "reason_code": null
+            },
+            {
+              "criterion_id": "destination-form",
+              "outcome": "satisfied",
+              "score": 2,
+              "feedback": "You correctly used \"в\" with the accusative case to indicate your destination.",
+              "evidence": [
+                {
+                  "start_ms": 1440,
+                  "end_ms": 2200
+                }
+              ],
+              "reason_code": null
+            },
+            {
+              "criterion_id": "understandable-places",
+              "outcome": "satisfied",
+              "score": 1,
+              "feedback": "Both your current place and destination were easy to understand.",
+              "evidence": [
+                {
+                  "start_ms": 0,
+                  "end_ms": 800
+                },
+                {
+                  "start_ms": 1440,
+                  "end_ms": 2200
+                }
+              ],
+              "reason_code": null
+            }
+          ]
+        },
+        "assessment_provenance": {
+          "model": "gpt-audio-1.5",
+          "prompt_sha256": "07ef39e3a05458d3636edb3766a7a7463221c009672e50806ab864d1db50b220",
+          "rubric_version": "speaking-audio-v1"
+        },
+        "basis": "audio_review",
+        "rubric_version": "speaking-audio-v1",
+        "model": "gpt-audio-1.5",
+        "rewards_applied": false
+      }
+    },
+    {
+      "id": "wrong-ending",
+      "state": "matches_script_expectation_unverified",
+      "contract_sha256": "6aafc1029973c1435cc0b6e609aed482a39cd92874bade3fb544bb50fb5ca5c9",
+      "original_bundle_file": "wrong-ending-original-bundle.wav",
+      "original_audio": {
+        "sha256": "403a624c0453238026e1ddded9417696622f768f7d2daf36159c31815b5bb0ff",
+        "duration_ms": 2972,
+        "recordings": [
+          {
+            "turn_id": "location",
+            "sha256": "a7f624257a6f269ff50a7a823f5d7a0848caefae86c98d44805063e8e1057b3c",
+            "assessment_sha256": "1850c9dc3b67c1a31f4764216f0fbf794fe923e5540243b5ab837fbd242d3384",
+            "start_ms": 0,
+            "end_ms": 1439
+          },
+          {
+            "turn_id": "destination",
+            "sha256": "38b312cf0a8eb9bed3fa651a4b069ce5b89477b77ca6ce5d602b6b07dc4ea6aa",
+            "assessment_sha256": "2f2954bb4cf7bc685d7f7433c90ebb6a171fc0055823e36b0d725cc71b3f7113",
+            "start_ms": 1439,
+            "end_ms": 2972
+          }
+        ]
+      },
+      "turn_windows": [
+        {
+          "turn_id": "location",
+          "prompt": "Привет! Где ты сейчас?",
+          "start_ms": 0,
+          "end_ms": 1439,
+          "criterion_ids": [
+            "current-place",
+            "location-form",
+            "understandable-places"
+          ]
+        },
+        {
+          "turn_id": "destination",
+          "prompt": "Понятно. А куда ты идёшь?",
+          "start_ms": 1439,
+          "end_ms": 2972,
+          "criterion_ids": [
+            "next-place",
+            "destination-form",
+            "understandable-places"
+          ]
+        }
+      ],
+      "expected_from_script_only": {
+        "destination-form": {
+          "outcome": "not_satisfied",
+          "score": 0
+        }
+      },
+      "script_expectations_met": true,
+      "assessment": {
+        "transcript": "я сейчас в школе я иду в библиотека",
+        "speech_status": "russian",
+        "uncertain_phrases": [],
+        "grammar": {
+          "score": 4,
+          "reason": "Most forms are correct, but 'в библиотека' uses the wrong case ending.",
+          "evidence": [
+            "я сейчас в школе",
+            "я иду в библиотека"
+          ]
+        },
+        "fluency": {
+          "score": 5,
+          "reason": "The phrases were delivered smoothly without hesitation.",
+          "evidence": [
+            "я сейчас в школе",
+            "я иду в библиотека"
+          ]
+        },
+        "goals": [
+          {
+            "id": "current-place",
+            "status": "completed",
+            "evidence": [
+              "я сейчас в школе"
+            ]
+          },
+          {
+            "id": "next-place",
+            "status": "completed",
+            "evidence": [
+              "я иду в библиотека"
+            ]
+          },
+          {
+            "id": "understandable-places",
+            "status": "completed",
+            "evidence": [
+              "я сейчас в школе",
+              "я иду в библиотека"
+            ]
+          }
+        ],
+        "summary": "You clearly said where you are and where you're going, and your sentences flowed nicely. Just watch the case endings on destinations.",
+        "next_step": "Practice using the correct case endings after 'в' for destinations, like 'в библиотеку'.",
+        "corrections": [
+          {
+            "original": "в библиотека",
+            "replacement": "в библиотеку",
+            "explanation": "After 'в' to show destination, 'библиотека' should be in the accusative case.",
+            "category": "case ending"
+          }
+        ],
+        "uncertainty": "",
+        "criterion_report": {
+          "contract_sha256": "6aafc1029973c1435cc0b6e609aed482a39cd92874bade3fb544bb50fb5ca5c9",
+          "judgements": [
+            {
+              "criterion_id": "current-place",
+              "outcome": "satisfied",
+              "score": 1,
+              "feedback": "You clearly stated your current place.",
+              "evidence": [
+                {
+                  "start_ms": 0,
+                  "end_ms": 720
+                }
+              ],
+              "reason_code": null
+            },
+            {
+              "criterion_id": "next-place",
+              "outcome": "satisfied",
+              "score": 1,
+              "feedback": "You clearly stated your destination.",
+              "evidence": [
+                {
+                  "start_ms": 1439,
+                  "end_ms": 2700
+                }
+              ],
+              "reason_code": null
+            },
+            {
+              "criterion_id": "location-form",
+              "outcome": "satisfied",
+              "score": 2,
+              "feedback": "You used 'в' with the correct prepositional form for your current location.",
+              "evidence": [
+                {
+                  "start_ms": 0,
+                  "end_ms": 720
+                }
+              ],
+              "reason_code": null
+            },
+            {
+              "criterion_id": "destination-form",
+              "outcome": "not_satisfied",
+              "score": 0,
+              "feedback": "The destination form was incorrect; 'библиотека' needs the accusative ending.",
+              "evidence": [
+                {
+                  "start_ms": 1439,
+                  "end_ms": 2700
+                }
+              ],
+              "reason_code": null
+            },
+            {
+              "criterion_id": "understandable-places",
+              "outcome": "satisfied",
+              "score": 1,
+              "feedback": "Both your current place and destination were understandable.",
+              "evidence": [
+                {
+                  "start_ms": 0,
+                  "end_ms": 720
+                },
+                {
+                  "start_ms": 1439,
+                  "end_ms": 2700
+                }
+              ],
+              "reason_code": null
+            }
+          ]
+        },
+        "assessment_provenance": {
+          "model": "gpt-audio-1.5",
+          "prompt_sha256": "07ef39e3a05458d3636edb3766a7a7463221c009672e50806ab864d1db50b220",
+          "rubric_version": "speaking-audio-v1"
+        },
+        "basis": "audio_review",
+        "rubric_version": "speaking-audio-v1",
+        "model": "gpt-audio-1.5",
+        "rewards_applied": false
+      }
+    }
+  ],
+  "limitation": "TTS may pronounce or repair text differently. Script agreement cannot establish correctness of audible endings or ASR-repair resistance without independent listening.",
+  "script_expectations_met": true
+}

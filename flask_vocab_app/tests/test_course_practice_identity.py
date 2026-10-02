@@ -104,12 +104,14 @@ class PracticeIdentityTests(unittest.TestCase):
             old = course_targets.practice_start(self.conn, self.pid, 'home', 'old-start')
         self.conn.execute('DROP INDEX course_target_practice_active')
         self.conn.execute("CREATE UNIQUE INDEX course_target_practice_active ON course_target_practice_attempts(profile_id,release_id,section_id) WHERE status='active'")
+        from tests.support import latest_schema_version, strip_curriculum_sequences
+        strip_curriculum_sequences(self.conn)
         self.conn.execute('DELETE FROM schema_migrations WHERE version=55')
         self.conn.commit()
         tables = ('course_target_practice_attempts', 'course_target_practice_requests',
                   'course_target_practice_receipts', 'course_target_observations', 'course_chapter_passes')
         before = {table: list(self.conn.execute('SELECT * FROM ' + table)) for table in tables}
-        self.assertEqual(migrations.upgrade_database(self.path, backup=False)[0], 55)
+        self.assertEqual(migrations.upgrade_database(self.path, backup=False)[0], latest_schema_version())
         for table in tables:
             self.assertEqual(list(self.conn.execute('SELECT * FROM ' + table)), before[table])
         new = course_targets.practice_start(self.conn, self.pid, 'home', 'new-start')

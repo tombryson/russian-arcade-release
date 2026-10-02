@@ -36,6 +36,12 @@ def selected_skill_progress(*, require_introduction=True):
 def create_user_sessions_blueprint():
     bp = Blueprint('user_sessions', __name__)
 
+    def assessed_work():
+        if not state().get('profile'):
+            return None
+        from services.curriculum_summary import summary
+        return summary(current_app.config['DB_PATH'], access_id())
+
     @bp.before_request
     def personal_only():
         if current_app.config['WORD_POST_HOUSEHOLD_ENABLED']:
@@ -116,6 +122,7 @@ def create_user_sessions_blueprint():
         except BuildUnavailable:
             assets = {'styles': []}
         return render_template('user_sessions.html', state=state(), assets=assets,
+                               curriculum_results=assessed_work(),
                                profile_course_progress=selected_course_progress(),
                                profile_skill_progress=selected_skill_progress(), **context)
 
@@ -124,6 +131,7 @@ def create_user_sessions_blueprint():
     def page():
         if current_app.config.get('HOSTED_AI_TRIAL'):
             return render_template('profile_overview.html', profile=state()['profile'],
+                                   curriculum_results=assessed_work(),
                                    profile_course_progress=selected_course_progress(),
                                    profile_skill_progress=selected_skill_progress(require_introduction=False))
         return render_picker()

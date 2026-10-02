@@ -1,0 +1,29 @@
+{
+  "version": "curriculum-unit-audio-v1",
+  "content_id": "connected-messages-listening-v1",
+  "provider": "elevenlabs",
+  "source": "App-authored learning material with synthetic narration.",
+  "clips": {
+    "meeting-change": {
+      "text_sha256": "36382da34bfc277a846baeac7a2d24e14c01a850e54e30e607d79a8b504058f2",
+      "audio_sha256": "abbecfe31c7c6ac52b293ef79e7c5957234245440378d4b06611b9b8f7c237f6",
+      "duration": 11.41551,
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2"
+    },
+    "who-will-call": {
+      "text_sha256": "32a74b4ee0d21f35050a55eff856a037c9f4b8dfa0ae475ce996851cfb366ee6",
+      "audio_sha256": "f9b4dfe9a0fd50d00f543e1b00a4a1034e9774f273ddb269d0eb6195baca5272",
+      "duration": 11.467755,
+      "voice_id": "ymDCYd8puC7gYjxIamPt",
+      "model": "eleven_multilingual_v2"
+    },
+    "why-wait": {
+      "text_sha256": "0007a5b4c71afaf765a57543b76a998615b507280953109ac6ee7f21d8a95d60",
+      "audio_sha256": "8832c64288a3ddbacce12ecac422ef30dd1f3f9384913e850c92dfbbd63bb7e1",
+      "duration": 10.396735,
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2"
+    }
+  }
+}

@@ -13,8 +13,22 @@ def latest_schema_version():
     return max(int(path.name.split("_")[0]) for path in MIGRATION_DIR.glob("[0-9][0-9][0-9]_*.sql"))
 
 
+def strip_curriculum_sequences(conn):
+    """Remove additive sequence storage when constructing a pre-056 fixture."""
+    # Rewinding markers alone leaves lesson tables behind and makes a valid
+    # historical upgrade fail with "table already exists".
+    for table in ('comprehension_task_drafts', 'activity_support_disclosures', 'curriculum_unit_exchange_playback',
+                  'curriculum_unit_exchange_turns', 'curriculum_unit_exchanges',
+                  'activity_review_submissions', 'learning_prior_feedback', 'learning_hint_usage',
+                  'learning_session_drafts', 'curriculum_transfer_exposure',
+                  'curriculum_unit_requests', 'curriculum_unit_bindings', 'curriculum_unit_runs'):
+        conn.execute('DROP TABLE IF EXISTS ' + table)
+    conn.execute('DELETE FROM schema_migrations WHERE version IN (56,57,58,59,60)')
+
+
 def strip_course_progression(conn):
     """Remove course migrations and markers when a test rewinds its schema."""
+    strip_curriculum_sequences(conn)
     for table in ('assessment_pilot_requests', 'assessment_pilot_reviews', 'assessment_pilot_submissions', 'assessment_pilot_support', 'assessment_pilot_components', 'assessment_pilot_sessions', 'translation_reference_views', 'comprehension_support_receipts', 'comprehension_attempts', 'comprehension_tasks', 'learning_item_support', 'activity_criterion_reports', 'activity_task_contracts', 'course_checkpoint_followups', 'course_release_switches', 'course_target_observations', 'course_target_practice_receipts',
                   'course_target_practice_requests', 'course_target_practice_attempts', 'course_continuation_entitlements', 'course_enrolments',
                   'course_checkpoint_requests', 'course_checkpoint_submissions',

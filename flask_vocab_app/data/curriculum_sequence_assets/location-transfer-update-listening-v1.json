@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "id": "location-transfer-update-listening-v1",
+  "version": "location-transfer-update-listening-v1",
+  "unit_id": "location-destination-v2",
+  "kind": "listening",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Listen to the new plan",
+  "title_ru": "Послушай новый план",
+  "status": "draft",
+  "review": {
+    "kind": "internal_model",
+    "independently_validated": false
+  },
+  "content": {
+    "items": [
+      {
+        "id": "listen-1",
+        "type": "listening_choice",
+        "prompt": "Где человек сейчас?",
+        "choices": [
+          {
+            "id": "0",
+            "text": "В парке."
+          },
+          {
+            "id": "1",
+            "text": "В школе."
+          },
+          {
+            "id": "2",
+            "text": "В библиотеке."
+          }
+        ],
+        "answer": "0",
+        "hint": "Listen for the requested person and whether this is now or afterwards.",
+        "explanation": "The speaker is currently in the park.",
+        "transcript": "Дима, привет! Давай встретимся в школе. Нет, я сейчас в парке. Потом иду в библиотеку. Давай встретимся в библиотеке!",
+        "audio": {
+          "url": "/static/audio/course/curriculum/location-destination-sequence-v1/58d83fe3242766466730163a783c41b230a01b030a4916f167d666f6b99dc571.mp3",
+          "sha256": "b322bdaf4c9ac2a2ad9ceefb4e5fed61c08ad2329ca0c12b8f0e85468ed00141",
+          "duration_ms": 10109
+        },
+        "audio_key": "location-transfer-update-listening-v1-message",
+        "hint_ru": "Слушайте, где человек находится сейчас.",
+        "explanation_ru": "Сейчас человек находится в парке."
+      },
+      {
+        "id": "listen-2",
+        "type": "listening_choice",
+        "prompt": "Куда человек идёт?",
+        "choices": [
+          {
+            "id": "0",
+            "text": "В школу."
+          },
+          {
+            "id": "1",
+            "text": "В парк."
+          },
+          {
+            "id": "2",
+            "text": "В библиотеку."
+          }
+        ],
+        "answer": "2",
+        "hint": "Listen for the requested person and whether this is now or afterwards.",
+        "explanation": "The speaker is going to the library.",
+        "transcript": "Дима, привет! Давай встретимся в школе. Нет, я сейчас в парке. Потом иду в библиотеку. Давай встретимся в библиотеке!",
+        "audio": {
+          "url": "/static/audio/course/curriculum/location-destination-sequence-v1/58d83fe3242766466730163a783c41b230a01b030a4916f167d666f6b99dc571.mp3",
+          "sha256": "b322bdaf4c9ac2a2ad9ceefb4e5fed61c08ad2329ca0c12b8f0e85468ed00141",
+          "duration_ms": 10109
+        },
+        "audio_key": "location-transfer-update-listening-v1-message",
+        "hint_ru": "Слушайте, куда человек идёт потом.",
+        "explanation_ru": "Человек идёт в библиотеку."
+      },
+      {
+        "id": "listen-3",
+        "type": "listening_choice",
+        "prompt": "Какое место встречи в новом плане?",
+        "choices": [
+          {
+            "id": "0",
+            "text": "Школа."
+          },
+          {
+            "id": "1",
+            "text": "Библиотека."
+          },
+          {
+            "id": "2",
+            "text": "Парк."
+          }
+        ],
+        "answer": "1",
+        "hint": "Listen for the requested person and whether this is now or afterwards.",
+        "explanation": "The final plan is to meet at the library, not at school.",
+        "transcript": "Дима, привет! Давай встретимся в школе. Нет, я сейчас в парке. Потом иду в библиотеку. Давай встретимся в библиотеке!",
+        "audio": {
+          "url": "/static/audio/course/curriculum/location-destination-sequence-v1/58d83fe3242766466730163a783c41b230a01b030a4916f167d666f6b99dc571.mp3",
+          "sha256": "b322bdaf4c9ac2a2ad9ceefb4e5fed61c08ad2329ca0c12b8f0e85468ed00141",
+          "duration_ms": 10109
+        },
+        "audio_key": "location-transfer-update-listening-v1-message",
+        "hint_ru": "Сначала звучит один план, потом — другой. Слушайте до конца.",
+        "explanation_ru": "По новому плану встреча будет в библиотеке, а не в школе."
+      }
+    ]
+  },
+  "criteria": [
+    {
+      "id": "listen-1",
+      "target_id": "unit.location-transfer-update-listening-v1.listen-1",
+      "requirement_id": "a1.listening.short-message",
+      "response_mode": "listening_selection",
+      "evidence_scope": "reference",
+      "expectation": "The speaker is currently in the park.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.1 A, p. 8"
+        }
+      ]
+    },
+    {
+      "id": "listen-2",
+      "target_id": "unit.location-transfer-update-listening-v1.listen-2",
+      "requirement_id": "a1.listening.short-message",
+      "response_mode": "listening_selection",
+      "evidence_scope": "reference",
+      "expectation": "The speaker is going to the library.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.1 A, p. 8"
+        }
+      ]
+    },
+    {
+      "id": "listen-3",
+      "target_id": "unit.location-transfer-update-listening-v1.listen-3",
+      "requirement_id": "a1.listening.short-message",
+      "response_mode": "listening_selection",
+      "evidence_scope": "reference",
+      "expectation": "The final plan is to meet at the library, not at school.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.1 A, p. 8"
+        }
+      ]
+    }
+  ],
+  "support": {
+    "allowed": [
+      "hint",
+      "transcript",
+      "model_answer"
+    ],
+    "independence_breakers": [
+      "hint",
+      "transcript",
+      "model_answer"
+    ]
+  }
+}

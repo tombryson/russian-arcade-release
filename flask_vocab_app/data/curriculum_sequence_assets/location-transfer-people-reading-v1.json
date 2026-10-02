@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "location-transfer-people-reading-v1",
+  "version": "location-transfer-people-reading-v1",
+  "unit_id": "location-destination-v2",
+  "kind": "reading",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "A new meeting plan",
+  "title_ru": "Новый план встречи",
+  "status": "draft",
+  "review": {
+    "kind": "internal_model",
+    "independently_validated": false
+  },
+  "content": {
+    "passage": "Нина сейчас в школе, а Дима в библиотеке. Нина идёт в парк. Дима тоже идёт в парк. Они хотят встретиться в парке.",
+    "questions": [
+      {
+        "id": "reading-1",
+        "prompt": "Где Дима сейчас?",
+        "prompt_ru": "Где Дима сейчас?",
+        "expected_answer": "Dima is in the library."
+      },
+      {
+        "id": "reading-2",
+        "prompt": "Куда идёт Нина?",
+        "prompt_ru": "Куда идёт Нина?",
+        "expected_answer": "Nina is going to the park."
+      },
+      {
+        "id": "reading-3",
+        "prompt": "Где встретятся Нина и Дима?",
+        "prompt_ru": "Где встретятся Нина и Дима?",
+        "expected_answer": "They will meet in the park."
+      }
+    ],
+    "word_help": []
+  },
+  "criteria": [
+    {
+      "id": "reading-1",
+      "target_id": "unit.location-transfer-people-reading-v1.reading-1",
+      "requirement_id": "a1.reading.practical-information",
+      "response_mode": "reading_response",
+      "evidence_scope": "reading_comprehension",
+      "expectation": "Dima is in the library.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.2, p. 7; §1.2.2, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "reading-2",
+      "target_id": "unit.location-transfer-people-reading-v1.reading-2",
+      "requirement_id": "a1.reading.practical-information",
+      "response_mode": "reading_response",
+      "evidence_scope": "reading_comprehension",
+      "expectation": "Nina is going to the park.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.2, p. 7; §1.2.2, p. 9"
+        }
+      ]
+    },
+    {
+      "id": "reading-3",
+      "target_id": "unit.location-transfer-people-reading-v1.reading-3",
+      "requirement_id": "a1.reading.practical-information",
+      "response_mode": "reading_response",
+      "evidence_scope": "reading_comprehension",
+      "expectation": "They will meet in the park.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.1.2, p. 7; §1.2.2, p. 9"
+        }
+      ]
+    }
+  ],
+  "support": {
+    "allowed": [
+      "hint",
+      "translation",
+      "model_answer"
+    ],
+    "independence_breakers": [
+      "hint",
+      "translation",
+      "model_answer"
+    ]
+  }
+}

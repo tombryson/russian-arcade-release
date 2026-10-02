@@ -1,0 +1,21 @@
+{
+  "id": "location-destination-v2",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Where shall we meet?",
+  "title_ru": "Где мы встретимся?",
+  "summary": "Tell a friend where you are and arrange where to meet.",
+  "summary_ru": "Расскажи другу, где ты, и договорись о месте встречи.",
+  "sequence_id": "location-destination-sequence-v1",
+  "status": "draft",
+  "content_sources": {
+    "learn": "location-teaching-v2",
+    "choices": "location-choices-v2",
+    "forms": "location-forms-v2",
+    "reading": "location-reading-v1",
+    "listening": "location-listening-v2",
+    "writing": "location-message-v2",
+    "speaking": "location-exchange-v1",
+    "transfer": "location-transfer-v1"
+  }
+}

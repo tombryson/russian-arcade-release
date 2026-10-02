@@ -1,0 +1,315 @@
+{
+  "schema_version": 1,
+  "id": "location-teaching-v2",
+  "version": "location-teaching-v2",
+  "unit_id": "location-destination-v2",
+  "kind": "teaching",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "Where shall we meet?",
+  "title_ru": "Где мы встретимся?",
+  "status": "draft",
+  "review": {
+    "kind": "internal_model",
+    "independently_validated": false
+  },
+  "content": {
+    "groups": [
+      {
+        "title": "Where are you now?",
+        "title_ru": "Где ты сейчас?",
+        "note": "Use в школе to say someone is at school. With these places, в plus the location form answers где? — where? This is the prepositional case.",
+        "note_ru": "В школе отвечает на вопрос «где?». С этими названиями мест после в нужен предложный падеж.",
+        "examples": [
+          {
+            "ru": "Анна в школе.",
+            "en": "Anna is at school.",
+            "audio": {
+              "url": "/static/audio/course/curriculum/location-destination-sequence-v1/aeb8d578385e611f30bbe22b272f0d6b6fb30cec3ef59271bf324643910d7183.mp3",
+              "sha256": "a726ca71134354693eb8bb149ec204389ef9678a585259c8fd4bd6c68488f856",
+              "duration_ms": 1384,
+              "text_sha256": "aeb8d578385e611f30bbe22b272f0d6b6fb30cec3ef59271bf324643910d7183",
+              "size_bytes": 22613
+            },
+            "audio_key": "location-teaching-v2-1-1"
+          },
+          {
+            "ru": "Я в библиотеке.",
+            "en": "I am in the library.",
+            "audio": {
+              "url": "/static/audio/course/curriculum/location-destination-sequence-v1/91fa9a41493f42f925f13fffc30c580ede933f42e01a5f4b251f2e104d63103d.mp3",
+              "sha256": "39085f5f566651ac9dcd3438321ee0f527332e1e5bcc1843b678903c7d820978",
+              "duration_ms": 1437,
+              "text_sha256": "91fa9a41493f42f925f13fffc30c580ede933f42e01a5f4b251f2e104d63103d",
+              "size_bytes": 23449
+            },
+            "audio_key": "location-teaching-v2-1-2"
+          },
+          {
+            "ru": "Мы в парке.",
+            "en": "We are in the park.",
+            "audio": {
+              "url": "/static/audio/course/curriculum/location-destination-sequence-v1/82877f2e2c0a32a21ba7ea9b0d7a9212c230524f25628a977789af4237003e56.mp3",
+              "sha256": "e7470302740aeb149cf37c6071e7158d3a84031ba2369decfc94ee9431a76eff",
+              "duration_ms": 1149,
+              "text_sha256": "82877f2e2c0a32a21ba7ea9b0d7a9212c230524f25628a977789af4237003e56",
+              "size_bytes": 18852
+            },
+            "audio_key": "location-teaching-v2-1-3"
+          }
+        ]
+      },
+      {
+        "title": "Where are you going?",
+        "title_ru": "Куда ты идёшь?",
+        "note": "Иду means I am going on foot. Идёшь means you are going; идёт means he or she is going. Use в школу for the destination: where to? The ending changes to show the destination. This is the accusative case.",
+        "note_ru": "Я иду, ты идёшь, он или она идёт — формы глагола идти. В школу отвечает на вопрос «куда?». Для направления после в нужен винительный падеж.",
+        "examples": [
+          {
+            "ru": "Я иду в школу.",
+            "en": "I am walking to school.",
+            "audio": {
+              "url": "/static/audio/course/curriculum/location-destination-sequence-v1/d95379582948e65f0f034b2291266470145324843cfa54ff4fc485c7ca9ee3f4.mp3",
+              "sha256": "3c75e22a34e9528caae0f7835ccb3efc4ab771c3921a0657f8529332d93aedad",
+              "duration_ms": 1254,
+              "text_sha256": "d95379582948e65f0f034b2291266470145324843cfa54ff4fc485c7ca9ee3f4",
+              "size_bytes": 20524
+            },
+            "audio_key": "location-teaching-v2-2-1"
+          },
+          {
+            "ru": "Анна идёт в библиотеку.",
+            "en": "Anna is walking to the library.",
+            "audio": {
+              "url": "/static/audio/course/curriculum/location-destination-sequence-v1/c31b0a45c10b1f3944721c48c43bde5953c76f93fbddf6b6d86544246438afce.mp3",
+              "sha256": "eb9a271aac1a4d71b0f41dddfb8902b654ccfd824c6da7050d8fd25347cdf3c7",
+              "duration_ms": 1802,
+              "text_sha256": "c31b0a45c10b1f3944721c48c43bde5953c76f93fbddf6b6d86544246438afce",
+              "size_bytes": 29301
+            },
+            "audio_key": "location-teaching-v2-2-2"
+          },
+          {
+            "ru": "Ты идёшь в парк?",
+            "en": "Are you walking to the park?",
+            "audio": {
+              "url": "/static/audio/course/curriculum/location-destination-sequence-v1/dc005dbdbea20cb070618e9ffc965b59a758c0a36765c47d5a7962c3be844a98.mp3",
+              "sha256": "05f31786e92314800f49fa13a760e48be4057720b67e3b4f240c0ab5bddd43d8",
+              "duration_ms": 1280,
+              "text_sha256": "dc005dbdbea20cb070618e9ffc965b59a758c0a36765c47d5a7962c3be844a98",
+              "size_bytes": 20942
+            },
+            "audio_key": "location-teaching-v2-2-3"
+          }
+        ]
+      },
+      {
+        "title": "Arrange a meeting",
+        "title_ru": "Договоримся о встрече",
+        "note": "Learn Встретимся… as a whole phrase: Let’s meet… . The meeting happens at a place, so use the location form. Сейчас means now; потом means afterwards.",
+        "note_ru": "Встретимся… — предложение встретиться. Место встречи отвечает на вопрос «где?», поэтому нужен предложный падеж. Сейчас — в этот момент; потом — после этого.",
+        "examples": [
+          {
+            "ru": "Я сейчас в школе. Потом иду в парк.",
+            "en": "I am at school now. Afterwards I am walking to the park.",
+            "audio": {
+              "url": "/static/audio/course/curriculum/location-destination-sequence-v1/d9bf2fa46769708533be6f7c262a631504fe80ffe8f8974143399d9d3bf3a05c.mp3",
+              "sha256": "f0507c152550aa96290744ad21dc7380eae7dd5bb6733560148c25f2ff8d8984",
+              "duration_ms": 2743,
+              "text_sha256": "d9bf2fa46769708533be6f7c262a631504fe80ffe8f8974143399d9d3bf3a05c",
+              "size_bytes": 44347
+            },
+            "audio_key": "location-teaching-v2-3-1"
+          },
+          {
+            "ru": "Встретимся в парке.",
+            "en": "Let’s meet in the park.",
+            "audio": {
+              "url": "/static/audio/course/curriculum/location-destination-sequence-v1/382671aa50450d1938c218d56787e149fe658594920ff6cf69add474aa6a42e1.mp3",
+              "sha256": "fb890e2962d5152cfa550c3c4769ca0d34789dd8771f157e0a23177ec5f9eafd",
+              "duration_ms": 1672,
+              "text_sha256": "382671aa50450d1938c218d56787e149fe658594920ff6cf69add474aa6a42e1",
+              "size_bytes": 27211
+            },
+            "audio_key": "location-teaching-v2-3-2"
+          },
+          {
+            "ru": "Встретимся в библиотеке.",
+            "en": "Let’s meet in the library.",
+            "audio": {
+              "url": "/static/audio/course/curriculum/location-destination-sequence-v1/bd73b9ee949f4b450c4beb4768bfc22910df986ddf7164420cd36305ca9e5843.mp3",
+              "sha256": "1396b616c1cd71a2d8a2ae099aafb3aa32549783173a5c149214d665d3a28933",
+              "duration_ms": 1567,
+              "text_sha256": "bd73b9ee949f4b450c4beb4768bfc22910df986ddf7164420cd36305ca9e5843",
+              "size_bytes": 25539
+            },
+            "audio_key": "location-teaching-v2-3-3"
+          }
+        ]
+      },
+      {
+        "title": "Moving inside a place",
+        "title_ru": "Движение внутри места",
+        "note": "Гуляем means we are walking for pleasure. If the walk happens inside the park, say в парке. Movement alone does not make the park a destination.",
+        "note_ru": "Гуляем — ходим для отдыха. Если прогулка происходит внутри парка, говорим в парке. Само движение не означает направление в другое место.",
+        "examples": [
+          {
+            "ru": "Мы в парке. Мы гуляем в парке.",
+            "en": "We are in the park. We are walking in the park.",
+            "audio": {
+              "url": "/static/audio/course/curriculum/location-destination-sequence-v1/2abd4b87aa59ad8cf79fd769db943e096c2b5bacefde024d0cb81d1fadd14733.mp3",
+              "sha256": "8f018441c2c6a6d0a49ec5853265617c4108f6d7afa9c12f1af4e6b9f7273739",
+              "duration_ms": 2116,
+              "text_sha256": "2abd4b87aa59ad8cf79fd769db943e096c2b5bacefde024d0cb81d1fadd14733",
+              "size_bytes": 34316
+            },
+            "audio_key": "location-teaching-v2-4-1"
+          },
+          {
+            "ru": "Я в школе. Иду в парк.",
+            "en": "I am at school. I am walking to the park.",
+            "audio": {
+              "url": "/static/audio/course/curriculum/location-destination-sequence-v1/9da224d32723d1b0239b5a5b69b56873bbd6b151452d82821449b896eef0169f.mp3",
+              "sha256": "0e879a11f8fba69613119a421f4c811e54864b5ded469277617499db550da374",
+              "duration_ms": 2168,
+              "text_sha256": "9da224d32723d1b0239b5a5b69b56873bbd6b151452d82821449b896eef0169f",
+              "size_bytes": 35152
+            },
+            "audio_key": "location-teaching-v2-4-2"
+          }
+        ]
+      },
+      {
+        "title": "Follow a change of plan",
+        "title_ru": "Планы меняются",
+        "note": "Тоже means also. Нет can reject an earlier plan. Learn закрыт as closed in парк закрыт. A later message may change the meeting place.",
+        "note_ru": "Тоже добавляет похожее действие другого человека. Нет может отменять прежний план. Парк закрыт: в парк нельзя войти. Новое сообщение может менять место встречи.",
+        "examples": [
+          {
+            "ru": "Анна идёт в парк. Дима тоже идёт в парк.",
+            "en": "Anna is walking to the park. Dima is also walking to the park.",
+            "audio": {
+              "url": "/static/audio/course/curriculum/location-destination-sequence-v1/2bf4a4fd87f085e9165ff6f05e8cff396bf325b2a6ec4b74cab6409db5bf3f5f.mp3",
+              "sha256": "f112c64391483def86b68f850b96451b0ea7bdb185c92e5ecceda726c8eb7711",
+              "duration_ms": 3291,
+              "text_sha256": "2bf4a4fd87f085e9165ff6f05e8cff396bf325b2a6ec4b74cab6409db5bf3f5f",
+              "size_bytes": 53124
+            },
+            "audio_key": "location-teaching-v2-5-1"
+          },
+          {
+            "ru": "Встретимся в парке. — Нет, парк закрыт. Встретимся в школе.",
+            "en": "Let’s meet in the park. — No, the park is closed. Let’s meet at school.",
+            "audio": {
+              "url": "/static/audio/course/curriculum/location-destination-sequence-v1/b98c1ee4c397e0d46f4cc74745eab363e245f5d32fda920dc609f3a216e13daf.mp3",
+              "sha256": "bc3a9984f7451155fa585e878c3a61dac23d0052a43e405dbb0f64d065ccf5b5",
+              "duration_ms": 5329,
+              "text_sha256": "b98c1ee4c397e0d46f4cc74745eab363e245f5d32fda920dc609f3a216e13daf",
+              "size_bytes": 85725
+            },
+            "audio_key": "location-teaching-v2-5-2"
+          }
+        ]
+      }
+    ],
+    "vocabulary": [
+      {
+        "ru": "школа",
+        "en": "school",
+        "audio": null
+      },
+      {
+        "ru": "парк",
+        "en": "park",
+        "audio": null
+      },
+      {
+        "ru": "библиотека",
+        "en": "library",
+        "audio": null
+      },
+      {
+        "ru": "сейчас",
+        "en": "now",
+        "audio": null
+      },
+      {
+        "ru": "потом",
+        "en": "afterwards",
+        "audio": null
+      },
+      {
+        "ru": "иду",
+        "en": "I am walking / going on foot",
+        "audio": null
+      },
+      {
+        "ru": "идёшь",
+        "en": "you are walking / going on foot",
+        "audio": null
+      },
+      {
+        "ru": "идёт",
+        "en": "he or she is walking / going on foot",
+        "audio": null
+      },
+      {
+        "ru": "встретимся",
+        "en": "let’s meet",
+        "audio": null
+      },
+      {
+        "ru": "гуляем",
+        "en": "we are walking for pleasure",
+        "audio": null
+      },
+      {
+        "ru": "тоже",
+        "en": "also",
+        "audio": null
+      },
+      {
+        "ru": "закрыт",
+        "en": "closed (here: the park)",
+        "audio": null
+      }
+    ],
+    "places": [
+      {
+        "id": "school",
+        "ru": "школа",
+        "en": "school",
+        "location": "в школе",
+        "destination": "в школу"
+      },
+      {
+        "id": "park",
+        "ru": "парк",
+        "en": "park",
+        "location": "в парке",
+        "destination": "в парк"
+      },
+      {
+        "id": "library",
+        "ru": "библиотека",
+        "en": "library",
+        "location": "в библиотеке",
+        "destination": "в библиотеку"
+      }
+    ],
+    "map": {
+      "kind": "place-grid",
+      "alt": "A school, a park and a library. A marker shows a current location; an arrow shows a destination.",
+      "alt_ru": "Школа, парк и библиотека. Значок показывает текущее место, стрелка — направление."
+    }
+  },
+  "criteria": [],
+  "support": {
+    "allowed": [
+      "hint"
+    ],
+    "independence_breakers": [
+      "hint"
+    ]
+  }
+}

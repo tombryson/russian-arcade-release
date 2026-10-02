@@ -1,10 +1,10 @@
 # TORFL curriculum and assessment delivery plan
 
-**Implementation specification draft: 2 October 2026. Code baseline: `ba9bee7`; initial document: `8fdb608`.**
+**Implementation specification, updated 2 October 2026. Original code baseline: `ba9bee7`; initial document: `8fdb608`.**
 
 This document defines the remaining work needed for Russian Arcade to teach and assess the published requirements of A1–B2 Russian. The supplied *ТРКИ-I* training book provides a concrete B1 example of what learners must eventually do.
 
-It supplements the [curriculum implementation plan](curriculum-uplift-plan.md). The current implementation is recorded below. The lesson designs, new routes, schemas and UI behaviour elsewhere in this document are proposed implementation decisions, not shipped functionality. P0 and P1 are specified first; later assessment thresholds remain subject to validation.
+It supplements the [curriculum implementation plan](curriculum-uplift-plan.md). The current implementation is recorded below and in the [implementation record](torfl-implementation-2026-10-02.md). The connected A1 sequence, storage, activity adapters and profile projection are now implemented in the repository. This does not mean that every later delivery package is finished or deployed. Full-level assessment thresholds remain subject to validation.
 
 Read by purpose:
 
@@ -28,16 +28,18 @@ The repository already contains most of the necessary infrastructure. Content co
 | Area | Implemented | Remaining work |
 | --- | --- | --- |
 | Requirements | 239 source-linked specifications across A1–B2; later levels inherit earlier scope. | Reconcile the inventory against the chosen source editions and assessment blueprints. |
-| Teaching | 13 authored A1 units with classified examples, controlled responses and Writing briefs. | Complete A1 coverage and sequence prerequisites; author later levels. |
-| Listening | Two complete unit packs, containing six recordings, are exposed as available. | Prepare and verify the remaining unit recordings and both pilot recordings. |
-| Activity evidence | Versioned criteria, saved responses and scoped adapters for existing activities. | Complete a connected learning sequence and verify each adapter's limits. |
+| Teaching | 13 authored A1 units; a connected location/destination edition with guided practice and two transfer situations. | Complete the source-level breadth of A1 and its prerequisites; author later levels. |
+| Listening | All 13 unit packs and both pilot forms have verified files: 41 clips. The connected sequence adds 19 reusable recordings across 25 playback identities. | Complete audible device checks and pronunciation review; preserve per-file availability checks. |
+| Activity evidence | V1 retained; v2 separates communication from forms in original writing and speech. Immutable submissions survive unavailable feedback. | Broader original-production coverage and validation on learner responses. |
+| Lesson state | Owned, frozen runs; idempotent activity allocation; durable typed drafts; review recovery; per-task support and transfer exposure. | Wider real-user and device trials; extend the proven sequence pattern to the remaining units. |
+| Profile | Five compact domain rows, scoped activity/pilot results, pending work and deterministic next actions. | Validate recommendations with learners; add later-level results only under an explicit assessed scope. |
 | Assessment | Resumable A1 diagnostic with two forms per domain. Original responses and assistance are retained. | Broader sampling, spoken interaction, calibration and a separately versioned full-level policy. |
 | B1 delivery | 50 B1 requirement entries and generated practice. | The coverage inventory has no allocated, statically authored B1 reference tasks. |
 | Progression | Elo, coins and permanent Journey passes have separate purposes. | Introduce any future level gate through a new release, preserving existing progress. |
 
-The current pilot samples six language-use choices, three reading questions, three listening questions, one written message and one recorded introduction. It is too small to establish full-level proficiency. The speaking sample does not test interaction.
+The current pilot still samples six language-use choices, three reading questions, three listening questions, one written message and one recorded introduction. It is too small to establish full-level proficiency. Its Speaking sample does not test interaction. The new lesson has a separate two-turn recorded exchange; this does not silently expand the pilot's scope.
 
-The [validation record](curriculum-validation.md) records no independent language review or learner trial. Its last provider allowance is historical, not a current account check. Recheck recording availability and allowance before planning paid generation. The [coverage inventory](curriculum-coverage.md) excludes runtime-generated tasks; an empty authored B1 row does not mean learners have no B1 practice.
+The [validation record](curriculum-validation.md) records no independent language review or learner trial. All 239 requirements now have a proposed unit and assessment family, with explicit remaining gaps. The [coverage inventory](curriculum-coverage.md) excludes runtime-generated tasks; an empty authored B1 row does not mean learners have no B1 practice.
 
 ## Exam sources and assessment rules
 
@@ -124,7 +126,7 @@ Before practice, teach *сейчас*, *потом*, *в*, the three place nouns
 | Read | A short message gives current location and destination. Three questions distinguish those details and the meeting place. Distractors refer to places in the message, not unrelated pictures. | Reading information, not production of endings. |
 | Listen | A separate voice message supplies a different meeting plan. Three questions require hearing its information; the reading task must not reveal the answers. | Listening under recorded support conditions. |
 | Write | Choose a starting place and destination from the map. Write a friend a short message saying where you are, where you are going and where to meet. No minimum word count. | Original communication plus separately marked, elicited forms. |
-| Speak | Answer *Где ты сейчас?* and *А куда ты идёшь?* in a brief exchange. Use the same chosen places, but provide original speech. | Two original turns, task completion and narrow grammar observations. |
+| Speak | Answer *Где ты сейчас?* and *А куда ты идёшь?* in a brief exchange. Choose from the same familiar places and provide original speech. | Two original turns, task completion and narrow grammar observations. |
 | Try a new situation | Resolve a new meeting arrangement from unfamiliar messages, then provide a short written and spoken reply. Use separate tasks for the domain observations. | Transfer within this scope, not an A1 pass. |
 
 The counts above are P1 content budgets, not exam sampling claims. Russian texts and distractors must receive language checks before publication. A reading question can test meaning without demanding a case name. A grammar task must make its intended distinction clear.
@@ -431,7 +433,7 @@ Implement one shared projection service for the template and a proposed `GET /ap
 
 Selection rules are deterministic:
 
-1. Within a scope, choose the latest successfully reviewed submission by submission time, then stable attempt ID. Review completion time must not let a delayed old review displace newer work.
+1. Within a scope, choose the latest successfully reviewed submission by submission time, then its persisted submission identity. Historical stores record seconds, so their original insertion order breaks same-second ties before the report ID. Imports preserve that order. Review completion time must not let a delayed old review displace newer work. For a multi-question reading task, first choose the newest reviewed answer to each question, then aggregate those answers.
 2. Keep a newer pending or failed review visible separately. It does not erase the latest reviewed result.
 3. A newer insufficient or supported result is shown honestly, with its condition; retain older results in history rather than choosing whichever looks best.
 4. Keep broad pilot results and narrow unit observations in separate scope entries. A location exercise must never overwrite a five-domain check or become “A1 passed”. The row names the scope it displays.
@@ -553,7 +555,7 @@ These are required release cases, not a request for tests that merely repeat imp
 
 Attach the exercised manifest IDs, fixture IDs, browser/device sizes and check results to the implementation record. Distinguish software verification, language review and learner evaluation. A green automated suite does not establish that an assessment predicts TORFL performance.
 
-The immediate next work is **P0 followed by P1**. The final assessment blueprint, evaluation sample and pass policy remain decisions to resolve through source review and validation. This draft does not authorise a proficiency claim merely by listing the required work.
+The current pass implements the P1 foundations and completes the P0 recording backlog. The implementation record distinguishes automated checks, browser checks and remaining evaluation. Next, finish the outstanding P1 acceptance cases and use the coverage allocations to fill P2 gaps. P3's expanded assessment blueprint, evaluation sample and pass policy remain explicit work; P4 teaching has not been authored. This specification does not authorise a proficiency claim merely by listing the required work.
 
 ## Sources
 

@@ -7,6 +7,42 @@
   <div class="activity-entry-content">
     <nav class="curriculum-unit-nav"><a href="/curriculum#topic-{{ unit.topic_id }}" hx-boost="false">← {{ 'Учебная программа' if russian else 'Curriculum' }}</a><span>{{ unit.level }}</span></nav>
     {{ activity_header(page_title, unit.summary_ru if russian else unit.summary) }}
+    {% if curriculum_sequence %}
+    <section class="curriculum-sequence" data-curriculum-sequence data-language="{{ language }}" data-profile-id="{{ profile_id or '' }}" aria-label="{{ 'Занятия урока' if russian else 'Lesson activities' }}">
+      <script type="application/json" data-sequence-data>{{ curriculum_sequence|tojson }}</script>
+      <div class="curriculum-sequence-action">
+        {% if profile_id %}<button type="button" class="btn btn-primary" data-sequence-continue>{{ 'Продолжить урок' if russian and curriculum_sequence.run else 'Начать урок' if russian else 'Continue lesson' if curriculum_sequence.run else 'Start lesson' }} →</button>
+        {% else %}<a href="/post/profiles" hx-boost="false">{{ 'Выбрать профиль для занятий' if russian else 'Choose a profile to practise' }} →</a>{% endif %}
+        <p data-sequence-status role="status" aria-live="polite"></p>
+        <button type="button" class="sentence-text-button" data-sequence-repeat hidden>{{ 'Повторить урок' if russian else 'Practise again' }}</button>
+      </div>
+      <details class="curriculum-sequence-results" data-sequence-results hidden><summary>{{ 'Последние проверенные задания' if russian else 'Recent assessed work' }}</summary><div data-sequence-results-body aria-live="polite"></div></details>
+      <ol class="curriculum-sequence-steps" data-sequence-steps>
+      {% for step in curriculum_sequence.steps %}<li id="sequence-step-{{ step.id }}"><strong>{{ step.label_ru if russian else step.label }}</strong><span>{{ step.reason_ru if russian and step.reason_ru else step.reason or '' }}</span></li>{% endfor %}
+      </ol>
+      <div data-sequence-error role="alert" hidden></div>
+      {% if unit.prerequisites %}<p class="curriculum-sequence-advice">{{ unit.prerequisites.advice_ru if russian else unit.prerequisites.advice }} <a href="{{ unit.prerequisites.href }}" hx-boost="false">{{ 'Первые шаги' if russian else 'First steps' }} →</a></p>{% endif %}
+      <noscript><p>{{ 'Включите JavaScript, чтобы сохранять и продолжать урок. Объяснения доступны ниже.' if russian else 'Enable JavaScript to save and continue this lesson. You can read the explanation below.' }}</p></noscript>
+    </section>
+    <details class="curriculum-unit-teaching" id="learn"><summary>{{ 'Где и куда: объяснение и примеры' if russian else 'Where and where to: explanation and examples' }}</summary>
+    {% if unit.teaching %}
+      {% if unit.teaching.map %}<figure class="curriculum-place-map" role="img" aria-label="{{ unit.teaching.map.alt_ru if russian else unit.teaching.map.alt }}">
+        <div class="curriculum-map-places" aria-hidden="true">{% for place in unit.teaching.places %}<div class="curriculum-map-place"><span class="curriculum-map-marker">{{ '●' if loop.first else '→' if loop.last else '○' }}</span><strong lang="ru">{{ place.ru }}</strong><span>{{ 'Сейчас' if russian and loop.first else 'Куда' if russian and loop.last else 'Now' if loop.first else 'Destination' if loop.last else '' }}</span></div>{% endfor %}</div>
+        <figcaption>{{ 'Значок — где сейчас; стрелка — куда идём.' if russian else 'A marker shows where someone is now; an arrow shows their destination.' }}</figcaption>
+      </figure>{% endif %}
+      <details class="curriculum-word-help"><summary>{{ 'Нужна помощь со словами?' if russian else 'Need help with the words?' }}</summary><dl>{% for word in unit.teaching.vocabulary %}<div><dt lang="ru">{{ word.ru }}</dt><dd lang="en">{{ word.en }}</dd></div>{% endfor %}</dl></details>
+    {% endif %}
+    <div class="curriculum-unit-examples">
+      {% for group in unit.groups %}<section>
+        <h2>{{ group.title_ru if russian else group.title }}</h2>
+        <p>{{ group.note_ru if russian else group.note }}</p>
+        <dl>{% for example in group.examples %}<dt lang="ru">{{ example.ru }}</dt><dd><span lang="en">{{ example.en }}</span>
+          {% if example.audio and example.audio.url %}<audio class="curriculum-example-audio" data-teaching-audio controls preload="none" src="{{ example.audio.url }}" aria-label="{{ 'Послушать пример' if russian else 'Listen to example' }}: {{ example.ru }}">{{ 'Ваш браузер не поддерживает аудио.' if russian else 'Your browser does not support audio.' }}</audio><span class="curriculum-example-audio-error" data-teaching-audio-error role="status" hidden>{{ 'Аудио недоступно. Можно продолжать читать примеры.' if russian else 'Audio is unavailable. You can keep reading the examples.' }}</span>{% endif %}
+        </dd>{% endfor %}</dl>
+      </section>{% endfor %}
+    </div>
+    </details>
+    {% else %}
     <div class="curriculum-unit-examples">
       {% for group in unit.groups %}<section>
         <h2>{{ group.title_ru if russian else group.title }}</h2>
@@ -41,6 +77,9 @@
       </section>{% endif %}
       {% if unit.speaking_href %}<section><h2>{{ unit.speaking_title_ru if russian else unit.speaking_title }}</h2><p>{{ unit.speaking_summary_ru|default('Поговорите с местным жителем в разговорной практике.') if russian else unit.speaking_summary|default('Talk to a local resident in Speaking.') }}</p><a href="{{ unit.speaking_href }}" hx-boost="false">{{ 'Открыть разговор' if russian else 'Open conversation' }} →</a></section>{% endif %}
     </div>
+    {% endif %}
   </div>
 </main>
 {% endblock %}
+
+{% block page_scripts %}{% if curriculum_sequence %}<script src="/static/js/curriculum_sequence.js?v=3" defer></script>{% endif %}{% endblock %}

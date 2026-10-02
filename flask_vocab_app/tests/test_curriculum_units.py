@@ -44,7 +44,7 @@ class CurriculumUnitTests(unittest.TestCase):
         with sqlite3.connect(self.db) as conn:
             before = conn.execute('SELECT COUNT(*) FROM learning_sessions').fetchone()[0]
         self.assertIn('/curriculum/topics/places', self.client.get('/curriculum').get_data(as_text=True))
-        self.assertIn(PATH, self.client.get('/curriculum/topics/places').get_data(as_text=True))
+        self.assertIn('/curriculum/units/location-destination-v2', self.client.get('/curriculum/topics/places').get_data(as_text=True))
         page = self.client.get(PATH)
         self.assertEqual(page.status_code, 200)
         html = page.get_data(as_text=True)

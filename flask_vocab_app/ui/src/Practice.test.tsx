@@ -161,6 +161,48 @@ const listening = {...initial, total_items: 2, item: {
 const heard = {...listening, revision: 1, item: {...listening.item, listened: true}};
 const postCalls = (fetch: ReturnType<typeof vi.fn>) => fetch.mock.calls.filter(([,options]) => options?.method === 'POST');
 
+it('keeps a shared-recording reply neutral until the remaining questions are answered', async () => {
+  const saved = {...listening, revision: 2, completed_items: 1,
+    item: {...listening.item, id: 'i2', prompt: 'Куда идёт Нина?'},
+    attempts: [{id: 'first', prompt: 'Где сейчас Нина?', feedback: {
+      deferred: true, outcome: 'deferred', response_text: 'В школе.', assisted: false, support: [], listened: true,
+    }}]};
+  vi.stubGlobal('fetch', vi.fn(() => response(saved)));
+  render(<Practice sessionId="s1" profileId="p1" onFinish={() => {}} />);
+  expect(await screen.findByRole('heading', {name: 'Reply saved.'})).toBeTruthy();
+  expect(screen.getByText('Your answer')).toBeTruthy();
+  expect(screen.getByText('В школе.')).toBeTruthy();
+  expect(screen.getByText('Feedback follows after the questions about this recording.')).toBeTruthy();
+  expect(screen.queryByText('The correct answer')).toBeNull();
+  expect(screen.queryByText('Transcript')).toBeNull();
+  expect(screen.queryByRole('heading', {name: 'Let’s look at the answer.'})).toBeNull();
+  fireEvent.click(screen.getByRole('button', {name: /Next question/}));
+  expect(screen.getByRole('heading', {name: 'Куда идёт Нина?'})).toBeTruthy();
+});
+
+it('restores earlier explanations in the existing completed review without repeating the transcript', async () => {
+  const transcript = 'Нина сейчас в библиотеке. Потом она идёт в парк.';
+  const saved = {...complete, total_items: 2, completed_items: 2, attempts: [
+    {id: 'first', prompt: 'Где сейчас Нина?', feedback: {outcome: 'incorrect',
+      response_text: 'В школе.', answer: 'В библиотеке.', assisted: false, transcript,
+      explanation: 'She says she is in the library now.'}},
+    {id: 'second', prompt: 'Куда идёт Нина?', feedback: {outcome: 'correct',
+      response_text: 'В парк.', answer: 'В парк.', assisted: false, transcript,
+      explanation: 'The park is her next destination.'}},
+  ]};
+  vi.stubGlobal('fetch', vi.fn(() => response(saved)));
+  render(<Practice sessionId="s1" profileId="p1" onFinish={() => {}} />);
+  expect(await screen.findByText(transcript)).toBeTruthy();
+  fireEvent.click(screen.getByRole('button', {name: /Finish practice/}));
+  fireEvent.click(screen.getByText('Review your answers'));
+  expect(screen.getByText('Где сейчас Нина?')).toBeTruthy();
+  expect(screen.getByText('В школе.')).toBeTruthy();
+  expect(screen.getByText('В библиотеке.')).toBeTruthy();
+  expect(screen.getByText('She says she is in the library now.')).toBeTruthy();
+  expect(screen.getByText('The park is her next destination.')).toBeTruthy();
+  expect(screen.queryByText(transcript)).toBeNull();
+});
+
 it('waits for a saved listening receipt before enabling answers and keeps the transcript off the page', async () => {
   let finishReceipt!: (value: unknown) => void;
   const fetch = vi.fn((url: string) => url.endsWith('/listened')

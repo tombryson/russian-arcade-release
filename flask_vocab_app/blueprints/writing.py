@@ -4,6 +4,7 @@ import sqlite3
 
 from flask import Blueprint, jsonify, redirect, render_template, request, session, url_for
 from repositories.writing_repository import WritingRepository, WritingConflict, word_count
+from repositories.learning_repository import LearningError
 from services.writing_service import WritingUnavailable
 from services.curriculum import level_options, normalize_level, topic_options
 from services.curriculum_requirement_map import requirement_index
@@ -17,6 +18,33 @@ logger = logging.getLogger(__name__)
 def create_writing_blueprint(db_path, service):
     blueprint = Blueprint('writing',__name__)
     repository = WritingRepository(db_path)
+
+    @blueprint.post('/api/v1/writing/tasks/<int:exercise_id>/submissions')
+    def save_original(exercise_id):
+        from services.activity_review_submissions import submit as save_submission
+        return jsonify(save_submission(db_path, 'writing', str(exercise_id), request.get_json(silent=True), language=language()))
+
+    @blueprint.get('/api/v1/writing/submissions/<identity>')
+    def read_original(identity):
+        from services.activity_review_submissions import load as load_submission
+        return jsonify(load_submission(db_path, identity, 'writing'))
+
+    @blueprint.post('/api/v1/writing/submissions/<identity>/review')
+    def review_original(identity):
+        from services.activity_review_submissions import review as review_submission
+        return jsonify(review_submission(db_path, identity, service, activity='writing'))
+
+    @blueprint.post('/writing/support/<int:exercise_id>')
+    @blueprint.post('/api/v1/writing/tasks/<int:exercise_id>/model-answer')
+    def model_answer(exercise_id):
+        from services.activity_review_submissions import disclose_writing_model
+        data = request.get_json(silent=True) if request.is_json else request.form
+        value = (data or {}).get('expected_revision')
+        revision = int(value) if isinstance(value, str) and value.isdecimal() else value
+        result = disclose_writing_model(db_path, str(exercise_id), revision)
+        if request.is_json:
+            return jsonify(result)
+        return redirect(url_for('writing.load', exercise_id=exercise_id), code=303)
 
     def language():
         return 'ru' if session.get('ui_lang') == 'ru' else 'en'
@@ -41,6 +69,20 @@ def create_writing_blueprint(db_path, service):
         item['saved_draft'] = item.get('saved_draft',item['draft'])
         item['word_count'] = word_count(item['draft'])
         item['state'] = 'draft' if item['draft'] != (item.get('checked_response') or '') else 'checked' if item.get('checked_response') is not None else 'ready'
+        from repositories.learning_repository import transaction
+        from services.curriculum_sequences import activity_context
+        from utils.activity_owner import activity_profile_id
+        with transaction(db_path) as conn:
+            from services.feedback_study import actions as study_actions
+            for attempt in item.get('attempts', []):
+                attempt['study_actions'] = study_actions(conn, activity_profile_id(conn), 'writing', str(attempt['id']))
+            item['sequence'] = activity_context(conn, activity_profile_id(conn), 'writing', str(item['id']))
+            if item['sequence'] and item.get('curriculum_contract'):
+                from services.activity_review_submissions import safe_scene, writing_help
+                contract = item['curriculum_contract']
+                item['writing_scene'] = safe_scene(contract['content'])
+                item['writing_help'] = writing_help(conn, activity_profile_id(conn), str(item['id']), contract)
+                item['model_answer_available'] = bool(contract['content'].get('model_answer'))
         if item.get('curriculum_contract'):
             from services.curriculum_units import unit_summaries
             unit = next((unit for unit in unit_summaries()
@@ -50,6 +92,8 @@ def create_writing_blueprint(db_path, service):
                     'href': '/curriculum/units/' + unit['id'],
                     'title': unit['title_ru' if language() == 'ru' else 'title'],
                 }
+            if item['sequence']:
+                item['curriculum_origin'] = {'href': item['sequence']['lesson_url'], 'title': 'Back to lesson' if language() == 'en' else 'Вернуться к уроку'}
             criteria = {criterion['id']: criterion for criterion in item['curriculum_contract']['criteria']}
             references = requirement_index()
             outcomes = {
@@ -96,6 +140,10 @@ def create_writing_blueprint(db_path, service):
         return request.accept_mimetypes.best == 'application/json'
 
     def failure(error,exercise=None,preparing=False):
+        if isinstance(error, LearningError):
+            if enhanced():
+                return jsonify(error={'code': error.code, 'message': str(error)}), error.status
+            return page(exercise, error=str(error)), error.status
         if isinstance(error,LookupError):
             key,status = 'missing',404
         elif isinstance(error,WritingConflict):
@@ -147,6 +195,32 @@ def create_writing_blueprint(db_path, service):
             if not exercise:
                 raise LookupError('Writing not found')
             repository.validate_answer(response,checking=checking)
+            from repositories.learning_repository import transaction, payload_hash
+            from utils.activity_owner import activity_profile_id
+            from services.activity_review_submissions import binding_for_task
+            with transaction(db_path) as conn:
+                bound = binding_for_task(conn, activity_profile_id(conn), 'writing', str(exercise_id))
+            if bound and not checking:
+                key = request.form.get('submission_id') or payload_hash({'task': exercise_id, 'revision': revision, 'response': response})[:32]
+                saved_revision = repository.save_lesson_draft(exercise_id, response, revision, key)
+                if enhanced():
+                    return jsonify(revision=saved_revision, message=t('saved_ok'))
+                return redirect(url_for('writing.load', exercise_id=exercise_id), code=303)
+            if checking:
+                from services.activity_review_submissions import submit as save_submission, review as review_submission
+                if bound:
+                    key = request.form.get('submission_id') or payload_hash({'task': exercise_id, 'revision': revision, 'response': response})[:32]
+                    saved = save_submission(db_path, 'writing', str(exercise_id), {'submission_id': key, 'expected_revision': revision, 'response': {'text': response}}, language=language())
+                    reviewed = review_submission(db_path, saved['id'], service, activity='writing')
+                    if reviewed['work_state'] != 'reviewed':
+                        if enhanced():
+                            return jsonify(error=reviewed['message'], review_submission=reviewed, revision=revision + 1), 503
+                        return page(repository.load(exercise_id), error=reviewed['message']), 503
+                    current = present(repository.load(exercise_id))
+                    if enhanced():
+                        return jsonify(revision=current['revision'], message=t('checked_ok'), state=t(current['state']),
+                            display_date=current['display_date'], feedback=render_template('_writing_feedback.html', exercise=current), review_submission=reviewed)
+                    return redirect(url_for('writing.load', exercise_id=exercise_id), code=303)
             repository.check_revision(exercise_id,revision)
             assessment = None
             if checking:
@@ -174,5 +248,11 @@ def create_writing_blueprint(db_path, service):
     @blueprint.post('/writing/assess')
     def assess():
         return submit(True)
+
+    @blueprint.post('/writing/review/<identity>')
+    def retry_saved_review(identity):
+        from services.activity_review_submissions import review
+        saved = review(db_path, identity, service, activity='writing')
+        return redirect(url_for('writing.load', exercise_id=int(saved['task_key'])), code=303)
 
     return blueprint

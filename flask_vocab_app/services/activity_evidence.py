@@ -7,6 +7,7 @@ here changes a target observation, reward, milestone or continuation right.
 import hashlib
 import json
 import re
+import sqlite3
 
 from contracts.curriculum import validate_task_contract, validate_judgements
 from repositories.learning_repository import encoded, identifier, timestamp
@@ -50,7 +51,8 @@ def _comprehension_task(conn, profile_id, task_id):
             or type(row[1]) is not int or row[1] < 0 or type(row[2]) is not int or row[2] < 0):
         raise ValueError('Comprehension task does not match its owned story.')
     questions, contracts = payload.get('questions'), payload.get('contracts')
-    if (not isinstance(questions, list) or not 5 <= len(questions) <= 20
+    minimum = 1 if payload.get('authored_unit_version') == 'unit-reading-v1' else 5
+    if (not isinstance(questions, list) or not minimum <= len(questions) <= 20
             or any(not isinstance(value, str) or not value.strip() or len(value) > 2000 or '\x00' in value for value in questions)
             or len(set(questions)) != len(questions)
             or not isinstance(contracts, dict)):
@@ -93,7 +95,15 @@ def _comprehension_attempt(conn, profile_id, task, source_key):
     ordinal = conn.execute('SELECT COUNT(*) FROM comprehension_attempts WHERE task_id=? AND rowid<?',
                            (task['task_id'], row[6])).fetchone()[0]
     from services.comprehension_support import attempt_support
-    expected_support = attempt_support(conn, task, ordinal, json.loads(row[7]), created_at=row[3])
+    if task['payload'].get('authored_unit_version') == 'unit-reading-v1':
+        original = conn.execute("SELECT original_json,support_json,support_receipts_json FROM activity_review_submissions WHERE profile_id=? AND activity='comprehension' AND task_key=? AND task_revision=?",
+                                (profile_id, task['task_id'], ordinal)).fetchone()
+        if (not original or json.loads(original[0]) != {'answers': answers}
+                or json.loads(original[2]) != json.loads(row[7])):
+            raise ValueError('Authored reading must match its immutable submission and support receipts.')
+        expected_support = json.loads(original[1])
+    else:
+        expected_support = attempt_support(conn, task, ordinal, json.loads(row[7]), created_at=row[3])
     if (support != expected_support or type(row[3]) is not int or row[3] < task['created_at']
             or row[4] != request_digest(task['task_id'], ordinal, answers)
             or not isinstance(row[5], str) or not re.fullmatch(r'[a-f0-9]{32}', row[5])):
@@ -156,6 +166,9 @@ def _unit(conn, profile_id, task_key):
 
 
 def _owned_task(conn, profile_id, activity, task_key):
+    if activity == 'unit_exchange':
+        from services.unit_exchange import owned_task
+        return owned_task(conn, profile_id, task_key)
     if activity in ('translation', 'word_jumble'):
         from services.production_evidence import owned_task
         return owned_task(conn, profile_id, activity, task_key)
@@ -172,9 +185,12 @@ def _owned_task(conn, profile_id, activity, task_key):
 
 def _check_content(task, activity, contract):
     validate_task_contract(contract)
-    if contract['activity'] != activity:
+    if contract['activity'] != ('speaking' if activity == 'unit_exchange' else activity):
         raise ValueError('Criteria belong to a different activity.')
-    if activity in ('translation', 'word_jumble'):
+    if activity == 'unit_exchange':
+        if contract != task['contract']:
+            raise ValueError('Unit Speaking criteria must match their exact saved prompt bundle.')
+    elif activity in ('translation', 'word_jumble'):
         from services.production_evidence import check_content
         check_content(task, activity, contract)
     elif activity == 'writing':
@@ -206,7 +222,8 @@ def _check_content(task, activity, contract):
                 or contract['criteria'][0]['evidence_scope'] != ('controlled_production' if controlled else 'reference')
                 or (controlled and contract['rubric_version'] != 'authored-controlled-form-v1')
                 or (listening and (contract['rubric_version'] != 'authored-listening-choice-v1'
-                    or contract['support'] != {'allowed': ['hint', 'transcript'], 'independence_breakers': ['hint', 'transcript']}))):
+                    or contract['support'] != ({'allowed': ['hint', 'transcript', 'model_answer'], 'independence_breakers': ['hint', 'transcript', 'model_answer']}
+                        if contract['schema_version'] == 2 else {'allowed': ['hint', 'transcript'], 'independence_breakers': ['hint', 'transcript']})))):
             raise ValueError('A unit contract must describe its exact saved item and matching response mode.')
 
 
@@ -220,7 +237,9 @@ def save_contract(conn, profile_id, activity, task_key, contract):
         if row[1] != frozen:
             raise ValueError('A saved task contract cannot be replaced.')
         return row[0]
-    if activity in ('translation', 'word_jumble'):
+    if activity == 'unit_exchange':
+        answered = conn.execute('SELECT 1 FROM curriculum_unit_exchange_turns WHERE exchange_id=? LIMIT 1', (task_key,)).fetchone()
+    elif activity in ('translation', 'word_jumble'):
         from services.production_evidence import answered as has_answers
         answered = has_answers(conn, activity, task_key)
     elif activity == 'writing':
@@ -297,24 +316,44 @@ def _saved_response(conn, profile_id, activity, task_key, source_key):
         raise ValueError('The saved response does not match its issued response mode.') from error
     if attempt[2] != ('correct' if correct else 'incorrect'):
         raise ValueError('The stored outcome contradicts the issued answer key.')
+    # V2 stores one assisted flag for both current hints and earlier disclosed
+    # answers; recover the exact support from the frozen session receipts.
+    contract = load_contract(conn, profile_id, activity, task_key)
+    sequence = contract is not None and contract['schema_version'] == 2
     support = ['hint'] if attempt[1] else []
+    if sequence and task['item']['type'] != 'listening_choice':
+        support = ['hint'] if conn.execute('SELECT 1 FROM learning_hint_usage WHERE session_id=? AND item_id=?',
+                    (task['session_id'], task['item_id'])).fetchone() else []
     if task['item']['type'] == 'listening_choice':
         from services.learning_listening import item_support
         saved = item_support(conn, task['session_id'], task['item'])
         support = saved['support']
         if (attempt[3] != 'authored-listening-choice-v1'
-                or (not saved['listened'] and 'transcript' not in support)
-                or bool(attempt[1]) != bool(support)):
+                or (not saved['listened'] and 'transcript' not in support)):
             raise ValueError('Listening evidence must match its playback and support receipts.')
+    if sequence:
+        from services.curriculum_sequences import practice_support
+        support = practice_support(conn, profile_id, task['session_id'], task['item_id'], support)
+    if bool(attempt[1]) != bool(support):
+        raise ValueError('Activity assistance must match its saved support receipts.')
     return response_text, {'assisted': bool(attempt[1]), 'correct': correct, 'support': support}
 
 
-def save_report(conn, profile_id, activity, task_key, source_key, report, *, response_text=None, audio_source=None, support=()):
+def save_report(conn, profile_id, activity, task_key, source_key, report, *, response_text=None, audio_source=None, support=(), unit_exchange_audio_root=None):
     contract = load_contract(conn, profile_id, activity, task_key)
     if contract is None:
         raise ValueError('The task did not define these criteria before assessment.')
     unit = None
-    if activity == 'speaking':
+    if activity == 'unit_exchange':
+        from services.unit_exchange import saved_review
+        from repositories.activity_review_repository import get as get_submission
+        saved_report, source = saved_review(conn, profile_id, task_key, source_key, root=unit_exchange_audio_root)
+        saved_support = get_submission(conn, profile_id, source_key)['support']
+        if response_text is not None or audio_source != source or report != saved_report or list(support) != saved_support:
+            raise ValueError('Unit Speaking feedback must use its exact saved original-audio review.')
+        validate_judgements(contract, report, audio_duration_ms=source['duration_ms'])
+        digest = source['sha256']
+    elif activity == 'speaking':
         review, saved_source = _speaking_response(conn, profile_id, task_key, source_key)
         if response_text is not None or audio_source != saved_source or report != review.get('criterion_report') or support:
             raise ValueError('Speaking evidence must match its saved audio review; independence remains unverified.')
@@ -431,7 +470,16 @@ def _validate_comprehension_evidence(conn):
         story_exposure[story_key] = task['payload']['prior_feedback'] or bool(count)
 
 
-def validate_saved_evidence(conn, *, audio_root=None):
+def validate_saved_evidence(conn, *, audio_root=None, unit_exchange_audio_root=None):
+    factory = conn.row_factory
+    try:
+        conn.row_factory = sqlite3.Row
+        return _validate_saved_evidence(conn, audio_root=audio_root, unit_exchange_audio_root=unit_exchange_audio_root)
+    finally:
+        conn.row_factory = factory
+
+
+def _validate_saved_evidence(conn, *, audio_root=None, unit_exchange_audio_root=None):
     """Audit an offline import without changing contracts, reports or outcomes."""
     from services.learning_listening import validate_saved_support
     validate_saved_support(conn)
@@ -447,7 +495,12 @@ def validate_saved_evidence(conn, *, audio_root=None):
         raise ValueError('An imported report has no matching owned contract.')
     for row in rows:
         options = {}
-        if row[2] == 'speaking':
+        if row[2] == 'unit_exchange':
+            from services.unit_exchange import saved_review
+            _, source = saved_review(conn, row[1], row[3], row[4], root=unit_exchange_audio_root)
+            options['audio_source'] = source
+            options['unit_exchange_audio_root'] = unit_exchange_audio_root
+        elif row[2] == 'speaking':
             _, source = _speaking_response(conn, row[1], row[3], row[4])
             verify_audio_source(conn, row[1], row[3], source, audio_root=audio_root)
             options['audio_source'] = source

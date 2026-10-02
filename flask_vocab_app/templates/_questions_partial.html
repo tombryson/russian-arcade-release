@@ -1,5 +1,7 @@
+        {% if story.pending_review %}<div role="status"><p>{{ 'Ответы сохранены. Обратная связь пока недоступна.' if ui_lang == 'ru' else 'Your reply is saved. Feedback is unavailable.' }}</p><form action="/comprehension/review/{{ story.pending_review.id }}" method="post" hx-boost="false"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button type="submit" class="btn btn-outline-primary">{{ 'Повторить разбор сохранённого ответа' if ui_lang == 'ru' else 'Retry feedback on saved reply' }}</button></form></div>{% endif %}
         <form
             id="question-form"
+            {% if story.sequence %}data-sequence-draft="reading" data-draft-language="{{ ui_lang }}" data-draft-revision="{{ story.draft_revision|default(0) }}" data-review-pending="{{ 'true' if story.pending_review else 'false' }}"{% endif %}
             hx-post="/comprehension/answer"
             hx-target="#question-feedback"
             hx-swap="innerHTML"
@@ -40,6 +42,7 @@
             </button>
             {% endif %}
             </fieldset>
+            {% if story.sequence %}<p data-sequence-draft-status role="status" aria-live="polite"></p>{% endif %}
         </form>
         {% if not story.questions %}
         <div class="alert alert-warning grid-span-all">
@@ -48,7 +51,7 @@
         {% endif %}
         <div id="question-feedback" role="status" class="question-feedback mt-2 grid-span-all">
         {% if story.assessment %}
-            {% with reading_result={'assessment': story.assessment, 'answers': story.answers}, update_form=False %}
+            {% with reading_result={'assessment': story.assessment, 'answers': story.reviewed_answers|default(story.answers)}, update_form=False %}
             {% include '_comprehension_checked.html' %}
             {% endwith %}
         {% endif %}

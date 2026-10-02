@@ -220,6 +220,13 @@ def create_sentences_blueprint(db_path, sentence_service, user_service):
     @blueprint.get('/sentences/saved')
     def sentences_saved():
         library = context('sentences_saved')
+        prefill = {}
+        if any(key in request.args for key in ('study_activity', 'study_id', 'study_example')):
+            from services.feedback_study import phrasebook_prefill
+            prefill = phrasebook_prefill(db_path, request.args.get('study_activity'),
+                                        request.args.get('study_id'), request.args.get('study_example'))
+            if prefill['added_topic'] not in {topic['value'] for topic in library['topics']}:
+                library['topics'].append({'value': prefill['added_topic'], 'label': topic_label(prefill['added_topic'], language())})
         if request.args.get('fetch_all') == 'true' and enhanced():
             repository.record_reference_views([item['id'] for item in library['sentences']])
             return jsonify(sentences=library['sentences'], topics=[topic['value'] for topic in library['topics']], error=None)
@@ -239,6 +246,6 @@ def create_sentences_blueprint(db_path, sentence_service, user_service):
                                     or query in (item.get('english') or '').casefold()]
         repository.record_reference_views([item['id'] for item in library['sentences']])
         return render_page('saved_sentences.html', **library, selected_topic=selected,
-                           selected_level=selected_level, search=search)
+                           selected_level=selected_level, search=search, **prefill)
 
     return blueprint

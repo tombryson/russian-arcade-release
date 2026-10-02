@@ -10,25 +10,48 @@ The examples and answer keys remain provisional. No independent human review or 
 | --- | --- | ---: | ---: | ---: |
 | Where and where to | Location, destination and movement within a place | 4 | 3 | 3 clips |
 | Possession and absence | Available items, missing items and ownership | 6 | 4 | 3 clips |
-| Objects and recipients | Direct objects, animate objects and recipients | 6 | 4 | Not yet |
-| Time and daily routines | Days, times, conjugation and tense | 6 | 5 | Not yet |
-| Describing clothes and objects | Adjective agreement with nouns | 6 | 4 | Not yet |
-| Referring to people | Personal and possessive pronouns | 6 | 4 | Not yet |
-| Walking and travelling | Walking, transport and repeated journeys | 6 | 4 | Not yet |
-| Numbers and quantities | Numbers and the forms used with quantities | 8 | 5 | Not yet |
-| Greetings and requests | Introductions, greetings and polite requests | 8 | 5 | Not yet |
-| Needs and company | Needs, preferences and activities with another person | 8 | 5 | Not yet |
-| Activities and completed results | The distinction between an activity and its result | 8 | 5 | Not yet |
-| Where from and where to | Origins, destinations and prepositions | 8 | 5 | Not yet |
-| Reasons, questions and connected messages | Short connected accounts and requests for information | 8 | 5 | Not yet |
+| Objects and recipients | Direct objects, animate objects and recipients | 6 | 4 | 3 clips |
+| Time and daily routines | Days, times, conjugation and tense | 6 | 5 | 3 clips |
+| Describing clothes and objects | Adjective agreement with nouns | 6 | 4 | 3 clips |
+| Referring to people | Personal and possessive pronouns | 6 | 4 | 3 clips |
+| Walking and travelling | Walking, transport and repeated journeys | 6 | 4 | 3 clips |
+| Numbers and quantities | Numbers and the forms used with quantities | 8 | 5 | 3 clips |
+| Greetings and requests | Introductions, greetings and polite requests | 8 | 5 | 3 clips |
+| Needs and company | Needs, preferences and activities with another person | 8 | 5 | 3 clips |
+| Activities and completed results | The distinction between an activity and its result | 8 | 5 | 3 clips |
+| Where from and where to | Origins, destinations and prepositions | 8 | 5 | 3 clips |
+| Reasons, questions and connected messages | Short connected accounts and requests for information | 8 | 5 | 3 clips |
 
 Together the units provide 88 contextual choices, 58 typed prompts and 13 Writing briefs. Each unit has classified examples, a dedicated reading page and an original Writing task. Typed tasks test a specified form. They accept selected fuller phrases and ignore outer whitespace, case and final punctuation. They do not claim to accept every paraphrase or measure independent writing.
 
 These units do not cover the whole A1 grammar system. Supplied infinitives in motion tasks test conjugation; separate choices test the distinction between movement types. Unit Speaking links open existing scenarios. They do not transfer a unit criterion automatically. Nine authored Fluent A1 variants now have narrow original-audio criteria: three directions questions, three café orders and three name exchanges. These observe the named communication task, not every scenario goal or full speaking proficiency.
 
-There are 13 authored three-item listening packs. Location and possession are fully recorded and available: six clips in total. One objects-and-recipients clip is prepared, but its incomplete pack remains unavailable. The pending queue, including both pilot recordings, is 34 clips and 4,391 transcript characters. Eighteen of those clips were drafted for this pass. No unit listening button appears for an incomplete pack.
+All 13 authored three-item listening packs are recorded. Both pilot listening forms are also recorded. Each recording retains its authored script and manifest; the application checks file readiness before offering listening.
 
-The last ElevenLabs allowance check showed 92 characters remaining. This is a preparation constraint, not a broken credential or a learner failure. Existing verified files are reused; the bounded preparation command can resume without regenerating them when allowance is available. No published unit sources or saved attempts are rewritten.
+### Recording update — 2 October 2026
+
+All 39 clips across the 13 original unit packs and both A1 pilot clips are now prepared. The 34 missing clips were generated from their existing scripts using 4,391 characters. The seven previously prepared recordings were retained. Listening is offered only while every clip in its pack matches the recorded hash; a missing clip does not block the unit's other activities.
+
+The `location-destination-v2` sequence also has 19 distinct recordings: 13 teaching examples, three short listening messages, and shared spoken prompts and a closing. The 25 playback identities reuse identical scripts. This batch used 713 characters. Each file has a text hash, audio hash, duration, model and voice record. Voices were selected from the existing configured list.
+
+The first sequence generation request failed without saving a playable clip. Read-only checks confirmed valid credentials, four accessible voices and sufficient allowance. One explicit retry completed the batch. The remaining unit and pilot batch completed without retries. No published task text or saved learner attempt was replaced.
+
+These checks establish file integrity and playable audio, not an independent judgement of pronunciation or listening-task quality. Browser playback remains a separate acceptance check. The sequence is available as practice; preparing recordings does not validate an assessment or award a level.
+
+A focused run of 112 content, contract, recording, unit, coverage and pilot tests passed on 2 October 2026. These include wrong Russian endings, unobserved grammatical features, binary communication scores, retained original response spans, missing-media fallback and unchanged v1 contracts. This result does not cover the full application suite or browser playback.
+
+```sh
+python scripts/prepare_curriculum_sequence_audio.py --dry-run --max-new 0 --max-characters 0
+python scripts/render_curriculum_coverage.py --check
+```
+
+### Integration update — 2 October 2026
+
+The connected lesson now saves and resumes across all five domains. Both the guided and challenge-first paths complete in local and hosted `/demo` test workspaces. The walkthroughs use provider stubs and fixture recordings. They verify storage, assistance, review recovery, ordinary rewards and the absence of transfer rewards; they do not validate the generated marks.
+
+The full backend suite passed 1,940 tests in four isolated processes. All 805 UI tests, TypeScript checks and the production build passed. Nine subsequent focused tests passed after fixing hosted Listening delivery: four complete walkthroughs and five ownership, seeking and integrity checks. Undisclosed Listening files remain protected; reached recordings are served through an owned session.
+
+Browser checks covered desktop and mobile layouts, saved Reading/Writing drafts, lesson completion and audio reaching its `ended` event. A real provider check exercised four synthetic written responses and two synthesized spoken exchanges. See the [implementation record](torfl-implementation-2026-10-02.md#verification) for results and limitations. Natural learner speech, audible pronunciation review and a full microphone walkthrough remain unverified. No production deployment is claimed.
 
 ## Diagnostic pilot
 

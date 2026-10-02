@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "id": "location-listening-v2",
+  "version": "location-listening-v2",
+  "unit_id": "location-destination-v2",
+  "kind": "listening",
+  "level": "A1",
+  "topic_id": "places",
+  "title": "A voice message from Nina",
+  "title_ru": "Голосовое сообщение от Нины",
+  "status": "draft",
+  "review": {
+    "kind": "internal_model",
+    "independently_validated": false
+  },
+  "content": {
+    "items": [
+      {
+        "id": "listen-1",
+        "type": "listening_choice",
+        "prompt": "Где Нина сейчас?",
+        "choices": [
+          {
+            "id": "0",
+            "text": "В школе."
+          },
+          {
+            "id": "1",
+            "text": "В библиотеке."
+          },
+          {
+            "id": "2",
+            "text": "В парке."
+          }
+        ],
+        "answer": "1",
+        "hint": "Listen for the requested person and whether this is now or afterwards.",
+        "explanation": "Nina is in the library now.",
+        "transcript": "Привет! Это Нина. Я сейчас в библиотеке. Потом иду в парк. Давай встретимся в парке!",
+        "audio": {
+          "url": "/static/audio/course/curriculum/location-destination-sequence-v1/1156015bd4c3feaf0ccaf83858e8e48caf352d8abfb50e972b9f144fe74b31ef.mp3",
+          "sha256": "f86fa7eb02c05660801b14b2d9755011f2211aa8cd37c64b0f692accb34f4a05",
+          "duration_ms": 7340
+        },
+        "audio_key": "location-listening-v2-message",
+        "hint_ru": "Слушайте, где Нина находится сейчас.",
+        "explanation_ru": "Нина сейчас в библиотеке."
+      },
+      {
+        "id": "listen-2",
+        "type": "listening_choice",
+        "prompt": "Куда идёт Нина?",
+        "choices": [
+          {
+            "id": "0",
+            "text": "В парк."
+          },
+          {
+            "id": "1",
+            "text": "В школу."
+          },
+          {
+            "id": "2",
+            "text": "В библиотеку."
+          }
+        ],
+        "answer": "0",
+        "hint": "Listen for the requested person and whether this is now or afterwards.",
+        "explanation": "Nina is going to the park.",
+        "transcript": "Привет! Это Нина. Я сейчас в библиотеке. Потом иду в парк. Давай встретимся в парке!",
+        "audio": {
+          "url": "/static/audio/course/curriculum/location-destination-sequence-v1/1156015bd4c3feaf0ccaf83858e8e48caf352d8abfb50e972b9f144fe74b31ef.mp3",
+          "sha256": "f86fa7eb02c05660801b14b2d9755011f2211aa8cd37c64b0f692accb34f4a05",
+          "duration_ms": 7340
+        },
+        "audio_key": "location-listening-v2-message",
+        "hint_ru": "Слушайте, куда Нина идёт потом.",
+        "explanation_ru": "Нина идёт в парк."
+      },
+      {
+        "id": "listen-3",
+        "type": "listening_choice",
+        "prompt": "Где Нина хочет встретиться?",
+        "choices": [
+          {
+            "id": "0",
+            "text": "В библиотеке."
+          },
+          {
+            "id": "1",
+            "text": "В школе."
+          },
+          {
+            "id": "2",
+            "text": "В парке."
+          }
+        ],
+        "answer": "2",
+        "hint": "Listen for the requested person and whether this is now or afterwards.",
+        "explanation": "Nina suggests meeting in the park.",
+        "transcript": "Привет! Это Нина. Я сейчас в библиотеке. Потом иду в парк. Давай встретимся в парке!",
+        "audio": {
+          "url": "/static/audio/course/curriculum/location-destination-sequence-v1/1156015bd4c3feaf0ccaf83858e8e48caf352d8abfb50e972b9f144fe74b31ef.mp3",
+          "sha256": "f86fa7eb02c05660801b14b2d9755011f2211aa8cd37c64b0f692accb34f4a05",
+          "duration_ms": 7340
+        },
+        "audio_key": "location-listening-v2-message",
+        "hint_ru": "Слушайте, где Нина предлагает встретиться.",
+        "explanation_ru": "Нина предлагает встретиться в парке."
+      }
+    ]
+  },
+  "criteria": [
+    {
+      "id": "listen-1",
+      "target_id": "unit.location-listening-v2.listen-1",
+      "requirement_id": "a1.listening.short-message",
+      "response_mode": "listening_selection",
+      "evidence_scope": "reference",
+      "expectation": "Nina is in the library now.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.1 A, p. 8"
+        }
+      ]
+    },
+    {
+      "id": "listen-2",
+      "target_id": "unit.location-listening-v2.listen-2",
+      "requirement_id": "a1.listening.short-message",
+      "response_mode": "listening_selection",
+      "evidence_scope": "reference",
+      "expectation": "Nina is going to the park.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.1 A, p. 8"
+        }
+      ]
+    },
+    {
+      "id": "listen-3",
+      "target_id": "unit.location-listening-v2.listen-3",
+      "requirement_id": "a1.listening.short-message",
+      "response_mode": "listening_selection",
+      "evidence_scope": "reference",
+      "expectation": "Nina suggests meeting in the park.",
+      "max_score": 2,
+      "source_refs": [
+        {
+          "source_id": "msu-a1-2001",
+          "locator": "§1.2.1 A, p. 8"
+        }
+      ]
+    }
+  ],
+  "support": {
+    "allowed": [
+      "hint",
+      "transcript",
+      "model_answer"
+    ],
+    "independence_breakers": [
+      "hint",
+      "transcript",
+      "model_answer"
+    ]
+  }
+}

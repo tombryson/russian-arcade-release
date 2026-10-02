@@ -40,7 +40,7 @@ export function PilotRecording({ disabled, onReady, onLockChange, language = 'en
     if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') {
       setError(t('Audio recording is not available in this browser. Try a browser with microphone support.', 'Запись звука недоступна в этом браузере. Откройте страницу в браузере с поддержкой микрофона.')); return;
     }
-    requesting.current = true; setOpening(true); setError(''); audio.current?.pause();
+    requesting.current = true; onLockChange?.(true); setOpening(true); setError(''); audio.current?.pause();
     try {
       const media = await navigator.mediaDevices.getUserMedia({ audio: true });
       if (!alive.current) { media.getTracks().forEach(track => track.stop()); return; }
@@ -76,11 +76,14 @@ export function PilotRecording({ disabled, onReady, onLockChange, language = 'en
       if (alive.current) setError(t('Allow microphone access in your browser, then try again.', 'Разрешите доступ к микрофону в браузере и попробуйте ещё раз.'));
     } finally {
       requesting.current = false;
-      if (alive.current) setOpening(false);
+      if (alive.current) {
+        setOpening(false);
+        onLockChange?.(recorder.current?.state === 'recording' || !!currentUrl.current);
+      }
     }
   }
   return <div class="pilot-recording">
-    <div class="action-row"><button type="button" class="cta" disabled={disabled || opening}
+    <div class="action-row"><button type="button" class="cta" disabled={!recording && (disabled || opening)}
       onClick={() => recording ? recorder.current?.stop() : void start()}>
       {opening ? t('Opening microphone…', 'Открываем микрофон…') : recording ? t('Stop recording', 'Остановить запись') : preview ? t('Record again', 'Записать ещё раз') : t('Record your reply', 'Записать ответ')}
     </button>{recording && <span role="status">{elapsed}s / {limit}s</span>}</div>

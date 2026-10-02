@@ -4,6 +4,7 @@
 {% if story %}
 {% set listening = story.practice_mode == 'listening' %}
 <article class="reading-story" data-story-loaded {% if listening %}data-listening-task="{{ story.task_id }}" data-listened="{{ 'true' if story.listened else 'false' }}" data-transcript-visible="{{ 'true' if story.transcript_visible else 'false' }}"{% endif %}>
+    {% if story.sequence %}<a href="{{ story.sequence.lesson_url }}" hx-boost="false">← {{ 'Вернуться к уроку' if ui_lang == 'ru' else 'Back to lesson' }}</a>{% endif %}
     <header class="reading-story-heading">
         <h2 id="reading-story-title" tabindex="-1" lang="{{ story.display_title_lang if story.display_title else ui_lang }}">{{ story.display_title or ui_t('comprehension.untitled') }}</h2>
     </header>
@@ -47,7 +48,7 @@
     <div id="questions-section" class="questions-container">
         {% include '_questions_partial.html' %}
     </div>
-    <button
+    {% if not story.authored_unit_version %}<button
         id="generate-more-questions"
         class="btn btn-info mt-3"
         hx-post="/comprehension/generate_more_questions"
@@ -56,7 +57,7 @@
         hx-swap="innerHTML"
     >
         {{ ui_t('comprehension.more_questions') }}
-    </button>
+    </button>{% endif %}
     {% if not story.task_id %}
     <button
         id="save-story"

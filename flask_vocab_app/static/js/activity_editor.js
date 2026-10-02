@@ -76,8 +76,23 @@
             const result = await response.json();
             if (!form.isConnected) return;
             if (!response.ok) {
-                status.textContent = result.error || root.dataset.networkError;
+                status.textContent = result.error?.message || result.error || root.dataset.networkError;
                 status.classList.add('sentence-error');
+                if(form.matches('[data-sequence-draft="writing"]') && result.review_submission?.id && Number.isInteger(result.revision)) {
+                    // A failed review can still have durably saved the original.
+                    form.elements.revision.value = result.revision;
+                    input(form).dataset.savedValue = submitted;
+                    form.dataset.reviewPending = 'true';
+                    const retry = document.createElement('form');
+                    const path = '/writing/review/' + encodeURIComponent(result.review_submission.id);
+                    retry.action = window.arcadeUrl ? window.arcadeUrl(path) : path;
+                    retry.method = 'post';retry.setAttribute('hx-boost','false');
+                    const csrf = document.createElement('input');csrf.type = 'hidden';csrf.name = 'csrf_token';
+                    csrf.value = document.querySelector('meta[name="csrf-token"]')?.content || form.elements.csrf_token?.value || '';
+                    const button = document.createElement('button');button.type = 'submit';button.className = 'sentence-text-button';
+                    button.textContent = form.dataset.draftLanguage === 'ru' ? 'Повторить разбор сохранённого ответа' : 'Retry feedback on saved reply';
+                    retry.append(csrf,button);status.append(retry);updateDraftStatus(form);
+                }
                 return;
             }
             if (!Number.isInteger(result.revision) || typeof result.feedback !== 'string') throw new Error('Invalid response');
@@ -100,6 +115,7 @@
             delete form.dataset.busy;
             form.removeAttribute('aria-busy');
             buttons.forEach(button => { button.disabled = false; });
+            form.dispatchEvent(new Event('sequence:editor-settled'));
         }
     });
     window.addEventListener('beforeunload', event => {

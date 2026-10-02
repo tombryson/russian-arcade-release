@@ -142,6 +142,30 @@ def build_contracts(prepared, topic, difficulty, *, practice_mode='reading', aud
 
 def validate_contracts(task):
     """Bind each contract to the full saved task, including extra questions."""
+    if task.get('authored_unit_version') == 'unit-reading-v1':
+        from services.curriculum_sequence_content import reading_contracts
+        asset, contracts = task.get('authored_asset'), task.get('contracts')
+        if (not isinstance(asset, dict) or asset.get('kind') != 'reading'
+                or not isinstance(contracts, dict) or not contracts
+                or set(contracts) != {str(i) for i in range(len(asset['content']['questions']))}
+                or not 1 <= len(contracts) <= 20
+                or task.get('text') != asset['content']['passage']
+                or task.get('questions') != [item['prompt_ru'] for item in asset['content']['questions']]
+                or task.get('topic') != asset['topic_id'] or task.get('difficulty') != asset['level']
+                or task.get('practice_mode') != 'reading' or task.get('support_version') != SUPPORT_VERSION):
+            raise ValueError('Authored reading must retain its frozen passage and question set.')
+        for value in contracts.values():
+            validate_task_contract(value)
+        # Rebuild from the frozen asset; never consult a newer content edition.
+        first = contracts['0']
+        identity = first['content'].get('authored_task_id')
+        if identity is None:
+            # The content helper gives each question a stable task suffix.
+            identity = first['task_id'].rsplit(':', 1)[0]
+        expected = reading_contracts(asset, identity, purpose=first['purpose'])
+        if expected != contracts:
+            raise ValueError('Authored reading criteria do not match their frozen asset.')
+        return deepcopy(contracts)
     contracts = task.get('contracts')
     if not isinstance(contracts, dict) or set(contracts) != set(QUESTION_INDEXES):
         raise ValueError('A comprehension task needs its four original comprehension contracts.')
@@ -164,6 +188,8 @@ def validate_contracts(task):
 
 def reissue_contracts(task, new_questions):
     """Additional questions get a new task identity without new criterion claims."""
+    if task.get('authored_unit_version'):
+        raise ValueError('Authored lesson questions stay fixed. Start another task for more practice.')
     contracts = validate_contracts(task)
     if not isinstance(new_questions, list) or new_questions[:4] != task['questions'][:4]:
         raise ValueError('The four original comprehension questions cannot change their saved focus.')

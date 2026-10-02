@@ -10,6 +10,20 @@
       "duration": 9.691429,
       "voice_id": "3EuKHIEZbSzrHGNmdYsx",
       "model": "eleven_multilingual_v2"
+    },
+    "ticket-recipient": {
+      "text_sha256": "3dd8576d7797467af48b2ed579a86f7b40eea205be762fea943b905daae12ba6",
+      "audio_sha256": "2765d04981f3e8c8b2454afbb4f5bcf23f21f46589ff94acbe3d1330bbbffb0a",
+      "duration": 7.836735,
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2"
+    },
+    "two-purchases": {
+      "text_sha256": "0b3b1bfc2746300fdd93c196a9983af5a59b82fe77cf1720f46576ff89e4ac04",
+      "audio_sha256": "311c57fdd8ac81f316e533963c42f7b92c1941511324dfa48dbd2d2da390ff0f",
+      "duration": 9.978776,
+      "voice_id": "sRk0zCqhS2Cmv0bzx5wA",
+      "model": "eleven_multilingual_v2"
     }
   }
 }
