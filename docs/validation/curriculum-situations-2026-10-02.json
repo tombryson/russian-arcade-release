@@ -1,0 +1,4302 @@
+{
+  "format_version": "curriculum-situation-validation-report-v1",
+  "kind": "synthetic-generation-and-assistant-language-review",
+  "review_date": "2026-10-02",
+  "scope": "Fresh text generation for three A1 lessons in reading and listening modes. Listening samples contain scripts only; no audio was generated in these checks.",
+  "inclusion_policy": "Append each fresh batch, retain all its emitted samples and report every planned call. Do not replace earlier failures with later successes or omit rejected responses.",
+  "hash_notes": {
+    "request_sha256": "Canonical JSON hash of the complete synthetic frozen request.",
+    "schema_sha256": "Canonical JSON hash of the provider response schema selected for this sample.",
+    "frozen_generation_prompt_sha256": "SHA-256 of the exact frozen system-prompt text.",
+    "frozen_generation_schema_sha256": "Schema hash saved inside the frozen request.",
+    "system_messages_sha256": "Canonical JSON hash of the actual system/developer messages sent.",
+    "provider_request_sha256": "Canonical JSON hash of the actual provider request; its body is intentionally omitted here.",
+    "raw_response_sha256": "SHA-256 of the exact returned assistant text before JSON parsing. generated_response preserves its parsed synthetic content.",
+    "generator_sha256": "SHA-256 of the generator source file used for the batch.",
+    "accepted_document_sha256": "Frozen accepted-document content hash; null when validation rejected the response.",
+    "frozen_generation_input_sha256": "Canonical JSON hash of the compact frozen writer brief used as the provider input for source-v3 and later revisions."
+  },
+  "review_method": {
+    "reviewer": "Codex assistant",
+    "method": "Read each complete generated passage, questions, choices and explanations against the intended lesson and cited evidence.",
+    "independent_human_review": false,
+    "separate_paid_reviewer_call": false,
+    "dimensions": [
+      "Russian usage and taught scope",
+      "timeline and reference clarity",
+      "one defensible answer per question",
+      "natural communicative purpose",
+      "learner-facing explanation quality"
+    ],
+    "limitation": "An assistant review of synthetic smoke samples is not independent language review, semantic validation or exam calibration. Structural acceptance alone does not establish pedagogical quality."
+  },
+  "batches": [
+    {
+      "id": "batch-01",
+      "purpose": "Initial bounded generation check before further reliability changes.",
+      "at": "2026-10-02T13:35:31.599606+00:00",
+      "seed": "linguistic-uplift-01",
+      "content_version": "curriculum-situation-v1",
+      "generator_sha256": "9fecd6709d9a002d7053ea373f6b6364349483267a11cc9369f0ddc4a4986abc",
+      "maximum_output_tokens_per_call": 6500,
+      "automatic_retries": 0,
+      "audio_calls": 0,
+      "learner_data_used": false,
+      "state": "complete",
+      "summary": {
+        "planned_samples": 6,
+        "recorded_samples": 6,
+        "provider_calls": 6,
+        "structurally_accepted": 2,
+        "structurally_rejected": 4,
+        "assistant_review_acceptable": 0,
+        "assistant_review_needs_revision": 6,
+        "excluded_samples": 0,
+        "usage": {
+          "prompt_tokens": 19505,
+          "completion_tokens": 7655,
+          "total_tokens": 27160
+        }
+      },
+      "excluded_sample_ids": [],
+      "samples": [
+        {
+          "id": "sample-01",
+          "unit_id": "location-destination-v1",
+          "mode": "reading",
+          "generation_revision": "source-v2",
+          "language_plan_version": "curriculum-language-plan-v1",
+          "provenance": {
+            "request_sha256": "6c9a196459ee2c08000a55b065f2186ae9f4adbda2666189974d713805633554",
+            "unit_sha256": "0afa10eb3a5f7953984bdc8694f23d090204bfc36c9c4f81dec0d87804e66256",
+            "schema_sha256": "bde9bc88da3160fdde828bddfd54d3adbce8641addf8d96d86e28135eeaa8667",
+            "planned_system_messages_sha256": "086e29723b8c0a1484ceb6d8146b0551559f3e520365553e1791beef8c44ef5a",
+            "provider_request_sha256": "bfe36717df85abfa8a196f405fe403d0bd5c74b5a4386a4686baaf369c700cc7",
+            "system_messages_sha256": "086e29723b8c0a1484ceb6d8146b0551559f3e520365553e1791beef8c44ef5a",
+            "raw_response_sha256": "f10f2e7a24a1627dd395afc97df885a9a3261b02af1d62ceb3e6144d72b55ede"
+          },
+          "frozen_generation_prompt_sha256": "4e9d306ab87d6df5ca0574ae6b985abe01c9ec5bcfc4f6e76859fc148fcbd80d",
+          "frozen_generation_schema_sha256": "bde9bc88da3160fdde828bddfd54d3adbce8641addf8d96d86e28135eeaa8667",
+          "accepted_document_sha256": null,
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 3347,
+            "completion_tokens": 1079,
+            "total_tokens": 4426,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0,
+              "cache_write_tokens": 3344
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 509,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 15.262,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "rejected",
+            "accepted": false,
+            "error_type": "ValueError",
+            "reason": "The answer must match its planned fact and exact source evidence.",
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "goal_en": "Help Lena find Oleg now and know where he will go next.",
+            "title": "У библиотеки",
+            "title_en": "Near the Library",
+            "sentences": [
+              "Лена, сейчас Олег в библиотеке.",
+              "Он ждёт тебя там до пяти часов.",
+              "Потом он идёт в аптеку.",
+              "Ты можешь найти его сейчас, потому что он ещё в библиотеке.",
+              "После этого Олег идёт в парк."
+            ],
+            "grammar_coverage": {
+              "a1.language.prepositional-location": [
+                "s1"
+              ],
+              "a1.language.accusative-destination": [
+                "s3"
+              ]
+            },
+            "questions": [
+              {
+                "prompt_ru": "Где сейчас Олег?",
+                "prompt_en": "Where is Oleg now?",
+                "answer_kind": "location",
+                "correct_ru": "в библиотеке",
+                "distractors_ru": [
+                  "в аптеке",
+                  "в парке"
+                ],
+                "sentence_ids": [
+                  "s1"
+                ],
+                "hint_en": "Look at the first sentence for Oleg’s current place.",
+                "hint_ru": "Посмотри на первое предложение: где Олег сейчас?",
+                "explanation_en": "The first sentence says that Oleg is currently in the library.",
+                "explanation_ru": "В первом предложении сказано, что сейчас Олег в библиотеке."
+              },
+              {
+                "prompt_ru": "Куда потом идёт Олег?",
+                "prompt_en": "Where is Oleg going later?",
+                "answer_kind": "destination",
+                "correct_ru": "в аптеку",
+                "distractors_ru": [
+                  "в библиотеку",
+                  "в парк"
+                ],
+                "sentence_ids": [
+                  "s3"
+                ],
+                "hint_en": "Find the place after «Потом он идёт».",
+                "hint_ru": "Найди место после слов «Потом он идёт».",
+                "explanation_en": "The third sentence says that Oleg goes to the pharmacy later.",
+                "explanation_ru": "В третьем предложении сказано, что потом Олег идёт в аптеку."
+              },
+              {
+                "prompt_ru": "Кто ждёт Лену до пяти часов?",
+                "prompt_en": "Who is waiting for Lena until five o’clock?",
+                "answer_kind": "person",
+                "correct_ru": "Олег",
+                "distractors_ru": [
+                  "Лена",
+                  "Катя"
+                ],
+                "sentence_ids": [
+                  "s2"
+                ],
+                "hint_en": "Look for the person connected with «ждёт тебя».",
+                "hint_ru": "Посмотри, кто связан со словами «ждёт тебя».",
+                "explanation_en": "The second sentence says that Oleg is waiting for Lena until five o’clock.",
+                "explanation_ru": "Во втором предложении сказано, что Олег ждёт Лену до пяти часов."
+              }
+            ],
+            "new_vocabulary": [
+              {
+                "lemma": "библиотека",
+                "pos": "NOUN",
+                "sentence_id": "s1",
+                "meaning_en": "library"
+              },
+              {
+                "lemma": "аптека",
+                "pos": "NOUN",
+                "sentence_id": "s3",
+                "meaning_en": "pharmacy"
+              }
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в библиотеке",
+              "distractors_ru": [
+                "в аптеке",
+                "в парке"
+              ],
+              "source_sentence_ids": [
+                "s1"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в аптеку",
+              "distractors_ru": [
+                "в библиотеку",
+                "в парк"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "Олег",
+              "distractors_ru": [
+                "Лена",
+                "Катя"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            }
+          ],
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "findings": [
+              {
+                "category": "question_ambiguity",
+                "question": "q2",
+                "detail": "The passage names two later destinations: the pharmacy and then the park. «Куда потом идёт Олег?» does not specify which later stop is being asked about. The park is offered as a distractor even though Oleg also goes there."
+              },
+              {
+                "category": "evidence_reference",
+                "question": "q3",
+                "detail": "The cited sentence contains «Он», not «Олег». The answer requires the preceding sentence to identify him. This explains the exact-source rejection; it is not evidence that the Russian answer itself is false."
+              },
+              {
+                "category": "narrative_coherence",
+                "detail": "The repeated statement that Oleg is still at the library adds little. The sequence moves to his later destinations, then back to finding him now, then forward again."
+              }
+            ]
+          }
+        },
+        {
+          "id": "sample-02",
+          "unit_id": "location-destination-v1",
+          "mode": "listening",
+          "generation_revision": "source-v2",
+          "language_plan_version": "curriculum-language-plan-v1",
+          "provenance": {
+            "request_sha256": "ad6f809368887e23d2074b60e6a61f405d4427e6d6fd21ad1bcf7e1a7ad4fb56",
+            "unit_sha256": "0afa10eb3a5f7953984bdc8694f23d090204bfc36c9c4f81dec0d87804e66256",
+            "schema_sha256": "bde9bc88da3160fdde828bddfd54d3adbce8641addf8d96d86e28135eeaa8667",
+            "planned_system_messages_sha256": "086e29723b8c0a1484ceb6d8146b0551559f3e520365553e1791beef8c44ef5a",
+            "provider_request_sha256": "2c37186b4c89aa03a49a78f6b1fcea8a0727d7b8447e0115575b832423d3706f",
+            "system_messages_sha256": "086e29723b8c0a1484ceb6d8146b0551559f3e520365553e1791beef8c44ef5a",
+            "raw_response_sha256": "71565e3be737b9ca01801ef3f3196c2f871472a1461631dfa15a008858f524cc"
+          },
+          "frozen_generation_prompt_sha256": "4e9d306ab87d6df5ca0574ae6b985abe01c9ec5bcfc4f6e76859fc148fcbd80d",
+          "frozen_generation_schema_sha256": "bde9bc88da3160fdde828bddfd54d3adbce8641addf8d96d86e28135eeaa8667",
+          "accepted_document_sha256": "54226051c5d2e6edb05b41dd677e24a426b8fc039d69f7d517ecf10eaa0de83e",
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 3266,
+            "completion_tokens": 1244,
+            "total_tokens": 4510,
+            "prompt_tokens_details": {
+              "cached_tokens": 1376,
+              "audio_tokens": 0,
+              "cache_write_tokens": 1887
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 690,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 14.752,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "accepted",
+            "accepted": true,
+            "error_type": null,
+            "reason": null,
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "goal_en": "Understand a friend's current location and next stops during a short local outing.",
+            "title": "Короткая прогулка по району",
+            "title_en": "A Short Walk Around the Area",
+            "sentences": [
+              "Привет, Оля! Сейчас я на улице.",
+              "Потом я иду в библиотеку.",
+              "Нина сейчас в магазине, а потом идёт в банк.",
+              "После этого мы идём в парк.",
+              "Это мой короткий план на сегодня."
+            ],
+            "grammar_coverage": {
+              "a1.language.prepositional-location": [
+                "s1"
+              ],
+              "a1.language.accusative-destination": [
+                "s2"
+              ]
+            },
+            "questions": [
+              {
+                "prompt_ru": "Где я сейчас?",
+                "prompt_en": "Where am I now?",
+                "answer_kind": "location",
+                "correct_ru": "на улице",
+                "distractors_ru": [
+                  "в магазине",
+                  "в библиотеке"
+                ],
+                "sentence_ids": [
+                  "s1"
+                ],
+                "hint_en": "Listen for the place where the speaker is now.",
+                "hint_ru": "Послушайте, где говорящий находится сейчас.",
+                "explanation_en": "The speaker says that they are currently on the street.",
+                "explanation_ru": "Говорящий говорит, что сейчас находится на улице."
+              },
+              {
+                "prompt_ru": "Куда я иду потом?",
+                "prompt_en": "Where am I going next?",
+                "answer_kind": "destination",
+                "correct_ru": "в библиотеку",
+                "distractors_ru": [
+                  "в банк",
+                  "в парк"
+                ],
+                "sentence_ids": [
+                  "s2"
+                ],
+                "hint_en": "Listen for the speaker's next destination.",
+                "hint_ru": "Послушайте, куда говорящий идёт потом.",
+                "explanation_en": "The speaker says that they are going to the library next.",
+                "explanation_ru": "Говорящий говорит, что потом идёт в библиотеку."
+              },
+              {
+                "prompt_ru": "Где сейчас Нина?",
+                "prompt_en": "Where is Nina now?",
+                "answer_kind": "location",
+                "correct_ru": "в магазине",
+                "distractors_ru": [
+                  "на улице",
+                  "в библиотеке"
+                ],
+                "sentence_ids": [
+                  "s3"
+                ],
+                "hint_en": "Listen for Nina's current place, not her later destination.",
+                "hint_ru": "Послушайте, где Нина находится сейчас, а не куда она идёт потом.",
+                "explanation_en": "The message says that Nina is currently in the shop.",
+                "explanation_ru": "В сообщении сказано, что сейчас Нина находится в магазине."
+              }
+            ],
+            "new_vocabulary": [
+              {
+                "lemma": "библиотека",
+                "pos": "NOUN",
+                "sentence_id": "s2",
+                "meaning_en": "library"
+              },
+              {
+                "lemma": "магазин",
+                "pos": "NOUN",
+                "sentence_id": "s3",
+                "meaning_en": "shop"
+              },
+              {
+                "lemma": "план",
+                "pos": "NOUN",
+                "sentence_id": "s5",
+                "meaning_en": "plan"
+              }
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "на улице",
+              "distractors_ru": [
+                "в магазине",
+                "в библиотеке"
+              ],
+              "source_sentence_ids": [
+                "s1"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в библиотеку",
+              "distractors_ru": [
+                "в банк",
+                "в парк"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в магазине",
+              "distractors_ru": [
+                "на улице",
+                "в библиотеке"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            }
+          ],
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "findings": [
+              {
+                "category": "question_perspective",
+                "questions": [
+                  "q1",
+                  "q2"
+                ],
+                "detail": "The recording uses an unnamed first-person speaker, and the questions retain «я». A learner seeing «Where am I now?» or «Where am I going next?» must infer that the exercise still speaks as the recorded character."
+              },
+              {
+                "category": "question_ambiguity",
+                "question": "q2",
+                "detail": "The speaker goes to the library and later to the park. Russian «потом» can refer to either later destination; the question does not explicitly identify the first stop. English “next” is more specific than the Russian question."
+              },
+              {
+                "category": "communicative_purpose",
+                "detail": "The final sentence describes the text as a short plan instead of giving the listener a useful next action or clear reason for the message."
+              }
+            ]
+          }
+        },
+        {
+          "id": "sample-03",
+          "unit_id": "calendar-and-duration-v1",
+          "mode": "reading",
+          "generation_revision": "source-v2",
+          "language_plan_version": "curriculum-language-plan-v1",
+          "provenance": {
+            "request_sha256": "b98a96407fb37df364b00b10a85b33d52dd896525372b10c4ae17e7750ae8a39",
+            "unit_sha256": "b7f686cc6b07d47968ad3c09dcc0813027680b2fdfd8264a9da9706e22b13595",
+            "schema_sha256": "cccf6b6ab27003c7700b34313935935266104bffe808d330fe518ebca1510cd1",
+            "planned_system_messages_sha256": "086e29723b8c0a1484ceb6d8146b0551559f3e520365553e1791beef8c44ef5a",
+            "provider_request_sha256": "c5da3f041535d6f829edadf4dcfae13162314e0ab38ebe0107322d50262d6038",
+            "system_messages_sha256": "086e29723b8c0a1484ceb6d8146b0551559f3e520365553e1791beef8c44ef5a",
+            "raw_response_sha256": "34cc23d8f01016266f1233ed6e777facc95c5d35ce9db067130f1726c4a377e7"
+          },
+          "frozen_generation_prompt_sha256": "4e9d306ab87d6df5ca0574ae6b985abe01c9ec5bcfc4f6e76859fc148fcbd80d",
+          "frozen_generation_schema_sha256": "cccf6b6ab27003c7700b34313935935266104bffe808d330fe518ebca1510cd1",
+          "accepted_document_sha256": "391275af4830578e35368b1f7468b689b943af7eeab484f0f482aae623820d64",
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 3555,
+            "completion_tokens": 1640,
+            "total_tokens": 5195,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0,
+              "cache_write_tokens": 3552
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1075,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 13.656,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "accepted",
+            "accepted": true,
+            "error_type": null,
+            "reason": null,
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "goal_en": "Help a friend understand when I will arrive, how long I will stay, and what we will do together.",
+            "title": "Записка Оле",
+            "title_en": "A Note to Olya",
+            "sentences": [
+              "Привет, Оля!",
+              "Я приеду 21 марта и буду в гостинице неделю.",
+              "Потом я уеду в Москву.",
+              "В этот день я жду тебя в гостинице.",
+              "Мы читаем вместе и отдыхаем.",
+              "Потом я снова жду тебя.",
+              "Оля, напиши мне."
+            ],
+            "grammar_coverage": {
+              "a1.language.genitive-calendar-month": [
+                "s2"
+              ],
+              "a1.language.accusative-duration": [
+                "s2"
+              ]
+            },
+            "questions": [
+              {
+                "prompt_ru": "Когда я приеду?",
+                "prompt_en": "When will I arrive?",
+                "answer_kind": "date",
+                "correct_ru": "21 марта",
+                "distractors_ru": [
+                  "1 марта",
+                  "10 марта"
+                ],
+                "sentence_ids": [
+                  "s2"
+                ],
+                "hint_en": "Find the calendar date in the note.",
+                "hint_ru": "Найди дату в записке.",
+                "explanation_en": "The note says that the writer will arrive on 21 March.",
+                "explanation_ru": "В записке сказано, что автор приедет 21 марта."
+              },
+              {
+                "prompt_ru": "Как долго я буду в гостинице?",
+                "prompt_en": "How long will I stay at the hotel?",
+                "answer_kind": "duration",
+                "correct_ru": "неделю",
+                "distractors_ru": [
+                  "день",
+                  "месяц"
+                ],
+                "sentence_ids": [
+                  "s2"
+                ],
+                "hint_en": "Look for the phrase describing the length of the stay.",
+                "hint_ru": "Найди фразу о продолжительности пребывания.",
+                "explanation_en": "The note says that the writer will stay at the hotel for a week.",
+                "explanation_ru": "В записке сказано, что автор будет в гостинице неделю."
+              },
+              {
+                "prompt_ru": "Что мы делаем вместе?",
+                "prompt_en": "What do we do together?",
+                "answer_kind": "activity",
+                "correct_ru": "читаем вместе",
+                "distractors_ru": [
+                  "живём вместе",
+                  "пишем вместе"
+                ],
+                "sentence_ids": [
+                  "s5"
+                ],
+                "hint_en": "Find the activity shared by the writer and Olya.",
+                "hint_ru": "Найди общее занятие автора и Оли.",
+                "explanation_en": "The note says that they read together.",
+                "explanation_ru": "В записке сказано, что они читают вместе."
+              }
+            ],
+            "new_vocabulary": [
+              {
+                "lemma": "вместе",
+                "pos": "ADVB",
+                "sentence_id": "s5",
+                "meaning_en": "together"
+              },
+              {
+                "lemma": "снова",
+                "pos": "ADVB",
+                "sentence_id": "s6",
+                "meaning_en": "again"
+              }
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "21 марта",
+              "distractors_ru": [
+                "1 марта",
+                "10 марта"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "неделю",
+              "distractors_ru": [
+                "день",
+                "месяц"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "читаем вместе",
+              "distractors_ru": [
+                "живём вместе",
+                "пишем вместе"
+              ],
+              "source_sentence_ids": [
+                "s5"
+              ]
+            }
+          ],
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "findings": [
+              {
+                "category": "timeline_coherence",
+                "detail": "A future arrival and week-long stay are followed by departure to Moscow, then «В этот день я жду тебя в гостинице». It is unclear whether this refers to arrival day or departure day. The following present-tense reading and resting are not clearly connected to the future plan."
+              },
+              {
+                "category": "narrative_coherence",
+                "detail": "«Потом я снова жду тебя» introduces a second unexplained wait. The extra event does not serve the invitation or the assessed date/duration contrast."
+              },
+              {
+                "category": "question_perspective",
+                "questions": [
+                  "q1",
+                  "q2",
+                  "q3"
+                ],
+                "detail": "The questions repeat the writer’s «я» and «мы» without identifying the writer or participants for the learner."
+              }
+            ]
+          }
+        },
+        {
+          "id": "sample-04",
+          "unit_id": "calendar-and-duration-v1",
+          "mode": "listening",
+          "generation_revision": "source-v2",
+          "language_plan_version": "curriculum-language-plan-v1",
+          "provenance": {
+            "request_sha256": "2d2ca215bd52ad4a5aa8a74ca4984349ed112e8090aa2158ebe9e8ff7d0f1356",
+            "unit_sha256": "b7f686cc6b07d47968ad3c09dcc0813027680b2fdfd8264a9da9706e22b13595",
+            "schema_sha256": "b7a24818f44c16335cae40fae7e5d92ee25c3418c00e634ee052f3c57b84c07a",
+            "planned_system_messages_sha256": "086e29723b8c0a1484ceb6d8146b0551559f3e520365553e1791beef8c44ef5a",
+            "provider_request_sha256": "61b1d444a5c024936cd671feba603ca2883f70075c231eafdec5b67a94b43aa0",
+            "system_messages_sha256": "086e29723b8c0a1484ceb6d8146b0551559f3e520365553e1791beef8c44ef5a",
+            "raw_response_sha256": "f193d6f7fd2040addcc6914153755f42575514105aff47b33cc92f5477356051"
+          },
+          "frozen_generation_prompt_sha256": "4e9d306ab87d6df5ca0574ae6b985abe01c9ec5bcfc4f6e76859fc148fcbd80d",
+          "frozen_generation_schema_sha256": "b7a24818f44c16335cae40fae7e5d92ee25c3418c00e634ee052f3c57b84c07a",
+          "accepted_document_sha256": null,
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 3244,
+            "completion_tokens": 1497,
+            "total_tokens": 4741,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0,
+              "cache_write_tokens": 3241
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 963,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 19.167,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "rejected",
+            "accepted": false,
+            "error_type": "ValueError",
+            "reason": "Evidence must identify at most three consecutive passage sentences.",
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "goal_en": "Understand how long the speaker and his sister stayed away from home and how long they rested.",
+            "title": "В гостинице",
+            "title_en": "At a Hotel",
+            "sentences": [
+              "Я приехал в понедельник и жил в гостинице неделю.",
+              "Моя сестра приехала со мной и жила в гостинице месяц.",
+              "Мы отдыхали там день.",
+              "Потом я ждал сестру час.",
+              "В гостинице я читал час.",
+              "Мы уехали в следующий понедельник."
+            ],
+            "grammar_coverage": {
+              "a1.language.accusative-duration": [
+                "s1",
+                "s4"
+              ]
+            },
+            "questions": [
+              {
+                "prompt_ru": "Как долго я жил в гостинице?",
+                "prompt_en": "How long did I stay at the hotel?",
+                "answer_kind": "duration",
+                "correct_ru": "неделю",
+                "distractors_ru": [
+                  "день",
+                  "месяц"
+                ],
+                "sentence_ids": [
+                  "s1"
+                ],
+                "hint_en": "Listen for the length of the speaker’s stay.",
+                "hint_ru": "Послушайте, как долго говорящий жил в гостинице.",
+                "explanation_en": "The speaker says that he lived at the hotel for a week.",
+                "explanation_ru": "Говорящий сказал, что жил в гостинице неделю."
+              },
+              {
+                "prompt_ru": "Как долго сестра жила в гостинице?",
+                "prompt_en": "How long did the sister stay at the hotel?",
+                "answer_kind": "duration",
+                "correct_ru": "месяц",
+                "distractors_ru": [
+                  "неделю",
+                  "день"
+                ],
+                "sentence_ids": [
+                  "s2"
+                ],
+                "hint_en": "Listen for the sister’s length of stay.",
+                "hint_ru": "Послушайте, как долго сестра жила в гостинице.",
+                "explanation_en": "The message says that the sister lived at the hotel for a month.",
+                "explanation_ru": "В сообщении сказано, что сестра жила в гостинице месяц."
+              },
+              {
+                "prompt_ru": "Как долго мы отдыхали там?",
+                "prompt_en": "How long did we rest there?",
+                "answer_kind": "duration",
+                "correct_ru": "день",
+                "distractors_ru": [
+                  "неделю",
+                  "месяц"
+                ],
+                "sentence_ids": [
+                  "s3"
+                ],
+                "hint_en": "Listen for the length of the shared rest.",
+                "hint_ru": "Послушайте, как долго они отдыхали.",
+                "explanation_en": "The speaker says that they rested there for a day.",
+                "explanation_ru": "Говорящий сказал, что они отдыхали там день."
+              }
+            ],
+            "new_vocabulary": [
+              {
+                "lemma": "сестра",
+                "pos": "NOUN",
+                "sentence_id": "s2",
+                "meaning_en": "sister"
+              }
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "неделю",
+              "distractors_ru": [
+                "день",
+                "месяц"
+              ],
+              "source_sentence_ids": [
+                "s1"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "месяц",
+              "distractors_ru": [
+                "неделю",
+                "день"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "день",
+              "distractors_ru": [
+                "неделю",
+                "месяц"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            }
+          ],
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "findings": [
+              {
+                "category": "contradictory_timeline",
+                "detail": "The speaker says he stayed for a week and his sister arrived with him and stayed for a month, yet the final sentence says they both left the following Monday. These durations cannot all describe the same stay as written."
+              },
+              {
+                "category": "narrative_coherence",
+                "detail": "Separate statements about resting for a day, waiting for an hour and reading for an hour resemble a duration drill rather than a coherent account."
+              },
+              {
+                "category": "evidence_reference",
+                "detail": "Grammar coverage cites s1 through s4, a four-sentence span. The frozen provider contract permits at most three consecutive sentences; this caused the structural rejection."
+              }
+            ]
+          }
+        },
+        {
+          "id": "sample-05",
+          "unit_id": "talking-about-topics-v1",
+          "mode": "reading",
+          "generation_revision": "source-v2",
+          "language_plan_version": "curriculum-language-plan-v1",
+          "provenance": {
+            "request_sha256": "585ae8c18bd4f79aa09de8b93f982de208d59b3e86dc0c08a359f2b454099fc2",
+            "unit_sha256": "a605623239328585947353cb2a0d22fac04691a7895c7883b24b1dc73876f959",
+            "schema_sha256": "e47eaf6cdbaef6d823729d54305a4606bd718875f276e0696d5f2bd527994dc9",
+            "planned_system_messages_sha256": "086e29723b8c0a1484ceb6d8146b0551559f3e520365553e1791beef8c44ef5a",
+            "provider_request_sha256": "0b44757db0c49ff9cc81fbd2db889496313b4802d4f3cf42aa42192d9d2ef15b",
+            "system_messages_sha256": "086e29723b8c0a1484ceb6d8146b0551559f3e520365553e1791beef8c44ef5a",
+            "raw_response_sha256": "5d042e1c1482a74c78c0f24bd95f2e4618a06d68e03f30dc6effe57cfc2fd967"
+          },
+          "frozen_generation_prompt_sha256": "4e9d306ab87d6df5ca0574ae6b985abe01c9ec5bcfc4f6e76859fc148fcbd80d",
+          "frozen_generation_schema_sha256": "e47eaf6cdbaef6d823729d54305a4606bd718875f276e0696d5f2bd527994dc9",
+          "accepted_document_sha256": null,
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 3084,
+            "completion_tokens": 1253,
+            "total_tokens": 4337,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0,
+              "cache_write_tokens": 3081
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 747,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 11.779,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "rejected",
+            "accepted": false,
+            "error_type": "ValueError",
+            "reason": "The passage and response choices must be in Russian.",
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "goal_en": "Understand what people at work are talking about and distinguish a conversation topic from a workplace location.",
+            "title": "Перерыв на работе",
+            "title_en": "A Break at Work",
+            "sentences": [
+              "Мы на работе.",
+              "Анна на работе.",
+              "Я говорю о маме.",
+              "Анна говорит о музыке.",
+              "Мы рассказываем о книге, а не о спорте.",
+              "Мы думаем о семье.",
+              "Мы говорим о работе."
+            ],
+            "grammar_coverage": {
+              "a1.language.prepositional-topic": [
+                "s3",
+                "s4"
+              ]
+            },
+            "questions": [
+              {
+                "prompt_ru": "О ком я говорю?",
+                "prompt_en": "Who am I talking about?",
+                "answer_kind": "topic_person",
+                "correct_ru": "о маме",
+                "distractors_ru": [
+                  "о друге",
+                  "об Анне"
+                ],
+                "sentence_ids": [
+                  "s3"
+                ],
+                "hint_en": "Find the person who is the topic of my words.",
+                "hint_ru": "Найдите человека — тему моих слов.",
+                "explanation_en": "Sentence s3 says that I am talking about my mother.",
+                "explanation_ru": "В предложении s3 сказано, что я говорю о маме."
+              },
+              {
+                "prompt_ru": "О чём говорит Анна?",
+                "prompt_en": "What is Anna talking about?",
+                "answer_kind": "topic_thing",
+                "correct_ru": "о музыке",
+                "distractors_ru": [
+                  "о книге",
+                  "о спорте"
+                ],
+                "sentence_ids": [
+                  "s4"
+                ],
+                "hint_en": "Look at the topic after Anna’s speaking verb.",
+                "hint_ru": "Посмотрите на тему после глагола речи Анны.",
+                "explanation_en": "Sentence s4 says that Anna is talking about music.",
+                "explanation_ru": "В предложении s4 сказано, что Анна говорит о музыке."
+              },
+              {
+                "prompt_ru": "О чём мы рассказываем, а не о спорте?",
+                "prompt_en": "What are we talking about, rather than sport?",
+                "answer_kind": "topic_thing",
+                "correct_ru": "о книге",
+                "distractors_ru": [
+                  "о семье",
+                  "о работе"
+                ],
+                "sentence_ids": [
+                  "s5"
+                ],
+                "hint_en": "The sentence contrasts two possible topics.",
+                "hint_ru": "В предложении противопоставлены две темы.",
+                "explanation_en": "Sentence s5 says that we are talking about a book, not sport.",
+                "explanation_ru": "В предложении s5 сказано, что мы рассказываем о книге, а не о спорте."
+              }
+            ],
+            "new_vocabulary": []
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "о маме",
+              "distractors_ru": [
+                "о друге",
+                "об Анне"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "о музыке",
+              "distractors_ru": [
+                "о книге",
+                "о спорте"
+              ],
+              "source_sentence_ids": [
+                "s4"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "о книге",
+              "distractors_ru": [
+                "о семье",
+                "о работе"
+              ],
+              "source_sentence_ids": [
+                "s5"
+              ]
+            }
+          ],
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "findings": [
+              {
+                "category": "communicative_purpose",
+                "detail": "The passage repeats that the characters are at work and lists mother, music, book, sport, family and work as topics without a meaningful exchange or connected event."
+              },
+              {
+                "category": "implementation_text_leak",
+                "detail": "Learner explanations contain source identifiers such as “Sentence s3” and «В предложении s3». These are internal references, not natural feedback. The Latin identifier in Russian feedback caused structural rejection."
+              },
+              {
+                "category": "excessive_contrasts",
+                "detail": "Too many unrelated topics and a negative contrast are compressed into one short beginner passage. This tests tracking a list more than understanding a practical message."
+              }
+            ]
+          }
+        },
+        {
+          "id": "sample-06",
+          "unit_id": "talking-about-topics-v1",
+          "mode": "listening",
+          "generation_revision": "source-v2",
+          "language_plan_version": "curriculum-language-plan-v1",
+          "provenance": {
+            "request_sha256": "1c8c6317b7f2fd9a5f5cdaafe491220b94b280227095378419ef996abcfb07bf",
+            "unit_sha256": "a605623239328585947353cb2a0d22fac04691a7895c7883b24b1dc73876f959",
+            "schema_sha256": "e47eaf6cdbaef6d823729d54305a4606bd718875f276e0696d5f2bd527994dc9",
+            "planned_system_messages_sha256": "086e29723b8c0a1484ceb6d8146b0551559f3e520365553e1791beef8c44ef5a",
+            "provider_request_sha256": "0940085f865947283277c952407330a0bb6449eeb267ce6e5ad15af157d52789",
+            "system_messages_sha256": "086e29723b8c0a1484ceb6d8146b0551559f3e520365553e1791beef8c44ef5a",
+            "raw_response_sha256": "3676f69b29c2ba8c6b546538ff24ec50166b485271e691978869f3faeb9df8bd"
+          },
+          "frozen_generation_prompt_sha256": "4e9d306ab87d6df5ca0574ae6b985abe01c9ec5bcfc4f6e76859fc148fcbd80d",
+          "frozen_generation_schema_sha256": "e47eaf6cdbaef6d823729d54305a4606bd718875f276e0696d5f2bd527994dc9",
+          "accepted_document_sha256": null,
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 3009,
+            "completion_tokens": 942,
+            "total_tokens": 3951,
+            "prompt_tokens_details": {
+              "cached_tokens": 1303,
+              "audio_tokens": 0,
+              "cache_write_tokens": 1703
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 421,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 9.124,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "rejected",
+            "accepted": false,
+            "error_type": "ValueError",
+            "reason": "Competing answers occur in the same evidence; make the question unambiguous.",
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "goal_en": "Understand which people and topics the speaker is talking about during a break at work.",
+            "title": "Голосовое сообщение на работе",
+            "title_en": "A Voice Message at Work",
+            "sentences": [
+              "Привет! Я сейчас на работе, но говорю не о работе.",
+              "Я говорю о маме: она думает о спорте.",
+              "Потом я рассказываю Анне о книге, а Анна рассказывает о музыке.",
+              "Мы говорим о семье, а после работы думаем об отдыхе."
+            ],
+            "grammar_coverage": {
+              "a1.language.prepositional-topic": [
+                "s2"
+              ]
+            },
+            "questions": [
+              {
+                "prompt_ru": "О ком я говорю?",
+                "prompt_en": "Who am I talking about?",
+                "answer_kind": "topic_person",
+                "correct_ru": "о маме",
+                "distractors_ru": [
+                  "об Анне",
+                  "о друге"
+                ],
+                "sentence_ids": [
+                  "s2"
+                ],
+                "hint_en": "Listen for the person who is the topic of the speaker’s words.",
+                "hint_ru": "Послушай, о каком человеке я говорю.",
+                "explanation_en": "The speaker says: «Я говорю о маме».",
+                "explanation_ru": "Говорящий говорит: «Я говорю о маме»."
+              },
+              {
+                "prompt_ru": "О чём она думает?",
+                "prompt_en": "What is she thinking about?",
+                "answer_kind": "topic_thing",
+                "correct_ru": "о спорте",
+                "distractors_ru": [
+                  "о работе",
+                  "о музыке"
+                ],
+                "sentence_ids": [
+                  "s2"
+                ],
+                "hint_en": "Listen for the topic of her thoughts.",
+                "hint_ru": "Послушай, о чём она думает.",
+                "explanation_en": "The message says that she thinks about sport: «она думает о спорте».",
+                "explanation_ru": "В сообщении сказано: «она думает о спорте»."
+              },
+              {
+                "prompt_ru": "О чём Анна рассказывает?",
+                "prompt_en": "What is Anna talking about?",
+                "answer_kind": "topic_thing",
+                "correct_ru": "о музыке",
+                "distractors_ru": [
+                  "о книге",
+                  "о семье"
+                ],
+                "sentence_ids": [
+                  "s3"
+                ],
+                "hint_en": "Listen for Anna’s topic, not the topic of the speaker’s story.",
+                "hint_ru": "Послушай, о чём рассказывает Анна, а не говорящий.",
+                "explanation_en": "The speaker says: «Анна рассказывает о музыке».",
+                "explanation_ru": "Говорящий говорит: «Анна рассказывает о музыке»."
+              }
+            ],
+            "new_vocabulary": []
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "о маме",
+              "distractors_ru": [
+                "об Анне",
+                "о друге"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "о спорте",
+              "distractors_ru": [
+                "о работе",
+                "о музыке"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "о музыке",
+              "distractors_ru": [
+                "о книге",
+                "о семье"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            }
+          ],
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "findings": [
+              {
+                "category": "question_reference",
+                "question": "q2",
+                "detail": "«О чём она думает?» does not name its referent. The full recording mentions the mother and Anna; a standalone question should identify the mother rather than rely on an unstated reference to one source sentence."
+              },
+              {
+                "category": "excessive_contrasts",
+                "detail": "A dense series of topics, speakers, negation and topic/location contrasts makes the recording function like a grammar demonstration rather than a clear beginner voice message."
+              },
+              {
+                "category": "validator_false_positive",
+                "question": "q3",
+                "detail": "The validator rejects «о книге» because it appears in the same evidence sentence as «о музыке». The sentence explicitly assigns the book to the speaker and music to Anna. For «О чём Анна рассказывает?» these are different actors, so mention of the distractor is not itself an ambiguity. This does not remove the other language-review concerns."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "batch-02",
+      "purpose": "Fresh source-v3 samples after introducing fixed actors, a coherent fact plan and server-owned answer choices.",
+      "at": "2026-10-02T13:48:58.313079+00:00",
+      "seed": "linguistic-uplift-02",
+      "content_version": "curriculum-situation-v1",
+      "generator_sha256": "58d1c869dfec1f2dab49cafb877821eb19f59cd8ffe7c8ca043a71cfce92e617",
+      "maximum_output_tokens_per_call": 6500,
+      "automatic_retries": 0,
+      "audio_calls": 0,
+      "learner_data_used": false,
+      "state": "complete",
+      "summary": {
+        "planned_samples": 6,
+        "recorded_samples": 6,
+        "provider_calls": 6,
+        "structurally_accepted": 1,
+        "structurally_rejected": 5,
+        "assistant_review_acceptable": 0,
+        "assistant_review_needs_revision": 6,
+        "excluded_samples": 0,
+        "usage": {
+          "prompt_tokens": 11479,
+          "completion_tokens": 5664,
+          "total_tokens": 17143
+        }
+      },
+      "assistant_review_source_sha256": "7df95a445d32e5943376ee60fb13ba4bb105f67d14c3a9bfd13709fe1db48392",
+      "assistant_review_source_results_sha256": "6a0c6271312506e49ae880987b573abd481bc6d115eef6549b360a189ba60979",
+      "assistant_review_summary": {
+        "structurally_accepted": 1,
+        "samples": 6,
+        "polished_as_delivered": 0,
+        "core_case_timeline_referent_question_answer_failures_found": 0,
+        "learner_facing_source_identifier_leaks": 5,
+        "person_vs_topic_hint_mismatch": 1
+      },
+      "review_conclusion": "Case forms, actor relationships and answer frames improved in these six samples. Only one passed structural validation. None was polished as delivered: five leaked source identifiers in learner feedback; other issues include filler, mechanical prose and an incorrect person/topic hint. These failures are retained as results of source-v3, not reclassified by later code.",
+      "excluded_sample_ids": [],
+      "samples": [
+        {
+          "id": "sample-01",
+          "unit_id": "location-destination-v1",
+          "mode": "reading",
+          "generation_revision": "source-v3",
+          "language_plan_version": "curriculum-language-plan-v2",
+          "meaning_plan_version": "situation-meaning-v1",
+          "provenance": {
+            "request_sha256": "5d0cb6c96eec3965561593945100f8ab2d7aa63c10b9ae48b82fddf00215a8a1",
+            "unit_sha256": "0afa10eb3a5f7953984bdc8694f23d090204bfc36c9c4f81dec0d87804e66256",
+            "schema_sha256": "e67bef1350a67f45fd8eb43dd5afd125fc940254b4ae10bc69448b07c31e14a1",
+            "planned_system_messages_sha256": "e866a079a18ad5bf6fdff2826ade74b6e55c9c32921e025f20785c01f78a06b3",
+            "provider_request_sha256": "68d3514e1b81549666fa54dc76344cd6da0edf3f8b7c493ca6b2a76b9530469e",
+            "system_messages_sha256": "e866a079a18ad5bf6fdff2826ade74b6e55c9c32921e025f20785c01f78a06b3",
+            "raw_response_sha256": "bd57a9b240b72551e719c6bc6922c946f83492b40bfe3d959e005b8d1e5b0093"
+          },
+          "frozen_generation_input_sha256": "a33cbc7f622f37aadf817e01f47f05d0b7e5ead6a98069e3fb4cb0ec67ed8193",
+          "frozen_generation_prompt_sha256": "ad7c0ba6a156e66cea2033a38ffe9a3fc87f638d9bcfad427aa6505fbe446961",
+          "frozen_generation_schema_sha256": "e67bef1350a67f45fd8eb43dd5afd125fc940254b4ae10bc69448b07c31e14a1",
+          "accepted_document_sha256": null,
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 1777,
+            "completion_tokens": 634,
+            "total_tokens": 2411,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0,
+              "cache_write_tokens": 1774
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 195,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 11.116,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "rejected",
+            "accepted": false,
+            "error_type": "ValueError",
+            "reason": "The passage and response choices must be in Russian.",
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "title": "План встречи друзей",
+            "title_en": "Friends’ Meeting Plan",
+            "sentences": [
+              "Дима пишет Нине: «Анна сейчас в кафе».",
+              "Олег сейчас в банке.",
+              "Потом Анна идёт в библиотеку.",
+              "Нина, это важно для встречи: ты можешь найти Анну и Олега."
+            ],
+            "questions": {
+              "f1": {
+                "prompt_ru": "Где сейчас Анна?",
+                "prompt_en": "Where is Anna now?",
+                "sentence_ids": [
+                  "s1"
+                ],
+                "hint_en": "Look at the sentence about Anna’s current place.",
+                "hint_ru": "Посмотри на предложение о месте Анны сейчас.",
+                "explanation_en": "Sentence s1 says that Anna is currently in the café.",
+                "explanation_ru": "В предложении s1 сказано, что Анна сейчас в кафе."
+              },
+              "f2": {
+                "prompt_ru": "Куда потом идёт Анна?",
+                "prompt_en": "Where does Anna go next?",
+                "sentence_ids": [
+                  "s3"
+                ],
+                "hint_en": "Look at what Anna does later.",
+                "hint_ru": "Посмотри, куда Анна идёт потом.",
+                "explanation_en": "Sentence s3 says that Anna goes to the library next.",
+                "explanation_ru": "В предложении s3 сказано, что потом Анна идёт в библиотеку."
+              },
+              "f3": {
+                "prompt_ru": "Где сейчас Олег?",
+                "prompt_en": "Where is Oleg now?",
+                "sentence_ids": [
+                  "s2"
+                ],
+                "hint_en": "Look at Oleg’s current place.",
+                "hint_ru": "Посмотри на место Олега сейчас.",
+                "explanation_en": "Sentence s2 says that Oleg is currently in the bank.",
+                "explanation_ru": "В предложении s2 сказано, что Олег сейчас в банке."
+              }
+            },
+            "new_vocabulary": [
+              {
+                "lemma": "кафе",
+                "pos": "NOUN",
+                "sentence_id": "s1",
+                "meaning_en": "café"
+              },
+              {
+                "lemma": "банк",
+                "pos": "NOUN",
+                "sentence_id": "s2",
+                "meaning_en": "bank"
+              },
+              {
+                "lemma": "библиотека",
+                "pos": "NOUN",
+                "sentence_id": "s3",
+                "meaning_en": "library"
+              }
+            ]
+          },
+          "frozen_meaning_plan": {
+            "version": "situation-meaning-v1",
+            "writer": {
+              "name_ru": "Дима",
+              "name_en": "Dima",
+              "gender": "masculine"
+            },
+            "addressee": {
+              "name_ru": "Нина",
+              "name_en": "Nina",
+              "gender": "feminine"
+            },
+            "participants": [
+              {
+                "name_ru": "Анна",
+                "name_en": "Anna",
+                "gender": "feminine"
+              },
+              {
+                "name_ru": "Олег",
+                "name_en": "Oleg",
+                "gender": "masculine"
+              }
+            ],
+            "context_en": "a short local outing",
+            "purpose_en": "Pass on one friend’s next stop and another friend’s current location so the addressee can join them.",
+            "timeline_en": "Now Anna is at one place and Oleg is at another. Then Anna goes to exactly one next stop. No subsequent stop or shared movement is specified.",
+            "facts": [
+              {
+                "id": "f1",
+                "role": "location",
+                "subject_name": "Анна",
+                "subject_en": "Anna",
+                "value_ru": "в кафе",
+                "question_frame_ru": "Где сейчас Анна?",
+                "relation_en": "Current location, before any movement.",
+                "alternative_frames": [
+                  "в библиотеке",
+                  "в банке"
+                ]
+              },
+              {
+                "id": "f2",
+                "role": "destination",
+                "subject_name": "Анна",
+                "subject_en": "Anna",
+                "value_ru": "в библиотеку",
+                "question_frame_ru": "Куда потом идёт Анна?",
+                "relation_en": "The only next destination.",
+                "alternative_frames": [
+                  "в кафе",
+                  "в банк"
+                ]
+              },
+              {
+                "id": "f3",
+                "role": "location",
+                "subject_name": "Олег",
+                "subject_en": "Oleg",
+                "value_ru": "в банке",
+                "question_frame_ru": "Где сейчас Олег?",
+                "relation_en": "The other person’s current location.",
+                "alternative_frames": [
+                  "в кафе",
+                  "в библиотеке"
+                ]
+              }
+            ],
+            "constraints": [
+              "Report these three facts about the named people; do not add other assessable events.",
+              "The writer and addressee are not the people whose actions are being reported.",
+              "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+              "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "fact_id": "f1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в кафе",
+              "distractors_ru": [
+                "в библиотеке",
+                "в банке"
+              ],
+              "source_sentence_ids": [
+                "s1"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "fact_id": "f2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в библиотеку",
+              "distractors_ru": [
+                "в кафе",
+                "в банк"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "fact_id": "f3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в банке",
+              "distractors_ru": [
+                "в кафе",
+                "в библиотеке"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            }
+          ],
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "dimensions": {
+              "russian_case_and_government": "pass_in_this_sample",
+              "timeline_consistency": "pass_in_this_sample",
+              "named_referents": "pass_in_this_sample",
+              "bilingual_question_meaning": "pass_in_this_sample",
+              "unique_supported_answers": "pass_in_this_sample",
+              "distractor_frames": "pass_in_this_sample",
+              "source_quality": "needs_editorial_improvement"
+            },
+            "findings": [
+              "Russian explanations expose internal s1/s2/s3 source identifiers.",
+              "Source switches from a third-person report with a quoted message to direct address; grammatical but stilted.",
+              "Russian hints about a person’s current place use awkward wording."
+            ],
+            "structural_failure_interpretation": "A real learner-facing metadata leak, not a wrong Russian case or broken answer."
+          }
+        },
+        {
+          "id": "sample-02",
+          "unit_id": "location-destination-v1",
+          "mode": "listening",
+          "generation_revision": "source-v3",
+          "language_plan_version": "curriculum-language-plan-v2",
+          "meaning_plan_version": "situation-meaning-v1",
+          "provenance": {
+            "request_sha256": "a2bcb554ef9a19ae911f78d4b90e30bae2e914a328e86456c2356132f7351906",
+            "unit_sha256": "0afa10eb3a5f7953984bdc8694f23d090204bfc36c9c4f81dec0d87804e66256",
+            "schema_sha256": "e67bef1350a67f45fd8eb43dd5afd125fc940254b4ae10bc69448b07c31e14a1",
+            "planned_system_messages_sha256": "e866a079a18ad5bf6fdff2826ade74b6e55c9c32921e025f20785c01f78a06b3",
+            "provider_request_sha256": "966c1c3397e836cfb1ab051081dd63ed75026135e4ffe1fd1c37087d8ef17452",
+            "system_messages_sha256": "e866a079a18ad5bf6fdff2826ade74b6e55c9c32921e025f20785c01f78a06b3",
+            "raw_response_sha256": "c2cb370996e84bb2d71abafb9c70b8428994bdccb3d94dca12d672f5e6d889e9"
+          },
+          "frozen_generation_input_sha256": "7bfce051088187b13d46e3d5a93b3c7ad01cc226ec1c96fcc216ea63573f4060",
+          "frozen_generation_prompt_sha256": "ad7c0ba6a156e66cea2033a38ffe9a3fc87f638d9bcfad427aa6505fbe446961",
+          "frozen_generation_schema_sha256": "e67bef1350a67f45fd8eb43dd5afd125fc940254b4ae10bc69448b07c31e14a1",
+          "accepted_document_sha256": null,
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 1778,
+            "completion_tokens": 1439,
+            "total_tokens": 3217,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "audio_tokens": 0,
+              "cache_write_tokens": 751
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1024,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 14.907,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "rejected",
+            "accepted": false,
+            "error_type": "ValueError",
+            "reason": "The situation does not match the requested length.",
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "title": "Новости о друзьях",
+            "title_en": "News about friends",
+            "sentences": [
+              "Олег, сейчас Иван в музее.",
+              "Вера сейчас на почте.",
+              "Потом Иван идёт на остановку.",
+              "Олег, пожалуйста, слушай."
+            ],
+            "questions": {
+              "f1": {
+                "prompt_ru": "Где сейчас Иван?",
+                "prompt_en": "Where is Ivan now?",
+                "sentence_ids": [
+                  "s1"
+                ],
+                "hint_en": "Listen for Ivan’s current place.",
+                "hint_ru": "Слушай о месте Ивана сейчас.",
+                "explanation_en": "Sentence s1 says that Ivan is currently in the museum.",
+                "explanation_ru": "В предложении s1 сказано, что Иван сейчас в музее."
+              },
+              "f2": {
+                "prompt_ru": "Куда потом идёт Иван?",
+                "prompt_en": "Where does Ivan go next?",
+                "sentence_ids": [
+                  "s3"
+                ],
+                "hint_en": "Listen for Ivan’s next place.",
+                "hint_ru": "Слушай о следующем месте Ивана.",
+                "explanation_en": "Sentence s3 says that Ivan goes to the bus stop next.",
+                "explanation_ru": "В предложении s3 сказано, что потом Иван идёт на остановку."
+              },
+              "f3": {
+                "prompt_ru": "Где сейчас Вера?",
+                "prompt_en": "Where is Vera now?",
+                "sentence_ids": [
+                  "s2"
+                ],
+                "hint_en": "Listen for Vera’s current place.",
+                "hint_ru": "Слушай о месте Веры сейчас.",
+                "explanation_en": "Sentence s2 says that Vera is currently at the post office.",
+                "explanation_ru": "В предложении s2 сказано, что Вера сейчас на почте."
+              }
+            },
+            "new_vocabulary": [
+              {
+                "lemma": "музей",
+                "pos": "NOUN",
+                "sentence_id": "s1",
+                "meaning_en": "museum"
+              },
+              {
+                "lemma": "остановка",
+                "pos": "NOUN",
+                "sentence_id": "s3",
+                "meaning_en": "bus stop"
+              },
+              {
+                "lemma": "сейчас",
+                "pos": "ADVB",
+                "sentence_id": "s1",
+                "meaning_en": "now"
+              }
+            ]
+          },
+          "frozen_meaning_plan": {
+            "version": "situation-meaning-v1",
+            "writer": {
+              "name_ru": "Оля",
+              "name_en": "Olya",
+              "gender": "feminine"
+            },
+            "addressee": {
+              "name_ru": "Олег",
+              "name_en": "Oleg",
+              "gender": "masculine"
+            },
+            "participants": [
+              {
+                "name_ru": "Иван",
+                "name_en": "Ivan",
+                "gender": "masculine"
+              },
+              {
+                "name_ru": "Вера",
+                "name_en": "Vera",
+                "gender": "feminine"
+              }
+            ],
+            "context_en": "finding friends in the neighbourhood",
+            "purpose_en": "Tell the addressee where two friends are, so they can find them before one moves on.",
+            "timeline_en": "Now Ivan is at one place and Vera is at another. Then Ivan goes to exactly one next stop. No subsequent stop or shared movement is specified.",
+            "facts": [
+              {
+                "id": "f1",
+                "role": "location",
+                "subject_name": "Иван",
+                "subject_en": "Ivan",
+                "value_ru": "в музее",
+                "question_frame_ru": "Где сейчас Иван?",
+                "relation_en": "Current location, before any movement.",
+                "alternative_frames": [
+                  "на остановке",
+                  "на почте"
+                ]
+              },
+              {
+                "id": "f2",
+                "role": "destination",
+                "subject_name": "Иван",
+                "subject_en": "Ivan",
+                "value_ru": "на остановку",
+                "question_frame_ru": "Куда потом идёт Иван?",
+                "relation_en": "The only next destination.",
+                "alternative_frames": [
+                  "в музей",
+                  "на почту"
+                ]
+              },
+              {
+                "id": "f3",
+                "role": "location",
+                "subject_name": "Вера",
+                "subject_en": "Vera",
+                "value_ru": "на почте",
+                "question_frame_ru": "Где сейчас Вера?",
+                "relation_en": "The other person’s current location.",
+                "alternative_frames": [
+                  "в музее",
+                  "на остановке"
+                ]
+              }
+            ],
+            "constraints": [
+              "Report these three facts about the named people; do not add other assessable events.",
+              "The writer and addressee are not the people whose actions are being reported.",
+              "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+              "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "fact_id": "f1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в музее",
+              "distractors_ru": [
+                "на остановке",
+                "на почте"
+              ],
+              "source_sentence_ids": [
+                "s1"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "fact_id": "f2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "на остановку",
+              "distractors_ru": [
+                "в музей",
+                "на почту"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "fact_id": "f3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "на почте",
+              "distractors_ru": [
+                "в музее",
+                "на остановке"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            }
+          ],
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "dimensions": {
+              "russian_case_and_government": "pass_in_this_sample",
+              "timeline_consistency": "pass_in_this_sample",
+              "named_referents": "pass_in_this_sample",
+              "bilingual_question_meaning": "pass_in_this_sample",
+              "unique_supported_answers": "pass_in_this_sample",
+              "distractor_frames": "pass_in_this_sample",
+              "source_quality": "needs_editorial_improvement"
+            },
+            "findings": [
+              "Russian explanations expose internal source identifiers.",
+              "The 17-word source ends with an unmotivated instruction to listen.",
+              "The new-word annotation сейчас is allowed by the supplied known set, but it is supporting language rather than a useful new content lemma."
+            ],
+            "structural_failure_interpretation": "17 words is below the configured 20 minimum; that alone is not evidence of bad language. The metadata leak and filler are independent defects."
+          }
+        },
+        {
+          "id": "sample-03",
+          "unit_id": "calendar-and-duration-v1",
+          "mode": "reading",
+          "generation_revision": "source-v3",
+          "language_plan_version": "curriculum-language-plan-v2",
+          "meaning_plan_version": "situation-meaning-v1",
+          "provenance": {
+            "request_sha256": "1ffb0d2f2c4d054aa8c53d8561f4b47c5dadffd2ac9f7be5bb80049886ed1abe",
+            "unit_sha256": "b7f686cc6b07d47968ad3c09dcc0813027680b2fdfd8264a9da9706e22b13595",
+            "schema_sha256": "e67bef1350a67f45fd8eb43dd5afd125fc940254b4ae10bc69448b07c31e14a1",
+            "planned_system_messages_sha256": "e866a079a18ad5bf6fdff2826ade74b6e55c9c32921e025f20785c01f78a06b3",
+            "provider_request_sha256": "b48a10fd694f6c3ee53f22a24a852481d983d88adb9990fb5923413fd208eeca",
+            "system_messages_sha256": "e866a079a18ad5bf6fdff2826ade74b6e55c9c32921e025f20785c01f78a06b3",
+            "raw_response_sha256": "e44deb8a03fdf64e4dd406d92398ed9c9bf0feb64a3a6506d3fbf5ab1283de6f"
+          },
+          "frozen_generation_input_sha256": "289547ef89387f668ad1d1961b1600729a1eec356d651e7747ff3777356e36fe",
+          "frozen_generation_prompt_sha256": "ad7c0ba6a156e66cea2033a38ffe9a3fc87f638d9bcfad427aa6505fbe446961",
+          "frozen_generation_schema_sha256": "e67bef1350a67f45fd8eb43dd5afd125fc940254b4ae10bc69448b07c31e14a1",
+          "accepted_document_sha256": "43b14e37930acb83e796140a8a4474ba5fa10508e543b6fc22b86a7df44f08c4",
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 2034,
+            "completion_tokens": 934,
+            "total_tokens": 2968,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "audio_tokens": 0,
+              "cache_write_tokens": 1007
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 512,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 11.106,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "accepted",
+            "accepted": true,
+            "error_type": null,
+            "reason": null,
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "title": "Ответ Лене о визите",
+            "title_en": "An answer to Lena about a visit",
+            "sentences": [
+              "Лена, ты спрашивала: где жила Оля, когда приехала Оля и как долго жила Оля?",
+              "Вот ответ.",
+              "Оля приехала 25 июля.",
+              "Оля жила в Москве.",
+              "Оля жила там один день."
+            ],
+            "questions": {
+              "f1": {
+                "prompt_ru": "Как долго Оля там жила?",
+                "prompt_en": "How long did Olya live there?",
+                "sentence_ids": [
+                  "s5"
+                ],
+                "hint_en": "Look at the sentence about the length of Olya’s stay.",
+                "hint_ru": "Посмотри на предложение о длительности пребывания Оли.",
+                "explanation_en": "The last sentence says that Olya lived there for one day.",
+                "explanation_ru": "В последнем предложении сказано, что Оля жила там один день."
+              },
+              "f2": {
+                "prompt_ru": "Где жила Оля?",
+                "prompt_en": "Where did Olya live?",
+                "sentence_ids": [
+                  "s4"
+                ],
+                "hint_en": "Look at the sentence about the place of Olya’s stay.",
+                "hint_ru": "Посмотри на предложение о месте пребывания Оли.",
+                "explanation_en": "The fourth sentence says that Olya lived in Moscow.",
+                "explanation_ru": "В четвёртом предложении сказано, что Оля жила в Москве."
+              },
+              "f3": {
+                "prompt_ru": "Когда приехала Оля?",
+                "prompt_en": "When did Olya arrive?",
+                "sentence_ids": [
+                  "s3"
+                ],
+                "hint_en": "Look at the sentence about the beginning of Olya’s stay.",
+                "hint_ru": "Посмотри на предложение о начале пребывания Оли.",
+                "explanation_en": "The third sentence gives the date when Olya arrived.",
+                "explanation_ru": "В третьем предложении указана дата приезда Оли."
+              }
+            },
+            "new_vocabulary": [
+              {
+                "lemma": "ответ",
+                "pos": "NOUN",
+                "sentence_id": "s2",
+                "meaning_en": "answer"
+              }
+            ]
+          },
+          "frozen_meaning_plan": {
+            "version": "situation-meaning-v1",
+            "writer": {
+              "name_ru": "Дима",
+              "name_en": "Dima",
+              "gender": "masculine"
+            },
+            "addressee": {
+              "name_ru": "Лена",
+              "name_en": "Lena",
+              "gender": "feminine"
+            },
+            "participants": [
+              {
+                "name_ru": "Оля",
+                "name_en": "Olya",
+                "gender": "feminine"
+              }
+            ],
+            "context_en": "a friend’s completed visit",
+            "purpose_en": "Answer the addressee’s question about where a friend stayed, when the visit began and how long it lasted.",
+            "timeline_en": "One completed stay by Olya. State its venue and elapsed duration. Do not add departure dates, later trips or another length of stay. The written date is the arrival/start of that stay, not a second event.",
+            "facts": [
+              {
+                "id": "f1",
+                "role": "duration",
+                "subject_name": "Оля",
+                "subject_en": "Olya",
+                "value_ru": "день",
+                "question_frame_ru": "Как долго Оля там жила?",
+                "relation_en": "The elapsed length of this one stay.",
+                "alternative_frames": [
+                  "неделю",
+                  "месяц"
+                ]
+              },
+              {
+                "id": "f2",
+                "role": "location",
+                "subject_name": "Оля",
+                "subject_en": "Olya",
+                "value_ru": "в Москве",
+                "question_frame_ru": "Где жила Оля?",
+                "relation_en": "The venue of the same stay.",
+                "alternative_frames": [
+                  "в деревне",
+                  "в Петербурге"
+                ]
+              },
+              {
+                "id": "f3",
+                "role": "date",
+                "subject_name": "Оля",
+                "subject_en": "Olya",
+                "value_ru": "25 июля",
+                "question_frame_ru": "Когда приехала Оля?",
+                "relation_en": "The start date of this same stay.",
+                "alternative_frames": [
+                  "16 июля",
+                  "15 июля"
+                ]
+              }
+            ],
+            "constraints": [
+              "Report these three facts about the named people; do not add other assessable events.",
+              "The writer and addressee are not the people whose actions are being reported.",
+              "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+              "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "fact_id": "f1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "день",
+              "distractors_ru": [
+                "неделю",
+                "месяц"
+              ],
+              "source_sentence_ids": [
+                "s5"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "fact_id": "f2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в Москве",
+              "distractors_ru": [
+                "в деревне",
+                "в Петербурге"
+              ],
+              "source_sentence_ids": [
+                "s4"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "fact_id": "f3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "25 июля",
+              "distractors_ru": [
+                "16 июля",
+                "15 июля"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            }
+          ],
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "dimensions": {
+              "russian_case_and_government": "pass_in_this_sample",
+              "timeline_consistency": "pass_in_this_sample",
+              "named_referents": "pass_in_this_sample",
+              "bilingual_question_meaning": "pass_in_this_sample",
+              "unique_supported_answers": "pass_in_this_sample",
+              "distractor_frames": "pass_in_this_sample",
+              "source_quality": "accurate_but_mechanical"
+            },
+            "findings": [
+              "The first sentence restates all three test questions, then each answer repeats Оля; the result reads like an answer list.",
+              "Russian hints such as длительности пребывания are harder than the source and selected teaching scope.",
+              "Lived is a literal English rendering; stayed would fit this short visit better without changing meaning."
+            ],
+            "structural_failure_interpretation": null
+          }
+        },
+        {
+          "id": "sample-04",
+          "unit_id": "calendar-and-duration-v1",
+          "mode": "listening",
+          "generation_revision": "source-v3",
+          "language_plan_version": "curriculum-language-plan-v2",
+          "meaning_plan_version": "situation-meaning-v1",
+          "provenance": {
+            "request_sha256": "860355082756097da62d0a817d9ae0e4945ee22de683d5b4e45d6983e39ffb4a",
+            "unit_sha256": "b7f686cc6b07d47968ad3c09dcc0813027680b2fdfd8264a9da9706e22b13595",
+            "schema_sha256": "e67bef1350a67f45fd8eb43dd5afd125fc940254b4ae10bc69448b07c31e14a1",
+            "planned_system_messages_sha256": "e866a079a18ad5bf6fdff2826ade74b6e55c9c32921e025f20785c01f78a06b3",
+            "provider_request_sha256": "185ea0dda95aed0c29466297fae0cbe45cadc7da77b844436d53e0222bbba598",
+            "system_messages_sha256": "e866a079a18ad5bf6fdff2826ade74b6e55c9c32921e025f20785c01f78a06b3",
+            "raw_response_sha256": "9e51dc60677ccca488831e290e0ea5fae74b160154fba545fa0e2213b8554558"
+          },
+          "frozen_generation_input_sha256": "f6c26cc9e5193269c7591e8af3b47ef8467b6bc7fe76e32d24b507b570bdcf0b",
+          "frozen_generation_prompt_sha256": "ad7c0ba6a156e66cea2033a38ffe9a3fc87f638d9bcfad427aa6505fbe446961",
+          "frozen_generation_schema_sha256": "e67bef1350a67f45fd8eb43dd5afd125fc940254b4ae10bc69448b07c31e14a1",
+          "accepted_document_sha256": null,
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 2100,
+            "completion_tokens": 921,
+            "total_tokens": 3021,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "audio_tokens": 0,
+              "cache_write_tokens": 1073
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 512,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 10.661,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "rejected",
+            "accepted": false,
+            "error_type": "ValueError",
+            "reason": "The passage and response choices must be in Russian.",
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "title": "Вспоминаем визит",
+            "title_en": "Remembering a visit",
+            "sentences": [
+              "Лена, ты помнишь Веру?",
+              "Я хочу помочь тебе вспомнить этот визит.",
+              "Вера жила в Москве.",
+              "Вера жила там день.",
+              "Дима тоже жил там."
+            ],
+            "questions": {
+              "f1": {
+                "prompt_ru": "Как долго Вера там жила?",
+                "prompt_en": "How long did Vera live there?",
+                "sentence_ids": [
+                  "s4"
+                ],
+                "hint_en": "Listen for the length of Vera’s stay.",
+                "hint_ru": "Послушай, как долго жила Вера.",
+                "explanation_en": "Sentence s4 says that Vera lived there for one day.",
+                "explanation_ru": "В предложении s4 сказано, что Вера жила там день."
+              },
+              "f2": {
+                "prompt_ru": "Где жила Вера?",
+                "prompt_en": "Where did Vera live?",
+                "sentence_ids": [
+                  "s3"
+                ],
+                "hint_en": "Listen for the place of Vera’s stay.",
+                "hint_ru": "Послушай, где жила Вера.",
+                "explanation_en": "Sentence s3 names the place of Vera’s stay.",
+                "explanation_ru": "В предложении s3 названо место, где жила Вера."
+              },
+              "f3": {
+                "prompt_ru": "Кто ещё там жил?",
+                "prompt_en": "Who else lived there?",
+                "sentence_ids": [
+                  "s5"
+                ],
+                "hint_en": "Listen for the other person at the same place.",
+                "hint_ru": "Послушай, кто ещё был в этом месте.",
+                "explanation_en": "Sentence s5 says that Dima also lived there.",
+                "explanation_ru": "В предложении s5 сказано, что Дима тоже жил там."
+              }
+            },
+            "new_vocabulary": [
+              {
+                "lemma": "визит",
+                "pos": "NOUN",
+                "sentence_id": "s2",
+                "meaning_en": "visit"
+              },
+              {
+                "lemma": "помнить",
+                "pos": "VERB",
+                "sentence_id": "s1",
+                "meaning_en": "to remember"
+              }
+            ]
+          },
+          "frozen_meaning_plan": {
+            "version": "situation-meaning-v1",
+            "writer": {
+              "name_ru": "Нина",
+              "name_en": "Nina",
+              "gender": "feminine"
+            },
+            "addressee": {
+              "name_ru": "Лена",
+              "name_en": "Lena",
+              "gender": "feminine"
+            },
+            "participants": [
+              {
+                "name_ru": "Вера",
+                "name_en": "Vera",
+                "gender": "feminine"
+              },
+              {
+                "name_ru": "Дима",
+                "name_en": "Dima",
+                "gender": "masculine"
+              }
+            ],
+            "context_en": "remembering a friend’s visit",
+            "purpose_en": "Help the addressee recall a friend’s stay: its place, length and one companion.",
+            "timeline_en": "One completed stay by Vera. State its venue and elapsed duration. Do not add departure dates, later trips or another length of stay. Dima was also there, but has no separate duration or departure. No calendar date is stated or assessed.",
+            "facts": [
+              {
+                "id": "f1",
+                "role": "duration",
+                "subject_name": "Вера",
+                "subject_en": "Vera",
+                "value_ru": "день",
+                "question_frame_ru": "Как долго Вера там жила?",
+                "relation_en": "The elapsed length of this one stay.",
+                "alternative_frames": [
+                  "неделю",
+                  "месяц"
+                ]
+              },
+              {
+                "id": "f2",
+                "role": "location",
+                "subject_name": "Вера",
+                "subject_en": "Vera",
+                "value_ru": "в Москве",
+                "question_frame_ru": "Где жила Вера?",
+                "relation_en": "The venue of the same stay.",
+                "alternative_frames": [
+                  "в Петербурге",
+                  "в деревне"
+                ]
+              },
+              {
+                "id": "f3",
+                "role": "person",
+                "subject_name": "Дима",
+                "subject_en": "Dima",
+                "value_ru": "Дима",
+                "question_frame_ru": "Кто ещё там жил?",
+                "relation_en": "The one companion who also stayed at that venue.",
+                "alternative_frames": [
+                  "Нина",
+                  "Лена"
+                ]
+              }
+            ],
+            "constraints": [
+              "Report these three facts about the named people; do not add other assessable events.",
+              "The writer and addressee are not the people whose actions are being reported.",
+              "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+              "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "fact_id": "f1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "день",
+              "distractors_ru": [
+                "неделю",
+                "месяц"
+              ],
+              "source_sentence_ids": [
+                "s4"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "fact_id": "f2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в Москве",
+              "distractors_ru": [
+                "в Петербурге",
+                "в деревне"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "fact_id": "f3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "Дима",
+              "distractors_ru": [
+                "Нина",
+                "Лена"
+              ],
+              "source_sentence_ids": [
+                "s5"
+              ]
+            }
+          ],
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "dimensions": {
+              "russian_case_and_government": "pass_in_this_sample",
+              "timeline_consistency": "pass_in_this_sample",
+              "named_referents": "pass_in_this_sample",
+              "bilingual_question_meaning": "pass_in_this_sample",
+              "unique_supported_answers": "pass_in_this_sample",
+              "distractor_frames": "pass_in_this_sample",
+              "source_quality": "accurate_but_mechanical"
+            },
+            "findings": [
+              "Russian explanations expose internal source identifiers.",
+              "The introductory sentence announces that the speaker wants to help recall a visit rather than sounding like a natural update.",
+              "English lived is understandable but stayed better fits a one-day visit."
+            ],
+            "structural_failure_interpretation": "A real learner-facing metadata leak; core Russian grammar and fact relationships are sound."
+          }
+        },
+        {
+          "id": "sample-05",
+          "unit_id": "talking-about-topics-v1",
+          "mode": "reading",
+          "generation_revision": "source-v3",
+          "language_plan_version": "curriculum-language-plan-v2",
+          "meaning_plan_version": "situation-meaning-v1",
+          "provenance": {
+            "request_sha256": "f778413a55fd444bd2c33c23f7a7b791c272255a6a4cbadb56c2523ec58e6ec9",
+            "unit_sha256": "a605623239328585947353cb2a0d22fac04691a7895c7883b24b1dc73876f959",
+            "schema_sha256": "e67bef1350a67f45fd8eb43dd5afd125fc940254b4ae10bc69448b07c31e14a1",
+            "planned_system_messages_sha256": "e866a079a18ad5bf6fdff2826ade74b6e55c9c32921e025f20785c01f78a06b3",
+            "provider_request_sha256": "ad2210560808fce70ad009d1fba2bf80641cc2054c629355ac208f54bf7891b4",
+            "system_messages_sha256": "e866a079a18ad5bf6fdff2826ade74b6e55c9c32921e025f20785c01f78a06b3",
+            "raw_response_sha256": "1c5b275960097f4b3610d6db9221f4c0010fe79c0aaff2bdcdbc83d04415b86d"
+          },
+          "frozen_generation_input_sha256": "c9529ced58ff0013c2c5ed784bf603beaf6ab345c02194bc83f42dd023634ced",
+          "frozen_generation_prompt_sha256": "ad7c0ba6a156e66cea2033a38ffe9a3fc87f638d9bcfad427aa6505fbe446961",
+          "frozen_generation_schema_sha256": "e67bef1350a67f45fd8eb43dd5afd125fc940254b4ae10bc69448b07c31e14a1",
+          "accepted_document_sha256": null,
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 1896,
+            "completion_tokens": 1008,
+            "total_tokens": 2904,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "audio_tokens": 0,
+              "cache_write_tokens": 869
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 641,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 10.485,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "rejected",
+            "accepted": false,
+            "error_type": "ValueError",
+            "reason": "The passage and response choices must be in Russian.",
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "title": "Разговор друзей",
+            "title_en": "A Conversation with Friends",
+            "sentences": [
+              "Иван, привет.",
+              "Вера на работе и говорит о друге.",
+              "Оля на работе и говорит о семье.",
+              "Иван, приходи на работу."
+            ],
+            "questions": {
+              "f1": {
+                "prompt_ru": "О ком говорит Вера?",
+                "prompt_en": "Who is Vera talking about?",
+                "sentence_ids": [
+                  "s2"
+                ],
+                "hint_en": "Look at what Vera says.",
+                "hint_ru": "Посмотри, о чём говорит Вера.",
+                "explanation_en": "Sentence s2 says that Vera talks about a friend.",
+                "explanation_ru": "В предложении s2 сказано, что Вера говорит о друге."
+              },
+              "f2": {
+                "prompt_ru": "О чём говорит Оля?",
+                "prompt_en": "What is Olya talking about?",
+                "sentence_ids": [
+                  "s3"
+                ],
+                "hint_en": "Look at what Olya says.",
+                "hint_ru": "Посмотри, о чём говорит Оля.",
+                "explanation_en": "Sentence s3 says that Olya talks about family.",
+                "explanation_ru": "В предложении s3 сказано, что Оля говорит о семье."
+              },
+              "f3": {
+                "prompt_ru": "Где сейчас Вера?",
+                "prompt_en": "Where is Vera now?",
+                "sentence_ids": [
+                  "s2"
+                ],
+                "hint_en": "Look at Vera’s place.",
+                "hint_ru": "Посмотри, где находится Вера.",
+                "explanation_en": "Sentence s2 says that Vera is at work.",
+                "explanation_ru": "В предложении s2 сказано, что Вера на работе."
+              }
+            },
+            "new_vocabulary": [
+              {
+                "lemma": "приходить",
+                "pos": "VERB",
+                "sentence_id": "s4",
+                "meaning_en": "to come"
+              }
+            ]
+          },
+          "frozen_meaning_plan": {
+            "version": "situation-meaning-v1",
+            "writer": {
+              "name_ru": "Олег",
+              "name_en": "Oleg",
+              "gender": "masculine"
+            },
+            "addressee": {
+              "name_ru": "Иван",
+              "name_en": "Ivan",
+              "gender": "masculine"
+            },
+            "participants": [
+              {
+                "name_ru": "Вера",
+                "name_en": "Vera",
+                "gender": "feminine"
+              },
+              {
+                "name_ru": "Оля",
+                "name_en": "Olya",
+                "gender": "feminine"
+              }
+            ],
+            "context_en": "a conversation with friends",
+            "purpose_en": "Tell the addressee what two friends are each talking about and where they are, so the addressee can join them.",
+            "timeline_en": "One present conversation at the same venue. Vera talks about one person; Olya talks about one subject. Each speaker has exactly one topic, with no topic changes.",
+            "facts": [
+              {
+                "id": "f1",
+                "role": "topic_person",
+                "subject_name": "Вера",
+                "subject_en": "Vera",
+                "value_ru": "о друге",
+                "question_frame_ru": "О ком говорит Вера?",
+                "relation_en": "This speaker’s sole topic, a person.",
+                "alternative_frames": [
+                  "о маме",
+                  "об Анне"
+                ]
+              },
+              {
+                "id": "f2",
+                "role": "topic_thing",
+                "subject_name": "Оля",
+                "subject_en": "Olya",
+                "value_ru": "о семье",
+                "question_frame_ru": "О чём говорит Оля?",
+                "relation_en": "This other speaker’s sole topic, a thing or subject.",
+                "alternative_frames": [
+                  "о музыке",
+                  "о книге"
+                ]
+              },
+              {
+                "id": "f3",
+                "role": "location",
+                "subject_name": "Вера",
+                "subject_en": "Vera",
+                "value_ru": "на работе",
+                "question_frame_ru": "Где сейчас Вера?",
+                "relation_en": "The place where both people are having this conversation.",
+                "alternative_frames": [
+                  "в кафе",
+                  "в парке"
+                ]
+              }
+            ],
+            "constraints": [
+              "Report these three facts about the named people; do not add other assessable events.",
+              "The writer and addressee are not the people whose actions are being reported.",
+              "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+              "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "fact_id": "f1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "о друге",
+              "distractors_ru": [
+                "о маме",
+                "об Анне"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "fact_id": "f2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "о семье",
+              "distractors_ru": [
+                "о музыке",
+                "о книге"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "fact_id": "f3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "на работе",
+              "distractors_ru": [
+                "в кафе",
+                "в парке"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            }
+          ],
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "dimensions": {
+              "russian_case_and_government": "pass_in_this_sample",
+              "timeline_consistency": "pass_in_this_sample",
+              "named_referents": "pass_in_this_sample",
+              "bilingual_question_meaning": "pass_in_this_sample",
+              "unique_supported_answers": "pass_in_this_sample",
+              "distractor_frames": "pass_in_this_sample",
+              "source_quality": "needs_editorial_improvement"
+            },
+            "findings": [
+              "Russian explanations expose internal source identifiers.",
+              "The hint for О ком говорит Вера? says о чём говорит Вера; it weakens the person/topic contrast this lesson is teaching.",
+              "The invitation приходи на работу is possible but context is thin; it may sound like asking someone to attend work rather than join a conversation."
+            ],
+            "structural_failure_interpretation": "A real learner-facing metadata leak. The hint needs a separate pedagogical correction."
+          }
+        },
+        {
+          "id": "sample-06",
+          "unit_id": "talking-about-topics-v1",
+          "mode": "listening",
+          "generation_revision": "source-v3",
+          "language_plan_version": "curriculum-language-plan-v2",
+          "meaning_plan_version": "situation-meaning-v1",
+          "provenance": {
+            "request_sha256": "daf5a713656c93f2910a4b98f2554826a8ec153fd68cbea328ac1256df713ead",
+            "unit_sha256": "a605623239328585947353cb2a0d22fac04691a7895c7883b24b1dc73876f959",
+            "schema_sha256": "e67bef1350a67f45fd8eb43dd5afd125fc940254b4ae10bc69448b07c31e14a1",
+            "planned_system_messages_sha256": "e866a079a18ad5bf6fdff2826ade74b6e55c9c32921e025f20785c01f78a06b3",
+            "provider_request_sha256": "bbb8d441f5eb42aad04ee206471200f2f3365718452ccfc2e2e1d39623e0625e",
+            "system_messages_sha256": "e866a079a18ad5bf6fdff2826ade74b6e55c9c32921e025f20785c01f78a06b3",
+            "raw_response_sha256": "89ffc239853d366417f6c83323ec757b4207c893ce2c61a7dc1efe88a837bbb0"
+          },
+          "frozen_generation_input_sha256": "78aaa4fb491d26ea0a3b147fb24afefd53e3b596c973d0bd571b06d63e5343ce",
+          "frozen_generation_prompt_sha256": "ad7c0ba6a156e66cea2033a38ffe9a3fc87f638d9bcfad427aa6505fbe446961",
+          "frozen_generation_schema_sha256": "e67bef1350a67f45fd8eb43dd5afd125fc940254b4ae10bc69448b07c31e14a1",
+          "accepted_document_sha256": null,
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 1894,
+            "completion_tokens": 728,
+            "total_tokens": 2622,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "audio_tokens": 0,
+              "cache_write_tokens": 867
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 317,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 7.946,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "rejected",
+            "accepted": false,
+            "error_type": "ValueError",
+            "reason": "The passage and response choices must be in Russian.",
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "title": "Новости от друзей",
+            "title_en": "News from friends",
+            "sentences": [
+              "Олег, привет!",
+              "Я знаю, где сейчас Миша и Нина.",
+              "Миша сейчас в библиотеке и говорит о друге.",
+              "Нина сейчас в библиотеке и говорит о семье.",
+              "Если тебе интересно, найди их там."
+            ],
+            "questions": {
+              "f1": {
+                "prompt_ru": "О ком говорит Миша?",
+                "prompt_en": "Who is Misha talking about?",
+                "sentence_ids": [
+                  "s3"
+                ],
+                "hint_en": "Listen to the part about Misha’s topic.",
+                "hint_ru": "Послушай часть о теме Миши.",
+                "explanation_en": "Sentence s3 says that Misha talks about a friend.",
+                "explanation_ru": "В предложении s3 сказано, что Миша говорит о друге."
+              },
+              "f2": {
+                "prompt_ru": "О чём говорит Нина?",
+                "prompt_en": "What is Nina talking about?",
+                "sentence_ids": [
+                  "s4"
+                ],
+                "hint_en": "Listen to the part about Nina’s topic.",
+                "hint_ru": "Послушай часть о теме Нины.",
+                "explanation_en": "Sentence s4 says that Nina talks about family.",
+                "explanation_ru": "В предложении s4 сказано, что Нина говорит о семье."
+              },
+              "f3": {
+                "prompt_ru": "Где сейчас Миша?",
+                "prompt_en": "Where is Misha now?",
+                "sentence_ids": [
+                  "s3"
+                ],
+                "hint_en": "Listen for the place where Misha is now.",
+                "hint_ru": "Послушай, где сейчас Миша.",
+                "explanation_en": "Sentence s3 says that Misha is in the library now.",
+                "explanation_ru": "В предложении s3 сказано, что Миша сейчас в библиотеке."
+              }
+            },
+            "new_vocabulary": [
+              {
+                "lemma": "библиотека",
+                "pos": "NOUN",
+                "sentence_id": "s3",
+                "meaning_en": "library"
+              },
+              {
+                "lemma": "найти",
+                "pos": "VERB",
+                "sentence_id": "s5",
+                "meaning_en": "to find"
+              }
+            ]
+          },
+          "frozen_meaning_plan": {
+            "version": "situation-meaning-v1",
+            "writer": {
+              "name_ru": "Анна",
+              "name_en": "Anna",
+              "gender": "feminine"
+            },
+            "addressee": {
+              "name_ru": "Олег",
+              "name_en": "Oleg",
+              "gender": "masculine"
+            },
+            "participants": [
+              {
+                "name_ru": "Миша",
+                "name_en": "Misha",
+                "gender": "masculine"
+              },
+              {
+                "name_ru": "Нина",
+                "name_en": "Nina",
+                "gender": "feminine"
+              }
+            ],
+            "context_en": "friends sharing news",
+            "purpose_en": "Help the addressee find friends discussing a topic of interest by naming each speaker’s subject and the meeting place.",
+            "timeline_en": "One present conversation at the same venue. Misha talks about one person; Nina talks about one subject. Each speaker has exactly one topic, with no topic changes.",
+            "facts": [
+              {
+                "id": "f1",
+                "role": "topic_person",
+                "subject_name": "Миша",
+                "subject_en": "Misha",
+                "value_ru": "о друге",
+                "question_frame_ru": "О ком говорит Миша?",
+                "relation_en": "This speaker’s sole topic, a person.",
+                "alternative_frames": [
+                  "об Анне",
+                  "о маме"
+                ]
+              },
+              {
+                "id": "f2",
+                "role": "topic_thing",
+                "subject_name": "Нина",
+                "subject_en": "Nina",
+                "value_ru": "о семье",
+                "question_frame_ru": "О чём говорит Нина?",
+                "relation_en": "This other speaker’s sole topic, a thing or subject.",
+                "alternative_frames": [
+                  "об отдыхе",
+                  "о работе"
+                ]
+              },
+              {
+                "id": "f3",
+                "role": "location",
+                "subject_name": "Миша",
+                "subject_en": "Misha",
+                "value_ru": "в библиотеке",
+                "question_frame_ru": "Где сейчас Миша?",
+                "relation_en": "The place where both people are having this conversation.",
+                "alternative_frames": [
+                  "на работе",
+                  "в кафе"
+                ]
+              }
+            ],
+            "constraints": [
+              "Report these three facts about the named people; do not add other assessable events.",
+              "The writer and addressee are not the people whose actions are being reported.",
+              "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+              "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "fact_id": "f1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "о друге",
+              "distractors_ru": [
+                "об Анне",
+                "о маме"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "fact_id": "f2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "о семье",
+              "distractors_ru": [
+                "об отдыхе",
+                "о работе"
+              ],
+              "source_sentence_ids": [
+                "s4"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "fact_id": "f3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в библиотеке",
+              "distractors_ru": [
+                "на работе",
+                "в кафе"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            }
+          ],
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "dimensions": {
+              "russian_case_and_government": "pass_in_this_sample",
+              "timeline_consistency": "pass_in_this_sample",
+              "named_referents": "pass_in_this_sample",
+              "bilingual_question_meaning": "pass_in_this_sample",
+              "unique_supported_answers": "pass_in_this_sample",
+              "distractor_frames": "pass_in_this_sample",
+              "source_quality": "serviceable_short_comprehension"
+            },
+            "findings": [
+              "Russian explanations expose internal source identifiers.",
+              "Russian hints часть о теме Миши/Нины are unnatural but understandable.",
+              "The invitation is plausible, but the source still gives only minimal context for why the recipient might join."
+            ],
+            "structural_failure_interpretation": "A real learner-facing metadata leak; core source and questions are usable for narrow supported comprehension."
+          }
+        }
+      ]
+    },
+    {
+      "id": "batch-03",
+      "purpose": "Fresh source-v4 samples after moving hints and explanations to server-owned role-specific templates.",
+      "at": "2026-10-02T13:57:27.593015+00:00",
+      "seed": "linguistic-uplift-03",
+      "content_version": "curriculum-situation-v1",
+      "generator_sha256": "e9f52a737cb42df09fc6b76dc278e9ead57904e856c09e743105d666554f147a",
+      "maximum_output_tokens_per_call": 6500,
+      "automatic_retries": 0,
+      "audio_calls": 0,
+      "learner_data_used": false,
+      "state": "complete",
+      "summary": {
+        "planned_samples": 6,
+        "recorded_samples": 6,
+        "provider_calls": 6,
+        "structurally_accepted": 5,
+        "structurally_rejected": 1,
+        "assistant_review_acceptable": 0,
+        "assistant_review_serviceable_narrow_comprehension": 3,
+        "assistant_review_needs_revision": 3,
+        "polished_as_delivered": 0,
+        "excluded_samples": 0,
+        "usage": {
+          "prompt_tokens": 10819,
+          "completion_tokens": 4612,
+          "total_tokens": 15431
+        }
+      },
+      "assistant_review_source_sha256": "ab5d8049814e6c45d686fabca2a57f6026e40512e4b95a8c5c7aeb372f73666a",
+      "assistant_review_source_results_sha256": "5a8e0a153ae88eed0a88d5a95f63ce16806bdbda791554063530e90838794416",
+      "assistant_review_summary": {
+        "original_structurally_accepted": 5,
+        "samples": 6,
+        "serviceable_narrow_comprehension_as_delivered": 3,
+        "polished_as_delivered": 0,
+        "core_case_timeline_referent_question_answer_failures_found": 0,
+        "source_identifier_leaks": 0,
+        "annotation_failures": 1
+      },
+      "review_conclusion": "Five of six samples passed the recorded source-v4 structural checks. Three were serviceable as narrow supported-comprehension tasks; none was polished. One accepted passage changes narrator perspective, another contains filler, and the rejected passage has an incorrect part-of-speech annotation. These results do not establish general model reliability or readiness.",
+      "post_evaluation_validation": {
+        "fresh_calls": 0,
+        "kind": "offline replay under final role guard",
+        "accepted": 5,
+        "acceptance_changed": false,
+        "previous_prompt_schema_hashes_preserved": true,
+        "five_accepted_documents_unchanged": true
+      },
+      "post_evaluation_request_change": {
+        "minimum_sentences": 1,
+        "scope": "New source-v4 requests only; recorded batch requests retain minimum4 and their original schema hashes.",
+        "verification": "A two-sentence message carrying all three facts passed a regression test.",
+        "quality_claim": "Not fresh-provider evidence that padding or other naturalness problems are solved."
+      },
+      "limitations": [
+        "Six samples do not establish general model reliability.",
+        "Grammar and source checks do not fully verify entailment, discourse quality or faithful translation.",
+        "This review assessed text, not generated audio, pronunciation or listening playback.",
+        "The tasks practise supported comprehension, not independent production or full-level proficiency."
+      ],
+      "excluded_sample_ids": [],
+      "samples": [
+        {
+          "id": "sample-01",
+          "unit_id": "location-destination-v1",
+          "mode": "reading",
+          "generation_revision": "source-v4",
+          "language_plan_version": "curriculum-language-plan-v3",
+          "meaning_plan_version": "situation-meaning-v1",
+          "provenance": {
+            "request_sha256": "f3429929deaf7fce6cb84b308ded9a7af8f6106ad151549bd261d0ea604a56b2",
+            "unit_sha256": "0afa10eb3a5f7953984bdc8694f23d090204bfc36c9c4f81dec0d87804e66256",
+            "schema_sha256": "7bb4e00969f95325a007040511f7d74adc5210aab7e0d4282b0a1780fac5ea54",
+            "planned_system_messages_sha256": "d16bb85b08d1920ba70f261758a6ac4a77e18aa639c734783e9e95c63d7c7c44",
+            "provider_request_sha256": "f901fe2a31b38ded524a48a51bc4c594b460a0f003aa1e2e70f5a4da55bdd7f2",
+            "system_messages_sha256": "d16bb85b08d1920ba70f261758a6ac4a77e18aa639c734783e9e95c63d7c7c44",
+            "raw_response_sha256": "13faac13376c5c02d17ae285a1a2bbdd2ab642ade903c0aee0367a7d32da004a"
+          },
+          "frozen_generation_input_sha256": "b06b902fa8e88ae22e1a05ebaadbf75b8a457f1d5b37223a92fb28daf71d66f4",
+          "frozen_generation_prompt_sha256": "544589c674e2c254471b7b9faf69ae91190bd1711f18ddea7ac660db69847965",
+          "frozen_generation_schema_sha256": "7bb4e00969f95325a007040511f7d74adc5210aab7e0d4282b0a1780fac5ea54",
+          "accepted_document_sha256": "6d99978e950fc20fa3424d4db9520dbaac9676106587b5593faaaa20d8e99608",
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 1666,
+            "completion_tokens": 729,
+            "total_tokens": 2395,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0,
+              "cache_write_tokens": 1663
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 512,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 9.404,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "accepted",
+            "accepted": true,
+            "error_type": null,
+            "reason": null,
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "title": "План на сейчас",
+            "title_en": "The plan for now",
+            "sentences": [
+              "Анна, привет!",
+              "Вот план.",
+              "Нина сейчас в гостинице.",
+              "Иван сейчас на работе.",
+              "Потом Нина идёт в парк.",
+              "Так Анна знает, где искать друзей."
+            ],
+            "questions": {
+              "f1": {
+                "prompt_ru": "Где сейчас Нина?",
+                "prompt_en": "Where is Nina now?",
+                "sentence_ids": [
+                  "s3"
+                ]
+              },
+              "f2": {
+                "prompt_ru": "Куда потом идёт Нина?",
+                "prompt_en": "Where does Nina go next?",
+                "sentence_ids": [
+                  "s5"
+                ]
+              },
+              "f3": {
+                "prompt_ru": "Где сейчас Иван?",
+                "prompt_en": "Where is Ivan now?",
+                "sentence_ids": [
+                  "s4"
+                ]
+              }
+            },
+            "new_vocabulary": [
+              {
+                "lemma": "гостиница",
+                "pos": "NOUN",
+                "sentence_id": "s3",
+                "meaning_en": "hotel"
+              },
+              {
+                "lemma": "работа",
+                "pos": "NOUN",
+                "sentence_id": "s4",
+                "meaning_en": "work"
+              }
+            ]
+          },
+          "frozen_meaning_plan": {
+            "version": "situation-meaning-v1",
+            "writer": {
+              "name_ru": "Олег",
+              "name_en": "Oleg",
+              "gender": "masculine"
+            },
+            "addressee": {
+              "name_ru": "Анна",
+              "name_en": "Anna",
+              "gender": "feminine"
+            },
+            "participants": [
+              {
+                "name_ru": "Нина",
+                "name_en": "Nina",
+                "gender": "feminine"
+              },
+              {
+                "name_ru": "Иван",
+                "name_en": "Ivan",
+                "gender": "masculine"
+              }
+            ],
+            "context_en": "a short local outing",
+            "purpose_en": "Pass on one friend’s next stop and another friend’s current location so the addressee can join them.",
+            "timeline_en": "Now Nina is at one place and Ivan is at another. Then Nina goes to exactly one next stop. No subsequent stop or shared movement is specified.",
+            "facts": [
+              {
+                "id": "f1",
+                "role": "location",
+                "subject_name": "Нина",
+                "subject_en": "Nina",
+                "value_ru": "в гостинице",
+                "question_frame_ru": "Где сейчас Нина?",
+                "relation_en": "Current location, before any movement.",
+                "alternative_frames": [
+                  "в парке",
+                  "на работе"
+                ]
+              },
+              {
+                "id": "f2",
+                "role": "destination",
+                "subject_name": "Нина",
+                "subject_en": "Nina",
+                "value_ru": "в парк",
+                "question_frame_ru": "Куда потом идёт Нина?",
+                "relation_en": "The only next destination.",
+                "alternative_frames": [
+                  "в гостиницу",
+                  "на работу"
+                ]
+              },
+              {
+                "id": "f3",
+                "role": "location",
+                "subject_name": "Иван",
+                "subject_en": "Ivan",
+                "value_ru": "на работе",
+                "question_frame_ru": "Где сейчас Иван?",
+                "relation_en": "The other person’s current location.",
+                "alternative_frames": [
+                  "в гостинице",
+                  "в парке"
+                ]
+              }
+            ],
+            "constraints": [
+              "Report these three facts about the named people; do not add other assessable events.",
+              "The writer and addressee are not the people whose actions are being reported.",
+              "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+              "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "fact_id": "f1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в гостинице",
+              "distractors_ru": [
+                "в парке",
+                "на работе"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "fact_id": "f2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в парк",
+              "distractors_ru": [
+                "в гостиницу",
+                "на работу"
+              ],
+              "source_sentence_ids": [
+                "s5"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "fact_id": "f3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "на работе",
+              "distractors_ru": [
+                "в гостинице",
+                "в парке"
+              ],
+              "source_sentence_ids": [
+                "s4"
+              ]
+            }
+          ],
+          "accepted_server_feedback": {
+            "origin": "Server templates derived from the frozen fact role and verbatim evidence; not generated support text.",
+            "items": [
+              {
+                "id": "q1",
+                "hint": "Read again and find where Nina is now.",
+                "hint_ru": "Прочитайте ещё раз и найдите ответ: где сейчас Нина?",
+                "explanation": "This gives the current location. «Нина сейчас в гостинице.»",
+                "explanation_ru": "Здесь сказано, где человек сейчас. «Нина сейчас в гостинице.»"
+              },
+              {
+                "id": "q2",
+                "hint": "Read again and find where Nina goes next.",
+                "hint_ru": "Прочитайте ещё раз и найдите ответ: куда потом идёт Нина?",
+                "explanation": "This gives the next stop. «Потом Нина идёт в парк.»",
+                "explanation_ru": "Здесь сказано, куда человек идёт потом. «Потом Нина идёт в парк.»"
+              },
+              {
+                "id": "q3",
+                "hint": "Read again and find where Ivan is now.",
+                "hint_ru": "Прочитайте ещё раз и найдите ответ: где сейчас Иван?",
+                "explanation": "This gives the current location. «Иван сейчас на работе.»",
+                "explanation_ru": "Здесь сказано, где человек сейчас. «Иван сейчас на работе.»"
+              }
+            ]
+          },
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "scope": "Narrow supported comprehension only. No claim of polished content, independent grammar production or full-level proficiency.",
+            "polished_as_delivered": false,
+            "dimensions": {
+              "russian_case_and_government": "pass_in_this_sample",
+              "timeline_consistency": "pass_in_this_sample",
+              "named_referents": "pass_in_this_sample",
+              "bilingual_question_meaning": "pass_in_this_sample",
+              "unique_supported_answers": "pass_in_this_sample",
+              "distractor_frames": "pass_in_this_sample",
+              "source_quality": "needs_revision"
+            },
+            "findings": [
+              "The final sentence «Так Анна знает, где искать друзей» breaks perspective: the message has been addressed directly to Anna, then narrates her knowledge in the third person.",
+              "The core three facts and their questions remain grammatically correct and unambiguous."
+            ]
+          }
+        },
+        {
+          "id": "sample-02",
+          "unit_id": "location-destination-v1",
+          "mode": "listening",
+          "generation_revision": "source-v4",
+          "language_plan_version": "curriculum-language-plan-v3",
+          "meaning_plan_version": "situation-meaning-v1",
+          "provenance": {
+            "request_sha256": "a79ff33cf9a66bbbc8a1401099b09f465a749ab2bbf1f20c162fdbae4cabd585",
+            "unit_sha256": "0afa10eb3a5f7953984bdc8694f23d090204bfc36c9c4f81dec0d87804e66256",
+            "schema_sha256": "7bb4e00969f95325a007040511f7d74adc5210aab7e0d4282b0a1780fac5ea54",
+            "planned_system_messages_sha256": "d16bb85b08d1920ba70f261758a6ac4a77e18aa639c734783e9e95c63d7c7c44",
+            "provider_request_sha256": "440f9387e3dfcedf18a3356ddbea3439e474229b5ddca16a02763bea3cddee5a",
+            "system_messages_sha256": "d16bb85b08d1920ba70f261758a6ac4a77e18aa639c734783e9e95c63d7c7c44",
+            "raw_response_sha256": "5004e97fc1b4d50693957cd01f30e88e6b9baa000a4268fca58af9818d9ebbf5"
+          },
+          "frozen_generation_input_sha256": "73bc9f68a149b8c57691b3b8bce435425486a0f99d146415c4ded0d2a39b4d0f",
+          "frozen_generation_prompt_sha256": "544589c674e2c254471b7b9faf69ae91190bd1711f18ddea7ac660db69847965",
+          "frozen_generation_schema_sha256": "7bb4e00969f95325a007040511f7d74adc5210aab7e0d4282b0a1780fac5ea54",
+          "accepted_document_sha256": "f660592945926908c3e0374a4ee9d7307e311d0327373a590f35b534133f6dc7",
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 1666,
+            "completion_tokens": 753,
+            "total_tokens": 2419,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0,
+              "cache_write_tokens": 1663
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 512,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 7.355,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "accepted",
+            "accepted": true,
+            "error_type": null,
+            "reason": null,
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "title": "Кого встретить сейчас?",
+            "title_en": "Who to meet now?",
+            "sentences": [
+              "Дима, привет!",
+              "Сейчас Оля на работе, а Иван в больнице.",
+              "Потом Оля идёт в кафе.",
+              "Так кого ты хочешь встретить сейчас?"
+            ],
+            "questions": {
+              "f1": {
+                "prompt_ru": "Где сейчас Оля?",
+                "prompt_en": "Where is Olya now?",
+                "sentence_ids": [
+                  "s2"
+                ]
+              },
+              "f2": {
+                "prompt_ru": "Куда потом идёт Оля?",
+                "prompt_en": "Where does Olya go next?",
+                "sentence_ids": [
+                  "s3"
+                ]
+              },
+              "f3": {
+                "prompt_ru": "Где сейчас Иван?",
+                "prompt_en": "Where is Ivan now?",
+                "sentence_ids": [
+                  "s2"
+                ]
+              }
+            },
+            "new_vocabulary": [
+              {
+                "lemma": "работа",
+                "pos": "NOUN",
+                "sentence_id": "s2",
+                "meaning_en": "work"
+              },
+              {
+                "lemma": "больница",
+                "pos": "NOUN",
+                "sentence_id": "s2",
+                "meaning_en": "hospital"
+              },
+              {
+                "lemma": "кафе",
+                "pos": "NOUN",
+                "sentence_id": "s3",
+                "meaning_en": "cafe"
+              }
+            ]
+          },
+          "frozen_meaning_plan": {
+            "version": "situation-meaning-v1",
+            "writer": {
+              "name_ru": "Миша",
+              "name_en": "Misha",
+              "gender": "masculine"
+            },
+            "addressee": {
+              "name_ru": "Дима",
+              "name_en": "Dima",
+              "gender": "masculine"
+            },
+            "participants": [
+              {
+                "name_ru": "Оля",
+                "name_en": "Olya",
+                "gender": "feminine"
+              },
+              {
+                "name_ru": "Иван",
+                "name_en": "Ivan",
+                "gender": "masculine"
+              }
+            ],
+            "context_en": "meeting friends locally",
+            "purpose_en": "Help the addressee choose which friend to meet now, knowing one friend has a next stop.",
+            "timeline_en": "Now Olya is at one place and Ivan is at another. Then Olya goes to exactly one next stop. No subsequent stop or shared movement is specified.",
+            "facts": [
+              {
+                "id": "f1",
+                "role": "location",
+                "subject_name": "Оля",
+                "subject_en": "Olya",
+                "value_ru": "на работе",
+                "question_frame_ru": "Где сейчас Оля?",
+                "relation_en": "Current location, before any movement.",
+                "alternative_frames": [
+                  "в кафе",
+                  "в больнице"
+                ]
+              },
+              {
+                "id": "f2",
+                "role": "destination",
+                "subject_name": "Оля",
+                "subject_en": "Olya",
+                "value_ru": "в кафе",
+                "question_frame_ru": "Куда потом идёт Оля?",
+                "relation_en": "The only next destination.",
+                "alternative_frames": [
+                  "на работу",
+                  "в больницу"
+                ]
+              },
+              {
+                "id": "f3",
+                "role": "location",
+                "subject_name": "Иван",
+                "subject_en": "Ivan",
+                "value_ru": "в больнице",
+                "question_frame_ru": "Где сейчас Иван?",
+                "relation_en": "The other person’s current location.",
+                "alternative_frames": [
+                  "на работе",
+                  "в кафе"
+                ]
+              }
+            ],
+            "constraints": [
+              "Report these three facts about the named people; do not add other assessable events.",
+              "The writer and addressee are not the people whose actions are being reported.",
+              "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+              "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "fact_id": "f1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "на работе",
+              "distractors_ru": [
+                "в кафе",
+                "в больнице"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "fact_id": "f2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в кафе",
+              "distractors_ru": [
+                "на работу",
+                "в больницу"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "fact_id": "f3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в больнице",
+              "distractors_ru": [
+                "на работе",
+                "в кафе"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            }
+          ],
+          "accepted_server_feedback": {
+            "origin": "Server templates derived from the frozen fact role and verbatim evidence; not generated support text.",
+            "items": [
+              {
+                "id": "q1",
+                "hint": "Listen again and find where Olya is now.",
+                "hint_ru": "Послушайте ещё раз и найдите ответ: где сейчас Оля?",
+                "explanation": "This gives the current location. «Сейчас Оля на работе, а Иван в больнице.»",
+                "explanation_ru": "Здесь сказано, где человек сейчас. «Сейчас Оля на работе, а Иван в больнице.»"
+              },
+              {
+                "id": "q2",
+                "hint": "Listen again and find where Olya goes next.",
+                "hint_ru": "Послушайте ещё раз и найдите ответ: куда потом идёт Оля?",
+                "explanation": "This gives the next stop. «Потом Оля идёт в кафе.»",
+                "explanation_ru": "Здесь сказано, куда человек идёт потом. «Потом Оля идёт в кафе.»"
+              },
+              {
+                "id": "q3",
+                "hint": "Listen again and find where Ivan is now.",
+                "hint_ru": "Послушайте ещё раз и найдите ответ: где сейчас Иван?",
+                "explanation": "This gives the current location. «Сейчас Оля на работе, а Иван в больнице.»",
+                "explanation_ru": "Здесь сказано, где человек сейчас. «Сейчас Оля на работе, а Иван в больнице.»"
+              }
+            ]
+          },
+          "assistant_language_review": {
+            "verdict": "serviceable_narrow_comprehension",
+            "suitable_as_generated_for_this_lesson": true,
+            "scope": "Narrow supported comprehension only. No claim of polished content, independent grammar production or full-level proficiency.",
+            "polished_as_delivered": false,
+            "dimensions": {
+              "russian_case_and_government": "pass_in_this_sample",
+              "timeline_consistency": "pass_in_this_sample",
+              "named_referents": "pass_in_this_sample",
+              "bilingual_question_meaning": "pass_in_this_sample",
+              "unique_supported_answers": "pass_in_this_sample",
+              "distractor_frames": "pass_in_this_sample",
+              "source_quality": "serviceable_narrow_comprehension"
+            },
+            "findings": [
+              "The request to choose whom to meet gives the three facts a practical purpose.",
+              "Location/destination forms are correct, both people are explicit, and their values can coexist in one evidence sentence without creating competing correct answers.",
+              "This is a short supported comprehension task, not a rich conversation or independent grammar-production assessment."
+            ]
+          }
+        },
+        {
+          "id": "sample-03",
+          "unit_id": "calendar-and-duration-v1",
+          "mode": "reading",
+          "generation_revision": "source-v4",
+          "language_plan_version": "curriculum-language-plan-v3",
+          "meaning_plan_version": "situation-meaning-v1",
+          "provenance": {
+            "request_sha256": "4955cd0ea09f206de2294eb6cb8d52b057263b5f3bc8c1a939267e72133ebbb5",
+            "unit_sha256": "b7f686cc6b07d47968ad3c09dcc0813027680b2fdfd8264a9da9706e22b13595",
+            "schema_sha256": "7bb4e00969f95325a007040511f7d74adc5210aab7e0d4282b0a1780fac5ea54",
+            "planned_system_messages_sha256": "d16bb85b08d1920ba70f261758a6ac4a77e18aa639c734783e9e95c63d7c7c44",
+            "provider_request_sha256": "ce839b4ac874c91b5d32c9ba671f63549e1129f495f4238c76b47a280dd0b60f",
+            "system_messages_sha256": "d16bb85b08d1920ba70f261758a6ac4a77e18aa639c734783e9e95c63d7c7c44",
+            "raw_response_sha256": "6390817b209c35494053827495b7e73a4db547e56ba169129cee4c6c2d57d95f"
+          },
+          "frozen_generation_input_sha256": "4c5e3fb9f45f39980ec167432e4ec63d4d43e95d41e65a93a96f34bcc69c77af",
+          "frozen_generation_prompt_sha256": "544589c674e2c254471b7b9faf69ae91190bd1711f18ddea7ac660db69847965",
+          "frozen_generation_schema_sha256": "7bb4e00969f95325a007040511f7d74adc5210aab7e0d4282b0a1780fac5ea54",
+          "accepted_document_sha256": "12c509f27a86277d47e3b135f97630b166e278fdf17ef15589e923bce1d2646e",
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 1922,
+            "completion_tokens": 731,
+            "total_tokens": 2653,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0,
+              "cache_write_tokens": 1919
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 512,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 8.093,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "accepted",
+            "accepted": true,
+            "error_type": null,
+            "reason": null,
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "title": "Поездка Лены",
+            "title_en": "Lena’s trip",
+            "sentences": [
+              "Оля, ты помнишь Лену?",
+              "Лена приехала в Минск 19 июля.",
+              "Лена жила в Минске неделю.",
+              "Это была поездка Лены."
+            ],
+            "questions": {
+              "f1": {
+                "prompt_ru": "Как долго Лена там жила?",
+                "prompt_en": "How long did Lena live there?",
+                "sentence_ids": [
+                  "s3"
+                ]
+              },
+              "f2": {
+                "prompt_ru": "Где жила Лена?",
+                "prompt_en": "Where did Lena live?",
+                "sentence_ids": [
+                  "s3"
+                ]
+              },
+              "f3": {
+                "prompt_ru": "Когда приехала Лена?",
+                "prompt_en": "When did Lena arrive?",
+                "sentence_ids": [
+                  "s2"
+                ]
+              }
+            },
+            "new_vocabulary": [
+              {
+                "lemma": "Минск",
+                "pos": "NOUN",
+                "sentence_id": "s2",
+                "meaning_en": "Minsk"
+              },
+              {
+                "lemma": "поездка",
+                "pos": "NOUN",
+                "sentence_id": "s4",
+                "meaning_en": "trip"
+              }
+            ]
+          },
+          "frozen_meaning_plan": {
+            "version": "situation-meaning-v1",
+            "writer": {
+              "name_ru": "Анна",
+              "name_en": "Anna",
+              "gender": "feminine"
+            },
+            "addressee": {
+              "name_ru": "Оля",
+              "name_en": "Olya",
+              "gender": "feminine"
+            },
+            "participants": [
+              {
+                "name_ru": "Лена",
+                "name_en": "Lena",
+                "gender": "feminine"
+              }
+            ],
+            "context_en": "remembering a shared friend’s trip",
+            "purpose_en": "Help the addressee recall the place, starting date and length of one friend’s stay.",
+            "timeline_en": "One completed stay by Lena. State its venue and elapsed duration. Do not add departure dates, later trips or another length of stay. The written date is the arrival/start of that stay, not a second event.",
+            "facts": [
+              {
+                "id": "f1",
+                "role": "duration",
+                "subject_name": "Лена",
+                "subject_en": "Lena",
+                "value_ru": "неделю",
+                "question_frame_ru": "Как долго Лена там жила?",
+                "relation_en": "The elapsed length of this one stay.",
+                "alternative_frames": [
+                  "день",
+                  "месяц"
+                ]
+              },
+              {
+                "id": "f2",
+                "role": "location",
+                "subject_name": "Лена",
+                "subject_en": "Lena",
+                "value_ru": "в Минске",
+                "question_frame_ru": "Где жила Лена?",
+                "relation_en": "The venue of the same stay.",
+                "alternative_frames": [
+                  "в Самаре",
+                  "в Омске"
+                ]
+              },
+              {
+                "id": "f3",
+                "role": "date",
+                "subject_name": "Лена",
+                "subject_en": "Lena",
+                "value_ru": "19 июля",
+                "question_frame_ru": "Когда приехала Лена?",
+                "relation_en": "The start date of this same stay.",
+                "alternative_frames": [
+                  "25 июля",
+                  "16 июля"
+                ]
+              }
+            ],
+            "constraints": [
+              "Report these three facts about the named people; do not add other assessable events.",
+              "The writer and addressee are not the people whose actions are being reported.",
+              "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+              "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+            ],
+            "venue_family": "named-city"
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "fact_id": "f1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "неделю",
+              "distractors_ru": [
+                "день",
+                "месяц"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "fact_id": "f2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в Минске",
+              "distractors_ru": [
+                "в Самаре",
+                "в Омске"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "fact_id": "f3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "19 июля",
+              "distractors_ru": [
+                "25 июля",
+                "16 июля"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            }
+          ],
+          "accepted_server_feedback": {
+            "origin": "Server templates derived from the frozen fact role and verbatim evidence; not generated support text.",
+            "items": [
+              {
+                "id": "q1",
+                "hint": "Read again and find how long Lena stayed.",
+                "hint_ru": "Прочитайте ещё раз и найдите ответ: сколько времени Лена там жила?",
+                "explanation": "This tells how long the stay lasted. «Лена жила в Минске неделю.»",
+                "explanation_ru": "Здесь сказано, сколько времени это длилось. «Лена жила в Минске неделю.»"
+              },
+              {
+                "id": "q2",
+                "hint": "Read again and find where Lena stayed.",
+                "hint_ru": "Прочитайте ещё раз и найдите ответ: где Лена жила?",
+                "explanation": "This gives the place of the stay. «Лена жила в Минске неделю.»",
+                "explanation_ru": "Здесь сказано, где это было. «Лена жила в Минске неделю.»"
+              },
+              {
+                "id": "q3",
+                "hint": "Read again and find the day when Lena arrived.",
+                "hint_ru": "Прочитайте ещё раз и найдите ответ: какого числа Лена приехала?",
+                "explanation": "This gives the arrival date. «Лена приехала в Минск 19 июля.»",
+                "explanation_ru": "Здесь названа дата приезда. «Лена приехала в Минск 19 июля.»"
+              }
+            ]
+          },
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "scope": "Narrow supported comprehension only. No claim of polished content, independent grammar production or full-level proficiency.",
+            "polished_as_delivered": false,
+            "dimensions": {
+              "russian_case_and_government": "pass_in_this_sample",
+              "timeline_consistency": "pass_in_this_sample",
+              "named_referents": "pass_in_this_sample",
+              "bilingual_question_meaning": "pass_in_this_sample",
+              "unique_supported_answers": "pass_in_this_sample",
+              "distractor_frames": "pass_in_this_sample",
+              "source_quality": "needs_revision"
+            },
+            "findings": [
+              "The final sentence «Это была поездка Лены» adds no useful information and reads as padding.",
+              "The calendar date, Minsk forms and one-week duration are correct; questions and choices are faithful and distinct.",
+              "English lived is understandable, but stayed fits this short visit better."
+            ]
+          }
+        },
+        {
+          "id": "sample-04",
+          "unit_id": "calendar-and-duration-v1",
+          "mode": "listening",
+          "generation_revision": "source-v4",
+          "language_plan_version": "curriculum-language-plan-v3",
+          "meaning_plan_version": "situation-meaning-v1",
+          "provenance": {
+            "request_sha256": "639129b3214de8e41360c77fdf8be5da93a67e4984af21c72f6b2c87cbb3cacd",
+            "unit_sha256": "b7f686cc6b07d47968ad3c09dcc0813027680b2fdfd8264a9da9706e22b13595",
+            "schema_sha256": "7bb4e00969f95325a007040511f7d74adc5210aab7e0d4282b0a1780fac5ea54",
+            "planned_system_messages_sha256": "d16bb85b08d1920ba70f261758a6ac4a77e18aa639c734783e9e95c63d7c7c44",
+            "provider_request_sha256": "624e7e564d4dfb33d34c6b3b10466c56bad62794fefbcf2abe88f44faa458ca4",
+            "system_messages_sha256": "d16bb85b08d1920ba70f261758a6ac4a77e18aa639c734783e9e95c63d7c7c44",
+            "raw_response_sha256": "2e56b11c666971f7476ba63df43eeafbde50b7002c1ce9da88feec42ce660f54"
+          },
+          "frozen_generation_input_sha256": "5474ac9ac066bfe63186b134fc0346baa450db7ee3a506cc002415b11186b889",
+          "frozen_generation_prompt_sha256": "544589c674e2c254471b7b9faf69ae91190bd1711f18ddea7ac660db69847965",
+          "frozen_generation_schema_sha256": "7bb4e00969f95325a007040511f7d74adc5210aab7e0d4282b0a1780fac5ea54",
+          "accepted_document_sha256": null,
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 1992,
+            "completion_tokens": 753,
+            "total_tokens": 2745,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0,
+              "cache_write_tokens": 1989
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 512,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 6.948,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "rejected",
+            "accepted": false,
+            "error_type": "ValueError",
+            "reason": "The selected source must contain exactly one surface form of its new lemma.",
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "title": "Рассказ Нины",
+            "title_en": "Nina’s account",
+            "sentences": [
+              "Лена, ты спрашивала про Анну.",
+              "Анна жила в Петербурге один день.",
+              "Дима тоже жил в Петербурге.",
+              "Вот ответ на твой вопрос."
+            ],
+            "questions": {
+              "f1": {
+                "prompt_ru": "Как долго Анна там жила?",
+                "prompt_en": "How long did Anna stay there?",
+                "sentence_ids": [
+                  "s2"
+                ]
+              },
+              "f2": {
+                "prompt_ru": "Где жила Анна?",
+                "prompt_en": "Where did Anna stay?",
+                "sentence_ids": [
+                  "s2"
+                ]
+              },
+              "f3": {
+                "prompt_ru": "Кто ещё там жил?",
+                "prompt_en": "Who else stayed there?",
+                "sentence_ids": [
+                  "s3"
+                ]
+              }
+            },
+            "new_vocabulary": [
+              {
+                "lemma": "спрашивать",
+                "pos": "VERB",
+                "sentence_id": "s1",
+                "meaning_en": "to ask"
+              },
+              {
+                "lemma": "Петербург",
+                "pos": "NOUN",
+                "sentence_id": "s2",
+                "meaning_en": "St. Petersburg"
+              },
+              {
+                "lemma": "тоже",
+                "pos": "ADVB",
+                "sentence_id": "s3",
+                "meaning_en": "also"
+              }
+            ]
+          },
+          "frozen_meaning_plan": {
+            "version": "situation-meaning-v1",
+            "writer": {
+              "name_ru": "Нина",
+              "name_en": "Nina",
+              "gender": "feminine"
+            },
+            "addressee": {
+              "name_ru": "Лена",
+              "name_en": "Lena",
+              "gender": "feminine"
+            },
+            "participants": [
+              {
+                "name_ru": "Анна",
+                "name_en": "Anna",
+                "gender": "feminine"
+              },
+              {
+                "name_ru": "Дима",
+                "name_en": "Dima",
+                "gender": "masculine"
+              }
+            ],
+            "context_en": "a friend’s completed stay",
+            "purpose_en": "Answer the addressee’s question about where a friend stayed, how long it lasted and who else was there.",
+            "timeline_en": "One completed stay by Anna. State its venue and elapsed duration. Do not add departure dates, later trips or another length of stay. Dima was also there, but has no separate duration or departure. No calendar date is stated or assessed.",
+            "facts": [
+              {
+                "id": "f1",
+                "role": "duration",
+                "subject_name": "Анна",
+                "subject_en": "Anna",
+                "value_ru": "день",
+                "question_frame_ru": "Как долго Анна там жила?",
+                "relation_en": "The elapsed length of this one stay.",
+                "alternative_frames": [
+                  "неделю",
+                  "месяц"
+                ]
+              },
+              {
+                "id": "f2",
+                "role": "location",
+                "subject_name": "Анна",
+                "subject_en": "Anna",
+                "value_ru": "в Петербурге",
+                "question_frame_ru": "Где жила Анна?",
+                "relation_en": "The venue of the same stay.",
+                "alternative_frames": [
+                  "в Омске",
+                  "в Минске"
+                ]
+              },
+              {
+                "id": "f3",
+                "role": "person",
+                "subject_name": "Дима",
+                "subject_en": "Dima",
+                "value_ru": "Дима",
+                "question_frame_ru": "Кто ещё там жил?",
+                "relation_en": "The one companion who also stayed at that venue.",
+                "alternative_frames": [
+                  "Нина",
+                  "Лена"
+                ]
+              }
+            ],
+            "constraints": [
+              "Report these three facts about the named people; do not add other assessable events.",
+              "The writer and addressee are not the people whose actions are being reported.",
+              "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+              "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+            ],
+            "venue_family": "named-city"
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "fact_id": "f1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "день",
+              "distractors_ru": [
+                "неделю",
+                "месяц"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "fact_id": "f2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в Петербурге",
+              "distractors_ru": [
+                "в Омске",
+                "в Минске"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "fact_id": "f3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "Дима",
+              "distractors_ru": [
+                "Нина",
+                "Лена"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            }
+          ],
+          "accepted_server_feedback": null,
+          "assistant_language_review": {
+            "verdict": "needs_revision",
+            "suitable_as_generated_for_this_lesson": false,
+            "scope": "Narrow supported comprehension only. No claim of polished content, independent grammar production or full-level proficiency.",
+            "polished_as_delivered": false,
+            "dimensions": {
+              "russian_case_and_government": "pass_in_this_sample",
+              "timeline_consistency": "pass_in_this_sample",
+              "named_referents": "pass_in_this_sample",
+              "bilingual_question_meaning": "pass_in_this_sample",
+              "unique_supported_answers": "pass_in_this_sample",
+              "distractor_frames": "pass_in_this_sample",
+              "source_quality": "serviceable_source_blocked_by_annotation"
+            },
+            "findings": [
+              "The Russian message and all three question/answer relationships are sound.",
+              "new_vocabulary assigns «тоже» POS=ADVB, but the morphological analyser identifies PRCL; this causes the rejection. It is an annotation defect, not a grammatical defect in the source.",
+              "It must remain rejected as delivered; this review does not erase the invalid metadata."
+            ]
+          }
+        },
+        {
+          "id": "sample-05",
+          "unit_id": "talking-about-topics-v1",
+          "mode": "reading",
+          "generation_revision": "source-v4",
+          "language_plan_version": "curriculum-language-plan-v3",
+          "meaning_plan_version": "situation-meaning-v1",
+          "provenance": {
+            "request_sha256": "7bfc412c139bec1f8ba97d2789051295cd78ef62566e421faed63c8509a93548",
+            "unit_sha256": "a605623239328585947353cb2a0d22fac04691a7895c7883b24b1dc73876f959",
+            "schema_sha256": "7bb4e00969f95325a007040511f7d74adc5210aab7e0d4282b0a1780fac5ea54",
+            "planned_system_messages_sha256": "d16bb85b08d1920ba70f261758a6ac4a77e18aa639c734783e9e95c63d7c7c44",
+            "provider_request_sha256": "86f90939897184b0fdaf841c9c8cea03015bb952bda794f099aa7cb9d95c8d3b",
+            "system_messages_sha256": "d16bb85b08d1920ba70f261758a6ac4a77e18aa639c734783e9e95c63d7c7c44",
+            "raw_response_sha256": "d0384b7491e23959998e1bb96a345d011511809b2eb4143d171b5cdad7bd67ee"
+          },
+          "frozen_generation_input_sha256": "b8cd99ffaa579ff9d182d3fab33ad167331524306f377a10289818988e799f54",
+          "frozen_generation_prompt_sha256": "544589c674e2c254471b7b9faf69ae91190bd1711f18ddea7ac660db69847965",
+          "frozen_generation_schema_sha256": "7bb4e00969f95325a007040511f7d74adc5210aab7e0d4282b0a1780fac5ea54",
+          "accepted_document_sha256": "e4a43e1325e48205e72d227316a9c81e1ebb8835d687c15e66d7f343ea1fd47c",
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 1784,
+            "completion_tokens": 675,
+            "total_tokens": 2459,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0,
+              "cache_write_tokens": 1781
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 485,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 7.26,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "accepted",
+            "accepted": true,
+            "error_type": null,
+            "reason": null,
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "title": "Новости от друзей",
+            "title_en": "News from Friends",
+            "sentences": [
+              "Дима, привет!",
+              "Нина сейчас в кафе и говорит об Анне.",
+              "Лена тоже в кафе и говорит об отдыхе.",
+              "Найди их в кафе."
+            ],
+            "questions": {
+              "f1": {
+                "prompt_ru": "О ком говорит Нина?",
+                "prompt_en": "Who is Nina talking about?",
+                "sentence_ids": [
+                  "s2"
+                ]
+              },
+              "f2": {
+                "prompt_ru": "О чём говорит Лена?",
+                "prompt_en": "What is Lena talking about?",
+                "sentence_ids": [
+                  "s3"
+                ]
+              },
+              "f3": {
+                "prompt_ru": "Где сейчас Нина?",
+                "prompt_en": "Where is Nina now?",
+                "sentence_ids": [
+                  "s2"
+                ]
+              }
+            },
+            "new_vocabulary": [
+              {
+                "lemma": "кафе",
+                "pos": "NOUN",
+                "sentence_id": "s2",
+                "meaning_en": "cafe"
+              }
+            ]
+          },
+          "frozen_meaning_plan": {
+            "version": "situation-meaning-v1",
+            "writer": {
+              "name_ru": "Миша",
+              "name_en": "Misha",
+              "gender": "masculine"
+            },
+            "addressee": {
+              "name_ru": "Дима",
+              "name_en": "Dima",
+              "gender": "masculine"
+            },
+            "participants": [
+              {
+                "name_ru": "Нина",
+                "name_en": "Nina",
+                "gender": "feminine"
+              },
+              {
+                "name_ru": "Лена",
+                "name_en": "Lena",
+                "gender": "feminine"
+              }
+            ],
+            "context_en": "friends sharing news",
+            "purpose_en": "Help the addressee find friends discussing a topic of interest by naming each speaker’s subject and the meeting place.",
+            "timeline_en": "One present conversation at the same venue. Nina talks about one person; Lena talks about one subject. Each speaker has exactly one topic, with no topic changes.",
+            "facts": [
+              {
+                "id": "f1",
+                "role": "topic_person",
+                "subject_name": "Нина",
+                "subject_en": "Nina",
+                "value_ru": "об Анне",
+                "question_frame_ru": "О ком говорит Нина?",
+                "relation_en": "This speaker’s sole topic, a person.",
+                "alternative_frames": [
+                  "о маме",
+                  "о друге"
+                ]
+              },
+              {
+                "id": "f2",
+                "role": "topic_thing",
+                "subject_name": "Лена",
+                "subject_en": "Lena",
+                "value_ru": "об отдыхе",
+                "question_frame_ru": "О чём говорит Лена?",
+                "relation_en": "This other speaker’s sole topic, a thing or subject.",
+                "alternative_frames": [
+                  "о работе",
+                  "о семье"
+                ]
+              },
+              {
+                "id": "f3",
+                "role": "location",
+                "subject_name": "Нина",
+                "subject_en": "Nina",
+                "value_ru": "в кафе",
+                "question_frame_ru": "Где сейчас Нина?",
+                "relation_en": "The place where both people are having this conversation.",
+                "alternative_frames": [
+                  "в парке",
+                  "в библиотеке"
+                ]
+              }
+            ],
+            "constraints": [
+              "Report these three facts about the named people; do not add other assessable events.",
+              "The writer and addressee are not the people whose actions are being reported.",
+              "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+              "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "fact_id": "f1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "об Анне",
+              "distractors_ru": [
+                "о маме",
+                "о друге"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "fact_id": "f2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "об отдыхе",
+              "distractors_ru": [
+                "о работе",
+                "о семье"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "fact_id": "f3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "в кафе",
+              "distractors_ru": [
+                "в парке",
+                "в библиотеке"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            }
+          ],
+          "accepted_server_feedback": {
+            "origin": "Server templates derived from the frozen fact role and verbatim evidence; not generated support text.",
+            "items": [
+              {
+                "id": "q1",
+                "hint": "Read again and find who Nina is talking about.",
+                "hint_ru": "Прочитайте ещё раз и найдите ответ: о ком говорит Нина?",
+                "explanation": "This tells who the speaker is talking about. «Нина сейчас в кафе и говорит об Анне.»",
+                "explanation_ru": "Здесь сказано, о ком говорит человек. «Нина сейчас в кафе и говорит об Анне.»"
+              },
+              {
+                "id": "q2",
+                "hint": "Read again and find what Lena is talking about.",
+                "hint_ru": "Прочитайте ещё раз и найдите ответ: о чём говорит Лена?",
+                "explanation": "This tells what the speaker is talking about. «Лена тоже в кафе и говорит об отдыхе.»",
+                "explanation_ru": "Здесь сказано, о чём говорит человек. «Лена тоже в кафе и говорит об отдыхе.»"
+              },
+              {
+                "id": "q3",
+                "hint": "Read again and find where Nina is now.",
+                "hint_ru": "Прочитайте ещё раз и найдите ответ: где сейчас Нина?",
+                "explanation": "This gives the current location. «Нина сейчас в кафе и говорит об Анне.»",
+                "explanation_ru": "Здесь сказано, где человек сейчас. «Нина сейчас в кафе и говорит об Анне.»"
+              }
+            ]
+          },
+          "assistant_language_review": {
+            "verdict": "serviceable_narrow_comprehension",
+            "suitable_as_generated_for_this_lesson": true,
+            "scope": "Narrow supported comprehension only. No claim of polished content, independent grammar production or full-level proficiency.",
+            "polished_as_delivered": false,
+            "dimensions": {
+              "russian_case_and_government": "pass_in_this_sample",
+              "timeline_consistency": "pass_in_this_sample",
+              "named_referents": "pass_in_this_sample",
+              "bilingual_question_meaning": "pass_in_this_sample",
+              "unique_supported_answers": "pass_in_this_sample",
+              "distractor_frames": "pass_in_this_sample",
+              "source_quality": "serviceable_narrow_comprehension"
+            },
+            "findings": [
+              "Person topic «об Анне», subject topic «об отдыхе» and the café location are distinct and correctly governed.",
+              "The short invitation gives minimal but sufficient context. The language is simple and somewhat formulaic.",
+              "Checked hints now preserve О ком? versus О чём? and do not expose internal source IDs."
+            ]
+          }
+        },
+        {
+          "id": "sample-06",
+          "unit_id": "talking-about-topics-v1",
+          "mode": "listening",
+          "generation_revision": "source-v4",
+          "language_plan_version": "curriculum-language-plan-v3",
+          "meaning_plan_version": "situation-meaning-v1",
+          "provenance": {
+            "request_sha256": "16f9ca66c463cfc0240ccdf3a60a039981109b1617ee1a0b8e735d3c0f4de27d",
+            "unit_sha256": "a605623239328585947353cb2a0d22fac04691a7895c7883b24b1dc73876f959",
+            "schema_sha256": "7bb4e00969f95325a007040511f7d74adc5210aab7e0d4282b0a1780fac5ea54",
+            "planned_system_messages_sha256": "d16bb85b08d1920ba70f261758a6ac4a77e18aa639c734783e9e95c63d7c7c44",
+            "provider_request_sha256": "82b0dde5077ec37d1ae77b2c5add7faa2be26a56819a6b1b1024dcfd7932a3e5",
+            "system_messages_sha256": "d16bb85b08d1920ba70f261758a6ac4a77e18aa639c734783e9e95c63d7c7c44",
+            "raw_response_sha256": "81599c516bcabf97e798f18d10dca040757c53c057b5de417c91b6d5c0918455"
+          },
+          "frozen_generation_input_sha256": "3928c05279a9a976c0bae0f67246e5e199831763d85f932ae1c835f0238fb7c4",
+          "frozen_generation_prompt_sha256": "544589c674e2c254471b7b9faf69ae91190bd1711f18ddea7ac660db69847965",
+          "frozen_generation_schema_sha256": "7bb4e00969f95325a007040511f7d74adc5210aab7e0d4282b0a1780fac5ea54",
+          "accepted_document_sha256": "5394ddde6aebec1caa998e996b44c6a6b1edbcee525668e0c446bab93cdcfe25",
+          "model": {
+            "configured": "gpt-5.6-luna",
+            "returned": "gpt-5.6-luna"
+          },
+          "usage": {
+            "prompt_tokens": 1789,
+            "completion_tokens": 971,
+            "total_tokens": 2760,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "audio_tokens": 0,
+              "cache_write_tokens": 1786
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 746,
+              "audio_tokens": 0
+            }
+          },
+          "duration_seconds": 9.009,
+          "provider_calls": 1,
+          "structural_validation": {
+            "state": "accepted",
+            "accepted": true,
+            "error_type": null,
+            "reason": null,
+            "finish_reason": "stop",
+            "refusal_present": false
+          },
+          "generated_response": {
+            "title": "Сообщение для Димы",
+            "title_en": "A message for Dima",
+            "sentences": [
+              "Дима, это Олег.",
+              "Лена сейчас на работе и говорит о друге.",
+              "Нина говорит об отдыхе.",
+              "Дима, приходи к Лене и Нине."
+            ],
+            "questions": {
+              "f1": {
+                "prompt_ru": "О ком говорит Лена?",
+                "prompt_en": "Who is Lena talking about?",
+                "sentence_ids": [
+                  "s2"
+                ]
+              },
+              "f2": {
+                "prompt_ru": "О чём говорит Нина?",
+                "prompt_en": "What is Nina talking about?",
+                "sentence_ids": [
+                  "s3"
+                ]
+              },
+              "f3": {
+                "prompt_ru": "Где сейчас Лена?",
+                "prompt_en": "Where is Lena now?",
+                "sentence_ids": [
+                  "s2"
+                ]
+              }
+            },
+            "new_vocabulary": [
+              {
+                "lemma": "сейчас",
+                "pos": "ADVB",
+                "sentence_id": "s2",
+                "meaning_en": "now"
+              },
+              {
+                "lemma": "приходить",
+                "pos": "VERB",
+                "sentence_id": "s4",
+                "meaning_en": "to come"
+              }
+            ]
+          },
+          "frozen_meaning_plan": {
+            "version": "situation-meaning-v1",
+            "writer": {
+              "name_ru": "Олег",
+              "name_en": "Oleg",
+              "gender": "masculine"
+            },
+            "addressee": {
+              "name_ru": "Дима",
+              "name_en": "Dima",
+              "gender": "masculine"
+            },
+            "participants": [
+              {
+                "name_ru": "Лена",
+                "name_en": "Lena",
+                "gender": "feminine"
+              },
+              {
+                "name_ru": "Нина",
+                "name_en": "Nina",
+                "gender": "feminine"
+              }
+            ],
+            "context_en": "a conversation with friends",
+            "purpose_en": "Tell the addressee what two friends are each talking about and where they are, so the addressee can join them.",
+            "timeline_en": "One present conversation at the same venue. Lena talks about one person; Nina talks about one subject. Each speaker has exactly one topic, with no topic changes.",
+            "facts": [
+              {
+                "id": "f1",
+                "role": "topic_person",
+                "subject_name": "Лена",
+                "subject_en": "Lena",
+                "value_ru": "о друге",
+                "question_frame_ru": "О ком говорит Лена?",
+                "relation_en": "This speaker’s sole topic, a person.",
+                "alternative_frames": [
+                  "об Анне",
+                  "о маме"
+                ]
+              },
+              {
+                "id": "f2",
+                "role": "topic_thing",
+                "subject_name": "Нина",
+                "subject_en": "Nina",
+                "value_ru": "об отдыхе",
+                "question_frame_ru": "О чём говорит Нина?",
+                "relation_en": "This other speaker’s sole topic, a thing or subject.",
+                "alternative_frames": [
+                  "о работе",
+                  "о книге"
+                ]
+              },
+              {
+                "id": "f3",
+                "role": "location",
+                "subject_name": "Лена",
+                "subject_en": "Lena",
+                "value_ru": "на работе",
+                "question_frame_ru": "Где сейчас Лена?",
+                "relation_en": "The place where both people are having this conversation.",
+                "alternative_frames": [
+                  "в библиотеке",
+                  "в кафе"
+                ]
+              }
+            ],
+            "constraints": [
+              "Report these three facts about the named people; do not add other assessable events.",
+              "The writer and addressee are not the people whose actions are being reported.",
+              "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+              "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+            ]
+          },
+          "answer_keys": [
+            {
+              "question_id": "q1",
+              "fact_id": "f1",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "о друге",
+              "distractors_ru": [
+                "об Анне",
+                "о маме"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            },
+            {
+              "question_id": "q2",
+              "fact_id": "f2",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "об отдыхе",
+              "distractors_ru": [
+                "о работе",
+                "о книге"
+              ],
+              "source_sentence_ids": [
+                "s3"
+              ]
+            },
+            {
+              "question_id": "q3",
+              "fact_id": "f3",
+              "correct_option_id_before_display_shuffle": "a",
+              "correct_ru": "на работе",
+              "distractors_ru": [
+                "в библиотеке",
+                "в кафе"
+              ],
+              "source_sentence_ids": [
+                "s2"
+              ]
+            }
+          ],
+          "accepted_server_feedback": {
+            "origin": "Server templates derived from the frozen fact role and verbatim evidence; not generated support text.",
+            "items": [
+              {
+                "id": "q1",
+                "hint": "Listen again and find who Lena is talking about.",
+                "hint_ru": "Послушайте ещё раз и найдите ответ: о ком говорит Лена?",
+                "explanation": "This tells who the speaker is talking about. «Лена сейчас на работе и говорит о друге.»",
+                "explanation_ru": "Здесь сказано, о ком говорит человек. «Лена сейчас на работе и говорит о друге.»"
+              },
+              {
+                "id": "q2",
+                "hint": "Listen again and find what Nina is talking about.",
+                "hint_ru": "Послушайте ещё раз и найдите ответ: о чём говорит Нина?",
+                "explanation": "This tells what the speaker is talking about. «Нина говорит об отдыхе.»",
+                "explanation_ru": "Здесь сказано, о чём говорит человек. «Нина говорит об отдыхе.»"
+              },
+              {
+                "id": "q3",
+                "hint": "Listen again and find where Lena is now.",
+                "hint_ru": "Послушайте ещё раз и найдите ответ: где сейчас Лена?",
+                "explanation": "This gives the current location. «Лена сейчас на работе и говорит о друге.»",
+                "explanation_ru": "Здесь сказано, где человек сейчас. «Лена сейчас на работе и говорит о друге.»"
+              }
+            ]
+          },
+          "assistant_language_review": {
+            "verdict": "serviceable_narrow_comprehension",
+            "suitable_as_generated_for_this_lesson": true,
+            "scope": "Narrow supported comprehension only. No claim of polished content, independent grammar production or full-level proficiency.",
+            "polished_as_delivered": false,
+            "dimensions": {
+              "russian_case_and_government": "pass_in_this_sample",
+              "timeline_consistency": "pass_in_this_sample",
+              "named_referents": "pass_in_this_sample",
+              "bilingual_question_meaning": "pass_in_this_sample",
+              "unique_supported_answers": "pass_in_this_sample",
+              "distractor_frames": "pass_in_this_sample",
+              "source_quality": "serviceable_narrow_comprehension"
+            },
+            "findings": [
+              "The speaker identifies himself naturally and invites the recipient to join two named people.",
+              "The facts assessed by the questions are explicit and uniquely supported. Nina’s location is implied rather than stated, but no question asks for it.",
+              "The story remains a small comprehension message; this sample does not establish general naturalness or transfer quality."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "planned_samples": 18,
+    "recorded_samples": 18,
+    "provider_calls": 18,
+    "structurally_accepted": 8,
+    "structurally_rejected": 10,
+    "assistant_review_acceptable": 0,
+    "assistant_review_serviceable_narrow_comprehension": 3,
+    "assistant_review_needs_revision": 15,
+    "polished_as_delivered": 0,
+    "excluded_samples": 0,
+    "usage": {
+      "prompt_tokens": 41803,
+      "completion_tokens": 17931,
+      "total_tokens": 59734
+    }
+  },
+  "independent_review": false,
+  "semantic_calibration_completed": false,
+  "proficiency_validated": false,
+  "summary_interpretation": "Original generation results are counted across all three fresh batches. Serviceable narrow comprehension is a qualified assistant verdict, distinct from unqualified acceptance or polished content. Offline replay adds zero provider calls and never replaces an original result."
+}

@@ -1,6 +1,6 @@
 # Curriculum implementation record
 
-Date: 2 October 2026. Scope: the [TORFL delivery plan](torfl-assessment-build-plan.md), P0/P1 foundations and ongoing P2 procedural content.
+Date: 2 October 2026; language-design follow-up updated 3 October. Scope: the [TORFL delivery plan](torfl-assessment-build-plan.md), P0/P1 foundations and ongoing P2 procedural content.
 
 ## Procedural follow-up
 
@@ -33,9 +33,11 @@ history and rebuilds pending novelty guidance for the destination account. See
 
 The source allocations now point these three requirements to the new units. They remain partial, unvalidated practice. Adding a unit changes neither Journey passes nor a learner’s level. Sixty retained `g1` packs have unchanged identities and payloads.
 
-New unit reading/listening uses a generated situation tied to the unit’s objectives, vocabulary, stored forms and declared facts. Calendar requests also supply checked written and spoken dates. Accepted text is saved before audio preparation; retries retain the text and selected voice. The immutable task and recording then open in the existing player. Preparation, ownership, retries, media integrity, backups and imports have automated coverage. Browser playback completed with an actual generated recording.
+New unit reading/listening uses a generated situation tied to the unit’s objectives, vocabulary, stored forms and declared facts. The detailed calendar plan tests written dates in reading and elapsed duration in listening; it does not assume that spoken ordinal dates have been taught. Accepted text is saved before audio preparation; retries retain the text and selected voice. The immutable task and recording then open in the existing player. Preparation, ownership, retries, media integrity, backups and imports have automated coverage. Browser playback completed with an actual generated recording in the earlier implementation pass.
 
-The bounded provider check found only one manually acceptable exercise in seven calls across prompt/schema revisions. A structurally accepted but grammatically wrong date prompted a new validator. The final input-fact and date refinements pass regression tests but have not had another live sample. Generation reliability and linguistic quality therefore remain release work; successful software tests are not proof of good Russian. See the [procedural implementation record](procedural-content.md#current-reading-and-listening-follow-up) for the measured checks. This follow-up has not been deployed.
+The initial provider check found only one manually acceptable exercise in seven calls. A further eighteen calls tested language-specific plans for location/destination, dates/duration and conversation topics. These plans establish participants, related facts, timelines and full governed answer phrases before the model writes. Comprehension alternatives represent different meanings in grammatical Russian; they do not test case endings through deliberately broken options. Hints and explanations now use checked guidance and exact source quotes.
+
+The last six-call batch passed five structural checks. The Russian forms and answer relationships improved, but some messages still contain filler or an awkward narrative voice. One failed vocabulary annotation was rejected. This is measurable progress, not proof of natural Russian or reliable whole-catalogue generation. The final removal of a sentence-count minimum has regression coverage but no fresh provider evaluation. See the [language-design evaluation](procedural-content.md#language-design-follow-up), including all failed samples. The other fourteen units still need equivalent linguistic plans, and the player still needs normal word lookup and saving for generated passages. This follow-up has not been deployed.
 
 ## Delivered in the repository
 
@@ -124,7 +126,7 @@ No production deployment is implied by this record. Deployment and post-deployme
 | --- | --- |
 | P0 | Source-edition reconciliation beyond the existing mapping; audible browser/device checks and pronunciation review. Existing recordings are retained. New audio should be created on demand, not through a required stock batch. |
 | P1 | Audible review on target devices; a real microphone walkthrough; evaluate marking on natural learner speech, including ASR disagreement; test the full path with learners. The automated local/hosted walkthrough and bounded synthetic-audio check are complete. |
-| P2 | Improve and measure generated unit reading/listening acceptance and language quality before rollout; the persistent preparation and audio path is implemented. Fill the remaining A1 teaching, lexical-class and original-production gaps; extend connected sequences where useful. The new date/duration and о/об units supply partial practice, not whole-level coverage. |
+| P2 | Improve generated prose and prerequisite control; measure fresh seeds and add linguistic plans for the remaining fourteen units. Three detailed plans and checked feedback are implemented and evaluated, with quality gaps recorded. Connect passage vocabulary to the existing lookup and enrichment pipeline. Fill remaining A1 teaching, lexical-class and original-production gaps. Partial practice does not establish whole-level coverage. |
 | P3 | Define and author a broader assessment blueprint. Compare marking against independent judgements and held-out responses. Validate replay, retakes, task breadth and any proposed pass policy. |
 | P4 | Author and evaluate A2, B1 and B2 teaching and five-domain assessments. Their requirement allocations are plans, not delivered courses. |
 

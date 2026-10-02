@@ -1,6 +1,6 @@
 # Procedural content
 
-Implementation record, 2 October 2026. The current follow-up is repository work; deployment and live evaluation are recorded separately.
+Implementation record, 2 October 2026; language-design follow-up updated 3 October. The current follow-up is repository work; deployment and live evaluation are recorded separately.
 
 Russian Arcade uses fixed learning objectives and variable practice. A new seed must change the language problem or situation. Shuffling answers, changing a name or replaying a saved question does not establish novelty.
 
@@ -58,9 +58,41 @@ A duplicate response does not trigger an unbounded paid retry. The learner can e
 
 ## Generated reading and listening
 
-Each unit offers a new reading or listening situation. The request includes its level, taught constructions, examples, requirement references, familiar lemmas and their stored forms. It also includes recent situations to discourage repetition. A small amount of new vocabulary is allowed; saving a word still uses the normal enrichment pipeline.
+### Linguistic design
 
-The model returns a short message, explicit facts and three questions. Questions must point to source sentences and use an answer stated in that evidence. Checks reject missing facts, unsupported answers, repeated options, recent duplicates and malformed language fields. Unit-specific checks also reject known errors such as a cardinal number used as an ordinal calendar date. These checks constrain generation; they do not prove that every sentence is natural or every distractor is unambiguous.
+Begin with a communicative need and the Russian needed to express it. A level label, a topic and valid JSON do not establish that an exercise is suitable. The learner needs prior teaching of the relevant meaning, construction and supporting vocabulary. Grammar examples in a message provide context for comprehension; choosing its answer does not demonstrate that the learner can produce that grammar independently.
+
+The first three detailed generation plans distinguish these uses:
+
+| Unit | What the learner needs to understand | Language and answer design |
+| --- | --- | --- |
+| Where and where to | Find someone now, then follow their next destination or meeting arrangement. | Keep current location and destination explicit. Где? takes a location phrase such as в школе; куда? takes a destination such as в школу. A comprehension question offers different possible places in the same appropriate form. Selecting between wrong endings belongs to the separate grammar exercise. |
+| Dates and duration | Identify an event's date in a written message, or understand how long an activity lasted. | Когда? and как долго? ask for different information. Date distractors are dates; duration distractors are lengths of time. The current lesson teaches written dates, so generated listening must not assume knowledge of spoken ordinal dates. |
+| Talking about people and interests | Work out who or what someone is talking or thinking about. | Use о/об + prepositional as a meaningful relationship. О ком? needs a person; о чём? needs a topic. Give a complete natural answer phrase, not a dictionary headword or a noun ending detached from its preposition. A location and a topic must not become interchangeable because both can use the prepositional case. |
+
+Supporting grammar should be simple enough that it does not become an unannounced second lesson. A dates exercise should not require a chain of unfamiliar perfective future forms merely to understand the story. A question needs a clear referent and time frame. Its wrong options must be plausible alternatives that the message rules out; two descriptions of the same possible place are not distinct answers.
+
+Generation should vary the communicative situation, participants, information and outcome within these rules. It must not select an unrelated setting and then force the target ending into it. Checked word forms are inputs to the writer, not a bank of complete stories. Learner vocabulary remains useful context, rather than a closed list of the only words permitted.
+
+Software validation must be described narrowly. Quoting a source sentence proves where text came from; it does not prove that the sentence illustrates its claimed construction. Morphological checks can confirm selected case frames but cannot establish all syntactic relationships or naturalness. Review the complete Russian message and every question after structural acceptance.
+
+### Meaning before wording
+
+For the three detailed plans, generation begins with named participants and three related facts. A location message gives a person's current place, their one next destination and another person's current place. A calendar message concerns one stay. A conversation report keeps each speaker attached to their own topic. The seed varies these facts before the model writes the message.
+
+The writer receives a concise brief rather than the full internal requirement catalogue. It supplies the message, questions, English question support and source references. The saved plan supplies answer values and alternatives. Code assigns answer keys and resolves the source references. A question must identify the relevant person and event. A wrong option can occur elsewhere in the message: recognising who said or did something is part of comprehension.
+
+Hints and feedback follow the question's meaning. They distinguish a current place from a past stay, a date from a duration, and a person from a conversation topic. Feedback quotes the actual source. The model does not need to invent a grammar explanation for every comprehension answer. These checked patterns support generated messages; they are not a stock story bank.
+
+Short messages are permitted when they convey the required information. Extra destinations, contradictory dates, repeated facts and phrases such as “this is my short plan” do not make a better exercise. The model still has to write naturally; freezing facts reduces opportunities for contradiction but does not prove that the prose expresses them faithfully.
+
+The request records the plan, prompt, response schema and writer-input hashes. New generation revisions retain the older adapters needed to resume saved requests and read accepted documents. Changing a prompt does not silently rewrite a saved activity.
+
+### Preparation and persistence
+
+Each unit offers a new reading or listening situation. The request includes its level, taught constructions, examples, requirement references, familiar lemmas and their stored forms. It also includes recent situations to discourage repetition. A small amount of new vocabulary is allowed. These tasks currently retain contextual vocabulary in their saved generation document; the reading/listening player does not yet expose the normal word lookup and enrichment actions. That integration remains required, and must not bypass the existing vocabulary pipeline.
+
+The model returns a short message and three questions. The detailed plans already contain the facts; the other units still ask the model to select them. Questions must point to source sentences and use an answer stated in that evidence. Checks reject missing facts, unsupported answers, repeated options, recent duplicates and malformed language fields. Unit-specific checks also reject known errors such as a cardinal number used as an ordinal calendar date. These checks constrain generation; they do not prove that every sentence is natural or every distractor is unambiguous. The three-entry vocabulary limit bounds annotations, not every unfamiliar word in a passage; lexical difficulty still needs review.
 
 Accepted text is saved before audio starts. A listening task then selects a voice from the existing configured pool, freezes that choice and creates its recording. An audio retry uses the same text and voice. The player receives the saved task only after publication succeeds. Reading has a separate passage area beside its questions on wide screens and above them on narrow screens.
 
@@ -98,22 +130,41 @@ After final language and feedback corrections, 42 grammar, learning and evidence
 
 Browser checks used an isolated sample workspace with providers disabled. They covered generated six-question practice, a correct saved answer, Scene layouts at desktop and 375px width in English and Russian, Speaking mode changes, refreshed situations and a resumed legacy conversation. These checks verify operation and layout; no natural learner speech or pronunciation review was performed in this pass.
 
-### Current reading and listening follow-up
+### Initial reading and listening follow-up
 
 The backend regression run exercised 388 tests. It found one outdated review-fixture expectation after adding the two units. Fixture v6 now preserves all earlier cases and adds their coverage; 23 focused packet, ingestion and unit tests passed after that correction. The final focused backend run passed 159 tests. A further 43-test run covered the shared-recording playback correction. The final full UI suite passed 833 tests across 63 files. TypeScript and the production build passed; the source scan found no credentials.
 
-Seven bounded text-provider calls tested the evolving generation contract with the configured model. One produced a manually acceptable exercise. Other responses were rejected for grounding, length or language-field errors; one structurally accepted response used the wrong Russian date form and led to an additional validator. This is a development finding, not an acceptable production success-rate claim. The final date guard and more explicit input facts still need a fresh measured provider evaluation.
+Seven bounded text-provider calls tested the evolving generation contract with the configured model. One produced a manually acceptable exercise. Other responses were rejected for grounding, length or language-field errors; one structurally accepted response used the wrong Russian date form and led to an additional validator. These were development findings. The subsequent language-design evaluation is recorded below.
 
 The acceptable listening message produced a valid 26.053-second recording through the existing speech provider. In an isolated browser workspace, that file played to its real `ended` event and all three answers were saved through completion. A playback bug found during that check was fixed: listening once covers later questions about the identical recording and transcript in the same session, without counting as help. Different recordings and sessions retain their own playback requirement. Reading was checked at desktop and narrow widths, including passage layout and answer progression. These checks establish playback and UI behaviour, not an audible pronunciation review. Test captures and temporary workspaces are outside the repository; no personal or production data was changed.
 
 No production deployment was performed in this follow-up.
 
+### Language-design follow-up
+
+Three further batches tested the location/destination, calendar/duration and conversation-topic units in both reading and listening. Each case made one text call, with no automatic retry or audio generation. The configured model remained `gpt-5.6-luna`. The [evaluation record](validation/curriculum-situations-2026-10-02.json) retains all responses, failures, frozen facts, usage and provenance. It separates software acceptance from assistant language review; it is not independent review or learner calibration.
+
+| Contract | Structural acceptance | What the samples established |
+| --- | --- | --- |
+| Source v2 | 2 of 6 | Model-selected facts allowed ambiguous references, competing destinations and an inconsistent timeline. Even accepted text needed revision. |
+| Source v3 | 1 of 6 | Preselected related facts improved forms and timelines. Generated feedback leaked internal source IDs; a hint confused «О ком?» with «О чём?». A short, complete message also failed the word minimum. |
+| Source v4 | 5 of 6 | Checked feedback removed those metadata and hint errors. One vocabulary annotation failed source-form validation. Several messages still contain padding, abrupt transitions or weak conversational purpose. |
+
+These are eighteen development calls across changing contracts, not a controlled comparison or a production success-rate estimate. The final batch does not establish catalogue-wide reliability. Its messages remain available for review, including the five that passed software checks.
+
+The final request no longer imposes a four-sentence minimum on these three units. Three related facts are still required. This relaxation follows the last live batch and has software coverage; its effect on newly generated prose has not been measured. New checks also bind supporting questions to their meaning, so a location answer cannot be accepted for «С кем?». Earlier saved request contracts and accepted documents retain their original prompts, bounds and identities.
+
+The final backend regression run passed 124 tests covering generation, linguistic plans, the evaluation command, saved tasks, preparation, audio and account imports. Separate compatibility checks retained 34 legacy documents/packs and the captured earlier prompt/schema contracts. The source scan found no credentials. These checks verify the implemented boundaries, not general Russian fluency or the quality of every generated lesson.
+
+This follow-up changes generation and validation only. It does not change the player, model, credentials, randomized voice pool, allowances, rewards or personal data. Audio still starts after text acceptance. There was no deployment or new audio/browser check in this language-design pass.
+
 ## Remaining work
 
 1. Extend rule coverage and checked lexical classes where the source inventory still has gaps. Calendar dates, duration and simple о/об topics now have partial teaching and generated practice; they do not close the whole A1 inventory. Add teaching before requiring new constructions.
-2. Improve and measure generated reading/listening reliability across the unit catalogue. The preparation, persistence, private audio and player path is implemented; the small provider sample exposed unacceptable rejection frequency and language-quality gaps. Supply checked grammatical facts, test question ambiguity and record acceptance before rollout. A stock-recording batch is not a release requirement. Preserve existing authored recordings and uploaded lesson revisions.
-3. Extend original production and connected sequences beyond the current location lesson. Generating another controlled question does not substitute for original writing or speech.
-4. Expand assessment forms under a five-domain blueprint. Keep assessment exposure separate from ordinary practice novelty. Do not treat random variation as calibrated exam difficulty.
-5. Compare generated Russian and marking against held-out responses and natural learner recordings. Automated morphology and software tests cannot establish pronunciation quality or exam readiness.
+2. Improve generated prose and prerequisite control before rollout. The three detailed plans now bind people, events and governed phrases before generation, but naturalness, unfamiliar supporting language and semantic ambiguity still need evaluation. The other fourteen A1 units retain the broader generation contract and need their own linguistic plans. Evaluate fresh seeds and familiar-vocabulary inputs; do not report only structural acceptance. A stock-recording batch is not a release requirement.
+3. Connect new words in generated passages to the existing lookup, mnemonic and vocabulary-enrichment pipeline. Show contextual help without turning a comprehension task into a list of dictionary meanings. Preserve existing authored recordings and uploaded lesson revisions.
+4. Extend original production and connected sequences beyond the current location lesson. Generating another controlled question does not substitute for original writing or speech.
+5. Expand assessment forms under a five-domain blueprint. Keep assessment exposure separate from ordinary practice novelty. Do not treat random variation as calibrated exam difficulty.
+6. Compare generated Russian and marking against held-out responses and natural learner recordings. Automated morphology and software tests cannot establish pronunciation quality or exam readiness.
 
 The application remains standalone. These are content and product-validation tasks for maintainers, not requirements for learners to find a tutor.
