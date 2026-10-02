@@ -48,6 +48,29 @@ LEXICAL_FORMS = {}
 CONSTRUCTIONS = {}
 
 
+def surface_form(key, gender='masc'):
+    """Realize the checked motion paradigm for a singular actor.
+
+    Present and future verbs do not agree in gender. In the past, идти and
+    prefixed derivatives have irregular feminine stems; do not append -а to
+    an arbitrary masculine string. This also serves the procedural generator.
+    """
+    if gender not in ('masc', 'femn'):
+        raise ValueError('A singular masculine or feminine actor is required.')
+    text = FORMS[key][1]
+    if gender == 'masc' or MORPHOLOGY[key][1].get('tense') != 'past':
+        return text
+    irregular = {'шёл': 'шла', 'пришёл': 'пришла', 'ушёл': 'ушла',
+                 'вошёл': 'вошла', 'вышел': 'вышла', 'подошёл': 'подошла',
+                 'отошёл': 'отошла', 'прошёл': 'прошла', 'перешёл': 'перешла',
+                 'обошёл': 'обошла', 'пошёл': 'пошла'}
+    if text in irregular:
+        return irregular[text]
+    if not text.endswith('л'):
+        raise ValueError('An unlisted past form needs an explicit paradigm.')
+    return text + 'а'
+
+
 def _form(key, lemma, text, meaning, *, pos='VERB', lexical_form=None, construction=None, **grammar):
     FORMS[key] = (lemma, text, meaning)
     MORPHOLOGY[key] = (pos, grammar)

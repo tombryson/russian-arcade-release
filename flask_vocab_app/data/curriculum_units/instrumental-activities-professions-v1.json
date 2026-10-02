@@ -1,0 +1,359 @@
+{
+  "id": "instrumental-activities-professions-v1",
+  "level": "A1",
+  "topic_id": "daily_activities",
+  "title": "Activities and future professions",
+  "title_ru": "Занятия и будущие профессии",
+  "summary": "Name an activity and talk about a future profession.",
+  "summary_ru": "Назовите своё занятие и будущую профессию.",
+  "practice_summary": "Distinguish activities, companions and future professions.",
+  "practice_summary_ru": "Различайте занятия, спутников и будущие профессии.",
+  "review_status": "application-authored; automated contract and morphology checks; independent language evaluation pending",
+  "groups": [
+    {
+      "title": "An activity after заниматься",
+      "title_ru": "Заниматься чем",
+      "note": "Use the person words from “Who is doing what?”. Заниматься means to study or practise an activity. Keep -ся/-сь as part of the verb. The activity takes the instrumental, without с: спорт → спортом, музыка → музыкой, русский язык → русским языком. Both words change in the last phrase.",
+      "note_ru": "Заниматься называет учёбу или регулярное занятие. Постфикс -ся/-сь — часть глагола. Название занятия ставится в творительном падеже без с: спортом, музыкой, русским языком. В последнем сочетании изменяются оба слова.",
+      "examples": [
+        {
+          "ru": "Я занимаюсь спортом.",
+          "en": "I do sport."
+        },
+        {
+          "ru": "Ты занимаешься музыкой. Она занимается русским языком.",
+          "en": "You study music. She studies Russian."
+        },
+        {
+          "ru": "Мы занимаемся музыкой. Вы занимаетесь спортом. Они занимаются русским языком.",
+          "en": "We study music. You do sport. They study Russian."
+        }
+      ]
+    },
+    {
+      "title": "A future profession after быть",
+      "title_ru": "Буду, будешь, будет + профессия",
+      "note": "For a current profession, say Я врач — I am a doctor. For a future profession, practise Я буду врачом — I will be a doctor. Use the instrumental after this future form of быть: врачом, учителем, инженером. Я буду, ты будешь, он/она будет. Врач and инженер can describe women as well as men.",
+      "note_ru": "О профессии сейчас: Я врач. О будущей профессии: Я буду врачом. В этой конструкции с будущим временем быть название профессии ставится в творительном падеже: врачом, учителем, инженером. Я буду, ты будешь, он/она будет. Врач и инженер могут обозначать и женщину, и мужчину.",
+      "examples": [
+        {
+          "ru": "Сейчас я ученик. В будущем я буду учителем.",
+          "en": "I am a school pupil now. In the future I will be a teacher."
+        },
+        {
+          "ru": "Ты будешь врачом. Анна будет инженером.",
+          "en": "You will be a doctor. Anna will be an engineer."
+        },
+        {
+          "ru": "Он будет учителем. Я буду врачом.",
+          "en": "He will be a teacher. I will be a doctor."
+        }
+      ]
+    },
+    {
+      "title": "The same case, different relationships",
+      "title_ru": "Один падеж, разные связи",
+      "note": "The verb and meaning decide the pattern. Я занимаюсь музыкой names an activity. Я занимаюсь с учителем names a companion: с + instrumental. Я буду учителем names a future profession, without с. Учитель — teacher; врач — doctor; инженер — engineer; ученик — school pupil; сейчас — now; в будущем — in the future.",
+      "note_ru": "Глагол и смысл определяют конструкцию. Я занимаюсь музыкой — название занятия. Я занимаюсь с учителем — с кем: с + творительный падеж. Я буду учителем — будущая профессия, без с. Сейчас и в будущем помогают различить время.",
+      "examples": [
+        {
+          "ru": "Я занимаюсь музыкой с учителем.",
+          "en": "I study music with a teacher."
+        },
+        {
+          "ru": "Сейчас Анна врач. Нина в будущем будет врачом.",
+          "en": "Anna is a doctor now. Nina will be a doctor in the future."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "activity-sport",
+      "prompt": "Я занимаюсь [...].\nспорт — sport",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "спорт"
+        },
+        {
+          "id": "option-1",
+          "text": "спортом"
+        },
+        {
+          "id": "option-2",
+          "text": "спорта"
+        }
+      ],
+      "answer": "option-1",
+      "hint": "Заниматься takes an activity in the instrumental, without с.",
+      "explanation": "Спортом is the instrumental of спорт. The activity follows занимаюсь directly.",
+      "requirement_id": "a1.language.instrumental-activity",
+      "expectation": "Choose спортом as the activity governed by supplied занимаюсь."
+    },
+    {
+      "id": "activity-music",
+      "prompt": "Она занимается [...].\nмузыка — music",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "музыку"
+        },
+        {
+          "id": "option-1",
+          "text": "музыке"
+        },
+        {
+          "id": "option-2",
+          "text": "музыкой"
+        }
+      ],
+      "answer": "option-2",
+      "hint": "Choose the activity form after занимается.",
+      "explanation": "Музыкой names the activity after занимается. There is no preposition с in this pattern.",
+      "requirement_id": "a1.language.instrumental-activity",
+      "expectation": "Choose музыкой as the activity governed by supplied занимается."
+    },
+    {
+      "id": "activity-language",
+      "prompt": "Мы занимаемся [...].\nрусский язык — Russian language",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "русский язык"
+        },
+        {
+          "id": "option-1",
+          "text": "русским языком"
+        },
+        {
+          "id": "option-2",
+          "text": "русского языка"
+        }
+      ],
+      "answer": "option-1",
+      "hint": "Both words agree in the instrumental.",
+      "explanation": "Русским языком has an instrumental adjective and noun.",
+      "requirement_id": "a1.language.instrumental-activity",
+      "expectation": "Choose the taught two-word instrumental phrase русским языком, not the nominative or genitive."
+    },
+    {
+      "id": "future-doctor",
+      "prompt": "В будущем я буду [...].\nврач — doctor",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "врача"
+        },
+        {
+          "id": "option-1",
+          "text": "врач"
+        },
+        {
+          "id": "option-2",
+          "text": "врачом"
+        }
+      ],
+      "answer": "option-2",
+      "hint": "Use the taught future-profession pattern буду + instrumental.",
+      "explanation": "Буду врачом describes a future profession. Я врач describes a current profession.",
+      "requirement_id": "a1.language.instrumental-profession",
+      "expectation": "Choose врачом in the taught future-profession construction with буду."
+    },
+    {
+      "id": "future-teacher",
+      "prompt": "Ты будешь [...].\nучитель — teacher",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "учителем"
+        },
+        {
+          "id": "option-1",
+          "text": "учителю"
+        },
+        {
+          "id": "option-2",
+          "text": "учителя"
+        }
+      ],
+      "answer": "option-0",
+      "hint": "The future profession after будешь takes the instrumental.",
+      "explanation": "Учителем is the instrumental form of учитель.",
+      "requirement_id": "a1.language.instrumental-profession",
+      "expectation": "Choose учителем as a future profession after supplied будешь."
+    },
+    {
+      "id": "future-engineer",
+      "prompt": "Анна будет [...].\nинженер — engineer",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "инженера"
+        },
+        {
+          "id": "option-1",
+          "text": "инженером"
+        },
+        {
+          "id": "option-2",
+          "text": "инженеру"
+        }
+      ],
+      "answer": "option-1",
+      "hint": "Инженер can refer to Anna; the future profession takes the instrumental.",
+      "explanation": "Анна будет инженером is natural. The professional noun does not need to become feminine just because Anna is a woman.",
+      "requirement_id": "a1.language.instrumental-profession",
+      "expectation": "Choose инженером after будет, accepting the professional noun for a female person."
+    },
+    {
+      "id": "reading-now-future",
+      "prompt": "Анна: «Сейчас я врач». Нина: «В будущем я буду врачом».\nКто говорит о своей профессии сейчас?\nсейчас — now; в будущем — in the future; о своей профессии — about their own profession",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "Анна"
+        },
+        {
+          "id": "option-1",
+          "text": "Нина"
+        },
+        {
+          "id": "option-2",
+          "text": "Анна и Нина"
+        }
+      ],
+      "answer": "option-0",
+      "hint": "Separate the current profession from the future one.",
+      "explanation": "Anna says she is a doctor now. Nina describes her future profession.",
+      "requirement_id": "a1.reading.practical-information",
+      "expectation": "Identify a current profession versus a future plan in a supplied short exchange. This is reading recognition, not independent grammatical production."
+    },
+    {
+      "id": "reading-activity-companion",
+      "prompt": "Олег: «Я занимаюсь музыкой с учителем».\nЧем занимается Олег?\nЧем? — What activity?",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "Музыкой"
+        },
+        {
+          "id": "option-1",
+          "text": "С учителем"
+        },
+        {
+          "id": "option-2",
+          "text": "Учителем"
+        }
+      ],
+      "answer": "option-0",
+      "hint": "Чем asks for the activity. С кем asks who is with him.",
+      "explanation": "Музыкой names Oleg’s activity. С учителем names the person with him.",
+      "requirement_id": "a1.language.instrumental-activity",
+      "expectation": "Identify the activity governed by заниматься and distinguish it from a companion and a profession."
+    }
+  ],
+  "forms": {
+    "version": "instrumental-activities-professions-forms-v1",
+    "title": "Use the instrumental",
+    "title_ru": "Употребите творительный падеж",
+    "questions": [
+      {
+        "id": "form-sport",
+        "prompt": "Ты занимаешься ___. (спорт — sport)\nВпиши форму слова.",
+        "answer": "спортом",
+        "accepted_answers": [
+          "спортом"
+        ],
+        "hint": "Заниматься governs the instrumental: спортом.",
+        "explanation": "Заниматься governs the instrumental: спортом.",
+        "requirement_id": "a1.language.instrumental-activity",
+        "expectation": "Produce the taught instrumental form in the supplied construction. This is controlled production, not independent writing or a proficiency decision."
+      },
+      {
+        "id": "form-music",
+        "prompt": "Мы занимаемся ___. (музыка — music)\nВпиши форму слова.",
+        "answer": "музыкой",
+        "accepted_answers": [
+          "музыкой",
+          "музыкою"
+        ],
+        "hint": "Музыкой is the usual instrumental. Музыкою is also a correct, less usual form.",
+        "explanation": "Музыкой is the usual instrumental. Музыкою is also a correct, less usual form.",
+        "requirement_id": "a1.language.instrumental-activity",
+        "expectation": "Produce the taught instrumental form in the supplied construction. This is controlled production, not independent writing or a proficiency decision."
+      },
+      {
+        "id": "form-language",
+        "prompt": "Они занимаются ___. (русский язык — Russian language)\nВпиши оба слова.",
+        "answer": "русским языком",
+        "accepted_answers": [
+          "русским языком"
+        ],
+        "hint": "Both words change: русский язык → русским языком.",
+        "explanation": "Both words change: русский язык → русским языком.",
+        "requirement_id": "a1.language.instrumental-activity",
+        "expectation": "Produce the taught instrumental form in the supplied construction. This is controlled production, not independent writing or a proficiency decision."
+      },
+      {
+        "id": "form-doctor",
+        "prompt": "Нина будет ___. (врач — doctor)\nВпиши форму слова.",
+        "answer": "врачом",
+        "accepted_answers": [
+          "врачом"
+        ],
+        "hint": "A future profession after будет uses the instrumental: врачом.",
+        "explanation": "A future profession after будет uses the instrumental: врачом.",
+        "requirement_id": "a1.language.instrumental-profession",
+        "expectation": "Produce the taught instrumental form in the supplied construction. This is controlled production, not independent writing or a proficiency decision."
+      },
+      {
+        "id": "form-teacher",
+        "prompt": "Я буду ___. (учитель — teacher)\nВпиши форму слова.",
+        "answer": "учителем",
+        "accepted_answers": [
+          "учителем"
+        ],
+        "hint": "Учитель has instrumental учителем. The soft sign disappears before -ем.",
+        "explanation": "Учитель has instrumental учителем. The soft sign disappears before -ем.",
+        "requirement_id": "a1.language.instrumental-profession",
+        "expectation": "Produce the taught instrumental form in the supplied construction. This is controlled production, not independent writing or a proficiency decision."
+      },
+      {
+        "id": "form-engineer",
+        "prompt": "Ты будешь ___. (инженер — engineer)\nВпиши форму слова.",
+        "answer": "инженером",
+        "accepted_answers": [
+          "инженером"
+        ],
+        "hint": "Use the taught future-profession form: инженером.",
+        "explanation": "Use the taught future-profession form: инженером.",
+        "requirement_id": "a1.language.instrumental-profession",
+        "expectation": "Produce the taught instrumental form in the supplied construction. This is controlled production, not independent writing or a proficiency decision."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Твои занятия и планы",
+    "title_en": "Your activities and plans",
+    "task": "Напиши короткое сообщение новому знакомому. Расскажи об одном своём занятии сейчас и о профессии, которая тебя интересует в будущем. Можно придумать героя и его планы. Если твоя профессия не изменится, скажи об этом.",
+    "task_en": "Write a short message to someone you have just met. Say what activity you study or practise now and which profession interests you for the future. You may invent a person and their plans. If you plan to keep your current profession, you can say that instead.",
+    "required_words": [
+      "занятие",
+      "будущее",
+      "профессия"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.connected-description",
+    "id": "activities-and-career-message",
+    "expectation": "Communicate one current activity and one future profession or intention to continue a current profession in an original short message. Accept invented identities, natural paraphrases and any plausible occupation. Do not require the suggested words, заниматься, быть, a particular case or a word count. Grammar feedback is separate; this criterion does not certify independent instrumental-case control."
+  },
+  "writing_summary": "Describe an activity now and a plan for future work.",
+  "writing_summary_ru": "Расскажите о занятии сейчас и о планах на работу в будущем.",
+  "speaking_href": "/#speaking/scenario/meet-someone?level=A1",
+  "speaking_title": "Meeting people",
+  "speaking_title_ru": "Знакомство",
+  "speaking_summary": "Talk about your interests in a separate conversation.",
+  "speaking_summary_ru": "Поговорите об интересах в отдельном разговоре."
+}

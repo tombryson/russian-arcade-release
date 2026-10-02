@@ -55,6 +55,23 @@ class RadioGameFlowTests(unittest.TestCase):
         self.assertTrue(state['broadcast']['listened'])
         return self.post(self.root+'/quiz')
 
+    def test_new_programme_uses_recent_unsaved_words_and_repeated_script_stops_before_audio(self):
+        first = self.prepare()
+        self.assertEqual(len(self.media.calls), 1)
+        state = self.post('/api/v1/games/radio/start', {'request_id': identifier(), 'new_game': True})
+        endpoint = '/api/v1/games/sessions/' + state['id'] + '/prepare'
+        failed = self.post(endpoint)
+        self.assertEqual(failed['preparation']['status'], 'failed')
+        request = self.text.calls[-1]
+        self.assertIn('ярмарка', request['known_lemmas'])
+        self.assertTrue(request['content_variation']['recent_examples'])
+        self.assertNotIn('_owner_scope', json.dumps(request))
+        self.assertEqual(len(self.text.calls), 2)
+        self.assertEqual(len(self.media.calls), 1)
+        self.post(endpoint)
+        self.assertEqual(len(self.text.calls), 2)
+        self.assertEqual(self.client.get('/api/v1/games/sessions/' + first['id']).json['phase'], 'listening')
+
     def finish(self, hints=False, transcript=False):
         if transcript:
             self.post(self.root+'/transcript', {'round_id': 'broadcast'})

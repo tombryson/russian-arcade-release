@@ -28,7 +28,7 @@ class SentenceService:
     def __init__(self, db_path, openai_service, elevenlabs_service, api_key, media_dir=None, config=None):
         self.db_path = db_path
         self.config = config_snapshot(config)
-        self.client = LazyService('OpenAI client', lambda: openai_client(config=self.config, api_key=api_key, timeout=60.0))
+        self.client = LazyService('OpenAI client', lambda: openai_client(config=self.config, api_key=api_key, timeout=60.0, max_retries=0))
         self.elevenlabs_service = elevenlabs_service
         self.media_dir = media_dir or os.path.join(os.path.dirname(__file__), '..', 'static', 'media')
         os.makedirs(self.media_dir, exist_ok=True)
@@ -59,10 +59,12 @@ class SentenceService:
             raise TranslationUnavailable('Translation provider unavailable') from error
 
     def get_sentence(self, topic, difficulty):
+        from services.content_variation import generation_spec, provider_context, variation_instruction, record_generated
         level = normalize_level(difficulty, legacy='translation')
         if not isinstance(topic, str) or not topic or len(topic) > 100 or any(ord(char) < 32 for char in topic):
             raise ValueError('Invalid topic or level')
         candidates = translation_candidates(level)
+        variation = generation_spec(getattr(self, 'db_path', None), activity='translation', level=level, topic=topic)
         if candidates and topic != 'any' and topic not in TOPICS:
             raise ValueError('Use a canonical translation topic.')
         properties = {key: {'type': 'string'} for key in ('sentence', 'english')}
@@ -89,8 +91,9 @@ Follow the requested CEFR task level and curriculum grammar focus. Choose one us
 not every objective at once. Vocabulary examples guide the topic; natural related words are welcome.
 For advanced levels, express a nuanced idea naturally without making the sentence artificially long.
 Return Russian in sentence, English in english.
-For topic any choose a familiar everyday situation. Do not add labels, explanations or Markdown.''' + focus_prompt,
+For topic any choose a familiar everyday situation. Do not add labels, explanations or Markdown.''' + focus_prompt + variation_instruction(),
             {'topic': topic, 'level': level,
+             'content_variation': provider_context(variation),
              'curriculum': generation_context(topic, level, 'translation'),
              **({'language_requirements': [{'id': item['id'], 'expectation': item['expectation']}
                                          for item in candidates.values()]} if candidates else {})})
@@ -102,6 +105,12 @@ For topic any choose a familiar everyday situation. Do not add labels, explanati
                     result.get('language_focus'), result.get('topic_id'))
             except (KeyError, TypeError, ValueError) as error:
                 raise TranslationUnavailable('Invalid translation task focus') from error
+        from services.content_variation import RepeatedContent
+        try:
+            record_generated(getattr(self, 'db_path', None), variation, text=result['english'],
+                             identity='translation:' + variation['seed'])
+        except RepeatedContent as error:
+            raise TranslationUnavailable(str(error)) from error
         return result
 
     def assess_translation(self, sentence, english, user_response, language='en', *, curriculum_contract=None):

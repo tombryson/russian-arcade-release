@@ -91,7 +91,8 @@ class JourneyGamePreparationService:
 
     @staticmethod
     def _clean(record):
-        return {key: copy.deepcopy(value) for key, value in record.items() if key not in ('_preparation', '_discovery')}
+        return {key: copy.deepcopy(value) for key, value in record.items()
+                if key not in ('_preparation', '_discovery', '_fresh_context', 'content_variation')}
 
     def records(self, conn, session_id):
         _, row = self._preparation(conn, session_id)
@@ -124,6 +125,8 @@ class JourneyGamePreparationService:
                             (owner['guest_token'], record['identity'])).fetchone()
 
     def _cached(self, conn, owner, record):
+        if record.get('_fresh_context'):
+            return None
         row = self._cache_row(conn, owner, record)
         if not row:
             return None
@@ -199,9 +202,17 @@ class JourneyGamePreparationService:
             # Reuse a ready example without any provider calls. The next paid
             # stage, if one remains, still uses the original frozen selection.
             for position, record in enumerate(items):
+                if record.get('content_variation'):
+                    from services.content_variation import bind_spec
+                    record['content_variation'] = bind_spec(conn, record['content_variation'],
+                        profile_id=owner['profile_id'], guest_token=owner['guest_token'])
                 if self._stage(conn, record) == 'context':
                     cached = self._cached(conn, owner, record)
                     if cached:
+                        if record.get('content_variation'):
+                            from services.content_variation import record_exposure
+                            record_exposure(conn, record['content_variation'], text=cached['sentence'],
+                                identity='game:' + session_id + ':' + str(position), lemmas=[cached['lemma']], allow_repeat=True)
                         items[position] = cached
             selected = next(((index, self._stage(conn, record)) for index, record in enumerate(items)
                              if self._stage(conn, record) != 'ready'), None)
@@ -210,6 +221,13 @@ class JourneyGamePreparationService:
                 return self.status(conn, row)
             index, stage = selected
             record = items[index]
+            if stage == 'discovery' and record.get('content_variation'):
+                from services.content_variation import variation_spec
+                current_variation = variation_spec(conn, activity=record['content_variation']['activity'],
+                    profile_id=owner['profile_id'], guest_token=owner['guest_token'], seed=record['content_variation']['seed'])
+                record['_discovery']['known_lemmas'] = list(dict.fromkeys([
+                    *record['_discovery']['known_lemmas'], *current_variation['recent_lemmas']]))
+            original_record = copy.deepcopy(record)
             state = record.setdefault('_preparation', {})
             state.pop('error', None)
             state.pop('error_reason', None)
@@ -229,7 +247,12 @@ class JourneyGamePreparationService:
                 # rather than introducing another word from the same sentence.
                 request['familiar_records'] = [self._clean(e) for e in items
                                                if e is not record and e.get('sentence') and e.get('lemma')]
+                if record.get('content_variation'):
+                    from services.content_variation import provider_context
+                    request['options'] = dict(request['options'], content_variation=provider_context(record['content_variation']))
                 generated = (self.discover or generate_discovery)(self.provider, **request)
+                if record.get('content_variation'):
+                    generated['content_variation'] = record['content_variation']
                 generated['required_media'] = record['required_media']
                 self._validate(generated, self._response(generated))
                 if any(generated[field].casefold().strip() == prior.get(field, '').casefold().strip()
@@ -243,10 +266,20 @@ class JourneyGamePreparationService:
                     if not self.provider:
                         raise ValueError('Context provider unavailable')
                     word = self._clean(record)
+                    if record.get('content_variation'):
+                        from services.content_variation import provider_context
+                        word['content_variation'] = provider_context(record['content_variation'])
+                        word['content_variation']['current_examples'] = [e['sentence'] for e in items if e is not record and e.get('sentence')]
                     # This remains provenance/grounding data in the existing
                     # provider's structured input, never client instructions.
                     response = self.provider.generate_native_card(word, 'ru-cloze')
                 self._validate(record, response)
+                if not supplied and record.get('content_variation'):
+                    from services.content_variation import same_content, RepeatedContent
+                    if any(same_content(response['sentence'], other.get('sentence', ''))
+                           or same_content(response['sentence_english'], other.get('translation', ''))
+                           for other in items if other is not record):
+                        raise RepeatedContent()
                 record.update(sentence=response['sentence'].strip(), translation=response['sentence_english'].strip(),
                               target_meaning=response['english'].strip(), notes=response['notes'].strip())
                 source = record.setdefault('source', {})
@@ -287,6 +320,7 @@ class JourneyGamePreparationService:
                         raise ValueError('Provider returned an incorrect media type')
                 record['assets'] = [asset for asset in record.get('assets', []) if asset.get('kind') != stage] + [{'id': asset_id, 'kind': stage}]
         except Exception as error:
+            from services.ai_trial_budget import TrialDenied
             logger.warning('Journey example %s preparation failed (%s)', stage, type(error).__name__)
             with transaction(self.db_path, write=True) as conn:
                 self._preparation(conn, session_id)
@@ -297,13 +331,35 @@ class JourneyGamePreparationService:
                     message = str(error)
                 state['error'] = message
                 self._save(conn, session_id, items, claim=claim, error=message)
-                return self.status(conn, row)
+                result = self.status(conn, row)
+            if isinstance(error, TrialDenied):
+                raise
+            return result
         with transaction(self.db_path, write=True) as conn:
             owner, row = self._preparation(conn, session_id)
             # A lease expiring does not let an older response overwrite a newer
             # request's text or randomly chosen media specification.
             if row['claim_id'] != claim:
                 raise LearningError('preparation_changed', 'Another request is already preparing this game.', 409)
+            if stage in ('context', 'discovery') and record.get('content_variation'):
+                from services.content_variation import record_exposure, RepeatedContent
+                try:
+                    record_exposure(conn, record['content_variation'], text=record['sentence'],
+                        identity='game:' + session_id + ':' + str(index), lemmas=[record['lemma']],
+                        allow_repeat=bool(supplied and not record.get('_fresh_context')))
+                except RepeatedContent as error:
+                    # Keep the selection and show an explicit failure. A poll
+                    # must never silently spend again on a repeated response.
+                    state['error'] = str(error)
+                    state['context_validated'] = False
+                    if stage == 'discovery':
+                        original_record['_preparation'] = {'error': str(error), 'rejected_response': self._response(record)}
+                        items[index] = original_record
+                    else:
+                        for key in ('sentence', 'translation', 'target_meaning', 'notes'):
+                            record.pop(key, None)
+                    self._save(conn, session_id, items, claim=claim, error=str(error))
+                    return self.status(conn, row)
             if self._stage(conn, record) == 'ready':
                 self._cache(conn, owner, record)
             self._save(conn, session_id, items, claim=claim)

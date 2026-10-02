@@ -106,6 +106,12 @@ class StabilizationTests(unittest.TestCase):
             words = service.get_words("food", "easy", 2)
 
             self.assertEqual(set(words), {"кофе", "чай"})
+            # Read-only lexical compatibility must not silently make full
+            # game creation succeed against an unmigrated word-only store.
+            with self.assertRaises(sqlite3.OperationalError):
+                service.create_game("food", "easy")
+            with sqlite3.connect(db_path) as conn:
+                self.assertIsNone(conn.execute("SELECT 1 FROM sqlite_master WHERE name='word_jumble_games'").fetchone())
         finally:
             os.unlink(db_path)
 

@@ -36,7 +36,8 @@ JSON_REFERENCES = {
 ACTIVITY_NAMES = {'reading': 'saved_stories', 'writing': 'writing_exercises',
                   'translation': 'sentences', 'sentence': 'sentences'}
 ARCHIVE_TABLE = 'account_import_archive'
-HOSTED_OVERLAY_TABLES = CATALOGUE_TABLES | AUTH_TABLES | {
+EPHEMERAL_TABLES = {'content_variation_exposures'}
+HOSTED_OVERLAY_TABLES = EPHEMERAL_TABLES | CATALOGUE_TABLES | AUTH_TABLES | {
     'words', 'forms', 'learning_profiles', 'profile_onboarding', 'users',
     'card_definitions', 'card_versions', 'learning_content',
     'learning_content_versions', 'learning_content_words', 'learning_assets',
@@ -48,7 +49,7 @@ HOSTED_OVERLAY_TABLES = CATALOGUE_TABLES | AUTH_TABLES | {
     # Course attempts, evidence, passes and continuation rights remain guarded.
     'course_enrolments',
 }
-SEQUENCE_FROZEN_TABLES = {'comprehension_task_drafts', 'curriculum_unit_runs', 'curriculum_unit_bindings', 'curriculum_unit_requests',
+SEQUENCE_FROZEN_TABLES = {'curriculum_generated_starts', 'comprehension_task_drafts', 'curriculum_unit_runs', 'curriculum_unit_bindings', 'curriculum_unit_requests',
     'curriculum_transfer_exposure', 'learning_session_drafts', 'learning_session_draft_requests',
     'activity_review_submissions', 'curriculum_unit_exchanges', 'curriculum_unit_exchange_turns',
     'curriculum_unit_exchange_playback', 'activity_support_disclosures', 'learning_prior_feedback', 'learning_hint_usage'}
@@ -179,6 +180,22 @@ def transform(name, table, row, maps, schemas):
                 continue
             if changed != parsed:
                 result[column] = encode(changed)
+    # Pending editorial prompts are not learner originals or grading contracts.
+    # Force a rebind even when both inputs used the id personal-learning.
+    if name in ('journey_game_preparations', 'native_card_generation_items'):
+        column = 'items_json' if name == 'journey_game_preparations' else 'selection'
+        value = json.loads(result[column])
+        records = value if isinstance(value, list) else [value]
+        field = 'content_variation' if name == 'journey_game_preparations' else '_content_variation'
+        changed = False
+        for record in records:
+            if isinstance(record, dict) and field in record:
+                spec = record[field]
+                record[field] = {k: spec[k] for k in ('seed', 'activity', 'level', 'topic') if k in spec}
+                record[field]['_owner_scope'] = None
+                changed = True
+        if changed:
+            result[column] = encode(value)
     if name == 'activity_task_contracts':
         if row['activity'] in ('writing', 'translation'):
             if not re.fullmatch(r'[1-9][0-9]*', row['task_key']):
@@ -466,7 +483,7 @@ def build_account_import(local_path, hosted_path, output_path, *, local_audio_ro
 
         archive, merged, decisions = [], {}, Counter()
         for name, schema in local.items():
-            if name in AUTH_TABLES:
+            if name in AUTH_TABLES | EPHEMERAL_TABLES:
                 merged[name] = []
                 continue
             values = {row_key(schema, value): value for row in schema['rows']

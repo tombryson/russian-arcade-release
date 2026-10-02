@@ -56,6 +56,34 @@ class AccountImportTests(unittest.TestCase):
         if response:
             conn.execute("INSERT INTO writing_drafts VALUES (?,?,1,'2026-09-19')", (identifier, response))
 
+    def test_pending_editorial_context_rebinds_even_with_same_profile_id(self):
+        from services.account_import import transform
+        for table, column, field in (('journey_game_preparations','items_json','content_variation'),
+                                     ('native_card_generation_items','selection','_content_variation')):
+            record = {field:{'seed':'stable-seed','activity':'flashcard','_owner_scope':'profile:personal-learning',
+                             'recent_examples':['private source context'],'recent_lemmas':['кот']}, 'lemma':'книга'}
+            value = [record] if table=='journey_game_preparations' else record
+            source = {'id':'pending',column:json.dumps(value)}
+            result = transform(table,{'pk':['id'],'foreign':[]},source,{}, {})
+            changed = json.loads(result[column])
+            spec = (changed[0] if isinstance(changed,list) else changed)[field]
+            self.assertIsNone(spec['_owner_scope'])
+            self.assertEqual(spec['seed'],'stable-seed')
+            self.assertNotIn('recent_examples',spec)
+            self.assertIn('private source context',source[column])
+
+    def test_import_discards_private_editorial_history_without_touching_inputs(self):
+        from services.content_variation import variation_spec, record_exposure
+        for path in (self.local, self.hosted):
+            with sqlite3.connect(path) as conn:
+                spec = variation_spec(conn, activity='writing', profile_id='personal-learning')
+                record_exposure(conn, spec, identity='sample', text='Новая история.', lemmas=['история'])
+        before = (digest(self.local), digest(self.hosted))
+        build_account_import(self.local, self.hosted, self.output)
+        self.assertEqual(before, (digest(self.local), digest(self.hosted)))
+        with sqlite3.connect(self.output) as conn:
+            self.assertEqual(conn.execute('SELECT COUNT(*) FROM content_variation_exposures').fetchone()[0], 0)
+
     def test_merge_preserves_hosted_urls_local_drafts_and_card_relations(self):
         before = (digest(self.local), digest(self.hosted))
         report = build_account_import(self.local, self.hosted, self.output)

@@ -2,7 +2,7 @@
 
 ## Current status
 
-The application has 14 authored A1 teaching units and an opt-in diagnostic pilot covering five skills. They work without a tutor. Human review is optional editorial quality assurance for the maintainers, not a prerequisite for using the app or receiving feedback.
+The application has 15 authored A1 teaching units and an opt-in diagnostic pilot covering five skills. They work without a tutor. Human review is optional editorial quality assurance for the maintainers, not a prerequisite for using the app or receiving feedback.
 
 The examples and answer keys remain provisional. No independent human review or learner trial is recorded. The pilot does not award a level, unlock activities or claim to be a TORFL examination.
 
@@ -22,12 +22,13 @@ The examples and answer keys remain provisional. No independent human review or 
 | Activities and completed results | The distinction between an activity and its result | 8 | 5 | 3 clips |
 | Where from and where to | Origins, destinations and prepositions | 8 | 5 | 3 clips |
 | Reasons, questions and connected messages | Short connected accounts and requests for information | 8 | 5 | 3 clips |
+| Activities and future professions | Заниматься + activity; буду + profession | 8 | 6 | Not recorded |
 
-Together the units provide 96 contextual choices, 64 typed prompts and 14 Writing briefs. Each unit has classified examples, a dedicated reading page and an original Writing task. Typed tasks test a specified form. They accept selected fuller phrases and ignore outer whitespace, case and final punctuation. They do not claim to accept every paraphrase or measure independent writing.
+Together the units provide 104 authored contextual choices, 70 typed prompts and 15 Writing briefs. Each unit has classified examples and an original Writing task. Additional generated sets practise selected constructions within each unit; they do not replace the broader authored coverage. Typed tasks test a specified form. They accept selected fuller phrases and ignore outer whitespace, case and final punctuation. They do not claim to accept every paraphrase or measure independent writing.
 
-These units do not cover the whole A1 grammar system. Supplied infinitives in motion tasks test conjugation; separate choices test the distinction between movement types. Unit Speaking links open existing scenarios. They do not transfer a unit criterion automatically. Nine authored Fluent A1 variants now have narrow original-audio criteria: three directions questions, three café orders and three name exchanges. These observe the named communication task, not every scenario goal or full speaking proficiency.
+These units do not cover the whole A1 grammar system. Supplied infinitives in motion tasks test conjugation; separate choices test the distinction between movement types. Unit Speaking links open existing scenarios. They do not transfer a unit criterion automatically. The nine earlier authored Fluent A1 variants retain their original-audio criteria. Generated Speaking variants have separate criteria bound to their exact situations. These observe the named communication task, not every scenario goal or full speaking proficiency.
 
-All 14 authored three-item listening packs are recorded. Both pilot listening forms are also recorded. Each recording retains its authored script and manifest; the application checks file readiness before offering listening.
+The earlier 14 authored three-item listening packs are recorded. Both pilot listening forms are also recorded. The new instrumental unit has no listening pack yet. Each recording retains its authored script and manifest; the application checks file readiness before offering listening.
 
 ### Recording update — 2 October 2026
 
@@ -51,6 +52,10 @@ python scripts/render_curriculum_coverage.py --check
 The present-tense unit adds eight contextual questions, six typed forms and three recordings. Two model passes checked person/reference distinctions, taught-before-tested forms and ambiguous present/future wording. They do not count as independent human validation. Its three clips used 244 characters and completed without retries; a later dry run found no missing or changed files.
 
 Review fixture v4 retains all 246 v3 cases and adds 18 controlled-form cases and seven Writing cases: 271 total. Earlier fixture files are unchanged and pinned in regression tests. The new Writing examples include natural alternatives and intelligible grammatical errors. These are communication judgements, not claims about accurate conjugation.
+
+The instrumental activities/professions unit adds eight contextual questions and six typed forms. Its rules vary 33 subject/activity or subject/profession combinations. Both functions cite the A1 standard, §2.2.2, page 13. Examples teach each target before practice; the Writing task observes communication without certifying case control. The unit has no Listening recordings or independent assessment. Two model passes checked the language; this does not count as independent human validation.
+
+Review fixture v5 preserves all 271 v4 cases and adds 19 controlled-form cases and seven Writing cases: 297 total across 15 units. The extra form case accepts the grammatical alternative «музыкою». Earlier fixtures remain unchanged. Authored expectations remain review hypotheses, with no new provider evaluation or learner trial.
 
 The connected lesson now saves and resumes across all five domains. Both the guided and challenge-first paths complete in local and hosted `/demo` test workspaces. The walkthroughs use provider stubs and fixture recordings. They verify storage, assistance, review recovery, ordinary rewards and the absence of transfer rewards; they do not validate the generated marks.
 

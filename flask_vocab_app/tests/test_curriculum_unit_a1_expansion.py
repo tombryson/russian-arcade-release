@@ -79,6 +79,9 @@ class A1ExpansionContentTests(unittest.TestCase):
     def test_listening_drafts_have_unique_complete_source_without_fake_availability(self):
         transcripts = set()
         for unit_id in UNIT_IDS:
+            if unit_id not in LISTENING_IDS:
+                self.assertFalse(get_unit(unit_id)['listening_available'])
+                continue
             content_id = unit_id.removesuffix('-v1') + '-listening-v1'
             source = json.loads((DATA / (content_id + '.json')).read_text())
             self.assertEqual(source['unit_id'], unit_id)

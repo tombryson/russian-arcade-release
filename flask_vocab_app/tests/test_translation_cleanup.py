@@ -58,6 +58,17 @@ class TranslationCleanupTests(unittest.TestCase):
         self.service.get_sentence.assert_not_called()
         self.assertEqual(self.client.get('/sentences/practice/999999').status_code, 404)
 
+    def test_new_preparation_cannot_silently_reopen_an_existing_translation_or_erase_draft(self):
+        self.submit('save', 'Мой незаконченный ответ.')
+        before = self.repository.load(self.id)
+        self.service.get_sentence.return_value = {'sentence': before['sentence'], 'english': before['english']}
+        result = self.client.post('/sentence/generate', data={'topic': 'home', 'difficulty': 'A1'}, headers=self.headers)
+        self.assertEqual(result.status_code, 503, result.text)
+        self.assertNotIn('url', result.json)
+        self.assertEqual(self.repository.load(self.id), before)
+        self.assertEqual(self.count('sentences'), 1)
+        self.service.get_sentence.assert_called_once()
+
     def test_draft_round_trip_preserves_punctuation_and_has_no_reward(self):
         text = 'Он сказал: "Привет!"\n</textarea><script>bad()</script>'
         result = self.submit('save', text)

@@ -63,6 +63,8 @@ def speaking_criterion_labels(contract, criterion_id):
 
 def speaking_task_contract(scenario):
     """Freeze only explicitly mapped elicitation, never every scenario goal."""
+    if scenario.get('scenario_version') == 3:
+        return _procedural_contract(scenario)
     expected = _DIRECTIONS.get(scenario.get('seed'))
     if expected is None:
         return _interaction_contract(scenario)
@@ -86,6 +88,38 @@ def speaking_task_contract(scenario):
                       ' Assess only this location question in the original learner audio. Accept an intelligible short question '
                       'and alternative phrasing; do not require a particular construction, a follow-up answer or other goals.',
                       'max_score': 2, 'source_refs': ref['source_refs']}]})
+
+
+def _procedural_contract(scenario):
+    from services.speaking_procedural import build, parse_seed
+    parsed = parse_seed(scenario.get('seed'))
+    if parsed is None or parsed[:2] != (scenario.get('scenario_id'),scenario.get('target_level')):
+        raise ValueError('Unknown procedural Speaking diagnostic identity.')
+    expected = build(scenario['seed'],scenario)
+    # Validate the authored elicitation and exact fact-derived criterion together.
+    # Catalogue display metadata and refreshed proficiency guidance may differ.
+    if any(scenario.get(key) != expected[key] for key in ('variation','goals','goals_ru',
+            'goal_ids','completion_criteria','worker_brief','opening','description','diagnostic_mapping')):
+        raise ValueError('Procedural Speaking facts no longer match their diagnostic mapping.')
+    mapping = scenario['diagnostic_mapping']
+    ref = requirement_index()[mapping['requirement_id']]
+    return freeze_task_contract({
+        'schema_version': 1, 'contract_version': CONTRACT_VERSION, 'reference_version': VERSION,
+        'task_id': scenario['seed'] + '.' + mapping['id'], 'activity': 'speaking',
+        'content_version': mapping['version'], 'level': scenario['target_level'],
+        'topic_ids': [scenario['curriculum_context']['topic_id']], 'purpose': 'diagnostic',
+        'content': {'scenario':scenario, 'goal_ids':mapping['goal_ids'],
+                    'criterion_labels':{mapping['id']:{key:mapping[key] for key in ('label','label_ru')}}},
+        'rubric_version': 'speaking-elicited-interaction-v1',
+        'support': {'allowed':['hint','model_answer'], 'independence_breakers':['hint','model_answer']},
+        'criteria': [{'id':mapping['id'], 'target_id':mapping['target_id'],
+            'requirement_id':mapping['requirement_id'], 'response_mode':'independent_speaking',
+            'evidence_scope':'reference', 'max_score':2, 'source_refs':ref['source_refs'],
+            'expectation':mapping['expectation'] + '. Assess only these explicitly requested actions, not the whole reference requirement or other goals. '
+                'For multiple actions, satisfied requires all and partial requires clear evidence of at least one. '
+                'Accept short natural replies and alternative phrasing; do not require a particular grammatical construction. '
+                'Ground the judgement in original learner audio, never the agent, expected answer or captions. '
+                'Unclear or unlocatable evidence remains insufficient_evidence; independence remains unverified.'}]})
 
 
 def validate_speaking_contract(contract, scenario):

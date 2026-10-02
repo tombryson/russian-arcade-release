@@ -141,11 +141,13 @@ class WritingService:
             raise WritingUnavailable('Writing provider unavailable') from error
 
     def generate_writing_task(self, topic, difficulty, target_words=30):
+        from services.content_variation import generation_spec, provider_context, variation_instruction, record_generated
         level = normalize_level(difficulty, legacy='writing')
         if target_words not in (30,100,300):
             raise ValueError('Invalid setup')
         count = 3 if target_words == 30 else 5
         context = generation_context(topic, level, 'writing')
+        variation = generation_spec(getattr(self, 'db_path', None), activity='writing', level=level, topic=topic)
         reference = reference_for_level(level)
         candidates = {item['id']: item for item in reference['requirements']
                       if item['domain'] == 'writing' and item['response_mode'] == 'independent_writing'} if reference else {}
@@ -154,7 +156,7 @@ class WritingService:
                for key,limit in [('title',100),('title_en',100),('task',3000),('task_en',3000)]},
             'required_words':{'type':'array','items':{'type':'string','minLength':1,'maxLength':80},'minItems':count,'maxItems':count}}
         payload = {'topic': topic, 'difficulty': difficulty, 'level': level, 'target_words': target_words,
-                   'vocabulary_count': count, 'curriculum': context}
+                   'vocabulary_count': count, 'curriculum': context, 'content_variation': provider_context(variation)}
         instruction = f'''Create one approachable Russian writing activity for family learning.
 Give a concrete purpose suited to the level: a short message, description, review, argument or explanation.
 Use one situation and one clear communicative purpose. Ask only for details needed for that purpose.
@@ -189,7 +191,7 @@ Do not use titles, vague fragments or unrelated directions as the focus. Never a
 If a requirement uses a source text, include the complete short source in the task; never assume an unseen or heard source.
 Return topic_id as the requested topic; for any, choose the task's actual subject from the allowed topic IDs.
 Do not return a curriculum contract, source citations, scores or mastery claims.'''
-        task = self.structured('writing_task', properties, instruction, payload)
+        task = self.structured('writing_task', properties, instruction + variation_instruction(), payload)
         try:
             if not isinstance(task, dict) or set(task) != set(properties):
                 raise ValueError('Return only the required writing task fields.')
@@ -202,6 +204,12 @@ Do not return a curriculum contract, source citations, scores or mastery claims.
                 task['curriculum_contract'] = frozen
         except ValueError as error:
             raise WritingUnavailable('Invalid writing task') from error
+        from services.content_variation import RepeatedContent
+        try:
+            record_generated(getattr(self, 'db_path', None), variation, text=task['task'],
+                             identity='writing:' + variation['seed'], lemmas=task['required_words'])
+        except RepeatedContent as error:
+            raise WritingUnavailable(str(error)) from error
         return task
 
     def assess_writing(self, task, required_words, min_words, response, difficulty='beginner', language='en', topic='any', *, curriculum_contract=None, include_provenance=False):

@@ -49,6 +49,7 @@ class CurriculumReviewPacketTests(unittest.TestCase):
             1: 'c73bead57aca1c6f9f2082f96b4cee7195fcddf9dd864365407c812673f0425c',
             2: '83b66c8480a3691db9cc77790c8efdac02cc6052543edfdaa76e847f1bded92e',
             3: '9f8e8d0bd08d6eae3ebb39b1d37054f30b5ab04f417bfc51d2122167940e7525',
+            4: 'f68b7c29a597bc6b20b6fdb56ae3e2da9733efff525e8b84c7bbbf9c74a9b268',
         }
         for version, digest in retained.items():
             path = directory / f'a1-units-review-v{version}.json'
@@ -58,14 +59,15 @@ class CurriculumReviewPacketTests(unittest.TestCase):
             for field in ('unit_sha256', 'listening_sha256'):
                 for identity, expected in previous.get(field, {}).items():
                     self.assertEqual(current[field][identity], expected)
-        self.assertEqual(current['id'], 'a1-units-review-v4')
+        self.assertEqual(current['id'], 'a1-units-review-v5')
         self.assertEqual(set(current['unit_sha256']), set(UNIT_IDS))
         self.assertEqual(set(current['listening_sha256']), set(LISTENING_IDS.values()))
         self.assertEqual(current['review'], {'kind': 'internal_model', 'independently_validated': False})
         added = current['cases'][len(previous['cases']):]
-        self.assertEqual({case['unit_id'] for case in added}, {'present-actions-v1'})
-        forms = get_unit('present-actions-v1')['forms']['questions']
-        self.assertEqual(sum(case['stage'] == 'forms' for case in added), 3 * len(forms))
+        self.assertEqual({case['unit_id'] for case in added}, {'instrumental-activities-professions-v1'})
+        forms = get_unit('instrumental-activities-professions-v1')['forms']['questions']
+        self.assertEqual(sum(case['stage'] == 'forms' for case in added), 3 * len(forms) + 1)
+        self.assertIn('музыкою', {case['response'] for case in added})
         self.assertEqual(sum(case['stage'] == 'writing' for case in added), 7)
 
     def test_duplicate_cases_or_unavailable_support_are_rejected(self):

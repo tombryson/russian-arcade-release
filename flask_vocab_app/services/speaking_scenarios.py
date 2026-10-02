@@ -14,6 +14,21 @@ _VARIANTS = {variant['seed']: variant for scenario in _DATA['scenarios'] for var
 SEEDS = tuple(_VARIANTS)
 
 
+def public_scenario(snapshot):
+    """Keep internal diagnostic bindings/history keys out of the learner payload.
+
+    Also used for Step-through generation: it needs the four learning targets,
+    not the original-audio diagnostic rubric or duplicated semantic facts.
+    """
+    if snapshot is None:
+        return None
+    result = deepcopy(snapshot)
+    result.pop('diagnostic_mapping', None)
+    if isinstance(result.get('variation'), dict):
+        result['variation'].pop('semantic_key', None)
+    return result
+
+
 def build_scenario(seed):
     """Return an independent built-in snapshot, for offline tools and tests."""
     if not isinstance(seed, str) or seed not in _VARIANTS:

@@ -320,8 +320,9 @@ def _saved_response(conn, profile_id, activity, task_key, source_key):
     # answers; recover the exact support from the frozen session receipts.
     contract = load_contract(conn, profile_id, activity, task_key)
     sequence = contract is not None and contract['schema_version'] == 2
+    generated = task['content_id'].startswith('curriculum-unit:g1:')
     support = ['hint'] if attempt[1] else []
-    if sequence and task['item']['type'] != 'listening_choice':
+    if (sequence or generated) and task['item']['type'] != 'listening_choice':
         support = ['hint'] if conn.execute('SELECT 1 FROM learning_hint_usage WHERE session_id=? AND item_id=?',
                     (task['session_id'], task['item_id'])).fetchone() else []
     if task['item']['type'] == 'listening_choice':
@@ -334,6 +335,9 @@ def _saved_response(conn, profile_id, activity, task_key, source_key):
     if sequence:
         from services.curriculum_sequences import practice_support
         support = practice_support(conn, profile_id, task['session_id'], task['item_id'], support)
+    if generated:
+        from services.curriculum_fresh_practice import saved_support
+        support = saved_support(conn, task['session_id'], task['item_id'], support)
     if bool(attempt[1]) != bool(support):
         raise ValueError('Activity assistance must match its saved support receipts.')
     return response_text, {'assisted': bool(attempt[1]), 'correct': correct, 'support': support}

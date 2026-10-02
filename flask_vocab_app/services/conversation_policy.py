@@ -79,7 +79,12 @@ def scenario_instructions(scenario):
     submissions. Old sessions predate scenario_id and remain café conversations.
     """
     if scenario.get('scenario_id', 'cafe') == 'cafe':
-        return cafe_instructions(scenario) + level_instructions(scenario)
+        if not scenario.get('worker_brief') and not scenario.get('reference'):
+            return cafe_instructions(scenario) + level_instructions(scenario)
+        return (cafe_instructions(scenario) + '\nТочная ситуация: ' + (scenario.get('worker_brief') or '')
+                + '\nСправочные сведения: ' + json.dumps(scenario.get('reference') or {}, ensure_ascii=False)
+                + '\nНе придумывай новые препятствия, ингредиенты или условия сверх этой ситуации.'
+                + level_instructions(scenario))
     role = scenario.get('conversation_role') or f"Ты — {scenario.get('role_ru') or 'собеседник в этой ситуации'}."
     facts = json.dumps(scenario.get('reference') or {}, ensure_ascii=False)
     prices = json.dumps(scenario.get('menu') or {}, ensure_ascii=False)

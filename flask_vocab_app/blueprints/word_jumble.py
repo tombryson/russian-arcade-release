@@ -6,6 +6,7 @@ import sqlite3
 from flask import Blueprint, jsonify, redirect, render_template, request, session, url_for
 
 from services.word_jumble_service import AssessmentUnavailable, DraftConflict, PreparationUnavailable
+from services.ai_trial_budget import TrialDenied
 from services.curriculum import level_options, normalize_level, topic_options
 from utils.i18n import translate_ui
 from utils.shell import is_shell_navigation, render_page
@@ -95,6 +96,8 @@ def create_word_jumble_blueprint(service):
             explicit = False
         try:
             game = service.create_game(topic, difficulty)
+        except TrialDenied:
+            raise
         except ValueError:
             return page(error=t('invalid_setup'), selected_topic=topic, selected_level=selected_level, level_explicit=explicit), 400
         except (PreparationUnavailable, sqlite3.Error) as error:

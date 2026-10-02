@@ -5,6 +5,7 @@ import random
 import threading
 
 from repositories.learning_repository import LearningError, encoded, identifier, payload_hash, require_access, timestamp, transaction
+from services.speaking_scenarios import public_scenario
 from repositories.speaking_repository import catalogue, choose_variant, validate_level
 from repositories.speaking_history import recent_variants
 from services.ai_trial_budget import TrialDenied
@@ -50,7 +51,7 @@ class StepConversationService:
                                 'WHERE profile_id=? ORDER BY created_at DESC,rowid DESC LIMIT 12', (profile_id,)):
             item = dict(row)
             scenario = json.loads(item.pop('scenario_json'))
-            item.update(title=scenario.get('title'), title_ru=scenario.get('title_ru'), scenario=scenario)
+            item.update(title=scenario.get('title'), title_ru=scenario.get('title_ru'), scenario=public_scenario(scenario))
             result.append(item)
         return result
 
@@ -70,7 +71,7 @@ class StepConversationService:
             scenario = None if level is not None and selected is not None and not available else choose_variant(
                 conn, scenario_id, level=level, previous_seeds=([exclude_seed] if exclude_seed else []) + recent)
             sessions = self._history(conn, profile['id'])
-        return {'scenario': scenario, 'scenario_id': scenario_id, 'selected_level': level,
+        return {'scenario': public_scenario(scenario), 'scenario_id': scenario_id, 'selected_level': level,
                 'available_count': available, 'levels': listing['levels'], 'sessions': sessions,
                 'configured': scenario is not None and self._enabled() and bool(self.config.get('OPENAI_API_KEY')),
                 'audio_configured': self._enabled() and bool(self.config.get('ELEVENLABS_API_KEY'))}
@@ -98,7 +99,7 @@ class StepConversationService:
                 self._require_provider()
                 scenario_id = body.get('scenario_id', 'cafe')
                 recent = recent_variants(conn, profile['id'], scenario_id, level)
-                scenario = choose_variant(conn, scenario_id, seed=body.get('scenario_seed'), level=level, previous_seeds=recent)
+                scenario = choose_variant(conn, scenario_id, seed=body.get('scenario_seed'), level=level, previous_seeds=recent, persist=True)
                 sid, created = identifier(), True
                 voices = self.config.get('ELEVENLABS_VOICE_IDS') or ['']
                 conn.execute('INSERT INTO step_conversation_sessions(id,profile_id,start_key,request_hash,scenario_id,variant_id,'
@@ -139,7 +140,7 @@ class StepConversationService:
                          (timestamp() + 180, attempt, sid))
         try:
             scenario = json.loads(saved['scenario_json'])
-            dialogue = validate_dialogue(self.ai.step_dialogue(scenario), scenario)
+            dialogue = validate_dialogue(self.ai.step_dialogue(public_scenario(scenario)), scenario)
             for turn in dialogue['turns']:
                 turn['id'] = identifier()
                 options = [{'id': identifier(), 'correct': True, **turn.pop('correct')},
@@ -181,7 +182,7 @@ class StepConversationService:
         dialogue = json.loads(saved['dialogue_json']) if saved['dialogue_json'] else None
         progress = json.loads(saved['progress_json'])
         result = {key: saved[key] for key in ('id', 'state', 'target_level', 'language', 'created_at', 'error')}
-        result.update(scenario=json.loads(saved['scenario_json']), retryable=saved['state'] in ('preparing', 'failed') and saved['lease_until'] <= timestamp(),
+        result.update(scenario=public_scenario(json.loads(saved['scenario_json'])), retryable=saved['state'] in ('preparing', 'failed') and saved['lease_until'] <= timestamp(),
             turn_count=len(dialogue['turns']) if dialogue else 0, completed_turns=saved['current_index'], current_turn=None,
             transcript=[], reward={'amount': saved['reward_amount'], 'basis': 'guided_step_completion'},
             audio_configured=self._enabled() and bool(self.config.get('ELEVENLABS_API_KEY')))

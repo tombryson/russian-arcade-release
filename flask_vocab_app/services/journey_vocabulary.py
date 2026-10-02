@@ -304,6 +304,18 @@ def catalogue_sources(conn, profile_id, guest_token):
             'lessons': sorted(lessons.values(), key=lambda lesson: lesson['title'].casefold())}
 
 
+def fresh_context(record, seed, index):
+    """Keep lexical/provenance facts while requesting a new contextual example."""
+    result = deepcopy(record)
+    result['identity'] = result['identity'] + ':context:' + seed + ':' + str(index)
+    result['_fresh_context'] = True
+    for field in ('sentence', 'translation', 'target_meaning', 'notes', 'assets', 'cached_id'):
+        result.pop(field, None)
+    source = result.setdefault('source', {})
+    source['origin'] = 'example'
+    return result
+
+
 def select_examples(conn, profile_id, guest_token, options, seed, limit=6):
     source = options.get('source', 'vocabulary')
     if source not in ('vocabulary', 'lesson'):

@@ -114,8 +114,9 @@ class SpeakingLevelTests(unittest.TestCase):
             a2=catalogue(conn,'A2')
             self.assertEqual(next(s for s in a2['scenarios'] if s['id']=='cafe')['variant_count'],3)
             next_variant=choose_variant(conn,'cafe',level='A2',previous_seeds=['cafe-a2-milk-v2','cafe-a2-sugar-v2','cafe-a1-warm-lunch-v2'])
-            self.assertEqual(next_variant['seed'],'cafe-a2-onion-v2')
-            self.assertEqual(choose_variant(conn,'cafe',level='A2',previous_seeds=['cafe-a2-onion-v2','cafe-a2-sugar-v2','cafe-a2-milk-v2'])['seed'],'cafe-a2-milk-v2')
+            self.assertEqual(next_variant['target_level'],'A2')
+            self.assertEqual(next_variant['scenario_version'],3)
+            self.assertNotEqual(choose_variant(conn,'cafe',level='A2',previous_seeds=[next_variant['seed']])['seed'],next_variant['seed'])
 
     def test_level_prompts_differ_and_assessment_never_converts_scores_to_proficiency(self):
         with transaction(self.db) as conn:

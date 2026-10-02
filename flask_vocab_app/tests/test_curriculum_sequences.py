@@ -149,6 +149,23 @@ class CurriculumSequenceTests(unittest.TestCase):
         self.assertEqual(language['next_action']['kind'], 'resume')
         self.assertEqual(language['next_action']['url'], draft['url'])
 
+    def test_exhausted_transfer_bank_rotates_without_claiming_fresh_work(self):
+        self.app.config['OPENAI_API_KEY'] = 'test-placeholder'
+        run = self.start(path='challenge')
+        families = []
+        for index in range(4):
+            opened = self.step(run, 'transfer', 'start' if index == 0 else 'retry', 'transfer-' + str(index))
+            run = opened['run']
+            sid = opened['url'].rsplit('/', 1)[-1]
+            state = self.client.get('/api/v1/learning-sessions/' + sid).json
+            with sqlite3.connect(self.db) as conn:
+                families.append(json.loads(conn.execute('SELECT payload FROM learning_content_versions WHERE id=?',
+                                                        (state['version_id'],)).fetchone()[0])['id'])
+            self.assertEqual(state['sequence']['repeated'], index >= 2)
+        self.assertNotEqual(families[0], families[1])
+        self.assertEqual(families[0], families[2])
+        self.assertEqual(families[1], families[3])
+
     def test_missing_audio_never_allocates_or_scores(self):
         from unittest.mock import patch
         from repositories.learning_repository import LearningError

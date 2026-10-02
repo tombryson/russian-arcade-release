@@ -3,6 +3,7 @@ from copy import deepcopy
 import hashlib
 import random
 import re
+from itertools import combinations as subsets, product
 
 from repositories.learning_repository import LearningError, payload_hash
 
@@ -92,13 +93,28 @@ def build_content(game, examples, seed, session_id, options, source):
     rng.shuffle(pool)
     targets = [item for item in pool if item.get('role') != 'distractor'] or pool
     rounds, game_id = [], game['id']
+    distinct = options.get('round_policy') == 'distinct-v2'
+    selections = None
+    routes = set()
+    if distinct and game_id in ('pack-bag', 'pairs'):
+        pictures = _others(pool, targets[0], 4, rng)
+        sizes = (1, 2) if game_id == 'pack-bag' else (2, 3)
+        selections = [list(group) for size in sizes for group in subsets(pictures, size)]
+        rng.shuffle(selections)
+        if len(selections) < options['rounds']:
+            raise LearningError('distinct_examples_required', 'Prepare four distinct pictures for this game.', 409)
+    elif distinct and game_id not in ('detective', 'directions', 'radio'):
+        if len(targets) < options['rounds'] or len({e['sentence'].casefold().strip() for e in targets}) < options['rounds']:
+            raise LearningError('distinct_examples_required', 'Each round needs a distinct Russian example.', 409)
     for index in range(options['rounds']):
         target = targets[index % len(targets)]
         alternatives = _others(pool, target, 4, rng)
         if len(alternatives) < 2 and game_id not in ('letter-back',):
             raise LearningError('distinct_examples_required', 'Prepare another example to give this game distinct choices.', 409)
         if game_id == 'pack-bag':
-            chosen = alternatives[:2] if index % 3 == 2 and len(alternatives) > 2 else [target]
+            chosen = selections[index] if selections else alternatives[:2] if index % 3 == 2 and len(alternatives) > 2 else [target]
+            if selections:
+                alternatives = chosen + [item for item in pictures if item not in chosen]
             objects = [_picture(e, session_id, f'picture-{i}') for i, e in enumerate(alternatives)]
             expected = sorted(objects[i]['id'] for i in range(len(chosen)))
             rng.shuffle(objects)
@@ -107,7 +123,7 @@ def build_content(game, examples, seed, session_id, options, source):
                           hint=' '.join(e['translation'] for e in chosen),
                           feedback=' '.join(_feedback(e) for e in chosen))
         elif game_id == 'pairs':
-            chosen = alternatives[:min(3, len(alternatives))]
+            chosen = selections[index] if selections else alternatives[:min(3, len(alternatives))]
             left = [{'id': f'message-{i}', 'text': e['sentence'], 'audio_key': audio(e['sentence'])['audio_key']}
                     for i, e in enumerate(chosen)]
             right = [_picture(e, session_id, f'picture-{i}') for i, e in enumerate(chosen)]
@@ -144,6 +160,10 @@ def build_content(game, examples, seed, session_id, options, source):
             # Whole contextual meanings, rather than arbitrary semantic labels
             # or claiming that an ambiguous spelling has one grammatical case.
             chosen = alternatives[:min(3, len(alternatives))]
+            if distinct:
+                # Each target participates once in an adjacent window. This
+                # changes the meanings being matched, not merely option order.
+                chosen = [targets[(index + offset) % len(targets)] for offset in range(min(3, len(targets)))]
             sentences = [{'id': f'message-{i}', 'text': e['sentence'], 'audio_key': audio(e['sentence'])['audio_key']}
                          for i, e in enumerate(chosen)]
             bins = [{'id': f'mailbox-{i}', 'label': e['translation']} for i, e in enumerate(chosen)]
@@ -166,6 +186,11 @@ def build_content(game, examples, seed, session_id, options, source):
         elif game_id == 'detective':
             other = alternatives[1] if len(alternatives) > 1 else target
             route = _route(rng, 1 + index % 3)
+            if distinct:
+                candidates = list(product(DIRECTIONS, repeat=1 + index % 3))
+                rng.shuffle(candidates)
+                route = list(next(path for path in candidates if (target['identity'], path) not in routes))
+                routes.add((target['identity'], tuple(route)))
             wrong = list(route); wrong[-1] = rng.choice([d for d in DIRECTIONS if d != wrong[-1]])
             combinations = [(target, route), (other, route), (target, wrong), (other, wrong)]
             destinations = [_picture(e, session_id, f'delivery-{i}') | {'route': commands,
@@ -202,7 +227,7 @@ def build_content(game, examples, seed, session_id, options, source):
     values = [value for value in difficulties if type(value) is int and 1 <= value <= 8]
     difficulty = options.get('difficulty') or (round(sum(values)/len(values)) if values else None)
     return {'version': VERSION, 'lesson_version': 'vocabulary:'+fingerprint, 'title': game['title'],
-            'source': source, 'rounds': rounds, 'options': options, 'vocabulary_refs': refs,
+            'source': source, 'rounds': rounds, 'options': {key: value for key, value in options.items() if key != 'round_policy'}, 'vocabulary_refs': refs,
             'word_count': len({e.get('word_id') or e['lemma'] for e in targets}),
             'word_difficulty': difficulty,
             'media_texts': sorted({clue['text'] for r in rounds for clue in [*r['clues'], *r.get('answer_audio', [])]}

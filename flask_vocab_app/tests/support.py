@@ -17,13 +17,13 @@ def strip_curriculum_sequences(conn):
     """Remove additive sequence storage when constructing a pre-056 fixture."""
     # Rewinding markers alone leaves lesson tables behind and makes a valid
     # historical upgrade fail with "table already exists".
-    for table in ('comprehension_task_drafts', 'activity_support_disclosures', 'curriculum_unit_exchange_playback',
+    for table in ('curriculum_generated_starts', 'content_variation_exposures', 'comprehension_task_drafts', 'activity_support_disclosures', 'curriculum_unit_exchange_playback',
                   'curriculum_unit_exchange_turns', 'curriculum_unit_exchanges',
                   'activity_review_submissions', 'learning_prior_feedback', 'learning_hint_usage',
                   'learning_session_drafts', 'curriculum_transfer_exposure',
                   'curriculum_unit_requests', 'curriculum_unit_bindings', 'curriculum_unit_runs'):
         conn.execute('DROP TABLE IF EXISTS ' + table)
-    conn.execute('DELETE FROM schema_migrations WHERE version IN (56,57,58,59,60)')
+    conn.execute('DELETE FROM schema_migrations WHERE version IN (56,57,58,59,60,62,63)')
 
 
 def strip_course_progression(conn):

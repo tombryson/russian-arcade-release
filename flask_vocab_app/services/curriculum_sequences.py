@@ -62,7 +62,18 @@ def _transfer_family(conn, run, asset):
     families = asset['content']['families']
     playable = [f for f in families if all(_capability(run['manifest']['assets'][cid]) == 'available' for cid in f['task_ids'])]
     choices = playable or families
-    return next((f for f in choices if f['exposure_family_id'] not in seen), choices[0])
+    unseen = next((f for f in choices if f['exposure_family_id'] not in seen), None)
+    if unseen:
+        return unseen
+    # Once every finite form has been encountered, rotate the least recently
+    # issued family. It remains repeated work; never call it fresh evidence.
+    def latest(family):
+        placeholders = ','.join('?' for _ in family['task_ids'])
+        row = conn.execute('SELECT MAX(rowid) FROM activity_task_contracts WHERE profile_id=? '
+            "AND json_extract(contract_json,'$.content_version') IN (" + placeholders + ')',
+            (run['profile_id'], *family['task_ids'])).fetchone()
+        return row[0] or 0
+    return min(choices, key=latest)
 
 
 def _repeated(conn, binding):

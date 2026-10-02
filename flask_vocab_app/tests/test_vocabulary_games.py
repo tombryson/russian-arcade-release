@@ -64,14 +64,22 @@ class VocabularyGameTests(unittest.TestCase):
         self.discoveries = []
         def discover(provider, **request):
             self.discoveries.append(request)
-            return {'identity': 'new-'+request['seed'], 'word_id': None, 'form_id': None, 'lemma': 'подарок',
-                    'form': 'подарки', 'pos': 'NOUN', 'tags': {'case': 'accs', 'number': 'plur'},
-                    'sentence': 'Анна покупает подарки.', 'translation': 'Anna is buying presents.',
-                    'target_meaning': 'presents', 'notes': '', 'mnemonic': '', 'new_word': True,
+            lemma, form = [('подарок','подарки'), ('билет','билеты'), ('зонт','зонты'), ('ключ','ключи'),
+                           ('цветок','цветы'), ('фонарь','фонари'), ('журнал','журналы'), ('карандаш','карандаши')][len(self.discoveries)-1]
+            return {'identity': 'new-'+request['seed'], 'word_id': None, 'form_id': None, 'lemma': lemma,
+                    'form': form, 'pos': 'NOUN', 'tags': {'case': 'accs', 'number': 'plur'},
+                    'sentence': f'Анна покупает {form}.', 'translation': f'Anna buys item {len(self.discoveries)}.',
+                    'target_meaning': 'the item', 'notes': '', 'mnemonic': '', 'new_word': True,
                     'assets': [], 'metadata': {'lemma_difficulty': 5}, 'source': {'kind': 'discovery'}}
         self.app = isolated_app(self, {'OpenAIService': Provider(), 'CardMediaProvider': self.provider,
                                       'GameDiscovery': discover}, demo=False)
         self.client = self.app.test_client(); self.db = self.app.config['DB_PATH']
+        self.context_calls = []
+        def fresh_context(word, kind):
+            self.context_calls.append(word)
+            return {'english': 'the selected word', 'sentence': f'Я повторяю слово «{word["form"]}» в упражнении {len(self.context_calls)}.',
+                    'sentence_english': f'I repeat the selected word in exercise {len(self.context_calls)}.', 'notes': ''}
+        self.app.extensions['learning']['journey_game_preparation'].provider.generate_native_card = fresh_context
         self.csrf = self.client.get('/api/v1/games').json['csrf_token']
         grant_earned_game_access(self.db)
         self.examples = {}
@@ -136,17 +144,69 @@ class VocabularyGameTests(unittest.TestCase):
             for word in content['vocabulary_refs']:
                 if word['lemma'] not in self.examples:
                     continue
-                self.assertEqual(word['sentence'],self.examples[word['lemma']][0])
+                if picture_game:
+                    self.assertEqual(word['sentence'],self.examples[word['lemma']][0])
+                else:
+                    self.assertNotEqual(word['sentence'],self.examples[word['lemma']][0])
                 self.assertNotEqual(word['form'],word['lemma']) if word['lemma'] not in ('море','кофе') else None
             self.assertEqual(self.finish(state)['phase'],'completed')
             new_calls = self.provider.calls[before:]
-            self.assertEqual([kind for kind, _ in new_calls], ['image'] if picture_game else ['sentence_audio'] if game['id']=='letter-back' else [])
+            self.assertEqual([kind for kind, _ in new_calls], ['image'] if picture_game else ['sentence_audio'] * 5 if game['id']=='letter-back' else [])
         with transaction(self.db) as conn:
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM native_card_batches').fetchone()[0],0)
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM card_definitions').fetchone()[0],0)
             self.assertFalse(conn.execute('PRAGMA foreign_key_check').fetchall())
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM words').fetchone()[0], 20)
         self.assertEqual(len(self.discoveries), 6)
+
+    def test_ten_rounds_prepare_distinct_text_targets_without_ten_pictures(self):
+        for game in ('pack-bag', 'missing-stamp', 'mailbox-sort', 'letter-back', 'detective'):
+            before = len(self.provider.calls)
+            state = self.ready(self.start(game, options={'source': 'vocabulary', 'rounds': 10}))
+            content = self.stored(state)
+            if game in ('pack-bag', 'detective'):
+                self.assertEqual(len(content['vocabulary_refs']), 4)
+                self.assertLessEqual(sum(kind == 'image' for kind, _ in self.provider.calls[before:]), 4)
+            else:
+                self.assertEqual(len(content['vocabulary_refs']), 10)
+                self.assertEqual(len({word['sentence'] for word in content['vocabulary_refs']}), 10)
+                self.assertFalse(any(kind == 'image' for kind, _ in self.provider.calls[before:]))
+            signatures = {(tuple(sorted(row['evidence_texts'])), tuple(clue['text'] for clue in row['clues']) if game == 'detective' else ())
+                          for row in content['rounds']}
+            self.assertEqual(len(signatures), 10)
+            self.assertNotIn('_owner_scope', json.dumps(state))
+        self.assertIn('подарок', self.discoveries[1]['known_lemmas'])
+        self.assertEqual(len(self.context_calls), 27)
+
+    def test_budget_denial_keeps_preparation_and_poll_never_spends_again(self):
+        from services.ai_trial_budget import TrialDenied
+        from unittest.mock import Mock
+        service = self.app.extensions['learning']['journey_game_preparation']
+        denied = Mock(side_effect=TrialDenied('Trial allowance reached.'))
+        service.provider.generate_native_card = denied
+        state = self.start('letter-back')
+        # Use the same authenticated route context for the owned service call.
+        response = self.client.post('/api/v1/games/sessions/' + state['id'] + '/prepare', json={}, headers={'X-CSRF-Token': self.csrf})
+        self.assertIn(response.status_code, (402, 403, 429))
+        saved = self.post('/api/v1/games/sessions/' + state['id'] + '/prepare')
+        self.assertEqual(saved['preparation']['status'], 'failed')
+        self.assertEqual(denied.call_count, 1)
+
+    def test_generated_matching_contexts_cannot_have_indistinguishable_translations(self):
+        from unittest.mock import Mock
+        service = self.app.extensions['learning']['journey_game_preparation']
+        def repeated_meaning(word, kind):
+            return {'english': 'the selected word', 'sentence': f'Я вижу слово «{word["form"]}».',
+                    'sentence_english': 'The same meaning.', 'notes': ''}
+        provider = Mock(side_effect=repeated_meaning)
+        service.provider.generate_native_card = provider
+        state = self.start('mailbox-sort')
+        endpoint = '/api/v1/games/sessions/' + state['id'] + '/prepare'
+        self.post(endpoint)
+        failed = self.post(endpoint)
+        self.assertEqual(failed['preparation']['status'], 'failed')
+        self.post(endpoint)
+        self.assertEqual(provider.call_count, 2)
 
     def test_authored_routes_open_immediately_without_any_generation(self):
         state = self.start('directions', options={'delivery_id': MISSION_IDS[0]})

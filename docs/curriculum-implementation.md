@@ -1,5 +1,23 @@
 # Curriculum implementation status
 
+## Procedural practice — 2 October 2026
+
+The current catalogue has 15 A1 units. **Activities and future professions** adds
+заниматься + instrumental and the future-profession pattern буду врачом. It has
+eight authored questions, six typed prompts and an original Writing task.
+Listening remains unavailable for this new unit until its recordings are prepared.
+
+The units now offer new choice and typed-form examples from checked Russian rules.
+Generated sets preserve their sentences, answer keys and requirement references.
+Recent questions inform selection; repeated feedback remains recorded as help.
+Broader authored lesson practice stays available, including reading questions and
+functions not yet covered by the generators. Neither new seeds nor repeated modes
+create additional daily rewards or a proficiency pass.
+
+See [procedural content](procedural-content.md) for the rule scope, variation across
+games and Speaking, validation and remaining work. The dated sections below record
+earlier stages and their original counts.
+
 ## Present-tense foundations — 2 October 2026
 
 **Who is doing what?** adds a fourteenth A1 unit. It teaches the present forms of

@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import random
+from functools import lru_cache
 
 from repositories.learning_repository import LearningError, encoded
 
@@ -98,12 +99,12 @@ def catalogue(conn, level=None):
     validate_level(level)
     activity = conn.execute("SELECT * FROM learning_activity_types WHERE id='speaking'").fetchone()
     rows = conn.execute("""SELECT s.*,COUNT(v.id) AS variant_count FROM speaking_scenarios s
-        JOIN speaking_scenario_variants v ON v.scenario_id=s.id AND v.enabled=1
+        JOIN speaking_scenario_variants v ON v.scenario_id=s.id AND v.enabled=1 AND v.id NOT LIKE '%-p3-%'
         WHERE s.activity_type_id='speaking' AND s.enabled=1 GROUP BY s.id ORDER BY s.sort_order,s.id""").fetchall()
     scenarios = []
     for row in rows:
         item = dict(row)
-        counts = dict(conn.execute('SELECT target_level,COUNT(*) FROM speaking_scenario_variants WHERE scenario_id=? AND enabled=1 GROUP BY target_level', (row['id'],)).fetchall())
+        counts = dict(conn.execute("SELECT target_level,COUNT(*) FROM speaking_scenario_variants WHERE scenario_id=? AND enabled=1 AND id NOT LIKE '%-p3-%' GROUP BY target_level", (row['id'],)).fetchall())
         item['levels'] = [band for band in LEVELS if counts.get(band, 0)]
         item['level_details'] = {details['target_level']: {
             key:details[key] for key in ('title','title_ru','description','description_ru','topic_id')}
@@ -114,12 +115,82 @@ def catalogue(conn, level=None):
         scenarios.append(item)
     counts = dict(conn.execute("""SELECT v.target_level,COUNT(*) FROM speaking_scenario_variants v
         JOIN speaking_scenarios s ON s.id=v.scenario_id
-        WHERE v.enabled=1 AND s.enabled=1 AND s.activity_type_id='speaking' GROUP BY v.target_level""").fetchall())
+        WHERE v.enabled=1 AND v.id NOT LIKE '%-p3-%' AND s.enabled=1 AND s.activity_type_id='speaking' GROUP BY v.target_level""").fetchall())
     return {'activity':dict(activity), 'scenarios':scenarios, 'selected_level':level,
             'levels':[{'id':band,'available_count':counts.get(band,0)} for band in LEVELS]}
 
 
-def choose_variant(conn, scenario_id='cafe', *, previous_seeds=(), seed=None, level=None):
+@lru_cache(maxsize=1)
+def _category_metadata():
+    return {item['id']: {**item, 'conversation_role': item['variants'][0]['conversation_role']}
+            for item in json.loads(CATALOGUE_FILE.read_text())['scenarios']}
+
+
+@lru_cache(maxsize=1)
+def _published_baselines():
+    from services.speaking_curriculum import compiled_situations
+    return {item['seed']:item for item in compiled_situations(_category_metadata())}
+
+
+def _procedural_levels(variants, scenario_id):
+    """Respect catalogue switches/edits: only extend an intact published group.
+
+    A disabled or edited base group falls back to its enabled database variants.
+    Previously started sessions use their snapshots and never pass this gate.
+    """
+    from services.speaking_curriculum import _content
+    result = []
+    for group in _content()['groups']:
+        if group['scenario_id'] != scenario_id:
+            continue
+        for bundle in group['bundles']:
+            seed = f"{scenario_id}-{group['target_level'].lower()}-{bundle['id']}-v2"
+            row = variants.get(seed)
+            payload = json.loads(row['payload_json']) if row else {}
+            baseline = _published_baselines()[seed]
+            if (row is None or row['target_level'] != group['target_level']
+                    or any(payload.get(key) != baseline[key] for key in
+                           ('goals','goals_ru','completion_criteria','worker_brief','title','title_ru',
+                            'description','description_ru','opening','opening_english','menu','reference',
+                            'learning_contract','variation'))):
+                break
+        else:
+            result.append(group['target_level'])
+    return result
+
+
+def _choose_procedural(conn, scenario_id, levels, previous_seeds):
+    from services.speaking_procedural import recipes, seed_for, parse_seed, semantic_key
+    recent = []
+    for seed in dict.fromkeys(value for value in previous_seeds if isinstance(value,str)):
+        row = conn.execute('SELECT payload_json FROM speaking_scenario_variants WHERE id=? AND scenario_id=?',
+                           (seed,scenario_id)).fetchone()
+        if row:
+            recent.append(semantic_key(json.loads(row['payload_json'])))
+        else:
+            parsed = parse_seed(seed)
+            if parsed and parsed[0] == scenario_id:
+                category, level, index = parsed
+                recent.append(semantic_key({'scenario_id':category,'target_level':level,
+                                           'variation':{'facts':recipes(category,level)[index]['facts']}}))
+    recent = list(dict.fromkeys(recent))
+    disabled = {row[0] for row in conn.execute('SELECT id FROM speaking_scenario_variants WHERE scenario_id=? AND enabled=0', (scenario_id,))}
+    candidates = []
+    for level in levels:
+        for index, bundle in enumerate(recipes(scenario_id,level)):
+            if seed_for(scenario_id,level,index) in disabled:
+                continue
+            key = semantic_key({'scenario_id':scenario_id,'target_level':level,'variation':{'facts':bundle['facts']}})
+            # New meaning first; after exhaustion revisit the least recent meaning.
+            rank = len(recent)+1 if key not in recent else recent.index(key)
+            candidates.append((rank,seed_for(scenario_id,level,index)))
+    if not candidates:
+        raise LearningError('unavailable', 'This scenario has no available situations at this level yet.', 409)
+    best = max(rank for rank,_ in candidates)
+    return random.choice([seed for rank,seed in candidates if rank == best])
+
+
+def choose_variant(conn, scenario_id='cafe', *, previous_seeds=(), seed=None, level=None, persist=False):
     validate_level(level)
     if not isinstance(scenario_id,str):
         raise LearningError('invalid_input', 'Choose an available speaking scenario.')
@@ -129,30 +200,51 @@ def choose_variant(conn, scenario_id='cafe', *, previous_seeds=(), seed=None, le
     variants = {row['id']:row for row in conn.execute('SELECT id,payload_json,target_level FROM speaking_scenario_variants WHERE scenario_id=? AND enabled=1 AND (? IS NULL OR target_level=?) ORDER BY id', (scenario_id,level,level))}
     if not variants:
         raise LearningError('unavailable', 'This scenario has no available situations at this level yet.' if level else 'This scenario has no available situations yet.', 409)
+    from services.speaking_procedural import build, parse_seed
+    procedural_levels = _procedural_levels(variants,scenario_id)
     if seed is not None:
-        if not isinstance(seed,str) or seed not in variants:
+        parsed = parse_seed(seed)
+        if not isinstance(seed,str) or (seed not in variants and parsed is None):
             raise LearningError('invalid_input', 'Choose a situation from this speaking scenario and level.')
+        if parsed and (parsed[0] != scenario_id or parsed[1] not in procedural_levels
+                       or (level is not None and parsed[1] != level)):
+            raise LearningError('invalid_input', 'Choose a situation from this speaking scenario and level.')
+        if parsed and conn.execute('SELECT 1 FROM speaking_scenario_variants WHERE id=? AND enabled=0', (seed,)).fetchone():
+            raise LearningError('invalid_input', 'Choose a situation from this speaking scenario and level.')
+    elif procedural_levels:
+        seed = _choose_procedural(conn,scenario_id,procedural_levels,previous_seeds)
     else:
-        recent = list(dict.fromkeys(value for value in previous_seeds if isinstance(value,str) and value in variants))
-        available = [key for key in variants if key not in recent]
+        eligible = {key:row for key,row in variants.items() if parse_seed(key) is None}
+        if not eligible:
+            raise LearningError('unavailable', 'This scenario has no available situations at this level yet.', 409)
+        recent = list(dict.fromkeys(value for value in previous_seeds if isinstance(value,str) and value in eligible))
+        available = [key for key in eligible if key not in recent]
         seed = random.choice(available) if available else recent[-1]
-    snapshot = json.loads(variants[seed]['payload_json'])
+    snapshot = (json.loads(variants[seed]['payload_json']) if seed in variants
+                else build(seed,_category_metadata()[scenario_id]))
+    selected_level = snapshot.get('target_level') if seed not in variants else variants[seed]['target_level']
     context = snapshot.get('curriculum_context')
     if isinstance(context, dict) and isinstance(context.get('topic_id'), str):
         from services.torfl_requirements import generation_reference
-        reference = generation_reference(context['topic_id'], variants[seed]['target_level'], 'speaking')
+        reference = generation_reference(context['topic_id'], selected_level, 'speaking')
         if reference is not None:
             # Refresh planning guidance only in the selected copy. Both modes
             # freeze it when creating a session; resumed sessions and persisted
             # catalogue facts/contracts are never rewritten by selection.
             snapshot['curriculum_context'] = {**context, 'proficiency_reference': reference}
     level_metadata = conn.execute('SELECT title,title_ru FROM speaking_scenario_levels WHERE scenario_id=? AND target_level=?',
-                                  (scenario_id,variants[seed]['target_level'])).fetchone()
+                                  (scenario_id,selected_level)).fetchone()
     # Metadata is copied into the immutable session snapshot, so future
     # catalogue edits cannot rename or change a saved learner's conversation.
-    return {**snapshot,'id':seed,'seed':seed,'scenario_id':scenario_id,
+    selected = {**snapshot,'id':seed,'seed':seed,'scenario_id':scenario_id,
             'category_title':level_metadata['title'] if level_metadata else scenario['title'],
             'category_title_ru':level_metadata['title_ru'] if level_metadata else scenario['title_ru'],
             'role':snapshot.get('role') or scenario['role'],'role_ru':snapshot.get('role_ru') or scenario['role_ru'],
             'icon':scenario['icon'],'sign':scenario['sign'],
-            'target_level':variants[seed]['target_level']}
+            'target_level':selected_level}
+    if persist and seed not in variants:
+        # Start owns a write transaction; previews remain read-only. The existing
+        # variant FK and immutable scenario_json need no new migration/table.
+        conn.execute('INSERT INTO speaking_scenario_variants(id,scenario_id,payload_json,target_level) VALUES (?,?,?,?)',
+                     (seed,scenario_id,encoded(selected),selected_level))
+    return selected

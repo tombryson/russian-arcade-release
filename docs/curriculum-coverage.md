@@ -41,10 +41,11 @@ Runtime-generated tasks are not part of this static count. Source editions beyon
 | Activities and completed results (`action-aspect-v1`) | 8 | 5 | 3 |
 | Where from and where to (`origins-and-destinations-v1`) | 8 | 5 | 3 |
 | Reasons, questions and connected messages (`connected-messages-v1`) | 8 | 5 | 3 |
+| Activities and future professions (`instrumental-activities-professions-v1`) | 8 | 6 | 0 |
 
 Each unit also opens its own Writing task. A zero listening count means that no listening activity is offered for that unit. Speaking links to existing scenarios do not automatically add a unit-specific Speaking criterion. See [the validation record and reviewer workflow](curriculum-validation.md) for the pending language and learner review.
 
-There are 225 directly authored task definitions linked to 45 reference requirements. These counts include the narrow mapped Speaking diagnostics listed below.
+There are 240 directly authored task definitions linked to 47 reference requirements. These counts include the narrow mapped Speaking diagnostics listed below.
 
 ## Authored reference tasks
 
@@ -266,6 +267,21 @@ There are 225 directly authored task definitions linked to 45 reference requirem
 | `connected-messages-v1:listening-v1:who-will-call` | `a1.listening.short-message` | unit_listening_choice |
 | `connected-messages-v1:listening-v1:why-wait` | `a1.listening.short-message` | unit_listening_choice |
 | `connected-messages-v1:writing:rearrange-library-meeting` | `a1.writing.source-based-message` | unit_writing |
+| `instrumental-activities-professions-v1:activity-sport` | `a1.language.instrumental-activity` | unit_choice |
+| `instrumental-activities-professions-v1:activity-music` | `a1.language.instrumental-activity` | unit_choice |
+| `instrumental-activities-professions-v1:activity-language` | `a1.language.instrumental-activity` | unit_choice |
+| `instrumental-activities-professions-v1:future-doctor` | `a1.language.instrumental-profession` | unit_choice |
+| `instrumental-activities-professions-v1:future-teacher` | `a1.language.instrumental-profession` | unit_choice |
+| `instrumental-activities-professions-v1:future-engineer` | `a1.language.instrumental-profession` | unit_choice |
+| `instrumental-activities-professions-v1:reading-now-future` | `a1.reading.practical-information` | unit_choice |
+| `instrumental-activities-professions-v1:reading-activity-companion` | `a1.language.instrumental-activity` | unit_choice |
+| `instrumental-activities-professions-v1:instrumental-activities-professions-forms-v1:form-sport` | `a1.language.instrumental-activity` | unit_controlled_text |
+| `instrumental-activities-professions-v1:instrumental-activities-professions-forms-v1:form-music` | `a1.language.instrumental-activity` | unit_controlled_text |
+| `instrumental-activities-professions-v1:instrumental-activities-professions-forms-v1:form-language` | `a1.language.instrumental-activity` | unit_controlled_text |
+| `instrumental-activities-professions-v1:instrumental-activities-professions-forms-v1:form-doctor` | `a1.language.instrumental-profession` | unit_controlled_text |
+| `instrumental-activities-professions-v1:instrumental-activities-professions-forms-v1:form-teacher` | `a1.language.instrumental-profession` | unit_controlled_text |
+| `instrumental-activities-professions-v1:instrumental-activities-professions-forms-v1:form-engineer` | `a1.language.instrumental-profession` | unit_controlled_text |
+| `instrumental-activities-professions-v1:writing:activities-and-career-message` | `a1.writing.connected-description` | unit_writing |
 | `cafe-a1-takeaway-v2.request-order:request-order` | `a1.speaking.request-and-response` | speaking_audio_diagnostic |
 | `cafe-a1-warm-lunch-v2.request-order:request-order` | `a1.speaking.request-and-response` | speaking_audio_diagnostic |
 | `cafe-a1-two-drinks-v2.request-order:request-order` | `a1.speaking.request-and-response` | speaking_audio_diagnostic |
@@ -327,8 +343,8 @@ Recording readiness is separate from content status. Missing audio remains visib
 | `a1.language.accusative-duration` — How long an action lasts | `a1.numbers.time-versus-duration.select` (partial) | 1 / 1 / 3 | 0 | P2: `time-routine-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.accusative-destination` — Going into or to a place | Unallocated | 0 / 0 / 0 | 5 | P1: `location-destination-v2` (authored candidate); 1 / 1 / 3 / 6 |
 | `a1.language.accusative-clock-weekday` — At a time or on a weekday | Unallocated | 0 / 0 / 0 | 2 | P2: `time-routine-v1` (authored candidate); 0 / 0 / 0 / 0 |
-| `a1.language.instrumental-activity` — An activity with заниматься | Unallocated | 0 / 0 / 0 | 0 | P2: `roles-and-activities-v1` (planned); 0 / 0 / 0 / 0 |
-| `a1.language.instrumental-profession` — A profession with быть | Unallocated | 0 / 0 / 0 | 0 | P2: `roles-and-activities-v1` (planned); 0 / 0 / 0 / 0 |
+| `a1.language.instrumental-activity` — An activity with заниматься | Unallocated | 0 / 0 / 0 | 7 | P2: `instrumental-activities-professions-v1` (authored candidate); 0 / 0 / 0 / 0 |
+| `a1.language.instrumental-profession` — A profession with быть | Unallocated | 0 / 0 / 0 | 6 | P2: `instrumental-activities-professions-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.instrumental-company` — Doing something with someone | Unallocated | 0 / 0 / 0 | 2 | P2: `needs-company-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.instrumental-ingredient` — What something comes with | Unallocated | 0 / 0 / 0 | 2 | P2: `needs-company-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.prepositional-topic` — Talking or thinking about something | Unallocated | 0 / 0 / 0 | 0 | P2: `roles-and-activities-v1` (planned); 0 / 0 / 0 / 0 |
@@ -358,14 +374,14 @@ Recording readiness is separate from content status. Missing audio remains visib
 | `a1.language.reported-speech` — Reporting a short message | Unallocated | 0 / 0 / 0 | 1 | P2: `connected-messages-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.neutral-word-order` — Sentence structure | Unallocated | 0 / 0 / 0 | 0 | P2: `connected-messages-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.reading.cyrillic-decoding` — Reading Cyrillic | Unallocated | 0 / 0 / 0 | 0 | P2: `sounds-and-script-v1` (planned); 0 / 0 / — / 0 |
-| `a1.reading.practical-information` — Finding practical information | `a1.greetings.exchange-names.read` (partial)<br>`a1.numbers.recognise-number.read` (partial)<br>`a1.numbers.event-time.read` (partial)<br>`a1.home.identify-rooms-furniture.read` (partial)<br>`a1.home.locate-object.read` (partial)<br>`a1.food.identify-food-drink.read` (partial)<br>`a1.food.make-request.read` (partial)<br>`a1.daily_activities.ask-current-activity.read` (partial)<br>`a1.colors.identify-colour-size.read` (partial)<br>`a1.colors.describe-object.read` (partial)<br>`a1.clothing.identify-clothes.read` (partial)<br>`a1.clothing.identify-clothing-description.read` (partial)<br>`a1.places.ask-location.read` (partial)<br>`a1.weather.understand-weather.read` (partial) | 12 / 12 / 39 | 11 | P1: `location-destination-v2` (authored candidate); 0 / 1 / — / 2 |
+| `a1.reading.practical-information` — Finding practical information | `a1.greetings.exchange-names.read` (partial)<br>`a1.numbers.recognise-number.read` (partial)<br>`a1.numbers.event-time.read` (partial)<br>`a1.home.identify-rooms-furniture.read` (partial)<br>`a1.home.locate-object.read` (partial)<br>`a1.food.identify-food-drink.read` (partial)<br>`a1.food.make-request.read` (partial)<br>`a1.daily_activities.ask-current-activity.read` (partial)<br>`a1.colors.identify-colour-size.read` (partial)<br>`a1.colors.describe-object.read` (partial)<br>`a1.clothing.identify-clothes.read` (partial)<br>`a1.clothing.identify-clothing-description.read` (partial)<br>`a1.places.ask-location.read` (partial)<br>`a1.weather.understand-weather.read` (partial) | 12 / 12 / 39 | 12 | P1: `location-destination-v2` (authored candidate); 0 / 1 / — / 2 |
 | `a1.reading.narrative-meaning` — Understanding a short account | `a1.daily_activities.describe-routine.read` (partial)<br>`a1.weather.choose-weather-plan.read` (partial) | 2 / 2 / 6 | 3 | P2: `short-stories-v1` (planned); 0 / 0 / — / 0 |
 | `a1.reading.reference-and-sequence` — Following people and events | `a1.family.identify-relatives.read` (partial)<br>`a1.family.describe-family.read` (partial)<br>`a1.places.follow-directions.read` (partial) | 2 / 2 / 9 | 15 | P2: `connected-messages-v1` (authored candidate); 0 / 0 / — / 0 |
 | `a1.listening.sound-contrasts` — Hearing word differences | Unallocated | 0 / 0 / 0 | 0 | P2: `sounds-and-script-v1` (planned); 0 / 0 / — / 0 |
 | `a1.listening.short-message` — Understanding a spoken message | `a1.greetings.exchange-names.listen` (partial)<br>`a1.numbers.recognise-number.listen` (partial)<br>`a1.numbers.event-time.listen` (partial)<br>`a1.family.identify-relatives.listen` (partial)<br>`a1.family.describe-family.listen` (partial)<br>`a1.home.identify-rooms-furniture.listen` (partial)<br>`a1.home.locate-object.listen` (partial)<br>`a1.food.identify-food-drink.listen` (partial)<br>`a1.daily_activities.describe-routine.listen` (partial)<br>`a1.colors.identify-colour-size.listen` (partial)<br>`a1.colors.describe-object.listen` (partial)<br>`a1.clothing.identify-clothes.listen` (partial)<br>`a1.clothing.identify-clothing-description.listen` (partial)<br>`a1.places.follow-directions.listen` (partial)<br>`a1.weather.understand-weather.listen` (partial)<br>`a1.weather.choose-weather-plan.listen` (partial) | 5 / 5 / 24 | 39 | P1: `location-destination-v2` (authored candidate); 0 / 1 / — / 2 |
 | `a1.listening.dialogue-intention` — Understanding what someone wants | `a1.greetings.polite-greeting.listen` (partial)<br>`a1.food.make-request.listen` (partial)<br>`a1.daily_activities.ask-current-activity.listen` (partial)<br>`a1.places.ask-location.listen` (partial) | 0 / 0 / 6 | 3 | P2: `social-exchanges-v1` (authored candidate); 0 / 0 / — / 0 |
 | `a1.writing.personal-message` — Writing a personal message | `a1.greetings.polite-greeting.write` (partial)<br>`a1.greetings.exchange-names.write` (partial)<br>`a1.home.describe-location.write` (related)<br>`a1.food.make-request.write` (partial)<br>`a1.daily_activities.ask-current-activity.write` (related)<br>`a1.places.ask-location.write` (related)<br>`a1.places.follow-directions.write` (related)<br>`a1.weather.choose-weather-plan.write` (related) | 0 / 0 / 0 | 11 | P1: `location-destination-v2` (authored candidate); 0 / 0 / 1 / 2 |
-| `a1.writing.connected-description` — Describing everyday life | `a1.family.describe-family.write` (partial)<br>`a1.daily_activities.describe-routine.write` (partial)<br>`a1.colors.describe-object.write` (partial)<br>`a1.weather.describe-weather.write` (related) | 0 / 0 / 0 | 2 | P2: `people-and-routines-v1` (planned); 0 / 0 / 0 / 0 |
+| `a1.writing.connected-description` — Describing everyday life | `a1.family.describe-family.write` (partial)<br>`a1.daily_activities.describe-routine.write` (partial)<br>`a1.colors.describe-object.write` (partial)<br>`a1.weather.describe-weather.write` (related) | 0 / 0 / 0 | 3 | P2: `people-and-routines-v1` (planned); 0 / 0 / 0 / 0 |
 | `a1.writing.source-based-message` — Using information from a text | Unallocated | 0 / 0 / 0 | 1 | P2: `connected-messages-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.speaking.intelligibility` — Speaking clearly enough to understand | Unallocated | 0 / 0 / 0 | 0 | P1: `location-destination-v2` (authored candidate); 0 / 0 / 1 / 2 |
 | `a1.speaking.social-etiquette` — Greetings and polite exchanges | `a1.greetings.polite-greeting.read` (related)<br>`a1.greetings.polite-greeting.speak` (partial) | 0 / 0 / 0 | 0 | P2: `social-exchanges-v1` (authored candidate); 0 / 0 / 0 / 0 |

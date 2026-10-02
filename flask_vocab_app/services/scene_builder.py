@@ -1,4 +1,4 @@
-"""Authored scene contrasts, with independently checked sentence components.
+"""Frozen scene sessions and retained authored grammar reference contrasts.
 
 These examples test a stated grammatical distinction. The caption provides
 facts a still image cannot show (transport, repetition or completed action).
@@ -13,7 +13,7 @@ from flask import current_app
 
 from repositories.learning_repository import LearningError, encoded, identifier, timestamp, transaction
 
-VERSION = 'scene-builder-v3'
+VERSION = 'scene-builder-v4'
 REWARD_VERSION = 'scene-builder-v1'
 GAME = {'id': 'scene-builder', 'title': 'Describe the scene', 'lesson_id': 'bag',
         'lesson_title': 'What’s in the bag?',
@@ -246,21 +246,9 @@ def _motion_sequence(rows, rng):
     return result
 
 
-def build_content(seed, settings):
-    rng=random.Random(seed)
-    bank=curriculum()
-    families={family:[round for round in bank if round['scene_builder']['family']==family
-                      and (family!='motion' or round['scene_builder']['level']==settings.get('motion_level','A1'))]
-              for family in FAMILIES}
-    for family, rounds in families.items():
-        if family == 'motion':
-            families[family] = _motion_sequence(rounds, rng)
-        else:
-            rng.shuffle(rounds)
-    if settings['grammar_focus']=='mixed':
-        selected=[families[FAMILIES[index%len(FAMILIES)]].pop(0) for index in range(settings['rounds'])]
-    else:
-        selected=families[settings['grammar_focus']][:settings['rounds']]
+def build_content(seed, settings, *, recent=()):
+    from services.scene_generator import generate
+    selected = generate(seed, settings, recent)
     # Content revisions and chosen levels must not mint another daily reward.
     # Frozen sessions retain their original questions and answer identities.
     lesson_version=REWARD_VERSION+':'+settings['grammar_focus']
@@ -299,7 +287,17 @@ def start(request_id, value, *, new_game=False, sample=False):
         if not sample:
             require_access(conn, profile, GAME['id'], now=now)
         seed,session_id=identifier(),identifier()
-        content=build_content(seed,settings)
+        # The server owns exposure history. Names/button order are excluded
+        # from semantic identity, so a renamed replay is not a new situation.
+        # Retained authored editions have no generated identity and continue
+        # to be read from their frozen content without conversion.
+        recent = []
+        for row in rows[:20]:
+            for question in json.loads(row['content_json']).get('rounds', []):
+                semantic_id = question.get('generation', {}).get('semantic_id')
+                if semantic_id:
+                    recent.append(semantic_id)
+        content=build_content(seed,settings,recent=recent)
         content['sample']=sample
         if active:
             conn.execute('UPDATE journey_game_sessions SET superseded_at=? WHERE id=?',(now,active['id']))

@@ -16,9 +16,12 @@ UNIT_IDS = ('location-destination-v1', 'possession-absence-v1',
             'objects-recipients-v1', 'present-actions-v1', 'time-routine-v1',
             'noun-adjective-agreement-v1', 'personal-reference-v1', 'basic-motion-v1',
             'numbers-quantities-v1', 'social-exchanges-v1', 'needs-company-v1',
-            'action-aspect-v1', 'origins-and-destinations-v1', 'connected-messages-v1')
+            'action-aspect-v1', 'origins-and-destinations-v1', 'connected-messages-v1',
+            'instrumental-activities-professions-v1')
 DATA_DIR = Path(__file__).resolve().parents[1] / 'data' / 'curriculum_units'
-LISTENING_IDS = {unit_id: unit_id.removesuffix('-v1') + '-listening-v1' for unit_id in UNIT_IDS}
+# This unit has no prepared recordings. Do not infer playback from a unit ID.
+LISTENING_IDS = {unit_id: unit_id.removesuffix('-v1') + '-listening-v1' for unit_id in UNIT_IDS
+                 if unit_id != 'instrumental-activities-professions-v1'}
 
 
 def listening_content(unit_id):
@@ -152,6 +155,8 @@ def _practice_contract(unit, item, question, session_id):
 
 
 def _unit_for_pack(pack):
+    if pack['id'].startswith('curriculum-unit:g1:'):
+        return None
     prefix = 'curriculum-unit:'
     if not pack['id'].startswith(prefix):
         return None
@@ -174,6 +179,9 @@ def _unit_for_pack(pack):
 
 
 def freeze_practice(conn, profile_id, session_id, pack):
+    if pack['id'].startswith('curriculum-unit:g1:'):
+        from services.curriculum_fresh_practice import freeze
+        return freeze(conn, profile_id, session_id, pack)
     origin = _unit_for_pack(pack)
     if origin is None:
         return
@@ -206,6 +214,9 @@ def observe_answer(conn, profile_id, session_id, pack, item, attempt_id, answer,
 
 
 def practice_context(pack):
+    if pack['id'].startswith('curriculum-unit:g1:'):
+        from services.curriculum_fresh_practice import origin
+        return origin(pack)
     origin = _unit_for_pack(pack)
     if origin is None:
         return None

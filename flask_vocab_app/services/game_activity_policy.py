@@ -3,14 +3,14 @@
 PICTURE_GAMES = frozenset(('pack-bag', 'pairs', 'detective'))
 
 
-def activity_policy(game_id):
+def activity_policy(game_id, rounds=5):
     if game_id == 'radio':
         return {'kind': 'broadcast', 'pictures': 0, 'questions': 4}
     if game_id == 'directions':
         return {'kind': 'route', 'pictures': 0}
     if game_id in PICTURE_GAMES:
-        return {'kind': 'examples', 'familiar': 3, 'new': 1, 'required_media': ['image']}
-    return {'kind': 'examples', 'familiar': 4, 'new': 1,
+        return {'kind': 'examples', 'version': 2, 'familiar': 3, 'new': 1, 'required_media': ['image']}
+    return {'kind': 'examples', 'version': 2, 'familiar': rounds - 1, 'new': 1, 'fresh_contexts': True,
             'required_media': ['sentence_audio'] if game_id == 'letter-back' else []}
 
 

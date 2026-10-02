@@ -64,7 +64,7 @@ class SpeakingIntegrationTests(unittest.TestCase):
             self.assertEqual(recent_variants(conn, self.profile_id, 'station', 'A2'), [])
             self.assertEqual(recent_variants(conn, 'another-profile', 'shop', 'A2'), [])
 
-    def test_least_recent_selection_uses_both_modes_after_all_variants_are_used(self):
+    def test_legacy_exhaustion_moves_both_modes_to_fresh_procedural_situations(self):
         with transaction(self.db) as conn:
             seeds = [row[0] for row in conn.execute("SELECT id FROM speaking_scenario_variants "
                 "WHERE scenario_id='shop' AND target_level='A2' AND enabled=1 ORDER BY id")]
@@ -81,7 +81,7 @@ class SpeakingIntegrationTests(unittest.TestCase):
                 table = 'live_conversation_sessions' if mode == 'live' else 'step_conversation_sessions'
                 conn.execute(f'UPDATE {table} SET created_at=? WHERE id=?', (1000 + index, saved['id']))
         for mode in ('live', 'step'):
-            self.assertEqual(self.options(mode)['seed'], oldest)
+            self.assertNotIn(self.options(mode)['seed'], seeds)
 
     def test_another_situation_excludes_current_preview_without_recording_a_play(self):
         first = self.options()
@@ -120,14 +120,19 @@ class SpeakingIntegrationTests(unittest.TestCase):
         historical = {}
         with patch('services.torfl_requirements.generation_reference', return_value=None):
             for mode in ('live', 'step'):
-                historical[mode] = self.start(mode, 'before-reference-' + mode)
+                from repositories.speaking_repository import choose_variant
+                with transaction(self.db) as conn:
+                    preview = choose_variant(conn,'shop',level='A2',seed='shop-a2-size-v2')
+                historical[mode] = self.start(mode, 'before-reference-' + mode, preview)
                 self.assertNotIn('proficiency_reference', historical[mode]['scenario']['curriculum_context'])
         with transaction(self.db) as conn:
             originals = {mode: conn.execute(f'SELECT scenario_json FROM {mode}_conversation_sessions WHERE id=?',
                                            (saved['id'],)).fetchone()[0]
                          for mode, saved in historical.items()}
         for mode in ('live', 'step'):
-            current = self.start(mode, 'after-reference-' + mode)
+            with transaction(self.db) as conn:
+                preview = choose_variant(conn,'shop',level='A2',seed='shop-a2-size-v2')
+            current = self.start(mode, 'after-reference-' + mode, preview)
             scenario = current['scenario']
             source = json.loads(catalogue[scenario['seed']])
             context = dict(scenario['curriculum_context'])

@@ -6,6 +6,7 @@ from flask import Blueprint, jsonify, redirect, render_template, request, sessio
 from repositories.writing_repository import WritingRepository, WritingConflict, word_count
 from repositories.learning_repository import LearningError
 from services.writing_service import WritingUnavailable
+from services.ai_trial_budget import TrialDenied
 from services.curriculum import level_options, normalize_level, topic_options
 from services.curriculum_requirement_map import requirement_index
 from utils.activity_display import topic_label, readable_date
@@ -140,6 +141,8 @@ def create_writing_blueprint(db_path, service):
         return request.accept_mimetypes.best == 'application/json'
 
     def failure(error,exercise=None,preparing=False):
+        if isinstance(error, TrialDenied):
+            raise error
         if isinstance(error, LearningError):
             if enhanced():
                 return jsonify(error={'code': error.code, 'message': str(error)}), error.status

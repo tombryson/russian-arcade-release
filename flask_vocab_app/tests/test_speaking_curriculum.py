@@ -113,7 +113,7 @@ class SpeakingCurriculumTests(unittest.TestCase):
         with self.assertRaises(LearningError):
             choose_variant(self.conn,'cafe',seed='cafe-for-two-v1')
         for _ in range(20):
-            self.assertTrue(choose_variant(self.conn,'cafe',level='A2')['seed'].endswith('-v2'))
+            self.assertEqual(choose_variant(self.conn,'cafe',level='A2')['scenario_version'],3)
 
     def test_migration_preserves_attempts_and_custom_variants_without_inserting_words(self):
         # Recreate catalogue data before 042, with a historical immutable attempt.

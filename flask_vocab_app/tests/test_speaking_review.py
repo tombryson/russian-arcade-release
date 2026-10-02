@@ -37,7 +37,8 @@ class SpeakingReviewTests(unittest.TestCase):
     def session(self, key='test', historical=False):
         # Generic lifecycle fixtures intentionally exercise an uncontracted
         # situation; the dedicated A1 evidence tests supply criterion reports.
-        value = self.post('',{'submission_id':key,'target_level':'A2'}).json
+        value = self.post('',{'submission_id':key,'target_level':'A2',
+                             'scenario_seed':'cafe-a2-milk-v2'}).json
         if historical:
             self.live._session(value['id'],scenario_json=json.dumps(SCENARIO))
         return value['id']

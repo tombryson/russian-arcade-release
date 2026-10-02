@@ -40,14 +40,46 @@ class SentencePracticeTests(unittest.TestCase):
                                 data={'user_response': text, 'revision': revision},
                                 headers=self.headers if enhanced else {})
 
-    def test_create_and_resume_without_provider(self):
+    def test_resume_without_provider_and_exhausted_known_set_keeps_familiar_majority(self):
+        self.assertEqual(self.client.get(self.url).status_code, 200)
+        self.service.client.responses.create.assert_not_called()
+        self.service.client.responses.create.return_value.output_text = json.dumps({'words': ['друг']})
         response = self.client.post('/word_jumble/create', data={'topic': 'any', 'difficulty': 'easy'})
         self.assertEqual(response.status_code, 303)
         html = self.client.get(response.location).get_data(as_text=True)
-        self.assertIn('семья', html)
+        saved = self.service.get_game(response.location.rsplit('/', 1)[1])
+        self.assertEqual(len(set(saved['words']) & set(self.game['words'])), 2)
+        self.assertIn('друг', saved['words'])
         self.assertIn('Your sentence', html)
-        self.service.client.responses.create.assert_not_called()
+        self.assertEqual(self.service.client.responses.create.call_count, 1)
         self.assertEqual(self.client.get('/word_jumble/load/missing').status_code, 404)
+
+    def test_recent_word_selection_prefers_unused_familiar_words_without_provider(self):
+        with sqlite3.connect(self.service.db_path) as conn:
+            for word in ('парк', 'город', 'река'):
+                conn.execute("INSERT INTO words(lemma,pos,count,lemma_difficulty,topic) VALUES (?,'NOUN',0,1,'[]')", (word,))
+        selected = self.service.get_words('any', 'easy', 3)
+        self.assertEqual(set(selected), {'парк', 'город', 'река'})
+        self.service.client.responses.create.assert_not_called()
+
+    def test_word_selection_budget_denial_does_not_enter_content_repair_retry(self):
+        from services.ai_trial_budget import TrialDenied
+        self.service.client.responses.create.side_effect = TrialDenied('Trial allowance reached.')
+        with self.assertRaises(TrialDenied):
+            self.service._additional_words('family', 'easy', ['семья'], 2)
+        self.assertEqual(self.service.client.responses.create.call_count, 1)
+
+    def test_repeated_unsaved_discovery_does_not_enter_content_repair_retry(self):
+        from services.content_variation import record_exposure, variation_spec
+        with sqlite3.connect(self.service.db_path) as conn:
+            variation = variation_spec(conn, activity='radio', profile_id='personal-learning')
+            record_exposure(conn, variation, text='Это наш новый друг.', identity='heard-unsaved-word', lemmas=['друг'])
+        before = len(self.service.get_saved_games())
+        self.service.client.responses.create.return_value.output_text = json.dumps({'words': ['друг', 'читать']})
+        response = self.client.post('/word_jumble/create', data={'topic': 'family', 'difficulty': 'easy'})
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(self.service.client.responses.create.call_count, 1)
+        self.assertEqual(len(self.service.get_saved_games()), before)
 
     def test_short_library_is_completed_and_saved_without_replacing_known_words(self):
         self.service.client.responses.create.return_value.output_text = json.dumps({'words': ['мама', 'любить']})
@@ -73,10 +105,15 @@ class SentencePracticeTests(unittest.TestCase):
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM words').fetchone()[0], 3)
 
     def test_topic_with_no_matching_words_gets_a_complete_set_at_each_level(self):
-        choices = ['актёр', 'играть', 'роль', 'сценарий', 'экранизировать']
+        choices = ['актёр','играть','роль','сценарий','экранизировать','камера','снимать','режиссёр','сцена','монтаж',
+                   'оператор','экран','зритель','смотреть','фильм','кинотеатр','комедия','драма','билет','премьера',
+                   'сеанс','показ','проект','студия','свет','звук','музыка','сюжет','диалог','актриса','костюм','грим',
+                   'репетиция','продюсер','персонаж','автор','декорация','анимация','кадр','эпизод']
+        offset = 0
         for level, count in WordJumbleService.WORD_COUNTS.items():
             with self.subTest(level=level):
-                self.service.client.responses.create.return_value.output_text = json.dumps({'words': choices[:count]})
+                self.service.client.responses.create.return_value.output_text = json.dumps({'words': choices[offset:offset+count]})
+                offset += count
                 result = self.client.post('/word_jumble/create', data={'topic': 'cinema', 'difficulty': level})
                 self.assertEqual(result.status_code, 303)
                 game = self.service.get_game(result.location.rsplit('/', 1)[1])
@@ -301,7 +338,9 @@ class SentencePracticeTests(unittest.TestCase):
     def test_cefr_tasks_differ_even_when_saved_words_need_no_provider(self):
         with sqlite3.connect(self.service.db_path) as conn:
             conn.executemany("INSERT INTO words(lemma,pos,topic,lemma_difficulty) VALUES (?, 'VERB', '[\"daily_activities\"]', 1)",
-                             [('читать',), ('писать',)])
+                             [(word,) for word in ('читать','писать','говорить','слушать','учить','работать','гулять','играть',
+                              'думать','смотреть','видеть','жить','любить','знать','понимать','помнить','готовить','покупать',
+                              'ждать','помогать','искать','отвечать','спрашивать','объяснять','звонить','ехать','идти','нести','лететь','плыть')])
         instructions = set()
         for level in ('A1', 'A2', 'B1', 'B2', 'C1', 'C2'):
             game = self.service.create_game('any', level)
@@ -321,6 +360,7 @@ class SentencePracticeTests(unittest.TestCase):
         self.assertNotIn(game['task_contract']['instruction']['en'], html)
 
     def test_saved_curriculum_task_survives_catalogue_changes_and_guides_assessment(self):
+        self.service.client.responses.create.return_value.output_text = json.dumps({'words': ['друг']})
         game = self.service.create_game('any', 'A2')
         snapshot = game['task_contract']
         self.assertIsNotNone(snapshot)

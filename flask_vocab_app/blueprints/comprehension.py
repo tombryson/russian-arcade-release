@@ -5,6 +5,7 @@ import io
 import hashlib
 
 from services.onboarding import onboarding_state
+from services.ai_trial_budget import TrialDenied
 from services.story_vocabulary import story_key
 from services.curriculum import level_options, normalize_level, topic_options
 
@@ -291,6 +292,8 @@ def create_comprehension_blueprint(db_path, comprehension_service, drive_service
 
             try:
                 audio_url = comprehension_service.generate_audio(story_text)
+            except TrialDenied:
+                raise
             except Exception:
                 logger.exception('Story prepared, but its recording could not be generated')
                 audio_url = ''
@@ -354,6 +357,8 @@ def create_comprehension_blueprint(db_path, comprehension_service, drive_service
                 visibility=visibility,
                 active_page="comprehension",
             )
+        except TrialDenied:
+            raise
         except Exception as e:
             logger.error("Comprehension error: %s", str(e), exc_info=True)
             error_message = "Не удалось сгенерировать историю. Попробуйте снова!"

@@ -1,6 +1,6 @@
 # Speaking scenarios
 
-Updated 19 September 2026.
+Updated 2 October 2026.
 
 Speaking has five settings: café, shops, directions, station and meeting people.
 Each has separate A1 and A2 tasks. Fluent conversation and Step-through use the
@@ -8,8 +8,9 @@ same selected situation, facts and curriculum objectives.
 
 ## Catalogue and curriculum
 
-The bundled catalogue contains 30 situations: three for each setting at each
-level. The A1 and A2 cards have different descriptions so learners can see what
+The published catalogue retains 30 original situations: three for each setting
+and level. New starts normally assemble a versioned situation from compatible
+authored dimensions (604 distinct recipes across the ten groups). The A1 and A2 cards have different descriptions so learners can see what
 changes before opening a task.
 
 | Setting | A1 focus | A2 focus |
@@ -33,17 +34,35 @@ a matching implemented task exists. The other topic briefs remain future work.
 
 ## Variation
 
-Compatible parameter bundles supply different items, quantities, times,
-destinations and constraints. The application assembles these into durable
-catalogue variants during migration. Selection happens at runtime, before any
-paid generation. These are bounded, reviewed situations, not unlimited
-procedural stories.
+New starts use the free procedural assembler in `services/speaking_procedural.py`.
+It combines explicitly inflected objects with compatible goals, service details,
+constraints and interactions. Quantities, totals, change and train connections are
+derived together. It never asks a model to invent facts or repair a recipe.
 
-Both modes consult the same profile's Fluent and Step-through session history.
-The selector chooses an unplayed situation in the selected setting and level.
-After all available situations have been used, it returns the least recently
-used. **Another situation** excludes the current preview. Previewing alone does
-not record a play or call an AI provider.
+| Setting | A1 recipes | A2 recipes | Dimensions beyond names/prices |
+| --- | ---: | ---: | --- |
+| Café | 64 | 32 | Food/drink, service, accessory; ingredient constraint, replacement, portions, billing |
+| Shops | 36 | 48 | Item, agreeing colour, service; size direction, payment, replacement clarification |
+| Directions | 64 | 128 | Destination, landmark, turn, walking time; landmark order and entrance clarification |
+| Station | 64 | 72 | Destination, day, departure, passengers; transfer, connection/deadline/platform interaction |
+| Meeting people | 24 | 72 | Setting/register, personal-information question; activity, day, unavailable/alternative time, equipment/meeting point |
+
+This is a larger bounded authored space, not unlimited AI story generation. The
+recipe identity includes version 3 and a deterministic index. Pool order or meaning
+changes require a new version; published seeds must never be repurposed.
+
+Both modes consult the same profile's last 100 starts in the selected setting and
+level, across Fluent and Step-through. The selector compares semantic fact keys,
+ignoring cosmetic names, prices and seed identities. It prefers a meaning outside
+that recent window, then the least recent available meaning. Larger groups can
+cycle beyond the window; deleting session history also removes its exclusions.
+**Another situation** excludes the current preview without recording a play or
+calling an AI provider. Separate simultaneous previews do not reserve tasks.
+
+An explicit enabled legacy seed remains valid. A disabled/edited original group
+falls back to its enabled stored variants, so the assembler does not bypass
+catalogue publication controls. B1/B2 remain unavailable unless separately
+published; procedural assembly does not manufacture higher-level coverage.
 
 The preview seed identifies its exact facts and objectives. Switching modes
 keeps that seed. Starting saves a complete snapshot, so later catalogue updates
@@ -70,7 +89,14 @@ fulfils an objective or that every distractor is linguistically sound. Generated
 examples also need content review. No additional model judge or automatic paid
 repair loop runs on every conversation.
 
-Fluent feedback uses recorded learner audio and the saved task. Step-through
+New Fluent snapshots also freeze a narrow fact-dependent diagnostic mapping.
+A1 checks the requested order/item/ticket/location question or reciprocal name
+exchange. A2 checks the selected clarification and response, or a shared plan and
+changed time. These mappings validate against the versioned recipe and cite the
+corresponding reference requirement; they do not claim coverage of its entirety,
+independent conditions, grammar mastery or general proficiency. Existing exact-seed
+legacy mappings remain unchanged. Fluent feedback uses recorded learner audio and
+the saved task. Step-through
 checks selected replies and gives explanations; it does not award spoken
 fluency scores. See [Speaking assessment](speaking-assessment.md) and
 [Step-through Speaking](step-through-speaking.md).
@@ -82,7 +108,11 @@ and installs the 30 current situations. Earlier variant rows remain for foreign
 keys and historical sessions, but are disabled for new selection. Saved dialogue,
 recordings, feedback, scores and vocabulary are not rewritten.
 
-New sessions reference the selected variant and store their curriculum snapshot
+A preview is read-only. Starting materializes its procedural variant in the
+existing variant table inside the session transaction; no new migration is needed.
+Catalogue availability counts retain the published base variants rather than
+growing with saved procedural starts. New sessions reference the selected variant
+and store their curriculum snapshot
 in `scenario_json`. Fluent and Step-through retain their existing session tables,
 ownership, idempotency, spending limits and audio storage. Repeat selection reads
 those tables rather than keeping a separate progress ledger.

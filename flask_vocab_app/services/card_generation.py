@@ -264,6 +264,20 @@ class CardGenerationService:
             else:
                 item = dict(row); claim = identifier()
                 options = item['batch_options']
+                word = json.loads(item['selection'])
+                if not (word.get('lesson_source') or word.get('first_steps_source')):
+                    from services.content_variation import variation_spec
+                    variation = variation_spec(conn, activity='flashcard', profile_id=batch['owner_id'],
+                                               topic=options.get('topic'), seed=item['id'])
+                    if '_content_variation' in word:
+                        # Imported pending batches bind ephemeral editorial
+                        # history to their newly verified owner.
+                        from services.content_variation import bind_spec
+                        word['_content_variation'] = bind_spec(conn, word['_content_variation'], profile_id=batch['owner_id'])
+                    else:
+                        word['_content_variation'] = variation
+                    item['selection'] = encoded(word)
+                    conn.execute('UPDATE native_card_generation_items SET selection=? WHERE id=?', (item['selection'], item['id']))
                 conn.execute("UPDATE native_card_generation_items SET status='running',claim_id=?,lease_until=? WHERE id=?",(claim,self.clock()+120,item['id']))
         if not item:
             saved = self.read(credential,batch_id)
@@ -280,10 +294,21 @@ class CardGenerationService:
             return self.read(credential,batch_id)
         try:
             word = json.loads(item['selection'])
-            response = json.loads(item['response']) if item['response'] else self.provider.generate_native_card(word,options['kind'])
+            provider_word = {key: value for key, value in word.items() if key != '_content_variation'}
+            if word.get('_content_variation'):
+                from services.content_variation import provider_context
+                provider_word['content_variation'] = provider_context(word['_content_variation'])
+            response = json.loads(item['response']) if item['response'] else self.provider.generate_native_card(provider_word,options['kind'])
             pack = self.pack(item['id'],word,options,response)
             with transaction(self.db_path,write=True) as conn:
                 self._batch(conn,credential,batch_id)
+                current = conn.execute('SELECT claim_id FROM native_card_generation_items WHERE id=?', (item['id'],)).fetchone()
+                if not current or current[0] != claim:
+                    raise LearningError('generation_changed','This card is already being handled by another request.',409)
+                if word.get('_content_variation'):
+                    from services.content_variation import record_exposure
+                    record_exposure(conn, word['_content_variation'], text=response['sentence'],
+                                    identity='card:' + item['id'], lemmas=[word['lemma']])
                 assets = self._reusable_assets(conn, word.get('reused_assets', []))
                 if assets:
                     pack['items'][0]['assets'] = [{**asset, 'role': 'prompt' if asset['kind'] == 'image' or options['kind'] == 'ru-en' else 'answer'} for asset in assets]

@@ -49,6 +49,14 @@ def binding_for_task(conn, profile_id, activity, task_key):
 
 def validate_saved_sequences(conn):
     """Called by import validation; compare saved content without upgrading it."""
+    from services.curriculum_generation import decode
+    for row in conn.execute('SELECT r.profile_id,r.request_sha256,s.profile_id AS session_owner,v.payload '
+                            'FROM curriculum_generated_starts r JOIN learning_sessions s ON s.id=r.session_id '
+                            'JOIN learning_content_versions v ON v.id=s.version_id'):
+        identity = decode(json.loads(row['payload']))
+        if (identity is None or row['profile_id'] != row['session_owner']
+                or row['request_sha256'] != payload_hash({'unit_id': identity[0], 'stage': identity[2]})):
+            raise ValueError('Generated practice receipts must refer to the original owned unit and response mode.')
     for row in conn.execute('SELECT id,profile_id FROM curriculum_unit_runs').fetchall():
         run = owned_run(conn, row[1], row[0])
         manifest = run['manifest']
@@ -85,8 +93,14 @@ def validate_saved_sequences(conn):
                             'a.item_id AS source_item,old.profile_id AS source_profile,old.version_id AS source_version '
                             'FROM learning_prior_feedback p JOIN learning_sessions s ON s.id=p.session_id '
                             'JOIN activity_attempts a ON a.id=p.source_attempt_id JOIN learning_sessions old ON old.id=a.session_id'):
+        same_version = row['version_id'] == row['source_version']
+        if not same_version:
+            from services.curriculum_fresh_practice import same_question
+            packs = [json.loads(conn.execute('SELECT payload FROM learning_content_versions WHERE id=?', (v,)).fetchone()[0])
+                     for v in (row['version_id'], row['source_version'])]
+            same_version = same_question(*packs, row['item_id'])
         if (row['session_id'] == row['source_session'] or row['item_id'] != row['source_item']
-                or row['profile_id'] != row['source_profile'] or row['version_id'] != row['source_version']):
+                or row['profile_id'] != row['source_profile'] or not same_version):
             raise ValueError('Prior feedback must refer to the same owned, frozen question in an earlier attempt.')
     for row in conn.execute('SELECT h.item_id,v.payload FROM learning_hint_usage h JOIN learning_sessions s ON s.id=h.session_id '
                             'JOIN learning_content_versions v ON v.id=s.version_id'):

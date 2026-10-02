@@ -146,6 +146,30 @@ class SpeakingInteractionEvidenceTests(unittest.TestCase):
                 self.assertEqual(conn.execute('SELECT COUNT(*) FROM course_target_observations WHERE demonstrated=1').fetchone()[0], 0)
                 self.assertEqual(conn.execute('SELECT COUNT(*) FROM course_chapter_passes').fetchone()[0], 0)
 
+    def test_procedural_a2_original_audio_uses_frozen_fact_dependent_criterion(self):
+        response = self.client.post('/api/v1/live-conversations', json={
+            'submission_id':'procedural-review', 'scenario_id':'shop', 'target_level':'A2',
+            'scenario_seed':'shop-a2-p3-0'}, headers=self.headers)
+        self.assertEqual(response.status_code,201,response.json)
+        sid=response.json['id']
+        self.assertNotIn('diagnostic_mapping',response.json['scenario'])
+        with transaction(self.db) as conn:
+            contract=load_contract(conn,self.profile,'speaking',sid)
+        scenario=contract['content']['scenario']
+        self.assertEqual(contract['level'],'A2')
+        self.assertIn(scenario['goals'][1],contract['criteria'][0]['expectation'])
+        rows=self.record(sid)
+        self.assessor.assess.return_value={**feedback(scenario,contract),'basis':'audio_review'}
+        self.client.post('/api/v1/live-conversations/'+sid+'/finish',json={},headers=self.headers)
+        self.reviews._work(sid)
+        loaded=self.client.get('/api/v1/live-conversations/'+sid).json
+        self.assertEqual(loaded['review']['state'],'ready',loaded)
+        self.assertEqual(self.assessor.assess.call_args.kwargs['curriculum_contract'],contract)
+        self.assertEqual(loaded['review']['report']['audio_source'],recorded_audio_source(rows,self.live.root))
+        self.assertEqual(loaded['review']['report']['audio_source']['independence'],'unverified')
+        with transaction(self.db) as conn:
+            validate_saved_evidence(conn,audio_root=self.live.root)
+
     def test_old_issued_situation_does_not_acquire_new_contract_on_resume(self):
         seed = 'meet-someone-a1-classmate-v2'
         with patch('services.live_conversation.speaking_task_contract', return_value=None):

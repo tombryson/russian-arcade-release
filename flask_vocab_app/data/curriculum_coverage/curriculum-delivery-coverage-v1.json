@@ -1151,11 +1151,11 @@
       ],
       "allocation": {
         "package": "P2",
-        "unit_candidate": "roles-and-activities-v1",
-        "unit_status": "planned",
-        "assessment_family": "roles-and-activities-transfer-v1",
+        "unit_candidate": "instrumental-activities-professions-v1",
+        "unit_status": "authored_candidate",
+        "assessment_family": "instrumental-activities-professions-transfer-v1",
         "assessment_validation": "not_validated",
-        "gap": "Author teaching and matched tasks, then verify audio, source scope and marking before any assessment release."
+        "gap": "Taught examples, contextual choices, controlled forms and rule-generated practice are available. Original-skill validation, listening and a transfer assessment remain unimplemented. The Writing task observes communication only."
       },
       "applicability": {
         "teaching": {
@@ -1190,11 +1190,11 @@
       ],
       "allocation": {
         "package": "P2",
-        "unit_candidate": "roles-and-activities-v1",
-        "unit_status": "planned",
-        "assessment_family": "roles-and-activities-transfer-v1",
+        "unit_candidate": "instrumental-activities-professions-v1",
+        "unit_status": "authored_candidate",
+        "assessment_family": "instrumental-activities-professions-transfer-v1",
         "assessment_validation": "not_validated",
-        "gap": "Author teaching and matched tasks, then verify audio, source scope and marking before any assessment release."
+        "gap": "Taught examples, contextual choices, controlled forms and rule-generated practice are available. Original-skill validation, listening and a transfer assessment remain unimplemented. The Writing task observes communication only."
       },
       "applicability": {
         "teaching": {

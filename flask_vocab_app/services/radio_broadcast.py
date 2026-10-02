@@ -127,9 +127,10 @@ def initial_request(game, anchors, known_lemmas, seed, session_id, options, sour
 
 def generate_broadcast(provider, request):
     """Use the configured application client/model, without changing settings."""
+    from services.content_variation import variation_instruction
     response = provider.client.with_options(timeout=75, max_retries=0).chat.completions.create(
         model=provider.flashcard_model,
-        messages=[{'role': 'system', 'content': PROMPT},
+        messages=[{'role': 'system', 'content': PROMPT + variation_instruction()},
                   {'role': 'user', 'content': json.dumps(request, ensure_ascii=False)}],
         response_format={'type': 'json_schema', 'json_schema': {
             'name': 'russian_radio_programme', 'strict': True, 'schema': SCHEMA}},
@@ -286,7 +287,11 @@ class RadioBroadcastService:
         if type(retry) is not bool:
             raise LearningError('invalid_input', 'Choose whether to retry the programme.')
         with transaction(self.db_path, write=True) as conn:
-            _, row, record = self._preparation(conn, session_id)
+            owner, row, record = self._preparation(conn, session_id)
+            if record.get('content_variation'):
+                from services.content_variation import bind_spec
+                record['content_variation'] = bind_spec(conn, record['content_variation'],
+                    profile_id=owner['profile_id'], guest_token=owner['guest_token'])
             stage = self._stage(conn, record)
             if stage == 'ready' or row['lease_until'] > self.clock() or (row['status'] == 'failed' and not retry):
                 return self.status(conn, row)
@@ -297,6 +302,9 @@ class RadioBroadcastService:
             if stage == 'script':
                 generate = getattr(self.provider, 'generate_radio_broadcast', None)
                 request = deepcopy(record['request'])
+                if record.get('content_variation'):
+                    from services.content_variation import provider_context
+                    request['content_variation'] = provider_context(record['content_variation'])
                 if record.get('validation_error'):
                     request.update(previous_validation_error=record['validation_error'],
                                    previous_draft=record.get('draft'))
@@ -312,7 +320,16 @@ class RadioBroadcastService:
                     if not saved.rowcount:
                         raise LearningError('preparation_changed', 'Another request is preparing this programme.', 409)
                 try:
-                    record['broadcast'] = validate_broadcast(raw, record['request'])
+                    broadcast = validate_broadcast(raw, record['request'])
+                    if record.get('content_variation'):
+                        from services.content_variation import record_exposure
+                        with transaction(self.db_path, write=True) as conn:
+                            _, current, _ = self._preparation(conn, session_id)
+                            if current['claim_id'] != claim:
+                                raise LearningError('preparation_changed', 'Another request is preparing this programme.', 409)
+                            record_exposure(conn, record['content_variation'], text=broadcast['script'],
+                                identity='radio:' + session_id, lemmas=[word['lemma'] for word in broadcast['vocabulary']])
+                    record['broadcast'] = broadcast
                 except ValueError as error:
                     # Only our validation constants are recorded; provider
                     # exception bodies and credentials are never persisted.
@@ -340,11 +357,15 @@ class RadioBroadcastService:
                 record['audio_asset'] = import_asset(self.db_path, self.store, audio, 'Saved Russian radio programme')
                 record['duration_seconds'] = duration
         except Exception as error:
+            from services.ai_trial_budget import TrialDenied
             logger.warning('Radio %s preparation failed (%s)', stage, type(error).__name__)
             with transaction(self.db_path, write=True) as conn:
                 self._preparation(conn, session_id)
                 self._save(conn, session_id, record, claim, FAILURES[stage])
-                return self.status(conn, row)
+                result = self.status(conn, row)
+            if isinstance(error, TrialDenied):
+                raise
+            return result
         with transaction(self.db_path, write=True) as conn:
             self._preparation(conn, session_id)
             self._save(conn, session_id, record, claim)

@@ -1,5 +1,6 @@
 """Games purchased with Lingocoins and played with a wider vocabulary."""
 import hashlib
+from copy import deepcopy
 import json
 import random
 import re
@@ -91,7 +92,7 @@ def read_catalogue():
         active = {row['game_id']: row['id'] for row in conn.execute(
             'SELECT id,game_id FROM journey_game_sessions WHERE ' + where
             + " AND completed_at IS NULL AND superseded_at IS NULL AND (json_extract(content_json,'$.options.word_policy')='mixed-v1'"
-            + " OR json_extract(content_json,'$.version') IN ('journey-delivery-v2','scene-builder-v1', 'scene-builder-v2', 'scene-builder-v3'))", params)}
+            + " OR json_extract(content_json,'$.version') IN ('journey-delivery-v2','scene-builder-v1', 'scene-builder-v2', 'scene-builder-v3', 'scene-builder-v4'))", params)}
         games = []
         for game in GAMES:
             if game['id'] == 'pairs':
@@ -473,8 +474,12 @@ def start_game(game_id, request_id, options=None, *, new_game=False):
             return _public(conn, active)
         require_access(conn, profile_id, game_id, now=now)
         session_id, seed = identifier(), identifier()
-        policy = activity_policy(game_id)
+        policy = activity_policy(game_id, options['rounds'])
+        from services.content_variation import variation_spec
+        variation = variation_spec(conn, activity='game:' + game_id, profile_id=profile_id,
+                                   guest_token=guest_token, topic=options.get('topic'), seed=seed)
         known_lemmas = [word[0] for word in conn.execute('SELECT lemma FROM words')]
+        known_lemmas = list(dict.fromkeys([*known_lemmas, *variation['recent_lemmas']]))
         examples = [] if policy['kind'] == 'route' else select_examples(conn, profile_id, guest_token, options, seed, limit=policy.get('familiar', 4))
         source = {'kind': options['source'], 'lesson_id': options.get('lesson_id', 'vocabulary'),
                   'title': 'My vocabulary', 'href': '#words'}
@@ -483,14 +488,43 @@ def start_game(game_id, request_id, options=None, *, new_game=False):
         if policy['kind'] == 'broadcast':
             from services.radio_broadcast import initial_request
             content, prepared_items = initial_request(game, examples, known_lemmas, seed, session_id, options, source)
+            prepared_items[0]['content_variation'] = variation
         elif policy['kind'] == 'route':
             from services.journey_vocabulary_games import build_routes
             content, prepared_items = build_routes(game, seed, options), None
         else:
+            if policy.get('fresh_contexts') and examples:
+                # A small vocabulary can support new sentences without turning
+                # the whole run into new-word discovery. No extra images.
+                originals = list(examples)
+                from services.content_variation import record_exposure
+                from repositories.learning_repository import payload_hash
+                for example in originals:
+                    if example.get('sentence'):
+                        record_exposure(conn, variation, text=example['sentence'],
+                            identity='source-context:' + payload_hash(example['sentence']),
+                            lemmas=[example['lemma']], allow_repeat=True)
+                while len(examples) < policy['familiar']:
+                    examples.append(deepcopy(originals[len(examples) % len(originals)]))
+                from services.journey_vocabulary import fresh_context
+                examples = [fresh_context(example, seed, index) for index, example in enumerate(examples)]
+            elif policy.get('required_media') == ['image']:
+                # Several saved words can share one scene. Reserve picture
+                # slots for distinguishable contexts; discoveries fill gaps.
+                seen, distinct = set(), []
+                for example in examples:
+                    key = (example.get('sentence', '').casefold().strip(), example.get('translation', '').casefold().strip())
+                    if not key[0] or key not in seen:
+                        distinct.append(example)
+                        seen.add(key)
+                examples = distinct
             familiar = [dict(e) | {'required_media': policy['required_media']} for e in examples]
             discoveries = [discovery_request(known_lemmas, familiar, options, seed+'-'+str(i), policy['required_media'])
                            for i in range(policy['familiar'] + policy['new'] - len(familiar))]
             prepared_items = familiar + discoveries
+            for index, item in enumerate(prepared_items):
+                item['content_variation'] = variation_spec(conn, activity='game:' + game_id,
+                    profile_id=profile_id, guest_token=guest_token, topic=options.get('topic'), seed=seed+'-'+str(index))
             content = {'version': VERSION, 'lesson_version': 'preparing:'+session_id, 'title': game['title'], 'rounds': [],
                        'source': source, 'options': options, 'vocabulary_refs': familiar, 'media_texts': [], 'activity_policy': policy}
         if active:
@@ -548,7 +582,10 @@ def prepare_session(session_id, retry=False):
                         conn.execute('UPDATE journey_game_sessions SET content_json=?,updated_at=? WHERE id=?',
                                      (encoded(content), timestamp(), session_id))
                         return _public(conn, authorize_preparation(conn, session_id))
-                content = build_content(_game(row['game_id']), examples, row['seed'], session_id, content['options'], content['source'])
+                build_options = dict(content['options'])
+                if content.get('activity_policy', {}).get('version') == 2:
+                    build_options['round_policy'] = 'distinct-v2'
+                content = build_content(_game(row['game_id']), examples, row['seed'], session_id, build_options, content['source'])
                 conn.execute('UPDATE journey_game_sessions SET content_json=?,updated_at=? WHERE id=?', (encoded(content), timestamp(), session_id))
         return _public(conn, authorize_preparation(conn, session_id))
 
@@ -600,7 +637,7 @@ def _credit(conn, row, now):
     content = json.loads(row['content_json'])
     amount = award(conn, row['profile_id'], activity='journey_game',
                    content_key=f'journey-game:{row["game_id"]}:{content["lesson_version"]}', source_key=row['id'],
-                   title=content['title'], target_level=None if content.get('version') in ('journey-vocabulary-v1', 'radio-broadcast-v1', 'journey-delivery-v2', 'scene-builder-v1', 'scene-builder-v2', 'scene-builder-v3') else 'A1', now=now,
+                   title=content['title'], target_level=None if content.get('version') in ('journey-vocabulary-v1', 'radio-broadcast-v1', 'journey-delivery-v2', 'scene-builder-v1', 'scene-builder-v2', 'scene-builder-v3', 'scene-builder-v4') else 'A1', now=now,
                    evidence={'basis': 'first_unassisted_answers', 'game_id': row['game_id']})
     conn.execute('UPDATE journey_game_sessions SET reward_amount=? WHERE id=?', (amount, row['id']))
     return amount
@@ -747,7 +784,7 @@ def allowlisted_media(conn, key):
         texts.update(item['sentence'] for lesson in [frozen, *frozen.get('related_lessons', [])] for item in lesson['vocabulary'])
     for row in conn.execute('SELECT content_json,answers_json FROM journey_game_sessions WHERE ' + where, params):
         content = json.loads(row['content_json'])
-        if content.get('version') in ('scene-builder-v1', 'scene-builder-v2', 'scene-builder-v3'):
+        if content.get('version') in ('scene-builder-v1', 'scene-builder-v2', 'scene-builder-v3', 'scene-builder-v4'):
             answered = json.loads(row['answers_json'])
             texts.update(audio['text'] for item in content['rounds'] if item['id'] in answered for audio in item.get('answer_audio', []))
             continue

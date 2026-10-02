@@ -24,6 +24,11 @@
       {% if unit.prerequisites %}<p class="curriculum-sequence-advice">{{ unit.prerequisites.advice_ru if russian else unit.prerequisites.advice }} <a href="{{ unit.prerequisites.href }}" hx-boost="false">{{ 'Первые шаги' if russian else 'First steps' }} →</a></p>{% endif %}
       <noscript><p>{{ 'Включите JavaScript, чтобы сохранять и продолжать урок. Объяснения доступны ниже.' if russian else 'Enable JavaScript to save and continue this lesson. You can read the explanation below.' }}</p></noscript>
     </section>
+    {% if profile_id %}<details class="curriculum-unit-teaching"><summary>{{ 'Дополнительная практика' if russian else 'More practice' }}</summary>
+    <form method="post" action="/curriculum/units/{{ unit.id }}/fresh-practice" hx-boost="false">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="profile_id" value="{{ profile_id }}"><input type="hidden" name="request_id" value="{{ request_id }}">
+      <button class="btn btn-outline-primary" type="submit">{{ 'Новые примеры' if russian else 'New examples' }} →</button>
+    </form></details>{% endif %}
     <details class="curriculum-unit-teaching" id="learn"><summary>{{ 'Где и куда: объяснение и примеры' if russian else 'Where and where to: explanation and examples' }}</summary>
     {% if unit.teaching %}
       {% if unit.teaching.map %}<figure class="curriculum-place-map" role="img" aria-label="{{ unit.teaching.map.alt_ru if russian else unit.teaching.map.alt }}">
@@ -51,16 +56,22 @@
       </section>{% endfor %}
     </div>
     <div class="curriculum-unit-practice">
-      <section><h2>{{ 'Проверьте себя' if russian else 'Check the difference' }}</h2><p>{{ unit.practice_summary_ru|default('Четыре вопроса о месте и направлении.') if russian else unit.practice_summary|default('Four questions about location and destination.') }}</p>
+      <section><h2>{{ 'Проверьте себя' if russian else 'Check the difference' }}</h2><p>{{ 'Проверьте, как вы поняли урок.' if russian else 'Check your understanding of the lesson.' }}</p>
         {% if profile_id %}<form method="post" action="/curriculum/units/{{ unit.id }}/practice" hx-boost="false">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="profile_id" value="{{ profile_id }}"><input type="hidden" name="request_id" value="{{ request_id }}">
           <button class="btn btn-primary" type="submit">{{ 'Начать или продолжить' if russian else 'Start or continue practice' }} →</button>
+        </form><form method="post" action="/curriculum/units/{{ unit.id }}/fresh-practice" hx-boost="false">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="profile_id" value="{{ profile_id }}"><input type="hidden" name="request_id" value="{{ request_id }}-fresh">
+          <button class="sentence-text-button" type="submit">{{ 'Новые примеры' if russian else 'New examples' }} →</button>
         </form>{% else %}<a href="/post/profiles">{{ 'Выбрать профиль' if russian else 'Choose your profile to practise' }} →</a>{% endif %}
       </section>
-      <section><h2>{{ 'Впишите форму слова' if russian else 'Write the word form' }}</h2><p>{{ unit.forms.summary_ru|default('Дополните три предложения о месте и направлении.') if russian else unit.forms.summary|default('Complete three sentences about location and destination.') }}</p>
+      <section><h2>{{ 'Впишите форму слова' if russian else 'Write the word form' }}</h2><p>{{ 'Дополните предложения изученными формами.' if russian else 'Complete the sentences using the forms you have learned.' }}</p>
         {% if profile_id %}<form method="post" action="/curriculum/units/{{ unit.id }}/forms" hx-boost="false">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="profile_id" value="{{ profile_id }}"><input type="hidden" name="request_id" value="{{ forms_request_id }}">
           <button class="btn btn-outline-primary" type="submit">{{ 'Начать или продолжить' if russian else 'Start or continue forms' }} →</button>
+        </form><form method="post" action="/curriculum/units/{{ unit.id }}/fresh-forms" hx-boost="false">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="profile_id" value="{{ profile_id }}"><input type="hidden" name="request_id" value="{{ forms_request_id }}-fresh">
+          <button class="sentence-text-button" type="submit">{{ 'Новые примеры' if russian else 'New examples' }} →</button>
         </form>{% else %}<a href="/post/profiles">{{ 'Выбрать профиль' if russian else 'Choose your profile to practise' }} →</a>{% endif %}
       </section>
       {% if unit.listening_available %}<section><h2>{{ unit.listening_title_ru if russian else unit.listening_title }}</h2><p>{{ 'Три коротких сообщения. Послушайте и выберите ответ.' if russian else 'Three short messages. Listen and choose the answer.' }}</p>

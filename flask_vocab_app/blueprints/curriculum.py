@@ -166,10 +166,11 @@ def create_curriculum_blueprint():
     @access_policy('child')
     def unit_start(unit_id, activity):
         from services.curriculum_sequences import UNIT
-        if unit_id == UNIT:
+        fresh = activity in ('fresh-practice', 'fresh-forms') or (activity in ('practice', 'forms') and request.form.get('generation') == 'rules')
+        if unit_id == UNIT and not fresh:
             return redirect('/curriculum/units/' + UNIT, code=303)
         unit_or_404(unit_id)
-        if activity not in ('practice', 'forms', 'listening', 'writing'):
+        if activity not in ('practice', 'forms', 'listening', 'writing', 'fresh-practice', 'fresh-forms'):
             abort(404)
         if activity == 'writing' and current_app.config['WORD_POST_HOUSEHOLD_ENABLED']:
             # The legacy Writing workspace belongs to the household adult.
@@ -183,6 +184,11 @@ def create_curriculum_blueprint():
         if activity == 'writing':
             return redirect('/writing/load/' + str(start_writing(db_path, access_id(), unit_id,
                             expected_profile_id=profile['id'])), code=303)
+        if fresh:
+            from services.curriculum_fresh_practice import start
+            saved = start(db_path, access_id(), unit_id, request.form.get('request_id'),
+                expected_profile_id=profile['id'], stage=activity.removeprefix('fresh-'))
+            return redirect('/#practice/' + saved['id'], code=303)
         saved = start_practice(db_path, access_id(), unit_id, request.form.get('request_id'),
                                expected_profile_id=profile['id'], stage=activity)
         return redirect('/#practice/' + saved['id'], code=303)

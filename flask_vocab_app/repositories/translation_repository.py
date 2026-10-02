@@ -53,7 +53,7 @@ class TranslationRepository:
                     attempt['criterion_support'] = reports[str(attempt['id'])]['support']
             return result
 
-    def save_content(self, sentence, english, topic, difficulty, *, curriculum_contract=None, expected_profile=None):
+    def save_content(self, sentence, english, topic, difficulty, *, curriculum_contract=None, expected_profile=None, require_new=False):
         """Save an exact pair once per task level, preserving earlier practice."""
         if type(difficulty) is not int or difficulty not in range(1, 7):
             raise ValueError('Invalid level')
@@ -72,6 +72,9 @@ class TranslationRepository:
             row = conn.execute("SELECT id FROM sentences WHERE sentence=? AND english=? AND topic=? AND difficulty=? AND COALESCE(owner_profile_id,'personal-learning')=? ORDER BY id LIMIT 1",
                                (sentence, english, topic, difficulty, owner)).fetchone()
             if row:
+                if require_new:
+                    from services.content_variation import RepeatedContent
+                    raise RepeatedContent()
                 return row[0], False
             cursor = conn.execute('INSERT INTO sentences(sentence,english,topic,difficulty,score,audio_url,owner_profile_id) VALUES (?,?,?,?,0,?,?)',
                                   (sentence, english, topic, difficulty, '', owner))

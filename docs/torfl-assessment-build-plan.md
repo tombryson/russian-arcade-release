@@ -28,8 +28,8 @@ The repository already contains most of the necessary infrastructure. Content co
 | Area | Implemented | Remaining work |
 | --- | --- | --- |
 | Requirements | 239 source-linked specifications across A1–B2; later levels inherit earlier scope. | Reconcile the inventory against the chosen source editions and assessment blueprints. |
-| Teaching | 14 authored A1 units, including systematic present-tense person/number; a connected location/destination edition with guided practice and two transfer situations. | Complete the source-level breadth of A1 and its prerequisites; author later levels. |
-| Listening | All 14 unit packs and both pilot forms have verified files: 44 clips. The connected sequence adds 19 reusable recordings across 25 playback identities. | Complete audible device checks and pronunciation review; preserve per-file availability checks. |
+| Teaching | 15 authored A1 units, including present-tense person/number and instrumental activities/professions; generated choice and typed practice; a connected location/destination edition with two transfer situations. | Complete the source-level breadth of A1 and its prerequisites; author later levels. |
+| Listening | The earlier 14 unit packs and both pilot forms have verified files: 44 clips. The connected sequence adds 19 reusable recordings across 25 playback identities. | Record the new instrumental unit; complete audible device checks and pronunciation review; preserve per-file availability checks. |
 | Activity evidence | V1 retained; v2 separates communication from forms in original writing and speech. Immutable submissions survive unavailable feedback. | Broader original-production coverage and validation on learner responses. |
 | Lesson state | Owned, frozen runs; idempotent activity allocation; durable typed drafts; review recovery; per-task support and transfer exposure. | Wider real-user and device trials; extend the proven sequence pattern to the remaining units. |
 | Profile | Five compact domain rows, scoped activity/pilot results, pending work and deterministic next actions. | Validate recommendations with learners; add later-level results only under an explicit assessed scope. |
@@ -40,6 +40,12 @@ The repository already contains most of the necessary infrastructure. Content co
 The current pilot still samples six language-use choices, three reading questions, three listening questions, one written message and one recorded introduction. It is too small to establish full-level proficiency. Its Speaking sample does not test interaction. The new lesson has a separate two-turn recorded exchange; this does not silently expand the pilot's scope.
 
 The [validation record](curriculum-validation.md) records no independent language review or learner trial. All 239 requirements now have a proposed unit and assessment family, with explicit remaining gaps. The [coverage inventory](curriculum-coverage.md) excludes runtime-generated tasks; an empty authored B1 row does not mean learners have no B1 practice.
+
+## Procedural practice follow-up
+
+The [procedural implementation record](procedural-content.md) documents the new generators and their limits. Curriculum grammar now produces owned, frozen sets; Scene and Speaking compose situations from explicit facts; ordinary AI activities receive bounded recent-content history. Teaching and assessment objectives stay versioned. Changing an answer order or character name is not evidence of new content.
+
+P2 content work should extend these rules and their teaching, rather than add isolated banks of complete questions. The diagnostic pilot and Journey letters remain authored. Broader P3 forms still require a declared sampling blueprint, ambiguity checks, audio and validated marking. This pass does not convert practice scores into a full-level pass.
 
 ## Exam sources and assessment rules
 
@@ -502,7 +508,9 @@ Use the inventory to fill gaps in the 13 existing units before adding unrelated 
 
 The first P2 addition is now `present-actions-v1`: читать/говорить person and number, with eight contextual questions, six controlled forms, three recordings and a short original Writing task. Existing content is retained. Its coverage is partial; the Writing criterion measures meaning, not general conjugation control.
 
-Next, distinguish calendar dates from duration (`a1.language.genitive-calendar-month` and `a1.language.accusative-duration`) after the numbers and time units. Teach these functions separately before combining them in an arrangement. Further gaps include bounded uses of professions, заниматься + instrumental and о + a topic. Check older units and First steps before treating an unmapped sequence reference as absent teaching.
+The next addition, `instrumental-activities-professions-v1`, teaches заниматься + an activity and the future-profession pattern буду врачом. It includes contextual choices, typed forms, a short Writing task and generated practice. It has no published Listening task yet. These are bounded uses, not complete instrumental-case coverage.
+
+Next, distinguish calendar dates from duration (`a1.language.genitive-calendar-month` and `a1.language.accusative-duration`) after the numbers and time units. Teach these functions separately before combining them in an arrangement. Another gap is о + a topic. Check older units and First steps before treating an unmapped sequence reference as absent teaching.
 
 **Done when:** the reviewed A1 scope has teaching, supported practice and suitable assessment material, with verified audio for every released listening task. Every excluded or unsupported requirement is visible in the coverage report. Content checks include misleading distractors, unnatural Russian and answers that require untaught knowledge.
 

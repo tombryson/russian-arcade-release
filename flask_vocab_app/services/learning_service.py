@@ -32,6 +32,8 @@ Called only after validated completion, inside the attempt's write transaction.
 The ledger is the balance authority; no separate total can drift out of sync.
 """
     from services.progression import award
+    from services.curriculum_fresh_practice import reward_family
+    content_id = reward_family(content_id)
     return award(conn,profile['id'],activity='activity',content_key=content_id,
                  source_key=attempt_id,title='Practice activity',now=now)
 
@@ -46,7 +48,7 @@ class LearningService:
             profile = require_access(conn, access_id, self.clock())
             content = [dict(row) for row in conn.execute(
                 "SELECT v.id AS version_id,v.content_id,v.title,c.kind FROM learning_content_versions v JOIN learning_content c ON c.id=v.content_id "
-                "WHERE v.status='published' AND v.version=(SELECT MAX(v2.version) FROM learning_content_versions v2 WHERE v2.content_id=v.content_id AND v2.status='published') ORDER BY v.title")]
+                "WHERE v.status='published' AND v.content_id NOT LIKE 'curriculum-unit:g1:%' AND v.version=(SELECT MAX(v2.version) FROM learning_content_versions v2 WHERE v2.content_id=v.content_id AND v2.status='published') ORDER BY v.title")]
             sessions = [dict(row) for row in conn.execute(
                 "SELECT s.id,s.version_id,s.revision,s.status,v.title,v.status AS content_status FROM learning_sessions s JOIN learning_content_versions v ON v.id=s.version_id WHERE s.profile_id=? ORDER BY s.updated_at DESC LIMIT 50", (profile['id'],))]
             return {'profile': {'id': profile['id'], 'display_name': profile['display_name']}, 'content': content,
@@ -65,6 +67,10 @@ class LearningService:
             now = self.clock()
             profile = require_access(conn, access_id, now, profile_id=data['profile_id'])
             version, pack = published_version(conn, data['version_id'])
+            if pack['id'].startswith('curriculum-unit:g1:') and not conn.execute(
+                'SELECT 1 FROM learning_sessions WHERE version_id=? AND profile_id=?',
+                (version['id'], profile['id'])).fetchone():
+                raise LearningError('not_found', 'Start this practice from its lesson.', 404)
             if pack['kind'] != 'activity':
                 raise LearningError('use_native_review', 'Open Flashcards to practise this deck.', 409)
             if pack['id'].startswith('curriculum-unit:sequence:'):
@@ -143,7 +149,7 @@ class LearningService:
                 if russian_ui:
                     title = content.get('title_ru', title)
                     attempt['prompt'] = content.get('item_locale_ru', {}).get('prompt', attempt['prompt'])
-                if pack['id'].startswith('curriculum-unit:sequence:'):
+                if pack['id'].startswith(('curriculum-unit:sequence:', 'curriculum-unit:g1:')):
                     report = conn.execute('SELECT r.support_json FROM activity_criterion_reports r JOIN activity_task_contracts c ON c.id=r.contract_id '
                                           'WHERE r.profile_id=? AND c.activity=? AND r.source_key=?',
                                           (saved['profile_id'], 'curriculum_unit', attempt['id'])).fetchone()
@@ -172,7 +178,7 @@ class LearningService:
                 # owned route that works in personal and /demo workspaces.
                 current['audio'] = {**current['audio'], 'url':
                     f"/api/v1/learning-sessions/{quote(session_id, safe='')}/items/{quote(item['id'], safe='')}/audio"}
-            if russian_ui and pack['id'].startswith('curriculum-unit:sequence:'):
+            if russian_ui and (origin or pack['id'].startswith('curriculum-unit:sequence:')):
                 from services.activity_evidence import load_contract
                 content = load_contract(conn, saved['profile_id'], 'curriculum_unit', session_id + ':' + item['id'])['content']
                 title = content.get('title_ru', title)
@@ -267,7 +273,7 @@ class LearningService:
                 if not item.get('hint'):
                     reject('This item has no saved hint.')
                 conn.execute('UPDATE learning_sessions SET help_used=1,revision=revision+1,updated_at=? WHERE id=?', (now, session_id))
-                if pack['id'].startswith('curriculum-unit:sequence:'):
+                if pack['id'].startswith(('curriculum-unit:sequence:', 'curriculum-unit:g1:')):
                     conn.execute('INSERT OR IGNORE INTO learning_hint_usage VALUES (?,?)', (session_id, item['id']))
                 if item['type'] == 'listening_choice':
                     record_support(conn, session_id, item, operation, now)
@@ -284,6 +290,9 @@ class LearningService:
                     from services.curriculum_sequences import capture_prior_feedback, practice_support
                     capture_prior_feedback(conn, profile['id'], session_id, item['id'])
                     support['support'] = practice_support(conn, profile['id'], session_id, item['id'], support['support'])
+                if pack['id'].startswith('curriculum-unit:g1:'):
+                    from services.curriculum_fresh_practice import capture_support
+                    support['support'] = capture_support(conn, profile['id'], session_id, item, support['support'])
                 assisted = bool(support['support'])
                 response_text, correct = assess_activity_answer(item, data['answer'])
                 outcome = 'correct' if correct else 'incorrect'

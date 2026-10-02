@@ -2,6 +2,26 @@
 
 Date: 2 October 2026. Scope: the [TORFL delivery plan](torfl-assessment-build-plan.md), primarily P0 and P1.
 
+## Procedural follow-up
+
+Practice now composes Russian examples from checked grammar rules. Each set has
+six distinct questions, includes the taught contrasts and considers recent work.
+The 15 units retain their authored exercises alongside **New examples**. The new
+activities/professions unit extends A1 instrumental teaching and Writing; its
+Listening recordings remain outstanding.
+
+Describe the Scene now composes compatible visual situations. Speaking has
+variable A1/A2 situation recipes. Text games prepare enough distinct contexts for
+their rounds, while picture games keep a four-image ceiling. Ordinary AI activities
+share bounded recent-content guidance and reject exact recent duplicates without
+an automatic novelty retry. Word Jumble also avoids recently used complete sets.
+
+Saved questions, original responses and marking contracts remain fixed. Repeated
+answers retain their support history. Generated sets share the existing daily
+reward policy and do not award proficiency. Account import drops private editorial
+history and rebuilds pending novelty guidance for the destination account. See
+[procedural content](procedural-content.md) for scope and verification.
+
 ## Delivered in the repository
 
 The Places topic now opens **Where shall we meet?**, a connected edition of the location/destination unit. Existing v1 URLs and saved work remain available.
@@ -87,7 +107,7 @@ No production deployment is implied by this record. Deployment and post-deployme
 
 | Package | Still required |
 | --- | --- |
-| P0 | Source-edition reconciliation beyond the existing recorded mapping; audible browser/device checks and pronunciation review. |
+| P0 | Record the new instrumental unit; source-edition reconciliation beyond the existing recorded mapping; audible browser/device checks and pronunciation review. |
 | P1 | Audible review on target devices; a real microphone walkthrough; evaluate marking on natural learner speech, including ASR disagreement; test the full path with learners. The automated local/hosted walkthrough and bounded synthetic-audio check are complete. |
 | P2 | Fill the source-level gaps in A1 teaching and production. Extend connected sequences where useful, with appropriate prerequisites and new situations. |
 | P3 | Define and author a broader assessment blueprint. Compare marking against independent judgements and held-out responses. Validate replay, retakes, task breadth and any proposed pass policy. |

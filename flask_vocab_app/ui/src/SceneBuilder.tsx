@@ -1,5 +1,6 @@
 import {useGameLanguage} from './GameLocale';
-import type {GameOptions, GameRound, MotionVisual, SceneSlotResult} from './journey-games-api';
+import type {GameOptions, GameRound, MotionVisual, SpatialVisual, SceneSlotResult} from './journey-games-api';
+import {SpatialIllustration} from './SpatialIllustration';
 import './styles/scene-builder.css';
 
 const topics = [
@@ -137,11 +138,12 @@ function MotionIllustration({visual}: {visual:MotionVisual}) {
   </svg>;
 }
 
-function SceneIllustration({scene, description, motion}: {scene:string;description:string;motion?:MotionVisual}) {
+function SceneIllustration({scene, description, motion, spatial}: {scene:string;description:string;motion?:MotionVisual;spatial?:SpatialVisual}) {
   const image=(name:string,className:string)=> <img src={`/static/images/scene-builder/${name}-v1.webp`} class={className} alt="" aria-hidden="true" draggable={false}/>;
   const location=scene.startsWith('cat-');
   const book=scene.startsWith('book-');
   const roles=scene==='girl-calls-boy'||scene==='boy-calls-girl';
+  if(scene==='spatial-composed'&&spatial)return <div class="scene-illustration scene-motion-route" role="img" aria-label={description}><SpatialIllustration visual={spatial}/></div>;
   if(scene==='motion-route'&&motion)return <div class="scene-illustration scene-motion-route" role="img" aria-label={description}><MotionIllustration visual={motion}/></div>;
   return <div class={`scene-illustration scene-${scene}`} role="img" aria-label={description}>
     <div class="scene-room-wall"/><div class="scene-room-floor"/>
@@ -176,7 +178,7 @@ export function SceneBuilder({round, selected, onChange, disabled, expected, slo
     onChange(next);
   }
   return <div class="scene-builder">
-    <figure class="scene-figure"><SceneIllustration scene={scene.scene} description={scenario} motion={scene.motion_visual}/><figcaption>{scenario}</figcaption></figure>
+    <figure class="scene-figure"><SceneIllustration scene={scene.scene} description={scenario} motion={scene.motion_visual} spatial={scene.scene_visual}/><figcaption>{scenario}</figcaption></figure>
     <div class="scene-construction">
       <div class="scene-sentence" lang="ru" aria-label={ru?'Ваше предложение':'Your sentence'}>{scene.segments.map((segment,index)=><span key={index}>{segment}{index<scene.slots.length&&<span class={`scene-blank${selected[index]?' is-filled':''}${checked?(selected[index]===expected[index]?' is-correct':' is-incorrect'):''}`} aria-label={!selected[index]?(ru?`Пропуск ${index+1}`:`Blank ${index+1}`):undefined}>{chosenText(index,selected)||'…'}</span>}</span>)}</div>
       <div class="scene-choice-banks">{scene.slots.map((slot,index)=>{

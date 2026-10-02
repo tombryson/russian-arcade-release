@@ -18,6 +18,7 @@ import wave
 from repositories.learning_repository import LearningError, encoded, identifier, require_access, timestamp, transaction
 from services.conversation_service import valid_key
 from services.speech_provider import SpeechError
+from services.speaking_scenarios import public_scenario
 from repositories.speaking_repository import catalogue, choose_variant, validate_level
 from repositories.speaking_history import recent_variants
 from services.speaking_review import SpeakingReviewService
@@ -68,7 +69,7 @@ class LiveConversationService:
         for item in recent:
             scenario = json.loads(item.pop('scenario_json'))
             item.update(title=scenario.get('title'), title_ru=scenario.get('title_ru'))
-        return {'scenario': snapshot, 'scenario_id':scenario_id, 'sessions': recent,
+        return {'scenario': public_scenario(snapshot), 'scenario_id':scenario_id, 'sessions': recent,
                 'selected_level':level, 'available_count':available_count, 'levels':listing['levels'],
                 'configured': bool(self.config.get('OPENAI_API_KEY')),
                 'notes_configured': bool(self.config.get('OPENROUTER_API_KEY')),
@@ -99,7 +100,7 @@ class LiveConversationService:
                 if not isinstance(scenario_id,str):
                     raise LearningError('invalid_input', 'Choose an available speaking scenario.')
                 recent = recent_variants(conn, profile['id'], scenario_id, level)
-                scenario = choose_variant(conn, scenario_id, level=level, seed=body.get('scenario_seed'),previous_seeds=recent)
+                scenario = choose_variant(conn, scenario_id, level=level, seed=body.get('scenario_seed'),previous_seeds=recent, persist=True)
                 conn.execute('INSERT INTO live_conversation_sessions(id,profile_id,start_key,scenario_json,language,model,backend_model,voice,created_at,heartbeat_at,scenario_id,variant_id,target_level) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
                     (sid, profile['id'], key, encoded(scenario), language, self.config['LIVE_CONVERSATION_MODEL'],
                      self.config['CONVERSATION_MODEL'], random.choice(self.config['LIVE_CONVERSATION_VOICES']), timestamp(), timestamp(),scenario_id,scenario['seed'],scenario.get('target_level')))
@@ -126,7 +127,7 @@ class LiveConversationService:
                         for item in saved['report']['judgements']]
         result = {k: session[k] for k in ('id','state','created_at','started_at','ended_at','model','voice','error','end_reason','scenario_id','variant_id','target_level')}
         result['review'] = review
-        result.update(scenario=json.loads(session['scenario_json']), captions=[json.loads(r[0]) for r in events], recordings=[],
+        result.update(scenario=public_scenario(json.loads(session['scenario_json'])), captions=[json.loads(r[0]) for r in events], recordings=[],
                       connected=sid in self.connections, finalized=session['final_usage_json'] is not None)
         result['needs_recovery'] = session['state'] in ('connecting','live','ending') and sid not in self.connections
         for row in rows:

@@ -56,9 +56,9 @@ class AssessmentPilotReviewPacketTests(unittest.TestCase):
 
     def test_current_unit_packet_includes_all_source_and_available_recording_material(self):
         fixture = units.read_fixture(units.CURRENT_FIXTURE)
-        self.assertEqual(len(fixture['unit_sha256']), 14)
+        self.assertEqual(len(fixture['unit_sha256']), 15)
         self.assertEqual(len(fixture['listening_sha256']), 14)
-        self.assertEqual(len(fixture['cases']), 271)
+        self.assertEqual(len(fixture['cases']), 297)
         packet = units.build_packet(fixture)
         items = [row['item'] for unit in packet['reviewer.json']['units'] for row in unit['questions'] if row['stage'] == 'listening']
         self.assertEqual(len(items), 42)

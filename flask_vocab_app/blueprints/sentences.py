@@ -7,6 +7,7 @@ from flask import Blueprint, jsonify, redirect, render_template, request, sessio
 from repositories import WordRepository
 from repositories.translation_repository import TranslationRepository, TranslationConflict
 from services.sentence_service import TranslationUnavailable
+from services.ai_trial_budget import TrialDenied
 from services.curriculum import LEVELS, level_options, normalize_level, topic_options
 from utils.activity_display import topic_label, readable_date
 from utils.i18n import translate_ui
@@ -65,11 +66,14 @@ def create_sentences_blueprint(db_path, sentence_service, user_service):
         return request.accept_mimetypes.best == 'application/json'
 
     def failure(error, practice=None, preparing=False):
+        from services.content_variation import RepeatedContent
+        if isinstance(error, TrialDenied):
+            raise error
         if isinstance(error, LookupError):
             key, status = 'missing', 404
         elif isinstance(error, TranslationConflict):
             key, status = 'conflict', 409
-        elif isinstance(error, TranslationUnavailable):
+        elif isinstance(error, (TranslationUnavailable, RepeatedContent)):
             key, status = ('prepare_failed' if preparing else 'check_failed'), 503
         elif isinstance(error, sqlite3.Error):
             key, status = 'request_failed', 503
@@ -125,7 +129,7 @@ def create_sentences_blueprint(db_path, sentence_service, user_service):
                 owner = activity_profile_id(conn)
             pair = sentence_service.get_sentence(topic, difficulty)
             sentence_id, _ = repository.save_content(pair['sentence'], pair['english'], topic, difficulty,
-                curriculum_contract=pair.get('curriculum_contract'), expected_profile=owner)
+                curriculum_contract=pair.get('curriculum_contract'), expected_profile=owner, require_new=True)
         except (ValueError, LookupError, TranslationUnavailable, sqlite3.Error) as error:
             return failure(error, preparing=True)
         target = url_for('sentences.practice', sentence_id=sentence_id)

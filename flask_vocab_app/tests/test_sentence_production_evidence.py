@@ -197,6 +197,9 @@ class SentenceProductionTests(unittest.TestCase):
             self.assertEqual(game['words'], ['дом'])
 
     def test_word_jumble_maps_only_visible_scopes_preserving_supplied_vocabulary(self):
+        with sqlite3.connect(self.db) as conn:
+            conn.executemany("INSERT INTO words(lemma,pos,topic,lemma_difficulty) VALUES (?, 'NOUN', '[\"daily_activities\"]', 1)",
+                             [(word,) for word in ('музей', 'парк', 'книга', 'друг', 'поезд', 'магазин')])
         for difficulty in ('easy', 'A1'):
             self.assertIsNone(self.jumble.create_game('any', difficulty)['curriculum_contract'])
         game = self.jumble.create_game('any', 'A2')

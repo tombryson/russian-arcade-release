@@ -17,19 +17,31 @@ Postcard Pairs could often be solved by recognising one noun in each unrelated s
 | Who does what | The noun forms identifying the participants | Which person acts and which person receives the action |
 | Mixed practice | Questions from several sets | The same evidence as each individual set |
 
-The question bank contains 108 authored questions, including 68 motion questions across A1, A2 and B1. The activity offers five or ten questions. Choice banks retain their authored order. Learners can change their selection before checking. Every blank must be filled before submission.
+New games use a rule-driven generator. It chooses the objects, relationship, movement, time and participant roles first, then derives the Russian sentence, correct forms, alternatives and illustration from those facts. The activity offers five or ten questions. Choice order varies, and learners can change their selection before checking.
+
+The retained 108 authored questions remain reference examples and regression fixtures. They no longer limit new games. Version 4 currently supports 922 distinct semantic specifications before character names, choice order and visual decoration. This is a bounded grammar engine, not unlimited AI generation.
+
+| Focus | Semantic specifications | Meaningful changes |
+|---|---:|---|
+| Location | 186 | Six subjects, four reference objects, valid spatial relations and reversed perspective |
+| Motion A1 | 272 | Destination, travel mode, current journey or round trips, tense and setting off |
+| Motion A2 | 230 | Arrival, departure, entry, exit, proximity, crossing, carrying and aspect constructions |
+| Motion B1 | 90 | Ordered route actions, crossings and simultaneous accompanying/carrying |
+| Position and placement | 48 | Object, support or container, orientation, state or completed action |
+| Agreement | 60 | Object gender, colour adjective and nominative/accusative/prepositional case |
+| Who does what | 36 | Nine actions, actor/recipient direction and sentence order |
 
 A photo cannot establish that a trip happens every day, or that an arrival has just been completed. The short situation supplies those facts. It must not leave the learner guessing what the illustration was intended to mean.
 
 ## Motion progression
 
-Motion practice has three task levels. These are authored curriculum targets, independent of the numeric difficulty stored against a word. The level selector appears for **Verbs of motion** and **Mixed practice**; in mixed practice it changes the motion questions only. The other grammar sets do not yet have graded banks.
+Motion practice has three task levels, independent of the numeric difficulty stored against a word. The level selector appears for **Verbs of motion** and **Mixed practice**; in mixed practice it changes the motion questions only. The other grammar sets remain selected by grammatical focus, without a level selector.
 
-| Level | Bank | Coverage |
-|---|---:|---|
-| A1 | 28 situations | `идти / ходить` and `ехать / ездить`: travel mode, directionality, present, past and future. Setting off with `пойти / поехать`. |
-| A2 | 30 situations | Prefixed motion and aspect, including `входить / войти`, `приходить / прийти` and `уходить / уйти`. Carrying, transporting and accompanying someone with `нести / носить`, `везти / возить` and `вести / водить`. |
-| B1 | 10 situations | Combine the earlier material in multi-part routes and decisions about people and cargo. Each sentence contains two independently marked verbs. |
+| Level | Coverage |
+|---|---|
+| A1 | `идти / ходить` and `ехать / ездить`: travel mode, directionality, present, past and future. Setting off with `пойти / поехать`. |
+| A2 | Prefixed motion and aspect, including `входить / войти`, `приходить / прийти` and `уходить / уйти`. Carrying, transporting and accompanying someone with `нести / носить`, `везти / возить` and `вести / водить`. |
+| B1 | Combine earlier material in routes and decisions about people and cargo. Each sentence contains two independently marked verbs. |
 
 A1 begins with mode of travel, then contrasts a journey in progress with repeated or multidirectional movement. Past examples distinguish a journey in progress from a whole visit. Future examples include `будет идти / будет ходить` and `пойдёт / поедет`. Both members of the unprefixed pairs are imperfective. Directionality and aspect are separate features.
 
@@ -39,7 +51,7 @@ Choice banks contain two to six alternatives according to the contrast being tes
 
 A caption saying “every morning” does not, by itself, make `идёт` wrong. A regular outward journey can also use the directed verb. Pacing, repeated return trips and explicit journey stages establish the distinction. Likewise, `пойти` can mean going to an event without specifying transport; mode contrasts therefore give a clear walking or transport context.
 
-Settings include `motion_level` (`A1`, `A2` or `B1`), defaulting to A1. Unsupported levels are rejected rather than silently substituting easier material. Each start gets a new seed. Selection covers different grammatical contrasts before repeating one, then varies the context within each contrast. Five and ten-round games use distinct questions; these are sampled authored situations, not newly generated AI stories.
+Settings include `motion_level` (`A1`, `A2` or `B1`), defaulting to A1. Unsupported levels are rejected. A new game receives a seed; resuming keeps the original content. Selection balances grammatical contrasts and prefers meanings absent from the learner's last 20 scene sessions. Renaming a person or changing wallpaper does not count as novelty. Questions within one game have distinct semantic identities. If the available meanings are exhausted, the oldest are reused and recorded as repeated in private provenance.
 
 Examples include a walk to a nearby pharmacy, a taxi to the station with heavy luggage, a bus commute, a car crossing a bridge and a parent accompanying a child. The interface assembles simple route illustrations from each situation's mode, setting and movement stage. It does not reuse the old café picture for an airport or bus journey.
 
@@ -55,7 +67,7 @@ The heading appears once. During play, the round counter and a small level label
 - Keep grammar explanations short and in the interface language. Russian examples remain in Cyrillic.
 - Vary words and situations beyond the introductory lessons. Familiar vocabulary can support a question; it must not limit the whole curriculum to the learner's saved word list.
 
-The first release uses authored question sets. It does not ask a model to invent and mark its own grammar questions during play. Automated checks can validate answer contracts and possible word forms. They do not prove that a sentence is natural or that an illustration is unambiguous.
+The engine uses explicit noun/adjective paradigms and checked motion forms. It rejects unsupported combinations instead of guessing endings for arbitrary vocabulary. Syncretic forms receive one button: for example, identical dative and prepositional `девочке` cannot appear as secretly different answers. Captions constrain distinctions that could otherwise admit more than one answer. Automated checks validate contracts and dictionary forms; they do not establish naturalness or learner comprehension.
 
 ## Interaction and feedback
 
@@ -69,29 +81,29 @@ The existing correction and missed-question review flows retain the first answer
 
 The new game has the stable ID `scene-builder`. Its saved question payload includes the scene identifier, bilingual situation, sentence segments and ordered slots. Each slot owns its allowed choices. Answer IDs are validated on the server against those slots.
 
-`scene_motion.py` owns the motion bank and grammatical contrasts. `scene_builder.py` validates settings, selects a balanced set and freezes its content. Both verbs from a two-part sentence are retained for the existing vocabulary and card-generation pipeline.
+`scene_builder.py` owns settings, retained authored examples and session persistence. `scene_generator.py` selects and realizes semantic plans. `scene_lexicon.py` contains the checked noun/adjective paradigms. `scene_motion_generator.py` composes compatible journeys; `scene_motion.py` retains the original reference questions and supplies motion paradigms. Both verbs from a two-part sentence remain available to the existing vocabulary/card pipeline.
 
 Every answer has explicit lexical morphology. Past forms carry gender and number; present and synthetic future forms carry person and number. The perfective future `пойдёт` is linked to lemma `пойти`, not `идти`.
 
 Analytical future is kept separate from lexical morphology. An option can display `будет идти`, while its vocabulary reference retains `идти`, part of speech `INFN` and imperfective aspect. The separate `construction` field records the full phrase and its future tense, person and number. This prevents `будет идти` from being inserted as one word variation, or future tense from being falsely assigned to an infinitive. The same rule applies when the exercise supplies `будет` and the learner chooses the infinitive.
 
-The activity uses the existing `journey_game_sessions` storage for ownership, frozen questions, first attempts, hints and completion. It uses the existing correction records and reward ledger. It does not need a separate vocabulary database or a database migration. Version 1 and 2 sessions keep their original questions and answer history. Version 3 starts use the expanded bank. Changing levels, seeds or content versions does not reset the daily reward identity for a grammar focus.
+The activity uses existing `journey_game_sessions` storage for ownership, frozen questions, first attempts, hints and completion. A private generation record holds the rule version, semantic identity and plan. It is omitted from the unanswered public response. No separate vocabulary database, queue or migration is needed. Versions 1–3 retain their original content and answer history. Only new starts use version 4. Changing levels, seeds or content versions does not reset the daily reward identity for a grammar focus.
 
-Bundled illustrations load immediately. Reusing a cat, table and book allows consistent spatial scenes without generating another picture for every round.
+Spatial illustrations compose a cat, book, ball, cup, bag or letter with a table, chair, box or shelf. Geometry, colour and orientation come from the same plan as the language. Motion uses the existing route illustration contract. Trains go between towns; vehicles enter courtyards, not shop doorways. A multi-action route's caption remains necessary because a single illustration cannot show every event. No per-round image generation occurs.
 
 Completed contextual examples can use the existing explicit vocabulary and native-card actions. These actions preserve the Russian sentence, surface form and contextual meaning. They do not introduce a universal English translation field on the lemma table or alter Anki progress.
 
 ## Verification
 
-The automated checks cover slot validation, saved attempts, corrections, profile ownership, answer-audio access, public-demo restrictions and lemma/form resolution for every authored card target. Browser checks cover desktop and mobile layouts, separate component feedback and retry navigation. These checks do not replace a Russian tutor’s review of the curriculum.
+Automated checks realize every semantic specification, verify lexical targets independently with the Russian morphology dictionary, exercise 100 seeds per focus and test real session history. They cover case contrasts, irregular feminine motion forms, future infinitives, duplicate visible forms, physical compatibility, frozen old sessions, retries, private answers and unchanged rewards. The frontend has component tests for the composable illustrations. These checks do not establish classroom effectiveness or official TORFL assessment validity; the activity remains standalone guided practice.
 
 ## Remaining work
 
-- Expand the authored question bank after observing real learner errors, and add graded banks for the other grammar sets.
-- Let suitable tutor-lesson vocabulary populate reviewed grammatical patterns. The first release does not automatically transform arbitrary lesson sentences into validated grammar questions.
+- Add reviewed lexical paradigms and constructions based on learner errors, and introduce explicit levels for the other grammar sets.
+- Allow compatible lesson vocabulary to populate these rules after morphological and visual checks. Arbitrary uploaded sentences are not automatically valid scene specifications.
 - Add an optional typed or spoken answer after button-based practice. Recognition and sentence construction should not be presented as proof of unaided recall.
 - Add a listening-led variant with prompts that supply the situation without speaking the answer.
-- Review alternative answers and illustrations with a Russian tutor before using the results for skill-rating changes.
+- Evaluate alternative answers and illustration clarity before using this guided practice as evidence of independent grammatical production.
 
 ## Language references
 

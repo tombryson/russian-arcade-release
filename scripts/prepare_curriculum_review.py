@@ -15,7 +15,7 @@ from services.curriculum_units import DATA_DIR, get_unit, _pack, writing_task
 from services.curriculum_requirement_map import requirement_index
 
 FIXTURE = ROOT / 'flask_vocab_app/data/curriculum_evaluation/a1-units-review-v1.json'
-CURRENT_FIXTURE = ROOT / 'flask_vocab_app/data/curriculum_evaluation/a1-units-review-v4.json'
+CURRENT_FIXTURE = ROOT / 'flask_vocab_app/data/curriculum_evaluation/a1-units-review-v5.json'
 OUTCOMES = {'satisfied', 'partial', 'not_satisfied', 'insufficient_evidence'}
 
 

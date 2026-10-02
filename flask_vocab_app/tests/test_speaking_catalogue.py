@@ -171,15 +171,13 @@ class SpeakingCatalogueTests(unittest.TestCase):
             self.start('intervening-cafe-' + str(number))
         preview = self.options('directions').json
         self.assertNotIn(first['id'], [item['id'] for item in preview['sessions']])
-        with transaction(self.db) as conn:
-            remaining = {row[0] for row in conn.execute("SELECT id FROM speaking_scenario_variants WHERE scenario_id='directions' AND enabled=1")}
-        remaining.remove(first['scenario']['seed'])
-        for index in range(len(remaining)):
+        played = {first['scenario']['seed']}
+        for index in range(16):
             selected = self.start('directions-other-' + str(index), 'directions')
-            self.assertIn(selected['scenario']['seed'], remaining)
-            remaining.remove(selected['scenario']['seed'])
-        self.assertFalse(remaining)
-        self.assertEqual(self.options('directions').json['scenario']['seed'], first['scenario']['seed'])
+            self.assertNotIn(selected['scenario']['seed'], played)
+            self.assertEqual(selected['scenario']['scenario_version'],3)
+            played.add(selected['scenario']['seed'])
+        self.assertNotIn(self.options('directions').json['scenario']['seed'], played)
 
     def test_another_situation_excludes_the_preview_without_creating_a_session(self):
         self.assertNotEqual(self.options('meet-someone', 'meet-someone-a1-neighbour-v2').json['scenario']['seed'], 'meet-someone-a1-neighbour-v2')

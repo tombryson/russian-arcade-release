@@ -49,6 +49,23 @@ class PersonalFlashcardTests(unittest.TestCase):
         with self.client.session_transaction() as session:
             return session['personal_access_id']
 
+    def test_new_native_card_sees_history_and_cannot_copy_the_previous_context(self):
+        first = self.generate(max_cards=3)
+        self.assertEqual(first['saved'], 1)
+        second = self.post('/api/v1/card-generation/batches', {
+            'submission_id': 'another-context', 'options': {'kind': 'ru-cloze', 'quantity': 1, 'word_id': 1, 'max_cards': 3}}).json
+        endpoint = f'/api/v1/card-generation/batches/{second["id"]}/next'
+        failed = self.post(endpoint, {}).json
+        self.assertEqual(failed['items'][0]['status'], 'failed')
+        self.assertEqual(failed['saved'], 0)
+        self.assertTrue(self.provider.calls[-1][0]['content_variation']['recent_examples'])
+        self.assertNotIn('_owner_scope', str(self.provider.calls[-1]))
+        calls = len(self.provider.calls)
+        self.post(endpoint, {})
+        self.assertEqual(len(self.provider.calls), calls)
+        with transaction(self.db) as conn:
+            self.assertEqual(conn.execute('SELECT COUNT(*) FROM card_definitions').fetchone()[0], 1)
+
     def test_native_selection_covers_inflections_and_keeps_explicit_case(self):
         with transaction(self.db,write=True) as conn:
             word_id = conn.execute("INSERT INTO words(lemma,pos,count,lemma_difficulty) VALUES ('книга','NOUN',0,1)").lastrowid

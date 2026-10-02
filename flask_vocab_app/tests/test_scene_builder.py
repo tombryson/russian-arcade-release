@@ -94,10 +94,9 @@ class SceneContentTests(unittest.TestCase):
                     self.assertTrue(any(len(row['scene_builder']['slots'])==2 for row in rows))
 
     def test_motion_pack_selection_is_level_filtered_diverse_and_repeatable(self):
+        from services.scene_generator import specifications
         for level in ('A1','A2','B1'):
-            eligible=[row for row in curriculum()
-                if row['scene_builder']['family']=='motion' and row['scene_builder']['level']==level]
-            available_skills=Counter(row['scene_builder']['skill'] for row in eligible)
+            available_skills=Counter(plan['skill'] for plan in specifications('motion', level))
             for seed in ('seed','another-seed','third-seed'):
                 for count in (5,10):
                     settings=options({'grammar_focus':'motion','motion_level':level,'rounds':count})
@@ -107,7 +106,7 @@ class SceneContentTests(unittest.TestCase):
                         self.assertEqual(len({row['id'] for row in pack['rounds']}),count)
                         self.assertEqual({row['scene_builder']['family'] for row in pack['rounds']},{'motion'})
                         self.assertEqual({row['scene_builder']['level'] for row in pack['rounds']},{level})
-                        self.assertEqual(pack['version'],'scene-builder-v3')
+                        self.assertEqual(pack['version'],'scene-builder-v4')
                         self.assertEqual(pack['lesson_version'],'scene-builder-v1:motion')
                         self.assertEqual(
                             {(ref['lemma'],ref['form'],ref['sentence']) for ref in pack['vocabulary_refs']},
@@ -117,9 +116,7 @@ class SceneContentTests(unittest.TestCase):
                         for skill,selected in skills.items():
                             if selected<available_skills[skill]:
                                 self.assertLessEqual(max(skills.values())-selected,1)
-                            available_answers={tuple(row['expected_answer']) for row in eligible if row['scene_builder']['skill']==skill}
-                            selected_answers={tuple(row['expected_answer']) for row in pack['rounds'] if row['scene_builder']['skill']==skill}
-                            self.assertEqual(len(selected_answers),min(selected,len(available_answers)))
+                        self.assertEqual(len({row['generation']['semantic_id'] for row in pack['rounds']}), count)
             mixed=build_content('seed',options({'grammar_focus':'mixed','motion_level':level,'rounds':10}))
             self.assertEqual(Counter(row['scene_builder']['family'] for row in mixed['rounds']),dict.fromkeys(FAMILIES,2))
             self.assertEqual({row['scene_builder']['level'] for row in mixed['rounds'] if row['scene_builder']['family']=='motion'},{level})
@@ -320,7 +317,7 @@ class SceneGameTests(unittest.TestCase):
         current=self.start_scene('motion')
         self.assertNotEqual(current['id'],legacy['id'])
         self.assertEqual(current['round']['scene_builder']['level'],'A1')
-        self.assertEqual(json.loads(self.saved_content(current['id']))['version'],'scene-builder-v3')
+        self.assertEqual(json.loads(self.saved_content(current['id']))['version'],'scene-builder-v4')
         self.start_scene('motion',motion_level='A2')
         self.assertEqual(self.start_scene('motion',request_id='legacy-motion-start-scene-builder-v1')['id'],legacy['id'])
         self.assertEqual(self.read(legacy['id'])['result']['correct_sentence'],row['correct_sentence'])
@@ -335,7 +332,7 @@ class SceneGameTests(unittest.TestCase):
         self.assertEqual(self.client.get(audio_url).status_code,404)
         current=self.start_scene('motion',motion_level='A2')
         self.assertNotEqual(current['id'],legacy['id'])
-        self.assertEqual(json.loads(self.saved_content(current['id']))['version'],'scene-builder-v3')
+        self.assertEqual(json.loads(self.saved_content(current['id']))['version'],'scene-builder-v4')
         with patch('services.scene_builder.build_content',side_effect=AssertionError('v2 snapshot must not rebuild')):
             replay=self.start_scene('motion',request_id='legacy-motion-start-scene-builder-v2',motion_level='A2')
             self.assertEqual(replay['id'],legacy['id'])

@@ -67,7 +67,7 @@ The guided course adds four A1 milestones, three assessment variants per stop an
 
 A separate [A1–B2 reference](docs/curriculum-requirements.md) records 239 observable requirements from published TORFL standards and sample tests. It covers language use, reading, listening, writing and speaking. The [research review](docs/curriculum-research.md) explains the source editions and assessment limits.
 
-The [curriculum implementation](docs/curriculum-implementation.md) provides 14 A1 units with 96 contextual questions, 64 typed-form prompts and 14 Writing briefs. **Who is doing what?** teaches present-tense forms before testing them, including polite **вы**. The connected **Where shall we meet?** lesson links teaching to reading, listening, original writing and a two-turn spoken exchange. Two new situations check whether the learner can use the same language beyond the taught examples.
+The [curriculum implementation](docs/curriculum-implementation.md) provides 15 A1 units with explanations, contextual questions, typed forms and Writing briefs. Practice composes fresh examples from checked grammar rules and tracks recent questions. **Who is doing what?** teaches present-tense forms, including polite **вы**. **Activities and future professions** introduces заниматься + instrumental and буду врачом. The connected **Where shall we meet?** lesson links teaching to reading, listening, original writing and a two-turn spoken exchange. Two transfer situations check use beyond the taught examples.
 
 Lesson drafts and original answers survive interrupted feedback. Communication and Russian grammatical forms are marked separately; speaking reviews the original audio. Profile reports the assessed skills and links to relevant practice. Useful feedback can be saved to Phrasebook or used to prepare flashcards through the existing vocabulary pipeline. The [implementation record](docs/torfl-implementation-2026-10-02.md) describes the storage, checks and current limits.
 
@@ -167,7 +167,7 @@ Cards use the source sentence where possible. New examples are labelled when a f
 
 WebRTC carries live audio between the browser and the conversation provider. Scenarios have variations, goals and instructions for their practice level. Those details are saved with each attempt. The agent can end the conversation when the task is complete.
 
-The bundled Speaking catalogue has 30 situations across five settings at A1 and A2. Each task links to the curriculum and varies concrete details such as an order, a clothing size or a train connection. Both modes share repeat tracking, and saved conversations keep their original facts and objectives.
+Speaking composes A1 and A2 situations across five settings. Each task links to the curriculum. Availability, prices, travel details and conversational goals vary within compatible rules. Both modes share repeat tracking, and saved conversations keep their original facts and objectives.
 
 [Step-through mode](docs/step-through-speaking.md) uses the same scenarios to teach what to say next. Each paused exchange offers three Russian replies and an optional hint. The server checks the answer and saves the learner's place. Completion earns participation coins; choosing a written reply does not change speaking fluency scores.
 
@@ -189,7 +189,7 @@ Audio jobs choose a voice from the configured list and keep it for retries. This
 - **Skill estimates** retain separate assessed-practice histories; they do not control the course bar or chapter access.
 - **Flashcard schedules** determine when each card returns.
 
-A1–C2 describe curriculum task levels. They are not qualifications awarded by the app. The live Speaking catalogue currently has authored A1/A2 variations. The old Elo total remains in historical records; it does not determine current skill estimates. Coins buy optional games. The four-chapter course advances through independent checkpoints; coin earnings and spending do not change chapter access or skill estimates. Ordinary practice remains available. See [levels and progression](docs/levels-and-progression.md).
+A1–C2 describe curriculum task levels. They are not qualifications awarded by the app. Speaking currently supports A1/A2 situation recipes. The old Elo total remains in historical records; it does not determine current skill estimates. Coins buy optional games. The four-chapter course advances through independent checkpoints; coin earnings and spending do not change chapter access or skill estimates. Ordinary practice remains available. See [levels and progression](docs/levels-and-progression.md).
 
 ## Architecture and technology stack
 
@@ -346,6 +346,7 @@ Historical scripts may retain machine-specific assumptions; read them before run
 - [TORFL teaching and assessment delivery plan](docs/torfl-assessment-build-plan.md)
 - [Curriculum implementation status](docs/curriculum-implementation.md)
 - [Curriculum coverage inventory](docs/curriculum-coverage.md)
+- [Procedural content and replayability](docs/procedural-content.md)
 - [Vocabulary database and form-generation rules](docs/vocabulary-data-model.md)
 - [Drive/SQLite synchronisation contract](docs/synchronization.md)
 - [Native flashcards](docs/native-flashcards.md) and [vocabulary library](docs/vocabulary-library.md)

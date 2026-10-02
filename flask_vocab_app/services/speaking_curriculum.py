@@ -84,55 +84,59 @@ def level_details():
             for g in _content()['groups']]
 
 
-def compiled_situations(category_metadata):
-    """Return independent snapshots ready for insertion; never change vocabulary."""
-    result = []
+def compile_situation(group, bundle, category, seed, *, variation_version=2):
+    """Compile one validated fact bundle; both modes freeze the resulting snapshot."""
+    _check_facts(bundle)
+    level = group['target_level']
+    curriculum = generation_context(group['topic_id'], level, 'speaking')
     closing = ('Когда договорённость достигнута, кратко подтверди её и дай собеседнику попрощаться. '
                'Затем естественно закончи разговор, не начинай новую тему. '
                'При явном прощании можно закончить раньше. Пауза или ошибка не означают конец. '
                'Не объявляй оценки и учебные цели.')
-    for group in _content()['groups']:
-        category = category_metadata[group['scenario_id']]
-        level = group['target_level']
-        curriculum = generation_context(group['topic_id'], level, 'speaking')
-        for bundle in group['bundles']:
-            seed = f"{group['scenario_id']}-{level.lower()}-{bundle['id']}-v2"
-            grammar = bundle.get('grammar_focus', group['grammar_focus'])
-            requirements = [dict(id=f'objective-{i+1}', kind='communicative',
-                                 description=objective, evidence_hint=bundle['completion_criteria'][i])
-                            for i, objective in enumerate(bundle['goals'])]
-            requirements.append(dict(id='grammar-in-context', kind='grammar', description=grammar[0],
-                                     evidence_hint=bundle.get('grammar_evidence_hint',group['grammar_evidence_hint'])))
-            contract = dict(version='speaking-curriculum-v2', target_level=level,
-                alignment_status='authored_curriculum_task', topic_id=group['topic_id'],
-                communicative_objectives=list(bundle['goals']), grammar_focus=list(grammar),
-                vocabulary_focus=list(curriculum['target_vocabulary']), requirements=requirements,
-                agent_complexity=dict(max_sentences_per_turn=2, one_question_at_a_time=True,
-                    task_complexity=('One concrete request at a time; familiar words and whole-hour times. '
-                                     'Do not add reasons, obstacles or extra conditions.' if level=='A1' else
-                                     'Include the authored clarification, condition or alternative. '
-                                     'Keep it routine and concrete; do not replace it with a simple order or greeting.')),
-                support=dict(repeat_on_request=True, rephrase_on_request=True,
-                             offer_two_choices_when_stuck=True, supply_full_task_answer=False),
-                assessment_policy=('Assess the forms and meaning actually attempted. These are task targets, '
-                    'not a proficiency certificate. Accept correct short replies and alternative phrasing. '
-                    'Fluent speakers need not recite the grammar example; guided examples must demonstrate it.'))
-            snapshot = dict(id=seed, seed=seed, scenario_id=group['scenario_id'], scenario_version=2,
-                target_level=level, category_title=group['title'], category_title_ru=group['title_ru'],
-                role=category['role'], role_ru=category['role_ru'], icon=category['icon'], sign=category['sign'],
-                conversation_role=category['conversation_role'],
-                title=bundle['title'], title_ru=bundle['title_ru'],
-                description=bundle['description'], description_ru=bundle['description_ru'],
-                opening=bundle.get('opening',group['opening']),
-                opening_english=bundle.get('opening_english',group['opening_english']),
-                goals=list(bundle['goals']), goals_ru=list(bundle['goals_ru']),
-                goal_ids=[f'objective-{i+1}' for i in range(3)],
-                completion_criteria=list(bundle['completion_criteria']),
-                worker_brief=bundle['worker_brief'], closing_instruction=closing,
-                menu=dict(bundle.get('menu',{})), reference=deepcopy(bundle.get('reference',{})),
-                complication='', complication_ru='', learning_contract=contract,
-                curriculum_context=deepcopy(curriculum),
-                variation=dict(version=2, family_id=f"{group['scenario_id']}-{level.lower()}",
-                               bundle_id=bundle['id'], facts=deepcopy(bundle['facts'])))
-            result.append(snapshot)
-    return result
+    grammar = bundle.get('grammar_focus', group['grammar_focus'])
+    requirements = [dict(id=f'objective-{i+1}', kind='communicative',
+                         description=objective, evidence_hint=bundle['completion_criteria'][i])
+                    for i, objective in enumerate(bundle['goals'])]
+    requirements.append(dict(id='grammar-in-context', kind='grammar', description=grammar[0],
+                             evidence_hint=bundle.get('grammar_evidence_hint',group['grammar_evidence_hint'])))
+    contract = dict(version='speaking-curriculum-v2', target_level=level,
+        alignment_status='authored_curriculum_task', topic_id=group['topic_id'],
+        communicative_objectives=list(bundle['goals']), grammar_focus=list(grammar),
+        vocabulary_focus=list(curriculum['target_vocabulary']), requirements=requirements,
+        agent_complexity=dict(max_sentences_per_turn=2, one_question_at_a_time=True,
+            task_complexity=('One concrete request at a time; familiar words and whole-hour times. '
+                             'Do not add reasons, obstacles or extra conditions.' if level=='A1' else
+                             'Include the authored clarification, condition or alternative. '
+                             'Keep it routine and concrete; do not replace it with a simple order or greeting.')),
+        support=dict(repeat_on_request=True, rephrase_on_request=True,
+                     offer_two_choices_when_stuck=True, supply_full_task_answer=False),
+        assessment_policy=('Assess the forms and meaning actually attempted. These are task targets, '
+            'not a proficiency certificate. Accept correct short replies and alternative phrasing. '
+            'Fluent speakers need not recite the grammar example; guided examples must demonstrate it.'))
+    snapshot = dict(id=seed, seed=seed, scenario_id=group['scenario_id'], scenario_version=2,
+        target_level=level, category_title=group['title'], category_title_ru=group['title_ru'],
+        role=category['role'], role_ru=category['role_ru'], icon=category['icon'], sign=category['sign'],
+        conversation_role=category['conversation_role'],
+        title=bundle['title'], title_ru=bundle['title_ru'],
+        description=bundle['description'], description_ru=bundle['description_ru'],
+        opening=bundle.get('opening',group['opening']),
+        opening_english=bundle.get('opening_english',group['opening_english']),
+        goals=list(bundle['goals']), goals_ru=list(bundle['goals_ru']),
+        goal_ids=[f'objective-{i+1}' for i in range(3)],
+        completion_criteria=list(bundle['completion_criteria']),
+        worker_brief=bundle['worker_brief'], closing_instruction=closing,
+        menu=dict(bundle.get('menu',{})), reference=deepcopy(bundle.get('reference',{})),
+        complication='', complication_ru='', learning_contract=contract,
+        curriculum_context=deepcopy(curriculum),
+        variation=dict(version=2, family_id=f"{group['scenario_id']}-{level.lower()}",
+                       bundle_id=bundle['id'], facts=deepcopy(bundle['facts'])))
+    snapshot['scenario_version'] = variation_version
+    snapshot['variation']['version'] = variation_version
+    return snapshot
+
+
+def compiled_situations(category_metadata):
+    """Migration publication remains unchanged; historical identities survive."""
+    return [compile_situation(group, bundle, category_metadata[group['scenario_id']],
+                              f"{group['scenario_id']}-{group['target_level'].lower()}-{bundle['id']}-v2")
+            for group in _content()['groups'] for bundle in group['bundles']]
