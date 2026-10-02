@@ -1,0 +1,29 @@
+{
+  "version": "curriculum-unit-audio-v1",
+  "content_id": "present-actions-listening-v1",
+  "provider": "elevenlabs",
+  "source": "App-authored learning material with synthetic narration.",
+  "clips": {
+    "two-readers": {
+      "text_sha256": "0634e24d4424bf3829dd15a67479c8c54fab19a5330088fe527bd22204e013d3",
+      "audio_sha256": "e80ab7a2167b9fe3f731c27cd94f961f404a79b215181b4c4ddf0e154e949485",
+      "duration": 6.164898,
+      "voice_id": "3EuKHIEZbSzrHGNmdYsx",
+      "model": "eleven_multilingual_v2"
+    },
+    "polite-reply": {
+      "text_sha256": "a804728d9ff02fe3635dcced1246d7f54cbc7ac8e605bc0f67a7e7dd320c4fad",
+      "audio_sha256": "d4750e941ebdb4ae3f004ba48aa482af89999356b3bea60329c3b87fcde48178",
+      "duration": 6.112653,
+      "voice_id": "gXMhWmiqsFkrcssqVb5k",
+      "model": "eleven_multilingual_v2"
+    },
+    "group-contrast": {
+      "text_sha256": "ed881bd152b0799a2f755340726b4265bae3bfd1ff40ccbafc4b378329271f72",
+      "audio_sha256": "f2a17971a44e3a79571749c443ff611161a5f692c7b3160c7a06e489ddf41a66",
+      "duration": 6.112653,
+      "voice_id": "ymDCYd8puC7gYjxIamPt",
+      "model": "eleven_multilingual_v2"
+    }
+  }
+}

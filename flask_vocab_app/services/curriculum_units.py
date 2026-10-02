@@ -13,7 +13,7 @@ from services.activity_evidence import load_contract, save_contract, save_report
 from services.curriculum_requirement_map import requirement_index
 
 UNIT_IDS = ('location-destination-v1', 'possession-absence-v1',
-            'objects-recipients-v1', 'time-routine-v1',
+            'objects-recipients-v1', 'present-actions-v1', 'time-routine-v1',
             'noun-adjective-agreement-v1', 'personal-reference-v1', 'basic-motion-v1',
             'numbers-quantities-v1', 'social-exchanges-v1', 'needs-company-v1',
             'action-aspect-v1', 'origins-and-destinations-v1', 'connected-messages-v1')

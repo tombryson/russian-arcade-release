@@ -28,8 +28,8 @@ The repository already contains most of the necessary infrastructure. Content co
 | Area | Implemented | Remaining work |
 | --- | --- | --- |
 | Requirements | 239 source-linked specifications across A1–B2; later levels inherit earlier scope. | Reconcile the inventory against the chosen source editions and assessment blueprints. |
-| Teaching | 13 authored A1 units; a connected location/destination edition with guided practice and two transfer situations. | Complete the source-level breadth of A1 and its prerequisites; author later levels. |
-| Listening | All 13 unit packs and both pilot forms have verified files: 41 clips. The connected sequence adds 19 reusable recordings across 25 playback identities. | Complete audible device checks and pronunciation review; preserve per-file availability checks. |
+| Teaching | 14 authored A1 units, including systematic present-tense person/number; a connected location/destination edition with guided practice and two transfer situations. | Complete the source-level breadth of A1 and its prerequisites; author later levels. |
+| Listening | All 14 unit packs and both pilot forms have verified files: 44 clips. The connected sequence adds 19 reusable recordings across 25 playback identities. | Complete audible device checks and pronunciation review; preserve per-file availability checks. |
 | Activity evidence | V1 retained; v2 separates communication from forms in original writing and speech. Immutable submissions survive unavailable feedback. | Broader original-production coverage and validation on learner responses. |
 | Lesson state | Owned, frozen runs; idempotent activity allocation; durable typed drafts; review recovery; per-task support and transfer exposure. | Wider real-user and device trials; extend the proven sequence pattern to the remaining units. |
 | Profile | Five compact domain rows, scoped activity/pilot results, pending work and deterministic next actions. | Validate recommendations with learners; add later-level results only under an explicit assessed scope. |
@@ -499,6 +499,10 @@ Keep existing unit and pilot routes as the fallback until this sequence passes t
 ### P2 — Complete reviewed A1 teaching coverage
 
 Use the inventory to fill gaps in the 13 existing units before adding unrelated activities. Sequence prerequisites and author missing examples, meaningful contrasts, listening and production tasks. Give each released requirement appropriate transfer tasks; broad communication requirements need several situations.
+
+The first P2 addition is now `present-actions-v1`: читать/говорить person and number, with eight contextual questions, six controlled forms, three recordings and a short original Writing task. Existing content is retained. Its coverage is partial; the Writing criterion measures meaning, not general conjugation control.
+
+Next, distinguish calendar dates from duration (`a1.language.genitive-calendar-month` and `a1.language.accusative-duration`) after the numbers and time units. Teach these functions separately before combining them in an arrangement. Further gaps include bounded uses of professions, заниматься + instrumental and о + a topic. Check older units and First steps before treating an unmapped sequence reference as absent teaching.
 
 **Done when:** the reviewed A1 scope has teaching, supported practice and suitable assessment material, with verified audio for every released listening task. Every excluded or unsupported requirement is visible in the coverage report. Content checks include misleading distractors, unnatural Russian and answers that require untaught knowledge.
 

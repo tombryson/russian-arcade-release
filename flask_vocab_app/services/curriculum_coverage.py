@@ -117,7 +117,7 @@ def delivery_report():
                 if identity not in media:
                     media[identity] = media_inventory(load_asset(identity))
         row['stage_status'] = {stage: ('not_applicable' if not row['applicability'][stage]['applicable']
-                                      else 'draft' if row[stage] else 'missing') for stage in STAGES}
+                                      else 'draft' if row[stage] else 'not_mapped') for stage in STAGES}
         # Keep controlled completion distinct from original writing/speech.
         row['production_modes'] = dict(Counter(mode for entry in row['production'] for mode in entry['response_modes']))
     data['media'] = media

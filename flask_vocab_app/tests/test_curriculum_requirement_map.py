@@ -63,11 +63,11 @@ class CurriculumRequirementMapTests(unittest.TestCase):
         self.assertEqual((root / 'docs/curriculum-coverage.md').read_text(encoding='utf-8'), renderer.render())
 
     def test_all_prepared_unit_listening_tasks_are_counted(self):
-        from services.curriculum_units import LISTENING_IDS
+        from services.curriculum_units import LISTENING_IDS, listening_content
         report = maps.coverage_report()
         tasks = report['direct_task_contracts']
         listening = [item for item in tasks if item['kind'] == 'unit_listening_choice']
-        self.assertEqual(len(listening), 39)
+        self.assertEqual(len(listening), sum(len(listening_content(unit_id)['items']) for unit_id in LISTENING_IDS))
         self.assertEqual({item['id'].split(':')[0] for item in listening},
                          set(LISTENING_IDS))
         for unit_id, forms in (('possession-absence-v1', 4), ('objects-recipients-v1', 4), ('time-routine-v1', 5),

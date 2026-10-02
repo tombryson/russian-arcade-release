@@ -42,16 +42,31 @@ class CurriculumReviewPacketTests(unittest.TestCase):
             command.read_fixture(path)
 
     def test_current_fixture_extends_retained_versions_without_rewriting_them(self):
+        from services.curriculum_units import UNIT_IDS, LISTENING_IDS, get_unit
         current = command.read_fixture(command.CURRENT_FIXTURE)
-        previous = command.read_fixture(ROOT / 'flask_vocab_app/data/curriculum_evaluation/a1-units-review-v2.json')
-        self.assertEqual(len(current['unit_sha256']), 13)
-        self.assertEqual(len(current['listening_sha256']), 13)
-        self.assertEqual(len(current['cases']), 246)
-        by_id = {case['id']: case for case in current['cases']}
-        for case in previous['cases']:
-            self.assertEqual(by_id[case['id']], case)
-        for identity, digest in previous['unit_sha256'].items():
-            self.assertEqual(current['unit_sha256'][identity], digest)
+        directory = ROOT / 'flask_vocab_app/data/curriculum_evaluation'
+        retained = {
+            1: 'c73bead57aca1c6f9f2082f96b4cee7195fcddf9dd864365407c812673f0425c',
+            2: '83b66c8480a3691db9cc77790c8efdac02cc6052543edfdaa76e847f1bded92e',
+            3: '9f8e8d0bd08d6eae3ebb39b1d37054f30b5ab04f417bfc51d2122167940e7525',
+        }
+        for version, digest in retained.items():
+            path = directory / f'a1-units-review-v{version}.json'
+            self.assertEqual(command.digest(path.read_bytes()), digest)
+            previous = command.read_fixture(path)
+            self.assertEqual(current['cases'][:len(previous['cases'])], previous['cases'])
+            for field in ('unit_sha256', 'listening_sha256'):
+                for identity, expected in previous.get(field, {}).items():
+                    self.assertEqual(current[field][identity], expected)
+        self.assertEqual(current['id'], 'a1-units-review-v4')
+        self.assertEqual(set(current['unit_sha256']), set(UNIT_IDS))
+        self.assertEqual(set(current['listening_sha256']), set(LISTENING_IDS.values()))
+        self.assertEqual(current['review'], {'kind': 'internal_model', 'independently_validated': False})
+        added = current['cases'][len(previous['cases']):]
+        self.assertEqual({case['unit_id'] for case in added}, {'present-actions-v1'})
+        forms = get_unit('present-actions-v1')['forms']['questions']
+        self.assertEqual(sum(case['stage'] == 'forms' for case in added), 3 * len(forms))
+        self.assertEqual(sum(case['stage'] == 'writing' for case in added), 7)
 
     def test_duplicate_cases_or_unavailable_support_are_rejected(self):
         path = self.changed_fixture(lambda f: f['cases'].append(deepcopy(f['cases'][0])))

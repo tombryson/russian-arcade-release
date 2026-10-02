@@ -1,0 +1,436 @@
+{
+  "id": "present-actions-v1",
+  "level": "A1",
+  "topic_id": "daily_activities",
+  "title": "Who is doing what?",
+  "title_ru": "Кто что делает?",
+  "summary": "Say what you and other people do, using читать and говорить.",
+  "summary_ru": "Расскажите, что делаете вы и другие люди, с помощью глаголов читать и говорить.",
+  "practice_summary": "Choose the verb for the speaker, another person or a group. Then follow two short messages.",
+  "practice_summary_ru": "Выберите глагол для говорящего, другого человека или группы. Затем прочитайте два коротких сообщения.",
+  "groups": [
+    {
+      "title": "The action and the person",
+      "title_ru": "Действие и действующее лицо",
+      "note": "A verb names an action. Читать (to read) and говорить (to speak) are dictionary forms, called infinitives. In these present-tense sentences, change the verb to match the subject: the person or group doing the action. Это means this is; привет means hello.",
+      "note_ru": "Глагол называет действие. Читать и говорить — начальные формы, или инфинитивы. В этих предложениях настоящего времени форма глагола зависит от подлежащего: человека или группы, которые выполняют действие. Это помогает назвать человека или предмет; привет — знакомое приветствие.",
+      "examples": [
+        {
+          "ru": "читать",
+          "en": "to read · dictionary form"
+        },
+        {
+          "ru": "говорить",
+          "en": "to speak · dictionary form"
+        }
+      ]
+    },
+    {
+      "title": "I and you · я, ты",
+      "title_ru": "Я и ты",
+      "note": "Я means I. Ты means you when speaking to one familiar person. These present forms can mean “I read” or “I am reading”; Russian needs no extra word for “am”. По-русски means in Russian.",
+      "note_ru": "Я — говорящий. Ты — один человек, к которому обращаются неофициально. Читаю может называть привычное действие или действие сейчас. По-русски — на русском языке.",
+      "examples": [
+        {
+          "ru": "Я читаю по-русски.",
+          "en": "I read in Russian."
+        },
+        {
+          "ru": "Ты читаешь по-русски?",
+          "en": "Do you read in Russian?"
+        },
+        {
+          "ru": "Я говорю по-русски.",
+          "en": "I speak Russian."
+        },
+        {
+          "ru": "Ты говоришь по-русски?",
+          "en": "Do you speak Russian?"
+        }
+      ]
+    },
+    {
+      "title": "Another person · он, она",
+      "title_ru": "Другой человек · он, она",
+      "note": "Он means he; она means she. A name, он and она use the same singular present form: Анна читает, она читает. Кто? means who; the person’s name can come after the verb too.",
+      "note_ru": "Он и она называют человека, о котором говорят. Имя, он и она требуют одинаковой формы настоящего времени: Анна читает, она читает. Вопрос кто? помогает найти действующее лицо; имя может стоять и после глагола.",
+      "examples": [
+        {
+          "ru": "Олег читает. Он читает.",
+          "en": "Oleg is reading. He is reading."
+        },
+        {
+          "ru": "Анна говорит по-русски. Она говорит по-русски.",
+          "en": "Anna speaks Russian. She speaks Russian."
+        },
+        {
+          "ru": "Читает Олег. Кто читает? Олег.",
+          "en": "Oleg is the one reading. Who is reading? Oleg."
+        }
+      ]
+    },
+    {
+      "title": "We and they · мы, они",
+      "title_ru": "Мы и они",
+      "note": "Мы means we: it includes the speaker. Они means they: it refers to other people. И means and. Two named people, such as Анна и Олег, take the same verb form as они.",
+      "note_ru": "Мы включает говорящего. Они называет других людей. Два имени с союзом и, например Анна и Олег, требуют такой же формы глагола, как они.",
+      "examples": [
+        {
+          "ru": "Мы читаем.",
+          "en": "We read."
+        },
+        {
+          "ru": "Они читают.",
+          "en": "They read."
+        },
+        {
+          "ru": "Мы говорим по-русски.",
+          "en": "We speak Russian."
+        },
+        {
+          "ru": "Они говорят по-русски.",
+          "en": "They speak Russian."
+        },
+        {
+          "ru": "Анна и Олег говорят по-русски.",
+          "en": "Anna and Oleg speak Russian."
+        }
+      ]
+    },
+    {
+      "title": "Polite or plural you · вы",
+      "title_ru": "Вежливое или множественное вы",
+      "note": "Вы means several people, or one person addressed politely. Both use читаете and говорите. Читать and говорить show two common ending patterns; learn the forms with each verb. Not every verb ending in -ить follows говорить.",
+      "note_ru": "Вы — несколько человек или один человек при вежливом обращении. В обоих случаях: читаете и говорите. Читать и говорить показывают два частых образца окончаний. Не все глаголы на -ить изменяются как говорить.",
+      "examples": [
+        {
+          "ru": "Нина, вы читаете по-русски?",
+          "en": "Nina, do you read in Russian? · one person, polite"
+        },
+        {
+          "ru": "Нина, вы говорите по-русски?",
+          "en": "Nina, do you speak Russian? · one person, polite"
+        },
+        {
+          "ru": "Анна и Олег, вы говорите по-русски?",
+          "en": "Anna and Oleg, do you speak Russian? · two people"
+        }
+      ]
+    },
+    {
+      "title": "Following a short message",
+      "title_ru": "Как понять короткое сообщение",
+      "note": "Сейчас means now; тоже means too; вместе means together. Да means yes; нет means no. Put не before the verb to say someone is not doing it. А can contrast two people or actions.",
+      "note_ru": "Сейчас — в данный момент; тоже добавляет ещё одного участника; вместе — совместно. Да подтверждает ответ, нет отрицает. Не перед глаголом отрицает действие. А может противопоставлять людей или действия.",
+      "examples": [
+        {
+          "ru": "Я читаю. Анна тоже читает. Мы читаем вместе.",
+          "en": "I am reading. Anna is reading too. We are reading together."
+        },
+        {
+          "ru": "Сейчас мы говорим. Они читают.",
+          "en": "Now we are talking. They are reading."
+        },
+        {
+          "ru": "— Ты читаешь? — Нет, я не читаю. Я говорю.",
+          "en": "“Are you reading?” “No, I am not reading. I am talking.”"
+        },
+        {
+          "ru": "Олег читает, а Анна говорит.",
+          "en": "Oleg is reading, while Anna is talking."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "reply-as-i",
+      "prompt": "— Ты говоришь по-русски?\n— Да, я …",
+      "choices": [
+        {
+          "id": "you",
+          "text": "говоришь."
+        },
+        {
+          "id": "i",
+          "text": "говорю."
+        },
+        {
+          "id": "they",
+          "text": "говорят."
+        }
+      ],
+      "answer": "i",
+      "hint": "The reply uses я: the speaker is answering about themself.",
+      "explanation": "Я говорю is the speaker’s own reply. Говоришь addresses ты; говорят refers to они.",
+      "requirement_id": "a1.language.verb-conjugation",
+      "expectation": "Я говорю is the speaker’s own reply. Говоришь addresses ты; говорят refers to они."
+    },
+    {
+      "id": "ask-a-friend",
+      "prompt": "— Анна, ты ___ по-русски? (читать)",
+      "choices": [
+        {
+          "id": "she",
+          "text": "читает"
+        },
+        {
+          "id": "polite",
+          "text": "читаете"
+        },
+        {
+          "id": "you",
+          "text": "читаешь"
+        }
+      ],
+      "answer": "you",
+      "hint": "The question addresses one familiar person as ты.",
+      "explanation": "Ты читаешь asks Anna directly. Her name does not make this a statement about она.",
+      "requirement_id": "a1.language.verb-conjugation",
+      "expectation": "Ты читаешь asks Anna directly. Her name does not make this a statement about она."
+    },
+    {
+      "id": "one-other-person",
+      "prompt": "Это Нина. Сейчас она ___ по-русски. (говорить)",
+      "choices": [
+        {
+          "id": "she",
+          "text": "говорит"
+        },
+        {
+          "id": "they",
+          "text": "говорят"
+        },
+        {
+          "id": "we",
+          "text": "говорим"
+        }
+      ],
+      "answer": "she",
+      "hint": "Она refers to one other person.",
+      "explanation": "Она говорит uses the singular form for Nina; говорим includes the speaker and говорят refers to a group.",
+      "requirement_id": "a1.language.verb-conjugation",
+      "expectation": "Она говорит uses the singular form for Nina; говорим includes the speaker and говорят refers to a group."
+    },
+    {
+      "id": "two-named-people",
+      "prompt": "Анна и Олег ___ по-русски. (говорить)",
+      "choices": [
+        {
+          "id": "we",
+          "text": "говорим"
+        },
+        {
+          "id": "he",
+          "text": "говорит"
+        },
+        {
+          "id": "they",
+          "text": "говорят"
+        }
+      ],
+      "answer": "they",
+      "hint": "Anna and Oleg are two other people. Which form goes with они?",
+      "explanation": "Анна и Олег говорят: two named people take the они form. The speaker is not included.",
+      "requirement_id": "a1.language.verb-conjugation",
+      "expectation": "Анна и Олег говорят: two named people take the они form. The speaker is not included."
+    },
+    {
+      "id": "one-polite-person",
+      "prompt": "— Нина, вы ___ по-русски? (читать)",
+      "choices": [
+        {
+          "id": "familiar",
+          "text": "читаешь"
+        },
+        {
+          "id": "polite",
+          "text": "читаете"
+        },
+        {
+          "id": "they",
+          "text": "читают"
+        }
+      ],
+      "answer": "polite",
+      "hint": "Вы can address one person politely. Keep the вы verb form.",
+      "explanation": "Вы читаете is correct even when only Nina is addressed. Читаешь would go with ты.",
+      "requirement_id": "a1.language.verb-conjugation",
+      "expectation": "Вы читаете is correct even when only Nina is addressed. Читаешь would go with ты."
+    },
+    {
+      "id": "subject-after-verb",
+      "prompt": "Сейчас читает Олег, а Анна говорит.\nКто сейчас читает?",
+      "choices": [
+        {
+          "id": "anna",
+          "text": "Анна."
+        },
+        {
+          "id": "both",
+          "text": "Анна и Олег."
+        },
+        {
+          "id": "oleg",
+          "text": "Олег."
+        }
+      ],
+      "answer": "oleg",
+      "hint": "Find the person doing читать, even when the name follows the verb.",
+      "explanation": "Oleg is reading. His name follows читает; Anna is doing a different action.",
+      "requirement_id": "a1.language.nominative-subject",
+      "expectation": "Identify Олег as the subject of читает despite the name following the verb; do not treat the first named person in every clause as doing both actions."
+    },
+    {
+      "id": "reading-we-reference",
+      "prompt": "«Я Нина. Анна читает. Я тоже читаю. Мы читаем вместе. Олег говорит».\nКто читает вместе?",
+      "choices": [
+        {
+          "id": "nina-anna",
+          "text": "Нина и Анна."
+        },
+        {
+          "id": "anna-oleg",
+          "text": "Анна и Олег."
+        },
+        {
+          "id": "nina-oleg",
+          "text": "Нина и Олег."
+        }
+      ],
+      "answer": "nina-anna",
+      "hint": "Я is Nina, the speaker. Мы includes her and the other reader.",
+      "explanation": "Мы refers to Nina and Anna, who are both reading. Oleg is talking.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Resolve first-person я and мы in Nina’s message to identify the two readers, rather than selecting another pair of named people."
+    },
+    {
+      "id": "reading-current-actions",
+      "prompt": "Анна и Олег сейчас читают. Они читают вместе. Нина не читает. Она говорит по-русски.\nКто сейчас говорит по-русски?",
+      "choices": [
+        {
+          "id": "pair",
+          "text": "Анна и Олег."
+        },
+        {
+          "id": "all",
+          "text": "Анна, Олег и Нина."
+        },
+        {
+          "id": "nina",
+          "text": "Нина."
+        }
+      ],
+      "answer": "nina",
+      "hint": "Follow она to the named person. Не читает says what she is not doing.",
+      "explanation": "Nina is speaking Russian. Она refers to Nina, who is not reading. Anna and Oleg are reading together.",
+      "requirement_id": "a1.reading.reference-and-sequence",
+      "expectation": "Resolve она to Nina and distinguish her stated action from the other pair’s action and the negated action. Choosing a named person without following the message is insufficient."
+    }
+  ],
+  "forms": {
+    "version": "forms-v1",
+    "title": "Who is doing what? · verb forms",
+    "summary": "Write six taught present-tense forms. Match each verb to the person or group.",
+    "summary_ru": "Впишите шесть изученных форм настоящего времени. Согласуйте глагол с человеком или группой.",
+    "questions": [
+      {
+        "id": "form-i-read",
+        "prompt": "— Ты читаешь по-русски?\n— Да, я ___. (читать)",
+        "answer": "читаю",
+        "accepted_answers": [
+          "читаю",
+          "я читаю"
+        ],
+        "hint": "Answer as я, not as the person asking the question.",
+        "explanation": "Я читаю is the first-person singular form of читать.",
+        "requirement_id": "a1.language.verb-conjugation",
+        "expectation": "Produce читаю for the stated subject. Accept the listed equivalent phrase. This observes one taught present-tense form, not general conjugation mastery."
+      },
+      {
+        "id": "form-you-speak",
+        "prompt": "— Анна, ты ___ по-русски? (говорить)",
+        "answer": "говоришь",
+        "accepted_answers": [
+          "говоришь",
+          "ты говоришь"
+        ],
+        "hint": "Use the familiar ты form of говорить.",
+        "explanation": "Ты говоришь addresses Anna directly; говорит would describe her to someone else.",
+        "requirement_id": "a1.language.verb-conjugation",
+        "expectation": "Produce говоришь for the stated subject. Accept the listed equivalent phrase. This observes one taught present-tense form, not general conjugation mastery."
+      },
+      {
+        "id": "form-we-speak",
+        "prompt": "Нина и я: «Мы ___ по-русски». (говорить)",
+        "answer": "говорим",
+        "accepted_answers": [
+          "говорим",
+          "мы говорим"
+        ],
+        "hint": "The group includes the speaker: мы.",
+        "explanation": "Мы говорим includes Nina and the person speaking; говорят would refer to other people.",
+        "requirement_id": "a1.language.verb-conjugation",
+        "expectation": "Produce говорим for the stated subject. Accept the listed equivalent phrase. This observes one taught present-tense form, not general conjugation mastery."
+      },
+      {
+        "id": "form-you-read",
+        "prompt": "— Анна и Олег, вы ___ по-русски? (читать)",
+        "answer": "читаете",
+        "accepted_answers": [
+          "читаете",
+          "вы читаете"
+        ],
+        "hint": "Address the two people as вы.",
+        "explanation": "Вы читаете addresses Anna and Oleg. Читают would describe them rather than speak to them.",
+        "requirement_id": "a1.language.verb-conjugation",
+        "expectation": "Produce читаете for the stated subject. Accept the listed equivalent phrase. This observes one taught present-tense form, not general conjugation mastery."
+      },
+      {
+        "id": "form-they-speak",
+        "prompt": "Это Анна и Олег. Они ___ по-русски. (говорить)",
+        "answer": "говорят",
+        "accepted_answers": [
+          "говорят",
+          "они говорят"
+        ],
+        "hint": "Two other people are они.",
+        "explanation": "Они говорят is the third-person plural form of говорить.",
+        "requirement_id": "a1.language.verb-conjugation",
+        "expectation": "Produce говорят for the stated subject. Accept the listed equivalent phrase. This observes one taught present-tense form, not general conjugation mastery."
+      },
+      {
+        "id": "form-he-speaks",
+        "prompt": "Это Олег. Сейчас он ___ по-русски. (говорить)",
+        "answer": "говорит",
+        "accepted_answers": [
+          "говорит",
+          "он говорит"
+        ],
+        "hint": "Он names one other person.",
+        "explanation": "Он говорит is the singular form; говорят needs a plural subject.",
+        "requirement_id": "a1.language.verb-conjugation",
+        "expectation": "Produce говорит for the stated subject. Accept the listed equivalent phrase. This observes one taught present-tense form, not general conjugation mastery."
+      }
+    ]
+  },
+  "writing": {
+    "title": "Расскажи о совместном занятии",
+    "title_en": "Describe a practice group",
+    "task": "Напиши короткое сообщение о том, как вы занимаетесь вместе. Скажи, что делаешь ты, что делает ещё один человек и что вы делаете вместе. Можно читать или говорить по-русски. Имена и детали можно придумать.",
+    "task_en": "Write a short message about practising together. Say what you do, what one other person does, and what you do together. You can read or speak Russian. You may invent names and details.",
+    "required_words": [
+      "читать",
+      "говорить",
+      "вместе"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.connected-description",
+    "id": "clear-practice-group",
+    "expectation": "Write connected original sentences making the writer’s activity, one other person’s activity, and a shared activity understandable. Reading or speaking Russian are taught options, not mandatory lemmas. Accept another clear activity, natural pronoun choices and imperfect endings when the intended people and actions remain understandable. Do not require a minimum word count or all suggested words. This criterion observes communication in this description; it does not certify present-tense conjugation control."
+  },
+  "writing_summary": "Describe what you and another person do when practising together.",
+  "writing_summary_ru": "Расскажите, что делаете вы и другой человек во время совместного занятия.",
+  "review_status": "application-authored; qualified language review pending"
+}

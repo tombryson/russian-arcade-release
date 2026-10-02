@@ -1,0 +1,84 @@
+{
+  "version": "listening-v1",
+  "id": "present-actions-listening-v1",
+  "unit_id": "present-actions-v1",
+  "title": "Listen for who does what",
+  "title_ru": "Кто что делает?",
+  "items": [
+    {
+      "id": "two-readers",
+      "prompt": "Кто читает вместе?",
+      "choices": [
+        {
+          "id": "oleg-nina",
+          "text": "Олег и Нина."
+        },
+        {
+          "id": "nina-anna",
+          "text": "Нина и Анна."
+        },
+        {
+          "id": "oleg-anna",
+          "text": "Олег и Анна."
+        }
+      ],
+      "answer": "oleg-nina",
+      "hint": "Listen for the speaker’s name and who joins that person in мы.",
+      "explanation": "Oleg is the speaker. He and Nina read together; Anna talks.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Identify the speaker and the named other reader in мы, while distinguishing the person who is talking.",
+      "transcript": "Привет! Я Олег. Сейчас я читаю. Нина тоже читает. Мы читаем вместе. Анна говорит по-русски.",
+      "audio_url": "/static/audio/course/curriculum/present-actions-listening-v1/two-readers.mp3"
+    },
+    {
+      "id": "polite-reply",
+      "prompt": "Нина говорит или читает сейчас?",
+      "choices": [
+        {
+          "id": "speaks",
+          "text": "Нина говорит."
+        },
+        {
+          "id": "reads",
+          "text": "Нина читает."
+        },
+        {
+          "id": "both",
+          "text": "Нина читает и говорит."
+        }
+      ],
+      "answer": "speaks",
+      "hint": "The question is a possibility, not the answer. Follow Nina’s reply.",
+      "explanation": "The question asks whether Nina is reading. She says she is not reading and is speaking Russian instead.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Use Nina’s negative reply and stated current action, rather than treating the polite question as a report of what she is doing.",
+      "transcript": "— Нина, вы сейчас читаете?\n— Нет, я не читаю. Сейчас я говорю по-русски.",
+      "audio_url": "/static/audio/course/curriculum/present-actions-listening-v1/polite-reply.mp3"
+    },
+    {
+      "id": "group-contrast",
+      "prompt": "Кто сейчас говорит по-русски?",
+      "choices": [
+        {
+          "id": "nina",
+          "text": "Нина."
+        },
+        {
+          "id": "all",
+          "text": "Анна, Олег и Нина."
+        },
+        {
+          "id": "pair",
+          "text": "Анна и Олег."
+        }
+      ],
+      "answer": "all",
+      "hint": "Тоже adds another person doing the same action. Do not confuse speaking with the action that is denied.",
+      "explanation": "Anna and Oleg speak Russian, and Nina does too. All three are speaking; the message says they are not reading.",
+      "requirement_id": "a1.listening.short-message",
+      "expectation": "Combine the named pair with the additional speaker introduced by тоже, distinguishing their shared action from the negated action.",
+      "transcript": "Сейчас Анна и Олег говорят по-русски. Нина тоже говорит по-русски. Они не читают.",
+      "audio_url": "/static/audio/course/curriculum/present-actions-listening-v1/group-contrast.mp3"
+    }
+  ]
+}

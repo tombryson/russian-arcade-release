@@ -30,6 +30,7 @@ Runtime-generated tasks are not part of this static count. Source editions beyon
 | Where and where to (`location-destination-v1`) | 4 | 3 | 3 |
 | Possession and absence (`possession-absence-v1`) | 6 | 4 | 3 |
 | Objects and recipients (`objects-recipients-v1`) | 6 | 4 | 3 |
+| Who is doing what? (`present-actions-v1`) | 8 | 6 | 3 |
 | Time and daily routines (`time-routine-v1`) | 6 | 5 | 3 |
 | Describing clothes and objects (`noun-adjective-agreement-v1`) | 6 | 4 | 3 |
 | Referring to people (`personal-reference-v1`) | 6 | 4 | 3 |
@@ -43,7 +44,7 @@ Runtime-generated tasks are not part of this static count. Source editions beyon
 
 Each unit also opens its own Writing task. A zero listening count means that no listening activity is offered for that unit. Speaking links to existing scenarios do not automatically add a unit-specific Speaking criterion. See [the validation record and reviewer workflow](curriculum-validation.md) for the pending language and learner review.
 
-There are 207 directly authored task definitions linked to 44 reference requirements. These counts include the narrow mapped Speaking diagnostics listed below.
+There are 225 directly authored task definitions linked to 45 reference requirements. These counts include the narrow mapped Speaking diagnostics listed below.
 
 ## Authored reference tasks
 
@@ -88,6 +89,24 @@ There are 207 directly authored task definitions linked to 44 reference requirem
 | `objects-recipients-v1:listening-v1:ticket-recipient` | `a1.listening.short-message` | unit_listening_choice |
 | `objects-recipients-v1:listening-v1:two-purchases` | `a1.listening.short-message` | unit_listening_choice |
 | `objects-recipients-v1:writing:clear-recipient-message` | `a1.writing.personal-message` | unit_writing |
+| `present-actions-v1:reply-as-i` | `a1.language.verb-conjugation` | unit_choice |
+| `present-actions-v1:ask-a-friend` | `a1.language.verb-conjugation` | unit_choice |
+| `present-actions-v1:one-other-person` | `a1.language.verb-conjugation` | unit_choice |
+| `present-actions-v1:two-named-people` | `a1.language.verb-conjugation` | unit_choice |
+| `present-actions-v1:one-polite-person` | `a1.language.verb-conjugation` | unit_choice |
+| `present-actions-v1:subject-after-verb` | `a1.language.nominative-subject` | unit_choice |
+| `present-actions-v1:reading-we-reference` | `a1.reading.reference-and-sequence` | unit_choice |
+| `present-actions-v1:reading-current-actions` | `a1.reading.reference-and-sequence` | unit_choice |
+| `present-actions-v1:forms-v1:form-i-read` | `a1.language.verb-conjugation` | unit_controlled_text |
+| `present-actions-v1:forms-v1:form-you-speak` | `a1.language.verb-conjugation` | unit_controlled_text |
+| `present-actions-v1:forms-v1:form-we-speak` | `a1.language.verb-conjugation` | unit_controlled_text |
+| `present-actions-v1:forms-v1:form-you-read` | `a1.language.verb-conjugation` | unit_controlled_text |
+| `present-actions-v1:forms-v1:form-they-speak` | `a1.language.verb-conjugation` | unit_controlled_text |
+| `present-actions-v1:forms-v1:form-he-speaks` | `a1.language.verb-conjugation` | unit_controlled_text |
+| `present-actions-v1:listening-v1:two-readers` | `a1.listening.short-message` | unit_listening_choice |
+| `present-actions-v1:listening-v1:polite-reply` | `a1.listening.short-message` | unit_listening_choice |
+| `present-actions-v1:listening-v1:group-contrast` | `a1.listening.short-message` | unit_listening_choice |
+| `present-actions-v1:writing:clear-practice-group` | `a1.writing.connected-description` | unit_writing |
 | `time-routine-v1:changed-time` | `a1.reading.practical-information` | unit_choice |
 | `time-routine-v1:weekday` | `a1.language.accusative-clock-weekday` | unit_choice |
 | `time-routine-v1:plural-verb` | `a1.language.verb-conjugation` | unit_choice |
@@ -263,6 +282,8 @@ These task definitions use frozen contracts at runtime. They do not establish fu
 
 The versioned delivery catalogue allocates every source requirement. P1 contains the drafted location/destination sequence; P2 allocates the remaining A1 work; P4 reserves separate A2, B1 and B2 units and assessment families. An existing unit is a starting point, not evidence that its full source scope is covered.
 
+Delivery references below currently cover the connected sequence assets. An empty stage means its sequence association is not mapped here; it does not establish that the requirement is wholly untaught. Read these allocations alongside the authored reference tasks above. Legacy units and First steps retain their existing content and evidence.
+
 The four counts below are **teaching / recognition / production / diagnostic assessment** associations. They count partial authored assets, not validated requirements or learner proficiency. A dash means the stage does not apply. A zero is a visible gap. Production includes controlled forms and original responses; these remain distinct in the machine-readable report.
 
 The two-turn Speaking tasks only elicit answers to related questions. They do not yet test learner-initiated questions, general interaction or fluency. No task in this catalogue establishes an official TORFL level.
@@ -284,7 +305,7 @@ Recording readiness is separate from content status. Missing audio remains visib
 | Requirement | Legacy definition links | Teaching / practice / checkpoint candidates | Authored reference tasks | Next delivery allocation; T / R / P / A |
 | --- | --- | --- | ---: | --- |
 | `a1.language.noun-gender-number-animacy` — Gender, number and animacy | `a1.home.singular-plural.select` (partial)<br>`a1.clothing.exceptional-nouns.select` (partial) | 1 / 1 / 3 | 0 | P2: `noun-adjective-agreement-v1` (authored candidate); 0 / 0 / 0 / 0 |
-| `a1.language.nominative-subject` — The person doing the action | Unallocated | 0 / 0 / 0 | 0 | P2: `noun-adjective-agreement-v1` (authored candidate); 0 / 0 / 0 / 0 |
+| `a1.language.nominative-subject` — The person doing the action | Unallocated | 0 / 0 / 0 | 1 | P2: `noun-adjective-agreement-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.nominative-identification` — Naming a person or object | `a1.family.introduce-person.select` (partial) | 0 / 0 / 0 | 0 | P2: `noun-adjective-agreement-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.nominative-address` — Addressing someone | Unallocated | 0 / 0 / 0 | 0 | P2: `personal-reference-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.nominative-role` — Describing who someone is | Unallocated | 0 / 0 / 0 | 0 | P2: `roles-and-activities-v1` (planned); 0 / 0 / 0 / 0 |
@@ -318,7 +339,7 @@ Recording readiness is separate from content status. Missing audio remains visib
 | `a1.language.adjective-agreement` — Describing a noun | `a1.home.adjective-agreement.select` (partial)<br>`a1.colors.gender-agreement.select` (partial)<br>`a1.colors.plural-agreement.select` (partial)<br>`a1.clothing.adjective-agreement.select` (partial) | 1 / 1 / 3 | 8 | P2: `noun-adjective-agreement-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.adjective-oblique-recognition` — Recognising adjective case forms | Unallocated | 0 / 0 / 0 | 0 | P2: `noun-adjective-agreement-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.short-adjective-state` — States and obligations | Unallocated | 0 / 0 / 0 | 1 | P2: `noun-adjective-agreement-v1` (authored candidate); 0 / 0 / 0 / 0 |
-| `a1.language.verb-conjugation` — Matching a verb to its subject | `a1.daily_activities.present-conjugation.select` (partial)<br>`a1.daily_activities.irregular-present.select` (partial)<br>`a1.weather.present-weather-patterns.select` (related) | 1 / 1 / 3 | 8 | P2: `action-aspect-v1` (authored candidate); 0 / 0 / 0 / 0 |
+| `a1.language.verb-conjugation` — Matching a verb to its subject | `a1.daily_activities.present-conjugation.select` (partial)<br>`a1.daily_activities.irregular-present.select` (partial)<br>`a1.weather.present-weather-patterns.select` (related) | 1 / 1 / 3 | 19 | P2: `present-actions-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.verb-tense` — Present, past and future | `a1.daily_activities.subject-verb-time.select` (partial) | 0 / 0 / 0 | 8 | P2: `time-routine-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.verb-aspect` — An action and its completion | Unallocated | 0 / 0 / 0 | 5 | P2: `action-aspect-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.imperative` — Requests and instructions | `a1.places.direction-commands.select` (partial) | 1 / 1 / 3 | 4 | P2: `action-aspect-v1` (authored candidate); 0 / 0 / 0 / 0 |
@@ -339,12 +360,12 @@ Recording readiness is separate from content status. Missing audio remains visib
 | `a1.reading.cyrillic-decoding` — Reading Cyrillic | Unallocated | 0 / 0 / 0 | 0 | P2: `sounds-and-script-v1` (planned); 0 / 0 / — / 0 |
 | `a1.reading.practical-information` — Finding practical information | `a1.greetings.exchange-names.read` (partial)<br>`a1.numbers.recognise-number.read` (partial)<br>`a1.numbers.event-time.read` (partial)<br>`a1.home.identify-rooms-furniture.read` (partial)<br>`a1.home.locate-object.read` (partial)<br>`a1.food.identify-food-drink.read` (partial)<br>`a1.food.make-request.read` (partial)<br>`a1.daily_activities.ask-current-activity.read` (partial)<br>`a1.colors.identify-colour-size.read` (partial)<br>`a1.colors.describe-object.read` (partial)<br>`a1.clothing.identify-clothes.read` (partial)<br>`a1.clothing.identify-clothing-description.read` (partial)<br>`a1.places.ask-location.read` (partial)<br>`a1.weather.understand-weather.read` (partial) | 12 / 12 / 39 | 11 | P1: `location-destination-v2` (authored candidate); 0 / 1 / — / 2 |
 | `a1.reading.narrative-meaning` — Understanding a short account | `a1.daily_activities.describe-routine.read` (partial)<br>`a1.weather.choose-weather-plan.read` (partial) | 2 / 2 / 6 | 3 | P2: `short-stories-v1` (planned); 0 / 0 / — / 0 |
-| `a1.reading.reference-and-sequence` — Following people and events | `a1.family.identify-relatives.read` (partial)<br>`a1.family.describe-family.read` (partial)<br>`a1.places.follow-directions.read` (partial) | 2 / 2 / 9 | 13 | P2: `connected-messages-v1` (authored candidate); 0 / 0 / — / 0 |
+| `a1.reading.reference-and-sequence` — Following people and events | `a1.family.identify-relatives.read` (partial)<br>`a1.family.describe-family.read` (partial)<br>`a1.places.follow-directions.read` (partial) | 2 / 2 / 9 | 15 | P2: `connected-messages-v1` (authored candidate); 0 / 0 / — / 0 |
 | `a1.listening.sound-contrasts` — Hearing word differences | Unallocated | 0 / 0 / 0 | 0 | P2: `sounds-and-script-v1` (planned); 0 / 0 / — / 0 |
-| `a1.listening.short-message` — Understanding a spoken message | `a1.greetings.exchange-names.listen` (partial)<br>`a1.numbers.recognise-number.listen` (partial)<br>`a1.numbers.event-time.listen` (partial)<br>`a1.family.identify-relatives.listen` (partial)<br>`a1.family.describe-family.listen` (partial)<br>`a1.home.identify-rooms-furniture.listen` (partial)<br>`a1.home.locate-object.listen` (partial)<br>`a1.food.identify-food-drink.listen` (partial)<br>`a1.daily_activities.describe-routine.listen` (partial)<br>`a1.colors.identify-colour-size.listen` (partial)<br>`a1.colors.describe-object.listen` (partial)<br>`a1.clothing.identify-clothes.listen` (partial)<br>`a1.clothing.identify-clothing-description.listen` (partial)<br>`a1.places.follow-directions.listen` (partial)<br>`a1.weather.understand-weather.listen` (partial)<br>`a1.weather.choose-weather-plan.listen` (partial) | 5 / 5 / 24 | 36 | P1: `location-destination-v2` (authored candidate); 0 / 1 / — / 2 |
+| `a1.listening.short-message` — Understanding a spoken message | `a1.greetings.exchange-names.listen` (partial)<br>`a1.numbers.recognise-number.listen` (partial)<br>`a1.numbers.event-time.listen` (partial)<br>`a1.family.identify-relatives.listen` (partial)<br>`a1.family.describe-family.listen` (partial)<br>`a1.home.identify-rooms-furniture.listen` (partial)<br>`a1.home.locate-object.listen` (partial)<br>`a1.food.identify-food-drink.listen` (partial)<br>`a1.daily_activities.describe-routine.listen` (partial)<br>`a1.colors.identify-colour-size.listen` (partial)<br>`a1.colors.describe-object.listen` (partial)<br>`a1.clothing.identify-clothes.listen` (partial)<br>`a1.clothing.identify-clothing-description.listen` (partial)<br>`a1.places.follow-directions.listen` (partial)<br>`a1.weather.understand-weather.listen` (partial)<br>`a1.weather.choose-weather-plan.listen` (partial) | 5 / 5 / 24 | 39 | P1: `location-destination-v2` (authored candidate); 0 / 1 / — / 2 |
 | `a1.listening.dialogue-intention` — Understanding what someone wants | `a1.greetings.polite-greeting.listen` (partial)<br>`a1.food.make-request.listen` (partial)<br>`a1.daily_activities.ask-current-activity.listen` (partial)<br>`a1.places.ask-location.listen` (partial) | 0 / 0 / 6 | 3 | P2: `social-exchanges-v1` (authored candidate); 0 / 0 / — / 0 |
 | `a1.writing.personal-message` — Writing a personal message | `a1.greetings.polite-greeting.write` (partial)<br>`a1.greetings.exchange-names.write` (partial)<br>`a1.home.describe-location.write` (related)<br>`a1.food.make-request.write` (partial)<br>`a1.daily_activities.ask-current-activity.write` (related)<br>`a1.places.ask-location.write` (related)<br>`a1.places.follow-directions.write` (related)<br>`a1.weather.choose-weather-plan.write` (related) | 0 / 0 / 0 | 11 | P1: `location-destination-v2` (authored candidate); 0 / 0 / 1 / 2 |
-| `a1.writing.connected-description` — Describing everyday life | `a1.family.describe-family.write` (partial)<br>`a1.daily_activities.describe-routine.write` (partial)<br>`a1.colors.describe-object.write` (partial)<br>`a1.weather.describe-weather.write` (related) | 0 / 0 / 0 | 1 | P2: `people-and-routines-v1` (planned); 0 / 0 / 0 / 0 |
+| `a1.writing.connected-description` — Describing everyday life | `a1.family.describe-family.write` (partial)<br>`a1.daily_activities.describe-routine.write` (partial)<br>`a1.colors.describe-object.write` (partial)<br>`a1.weather.describe-weather.write` (related) | 0 / 0 / 0 | 2 | P2: `people-and-routines-v1` (planned); 0 / 0 / 0 / 0 |
 | `a1.writing.source-based-message` — Using information from a text | Unallocated | 0 / 0 / 0 | 1 | P2: `connected-messages-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.speaking.intelligibility` — Speaking clearly enough to understand | Unallocated | 0 / 0 / 0 | 0 | P1: `location-destination-v2` (authored candidate); 0 / 0 / 1 / 2 |
 | `a1.speaking.social-etiquette` — Greetings and polite exchanges | `a1.greetings.polite-greeting.read` (related)<br>`a1.greetings.polite-greeting.speak` (partial) | 0 / 0 / 0 | 0 | P2: `social-exchanges-v1` (authored candidate); 0 / 0 / 0 / 0 |

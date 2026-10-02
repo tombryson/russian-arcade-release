@@ -47,6 +47,16 @@ The first sequence recording request failed. Read-only checks confirmed the conf
 
 The delivery catalogue now allocates all 239 source requirements to candidate units and assessment families. Teaching, recognition, production and assessment are recorded separately. Draft and partial associations remain visible. A content count is not a proficiency percentage.
 
+### A1 present-tense follow-up
+
+The additional **Who is doing what?** unit teaches person and number through читать and говорить, including polite singular вы. It refreshes the subjects and useful words before testing them. Eight contextual choices include two short-message questions; six typed forms observe the taught endings. Its original Writing task measures understandable meaning only. It does not turn an intelligible message into evidence of general conjugation mastery.
+
+Three new listening clips were generated from 244 characters without retries. The repository now has 42 legacy-style unit clips, two pilot clips and 19 connected-sequence recordings. Review fixture v4 adds 25 cases while retaining every v3 case and all earlier fixture files. The new unit appears before Time and daily routines under Daily activities. It adds no access gate and changes no existing unit or saved attempt.
+
+Empty delivery-stage associations now mean **not mapped**, rather than declaring the content missing. The connected-sequence catalogue currently maps seven A1 requirements; the older authored-task inventory includes additional partial content. Both inventories must be considered when choosing further work.
+
+The follow-up passed 78 focused content, review, recording and registry tests. A separate 79-test integration run passed for the sequence, complete walkthroughs, public and hosted demos, release export and ownership boundaries. The review exporter and generated coverage checks also passed. These runs followed the full-suite result below; the full application suite was not repeated for this additive content change.
+
 ## Verification
 
 Focused checks cover ownership, CSRF, stale drafts, request replay, frozen content, immutable originals, provider failure, review leases, support receipts, reward boundaries, audio integrity and account imports. Backup copies original Speaking media and retires live review leases. Account import verifies those files; copying them into the destination remains a separate operational step. Unresolvable collisions in frozen references fail explicitly instead of rewriting learner originals. Imported review results must agree with their canonical attempts and criterion reports.

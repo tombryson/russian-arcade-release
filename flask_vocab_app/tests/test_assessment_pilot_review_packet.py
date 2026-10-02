@@ -56,13 +56,13 @@ class AssessmentPilotReviewPacketTests(unittest.TestCase):
 
     def test_current_unit_packet_includes_all_source_and_available_recording_material(self):
         fixture = units.read_fixture(units.CURRENT_FIXTURE)
-        self.assertEqual(len(fixture['unit_sha256']), 13)
-        self.assertEqual(len(fixture['listening_sha256']), 13)
-        self.assertEqual(len(fixture['cases']), 246)
+        self.assertEqual(len(fixture['unit_sha256']), 14)
+        self.assertEqual(len(fixture['listening_sha256']), 14)
+        self.assertEqual(len(fixture['cases']), 271)
         packet = units.build_packet(fixture)
         items = [row['item'] for unit in packet['reviewer.json']['units'] for row in unit['questions'] if row['stage'] == 'listening']
-        self.assertEqual(len(items), 39)
-        self.assertGreaterEqual(sum(item['audio_file'] is not None for item in items), 6)
+        self.assertEqual(len(items), 42)
+        self.assertEqual(sum(item['audio_file'] is not None for item in items), 42)
         tampered = deepcopy(packet)
         included = next(question['item'] for unit in tampered['reviewer.json']['units'] for question in unit['questions']
                         if question['stage'] == 'listening' and question['item']['audio_file'])

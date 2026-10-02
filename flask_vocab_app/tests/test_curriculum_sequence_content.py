@@ -246,6 +246,15 @@ class DeliveryCoverageTests(unittest.TestCase):
         speaking = next(r for r in report['requirements'] if r['requirement_id'] == 'a1.speaking.ask-and-answer')
         self.assertTrue(all(e['relation'] == 'partial' and 'Learner-initiated' in e['scope'] for e in speaking['production']))
 
+    def test_unmapped_sequence_stage_does_not_claim_existing_teaching_is_absent(self):
+        report = coverage.delivery_report()
+        row = next(r for r in report['requirements'] if r['requirement_id'] == 'a1.language.verb-conjugation')
+        self.assertEqual(row['allocation']['unit_status'], 'authored_candidate')
+        self.assertEqual(row['allocation']['unit_candidate'], 'present-actions-v1')
+        self.assertEqual(row['stage_status']['teaching'], 'not_mapped')
+        self.assertEqual(row['stage_status']['assessment'], 'not_mapped')
+        self.assertEqual(row['allocation']['assessment_validation'], 'not_validated')
+
     def test_coverage_cannot_claim_review_or_launder_modes(self):
         data = coverage.load_coverage()
         for mutate in (lambda d: d['requirements'].pop(),

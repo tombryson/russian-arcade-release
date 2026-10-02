@@ -34,7 +34,7 @@ Google Drive and SQLite have separate roles. Drive supports quick word capture, 
 | **Tutor lessons** | Upload a PDF or image, save revisions, and practise with exercises based on the document. Select words on its pages for flashcards. |
 | **My words** | Browse words, forms and grammatical details. See card counts and manage saved vocabulary. |
 | **Guided A1 course** | Complete four [milestones](docs/course-milestones.md), from home to the edge of town. Read letters sent to Barsik, listen to updates and complete a cumulative course assessment. |
-| **Curriculum units and skills check** | Study 13 authored A1 units with contextual questions, typed forms, recordings and Writing tasks. The connected location/destination lesson adds reading, two spoken replies and new situations. A separate diagnostic pilot samples all five skills. |
+| **Curriculum units and skills check** | Study 14 authored A1 units with contextual questions, typed forms, recordings and Writing tasks. The connected location/destination lesson adds reading, two spoken replies and new situations. A separate diagnostic pilot samples all five skills. |
 | **Barsik’s journey** | Learn your first words through the introduction, earn Lingocoins and choose optional games while following the guided course. |
 | **Anki tools** | Use the existing automated card-generation workflow when you prefer to study in Anki. Native and Anki review schedules remain separate. |
 
@@ -67,7 +67,7 @@ The guided course adds four A1 milestones, three assessment variants per stop an
 
 A separate [A1–B2 reference](docs/curriculum-requirements.md) records 239 observable requirements from published TORFL standards and sample tests. It covers language use, reading, listening, writing and speaking. The [research review](docs/curriculum-research.md) explains the source editions and assessment limits.
 
-The [curriculum implementation](docs/curriculum-implementation.md) provides 13 A1 units with 88 contextual questions, 58 typed-form prompts, 13 Writing briefs and 39 recorded listening items. The connected **Where shall we meet?** lesson links teaching to reading, listening, original writing and a two-turn spoken exchange. Two new situations check whether the learner can use the same language beyond the taught examples.
+The [curriculum implementation](docs/curriculum-implementation.md) provides 14 A1 units with 96 contextual questions, 64 typed-form prompts and 14 Writing briefs. **Who is doing what?** teaches present-tense forms before testing them, including polite **вы**. The connected **Where shall we meet?** lesson links teaching to reading, listening, original writing and a two-turn spoken exchange. Two new situations check whether the learner can use the same language beyond the taught examples.
 
 Lesson drafts and original answers survive interrupted feedback. Communication and Russian grammatical forms are marked separately; speaking reviews the original audio. Profile reports the assessed skills and links to relevant practice. Useful feedback can be saved to Phrasebook or used to prepare flashcards through the existing vocabulary pipeline. The [implementation record](docs/torfl-implementation-2026-10-02.md) describes the storage, checks and current limits.
 

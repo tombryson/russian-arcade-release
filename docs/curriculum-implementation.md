@@ -1,5 +1,22 @@
 # Curriculum implementation status
 
+## Present-tense foundations — 2 October 2026
+
+**Who is doing what?** adds a fourteenth A1 unit. It teaches the present forms of
+читать and говорить, then practises the distinction between the speaker, another
+person and a group. Polite singular вы uses the same verb form as plural вы.
+Eight contextual questions include two short-message comprehension tasks; six
+typed prompts check the taught forms. Its Writing criterion measures the meaning
+of a short group description, not general control of Russian conjugation.
+
+The unit belongs under Daily activities. It follows familiar words and sentence
+patterns and can prepare learners for Time and daily routines. Existing lessons,
+attempts and published review fixtures remain unchanged.
+
+The delivery report now distinguishes an unmapped sequence association from
+missing teaching. Older units and First steps already provide partial material
+for many requirements that have no connected-sequence reference yet.
+
 ## Connected lesson and recordings — 2 October 2026
 
 The new edition of the location/destination unit connects teaching, contextual choices,

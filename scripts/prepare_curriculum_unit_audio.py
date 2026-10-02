@@ -25,6 +25,7 @@ UNIT_CONTENT_IDS = (
     'numbers-quantities-listening-v1', 'social-exchanges-listening-v1',
     'needs-company-listening-v1', 'action-aspect-listening-v1',
     'origins-and-destinations-listening-v1', 'connected-messages-listening-v1',
+    'present-actions-listening-v1',
 )
 PILOT_CONTENT_ID = 'a1-pilot-listening-v1'
 CONTENT_IDS = (*UNIT_CONTENT_IDS, PILOT_CONTENT_ID)

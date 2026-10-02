@@ -67,6 +67,9 @@ def render():
               'The versioned delivery catalogue allocates every source requirement. P1 contains the drafted location/destination sequence; '
               'P2 allocates the remaining A1 work; P4 reserves separate A2, B1 and B2 units and assessment families. '
               'An existing unit is a starting point, not evidence that its full source scope is covered.', '',
+              'Delivery references below currently cover the connected sequence assets. An empty stage means its sequence association is not mapped here; '
+              'it does not establish that the requirement is wholly untaught. Read these allocations alongside the authored reference tasks above. '
+              'Legacy units and First steps retain their existing content and evidence.', '',
               'The four counts below are **teaching / recognition / production / diagnostic assessment** associations. '
               'They count partial authored assets, not validated requirements or learner proficiency. A dash means the stage does not apply. '
               'A zero is a visible gap. Production includes controlled forms and original responses; these remain distinct in the machine-readable report.', '',

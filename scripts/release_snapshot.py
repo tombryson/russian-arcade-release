@@ -71,6 +71,7 @@ CURRICULUM_AUDIO = {
     'objects-recipients-listening-v1': ('hand-over-envelope', 'ticket-recipient', 'two-purchases'),
     'origins-and-destinations-listening-v1': ('after-doctor', 'leaving-sister', 'after-work'),
     'personal-reference-listening-v1': ('sister-waits', 'book-owner', 'help-neighbour'),
+    'present-actions-listening-v1': ('two-readers', 'polite-reply', 'group-contrast'),
     'possession-absence-listening-v1': ('picnic-call', 'borrowed-key', 'borrowed-umbrella'),
     'social-exchanges-listening-v1': ('repeat-time', 'decline-drink', 'permission-pen'),
     'time-routine-listening-v1': ('changed-visit', 'class-day', 'evening-order'),
