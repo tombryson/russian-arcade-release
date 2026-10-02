@@ -339,6 +339,7 @@ Historical scripts may retain machine-specific assumptions; read them before run
 - [Architecture](docs/architecture.md), [development](docs/development.md) and [operations](docs/operations.md)
 - [Curriculum: topics, vocabulary and grammar](docs/curriculum.md)
 - [Curriculum and assessment implementation plan](docs/curriculum-uplift-plan.md)
+- [TORFL teaching and assessment delivery plan](docs/torfl-assessment-build-plan.md)
 - [Curriculum implementation status](docs/curriculum-implementation.md)
 - [Curriculum coverage inventory](docs/curriculum-coverage.md)
 - [Vocabulary database and form-generation rules](docs/vocabulary-data-model.md)

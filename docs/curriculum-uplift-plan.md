@@ -16,6 +16,7 @@ This document specifies the complete intended build. Its package descriptions ar
 
 Read by purpose:
 
+- [TORFL delivery supplement, 2 October 2026](torfl-assessment-build-plan.md): verified implementation gaps, the B1 training-test comparison and the next teaching, audio and assessment packages. It continues this plan; existing milestone rules remain unchanged.
 - [Decisions and delivery sequence](#1-decisions).
 - [Historical baseline](#3-baseline-and-gaps), [current generated coverage](curriculum-coverage.md) and [A1–B2 teaching scope](#6-teaching-scope-by-level).
 - [Activity contracts](#9-activity-evidence-contracts), [assessment](#10-assessment-and-feedback) and [progression gates](#11-progression-and-gates).
