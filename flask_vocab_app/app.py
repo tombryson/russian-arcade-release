@@ -1,4 +1,4 @@
-from flask import Flask, render_template, render_template_string, request, redirect, session, url_for, send_from_directory
+from flask import Flask, abort, render_template, render_template_string, request, redirect, session, url_for, send_from_directory
 from flask_session import Session
 import json
 from services.flashcard_service import FlashcardService
@@ -111,7 +111,7 @@ def create_app(config_overrides=None, service_overrides=None):
     household = HouseholdService(app.config['DB_PATH'])
     asset_store = LocalAssetStore(app.config['WORD_POST_ASSET_DIR'])
     content = ContentService(app.config['DB_PATH'], asset_store)
-    learning = LearningService(app.config['DB_PATH'], native_review_enabled=app.config['NATIVE_FLASHCARDS_ENABLED'])
+    learning = LearningService(app.config['DB_PATH'], native_review_enabled=app.config['NATIVE_FLASHCARDS_ENABLED'], media_root=app.config['APP_MEDIA_DIR'])
     review = NativeReviewService(app.config['DB_PATH'])
     app.extensions['learning'] = {'household': household, 'content': content, 'sessions': learning, 'assets': asset_store, 'review': review}
     register_learning_cli(app, household, content, asset_store)
@@ -161,6 +161,10 @@ def create_app(config_overrides=None, service_overrides=None):
 
     @app.route("/static/media/<path:filename>")
     def generated_media(filename):
+        # Curriculum recordings are released only through an owned, reached
+        # listening item. The generic media route must not bypass that rule.
+        if 'curriculum-audio' in filename.replace('\\', '/').casefold().split('/'):
+            abort(404)
         from utils.activity_media import require_activity_media
         require_activity_media('media', filename)
         return send_from_directory(app.config["APP_MEDIA_DIR"], filename)
@@ -254,6 +258,11 @@ def create_app(config_overrides=None, service_overrides=None):
     pilot = AssessmentPilotService(db_path, writing_service, app.extensions['services']['SpeakingAssessment'], app.config)
     app.extensions['learning']['assessment_pilot'] = pilot
     app.register_blueprint(create_assessment_pilot_blueprint(pilot))
+    from services.curriculum_situations import CurriculumSituations
+    from blueprints.curriculum_situations import create_curriculum_situations_blueprint
+    situations = CurriculumSituations(db_path, openai_service, elevenlabs_service, app.config)
+    app.extensions['learning']['curriculum_situations'] = situations
+    app.register_blueprint(create_curriculum_situations_blueprint(situations))
     from services.unit_exchange import UnitExchangeService
     from blueprints.unit_exchange import create_unit_exchange_blueprint
     unit_exchange = UnitExchangeService(db_path, app.extensions['services']['SpeakingAssessment'])

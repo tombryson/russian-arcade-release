@@ -42,10 +42,12 @@ Runtime-generated tasks are not part of this static count. Source editions beyon
 | Where from and where to (`origins-and-destinations-v1`) | 8 | 5 | 3 |
 | Reasons, questions and connected messages (`connected-messages-v1`) | 8 | 5 | 3 |
 | Activities and future professions (`instrumental-activities-professions-v1`) | 8 | 6 | 0 |
+| Dates and duration (`calendar-and-duration-v1`) | 6 | 6 | 0 |
+| Talking about people and interests (`talking-about-topics-v1`) | 6 | 6 | 0 |
 
 Each unit also opens its own Writing task. A zero listening count means that no listening activity is offered for that unit. Speaking links to existing scenarios do not automatically add a unit-specific Speaking criterion. See [the validation record and reviewer workflow](curriculum-validation.md) for the pending language and learner review.
 
-There are 240 directly authored task definitions linked to 47 reference requirements. These counts include the narrow mapped Speaking diagnostics listed below.
+There are 266 directly authored task definitions linked to 50 reference requirements. These counts include the narrow mapped Speaking diagnostics listed below.
 
 ## Authored reference tasks
 
@@ -282,6 +284,32 @@ There are 240 directly authored task definitions linked to 47 reference requirem
 | `instrumental-activities-professions-v1:instrumental-activities-professions-forms-v1:form-teacher` | `a1.language.instrumental-profession` | unit_controlled_text |
 | `instrumental-activities-professions-v1:instrumental-activities-professions-forms-v1:form-engineer` | `a1.language.instrumental-profession` | unit_controlled_text |
 | `instrumental-activities-professions-v1:writing:activities-and-career-message` | `a1.writing.connected-description` | unit_writing |
+| `calendar-and-duration-v1:q-0aef4e06d95d3577ffd3` | `a1.language.genitive-calendar-month` | unit_choice |
+| `calendar-and-duration-v1:q-1374c388f8a5404f8ff0` | `a1.language.genitive-calendar-month` | unit_choice |
+| `calendar-and-duration-v1:q-161fe7814820d05a749f` | `a1.language.genitive-calendar-month` | unit_choice |
+| `calendar-and-duration-v1:q-1cabcdf536c48a3ead88` | `a1.language.accusative-duration` | unit_choice |
+| `calendar-and-duration-v1:q-4230d50c8c8f8a929cd0` | `a1.language.accusative-duration` | unit_choice |
+| `calendar-and-duration-v1:q-a1dbdd3a2675e757007e` | `a1.language.accusative-duration` | unit_choice |
+| `calendar-and-duration-v1:calendar-and-duration-forms-v1:form-q-0aef4e06d95d3577ffd3` | `a1.language.genitive-calendar-month` | unit_controlled_text |
+| `calendar-and-duration-v1:calendar-and-duration-forms-v1:form-q-1374c388f8a5404f8ff0` | `a1.language.genitive-calendar-month` | unit_controlled_text |
+| `calendar-and-duration-v1:calendar-and-duration-forms-v1:form-q-161fe7814820d05a749f` | `a1.language.genitive-calendar-month` | unit_controlled_text |
+| `calendar-and-duration-v1:calendar-and-duration-forms-v1:form-q-1cabcdf536c48a3ead88` | `a1.language.accusative-duration` | unit_controlled_text |
+| `calendar-and-duration-v1:calendar-and-duration-forms-v1:form-q-4230d50c8c8f8a929cd0` | `a1.language.accusative-duration` | unit_controlled_text |
+| `calendar-and-duration-v1:calendar-and-duration-forms-v1:form-q-a1dbdd3a2675e757007e` | `a1.language.accusative-duration` | unit_controlled_text |
+| `calendar-and-duration-v1:writing:calendar-and-duration-v1-message` | `a1.writing.connected-description` | unit_writing |
+| `talking-about-topics-v1:q-002a7421a2c5f978dcd7` | `a1.language.prepositional-topic` | unit_choice |
+| `talking-about-topics-v1:q-362580e3ed7ebc22e1a3` | `a1.language.prepositional-topic` | unit_choice |
+| `talking-about-topics-v1:q-718af4e33a924903ba4c` | `a1.language.prepositional-topic` | unit_choice |
+| `talking-about-topics-v1:q-72f9ad83d0eef3f75722` | `a1.language.prepositional-topic` | unit_choice |
+| `talking-about-topics-v1:q-81f4822a98fffb3983e0` | `a1.language.prepositional-topic` | unit_choice |
+| `talking-about-topics-v1:q-c302342148d6e568f438` | `a1.language.prepositional-topic` | unit_choice |
+| `talking-about-topics-v1:talking-about-topics-forms-v1:form-q-002a7421a2c5f978dcd7` | `a1.language.prepositional-topic` | unit_controlled_text |
+| `talking-about-topics-v1:talking-about-topics-forms-v1:form-q-362580e3ed7ebc22e1a3` | `a1.language.prepositional-topic` | unit_controlled_text |
+| `talking-about-topics-v1:talking-about-topics-forms-v1:form-q-718af4e33a924903ba4c` | `a1.language.prepositional-topic` | unit_controlled_text |
+| `talking-about-topics-v1:talking-about-topics-forms-v1:form-q-72f9ad83d0eef3f75722` | `a1.language.prepositional-topic` | unit_controlled_text |
+| `talking-about-topics-v1:talking-about-topics-forms-v1:form-q-81f4822a98fffb3983e0` | `a1.language.prepositional-topic` | unit_controlled_text |
+| `talking-about-topics-v1:talking-about-topics-forms-v1:form-q-c302342148d6e568f438` | `a1.language.prepositional-topic` | unit_controlled_text |
+| `talking-about-topics-v1:writing:talking-about-topics-v1-message` | `a1.writing.connected-description` | unit_writing |
 | `cafe-a1-takeaway-v2.request-order:request-order` | `a1.speaking.request-and-response` | speaking_audio_diagnostic |
 | `cafe-a1-warm-lunch-v2.request-order:request-order` | `a1.speaking.request-and-response` | speaking_audio_diagnostic |
 | `cafe-a1-two-drinks-v2.request-order:request-order` | `a1.speaking.request-and-response` | speaking_audio_diagnostic |
@@ -331,7 +359,7 @@ Recording readiness is separate from content status. Missing audio remains visib
 | `a1.language.genitive-part-whole` — Part of a place or thing | Unallocated | 0 / 0 / 0 | 0 | P2: `possession-absence-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.genitive-absence` — Saying something is absent | Unallocated | 0 / 0 / 0 | 2 | P2: `possession-absence-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.genitive-quantity` — Nouns after small numbers | `a1.numbers.clock-hour-forms.select` (partial) | 1 / 1 / 6 | 6 | P2: `numbers-quantities-v1` (authored candidate); 0 / 0 / 0 / 0 |
-| `a1.language.genitive-calendar-month` — The month in a date | Unallocated | 0 / 0 / 0 | 0 | P2: `time-routine-v1` (authored candidate); 0 / 0 / 0 / 0 |
+| `a1.language.genitive-calendar-month` — The month in a date | Unallocated | 0 / 0 / 0 | 6 | P2: `calendar-and-duration-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.genitive-origin` — Where someone comes from | Unallocated | 0 / 0 / 0 | 4 | P2: `origins-and-destinations-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.genitive-owner-u` — Who has something | `a1.family.possession-pattern.select` (partial) | 0 / 0 / 0 | 3 | P2: `possession-absence-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.dative-recipient` — Who receives the action | Unallocated | 0 / 0 / 0 | 4 | P2: `objects-recipients-v1` (authored candidate); 0 / 0 / 0 / 0 |
@@ -340,14 +368,14 @@ Recording readiness is separate from content status. Missing audio remains visib
 | `a1.language.dative-person-destination` — Going to a person | Unallocated | 0 / 0 / 0 | 2 | P2: `origins-and-destinations-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.accusative-object` — The object of an action | `a1.food.accusative-object.select` (partial)<br>`a1.clothing.accusative-object.select` (partial) | 0 / 0 / 0 | 4 | P2: `objects-recipients-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.accusative-name-pattern` — Asking and giving names | `a1.greetings.name-pattern.select` (equivalent) | 0 / 0 / 0 | 5 | P2: `personal-reference-v1` (authored candidate); 0 / 0 / 0 / 0 |
-| `a1.language.accusative-duration` — How long an action lasts | `a1.numbers.time-versus-duration.select` (partial) | 1 / 1 / 3 | 0 | P2: `time-routine-v1` (authored candidate); 0 / 0 / 0 / 0 |
+| `a1.language.accusative-duration` — How long an action lasts | `a1.numbers.time-versus-duration.select` (partial) | 1 / 1 / 3 | 6 | P2: `calendar-and-duration-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.accusative-destination` — Going into or to a place | Unallocated | 0 / 0 / 0 | 5 | P1: `location-destination-v2` (authored candidate); 1 / 1 / 3 / 6 |
 | `a1.language.accusative-clock-weekday` — At a time or on a weekday | Unallocated | 0 / 0 / 0 | 2 | P2: `time-routine-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.instrumental-activity` — An activity with заниматься | Unallocated | 0 / 0 / 0 | 7 | P2: `instrumental-activities-professions-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.instrumental-profession` — A profession with быть | Unallocated | 0 / 0 / 0 | 6 | P2: `instrumental-activities-professions-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.instrumental-company` — Doing something with someone | Unallocated | 0 / 0 / 0 | 2 | P2: `needs-company-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.instrumental-ingredient` — What something comes with | Unallocated | 0 / 0 / 0 | 2 | P2: `needs-company-v1` (authored candidate); 0 / 0 / 0 / 0 |
-| `a1.language.prepositional-topic` — Talking or thinking about something | Unallocated | 0 / 0 / 0 | 0 | P2: `roles-and-activities-v1` (planned); 0 / 0 / 0 / 0 |
+| `a1.language.prepositional-topic` — Talking or thinking about something | Unallocated | 0 / 0 / 0 | 12 | P2: `talking-about-topics-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.prepositional-location` — Where something is | `a1.home.location-prepositions.select` (partial)<br>`a1.places.location-versus-direction.select` (related)<br>`a1.places.place-prepositions.select` (partial) | 0 / 0 / 0 | 4 | P1: `location-destination-v2` (authored candidate); 1 / 1 / 3 / 6 |
 | `a1.language.prepositional-transport` — How someone travels | Unallocated | 0 / 0 / 0 | 2 | P2: `basic-motion-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.language.personal-pronoun-cases` — Pronouns in a sentence | `a1.greetings.personal-pronouns.select` (partial) | 0 / 0 / 0 | 6 | P2: `personal-reference-v1` (authored candidate); 0 / 0 / 0 / 0 |
@@ -381,7 +409,7 @@ Recording readiness is separate from content status. Missing audio remains visib
 | `a1.listening.short-message` — Understanding a spoken message | `a1.greetings.exchange-names.listen` (partial)<br>`a1.numbers.recognise-number.listen` (partial)<br>`a1.numbers.event-time.listen` (partial)<br>`a1.family.identify-relatives.listen` (partial)<br>`a1.family.describe-family.listen` (partial)<br>`a1.home.identify-rooms-furniture.listen` (partial)<br>`a1.home.locate-object.listen` (partial)<br>`a1.food.identify-food-drink.listen` (partial)<br>`a1.daily_activities.describe-routine.listen` (partial)<br>`a1.colors.identify-colour-size.listen` (partial)<br>`a1.colors.describe-object.listen` (partial)<br>`a1.clothing.identify-clothes.listen` (partial)<br>`a1.clothing.identify-clothing-description.listen` (partial)<br>`a1.places.follow-directions.listen` (partial)<br>`a1.weather.understand-weather.listen` (partial)<br>`a1.weather.choose-weather-plan.listen` (partial) | 5 / 5 / 24 | 39 | P1: `location-destination-v2` (authored candidate); 0 / 1 / — / 2 |
 | `a1.listening.dialogue-intention` — Understanding what someone wants | `a1.greetings.polite-greeting.listen` (partial)<br>`a1.food.make-request.listen` (partial)<br>`a1.daily_activities.ask-current-activity.listen` (partial)<br>`a1.places.ask-location.listen` (partial) | 0 / 0 / 6 | 3 | P2: `social-exchanges-v1` (authored candidate); 0 / 0 / — / 0 |
 | `a1.writing.personal-message` — Writing a personal message | `a1.greetings.polite-greeting.write` (partial)<br>`a1.greetings.exchange-names.write` (partial)<br>`a1.home.describe-location.write` (related)<br>`a1.food.make-request.write` (partial)<br>`a1.daily_activities.ask-current-activity.write` (related)<br>`a1.places.ask-location.write` (related)<br>`a1.places.follow-directions.write` (related)<br>`a1.weather.choose-weather-plan.write` (related) | 0 / 0 / 0 | 11 | P1: `location-destination-v2` (authored candidate); 0 / 0 / 1 / 2 |
-| `a1.writing.connected-description` — Describing everyday life | `a1.family.describe-family.write` (partial)<br>`a1.daily_activities.describe-routine.write` (partial)<br>`a1.colors.describe-object.write` (partial)<br>`a1.weather.describe-weather.write` (related) | 0 / 0 / 0 | 3 | P2: `people-and-routines-v1` (planned); 0 / 0 / 0 / 0 |
+| `a1.writing.connected-description` — Describing everyday life | `a1.family.describe-family.write` (partial)<br>`a1.daily_activities.describe-routine.write` (partial)<br>`a1.colors.describe-object.write` (partial)<br>`a1.weather.describe-weather.write` (related) | 0 / 0 / 0 | 5 | P2: `people-and-routines-v1` (planned); 0 / 0 / 0 / 0 |
 | `a1.writing.source-based-message` — Using information from a text | Unallocated | 0 / 0 / 0 | 1 | P2: `connected-messages-v1` (authored candidate); 0 / 0 / 0 / 0 |
 | `a1.speaking.intelligibility` — Speaking clearly enough to understand | Unallocated | 0 / 0 / 0 | 0 | P1: `location-destination-v2` (authored candidate); 0 / 0 / 1 / 2 |
 | `a1.speaking.social-etiquette` — Greetings and polite exchanges | `a1.greetings.polite-greeting.read` (related)<br>`a1.greetings.polite-greeting.speak` (partial) | 0 / 0 / 0 | 0 | P2: `social-exchanges-v1` (authored candidate); 0 / 0 / 0 / 0 |

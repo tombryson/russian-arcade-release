@@ -1,14 +1,17 @@
 # Curriculum implementation record
 
-Date: 2 October 2026. Scope: the [TORFL delivery plan](torfl-assessment-build-plan.md), primarily P0 and P1.
+Date: 2 October 2026. Scope: the [TORFL delivery plan](torfl-assessment-build-plan.md), P0/P1 foundations and ongoing P2 procedural content.
 
 ## Procedural follow-up
 
 Practice now composes Russian examples from checked grammar rules. Each set has
 six distinct questions, includes the taught contrasts and considers recent work.
-The 15 units retain their authored exercises alongside **New examples**. The new
-activities/professions unit extends A1 instrumental teaching and Writing; its
-Listening recordings remain outstanding.
+There are now 17 A1 teaching units. The two additions cover calendar dates
+versus duration, and о/об + a conversation topic. All units have selected
+grammar rules for recognition and typed forms. Existing authored exercises and
+saved attempts are retained. Generated unit reading/listening and on-demand
+audio now use a persistent preparation workflow; preparing another stock
+recording bank is not the delivery plan.
 
 Describe the Scene now composes compatible visual situations. Speaking has
 variable A1/A2 situation recipes. Text games prepare enough distinct contexts for
@@ -21,6 +24,18 @@ answers retain their support history. Generated sets share the existing daily
 reward policy and do not award proficiency. Account import drops private editorial
 history and rebuilds pending novelty guidance for the destination account. See
 [procedural content](procedural-content.md) for scope and verification.
+
+## Current P2 follow-up
+
+`calendar-and-duration-v1` teaches the month in a date and bare duration phrases. It supplies the date number rather than claiming to assess ordinal date formation. Generation samples valid dates and keeps elapsed time distinct from a starting time or delay. Correct alternatives such as неделю / одну неделю remain accepted.
+
+`talking-about-topics-v1` teaches о/об + prepositional with familiar nouns. The explanation distinguishes sound from spelling and does not generalise об to every vowel letter. Pronoun forms and broader noun classes remain further work. Both units teach the tested forms before practice and link to ordinary Writing and Speaking. Their Writing criteria observe communication, not independent grammatical mastery.
+
+The source allocations now point these three requirements to the new units. They remain partial, unvalidated practice. Adding a unit changes neither Journey passes nor a learner’s level. Sixty retained `g1` packs have unchanged identities and payloads.
+
+New unit reading/listening uses a generated situation tied to the unit’s objectives, vocabulary, stored forms and declared facts. Calendar requests also supply checked written and spoken dates. Accepted text is saved before audio preparation; retries retain the text and selected voice. The immutable task and recording then open in the existing player. Preparation, ownership, retries, media integrity, backups and imports have automated coverage. Browser playback completed with an actual generated recording.
+
+The bounded provider check found only one manually acceptable exercise in seven calls across prompt/schema revisions. A structurally accepted but grammatically wrong date prompted a new validator. The final input-fact and date refinements pass regression tests but have not had another live sample. Generation reliability and linguistic quality therefore remain release work; successful software tests are not proof of good Russian. See the [procedural implementation record](procedural-content.md#current-reading-and-listening-follow-up) for the measured checks. This follow-up has not been deployed.
 
 ## Delivered in the repository
 
@@ -107,9 +122,9 @@ No production deployment is implied by this record. Deployment and post-deployme
 
 | Package | Still required |
 | --- | --- |
-| P0 | Record the new instrumental unit; source-edition reconciliation beyond the existing recorded mapping; audible browser/device checks and pronunciation review. |
+| P0 | Source-edition reconciliation beyond the existing mapping; audible browser/device checks and pronunciation review. Existing recordings are retained. New audio should be created on demand, not through a required stock batch. |
 | P1 | Audible review on target devices; a real microphone walkthrough; evaluate marking on natural learner speech, including ASR disagreement; test the full path with learners. The automated local/hosted walkthrough and bounded synthetic-audio check are complete. |
-| P2 | Fill the source-level gaps in A1 teaching and production. Extend connected sequences where useful, with appropriate prerequisites and new situations. |
+| P2 | Improve and measure generated unit reading/listening acceptance and language quality before rollout; the persistent preparation and audio path is implemented. Fill the remaining A1 teaching, lexical-class and original-production gaps; extend connected sequences where useful. The new date/duration and о/об units supply partial practice, not whole-level coverage. |
 | P3 | Define and author a broader assessment blueprint. Compare marking against independent judgements and held-out responses. Validate replay, retakes, task breadth and any proposed pass policy. |
 | P4 | Author and evaluate A2, B1 and B2 teaching and five-domain assessments. Their requirement allocations are plans, not delivered courses. |
 

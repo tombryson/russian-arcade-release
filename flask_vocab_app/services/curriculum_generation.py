@@ -11,6 +11,7 @@ import random
 
 from contracts.learning import validate_pack
 from services.curriculum_instrumental_generation import build_question as _instrumental
+from services.curriculum_time_topic_generation import time_question as _calendar_duration, topic_question as _topic
 from utils.story_processing import get_morph
 
 PREFIX = 'curriculum-unit:g1:'
@@ -274,6 +275,7 @@ BUILDERS = {
     'needs-company-v1': _company, 'action-aspect-v1': _aspect,
     'origins-and-destinations-v1': _origin, 'connected-messages-v1': _connected,
     'instrumental-activities-professions-v1': _instrumental,
+    'calendar-and-duration-v1': _calendar_duration, 'talking-about-topics-v1': _topic,
 }
 
 

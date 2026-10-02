@@ -80,6 +80,6 @@ def register_learning_cli(app, household, content, store):
     @cli_errors
     def backup(destination):
         """Snapshot SQLite and Word Post assets into a new private directory."""
-        manifest = backup_learning_store(app.config['DB_PATH'], store, destination, app.config['UPLOAD_FOLDER'])
+        manifest = backup_learning_store(app.config['DB_PATH'], store, destination, app.config['UPLOAD_FOLDER'], media_root=app.config['APP_MEDIA_DIR'])
         click.echo(f'Backup verified: {destination}\nWord Post assets: {len(manifest["assets"])}')
         click.echo(f'Lesson files: {len(manifest["lesson_files"])}. Also back up other legacy media, the Anki collection and Drive separately.')

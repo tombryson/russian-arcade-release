@@ -11,11 +11,11 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'flask_vocab_app'))
 from contracts.learning import assess_activity_answer
-from services.curriculum_units import DATA_DIR, get_unit, _pack, writing_task
+from services.curriculum_units import DATA_DIR, get_unit, _pack, _practice_contract, writing_task
 from services.curriculum_requirement_map import requirement_index
 
 FIXTURE = ROOT / 'flask_vocab_app/data/curriculum_evaluation/a1-units-review-v1.json'
-CURRENT_FIXTURE = ROOT / 'flask_vocab_app/data/curriculum_evaluation/a1-units-review-v5.json'
+CURRENT_FIXTURE = ROOT / 'flask_vocab_app/data/curriculum_evaluation/a1-units-review-v6.json'
 OUTCOMES = {'satisfied', 'partial', 'not_satisfied', 'insufficient_evidence'}
 
 
@@ -46,8 +46,12 @@ def read_fixture(path=FIXTURE):
             item = items[case['item_id']]
             _, correct = assess_activity_answer(item, {'text': case['response']})
             expected = 'satisfied' if correct else 'not_satisfied'
-            if expected != case['author_expectation']['outcome'] or case['support']:
+            if expected != case['author_expectation']['outcome']:
                 raise ValueError('Controlled fixture disagrees with the published matcher: ' + case['id'])
+            question = next(q for q in unit['forms']['questions'] if q['id'] == item['id'])
+            contract = _practice_contract(unit, item, question, 'review-fixture')
+            if not set(case['support']) <= set(contract['support']['allowed']):
+                raise ValueError('Unsupported controlled-form help type.')
         elif case['stage'] == 'writing':
             contract = writing_task(unit)['curriculum_contract']
             if not set(case['support']) <= set(contract['support']['allowed']):

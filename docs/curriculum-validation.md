@@ -2,7 +2,7 @@
 
 ## Current status
 
-The application has 15 authored A1 teaching units and an opt-in diagnostic pilot covering five skills. They work without a tutor. Human review is optional editorial quality assurance for the maintainers, not a prerequisite for using the app or receiving feedback.
+The application has 17 authored A1 teaching units and an opt-in diagnostic pilot covering five skills. They work without a tutor. Human review is optional editorial quality assurance for the maintainers, not a prerequisite for using the app or receiving feedback.
 
 The examples and answer keys remain provisional. No independent human review or learner trial is recorded. The pilot does not award a level, unlock activities or claim to be a TORFL examination.
 
@@ -23,8 +23,10 @@ The examples and answer keys remain provisional. No independent human review or 
 | Where from and where to | Origins, destinations and prepositions | 8 | 5 | 3 clips |
 | Reasons, questions and connected messages | Short connected accounts and requests for information | 8 | 5 | 3 clips |
 | Activities and future professions | Заниматься + activity; буду + profession | 8 | 6 | Not recorded |
+| Dates and duration | Month names in dates; duration without a preposition | 6 | 6 | Prepared on demand |
+| Talking about people and interests | О/об + prepositional for the topic of speech or thought | 6 | 6 | Prepared on demand |
 
-Together the units provide 104 authored contextual choices, 70 typed prompts and 15 Writing briefs. Each unit has classified examples and an original Writing task. Additional generated sets practise selected constructions within each unit; they do not replace the broader authored coverage. Typed tasks test a specified form. They accept selected fuller phrases and ignore outer whitespace, case and final punctuation. They do not claim to accept every paraphrase or measure independent writing.
+Together the units provide 116 authored contextual choices, 82 typed prompts and 17 Writing briefs. Each unit has classified examples and an original Writing task. Additional generated sets practise selected constructions within each unit; they do not replace the broader authored coverage. Typed tasks test a specified form. They accept selected fuller phrases and ignore outer whitespace, case and final punctuation. They do not claim to accept every paraphrase or measure independent writing.
 
 These units do not cover the whole A1 grammar system. Supplied infinitives in motion tasks test conjugation; separate choices test the distinction between movement types. Unit Speaking links open existing scenarios. They do not transfer a unit criterion automatically. The nine earlier authored Fluent A1 variants retain their original-audio criteria. Generated Speaking variants have separate criteria bound to their exact situations. These observe the named communication task, not every scenario goal or full speaking proficiency.
 
@@ -56,6 +58,8 @@ Review fixture v4 retains all 246 v3 cases and adds 18 controlled-form cases and
 The instrumental activities/professions unit adds eight contextual questions and six typed forms. Its rules vary 33 subject/activity or subject/profession combinations. Both functions cite the A1 standard, §2.2.2, page 13. Examples teach each target before practice; the Writing task observes communication without certifying case control. The unit has no Listening recordings or independent assessment. Two model passes checked the language; this does not count as independent human validation.
 
 Review fixture v5 preserves all 271 v4 cases and adds 19 controlled-form cases and seven Writing cases: 297 total across 15 units. The extra form case accepts the grammatical alternative «музыкою». Earlier fixtures remain unchanged. Authored expectations remain review hypotheses, with no new provider evaluation or learner trial.
+
+The current review fixture, v6, retains those 297 cases and all earlier content hashes. It adds 54 form cases and 14 Writing cases for dates/duration and conversation topics: 365 cases across 17 units. Forms cover wrong endings, valid one-unit alternatives, and date/start-time/delay answers that do not express duration. Each new form also has a correct answer reached with a hint; that help remains visible and cannot count as independent evidence. Writing cases include natural paraphrases, understandable grammatical errors, missing details, unrelated or empty responses and use of a model answer. These are evaluator fixtures, not a bank of repeated learner content. No new provider marking, independent review or learner calibration is claimed.
 
 The connected lesson now saves and resumes across all five domains. Both the guided and challenge-first paths complete in local and hosted `/demo` test workspaces. The walkthroughs use provider stubs and fixture recordings. They verify storage, assistance, review recovery, ordinary rewards and the absence of transfer rewards; they do not validate the generated marks.
 

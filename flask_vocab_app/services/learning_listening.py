@@ -8,10 +8,16 @@ from repositories.learning_repository import LearningError
 STATIC_ROOT = Path(__file__).resolve().parents[1] / 'static'
 
 
-def verify_audio(item):
+def verify_audio(item, *, media_root=None):
     from contracts.learning import validate_pack
     validate_pack({'schema_version': 1, 'id': 'audio-check', 'kind': 'activity',
                    'title': 'Audio check', 'source': 'Bundled audio', 'items': [item]})
+    if item['audio'].get('kind') == 'generated':
+        from flask import current_app, has_app_context
+        from services.curriculum_generated_audio import verify_generated_audio
+        if media_root is None and has_app_context():
+            media_root = current_app.config['APP_MEDIA_DIR']
+        return verify_generated_audio(item['audio'], item['transcript'], media_root)
     path = STATIC_ROOT / item['audio']['url'].removeprefix('/static/')
     if (not path.is_file() or not path.resolve().is_relative_to(STATIC_ROOT.resolve())
             or hashlib.sha256(path.read_bytes()).hexdigest() != item['audio']['sha256']):
@@ -47,10 +53,8 @@ def recording_transcript_disclosed(conn, session_id, item, items):
 
 
 def current_item_support(conn, session_id, item, pack=None, current_index=None):
-    """Project earlier disclosure of this message without changing past answers."""
+    """Project this session's earlier playback and disclosed transcript."""
     result = item_support(conn, session_id, item)
-    if 'transcript' in result['support']:
-        return result
     if pack is None or current_index is None:
         row = conn.execute('SELECT v.payload,s.current_index FROM learning_sessions s '
                            'JOIN learning_content_versions v ON v.id=s.version_id WHERE s.id=?', (session_id,)).fetchone()
@@ -60,7 +64,16 @@ def current_item_support(conn, session_id, item, pack=None, current_index=None):
     # Completed items must retain the help recorded when their answer was saved.
     if current_index >= len(pack['items']) or pack['items'][current_index]['id'] != item['id']:
         return result
-    if recording_transcript_disclosed(conn, session_id, item, pack['items'][:current_index]):
+    prior_items = pack['items'][:current_index]
+    # One completed playback covers every question about that exact message.
+    # Reusing a recording in another run does not carry its playback receipt.
+    if not result['listened'] and any(
+            same_recording(item, previous) and item_support(conn, session_id, previous)['listened']
+            for previous in prior_items):
+        result = {**result, 'listened': True}
+    if 'transcript' in result['support']:
+        return result
+    if recording_transcript_disclosed(conn, session_id, item, prior_items):
         return {**result, 'support': [*result['support'], 'transcript']}
     # Another tab can expose the whole recording before saving any answer.
     # Match the same owner's frozen version, not just a reused media URL.
@@ -76,8 +89,8 @@ def current_item_support(conn, session_id, item, pack=None, current_index=None):
     return result
 
 
-def capture_shared_transcript(conn, session_id, pack, now):
-    """Freeze inherited help only for the now-current question, before exposure."""
+def capture_shared_support(conn, session_id, pack, now):
+    """Freeze shared playback/help for the current question, never past answers."""
     index = conn.execute('SELECT current_index FROM learning_sessions WHERE id=?', (session_id,)).fetchone()[0]
     if index >= len(pack['items']):
         return
@@ -85,15 +98,22 @@ def capture_shared_transcript(conn, session_id, pack, now):
     if item['type'] != 'listening_choice':
         return
     support = current_item_support(conn, session_id, item, pack, index)
+    if support['listened'] and not item_support(conn, session_id, item)['listened']:
+        # The earlier receipt already verified these exact bytes and transcript.
+        # This records inherited playback, not another file request or assistance.
+        conn.execute('INSERT OR IGNORE INTO learning_item_support(session_id,item_id,audio_sha256) VALUES (?,?,?)',
+                     (session_id, item['id'], item['audio']['sha256']))
+        conn.execute('UPDATE learning_item_support SET listened_at=COALESCE(listened_at,?) WHERE session_id=? AND item_id=?',
+                     (now, session_id, item['id']))
     if 'transcript' in support['support']:
         record_support(conn, session_id, item, 'transcript', now)
 
 
-def record_support(conn, session_id, item, operation, now):
+def record_support(conn, session_id, item, operation, now, *, media_root=None):
     if item['type'] != 'listening_choice':
         raise LearningError('invalid_input', 'This question has no recording or transcript.')
     if operation == 'listened':
-        verify_audio(item)
+        verify_audio(item, media_root=media_root)
     item_support(conn, session_id, item)
     # Only the current item can reach this function through LearningService.
     # After its answer is saved these timestamps cannot change via the API.

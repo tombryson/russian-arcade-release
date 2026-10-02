@@ -16,7 +16,7 @@ export type PracticeSession = {
   completed_items: number; total_items: number;
   origin?: {href: string; title: string};
   draft_enabled?: boolean; draft?: PracticeDraft; sequence?: PracticeSequence;
-  item: { id: string; type?: 'choice' | 'controlled_text' | 'listening_choice'; prompt: string; choices?: { id: string; text: string }[]; has_hint: boolean; hint?: string; asset_ids?: string[]; audio?: {url: string; sha256: string; duration_ms: number}; listened?: boolean; transcript?: string | null; has_transcript?: boolean } | null;
+  item: { id: string; type?: 'choice' | 'controlled_text' | 'listening_choice'; prompt: string; passage?: string; choices?: { id: string; text: string }[]; has_hint: boolean; hint?: string; asset_ids?: string[]; audio?: {url: string; sha256: string; duration_ms: number}; listened?: boolean; transcript?: string | null; has_transcript?: boolean } | null;
   attempts: { id: string; prompt?: string; feedback: AnswerFeedback }[];
 };
 export class ApiError extends Error {

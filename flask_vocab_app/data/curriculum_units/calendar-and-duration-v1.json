@@ -1,0 +1,395 @@
+{
+  "id": "calendar-and-duration-v1",
+  "level": "A1",
+  "topic_id": "numbers",
+  "title": "Dates and duration",
+  "title_ru": "Даты и продолжительность",
+  "summary": "Say when something happens and how long it lasts.",
+  "summary_ru": "Скажите, когда происходит событие и сколько оно длится.",
+  "practice_summary": "Say when something happens and how long it lasts.",
+  "practice_summary_ru": "Скажите, когда происходит событие и сколько оно длится.",
+  "review_status": "application-authored; automated contract and morphology checks; independent language evaluation pending",
+  "groups": [
+    {
+      "title": "A calendar date",
+      "title_ru": "Календарная дата",
+      "note": "The day number comes first, then the month in the genitive: 5 марта. Do not add в. The written number is enough here; saying ordinal dates is a separate skill.",
+      "note_ru": "Сначала число, затем месяц в родительном падеже: 5 марта. Предлог в не нужен. Здесь число уже написано; произношение порядковых числительных — отдельный навык.",
+      "examples": [
+        {
+          "ru": "Урок будет 5 марта.",
+          "en": "The lesson will be on 5 March."
+        },
+        {
+          "ru": "Встреча будет 12 мая.",
+          "en": "The meeting will be on 12 May."
+        }
+      ]
+    },
+    {
+      "title": "Month forms",
+      "title_ru": "Формы месяцев",
+      "note": "Learn the name and its date form together. Most month names end in -ь and change to -я; май becomes мая. Март, август end in a hard consonant and add -а.",
+      "note_ru": "Запоминайте название месяца и форму в дате вместе. Большинство названий оканчивается на -ь: в дате — -я. Май → мая. Март и август получают -а.",
+      "examples": [
+        {
+          "ru": "январь → января; февраль → февраля; март → марта",
+          "en": "January; February; March"
+        },
+        {
+          "ru": "апрель → апреля; май → мая; июнь → июня",
+          "en": "April; May; June"
+        },
+        {
+          "ru": "июль → июля; август → августа; сентябрь → сентября",
+          "en": "July; August; September"
+        },
+        {
+          "ru": "октябрь → октября; ноябрь → ноября; декабрь → декабря",
+          "en": "October; November; December"
+        }
+      ]
+    },
+    {
+      "title": "How long?",
+      "title_ru": "Как долго?",
+      "note": "To say how long an activity lasted, use a time phrase without a preposition. Минута and неделя change to минуту and неделю. Час, день and месяц look unchanged. You may add один or одну to emphasise one.",
+      "note_ru": "Продолжительность действия — без предлога. Минута → минуту, неделя → неделю. Час, день и месяц не меняются. Можно добавить один или одну.",
+      "examples": [
+        {
+          "ru": "Я читал час. Я ждал одну минуту.",
+          "en": "I read for an hour. I waited for one minute."
+        },
+        {
+          "ru": "Я отдыхал день. Я жил в гостинице неделю.",
+          "en": "I rested for a day. I stayed at a hotel for a week."
+        },
+        {
+          "ru": "Я жил в Москве один месяц.",
+          "en": "I lived in Moscow for one month."
+        }
+      ]
+    },
+    {
+      "title": "A start time is different",
+      "title_ru": "Время начала и продолжительность",
+      "note": "В два часа tells you when. Час tells you how long. Первого марта is a date; через неделю means a week later. In practice, use the stated length of time, not one of these other meanings. Длился means lasted.",
+      "note_ru": "В два часа — когда. Час — как долго. Первого марта — дата; через неделю — позже. Выбирайте длительность из условия. Длился обозначает продолжительность.",
+      "examples": [
+        {
+          "ru": "Урок начался в десять и закончился в одиннадцать. Урок длился час.",
+          "en": "The lesson started at ten and finished at eleven. It lasted an hour."
+        },
+        {
+          "ru": "Я приехал в понедельник и уехал в следующий понедельник. Я жил в гостинице неделю.",
+          "en": "I arrived on Monday and left the following Monday. I stayed at the hotel for a week."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q-0aef4e06d95d3577ffd3",
+      "prompt": "Концерт будет 28 [...].\nоктябрь — October. Complete the calendar date.",
+      "prompt_ru": "Концерт будет 28 [...].\nоктябрь. Дополните календарную дату.",
+      "hint": "After the day number in a date, the month takes the genitive: октября.",
+      "hint_ru": "После числа в дате месяц ставится в родительном падеже: октября.",
+      "explanation": "After the day number in a date, the month takes the genitive: октября.",
+      "explanation_ru": "После числа в дате месяц ставится в родительном падеже: октября.",
+      "requirement_id": "a1.language.genitive-calendar-month",
+      "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "октябрю"
+        },
+        {
+          "id": "option-1",
+          "text": "октябрём"
+        },
+        {
+          "id": "option-2",
+          "text": "октября"
+        },
+        {
+          "id": "option-3",
+          "text": "октябрь"
+        }
+      ],
+      "answer": "option-2"
+    },
+    {
+      "id": "q-1374c388f8a5404f8ff0",
+      "prompt": "Встреча будет 8 [...].\nиюнь — June. Complete the calendar date.",
+      "prompt_ru": "Встреча будет 8 [...].\nиюнь. Дополните календарную дату.",
+      "hint": "After the day number in a date, the month takes the genitive: июня.",
+      "hint_ru": "После числа в дате месяц ставится в родительном падеже: июня.",
+      "explanation": "After the day number in a date, the month takes the genitive: июня.",
+      "explanation_ru": "После числа в дате месяц ставится в родительном падеже: июня.",
+      "requirement_id": "a1.language.genitive-calendar-month",
+      "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "июню"
+        },
+        {
+          "id": "option-1",
+          "text": "июнем"
+        },
+        {
+          "id": "option-2",
+          "text": "июнь"
+        },
+        {
+          "id": "option-3",
+          "text": "июня"
+        }
+      ],
+      "answer": "option-3"
+    },
+    {
+      "id": "q-161fe7814820d05a749f",
+      "prompt": "Концерт будет 10 [...].\nноябрь — November. Complete the calendar date.",
+      "prompt_ru": "Концерт будет 10 [...].\nноябрь. Дополните календарную дату.",
+      "hint": "After the day number in a date, the month takes the genitive: ноября.",
+      "hint_ru": "После числа в дате месяц ставится в родительном падеже: ноября.",
+      "explanation": "After the day number in a date, the month takes the genitive: ноября.",
+      "explanation_ru": "После числа в дате месяц ставится в родительном падеже: ноября.",
+      "requirement_id": "a1.language.genitive-calendar-month",
+      "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "ноября"
+        },
+        {
+          "id": "option-1",
+          "text": "ноябрь"
+        },
+        {
+          "id": "option-2",
+          "text": "ноябрём"
+        },
+        {
+          "id": "option-3",
+          "text": "ноябрю"
+        }
+      ],
+      "answer": "option-0"
+    },
+    {
+      "id": "q-1cabcdf536c48a3ead88",
+      "prompt": "Урок начался в десять и закончился в одиннадцать. Урок длился [...].\nSay how long the activity lasted: one hour. Give the duration, not the start time. Use the time word without a preposition.",
+      "prompt_ru": "Урок начался в десять и закончился в одиннадцать. Урок длился [...].\nСлово: час. Укажите продолжительность без предлога, а не время начала.",
+      "hint": "A completed stretch of time uses a duration phrase without a preposition: час. В два часа is a clock time; первого марта is a date; через неделю means a week later.",
+      "hint_ru": "Продолжительность — без предлога: час. В два часа — время, первого марта — дата, через неделю — позже.",
+      "explanation": "A completed stretch of time uses a duration phrase without a preposition: час. В два часа is a clock time; первого марта is a date; через неделю means a week later.",
+      "explanation_ru": "Продолжительность — без предлога: час. В два часа — время, первого марта — дата, через неделю — позже.",
+      "requirement_id": "a1.language.accusative-duration",
+      "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "через неделю"
+        },
+        {
+          "id": "option-1",
+          "text": "в два часа"
+        },
+        {
+          "id": "option-2",
+          "text": "первого марта"
+        },
+        {
+          "id": "option-3",
+          "text": "час"
+        }
+      ],
+      "answer": "option-3"
+    },
+    {
+      "id": "q-4230d50c8c8f8a929cd0",
+      "prompt": "Я приехал в понедельник и уехал в следующий понедельник. Я жил в гостинице [...].\nSay how long the activity lasted: one week. Give the duration, not the start time. Use the time word without a preposition.",
+      "prompt_ru": "Я приехал в понедельник и уехал в следующий понедельник. Я жил в гостинице [...].\nСлово: неделя. Укажите продолжительность без предлога, а не время начала.",
+      "hint": "A completed stretch of time uses a duration phrase without a preposition: неделю. В два часа is a clock time; первого марта is a date; через неделю means a week later.",
+      "hint_ru": "Продолжительность — без предлога: неделю. В два часа — время, первого марта — дата, через неделю — позже.",
+      "explanation": "A completed stretch of time uses a duration phrase without a preposition: неделю. В два часа is a clock time; первого марта is a date; через неделю means a week later.",
+      "explanation_ru": "Продолжительность — без предлога: неделю. В два часа — время, первого марта — дата, через неделю — позже.",
+      "requirement_id": "a1.language.accusative-duration",
+      "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "первого марта"
+        },
+        {
+          "id": "option-1",
+          "text": "через неделю"
+        },
+        {
+          "id": "option-2",
+          "text": "неделю"
+        },
+        {
+          "id": "option-3",
+          "text": "в два часа"
+        }
+      ],
+      "answer": "option-2"
+    },
+    {
+      "id": "q-a1dbdd3a2675e757007e",
+      "prompt": "Я приехал первого марта и уехал первого апреля. Я жил в Москве [...].\nSay how long the activity lasted: one month. Give the duration, not the start time. Use the time word without a preposition.",
+      "prompt_ru": "Я приехал первого марта и уехал первого апреля. Я жил в Москве [...].\nСлово: месяц. Укажите продолжительность без предлога, а не время начала.",
+      "hint": "A completed stretch of time uses a duration phrase without a preposition: месяц. В два часа is a clock time; первого марта is a date; через неделю means a week later.",
+      "hint_ru": "Продолжительность — без предлога: месяц. В два часа — время, первого марта — дата, через неделю — позже.",
+      "explanation": "A completed stretch of time uses a duration phrase without a preposition: месяц. В два часа is a clock time; первого марта is a date; через неделю means a week later.",
+      "explanation_ru": "Продолжительность — без предлога: месяц. В два часа — время, первого марта — дата, через неделю — позже.",
+      "requirement_id": "a1.language.accusative-duration",
+      "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "в два часа"
+        },
+        {
+          "id": "option-1",
+          "text": "первого марта"
+        },
+        {
+          "id": "option-2",
+          "text": "месяц"
+        },
+        {
+          "id": "option-3",
+          "text": "через неделю"
+        }
+      ],
+      "answer": "option-2"
+    }
+  ],
+  "forms": {
+    "version": "calendar-and-duration-forms-v1",
+    "title": "Write the missing phrase",
+    "title_ru": "Впишите пропущенное слово или сочетание",
+    "questions": [
+      {
+        "id": "form-q-0aef4e06d95d3577ffd3",
+        "prompt": "Концерт будет 28 [...].\nоктябрь — October. Complete the calendar date.",
+        "prompt_ru": "Концерт будет 28 [...].\nоктябрь. Дополните календарную дату.",
+        "hint": "After the day number in a date, the month takes the genitive: октября.",
+        "hint_ru": "После числа в дате месяц ставится в родительном падеже: октября.",
+        "explanation": "After the day number in a date, the month takes the genitive: октября.",
+        "explanation_ru": "После числа в дате месяц ставится в родительном падеже: октября.",
+        "requirement_id": "a1.language.genitive-calendar-month",
+        "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+        "answer": "октября",
+        "accepted_answers": [
+          "октября"
+        ]
+      },
+      {
+        "id": "form-q-1374c388f8a5404f8ff0",
+        "prompt": "Встреча будет 8 [...].\nиюнь — June. Complete the calendar date.",
+        "prompt_ru": "Встреча будет 8 [...].\nиюнь. Дополните календарную дату.",
+        "hint": "After the day number in a date, the month takes the genitive: июня.",
+        "hint_ru": "После числа в дате месяц ставится в родительном падеже: июня.",
+        "explanation": "After the day number in a date, the month takes the genitive: июня.",
+        "explanation_ru": "После числа в дате месяц ставится в родительном падеже: июня.",
+        "requirement_id": "a1.language.genitive-calendar-month",
+        "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+        "answer": "июня",
+        "accepted_answers": [
+          "июня"
+        ]
+      },
+      {
+        "id": "form-q-161fe7814820d05a749f",
+        "prompt": "Концерт будет 10 [...].\nноябрь — November. Complete the calendar date.",
+        "prompt_ru": "Концерт будет 10 [...].\nноябрь. Дополните календарную дату.",
+        "hint": "After the day number in a date, the month takes the genitive: ноября.",
+        "hint_ru": "После числа в дате месяц ставится в родительном падеже: ноября.",
+        "explanation": "After the day number in a date, the month takes the genitive: ноября.",
+        "explanation_ru": "После числа в дате месяц ставится в родительном падеже: ноября.",
+        "requirement_id": "a1.language.genitive-calendar-month",
+        "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+        "answer": "ноября",
+        "accepted_answers": [
+          "ноября"
+        ]
+      },
+      {
+        "id": "form-q-1cabcdf536c48a3ead88",
+        "prompt": "Урок начался в десять и закончился в одиннадцать. Урок длился [...].\nSay how long the activity lasted: one hour. Give the duration, not the start time. Use the time word without a preposition.",
+        "prompt_ru": "Урок начался в десять и закончился в одиннадцать. Урок длился [...].\nСлово: час. Укажите продолжительность без предлога, а не время начала.",
+        "hint": "A completed stretch of time uses a duration phrase without a preposition: час. В два часа is a clock time; первого марта is a date; через неделю means a week later.",
+        "hint_ru": "Продолжительность — без предлога: час. В два часа — время, первого марта — дата, через неделю — позже.",
+        "explanation": "A completed stretch of time uses a duration phrase without a preposition: час. В два часа is a clock time; первого марта is a date; через неделю means a week later.",
+        "explanation_ru": "Продолжительность — без предлога: час. В два часа — время, первого марта — дата, через неделю — позже.",
+        "requirement_id": "a1.language.accusative-duration",
+        "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+        "answer": "час",
+        "accepted_answers": [
+          "час",
+          "один час"
+        ]
+      },
+      {
+        "id": "form-q-4230d50c8c8f8a929cd0",
+        "prompt": "Я приехал в понедельник и уехал в следующий понедельник. Я жил в гостинице [...].\nSay how long the activity lasted: one week. Give the duration, not the start time. Use the time word without a preposition.",
+        "prompt_ru": "Я приехал в понедельник и уехал в следующий понедельник. Я жил в гостинице [...].\nСлово: неделя. Укажите продолжительность без предлога, а не время начала.",
+        "hint": "A completed stretch of time uses a duration phrase without a preposition: неделю. В два часа is a clock time; первого марта is a date; через неделю means a week later.",
+        "hint_ru": "Продолжительность — без предлога: неделю. В два часа — время, первого марта — дата, через неделю — позже.",
+        "explanation": "A completed stretch of time uses a duration phrase without a preposition: неделю. В два часа is a clock time; первого марта is a date; через неделю means a week later.",
+        "explanation_ru": "Продолжительность — без предлога: неделю. В два часа — время, первого марта — дата, через неделю — позже.",
+        "requirement_id": "a1.language.accusative-duration",
+        "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+        "answer": "неделю",
+        "accepted_answers": [
+          "неделю",
+          "одну неделю"
+        ]
+      },
+      {
+        "id": "form-q-a1dbdd3a2675e757007e",
+        "prompt": "Я приехал первого марта и уехал первого апреля. Я жил в Москве [...].\nSay how long the activity lasted: one month. Give the duration, not the start time. Use the time word without a preposition.",
+        "prompt_ru": "Я приехал первого марта и уехал первого апреля. Я жил в Москве [...].\nСлово: месяц. Укажите продолжительность без предлога, а не время начала.",
+        "hint": "A completed stretch of time uses a duration phrase without a preposition: месяц. В два часа is a clock time; первого марта is a date; через неделю means a week later.",
+        "hint_ru": "Продолжительность — без предлога: месяц. В два часа — время, первого марта — дата, через неделю — позже.",
+        "explanation": "A completed stretch of time uses a duration phrase without a preposition: месяц. В два часа is a clock time; первого марта is a date; через неделю means a week later.",
+        "explanation_ru": "Продолжительность — без предлога: месяц. В два часа — время, первого марта — дата, через неделю — позже.",
+        "requirement_id": "a1.language.accusative-duration",
+        "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+        "answer": "месяц",
+        "accepted_answers": [
+          "месяц",
+          "один месяц"
+        ]
+      }
+    ]
+  },
+  "writing": {
+    "title": "Встреча с другом",
+    "title_en": "Make a plan with a friend",
+    "task": "Предложи другу встретиться. Напиши дату, время начала и сколько времени у тебя есть. Можно придумать план.",
+    "task_en": "Suggest meeting a friend. Give a date, a starting time and how much time you have. You may invent the plan.",
+    "required_words": [
+      "встреча",
+      "дата",
+      "время"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.connected-description",
+    "id": "calendar-and-duration-v1-message",
+    "expectation": "Communicate the requested details in an original short message. Accept natural paraphrases. Do not require suggested vocabulary, one case pattern or a word count. This criterion does not certify independent case control."
+  },
+  "writing_summary": "Suggest meeting a friend. Give a date, a starting time and how much time you have. You may invent the plan.",
+  "writing_summary_ru": "Предложи другу встретиться. Напиши дату, время начала и сколько времени у тебя есть. Можно придумать план.",
+  "speaking_href": "/#speaking/scenario/meet-someone?level=A1",
+  "speaking_title": "Meeting people",
+  "speaking_title_ru": "Знакомство",
+  "speaking_summary": "Talk about plans or interests in a separate conversation.",
+  "speaking_summary_ru": "Обсудите планы или интересы в отдельном разговоре."
+}

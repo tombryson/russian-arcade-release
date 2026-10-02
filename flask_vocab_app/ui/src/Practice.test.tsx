@@ -302,8 +302,35 @@ it('ignores late playback events and a pending receipt response after switching 
   expect((screen.getByRole('button', {name: 'дом'}) as HTMLButtonElement).disabled).toBe(true);
 });
 
-it('does not use the previous question’s audio to unlock the next question', async () => {
-  const next = {...listening, revision: 2, completed_items: 1, item: {...listening.item, id: 'i2', prompt: 'Куда идёт Нина?'}, attempts: [{id: 'answer1', feedback: {
+it('accepts the next answer without replay when the server carries the shared recording receipt', async () => {
+  const next = {...heard, revision: 2, completed_items: 1,
+    item: {...heard.item, id: 'i2', prompt: 'Куда идёт Нина?'}, attempts: [{id: 'answer1', feedback: {
+      deferred: true, outcome: 'deferred', response_text: 'дом', assisted: false, support: [], listened: true,
+    }}]};
+  let answers = 0;
+  const fetch = vi.fn((url: string) => response(url.endsWith('/listened') ? heard
+    : url.endsWith('/attempts') ? ++answers === 1 ? next : complete : listening));
+  vi.stubGlobal('fetch', fetch);
+  render(<Practice sessionId="s1" profileId="p1" onFinish={() => {}} />);
+  fireEvent.ended(await screen.findByLabelText('Listen to the message'));
+  await waitFor(() => expect((screen.getByRole('button', {name: 'дом'}) as HTMLButtonElement).disabled).toBe(false));
+  fireEvent.click(screen.getByRole('button', {name: 'дом'}));
+  fireEvent.click(await screen.findByRole('button', {name: /Next question/}));
+  expect(await screen.findByRole('heading', {name: 'Куда идёт Нина?'})).toBeTruthy();
+  expect((screen.getByRole('button', {name: 'дом'}) as HTMLButtonElement).disabled).toBe(false);
+  fireEvent.click(screen.getByRole('button', {name: 'дом'}));
+  await screen.findByRole('heading', {name: 'Let’s look at the answer.'});
+  const commands = postCalls(fetch);
+  expect(commands.map(([url]) => url)).toEqual([
+    '/api/v1/learning-sessions/s1/listened', '/api/v1/learning-sessions/s1/attempts',
+    '/api/v1/learning-sessions/s1/attempts',
+  ]);
+  expect(JSON.parse(String(commands[2][1].body)).expected_revision).toBe(2);
+});
+
+it('does not use the previous question’s audio to unlock a different recording', async () => {
+  const next = {...listening, revision: 2, completed_items: 1, item: {...listening.item, id: 'i2', prompt: 'Куда идёт Нина?',
+    audio: {...listening.item.audio, url: '/static/curriculum/next.mp3', sha256: 'b'.repeat(64)}}, attempts: [{id: 'answer1', feedback: {
     outcome: 'correct', answer: 'дом', assisted: false, listened: true,
   }}]};
   const fetch = vi.fn((url: string) => response(url.endsWith('/listened') ? heard : url.endsWith('/attempts') ? next : listening));
@@ -436,4 +463,38 @@ it('can replay and save a new receipt after a definitive audio-unavailable respo
   const requests = postCalls(fetch);
   expect(requests).toHaveLength(2);
   expect(JSON.parse(String(requests[1][1].body)).submission_id).not.toBe(JSON.parse(String(requests[0][1].body)).submission_id);
+});
+
+it.each(['en', 'ru'] as const)('renders a generated reading passage as prose with a concise %s question', async language => {
+  const passage = 'Нина идёт в библиотеку. Там она встречает Диму.\n\nПотом они идут в парк.';
+  const prompt = language === 'en' ? 'Where does Nina meet Dima?' : 'Где Нина встречает Диму?';
+  const reading = {...initial, origin:{href:'/curriculum/units/location-destination-v1',title:'A new situation'},
+    item:{...initial.item, type:'choice', passage, prompt, choices:[{id:'a',text:'В библиотеке.'},{id:'b',text:'В парке.'}]}};
+  const fetch = vi.fn(() => response(reading));
+  vi.stubGlobal('fetch', fetch);
+  const view = render(<Practice sessionId="s1" profileId="p1" onFinish={() => {}} language={language} />);
+  const question = await screen.findByRole('heading', {name:prompt});
+  expect(question.getAttribute('lang')).toBe(language);
+  expect(question.textContent).not.toContain('Там она встречает');
+  const source = screen.getByRole('region', {name:language === 'en' ? 'Reading text' : 'Текст для чтения'});
+  expect(source.getAttribute('lang')).toBe('ru');
+  expect(source.querySelectorAll('p')).toHaveLength(2);
+  expect(source.querySelector('h1,h2,h3')).toBeNull();
+  expect(source.textContent).toContain('Нина идёт в библиотеку.');
+  expect(source.compareDocumentPosition(question) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  expect(screen.getByRole('button', {name:'В библиотеке.'})).toBeTruthy();
+  expect(view.container.querySelector('.practice-reading-layout')).toBeTruthy();
+  expect(fetch).toHaveBeenCalledOnce();
+  view.unmount();
+  render(<Practice sessionId="s1" profileId="p1" onFinish={() => {}} language={language} />);
+  expect(await screen.findByRole('heading', {name:prompt})).toBeTruthy();
+  expect(screen.getByRole('region', {name:language === 'en' ? 'Reading text' : 'Текст для чтения'}).textContent).toContain('Потом они идут в парк.');
+});
+
+it('keeps the existing question layout when an activity has no reading passage', async () => {
+  vi.stubGlobal('fetch', vi.fn(() => response(initial)));
+  const view = render(<Practice sessionId="s1" profileId="p1" onFinish={() => {}} />);
+  expect(await screen.findByRole('heading', {name:initial.item.prompt})).toBeTruthy();
+  expect(view.container.querySelector('.practice-reading-layout')).toBeNull();
+  expect(screen.queryByRole('region', {name:'Reading text'})).toBeNull();
 });

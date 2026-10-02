@@ -451,11 +451,11 @@
       ],
       "allocation": {
         "package": "P2",
-        "unit_candidate": "time-routine-v1",
+        "unit_candidate": "calendar-and-duration-v1",
         "unit_status": "authored_candidate",
         "assessment_family": "time-routine-transfer-v1",
         "assessment_validation": "not_validated",
-        "gap": "Existing unit is a starting point. Full source scope, original production, transfer tasks and validation remain to be established."
+        "gap": "Taught examples, rule-generated recognition and typed forms cover supplied singular constructions. Original writing has a communication criterion only. Independent transfer assessment and validation remain unestablished; no stock recording is required for generated practice."
       },
       "applicability": {
         "teaching": {
@@ -802,11 +802,11 @@
       ],
       "allocation": {
         "package": "P2",
-        "unit_candidate": "time-routine-v1",
+        "unit_candidate": "calendar-and-duration-v1",
         "unit_status": "authored_candidate",
         "assessment_family": "time-routine-transfer-v1",
         "assessment_validation": "not_validated",
-        "gap": "Existing unit is a starting point. Full source scope, original production, transfer tasks and validation remain to be established."
+        "gap": "Taught examples, rule-generated recognition and typed forms cover supplied singular constructions. Original writing has a communication criterion only. Independent transfer assessment and validation remain unestablished; no stock recording is required for generated practice."
       },
       "applicability": {
         "teaching": {
@@ -1307,11 +1307,11 @@
       ],
       "allocation": {
         "package": "P2",
-        "unit_candidate": "roles-and-activities-v1",
-        "unit_status": "planned",
+        "unit_candidate": "talking-about-topics-v1",
+        "unit_status": "authored_candidate",
         "assessment_family": "roles-and-activities-transfer-v1",
         "assessment_validation": "not_validated",
-        "gap": "Author teaching and matched tasks, then verify audio, source scope and marking before any assessment release."
+        "gap": "Taught examples, rule-generated recognition and typed forms cover supplied singular constructions. Original writing has a communication criterion only. Independent transfer assessment and validation remain unestablished; no stock recording is required for generated practice."
       },
       "applicability": {
         "teaching": {

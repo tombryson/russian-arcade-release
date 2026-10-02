@@ -15,6 +15,7 @@ import tempfile
 import wave
 
 from migrations import upgrade_database
+from repositories.learning_repository import LearningError
 from services.assessment_pilot_integrity import PILOT_TABLES, validate_saved_pilot
 
 
@@ -49,7 +50,7 @@ HOSTED_OVERLAY_TABLES = EPHEMERAL_TABLES | CATALOGUE_TABLES | AUTH_TABLES | {
     # Course attempts, evidence, passes and continuation rights remain guarded.
     'course_enrolments',
 }
-SEQUENCE_FROZEN_TABLES = {'curriculum_generated_starts', 'comprehension_task_drafts', 'curriculum_unit_runs', 'curriculum_unit_bindings', 'curriculum_unit_requests',
+SEQUENCE_FROZEN_TABLES = {'curriculum_situations', 'curriculum_situation_requests', 'curriculum_generated_starts', 'comprehension_task_drafts', 'curriculum_unit_runs', 'curriculum_unit_bindings', 'curriculum_unit_requests',
     'curriculum_transfer_exposure', 'learning_session_drafts', 'learning_session_draft_requests',
     'activity_review_submissions', 'curriculum_unit_exchanges', 'curriculum_unit_exchange_turns',
     'curriculum_unit_exchange_playback', 'activity_support_disclosures', 'learning_prior_feedback', 'learning_hint_usage'}
@@ -131,6 +132,8 @@ def _activity_key(value, maps):
 
 def transform(name, table, row, maps, schemas):
     result = dict(row)
+    if name == 'curriculum_situations' and row['state'] == 'running':
+        result.update(state='failed', claim_id=None, lease_until=0, error_code='preparation_interrupted')
     if name == 'comprehension_tasks':
         # Provider work belongs to the original process, never to an offline
         # artifact. Clear only the temporary claim; retain all task evidence.
@@ -421,11 +424,12 @@ def _verify_speaking_audio(tables, audio_root):
         raise ImportConflict('Original speaking audio could not be verified; no artifact was produced.') from error
 
 
-def build_account_import(local_path, hosted_path, output_path, *, local_audio_root=None, local_pilot_audio_root=None, local_unit_exchange_audio_root=None):
+def build_account_import(local_path, hosted_path, output_path, *, local_audio_root=None, local_pilot_audio_root=None, local_unit_exchange_audio_root=None, local_media_root=None):
     """Create an integrity-checked output file; never modify either input.
 
     Inputs must be offline snapshots. Speaking criterion reports additionally
-    require local_audio_root so original recording bytes can be verified. Media
+    require local_audio_root so original recording bytes can be verified.
+    Generated curriculum recordings require local_media_root. Media
     copying remains separate. Generated Comprehension audio retains its frozen
     hash and URL; this artifact does not copy or attest to those media bytes.
     Saved pilot Speaking recordings require local_pilot_audio_root; both the
@@ -454,14 +458,19 @@ def build_account_import(local_path, hosted_path, output_path, *, local_audio_ro
             if unsupported:
                 raise ImportConflict('Hosted history needs an additional merge policy: ' + ', '.join(sorted(unsupported)))
             verified_audio = _verify_speaking_audio(local, local_audio_root)
+            from services.curriculum_generated_audio import validate_saved_generated_audio
+            try:
+                verified_generated_audio = validate_saved_generated_audio(left, local_media_root, require_audio=True)
+            except (LearningError, OSError, ValueError, TypeError, KeyError) as error:
+                raise ImportConflict('Generated lesson audio could not be verified; provide --local-media-root for its recordings.') from error
             from services.activity_review_submissions import validate_saved_reviews
             try:
                 verified_unit_audio = validate_saved_reviews(left, unit_exchange_audio_root=local_unit_exchange_audio_root, require_audio=True)
-            except (OSError, ValueError, LookupError, TypeError, KeyError, wave.Error, EOFError) as error:
+            except (LearningError, OSError, ValueError, LookupError, TypeError, KeyError, wave.Error, EOFError) as error:
                 raise ImportConflict('Lesson originals could not be verified; provide --local-unit-exchange-audio-root for saved Speaking replies.') from error
             try:
                 verified_pilot_audio = validate_saved_pilot(left, audio_root=local_pilot_audio_root, require_audio=True)
-            except (OSError, ValueError, LookupError, TypeError, KeyError, wave.Error, EOFError) as error:
+            except (LearningError, OSError, ValueError, LookupError, TypeError, KeyError, wave.Error, EOFError) as error:
                 raise ImportConflict('Pilot evidence or original audio could not be verified; provide --local-pilot-audio-root for saved recordings.') from error
             if set(local) != set(hosted):
                 raise ImportConflict('Both snapshots must use the current application schema.')
@@ -532,14 +541,16 @@ def build_account_import(local_path, hosted_path, output_path, *, local_audio_ro
             from services.activity_evidence import validate_saved_evidence
             try:
                 validate_saved_evidence(conn, unit_exchange_audio_root=local_unit_exchange_audio_root)
+                if validate_saved_generated_audio(conn, local_media_root, require_audio=True) != verified_generated_audio:
+                    raise ValueError('Generated lesson recordings changed during artifact construction.')
                 if validate_saved_reviews(conn, unit_exchange_audio_root=local_unit_exchange_audio_root, require_audio=True) != verified_unit_audio:
                     raise ValueError('Lesson original audio changed during artifact construction.')
-            except (ValueError, LookupError, TypeError, KeyError) as error:
+            except (LearningError, ValueError, LookupError, TypeError, KeyError) as error:
                 raise ImportConflict('Imported activity evidence does not match its frozen task and response.') from error
             try:
                 if validate_saved_pilot(conn, audio_root=local_pilot_audio_root, require_audio=True) != verified_pilot_audio:
                     raise ValueError('Pilot source audio changed during artifact construction.')
-            except (OSError, ValueError, LookupError, TypeError, KeyError, wave.Error, EOFError) as error:
+            except (LearningError, OSError, ValueError, LookupError, TypeError, KeyError, wave.Error, EOFError) as error:
                 raise ImportConflict('Imported pilot evidence does not match its frozen tasks and original responses.') from error
             conn.commit()
             conn.execute('PRAGMA journal_mode=DELETE')
@@ -549,11 +560,13 @@ def build_account_import(local_path, hosted_path, output_path, *, local_audio_ro
             raise ImportConflict('Original speaking audio changed during the import; retry from offline snapshots.')
         with closing(readonly(upgraded)) as source:
             try:
+                if validate_saved_generated_audio(source, local_media_root, require_audio=True) != verified_generated_audio:
+                    raise ValueError('Generated lesson recordings changed during import.')
                 if validate_saved_reviews(source, unit_exchange_audio_root=local_unit_exchange_audio_root, require_audio=True) != verified_unit_audio:
                     raise ValueError('Unit exchange original audio changed during import.')
                 if validate_saved_pilot(source, audio_root=local_pilot_audio_root, require_audio=True) != verified_pilot_audio:
                     raise ValueError('Pilot source audio changed during import.')
-            except (OSError, ValueError, LookupError, TypeError, KeyError, wave.Error, EOFError) as error:
+            except (LearningError, OSError, ValueError, LookupError, TypeError, KeyError, wave.Error, EOFError) as error:
                 raise ImportConflict('Pilot original audio changed during import; retry from offline snapshots.') from error
         # Exclusive creation prevents an existing destination being replaced if
         # a second importer runs while the first one is assembling its output.
@@ -570,4 +583,5 @@ def build_account_import(local_path, hosted_path, output_path, *, local_audio_ro
             'verified_speaking_recordings': len(verified_audio),
             'verified_pilot_recordings': len(verified_pilot_audio) // 2,
             'verified_unit_exchange_recordings': len(verified_unit_audio) // 2,
+            'verified_generated_curriculum_recordings': len(verified_generated_audio) // 2,
             'media_copied': False}

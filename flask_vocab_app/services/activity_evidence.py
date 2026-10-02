@@ -215,13 +215,15 @@ def _check_content(task, activity, contract):
     elif activity == 'curriculum_unit':
         controlled = task['item']['type'] == 'controlled_text'
         listening = task['item']['type'] == 'listening_choice'
+        listening_rubric = ('generated-source-choice-v1' if task['content_id'].startswith('curriculum-unit:situation-v1:')
+                            else 'authored-listening-choice-v1')
         modes = ('listening_selection',) if listening else ('controlled_text',) if controlled else ('contextual_selection', 'reading_selection')
         if (contract['content'].get('item') != task['item']
                 or len(contract['criteria']) != 1
                 or contract['criteria'][0]['response_mode'] not in modes
                 or contract['criteria'][0]['evidence_scope'] != ('controlled_production' if controlled else 'reference')
                 or (controlled and contract['rubric_version'] != 'authored-controlled-form-v1')
-                or (listening and (contract['rubric_version'] != 'authored-listening-choice-v1'
+                or (listening and (contract['rubric_version'] != listening_rubric
                     or contract['support'] != ({'allowed': ['hint', 'transcript', 'model_answer'], 'independence_breakers': ['hint', 'transcript', 'model_answer']}
                         if contract['schema_version'] == 2 else {'allowed': ['hint', 'transcript'], 'independence_breakers': ['hint', 'transcript']})))):
             raise ValueError('A unit contract must describe its exact saved item and matching response mode.')

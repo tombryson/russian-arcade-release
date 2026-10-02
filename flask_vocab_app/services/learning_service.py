@@ -14,7 +14,7 @@ from contracts.learning import fields, key, revision, reject, assess_activity_an
 from repositories.learning_repository import LearningError, encoded, identifier, payload_hash, require_access, timestamp, transaction
 from services.learning_content import child_item, published_version
 from services.learning_listening import (
-    item_support, current_item_support, capture_shared_transcript,
+    item_support, current_item_support, capture_shared_support,
     feedback_is_deferred, record_support, verify_audio,
 )
 
@@ -39,16 +39,17 @@ The ledger is the balance authority; no separate total can drift out of sync.
 
 
 class LearningService:
-    def __init__(self, db_path, clock=timestamp, native_review_enabled=True):
+    def __init__(self, db_path, clock=timestamp, native_review_enabled=True, *, media_root=None):
         self.db_path, self.clock = db_path, clock
         self.native_review_enabled = native_review_enabled
+        self.media_root = media_root
 
     def home(self, access_id):
         with transaction(self.db_path) as conn:
             profile = require_access(conn, access_id, self.clock())
             content = [dict(row) for row in conn.execute(
                 "SELECT v.id AS version_id,v.content_id,v.title,c.kind FROM learning_content_versions v JOIN learning_content c ON c.id=v.content_id "
-                "WHERE v.status='published' AND v.content_id NOT LIKE 'curriculum-unit:g1:%' AND v.version=(SELECT MAX(v2.version) FROM learning_content_versions v2 WHERE v2.content_id=v.content_id AND v2.status='published') ORDER BY v.title")]
+                "WHERE v.status='published' AND v.content_id NOT LIKE 'curriculum-unit:g1:%' AND v.content_id NOT LIKE 'curriculum-unit:situation-v1:%' AND v.version=(SELECT MAX(v2.version) FROM learning_content_versions v2 WHERE v2.content_id=v.content_id AND v2.status='published') ORDER BY v.title")]
             sessions = [dict(row) for row in conn.execute(
                 "SELECT s.id,s.version_id,s.revision,s.status,v.title,v.status AS content_status FROM learning_sessions s JOIN learning_content_versions v ON v.id=s.version_id WHERE s.profile_id=? ORDER BY s.updated_at DESC LIMIT 50", (profile['id'],))]
             return {'profile': {'id': profile['id'], 'display_name': profile['display_name']}, 'content': content,
@@ -67,13 +68,13 @@ class LearningService:
             now = self.clock()
             profile = require_access(conn, access_id, now, profile_id=data['profile_id'])
             version, pack = published_version(conn, data['version_id'])
-            if pack['id'].startswith('curriculum-unit:g1:') and not conn.execute(
+            if pack['id'].startswith(('curriculum-unit:g1:', 'curriculum-unit:situation-v1:')) and not conn.execute(
                 'SELECT 1 FROM learning_sessions WHERE version_id=? AND profile_id=?',
                 (version['id'], profile['id'])).fetchone():
                 raise LearningError('not_found', 'Start this practice from its lesson.', 404)
             if pack['kind'] != 'activity':
                 raise LearningError('use_native_review', 'Open Flashcards to practise this deck.', 409)
-            if pack['id'].startswith('curriculum-unit:sequence:'):
+            if pack['id'].startswith(('curriculum-unit:sequence:', 'curriculum-unit:situation-v1:')):
                 raise LearningError('use_lesson', 'Open this activity from its lesson.', 409)
             existing = conn.execute('SELECT * FROM learning_sessions WHERE profile_id=? AND start_key=?', (profile['id'], data['submission_id'])).fetchone()
             if existing:
@@ -82,7 +83,7 @@ class LearningService:
                 return json.loads(existing['start_result'])
             for item in pack['items']:
                 if item['type'] == 'listening_choice':
-                    verify_audio(item)
+                    verify_audio(item, media_root=self.media_root)
             session_id = identifier()
             conn.execute('INSERT INTO learning_sessions(id,profile_id,version_id,kind,start_key,start_hash,start_result,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?)',
                          (session_id, profile['id'], version['id'], pack['kind'], data['submission_id'], digest, '{}', now, now))
@@ -118,7 +119,7 @@ class LearningService:
             item = next((item for item in reached if item['id'] == item_id), None)
             if item is None or item['type'] != 'listening_choice':
                 raise LearningError('not_found', 'This recording is not available in this activity.', 404)
-            return verify_audio(item)
+            return verify_audio(item, media_root=self.media_root)
 
     def _snapshot(self, conn, session_id, pack):
         from services.curriculum_units import practice_context
@@ -149,7 +150,7 @@ class LearningService:
                 if russian_ui:
                     title = content.get('title_ru', title)
                     attempt['prompt'] = content.get('item_locale_ru', {}).get('prompt', attempt['prompt'])
-                if pack['id'].startswith(('curriculum-unit:sequence:', 'curriculum-unit:g1:')):
+                if pack['id'].startswith(('curriculum-unit:sequence:', 'curriculum-unit:g1:', 'curriculum-unit:situation-v1:')):
                     report = conn.execute('SELECT r.support_json FROM activity_criterion_reports r JOIN activity_task_contracts c ON c.id=r.contract_id '
                                           'WHERE r.profile_id=? AND c.activity=? AND r.source_key=?',
                                           (saved['profile_id'], 'curriculum_unit', attempt['id'])).fetchone()
@@ -176,7 +177,7 @@ class LearningService:
                 # Shared static requests use the anonymous hosted application.
                 # Keep the immutable asset reference in the pack, and expose an
                 # owned route that works in personal and /demo workspaces.
-                current['audio'] = {**current['audio'], 'url':
+                current['audio'] = {'sha256': item['audio']['sha256'], 'duration_ms': item['audio']['duration_ms'], 'url':
                     f"/api/v1/learning-sessions/{quote(session_id, safe='')}/items/{quote(item['id'], safe='')}/audio"}
             if russian_ui and (origin or pack['id'].startswith('curriculum-unit:sequence:')):
                 from services.activity_evidence import load_contract
@@ -267,18 +268,18 @@ class LearningService:
             item = pack['items'][saved['current_index']]
             if data['item_id'] != item['id']:
                 raise LearningError('wrong_item', 'Please answer the current item.', 409)
-            capture_shared_transcript(conn, session_id, pack, now)
+            capture_shared_support(conn, session_id, pack, now)
             coins, feedback = 0, None
             if operation == 'help':
                 if not item.get('hint'):
                     reject('This item has no saved hint.')
                 conn.execute('UPDATE learning_sessions SET help_used=1,revision=revision+1,updated_at=? WHERE id=?', (now, session_id))
-                if pack['id'].startswith(('curriculum-unit:sequence:', 'curriculum-unit:g1:')):
+                if pack['id'].startswith(('curriculum-unit:sequence:', 'curriculum-unit:g1:', 'curriculum-unit:situation-v1:')):
                     conn.execute('INSERT OR IGNORE INTO learning_hint_usage VALUES (?,?)', (session_id, item['id']))
                 if item['type'] == 'listening_choice':
-                    record_support(conn, session_id, item, operation, now)
+                    record_support(conn, session_id, item, operation, now, media_root=self.media_root)
             elif operation in ('listened', 'transcript'):
-                record_support(conn, session_id, item, operation, now)
+                record_support(conn, session_id, item, operation, now, media_root=self.media_root)
                 conn.execute('UPDATE learning_sessions SET revision=revision+1,updated_at=? WHERE id=?', (now, session_id))
             else:
                 listening = item['type'] == 'listening_choice'
@@ -309,7 +310,7 @@ class LearningService:
                 complete = saved['current_index'] + 1 == len(pack['items'])
                 conn.execute('UPDATE learning_sessions SET current_index=current_index+1,revision=revision+1,help_used=0,status=?,updated_at=? WHERE id=?',
                              ('completed' if complete else 'active', now, session_id))
-                capture_shared_transcript(conn, session_id, pack, now)
+                capture_shared_support(conn, session_id, pack, now)
                 if complete:
                     from services.curriculum_sequences import award_practice, binding_for_task
                     binding = binding_for_task(conn, profile['id'], 'curriculum_unit', session_id)

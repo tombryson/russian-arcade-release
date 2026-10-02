@@ -21,12 +21,15 @@ def main():
                         help='Original assessment-pilot-audio directory; required for pilot Speaking recordings')
     parser.add_argument('--local-unit-exchange-audio-root', type=Path,
                         help='Original unit-exchange-audio directory; required for saved lesson Speaking replies')
+    parser.add_argument('--local-media-root', type=Path,
+                        help='Original APP_MEDIA_DIR; required for generated curriculum listening recordings')
     args = parser.parse_args()
     if args.report.exists():
         parser.error('Report path already exists.')
     report = build_account_import(args.local, args.hosted, args.output, local_audio_root=args.local_audio_root,
                                   local_pilot_audio_root=args.local_pilot_audio_root,
-                                  local_unit_exchange_audio_root=args.local_unit_exchange_audio_root)
+                                  local_unit_exchange_audio_root=args.local_unit_exchange_audio_root,
+                                  local_media_root=args.local_media_root)
     with args.report.open('x') as output:
         json.dump(report, output, ensure_ascii=False, indent=2)
         output.write('\n')

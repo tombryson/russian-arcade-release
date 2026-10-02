@@ -160,13 +160,16 @@ def create_curriculum_blueprint():
             unit = unit_or_404(unit_id)
         return render_page('curriculum_unit.html', active_page='curriculum', unit=unit, curriculum_sequence=sequence,
                            language=language, profile_id=profile_id, request_id=identifier(), forms_request_id=identifier(), listening_request_id=identifier(),
-                           unit_writing_available=not current_app.config.get('PUBLIC_DEMO'))
+                           unit_writing_available=not current_app.config.get('PUBLIC_DEMO'),
+                           generated_situations_available=not current_app.config.get('PUBLIC_DEMO') and unit['level']=='A1')
 
     @blueprint.post('/curriculum/units/<unit_id>/<activity>')
     @access_policy('child')
     def unit_start(unit_id, activity):
         from services.curriculum_sequences import UNIT
         fresh = activity in ('fresh-practice', 'fresh-forms') or (activity in ('practice', 'forms') and request.form.get('generation') == 'rules')
+        if unit_id in ('calendar-and-duration-v1', 'talking-about-topics-v1') and activity in ('practice', 'forms'):
+            fresh = True
         if unit_id == UNIT and not fresh:
             return redirect('/curriculum/units/' + UNIT, code=303)
         unit_or_404(unit_id)

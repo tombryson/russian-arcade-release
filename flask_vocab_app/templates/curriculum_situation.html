@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% from '_activity_header.html' import activity_header %}
+{% set russian = language == 'ru' %}
+{% set page_title = ('Практика аудирования' if preparation.mode == 'listening' else 'Практика чтения') if russian else ('Listening practice' if preparation.mode == 'listening' else 'Reading practice') %}
+{% block main_content %}
+<main class="main-content activity-entry curriculum" id="mainContent">
+ <div class="activity-entry-content">
+  <nav class="curriculum-unit-nav"><a href="/curriculum/units/{{ preparation.unit_id }}" hx-boost="false">← {{ 'К уроку' if russian else 'Back to lesson' }}</a></nav>
+  {{ activity_header(page_title) }}
+  <section data-situation-preparation data-language="{{ language }}" aria-busy="true">
+   <script type="application/json" data-situation-state>{{ preparation|tojson }}</script>
+   <p role="status" aria-live="polite" data-situation-status>{{ 'Готовим новое задание…' if russian else 'Preparing a new situation…' }}</p>
+   <progress data-situation-spinner aria-label="{{ 'Подготовка' if russian else 'Preparing' }}"></progress>
+   <button type="button" class="btn btn-primary" data-situation-retry hidden>{{ 'Повторить' if russian else 'Try again' }}</button>
+   <noscript><p>{{ 'Включите JavaScript для подготовки. Сохранённые упражнения доступны в уроке.' if russian else 'Enable JavaScript to prepare this activity. Saved exercises are available from the lesson.' }}</p></noscript>
+  </section>
+ </div>
+</main>
+{% endblock %}
+{% block page_scripts %}<script src="/static/js/curriculum_situation.js?v=1" defer></script>{% endblock %}

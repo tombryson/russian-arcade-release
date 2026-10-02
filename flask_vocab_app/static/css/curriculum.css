@@ -57,6 +57,12 @@
 .curriculum-unit-examples dd { font-size:15px; color:var(--wp-text-secondary,#b7b9ce); margin:0; }
 .curriculum-unit-practice { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; padding:20px 0; border-top:1px solid var(--wp-border-subtle,#494d67); }
 .curriculum-unit-practice .btn { white-space:normal; text-align:left; }
+.curriculum-situation-practice { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px 24px; padding:20px 0; border-top:1px solid var(--wp-border-subtle,#494d67); }
+.curriculum-situation-practice h2 { font-size:20px; margin:0 0 8px; }
+.curriculum-situation-practice p { font-size:15px; line-height:1.5; margin:0; }
+.curriculum-situation-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; }
+.curriculum-situation-actions form { margin:0; }
+.curriculum-situation-actions .btn { white-space:normal; }
 @media(max-width:800px) {
   .curriculum-band { grid-template-columns:minmax(0,1fr); gap:16px; }
   .curriculum-band-heading p { margin:6px 0; }

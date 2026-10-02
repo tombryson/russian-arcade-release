@@ -28,8 +28,8 @@ The repository already contains most of the necessary infrastructure. Content co
 | Area | Implemented | Remaining work |
 | --- | --- | --- |
 | Requirements | 239 source-linked specifications across A1–B2; later levels inherit earlier scope. | Reconcile the inventory against the chosen source editions and assessment blueprints. |
-| Teaching | 15 authored A1 units, including present-tense person/number and instrumental activities/professions; generated choice and typed practice; a connected location/destination edition with two transfer situations. | Complete the source-level breadth of A1 and its prerequisites; author later levels. |
-| Listening | The earlier 14 unit packs and both pilot forms have verified files: 44 clips. The connected sequence adds 19 reusable recordings across 25 playback identities. | Record the new instrumental unit; complete audible device checks and pronunciation review; preserve per-file availability checks. |
+| Teaching | 17 A1 teaching units, including present-tense person/number, instrumental activities/professions, dates/duration and о/об topics; generated choice and typed practice; a connected location/destination edition with two transfer situations. | Complete the source-level breadth of A1 and its prerequisites; author later levels. |
+| Listening | The earlier 14 unit packs and both pilot forms retain 44 verified clips. The connected sequence retains 19 reusable recordings across 25 playback identities. Generated listening and on-demand audio are being integrated for A1 units. | Finish integration, browser/provider checks and pronunciation review. Freeze generated text before preparing audio; preserve each saved recording and its availability checks. |
 | Activity evidence | V1 retained; v2 separates communication from forms in original writing and speech. Immutable submissions survive unavailable feedback. | Broader original-production coverage and validation on learner responses. |
 | Lesson state | Owned, frozen runs; idempotent activity allocation; durable typed drafts; review recovery; per-task support and transfer exposure. | Wider real-user and device trials; extend the proven sequence pattern to the remaining units. |
 | Profile | Five compact domain rows, scoped activity/pilot results, pending work and deterministic next actions. | Validate recommendations with learners; add later-level results only under an explicit assessed scope. |
@@ -45,7 +45,7 @@ The [validation record](curriculum-validation.md) records no independent languag
 
 The [procedural implementation record](procedural-content.md) documents the new generators and their limits. Curriculum grammar now produces owned, frozen sets; Scene and Speaking compose situations from explicit facts; ordinary AI activities receive bounded recent-content history. Teaching and assessment objectives stay versioned. Changing an answer order or character name is not evidence of new content.
 
-P2 content work should extend these rules and their teaching, rather than add isolated banks of complete questions. The diagnostic pilot and Journey letters remain authored. Broader P3 forms still require a declared sampling blueprint, ambiguity checks, audio and validated marking. This pass does not convert practice scores into a full-level pass.
+P2 content work extends these rules and their teaching, rather than adding isolated banks of complete questions. The new date/duration and о/об units cover three named source requirements partially. New reading and listening now have a persistent generation path using unit objectives, taught language and explicit facts, with source-grounded questions and answers. Audio is prepared from the accepted text on demand; no stock recording batch is required for each content variant. Provider acceptance and language quality still need improvement and measurement before rollout. The diagnostic pilot and Journey letters remain authored. Broader P3 forms still require a declared sampling blueprint, ambiguity checks, audio and validated marking. This pass does not convert practice scores into a full-level pass.
 
 ## Exam sources and assessment rules
 
@@ -504,13 +504,15 @@ Keep existing unit and pilot routes as the fallback until this sequence passes t
 
 ### P2 — Complete reviewed A1 teaching coverage
 
-Use the inventory to fill gaps in the 13 existing units before adding unrelated activities. Sequence prerequisites and author missing examples, meaningful contrasts, listening and production tasks. Give each released requirement appropriate transfer tasks; broad communication requirements need several situations.
+Use the inventory to fill gaps across the 17 A1 units before adding unrelated activities. Sequence prerequisites and author missing examples, meaningful contrasts, listening and production tasks. Give each released requirement appropriate transfer tasks; broad communication requirements need several situations.
 
 The first P2 addition is now `present-actions-v1`: читать/говорить person and number, with eight contextual questions, six controlled forms, three recordings and a short original Writing task. Existing content is retained. Its coverage is partial; the Writing criterion measures meaning, not general conjugation control.
 
-The next addition, `instrumental-activities-professions-v1`, teaches заниматься + an activity and the future-profession pattern буду врачом. It includes contextual choices, typed forms, a short Writing task and generated practice. It has no published Listening task yet. These are bounded uses, not complete instrumental-case coverage.
+The next addition, `instrumental-activities-professions-v1`, teaches заниматься + an activity and the future-profession pattern буду врачом. It includes contextual choices, typed forms, a short Writing task and generated practice. It has no authored Listening bank; it uses the new generated unit listening path with on-demand audio. These are bounded uses, not complete instrumental-case coverage.
 
-Next, distinguish calendar dates from duration (`a1.language.genitive-calendar-month` and `a1.language.accusative-duration`) after the numbers and time units. Teach these functions separately before combining them in an arrangement. Another gap is о + a topic. Check older units and First steps before treating an unmapped sequence reference as absent teaching.
+`calendar-and-duration-v1` now distinguishes calendar dates from duration (`a1.language.genitive-calendar-month` and `a1.language.accusative-duration`). It teaches those functions separately before combining them in an arrangement. `talking-about-topics-v1` adds о/об + a topic (`a1.language.prepositional-topic`). Both have taught examples, generated recognition, controlled forms and a communicative Writing task. Their forms and lexical classes remain bounded; they do not establish full case mastery.
+
+Next, improve and measure the language quality and acceptance rate of generated reading/listening, then use the source inventory to prioritise the remaining language functions and original-production coverage. The persistent text/audio workflow is implemented, with browser playback checked. Preserve older units and First steps; an unmapped sequence reference is not proof of absent teaching. Each generated task must keep its accepted text, facts, answer key, support history and source scope. A refreshed situation must not rewrite an issued task or create another coin entitlement.
 
 **Done when:** the reviewed A1 scope has teaching, supported practice and suitable assessment material, with verified audio for every released listening task. Every excluded or unsupported requirement is visible in the coverage report. Content checks include misleading distractors, unnatural Russian and answers that require untaught knowledge.
 
@@ -567,7 +569,7 @@ These are required release cases, not a request for tests that merely repeat imp
 
 Attach the exercised manifest IDs, fixture IDs, browser/device sizes and check results to the implementation record. Distinguish software verification, language review and learner evaluation. A green automated suite does not establish that an assessment predicts TORFL performance.
 
-The current pass implements the P1 foundations and completes the P0 recording backlog. The implementation record distinguishes automated checks, browser checks and remaining evaluation. Next, finish the outstanding P1 acceptance cases and use the coverage allocations to fill P2 gaps. P3's expanded assessment blueprint, evaluation sample and pass policy remain explicit work; P4 teaching has not been authored. This specification does not authorise a proficiency claim merely by listing the required work.
+The repository contains the P1 foundations, the retained P0 recordings, the current P2 grammar additions and generated unit reading/listening with private on-demand audio. The implementation record distinguishes automated checks, browser checks and remaining evaluation. Next, finish the outstanding P1 acceptance cases and improve and measure generated-content quality, then use the coverage allocations to fill further P2 gaps. P3's expanded assessment blueprint, evaluation sample and pass policy remain explicit work; P4 teaching has not been authored. This specification does not authorise a proficiency claim merely by listing the required work.
 
 ## Sources
 

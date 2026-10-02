@@ -162,7 +162,7 @@ def normalize_form(value):
 
 
 def child_item(item, *, help_used=False, listened=False, transcript_used=False):
-    result = {k: item[k] for k in ('id','type','prompt','choices','asset_ids') if k in item}
+    result = {k: item[k] for k in ('id','type','prompt','passage','choices','asset_ids') if k in item}
     result['has_hint'] = bool(item.get('hint'))
     if help_used and item.get('hint'):
         result['hint'] = item['hint']

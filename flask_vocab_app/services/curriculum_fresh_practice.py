@@ -119,6 +119,9 @@ def start(db_path, credential, unit_id, request_id, *, expected_profile_id, stag
 
 
 def reward_family(content_id):
+    from services.curriculum_situations import PREFIX
+    if content_id.startswith(PREFIX):
+        return 'curriculum-unit:' + content_id[len(PREFIX):].rsplit(':', 1)[0]
     if not content_id.startswith(generation.PREFIX):
         return content_id
     unit_id, mode, _ = content_id[len(generation.PREFIX):].split(':')

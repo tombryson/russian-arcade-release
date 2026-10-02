@@ -112,6 +112,19 @@ main, .bottom { max-width: 1180px; margin: auto; }
 .practice-row h3 { font: 500 20px/1.5 var(--wp-font-reading); }
 .practice-row p { color: var(--wp-text-secondary); margin-top: 6px; }
 .practice-page { max-width: 900px; margin: auto; }
+.practice-reading-page { max-width: 1180px; }
+.practice-reading-layout { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+.practice-passage { min-width: 0; overflow-wrap: anywhere; }
+.letter .practice-passage p { margin: 0 0 16px; font: 400 20px/1.65 var(--wp-font-reading); white-space: pre-line; }
+.letter .practice-passage p:last-child { margin-bottom: 0; }
+.practice-reading-question { min-width: 0; padding-inline-start: 28px; border-inline-start: 1px solid var(--wp-border-subtle); }
+.page .practice-reading-question .practice-prompt { font: 500 23px/1.4 var(--wp-font-reading); letter-spacing: 0; }
+.practice-reading-question .options { display: grid; gap: 12px; margin-block: 16px; }
+.practice-reading-question .word { width: 100%; min-width: 0; text-align: start; font-size: 20px; padding: 12px 16px; overflow-wrap: anywhere; }
+@media (max-width: 850px) {
+  .practice-reading-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .practice-reading-question { padding-inline-start: 0; padding-top: 20px; border-inline-start: 0; border-top: 1px solid var(--wp-border-subtle); }
+}
 .practice-listening { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-block: 16px; }
 .practice-listening audio { width: min(100%, 360px); }
 .practice-audio-error { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; width: 100%; }

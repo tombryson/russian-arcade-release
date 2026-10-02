@@ -91,23 +91,35 @@ def validate_pack(pack):
         reject('A pack needs between 1 and 100 items.')
     seen = set()
     for item in pack['items']:
-        fields(item, {'id','type','prompt','answer'}, {'word_id','hint','asset_ids','direction','choices','accepted_answers','audio','transcript'})
+        fields(item, {'id','type','prompt','answer'}, {'word_id','hint','asset_ids','direction','choices','accepted_answers','audio','transcript','passage'})
         item_id = key(item['id'], 'Item ID')
         if item_id in seen:
             reject('Item IDs must be unique within a pack.')
         seen.add(item_id)
         text(item['prompt'], 'Prompt')
+        if 'passage' in item:
+            if pack['kind'] != 'activity' or item['type'] != 'choice':
+                reject('Only reading choice questions can include a visible passage.')
+            text(item['passage'], 'Passage', 2000)
         if item['type'] == 'listening_choice':
             if pack['kind'] != 'activity' or 'word_id' in item or 'asset_ids' in item:
                 reject('Listening questions cannot use card or recall metadata.')
             text(item.get('transcript'), 'Transcript', 4000)
-            audio = fields(item.get('audio'), {'url', 'sha256', 'duration_ms'})
-            if not isinstance(audio['url'], str) or not re.fullmatch(r'/static/audio/course/curriculum/[a-z0-9-]+/[a-z0-9-]+\.mp3', audio['url']):
-                reject('Listening audio must use a bundled curriculum recording.')
-            if not isinstance(audio['sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', audio['sha256']):
-                reject('Listening audio needs its immutable file hash.')
-            if type(audio['duration_ms']) is not int or not 1000 <= audio['duration_ms'] <= 180000:
-                reject('Listening audio must last 1–180 seconds.')
+            audio = item.get('audio')
+            if isinstance(audio, dict) and audio.get('kind') == 'generated':
+                from services.curriculum_generated_audio import validate_descriptor
+                try:
+                    validate_descriptor(audio, item['transcript'])
+                except ValueError as error:
+                    reject(str(error))
+            else:
+                audio = fields(audio, {'url', 'sha256', 'duration_ms'})
+                if not isinstance(audio['url'], str) or not re.fullmatch(r'/static/audio/course/curriculum/[a-z0-9-]+/[a-z0-9-]+\.mp3', audio['url']):
+                    reject('Listening audio must use a bundled curriculum recording or a private generated recording.')
+                if not isinstance(audio['sha256'], str) or not re.fullmatch(r'[a-f0-9]{64}', audio['sha256']):
+                    reject('Listening audio needs its immutable file hash.')
+                if type(audio['duration_ms']) is not int or not 1000 <= audio['duration_ms'] <= 180000:
+                    reject('Listening audio must last 1–180 seconds.')
         elif 'audio' in item or 'transcript' in item:
             reject('Only listening questions can contain audio and a transcript.')
         if 'hint' in item:

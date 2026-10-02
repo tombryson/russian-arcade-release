@@ -89,6 +89,23 @@
       {% if unit.speaking_href %}<section><h2>{{ unit.speaking_title_ru if russian else unit.speaking_title }}</h2><p>{{ unit.speaking_summary_ru|default('Поговорите с местным жителем в разговорной практике.') if russian else unit.speaking_summary|default('Talk to a local resident in Speaking.') }}</p><a href="{{ unit.speaking_href }}" hx-boost="false">{{ 'Открыть разговор' if russian else 'Open conversation' }} →</a></section>{% endif %}
     </div>
     {% endif %}
+    {% if generated_situations_available and profile_id %}
+    <section class="curriculum-situation-practice" aria-label="{{ 'Новые ситуации' if russian else 'New situations' }}">
+      <div><h2>{{ 'Примените изученное' if russian else 'Use what you have learned' }}</h2>
+        <p>{{ 'Прочитайте новое сообщение или послушайте его, затем ответьте на три вопроса.' if russian else 'Read or listen to a new message, then answer three questions.' }}</p>
+      </div>
+      <div class="curriculum-situation-actions">
+        <form method="post" action="/curriculum/units/{{ unit.id }}/situations" hx-boost="false">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="profile_id" value="{{ profile_id }}"><input type="hidden" name="request_id" value="{{ request_id }}-situation-reading">
+          <button class="btn btn-outline-primary" name="mode" value="reading" type="submit">{{ 'Читать' if russian else 'Read a new situation' }} →</button>
+        </form>
+        <form method="post" action="/curriculum/units/{{ unit.id }}/situations" hx-boost="false">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="profile_id" value="{{ profile_id }}"><input type="hidden" name="request_id" value="{{ request_id }}-situation-listening">
+          <button class="sentence-text-button" name="mode" value="listening" type="submit">{{ 'Слушать' if russian else 'Listen to a new situation' }} →</button>
+        </form>
+      </div>
+    </section>
+    {% endif %}
   </div>
 </main>
 {% endblock %}

@@ -17,11 +17,13 @@ UNIT_IDS = ('location-destination-v1', 'possession-absence-v1',
             'noun-adjective-agreement-v1', 'personal-reference-v1', 'basic-motion-v1',
             'numbers-quantities-v1', 'social-exchanges-v1', 'needs-company-v1',
             'action-aspect-v1', 'origins-and-destinations-v1', 'connected-messages-v1',
-            'instrumental-activities-professions-v1')
+            'instrumental-activities-professions-v1', 'calendar-and-duration-v1',
+            'talking-about-topics-v1')
 DATA_DIR = Path(__file__).resolve().parents[1] / 'data' / 'curriculum_units'
-# This unit has no prepared recordings. Do not infer playback from a unit ID.
+# These units have no prepared recordings. Do not infer playback from a unit ID.
 LISTENING_IDS = {unit_id: unit_id.removesuffix('-v1') + '-listening-v1' for unit_id in UNIT_IDS
-                 if unit_id != 'instrumental-activities-professions-v1'}
+                 if unit_id not in {'instrumental-activities-professions-v1',
+                                    'calendar-and-duration-v1', 'talking-about-topics-v1'}}
 
 
 def listening_content(unit_id):
@@ -155,7 +157,7 @@ def _practice_contract(unit, item, question, session_id):
 
 
 def _unit_for_pack(pack):
-    if pack['id'].startswith('curriculum-unit:g1:'):
+    if pack['id'].startswith(('curriculum-unit:g1:', 'curriculum-unit:situation-v1:')):
         return None
     prefix = 'curriculum-unit:'
     if not pack['id'].startswith(prefix):
@@ -214,6 +216,9 @@ def observe_answer(conn, profile_id, session_id, pack, item, attempt_id, answer,
 
 
 def practice_context(pack):
+    if pack['id'].startswith('curriculum-unit:situation-v1:'):
+        from services.curriculum_situations import origin
+        return origin(pack)
     if pack['id'].startswith('curriculum-unit:g1:'):
         from services.curriculum_fresh_practice import origin
         return origin(pack)

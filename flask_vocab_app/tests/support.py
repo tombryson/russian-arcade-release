@@ -17,7 +17,7 @@ def strip_curriculum_sequences(conn):
     """Remove additive sequence storage when constructing a pre-056 fixture."""
     # Rewinding markers alone leaves lesson tables behind and makes a valid
     # historical upgrade fail with "table already exists".
-    for table in ('curriculum_generated_starts', 'content_variation_exposures', 'comprehension_task_drafts', 'activity_support_disclosures', 'curriculum_unit_exchange_playback',
+    for table in ('curriculum_situation_requests', 'curriculum_situations', 'curriculum_generated_starts', 'content_variation_exposures', 'comprehension_task_drafts', 'activity_support_disclosures', 'curriculum_unit_exchange_playback',
                   'curriculum_unit_exchange_turns', 'curriculum_unit_exchanges',
                   'activity_review_submissions', 'learning_prior_feedback', 'learning_hint_usage',
                   'learning_session_drafts', 'curriculum_transfer_exposure',

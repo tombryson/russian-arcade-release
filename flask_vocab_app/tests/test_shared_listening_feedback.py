@@ -7,7 +7,7 @@ from uuid import uuid4
 from repositories.learning_repository import timestamp, transaction
 from repositories.curriculum_sequence_repository import validate_saved_sequences
 from services.activity_evidence import validate_saved_evidence
-from services.learning_listening import validate_saved_support
+from services.learning_listening import current_item_support, validate_saved_support
 from tests.support import isolated_app
 
 
@@ -70,6 +70,65 @@ class SharedListeningFeedbackTests(unittest.TestCase):
             validate_saved_sequences(conn)
             validate_saved_support(conn)
             validate_saved_evidence(conn)
+
+    def test_one_playback_covers_shared_questions_only_as_they_become_current(self):
+        run, state = self.start()
+        items = self.pack(state)['items']
+        state = self.command(state, 'listened')
+        first_receipt = None
+        for index, item in enumerate(items):
+            self.assertTrue(state['item']['listened'])
+            self.assertIsNone(state['item'].get('transcript'))
+            with transaction(self.db) as conn:
+                receipts = conn.execute('SELECT * FROM learning_item_support WHERE session_id=? ORDER BY item_id',
+                                        (state['id'],)).fetchall()
+                self.assertEqual({r['item_id'] for r in receipts}, {i['id'] for i in items[:index + 1]})
+                current_first = tuple(next(r for r in receipts if r['item_id'] == items[0]['id']))
+                if first_receipt is None:
+                    first_receipt = current_first
+                self.assertEqual(current_first, first_receipt)
+            self.assertTrue(self.read(state['id'])['item']['listened'])
+            with transaction(self.db) as conn:
+                self.assertEqual(conn.execute('SELECT * FROM learning_item_support WHERE session_id=? ORDER BY item_id',
+                                              (state['id'],)).fetchall(), receipts)
+            state = self.command(state, 'attempts', {'choice_id': item['answer']})
+            self.assertFalse(state['feedback']['assisted'])
+        self.assertEqual(state['status'], 'completed')
+        self.assertTrue(all(a['feedback']['support'] == [] for a in state['attempts']))
+        with transaction(self.db) as conn:
+            self.assertEqual(conn.execute('SELECT COUNT(*) FROM learning_commands WHERE session_id=?',
+                                          (state['id'],)).fetchone()[0], 4)
+        # A second session must hear the recording itself, even for this owner.
+        _, retry = self.open_step(run, 'retry')
+        self.assertFalse(retry['item']['listened'])
+        other = self.client.post('/api/v1/user-session/profiles', json={'display_name': 'Other listener'},
+                                 headers=self.headers)
+        self.assertEqual(other.status_code, 201, other.get_data(as_text=True))
+        self.headers = {'X-CSRF-Token': other.json['csrf_token']}
+        _, private = self.start()
+        self.assertFalse(private['item']['listened'])
+        self.assertEqual(self.client.get('/api/v1/learning-sessions/' + state['id']).status_code, 404)
+        self.validate()
+
+    def test_playback_projection_requires_exact_recording_and_transcript_and_current_question(self):
+        _, state = self.start()
+        state = self.command(state, 'listened')
+        source = self.pack(state)
+        with transaction(self.db) as conn:
+            changes = conn.total_changes
+            projected = current_item_support(conn, state['id'], source['items'][1], source, 1)
+            self.assertEqual(projected, {'listened': True, 'support': []})
+            for field in ('sha256', 'transcript'):
+                pack = deepcopy(source)
+                if field == 'sha256':
+                    pack['items'][1]['audio']['sha256'] = '0' * 64
+                else:
+                    pack['items'][1]['transcript'] += ' Другой текст.'
+                with self.subTest(field=field):
+                    self.assertFalse(current_item_support(conn, state['id'], pack['items'][1], pack, 1)['listened'])
+            self.assertFalse(current_item_support(conn, state['id'], source['items'][2], source, 1)['listened'])
+            self.assertEqual(conn.total_changes, changes)
+        self.validate()
 
     def test_shared_message_hides_key_and_marks_until_last_question_then_restores_feedback(self):
         _, state = self.start()

@@ -104,6 +104,8 @@ def install_household_policy(app):
             role = 'public'
         if request.endpoint == 'static':
             filename = request.view_args.get('filename', '')
+            if 'curriculum-audio' in filename.replace('\\', '/').casefold().split('/'):
+                abort(404)
             # The hosted dispatcher sends shared art and sign-in assets through
             # this same guard, without opening a learner's private workspace.
             if '/static/' + filename in ACCOUNT_PUBLIC_ASSETS or filename.startswith(('css/','js/')) or re.fullmatch(r'audio/deliveries/[0-9a-f]{24}\.mp3', filename) or (filename.startswith('audio/first-steps-v2/') and is_public_recording(filename)) or is_public_teaching_recording(filename) or filename in {

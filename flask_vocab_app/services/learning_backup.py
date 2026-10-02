@@ -10,7 +10,8 @@ import time
 from repositories.learning_repository import LearningError
 
 
-def backup_learning_store(db_path, store, destination, lesson_upload_folder=None):
+def backup_learning_store(db_path, store, destination, lesson_upload_folder=None, *, media_root=None):
+    media_root = Path(media_root).resolve() if media_root is not None else Path(db_path).resolve().parent / 'media'
     destination = Path(destination).resolve()
     destination.mkdir(mode=0o700, parents=True, exist_ok=False)
     marker = destination / 'INCOMPLETE'
@@ -29,6 +30,14 @@ def backup_learning_store(db_path, store, destination, lesson_upload_folder=None
             lesson_files = []
             legacy_lessons = []
             unit_audio = {}
+            if (snapshot.execute("SELECT 1 FROM sqlite_master WHERE name='curriculum_situations'").fetchone()
+                    and snapshot.execute("SELECT 1 FROM curriculum_situations WHERE state='running' AND lease_until>?", (int(time.time()),)).fetchone()):
+                raise LearningError('backup_busy', 'Let lesson situation preparation finish before backing up.')
+            from services.curriculum_generated_audio import validate_saved_generated_audio
+            try:
+                generated_audio = validate_saved_generated_audio(snapshot, media_root, require_audio=True)
+            except (LearningError, OSError, ValueError, TypeError, KeyError) as error:
+                raise LearningError('backup_invalid', 'A generated lesson recording could not be verified; the backup is incomplete.') from error
             if snapshot.execute("SELECT 1 FROM sqlite_master WHERE name='activity_review_submissions'").fetchone():
                 from services.activity_review_submissions import validate_saved_reviews
                 try:
@@ -76,6 +85,20 @@ def backup_learning_store(db_path, store, destination, lesson_upload_folder=None
         shutil.copyfile(source, target)
         if target.stat().st_size != asset['byte_size'] or hashlib.sha256(target.read_bytes()).hexdigest() != asset['sha256']:
             raise LearningError('backup_invalid', 'An asset failed its checksum; the backup is incomplete.')
+    generated_manifest = []
+    for source_name, expected_hash in sorted(generated_audio.items()):
+        source = Path(source_name)
+        relative = Path('media') / source.relative_to(media_root)
+        target = destination / relative
+        target.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+        try:
+            shutil.copyfile(source, target)
+            target.chmod(0o600)
+            if hashlib.sha256(target.read_bytes()).hexdigest() != expected_hash:
+                raise ValueError('Recording bytes changed.')
+        except (OSError, ValueError) as error:
+            raise LearningError('backup_invalid', 'A generated lesson recording changed or is missing; the backup is incomplete.') from error
+        generated_manifest.append({'file': relative.as_posix(), 'sha256': expected_hash, 'byte_size': target.stat().st_size})
     audio_manifest = []
     unit_manifest = []
     for source_name, expected_hash in sorted(unit_audio.items()):
@@ -160,8 +183,9 @@ def backup_learning_store(db_path, store, destination, lesson_upload_folder=None
                 'assets': assets, 'conversation_audio': audio_manifest, 'live_conversation_audio': live_manifest,
                 'step_conversation_audio': step_manifest,
                 'unit_exchange_audio': unit_manifest,
+                'generated_curriculum_audio': generated_manifest,
                 'lesson_files':list(lesson_manifest.values()),
-                'scope': 'Application SQLite database, Word Post assets, lesson originals/pages and private conversation recordings. Other legacy media, external Anki and Drive are separate backups.'}
+                'scope': 'Application SQLite database, Word Post assets, lesson originals/pages, generated curriculum audio and private conversation recordings. Other legacy media, external Anki and Drive are separate backups.'}
     (destination / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2))
     marker.unlink()
     return manifest

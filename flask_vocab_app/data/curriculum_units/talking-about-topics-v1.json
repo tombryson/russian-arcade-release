@@ -1,0 +1,368 @@
+{
+  "id": "talking-about-topics-v1",
+  "level": "A1",
+  "topic_id": "hobbies",
+  "title": "Talking about people and interests",
+  "title_ru": "О людях и интересах",
+  "summary": "Say what a conversation or thought is about.",
+  "summary_ru": "Назовите тему разговора или мысли.",
+  "practice_summary": "Say what a conversation or thought is about.",
+  "practice_summary_ru": "Назовите тему разговора или мысли.",
+  "review_status": "application-authored; automated contract and morphology checks; independent language evaluation pending",
+  "groups": [
+    {
+      "title": "The topic of a conversation",
+      "title_ru": "Тема разговора",
+      "note": "After говорить, думать or рассказывать, о names the topic: what someone is talking or thinking about. The noun takes the prepositional. The verb is supplied in the exercises.",
+      "note_ru": "После говорить, думать и рассказывать предлог о называет тему. Существительное ставится в предложном падеже. В заданиях форма глагола уже дана.",
+      "examples": [
+        {
+          "ru": "Я говорю о маме. Мы говорим о друге.",
+          "en": "I am talking about my mother. We are talking about a male friend."
+        },
+        {
+          "ru": "Ты думаешь о семье. Она думает о работе.",
+          "en": "You are thinking about your family. She is thinking about work."
+        },
+        {
+          "ru": "Вы рассказываете о книге. Они рассказывают о музыке.",
+          "en": "You are talking about a book. They are talking about music."
+        }
+      ]
+    },
+    {
+      "title": "A topic, not a location",
+      "title_ru": "Тема, а не место",
+      "note": "This is the same case used for location after в and на, but it expresses a different relationship. Compare на работе — at work, and о работе — about work. For these nouns use -е: мама → маме, друг → друге, семья → семье, книга → книге, музыка → музыке, спорт → спорте.",
+      "note_ru": "Это тот же падеж, что после в и на при обозначении места, но другая связь: на работе — место, о работе — тема. Формы этих слов: маме, друге, семье, книге, музыке, спорте.",
+      "examples": [
+        {
+          "ru": "Она на работе. Она говорит о работе.",
+          "en": "She is at work. She is talking about work."
+        },
+        {
+          "ru": "Мы говорим о спорте.",
+          "en": "We are talking about sport."
+        }
+      ]
+    },
+    {
+      "title": "О or об",
+      "title_ru": "О или об",
+      "note": "Use об before the opening vowel sound in отдых: об отдыхе. The choice depends on sound, so do not replace о mechanically before every vowel letter: о языке is correct. Practise these two patterns here; pronouns such as обо мне come later.",
+      "note_ru": "Перед гласным звуком в слове отдых используется об: об отдыхе. Выбор зависит от звука, поэтому о языке — верно. Здесь отрабатываются эти конструкции; формы вроде обо мне изучаются отдельно.",
+      "examples": [
+        {
+          "ru": "Они рассказывают об отдыхе.",
+          "en": "They are talking about their holiday."
+        },
+        {
+          "ru": "Она думает об отдыхе.",
+          "en": "She is thinking about taking a rest."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q-002a7421a2c5f978dcd7",
+      "prompt": "Они рассказывают о [...].\nдруг — male friend. Name one topic being discussed or thought about.",
+      "prompt_ru": "Они рассказывают о [...].\nдруг. Назовите одну тему речи или мысли.",
+      "hint": "About a topic uses о + prepositional: о друге.",
+      "hint_ru": "Тема речи или мысли: о + предложный падеж — о друге.",
+      "explanation": "About a topic uses о + prepositional: о друге.",
+      "explanation_ru": "Тема речи или мысли: о + предложный падеж — о друге.",
+      "requirement_id": "a1.language.prepositional-topic",
+      "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "другу"
+        },
+        {
+          "id": "option-1",
+          "text": "друге"
+        },
+        {
+          "id": "option-2",
+          "text": "друга"
+        },
+        {
+          "id": "option-3",
+          "text": "друг"
+        }
+      ],
+      "answer": "option-1"
+    },
+    {
+      "id": "q-362580e3ed7ebc22e1a3",
+      "prompt": "Я говорю о [...].\nспорт — sport. Name one topic being discussed or thought about.",
+      "prompt_ru": "Я говорю о [...].\nспорт. Назовите одну тему речи или мысли.",
+      "hint": "About a topic uses о + prepositional: о спорте.",
+      "hint_ru": "Тема речи или мысли: о + предложный падеж — о спорте.",
+      "explanation": "About a topic uses о + prepositional: о спорте.",
+      "explanation_ru": "Тема речи или мысли: о + предложный падеж — о спорте.",
+      "requirement_id": "a1.language.prepositional-topic",
+      "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "спорту"
+        },
+        {
+          "id": "option-1",
+          "text": "спорте"
+        },
+        {
+          "id": "option-2",
+          "text": "спорт"
+        },
+        {
+          "id": "option-3",
+          "text": "спорта"
+        }
+      ],
+      "answer": "option-1"
+    },
+    {
+      "id": "q-718af4e33a924903ba4c",
+      "prompt": "Она думает о [...].\nкнига — book. Name one topic being discussed or thought about.",
+      "prompt_ru": "Она думает о [...].\nкнига. Назовите одну тему речи или мысли.",
+      "hint": "About a topic uses о + prepositional: о книге.",
+      "hint_ru": "Тема речи или мысли: о + предложный падеж — о книге.",
+      "explanation": "About a topic uses о + prepositional: о книге.",
+      "explanation_ru": "Тема речи или мысли: о + предложный падеж — о книге.",
+      "requirement_id": "a1.language.prepositional-topic",
+      "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "книге"
+        },
+        {
+          "id": "option-1",
+          "text": "книги"
+        },
+        {
+          "id": "option-2",
+          "text": "книга"
+        },
+        {
+          "id": "option-3",
+          "text": "книгу"
+        }
+      ],
+      "answer": "option-0"
+    },
+    {
+      "id": "q-72f9ad83d0eef3f75722",
+      "prompt": "Ты думаешь о [...].\nмузыка — music. Name one topic being discussed or thought about.",
+      "prompt_ru": "Ты думаешь о [...].\nмузыка. Назовите одну тему речи или мысли.",
+      "hint": "About a topic uses о + prepositional: о музыке.",
+      "hint_ru": "Тема речи или мысли: о + предложный падеж — о музыке.",
+      "explanation": "About a topic uses о + prepositional: о музыке.",
+      "explanation_ru": "Тема речи или мысли: о + предложный падеж — о музыке.",
+      "requirement_id": "a1.language.prepositional-topic",
+      "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "музыку"
+        },
+        {
+          "id": "option-1",
+          "text": "музыка"
+        },
+        {
+          "id": "option-2",
+          "text": "музыки"
+        },
+        {
+          "id": "option-3",
+          "text": "музыке"
+        }
+      ],
+      "answer": "option-3"
+    },
+    {
+      "id": "q-81f4822a98fffb3983e0",
+      "prompt": "Она думает о [...].\nмама — mother. Name one topic being discussed or thought about.",
+      "prompt_ru": "Она думает о [...].\nмама. Назовите одну тему речи или мысли.",
+      "hint": "About a topic uses о + prepositional: о маме.",
+      "hint_ru": "Тема речи или мысли: о + предложный падеж — о маме.",
+      "explanation": "About a topic uses о + prepositional: о маме.",
+      "explanation_ru": "Тема речи или мысли: о + предложный падеж — о маме.",
+      "requirement_id": "a1.language.prepositional-topic",
+      "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "мамы"
+        },
+        {
+          "id": "option-1",
+          "text": "мама"
+        },
+        {
+          "id": "option-2",
+          "text": "маму"
+        },
+        {
+          "id": "option-3",
+          "text": "маме"
+        }
+      ],
+      "answer": "option-3"
+    },
+    {
+      "id": "q-c302342148d6e568f438",
+      "prompt": "Я говорю об [...].\nотдых — rest or a holiday. Name one topic being discussed or thought about.",
+      "prompt_ru": "Я говорю об [...].\nотдых. Назовите одну тему речи или мысли.",
+      "hint": "About a topic uses о + prepositional: об отдыхе. Use об before the vowel sound at the start of отдых.",
+      "hint_ru": "Тема речи или мысли: о + предложный падеж — об отдыхе.",
+      "explanation": "About a topic uses о + prepositional: об отдыхе. Use об before the vowel sound at the start of отдых.",
+      "explanation_ru": "Тема речи или мысли: о + предложный падеж — об отдыхе.",
+      "requirement_id": "a1.language.prepositional-topic",
+      "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+      "choices": [
+        {
+          "id": "option-0",
+          "text": "отдыха"
+        },
+        {
+          "id": "option-1",
+          "text": "отдыхе"
+        },
+        {
+          "id": "option-2",
+          "text": "отдых"
+        },
+        {
+          "id": "option-3",
+          "text": "отдыху"
+        }
+      ],
+      "answer": "option-1"
+    }
+  ],
+  "forms": {
+    "version": "talking-about-topics-forms-v1",
+    "title": "Write the missing phrase",
+    "title_ru": "Впишите пропущенное слово или сочетание",
+    "questions": [
+      {
+        "id": "form-q-002a7421a2c5f978dcd7",
+        "prompt": "Они рассказывают о [...].\nдруг — male friend. Name one topic being discussed or thought about.",
+        "prompt_ru": "Они рассказывают о [...].\nдруг. Назовите одну тему речи или мысли.",
+        "hint": "About a topic uses о + prepositional: о друге.",
+        "hint_ru": "Тема речи или мысли: о + предложный падеж — о друге.",
+        "explanation": "About a topic uses о + prepositional: о друге.",
+        "explanation_ru": "Тема речи или мысли: о + предложный падеж — о друге.",
+        "requirement_id": "a1.language.prepositional-topic",
+        "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+        "answer": "друге",
+        "accepted_answers": [
+          "друге"
+        ]
+      },
+      {
+        "id": "form-q-362580e3ed7ebc22e1a3",
+        "prompt": "Я говорю о [...].\nспорт — sport. Name one topic being discussed or thought about.",
+        "prompt_ru": "Я говорю о [...].\nспорт. Назовите одну тему речи или мысли.",
+        "hint": "About a topic uses о + prepositional: о спорте.",
+        "hint_ru": "Тема речи или мысли: о + предложный падеж — о спорте.",
+        "explanation": "About a topic uses о + prepositional: о спорте.",
+        "explanation_ru": "Тема речи или мысли: о + предложный падеж — о спорте.",
+        "requirement_id": "a1.language.prepositional-topic",
+        "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+        "answer": "спорте",
+        "accepted_answers": [
+          "спорте"
+        ]
+      },
+      {
+        "id": "form-q-718af4e33a924903ba4c",
+        "prompt": "Она думает о [...].\nкнига — book. Name one topic being discussed or thought about.",
+        "prompt_ru": "Она думает о [...].\nкнига. Назовите одну тему речи или мысли.",
+        "hint": "About a topic uses о + prepositional: о книге.",
+        "hint_ru": "Тема речи или мысли: о + предложный падеж — о книге.",
+        "explanation": "About a topic uses о + prepositional: о книге.",
+        "explanation_ru": "Тема речи или мысли: о + предложный падеж — о книге.",
+        "requirement_id": "a1.language.prepositional-topic",
+        "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+        "answer": "книге",
+        "accepted_answers": [
+          "книге"
+        ]
+      },
+      {
+        "id": "form-q-72f9ad83d0eef3f75722",
+        "prompt": "Ты думаешь о [...].\nмузыка — music. Name one topic being discussed or thought about.",
+        "prompt_ru": "Ты думаешь о [...].\nмузыка. Назовите одну тему речи или мысли.",
+        "hint": "About a topic uses о + prepositional: о музыке.",
+        "hint_ru": "Тема речи или мысли: о + предложный падеж — о музыке.",
+        "explanation": "About a topic uses о + prepositional: о музыке.",
+        "explanation_ru": "Тема речи или мысли: о + предложный падеж — о музыке.",
+        "requirement_id": "a1.language.prepositional-topic",
+        "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+        "answer": "музыке",
+        "accepted_answers": [
+          "музыке"
+        ]
+      },
+      {
+        "id": "form-q-81f4822a98fffb3983e0",
+        "prompt": "Она думает о [...].\nмама — mother. Name one topic being discussed or thought about.",
+        "prompt_ru": "Она думает о [...].\nмама. Назовите одну тему речи или мысли.",
+        "hint": "About a topic uses о + prepositional: о маме.",
+        "hint_ru": "Тема речи или мысли: о + предложный падеж — о маме.",
+        "explanation": "About a topic uses о + prepositional: о маме.",
+        "explanation_ru": "Тема речи или мысли: о + предложный падеж — о маме.",
+        "requirement_id": "a1.language.prepositional-topic",
+        "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+        "answer": "маме",
+        "accepted_answers": [
+          "маме"
+        ]
+      },
+      {
+        "id": "form-q-c302342148d6e568f438",
+        "prompt": "Я говорю об [...].\nотдых — rest or a holiday. Name one topic being discussed or thought about.",
+        "prompt_ru": "Я говорю об [...].\nотдых. Назовите одну тему речи или мысли.",
+        "hint": "About a topic uses о + prepositional: об отдыхе. Use об before the vowel sound at the start of отдых.",
+        "hint_ru": "Тема речи или мысли: о + предложный падеж — об отдыхе.",
+        "explanation": "About a topic uses о + prepositional: об отдыхе. Use об before the vowel sound at the start of отдых.",
+        "explanation_ru": "Тема речи или мысли: о + предложный падеж — об отдыхе.",
+        "requirement_id": "a1.language.prepositional-topic",
+        "expectation": "Use the taught construction for the stated time or topic. This checks a supplied case frame, not independent communication.",
+        "answer": "отдыхе",
+        "accepted_answers": [
+          "отдыхе"
+        ]
+      }
+    ]
+  },
+  "writing": {
+    "title": "После разговора",
+    "title_en": "After a conversation",
+    "task": "Напиши другу, с кем ты недавно разговаривал и о чём. Добавь одну подробность. Можно придумать разговор.",
+    "task_en": "Write to a friend about a recent conversation. Say who you talked to, what it was about and one detail. You may invent the conversation.",
+    "required_words": [
+      "разговор",
+      "друг",
+      "интерес"
+    ]
+  },
+  "writing_focus": {
+    "requirement_id": "a1.writing.connected-description",
+    "id": "talking-about-topics-v1-message",
+    "expectation": "Communicate the requested details in an original short message. Accept natural paraphrases. Do not require suggested vocabulary, one case pattern or a word count. This criterion does not certify independent case control."
+  },
+  "writing_summary": "Write to a friend about a recent conversation. Say who you talked to, what it was about and one detail. You may invent the conversation.",
+  "writing_summary_ru": "Напиши другу, с кем ты недавно разговаривал и о чём. Добавь одну подробность. Можно придумать разговор.",
+  "speaking_href": "/#speaking/scenario/meet-someone?level=A1",
+  "speaking_title": "Meeting people",
+  "speaking_title_ru": "Знакомство",
+  "speaking_summary": "Talk about plans or interests in a separate conversation.",
+  "speaking_summary_ru": "Обсудите планы или интересы в отдельном разговоре."
+}
