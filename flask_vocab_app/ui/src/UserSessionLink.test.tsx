@@ -36,14 +36,24 @@ describe('User profile link', () => {
     expect(link.getAttribute('href')).toBe('/trial/account');
     expect(link.querySelector('.user-session-initial')).toBeNull();
   });
-  it.each(['en','ru'] as const)('takes the hosted %s avatar directly to the account', language => {
+  it.each(['en','ru'] as const)('takes the hosted %s avatar to the profile overview', language => {
     render(<UserSessionLink profile={{id:'hosted-personal',display_name:'Tom'}} language={language} accountMode="hosted" signInAvailable sessionScope="hosted:opaque-account" />);
-    const link=screen.getByRole('link',{name:language==='ru' ? 'Аккаунт: Tom' : 'Account: Tom'});
-    expect(link.getAttribute('href')).toBe('/trial/account');
+    const link=screen.getByRole('link',{name:language==='ru' ? 'Профиль: Tom' : 'Profile: Tom'});
+    expect(link.getAttribute('href')).toBe('/post/profiles');
     expect(link.hasAttribute('data-user-session')).toBe(true);
     expect(link.getAttribute('data-profile-id')).toBe('hosted-personal');
     expect(link.getAttribute('data-session-scope')).toBe('hosted:opaque-account');
     expect(link.textContent).toBe('T');
+  });
+  it.each(['en','ru'] as const)('keeps the hosted %s profile overview available without a display name', language => {
+    const {rerender}=render(<UserSessionLink profile={{id:'hosted-personal',display_name:'  '}} language={language} accountMode="hosted" />);
+    const label=language==='ru' ? 'Ваш профиль' : 'Your profile';
+    const link=screen.getByRole('link',{name:label});
+    expect(link.getAttribute('href')).toBe('/post/profiles');
+    expect(link.getAttribute('title')).toBe(label);
+    expect(link.textContent).toBe('●');
+    rerender(<UserSessionLink profile={null} language={language} accountMode="hosted" />);
+    expect(screen.getByRole('link',{name:label}).getAttribute('href')).toBe('/post/profiles');
   });
   it('keeps local household selection separate from personal session monitoring', () => {
     render(<UserSessionLink profile={null} household />);

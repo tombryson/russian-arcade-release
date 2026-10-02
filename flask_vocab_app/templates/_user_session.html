@@ -9,11 +9,11 @@
 {% elif account_mode == 'preview' %}
   {% set profile_label = ('Войти' if ui_lang == 'ru' else 'Sign in') if config.get('HOSTED_ACCOUNTS_ENABLED') else account_label %}
 {% elif account_mode == 'hosted' %}
-  {% set profile_label = account_label ~ (': ' ~ profile_name if profile_name else '') %}
+  {% set profile_label = ('Профиль: ' if ui_lang == 'ru' else 'Profile: ') ~ profile_name if profile_name else ('Ваш профиль' if ui_lang == 'ru' else 'Your profile') %}
 {% else %}
   {% set profile_label = ('Профили семьи' if ui_lang == 'ru' else 'Household profiles') if household_enabled else ((('Профиль: ' if ui_lang == 'ru' else 'Profile: ') ~ profile_name if profile_name else ('Ваш профиль' if ui_lang == 'ru' else 'Your profile')) if current_profile else ('Выбрать профиль' if ui_lang == 'ru' else 'Choose a profile')) %}
 {% endif %}
-<a class="user-session-link{% if account_mode in ('preview', 'demo') %} user-session-account-entry{% endif %}" href="{{ '/demo' if account_mode == 'preview' and config.get('HOSTED_GUEST_DEMO_ENABLED') else '/trial/account' if account_mode != 'local' else '/post/household' if household_enabled else '/post/profiles' }}" hx-boost="false" aria-label="{{ profile_label }}" title="{{ profile_label }}"{% if account_mode != 'local' or not household_enabled %} data-user-session data-profile-id="{{ current_profile.id if current_profile else '' }}" data-session-scope="{{ user_session_scope | default('') }}"{% endif %}>
+<a class="user-session-link{% if account_mode in ('preview', 'demo') %} user-session-account-entry{% endif %}" href="{{ '/demo' if account_mode == 'preview' and config.get('HOSTED_GUEST_DEMO_ENABLED') else '/trial/account' if account_mode in ('preview', 'demo') else '/post/household' if account_mode == 'local' and household_enabled else '/post/profiles' }}" hx-boost="false" aria-label="{{ profile_label }}" title="{{ profile_label }}"{% if account_mode != 'local' or not household_enabled %} data-user-session data-profile-id="{{ current_profile.id if current_profile else '' }}" data-session-scope="{{ user_session_scope | default('') }}"{% endif %}>
   {% if account_mode in ('preview', 'demo') %}{{ profile_label }}
   {% elif current_profile %}<span class="user-session-initial" aria-hidden="true">{{ profile_name[0] | upper if profile_name else '●' }}</span>
   {% else %}<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21v-2a7.5 7.5 0 0 1 15 0v2"/></svg>{% endif %}

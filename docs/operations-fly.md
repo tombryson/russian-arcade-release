@@ -111,8 +111,9 @@ See [account sign-in](account-sign-in.md) for Google configuration and connectin
 Google to an existing GitHub account. Connected methods share the same account
 data and AI allowance. Sign-in never merges accounts by email or display name.
 
-When accounts are available, **Sign in** appears in the header and sidebar. The
-account control opens `/trial/account`, where signed-in users can sign out.
+When accounts are available, **Sign in** appears in the header and sidebar.
+After sign-in, the avatar opens the profile overview at `/post/profiles`.
+Its **Account settings** link opens `/trial/account` for sign-in methods and sign-out.
 When sign-in is unavailable, that page explains the deployment's current state.
 `GET /trial/status` reports `enabled` (accounts), `configured` (OAuth), configured
 providers and `ai_enabled` (paid AI). It never returns credential values.

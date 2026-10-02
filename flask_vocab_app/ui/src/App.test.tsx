@@ -246,8 +246,8 @@ describe('Personal user sessions', () => {
     expect(control().textContent).toBe('Аккаунт');
     expect(control().getAttribute('href')).toBe('/trial/account');
     rerender(<App navigation={navigation} navigationLayout={navigationLayout} initialProfile={{id:'hosted-personal',display_name:'Tom'}} accountMode="hosted" />);
-    expect(control()).toBe(screen.getByRole('link',{name:'Account: Tom'}));
-    expect(control().getAttribute('href')).toBe('/trial/account');
+    expect(control()).toBe(screen.getByRole('link',{name:'Profile: Tom'}));
+    expect(control().getAttribute('href')).toBe('/post/profiles');
     expect(control().getAttribute('data-profile-id')).toBe('hosted-personal');
     expect(control().textContent).toBe('T');
     rerender(<App navigation={navigation} navigationLayout={navigationLayout} initialProfile={{id:'tom',display_name:'Tom'}} />);

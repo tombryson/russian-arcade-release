@@ -236,7 +236,9 @@ def install_trial_session(app):
             '/apply_sanitization', '/edit_word', '/delete_word', '/add_word',
         } or request.args.get('source', 'db') != 'db':
             return jsonify(error={'code': 'local_tool', 'message': 'Drive and Anki tools run in a local installation.'}), 403
-        if request.path in {'/post/profiles', '/post/household'}:
+        if request.path == '/post/household':
+            return flask_redirect('/trial/account' if app.config.get('HOSTED_GUEST_DEMO') else '/post/profiles')
+        if request.path == '/post/profiles' and app.config.get('HOSTED_GUEST_DEMO'):
             return flask_redirect('/trial/account')
         if request.endpoint in {'user_sessions.create_profile', 'user_sessions.select_profile',
                                 'user_sessions.actions', 'user_sessions.end'}:
@@ -823,9 +825,8 @@ class HostedTrialDispatcher:
                                   'All visitors share US$1 per day and US$10 in total. Saved practice remains available when an allowance is used.'
                                   if self.ai_enabled else
                                   'AI generation is currently turned off. Your saved practice remains available.')
-                    response = self._page('Your account',
-                        'Your practice and uploads stay in this account.',
-                        account=account, allowance_message=ai_message)
+                    response = self._page('Account settings', '', account=account,
+                        allowance_message=ai_message, next_url='/post/profiles')
                 elif guest:
                     response = self._page('Demo',
                         'Your demo expires after 24 hours. Sign in to open your personal account.'
@@ -840,7 +841,7 @@ class HostedTrialDispatcher:
                         'You are using a temporary demo profile. Personal sign-in is not enabled on this site yet. You can try the sample activities here, or use the full app in a local installation.')
             elif request.path == '/trial/sign-in' and request.method == 'GET':
                 if account:
-                    response = self._response(redirect('/trial/account'))
+                    response = self._response(redirect('/post/profiles'))
                 elif self._provider_options():
                     response = self._page('Sign in', '', next_url=safe_return_url(request.args.get('next')))
                 else:

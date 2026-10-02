@@ -113,7 +113,7 @@ class HostedTrialIntegrationTests(unittest.TestCase):
         self.assertEqual(trial.config['LESSON_MAX_PAGES'], 12)
         self.assertEqual(trial.config['MAX_CONTENT_LENGTH'], 12 * 1024 * 1024)
 
-    def test_profile_control_reaches_account_before_and_after_signin(self):
+    def test_profile_control_opens_overview_after_signin_and_keeps_settings_separate(self):
         app = self.app()
         client = app.test_client()
         visitor = client.get('/post/profiles', base_url=self.base)
@@ -123,9 +123,14 @@ class HostedTrialIntegrationTests(unittest.TestCase):
         self.assertIn('href="/trial/sign-in/github"', page.text)
         self.login(client)
         learner = client.get('/post/profiles', base_url=self.base)
-        self.assertEqual(learner.status_code, 302)
-        self.assertEqual(learner.location, '/trial/account')
-        page = client.get(learner.location, base_url=self.base)
+        self.assertEqual(learner.status_code, 200)
+        self.assertIn('Your profile', learner.text)
+        self.assertIn('Skill progress', learner.text)
+        self.assertIn('href="/trial/account"', learner.text)
+        self.assertNotIn('action="/trial/sign-out"', learner.text)
+        page = client.get('/trial/account', base_url=self.base)
+        self.assertIn('<h1>Account settings</h1>', page.text)
+        self.assertIn('href="/post/profiles"', page.text)
         self.assertIn('Signed in as <strong>sample-user</strong>.', page.text)
         self.assertIn('action="/trial/sign-out"', page.text)
 
@@ -174,7 +179,7 @@ class HostedTrialIntegrationTests(unittest.TestCase):
                 'providers': [{'id': 'github', 'name': 'GitHub', 'sign_in_url': '/trial/sign-in/github'}],
                 'sign_in_url': '/trial/sign-in', 'account_url': '/trial/account'})
             account = client.get('/trial/account', base_url=self.base).text
-            self.assertIn('Your practice and uploads stay in this account.', account)
+            self.assertIn('<h1>Account settings</h1>', account)
             self.assertIn('AI generation is currently turned off.', account)
             self.assertNotIn('US$1', account)
             self.assertEqual(client.get('/api/v1/user-session', base_url=self.base).json['profile']['id'], 'personal-learning')

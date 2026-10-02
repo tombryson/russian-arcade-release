@@ -1,6 +1,12 @@
 .profile-course-progress { display:flex; align-items:baseline; justify-content:space-between; gap:12px 24px; flex-wrap:wrap; margin:24px 0; font-size:15px; }
 .profile-course-progress p { margin:0; }
 .profile-course-progress a { color:inherit; text-underline-offset:4px; }
+.profile-overview .profile-course-progress { padding:18px 0; border-block:1px solid var(--wp-border-subtle); }
+.profile-overview .profile-skill-progress { margin:24px 0 0; }
+.profile-overview .profile-skill-list li { padding:12px 0; }
+.profile-overview .profile-skill-description { flex:1; grid-template-columns:minmax(160px,240px) minmax(0,1fr); gap:12px; align-items:baseline; }
+.profile-overview-start { color:var(--wp-text-secondary); }
+.profile-overview-start a { color:var(--wp-text-primary); text-underline-offset:4px; }
 .profile-skill-progress {
   margin:36px 0;
   padding:28px 30px 22px;
@@ -26,6 +32,7 @@
 .profile-skill-explanation summary:focus-visible { outline:3px solid var(--wp-accent-learning,#b5c4ff); outline-offset:5px; border-radius:2px; }
 .profile-skill-explanation p { max-width:700px; color:var(--wp-text-secondary,#c8c8da); font-size:14px; line-height:1.75; margin:14px 0 0; }
 @media(max-width:560px) {
+  .profile-overview .profile-skill-description { grid-template-columns:1fr; gap:4px; }
   .profile-skill-progress { margin:28px 0; padding:22px 20px 20px; }
   .profile-skill-heading { gap:12px; }
   .profile-skill-rating-label { max-width:84px; font-size:11px; }

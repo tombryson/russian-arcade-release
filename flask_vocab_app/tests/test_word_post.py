@@ -228,12 +228,12 @@ class WordPostTests(unittest.TestCase):
                             self.assertRegex(link, rf'>\s*{label}\s*</a>')
                             self.assertNotIn('user-session-initial', link)
                         elif mode == 'hosted':
-                            label = 'Аккаунт: Tom' if language == 'ru' else 'Account: Tom'
+                            label = 'Профиль: Tom' if language == 'ru' else 'Profile: Tom'
                         elif household:
                             label = 'Профили семьи' if language == 'ru' else 'Household profiles'
                         else:
                             label = 'Профиль: Tom' if language == 'ru' else 'Profile: Tom'
-                        destination = '/trial/account' if mode != 'local' else '/post/household' if household else '/post/profiles'
+                        destination = '/trial/account' if mode == 'preview' else '/post/household' if mode == 'local' and household else '/post/profiles'
                         self.assertIn(f'aria-label="{label}"', link)
                         self.assertIn(f'href="{destination}"', link)
                         self.assertIn('hx-boost="false"', link)

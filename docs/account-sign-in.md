@@ -9,10 +9,15 @@ Sign-in and paid AI are separate. Adding a provider does not change the AI
 allowance or enable a paid service. Signing in opens the personal account; it
 does not import temporary demo work.
 
+For signed-in users, the avatar opens the profile overview at `/post/profiles`.
+It shows the current account's course milestones and skill ratings. **Account
+settings** opens `/trial/account` for sign-in methods and sign-out. Local profile
+selection and the temporary demo account page keep their existing behaviour.
+
 ## Existing accounts
 
-An existing GitHub user should sign in with GitHub, open **Your account**, then
-choose **Connect Google**. After Google confirms the account, either sign-in
+An existing GitHub user should sign in with GitHub, open **Account settings**
+from their profile, then choose **Connect Google**. After Google confirms the account, either sign-in
 method opens the same words, cards, lessons and progress.
 
 Signing in with an unconnected provider creates a separate account. Matching

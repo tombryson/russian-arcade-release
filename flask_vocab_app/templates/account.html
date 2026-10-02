@@ -31,7 +31,7 @@
 
       {% if authenticated %}
       <div class="account-actions">
-        <a class="account-primary" href="{{ next_url }}">Continue learning <span aria-hidden="true">→</span></a>
+        <a class="account-primary" href="/post/profiles">Back to profile <span aria-hidden="true">→</span></a>
         <form method="post" action="/trial/sign-out">
           <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
           <button class="account-text-button" type="submit">Sign out</button>

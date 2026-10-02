@@ -64,7 +64,7 @@ class HostedAccountPageTests(unittest.TestCase):
         self.assertNotIn('Save your words', html)
         personal = render_account_page('Your account', providers=[GITHUB],
             account={'display_name': 'Tom'}, demo_active=True, demo_enabled=True)
-        self.assertIn('Continue learning', personal)
+        self.assertIn('Back to profile', personal)
         self.assertNotIn('Continue demo', personal)
         self.assertNotIn('Try demo', personal)
 
@@ -87,7 +87,7 @@ class HostedAccountPageTests(unittest.TestCase):
         details = [attrs for tag, attrs in page.elements if tag == 'details']
         self.assertEqual(len(details), 1)
         self.assertNotIn('open', details[0])
-        self.assertLess(html.index('Continue learning'), html.index('AI allowance'))
+        self.assertLess(html.index('Back to profile'), html.index('AI allowance'))
 
     def test_connected_but_disabled_method_is_shown_without_connect_button(self):
         html = render_account_page('Your account', account={'display_name': 'Sample'},

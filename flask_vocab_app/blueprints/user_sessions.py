@@ -17,10 +17,10 @@ def personal_sessions():
                             lifetime=current_app.permanent_session_lifetime.total_seconds())
 
 
-def selected_skill_progress():
-    """Read only the introduced skills for this browser's selected profile."""
+def selected_skill_progress(*, require_introduction=True):
+    """Read skills for this browser's selected profile, with optional onboarding gating."""
     introduced = onboarding_state()
-    if not introduced['profile_id'] or not introduced['progress_introduced']:
+    if not introduced['profile_id'] or (require_introduction and not introduced['progress_introduced']):
         return None
     try:
         with transaction(current_app.config['DB_PATH']) as conn:
@@ -122,6 +122,10 @@ def create_user_sessions_blueprint():
     @bp.get('/post/profiles')
     @access_policy('public')
     def page():
+        if current_app.config.get('HOSTED_AI_TRIAL'):
+            return render_template('profile_overview.html', profile=state()['profile'],
+                                   profile_course_progress=selected_course_progress(),
+                                   profile_skill_progress=selected_skill_progress(require_introduction=False))
         return render_picker()
 
     @bp.post('/post/profiles/actions')

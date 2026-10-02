@@ -94,7 +94,7 @@ class HostedOAuthTests(unittest.TestCase):
         status = self.get(self.a, '/trial/status').json
         self.assertEqual([provider['id'] for provider in status['providers']], ['github'])
         self.login(self.a, 'github')
-        self.assertEqual(self.get(self.a, '/trial/sign-in').location, '/trial/account')
+        self.assertEqual(self.get(self.a, '/trial/sign-in').location, '/post/profiles')
 
     def test_provider_state_browser_binding_replay_and_redirect(self):
         state = self.start(self.a, 'google', '/trial/sign-in/google?next=/%23flashcards')

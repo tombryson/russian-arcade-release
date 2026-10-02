@@ -127,7 +127,7 @@ class HostedTrialTests(unittest.TestCase):
         self.assertFalse(status['ai_enabled'])
         self.assertTrue(self.apps[0].config['HOSTED_AI_TRIAL'])
         page = self.get(self.a, '/trial/account')
-        self.assertIn('Your practice and uploads stay in this account.', page.text)
+        self.assertIn('<h1>Account settings</h1>', page.text)
         self.assertIn('AI generation is currently turned off.', page.text)
         self.assertNotIn('US$1', page.text)
 
@@ -192,7 +192,7 @@ class HostedTrialTests(unittest.TestCase):
         cookie = self.a.get_cookie(COOKIE, domain='arcade.example').value
         page = self.get(self.a, '/trial/account')
         self.assertEqual(page.status_code, 200)
-        self.assertIn('<h1>Your account</h1>', page.text)
+        self.assertIn('<h1>Account settings</h1>', page.text)
         self.assertIn('Signed in as <strong>sample-user</strong>.', page.text)
         self.assertIn('Your AI demo allowance is US$1 per day and US$2 in total.', page.text)
         self.assertIn('All visitors share US$1 per day and US$10 in total.', page.text)
@@ -324,7 +324,9 @@ class HostedTrialTests(unittest.TestCase):
                 result = self.a.post(path, base_url=self.base, json={}, buffered=True)
                 self.assertEqual(result.status_code, 403, path)
             self.assertEqual(self.get(self.a, '/vocab?source=cloud').status_code, 403)
-            self.assertEqual(self.get(self.a, '/post/profiles').location, '/trial/account')
+            profile = self.get(self.a, '/post/profiles')
+            self.assertEqual(profile.status_code, 200)
+            self.assertIn('Your profile', profile.text)
             self.assertEqual(self.get(self.a, '/vocab').status_code, 200)
 
     def test_settings_override_paths_identity_and_credentials(self):
