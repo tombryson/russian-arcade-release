@@ -84,7 +84,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
   const learning = step === 'words' && attempt?.phase === 'learn' && question?.lesson;
   const title = step === 'coins' ? 'Before we set off…'
     : step === 'progress' ? 'Help Barsik reach the next stop.'
-    : step === 'alphabet' ? 'Learn the alphabet'
+    : step === 'alphabet' ? 'New to the Russian alphabet?'
     : step === 'words' ? (question ? (learning ? question.title : question.prompt) : 'Your first words')
     : 'Your first lesson is complete.';
   const caption = step === 'progress' ? 'One word at a time'
@@ -95,12 +95,12 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
     <div class="lesson-player-nav">
       <a class="text-link" href="#first-steps"><span aria-hidden="true">← </span>First steps</a>
     </div>
-    <div class={`first-delivery-stage${['coins','progress','alphabet'].includes(step) ? ' is-explainer' : ''}`}>
+    <div class={`first-delivery-stage${['coins','progress','alphabet'].includes(step) ? ' is-explainer' : ''}${step === 'alphabet' ? ' is-alphabet' : ''}`}>
       <header class="first-delivery-heading">
         <h1 ref={heading} tabIndex={-1}>{title}</h1>
         {caption && <p class="lesson-counter">{caption}</p>}
       </header>
-      <div class={`first-delivery-content${step === 'progress' ? ' is-progress-introduction' : ''}`}>
+      <div class={`first-delivery-content${step === 'progress' ? ' is-progress-introduction' : step === 'alphabet' ? ' is-alphabet-introduction' : ''}`}>
         {step === 'coins' ? <>
           <p class="onboarding-intro-copy">Practise Russian and help Barsik deliver your letter.</p>
           <div class="onboarding-coins">
@@ -122,10 +122,10 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
             <img class="tutorial-progress-barsik" src="/static/images/barsik-running-v1.webp" width="92" height="68" alt="Barsik running with his letter bag." />
             <div><h2>Your first steps</h2><p>Learn your first three Russian words, then build on them in four short lessons. We’ll take you through them in order.</p></div>
           </div>
-        </> : step === 'alphabet' ? <div class="tutorial-alphabet-introduction">
-          <div class="tutorial-alphabet-letters" lang="ru" aria-hidden="true"><span>Аа</span><span>Бб</span><span>Вв</span></div>
-          <p class="onboarding-intro-copy">New to Russian? Explore the alphabet and hear how each letter sounds.</p>
-        </div> : step === 'words' ? <>
+        </> : step === 'alphabet' ? <a class="tutorial-alphabet-invitation" href="#alphabet?from=first-delivery" aria-labelledby="alphabet-invitation-label">
+          <span class="tutorial-alphabet-letters" lang="ru" aria-hidden="true"><span>Аа</span><span>Бб</span><span>Вв</span></span>
+          <span class="tutorial-alphabet-invitation-copy"><span id="alphabet-invitation-label" class="tutorial-alphabet-invitation-label">Learn the alphabet</span><span>Hear the letters and try them in words.</span></span>
+        </a> : step === 'words' ? <>
           {question ? learning ? <div class="tutorial-word-card">
             <p class="tutorial-new-word" lang="ru">{learning.word_display ?? learning.word}</p>
             <p class="tutorial-word-meaning" lang="en">{learning.meaning}</p>
@@ -155,7 +155,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
         </> : step === 'progress' ? <>
           <button class="cta" onClick={() => showStep('alphabet')}>Continue <span aria-hidden="true">→</span></button><button class="text-link" onClick={() => showStep('coins')}>Back to Lingocoins</button>
         </> : step === 'alphabet' ? <>
-          <button class="cta" disabled={busy || !practice} onClick={openActivity}>Continue <span aria-hidden="true">→</span></button><a class="text-link alphabet-prompt-link" href="#alphabet?from=first-delivery"><span class="alphabet-prompt-icon" lang="ru" aria-hidden="true">Аа</span><span>Learn the alphabet</span><span aria-hidden="true">←</span></a>
+          <button class="cta" disabled={busy || !practice} onClick={openActivity}>Continue <span aria-hidden="true">→</span></button>
         </> : step === 'words' ? <>
           {learning && question ? <button class="cta" disabled={busy} onClick={()=>void save('learn',{question_id:question.id})}>{busy ? 'Saving…' : attempt!.question_index+1===attempt!.total_questions ? 'Try these words' : 'Next word'} <span aria-hidden="true">→</span></button>
             : question && attempt?.phase === 'feedback' && feedback ? <button class="cta" disabled={busy} onClick={()=>void save('continue',{question_id:question.id})}>{busy ? 'Saving…' : attempt.question_index+1===attempt.total_questions ? 'Finish activity' : 'Next word'} <span aria-hidden="true">→</span></button>

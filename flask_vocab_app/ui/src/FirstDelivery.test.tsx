@@ -105,7 +105,7 @@ describe('Your first words',()=>{
     expect(screen.queryByText(/Choose what to practise|Tap Barsik on the bar|You can also practise from/)).toBeNull();
     expect(screen.queryByText('Which word means “hello”?')).toBeNull();
     fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
-    expect(document.activeElement).toBe(screen.getByRole('heading',{name:'Learn the alphabet',level:1}));
+    expect(document.activeElement).toBe(screen.getByRole('heading',{name:'New to the Russian alphabet?',level:1}));
     expect(screen.getByRole('link',{name:'Learn the alphabet',exact:true}).getAttribute('href')).toBe('#alphabet?from=first-delivery');
     expect(screen.getByRole('button',{name:'Continue',exact:true})).toBeTruthy();
     expect(window.location.hash).toBe('#first-delivery?step=alphabet');
@@ -117,11 +117,11 @@ describe('Your first words',()=>{
     const api=server({...empty(),attempt:attempt({phase:'learn',question_index:1,question:question(1,true)})});api.state.holdNext='load';
     window.history.replaceState({},'','#first-delivery?step=alphabet');
     render(<FirstDelivery next={next} entryStep="alphabet" />);
-    expect(screen.getByRole('heading',{name:'Learn the alphabet'})).toBeTruthy();
+    expect(screen.getByRole('heading',{name:'New to the Russian alphabet?'})).toBeTruthy();
     expect(screen.getByRole('button',{name:'Continue',exact:true}).hasAttribute('disabled')).toBe(true);
     await act(async()=>api.state.release!());
     await waitFor(()=>expect(screen.getByRole('button',{name:'Continue',exact:true}).hasAttribute('disabled')).toBe(false));
-    expect(screen.getByRole('heading',{name:'Learn the alphabet'})).toBeTruthy();
+    expect(screen.getByRole('heading',{name:'New to the Russian alphabet?'})).toBeTruthy();
     expect(screen.queryByText('a letter',{exact:true})).toBeNull();
     expect(api.posts()).toHaveLength(0);
     fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
@@ -134,7 +134,7 @@ describe('Your first words',()=>{
     window.history.replaceState({},'','#first-delivery?step=alphabet');
     render(<FirstDelivery next={next} entryStep="alphabet" onIntroduce={onIntroduce} />);
     await waitFor(()=>expect(screen.getByRole('button',{name:'Continue',exact:true}).hasAttribute('disabled')).toBe(false));
-    expect(screen.getByRole('heading',{name:'Learn the alphabet'})).toBeTruthy();
+    expect(screen.getByRole('heading',{name:'New to the Russian alphabet?'})).toBeTruthy();
     expect(screen.queryByText('2 Lingocoins earned')).toBeNull();
     expect(onIntroduce).not.toHaveBeenCalled();expect(api.posts()).toHaveLength(0);
     fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
@@ -154,7 +154,7 @@ describe('Your first words',()=>{
     expect(screen.getByRole('heading',{name:'Help Barsik reach the next stop.'})).toBeTruthy();
     expect(onIntroduce.mock.calls).toEqual([['coins'],['progress']]);
     fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
-    expect(screen.getByRole('heading',{name:'Learn the alphabet'})).toBeTruthy();
+    expect(screen.getByRole('heading',{name:'New to the Russian alphabet?'})).toBeTruthy();
     expect(api.posts()).toHaveLength(0);
     await waitFor(()=>expect(screen.getByRole('button',{name:'Continue',exact:true}).hasAttribute('disabled')).toBe(false));
     fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
@@ -166,7 +166,7 @@ describe('Your first words',()=>{
     window.history.replaceState({},'','#first-delivery?step=alphabet');
     render(<FirstDelivery next={next} entryStep="alphabet" />);
     await screen.findByRole('alert');
-    expect(screen.getByRole('heading',{name:'Learn the alphabet'})).toBeTruthy();
+    expect(screen.getByRole('heading',{name:'New to the Russian alphabet?'})).toBeTruthy();
     const continueButton=screen.getByRole('button',{name:'Continue',exact:true});
     expect(continueButton.hasAttribute('disabled')).toBe(true);
     fireEvent.click(continueButton);expect(api.posts()).toHaveLength(0);
@@ -245,7 +245,7 @@ describe('Your first words',()=>{
     expect(screen.queryByText('+3 Lingocoins')).toBeNull();
     fireEvent.click(screen.getByRole('button',{name:'Try again'}));await screen.findByText('+3 Lingocoins');
     const count=api.posts().length;fireEvent.click(screen.getByRole('button',{name:'Revisit the introduction'}));fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
-    expect(screen.getByRole('heading',{name:'Learn the alphabet'})).toBeTruthy();
+    expect(screen.getByRole('heading',{name:'New to the Russian alphabet?'})).toBeTruthy();
     fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
     expect(screen.queryByText('+3 Lingocoins')).toBeNull();expect(api.posts()).toHaveLength(count);
   });

@@ -33,7 +33,7 @@ describe('Russian Arcade activity home', () => {
     vi.stubGlobal('fetch', fetch);
     render(<App initialProfile={null} initialOnboarding={{profile_id:null,coins_introduced:true,progress_introduced:true}}/>);
 
-    await screen.findByRole('heading', {name:'Learn the alphabet', level:1});
+    await screen.findByRole('heading', {name:'New to the Russian alphabet?', level:1});
     await vi.waitFor(() => expect((screen.getByRole('button', {name:'Continue',exact:true}) as HTMLButtonElement).disabled).toBe(false));
     expect(screen.queryByRole('heading', {name:'Your first lesson is complete.'})).toBeNull();
     expect(screen.queryByText(/Lingocoins earned/)).toBeNull();
@@ -47,7 +47,7 @@ describe('Russian Arcade activity home', () => {
     const back = screen.getByRole('link', {name:/Back to your introduction/});
     expect(back.getAttribute('href')).toBe('#first-delivery?step=alphabet');
     fireEvent.click(back);
-    await screen.findByRole('heading', {name:'Learn the alphabet', level:1});
+    await screen.findByRole('heading', {name:'New to the Russian alphabet?', level:1});
     await vi.waitFor(() => expect(fetch.mock.calls).toHaveLength(2));
     expect(window.location.hash).toBe('#first-delivery?step=alphabet');
     expect(window.location.pathname).toBe(path);
@@ -67,7 +67,7 @@ describe('Russian Arcade activity home', () => {
     }));
     vi.stubGlobal('fetch', fetch);
     render(<App initialProfile={null} initialOnboarding={{profile_id:null,coins_introduced:true,progress_introduced:true}}/>);
-    await screen.findByRole('heading', {name:'Learn the alphabet', level:1});
+    await screen.findByRole('heading', {name:'New to the Russian alphabet?', level:1});
     await vi.waitFor(() => expect((screen.getByRole('button', {name:'Continue',exact:true}) as HTMLButtonElement).disabled).toBe(false));
 
     fireEvent.click(screen.getByRole('button', {name:'Continue',exact:true}));
@@ -76,7 +76,7 @@ describe('Russian Arcade activity home', () => {
     expect(fetch.mock.calls).toHaveLength(1);
 
     await act(() => { window.location.hash = '#first-delivery?step=alphabet'; });
-    expect(await screen.findByRole('heading', {name:'Learn the alphabet', level:1})).toBeTruthy();
+    expect(await screen.findByRole('heading', {name:'New to the Russian alphabet?', level:1})).toBeTruthy();
     await vi.waitFor(() => expect((screen.getByRole('button', {name:'Continue',exact:true}) as HTMLButtonElement).disabled).toBe(false));
     expect(screen.queryByRole('heading', {name:'Meet Barsik', level:1})).toBeNull();
     expect(window.location.pathname).toBe(path);
@@ -92,10 +92,10 @@ describe('Russian Arcade activity home', () => {
     vi.stubGlobal('fetch', fetch);
     render(<App initialProfile={null} initialOnboarding={{profile_id:null,coins_introduced:false,progress_introduced:false}}/>);
     expect(await screen.findByRole('heading', {name:'Before we set off…', level:1})).toBeTruthy();
-    expect(screen.queryByRole('heading', {name:'Learn the alphabet', level:1})).toBeNull();
+    expect(screen.queryByRole('heading', {name:'New to the Russian alphabet?', level:1})).toBeNull();
     fireEvent.click(screen.getByRole('button', {name:'Continue'}));
     expect(await screen.findByRole('heading', {name:'Help Barsik reach the next stop.', level:1})).toBeTruthy();
-    expect(screen.queryByRole('heading', {name:'Learn the alphabet', level:1})).toBeNull();
+    expect(screen.queryByRole('heading', {name:'New to the Russian alphabet?', level:1})).toBeNull();
     expect(fetch.mock.calls.filter(([,options]) => options?.method === 'POST').every(([url]) => url === '/api/v1/onboarding')).toBe(true);
   });
   it('ignores an unknown alphabet return destination', async () => {
@@ -276,7 +276,7 @@ describe('Russian Arcade activity home', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
     expect(screen.getByRole('heading', { name: 'Help Barsik reach the next stop.', level:1 })).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
-    expect(screen.getByRole('heading', { name: 'Learn the alphabet', level:1 })).toBeTruthy();
+    expect(screen.getByRole('heading', { name: 'New to the Russian alphabet?', level:1 })).toBeTruthy();
     expect(screen.getByRole('link', { name: 'Learn the alphabet' }).getAttribute('href')).toBe('#alphabet?from=first-delivery');
     expect(screen.getByRole('button', { name: 'Continue', exact: true })).toBeTruthy();
     expect(window.location.hash).toBe('#first-delivery?step=alphabet');

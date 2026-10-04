@@ -4,7 +4,7 @@ Revised direction, 15 September 2026. The first delivery is one continuous begin
 
 ## Learner flow
 
-The coin introduction reveals the counter. The progress introduction then reveals Barsik's line. An alphabet slide follows, before any word practice. The primary **Continue** button opens the first words. A secondary, handwritten **Learn the alphabet** link offers optional alphabet practice. The alphabet opens with both voice sets and click-to-play audio; its return link restores the invitation. Learning the alphabet is optional and earns no reward. There is no side invitation on the coin or progress slide.
+The coin introduction reveals the counter. The progress introduction then reveals Barsik's line. An alphabet slide follows, before any word practice. The primary **Continue** button opens the first words. The alphabet preview is one large clickable area with a handwritten **Learn the alphabet** label. It offers optional alphabet practice without repeating the title or adding a second link beside Continue. The alphabet opens with both voice sets and click-to-play audio; its return link restores the invitation. Learning the alphabet is optional and earns no reward. There is no side invitation on the coin or progress slide.
 
 The learner then meets three word cards in order: **Привет!** (hello), **письмо** (a letter), and **Спасибо!** (thank you). These belong to the same delivery: meeting Barsik, seeing the letter he carries, and thanking him. Each card teaches the Russian word and its meaning before continuing.
 

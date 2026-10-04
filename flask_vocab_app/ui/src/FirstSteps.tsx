@@ -62,7 +62,7 @@ function FirstStepsOverview({profileHref,version,journeyHref}:{profileHref:strin
   return <section class="page first-steps">
     <div class="lesson-head"><a class="text-link" href="#home">Back to home</a><a class="text-link" href="#activities">Choose an activity</a></div>
     <div class="first-steps-header"><div><p class="kicker">A little adventure</p><h1 ref={heading} tabIndex={-1}>First steps with Barsik</h1><p class="intro">{version==='first-steps-v1' ? 'Revisit your earlier lessons and saved answers.' : 'Five short lessons to learn your first words, name familiar things, introduce yourself, recognise noun groups and say what is yours.'}</p></div><LessonVisual kind="bag" /></div>
-    <p class="first-steps-alphabet-link"><a class="text-link alphabet-prompt-link" href="#alphabet?from=first-steps"><span class="alphabet-prompt-icon" lang="ru" aria-hidden="true">Аа</span><span>Learn the alphabet</span><span aria-hidden="true">←</span></a></p>
+    <p class="first-steps-alphabet-link"><a class="text-link alphabet-prompt-link" href="#alphabet?from=first-steps"><span class="alphabet-prompt-icon" lang="ru" aria-hidden="true">Аа</span><span>Learn the alphabet</span></a></p>
     {chapter ? <>
       {chapter.updated_chapter_href && <p class="first-steps-version-note">These lessons have been revised for beginners. <a href={chapter.updated_chapter_href}>Open the revised lessons</a></p>}
       <p class="first-steps-overview-progress">{chapter.completed_count} of {chapter.lessons.length} lessons complete</p>
