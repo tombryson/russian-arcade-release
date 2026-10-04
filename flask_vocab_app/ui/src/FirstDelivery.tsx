@@ -95,7 +95,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
     <div class="lesson-player-nav">
       <a class="text-link" href="#first-steps"><span aria-hidden="true">← </span>First steps</a>
     </div>
-    <div class={`first-delivery-stage${['coins','progress','alphabet'].includes(step) ? ' is-explainer' : ''}${step === 'alphabet' ? ' is-alphabet' : ''}${step === 'words' ? ' is-word-practice' : ''}`}>
+    <div class={`first-delivery-stage${['coins','progress','alphabet'].includes(step) ? ' is-explainer' : ''}${step === 'alphabet' ? ' is-alphabet' : ''}${step === 'words' ? ' is-word-practice' : ''}${step === 'words' && attempt?.phase === 'question' ? ' is-recall' : ''}`}>
       <header class={`first-delivery-heading${learning && learning.reading_help ? ' has-reading-help' : ''}`}>
         <h1 ref={heading} tabIndex={-1}>{title}</h1>
         {caption && <p class="lesson-counter">{caption}</p>}
@@ -143,7 +143,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
             <Feedback>{feedback.feedback}</Feedback>
           </> : <>
             <div class="options">{question.choices.map(choice=><div class="tutorial-word-choice" key={choice.id}><button class="word" lang="ru" disabled={busy} onClick={()=>void save('answer',{question_id:question.id,answer:choice.id})}>{choice.text}</button><LessonAudio compact src={choice.audio_url} label={choice.text}/></div>)}</div>
-            {question.hint ? <Feedback>{question.hint}</Feedback> : <button class="text-link" disabled={busy} onClick={()=>void save('hint',{question_id:question.id})}>Show a hint</button>}
+            {question.hint && <Feedback>{question.hint}</Feedback>}
             {busy && <p class="quiet" role="status">Saving…</p>}
           </> : <p>You’ve practised all three words.</p>}
         </> : <>
@@ -162,6 +162,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
         </> : step === 'alphabet' ? <>
           <button class="cta" disabled={busy || !practice} onClick={openActivity}>Continue <span aria-hidden="true">→</span></button>
         </> : step === 'words' ? <>
+          {question && attempt?.phase === 'question' && !question.hint && <button class="text-link" disabled={busy} onClick={()=>void save('hint',{question_id:question.id})}>Show a hint</button>}
           {learning && question ? <button class="cta" disabled={busy} onClick={()=>void save('learn',{question_id:question.id})}>{busy ? 'Saving…' : attempt!.question_index+1===attempt!.total_questions ? 'Try these words' : 'Next word'} <span aria-hidden="true">→</span></button>
             : question && attempt?.phase === 'feedback' && feedback ? <button class="cta" disabled={busy} onClick={()=>void save('continue',{question_id:question.id})}>{busy ? 'Saving…' : attempt.question_index+1===attempt.total_questions ? 'Finish activity' : 'Next word'} <span aria-hidden="true">→</span></button>
             : !question && <button class="cta" disabled={busy} onClick={()=>void save('complete')}>{busy ? 'Saving…' : 'Finish activity'} <span aria-hidden="true">→</span></button>}

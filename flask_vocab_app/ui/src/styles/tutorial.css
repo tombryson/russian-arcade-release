@@ -124,3 +124,6 @@
   .first-delivery .is-word-practice .first-delivery-actions {row-gap:12px}
   .first-delivery-actions .first-delivery-return {font-size:14px}
 }
+
+.page.first-delivery .is-recall .options {margin:0}
+.first-delivery .is-recall .first-delivery-actions {margin-top:0}

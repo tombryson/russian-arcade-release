@@ -33,7 +33,7 @@ export function LessonAudio({src,label='the recording',compact=false,inline=fals
   return <div class={`lesson-audio${compact?' is-compact':''}${inline?' is-inline':''}`}>
     <audio ref={audio} key={src} src={appUrl(src)} preload="none" onPause={()=>setPlaying(false)} onEnded={finished} onError={()=>{generation.current++;finished();setFailed(true);}}/>
     <div class="lesson-audio-controls" role="group" aria-label={`Audio for ${label}`}>
-      <button type="button" class="lesson-audio-button" onClick={()=>playing?pause():void replay(1)} title={`${playing?'Pause':'Listen to'} ${label}`} aria-label={`${playing?'Pause':'Listen to'} ${label}`}><span aria-hidden="true">{playing?'Ⅱ':'▶'}</span>{!compact && !inline && <span>{playing?'Pause':'Listen'}</span>}</button>
+      <button type="button" class="lesson-audio-button" onClick={()=>playing?pause():void replay(1)} title={`${playing?'Pause':'Listen to'} ${label}`} aria-label={`${playing?'Pause':'Listen to'} ${label}`}><span aria-hidden="true">{playing?'Ⅱ':'▶'}</span>{!compact && <span>{playing?'Pause':'Listen'}</span>}</button>
       {!compact && <button type="button" class="lesson-audio-button" onClick={()=>void replay(.75)} title="Slow replay" aria-label={`Slow replay of ${label}`}>{inline ? '0.75×' : 'Slow replay'}</button>}
     </div>
     {failed && <p class="lesson-audio-error" role="alert">The recording couldn’t play. <button type="button" class="text-link" onClick={()=>void replay(rate.current)}>Retry audio</button></p>}
