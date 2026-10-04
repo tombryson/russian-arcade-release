@@ -3,6 +3,7 @@ import {act, cleanup, fireEvent, render, screen, within} from '@testing-library/
 import {Alphabet} from './Alphabet';
 
 const letterButtons = () => within(screen.getByRole('list', {name: 'Russian letters'})).getAllByRole('button');
+const signButtons = () => within(screen.getByRole('list', {name: 'Silent signs'})).getAllByRole('button');
 const voiceRadio = (name: 'Female' | 'Male') => screen.getByRole('radio', {name}) as HTMLInputElement;
 const voicePreference = 'word-post-alphabet-voice';
 async function click(element: HTMLElement) { await act(async () => { fireEvent.click(element); }); }
@@ -33,12 +34,15 @@ describe('Russian alphabet', () => {
     const {container} = render(<Alphabet returnHref="#first-delivery" returnLabel="Your first delivery"/>);
     const buttons = letterButtons();
     expect(screen.getByRole('heading', {level: 1, name: 'Russian alphabet'})).toBe(document.activeElement);
-    expect(buttons).toHaveLength(33);
+    expect(buttons).toHaveLength(31);
     expect(buttons[0].textContent).toBe('Аа');
-    expect(buttons[32].textContent).toBe('Яя');
+    expect(buttons[30].textContent).toBe('Яя');
     expect(buttons.filter(button => button.getAttribute('aria-label')?.endsWith(', vowel'))).toHaveLength(10);
     expect(buttons.filter(button => button.getAttribute('aria-label')?.endsWith(', consonant'))).toHaveLength(21);
-    expect(buttons.filter(button => button.getAttribute('aria-label')?.endsWith(', sign'))).toHaveLength(2);
+    expect(signButtons()).toHaveLength(2);
+    expect(screen.getByRole('region', {name: 'Silent signs'})).toBeTruthy();
+    expect(signButtons().map(button => button.getAttribute('aria-label'))).toEqual(['Explore Ъ ъ, hard sign', 'Explore Ь ь, soft sign']);
+    expect(screen.getByText('No sound of their own.')).toBeTruthy();
     expect(buttons.filter(button => button.getAttribute('aria-label')?.startsWith('Listen to syllable '))).toHaveLength(12);
     expect(screen.getByText('Letter sound')).toBeTruthy();
     expect(screen.getByRole('link', {name: 'Your first delivery'}).getAttribute('href')).toBe('#first-delivery');
@@ -166,7 +170,7 @@ describe('Russian alphabet', () => {
     const audio = container.querySelector('audio')!;
     await click(letterButtons()[0]);
     const pauses = vi.mocked(HTMLMediaElement.prototype.pause).mock.calls.length;
-    const sign = screen.getByRole('button', {name: `Explore ${upper} ${lower}, sign`});
+    const sign = screen.getByRole('button', {name: `Explore ${upper} ${lower}, ${id === 'hard-sign' ? 'hard' : 'soft'} sign`});
     await click(sign);
     expect(HTMLMediaElement.prototype.pause).toHaveBeenCalledTimes(pauses + 1);
     expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(1);
@@ -325,8 +329,8 @@ describe('Russian alphabet', () => {
     expect(document.activeElement).toBe(buttons[1]);
     expect(buttons[1].getAttribute('aria-pressed')).toBe('true');
     fireEvent.keyDown(buttons[1], {key: 'End'});
-    expect(document.activeElement).toBe(buttons[32]);
-    fireEvent.keyDown(buttons[32], {key: 'Home'});
+    expect(document.activeElement).toBe(buttons[30]);
+    fireEvent.keyDown(buttons[30], {key: 'Home'});
     expect(document.activeElement).toBe(buttons[0]);
     fireEvent.keyDown(buttons[0], {key: 'ArrowDown'});
     expect(document.activeElement).toBe(buttons[7]);
@@ -341,6 +345,28 @@ describe('Russian alphabet', () => {
     expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(2);
     expect(screen.getByRole('complementary', {name: 'About Ж ж'})).toBeTruthy();
     expect(buttons.filter(button => button.tabIndex === 0)).toHaveLength(1);
+  });
+
+  it('keeps both groups keyboard-accessible when a silent sign is selected', () => {
+    render(<Alphabet/>);
+    const letters = letterButtons();
+    const signs = signButtons();
+    expect(signs[0].tabIndex).toBe(0);
+    signs[0].focus();
+    fireEvent.keyDown(signs[0], {key: 'ArrowRight'});
+    expect(document.activeElement).toBe(signs[1]);
+    expect(signs[1].getAttribute('aria-pressed')).toBe('true');
+    expect(letters[0].tabIndex).toBe(0);
+    expect(signs.filter(button => button.tabIndex === 0)).toHaveLength(1);
+    expect(screen.getByRole('complementary', {name: 'About Ь ь'})).toBeTruthy();
+    expect(screen.getByText('Letter 30 / 33')).toBeTruthy();
+    fireEvent.keyDown(signs[1], {key: 'Home'});
+    expect(document.activeElement).toBe(signs[0]);
+    letters[0].focus();
+    fireEvent.keyDown(letters[0], {key: 'End'});
+    expect(document.activeElement).toBe(letters[30]);
+    expect(signs[0].tabIndex).toBe(0);
+    expect(HTMLMediaElement.prototype.play).not.toHaveBeenCalled();
   });
 
   it('plays the contextual word from its tile and reuses one player, stopping the previous clip', async () => {

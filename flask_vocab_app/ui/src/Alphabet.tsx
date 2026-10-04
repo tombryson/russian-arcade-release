@@ -13,7 +13,10 @@ type Letter = {
 };
 type Clip = 'sound' | 'name' | 'word';
 const letters = alphabetData as Letter[];
-const labels = {vowel: 'Vowel', consonant: 'Consonant', sign: 'Sign'};
+const soundingLetters = letters.filter(letter => letter.kind !== 'sign');
+const silentSigns = letters.filter(letter => letter.kind === 'sign');
+const signNames: Record<string, string> = {'hard-sign': 'Hard sign', 'soft-sign': 'Soft sign'};
+const labels = {vowel: 'Vowel', consonant: 'Consonant', sign: 'Silent sign'};
 const voicePreference = 'word-post-alphabet-voice';
 function initialVoice(): Voice {
   try { return localStorage.getItem(voicePreference) === 'male' ? 'male' : 'female'; }
@@ -38,7 +41,6 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
   const [error, setError] = useState('');
   const player = useRef<HTMLAudioElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
-  const grid = useRef<HTMLOListElement>(null);
   const attempt = useRef(0);
   const active = useRef<string>();
   const mounted = useRef(true);
@@ -106,17 +108,35 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     try { localStorage.setItem(voicePreference, next); } catch { /* Playback also works without storage. */ }
   }
 
-  function move(event: JSX.TargetedKeyboardEvent<HTMLButtonElement>, index: number) {
-    const columns = Number(grid.current && getComputedStyle(grid.current).getPropertyValue('--alphabet-columns')) || 7;
+  function move(event: JSX.TargetedKeyboardEvent<HTMLButtonElement>, index: number, group: Letter[]) {
+    const grid = event.currentTarget.closest<HTMLOListElement>('.alphabet-grid');
+    const columns = Number(grid && getComputedStyle(grid).getPropertyValue('--alphabet-columns')) || (group === silentSigns ? 2 : 7);
     const next = event.key === 'ArrowRight' ? index + 1 : event.key === 'ArrowLeft' ? index - 1
       : event.key === 'ArrowDown' ? index + columns : event.key === 'ArrowUp' ? index - columns
-      : event.key === 'Home' ? 0 : event.key === 'End' ? letters.length - 1 : null;
+      : event.key === 'Home' ? 0 : event.key === 'End' ? group.length - 1 : null;
     if (next === null) return;
     event.preventDefault();
-    const destination = Math.max(0, Math.min(letters.length - 1, next));
+    const destination = Math.max(0, Math.min(group.length - 1, next));
     stopAudio();
-    setSelectedId(letters[destination].id);
-    grid.current?.querySelectorAll<HTMLButtonElement>('button')[destination]?.focus();
+    setSelectedId(group[destination].id);
+    grid?.querySelectorAll<HTMLButtonElement>('button')[destination]?.focus();
+  }
+
+  function renderLetters(group: Letter[]) {
+    const tabStop = group.some(letter => letter.id === selected.id) ? selected.id : group[0].id;
+    return group.map((letter, index) => <li key={letter.id}>
+      <button type="button" class={`alphabet-letter alphabet-kind-${letter.kind}${selected.id === letter.id ? ' is-selected' : ''}${playing === `${letter.id}:sound` ? ' is-playing' : ''}`}
+        aria-label={!letter.soundAudio ? `Explore ${letter.upper} ${letter.lower}, ${signNames[letter.id].toLowerCase()}`
+          : letter.practiceSyllable ? `Listen to syllable ${letter.practiceSyllable} for ${letter.upper} ${letter.lower}, consonant`
+          : `Listen to ${letter.upper} ${letter.lower} sound, ${labels[letter.kind].toLowerCase()}`}
+        aria-pressed={selected.id === letter.id} aria-controls="alphabet-detail" tabIndex={tabStop === letter.id ? 0 : -1}
+        onClick={() => void play(letter, 'sound')}
+        onKeyDown={event => move(event, index, group)}>
+        <span class="alphabet-letter-pair" lang="ru"><span>{letter.upper}</span><span>{letter.lower}</span></span>
+        {letter.kind === 'sign' && <span class="alphabet-sign-name">{signNames[letter.id]}</span>}
+        <span class="alphabet-letter-indicator" aria-hidden="true">{playing === `${letter.id}:sound` ? '♪' : ''}</span>
+      </button>
+    </li>);
   }
 
   const namePlaying = playing === `${selected.id}:name`;
@@ -135,27 +155,18 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     </header>
     <div class="alphabet-toolbar">
       <p class="alphabet-instruction">Click a letter to hear a pronunciation example. Try the word too.</p>
-      <ul class="alphabet-legend" aria-label="Letter types">{(['vowel', 'consonant', 'sign'] as const).map(kind =>
+      <ul class="alphabet-legend" aria-label="Letter types">{(['vowel', 'consonant'] as const).map(kind =>
         <li class={`alphabet-kind-${kind}`} key={kind}><span aria-hidden="true"/>{labels[kind]}s</li>)}</ul>
     </div>
     <div class="alphabet-layout">
       <div class="alphabet-grid-wrap">
         <p id="alphabet-keyboard-help" class="alphabet-sr-only">Use the arrow keys to choose a letter, then press Enter or Space to listen.</p>
-        <ol ref={grid} class="alphabet-grid" aria-label="Russian letters" aria-describedby="alphabet-keyboard-help">
-          {letters.map((letter, index) => <li key={letter.id}>
-            <button type="button" class={`alphabet-letter alphabet-kind-${letter.kind}${selected.id === letter.id ? ' is-selected' : ''}${playing === `${letter.id}:sound` ? ' is-playing' : ''}`}
-              aria-label={!letter.soundAudio ? `Explore ${letter.upper} ${letter.lower}, sign`
-                : letter.practiceSyllable ? `Listen to syllable ${letter.practiceSyllable} for ${letter.upper} ${letter.lower}, consonant`
-                : `Listen to ${letter.upper} ${letter.lower} sound, ${labels[letter.kind].toLowerCase()}`}
-              aria-pressed={selected.id === letter.id} aria-controls="alphabet-detail" tabIndex={selected.id === letter.id ? 0 : -1}
-              onClick={() => void play(letter, 'sound')}
-              onKeyDown={event => move(event, index)}>
-              <span class="alphabet-letter-pair" lang="ru"><span>{letter.upper}</span><span>{letter.lower}</span></span>
-              <span class="alphabet-letter-indicator" aria-hidden="true">{playing === `${letter.id}:sound` ? '♪' : ''}</span>
-            </button>
-          </li>)}
-        </ol>
-        <p class="alphabet-grid-caption">10 vowels · 21 consonants · 2 signs</p>
+        <ol class="alphabet-grid" aria-label="Russian letters" aria-describedby="alphabet-keyboard-help">{renderLetters(soundingLetters)}</ol>
+        <p class="alphabet-grid-caption">10 vowels · 21 consonants</p>
+        <section class="alphabet-signs" aria-labelledby="alphabet-signs-heading">
+          <div class="alphabet-signs-heading"><h2 id="alphabet-signs-heading">Silent signs</h2><p>No sound of their own.</p></div>
+          <ol class="alphabet-grid" aria-label="Silent signs">{renderLetters(silentSigns)}</ol>
+        </section>
       </div>
       <aside id="alphabet-detail" class={`alphabet-detail alphabet-kind-${selected.kind}`} aria-label={`About ${selected.upper} ${selected.lower}`}>
         <div class="alphabet-detail-meta"><span>Letter {String(position + 1).padStart(2, '0')} / 33</span><span class="alphabet-kind-label">{labels[selected.kind]}</span></div>

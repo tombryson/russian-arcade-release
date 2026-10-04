@@ -2,6 +2,8 @@
 
 The Alphabet page (`/#alphabet`, or `/demo/#alphabet`) introduces all 33 letters. It is available without signing in. Activities navigation places it beside Curriculum; the introduction also links to it.
 
+The main grid contains the 10 vowels and 21 consonants. Ъ (hard sign) and Ь (soft sign) sit below it in a separate **Silent signs** group. Selecting either opens its explanation without playing audio. Their names and example words remain available on click. Tab reaches each group; arrow keys move within it.
+
 Audio plays only when a learner clicks or taps a letter or word, or activates its button with Enter or Space. Hover and keyboard navigation remain silent.
 
 The Female / Male selector applies to every sound, letter name and example word. The browser remembers the choice. Switching voices stops any current recording; it does not start another one automatically.
