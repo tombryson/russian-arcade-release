@@ -302,6 +302,9 @@ class JourneyGamePreparationService:
                             if not self.media_provider:
                                 raise ValueError('Media provider unavailable')
                             specs[stage] = self.media_provider.spec(stage, {'context': record['sentence']}, record['form'])
+                        prepare = getattr(self.media_provider, 'prepare_pending_spec', None)
+                        if prepare:
+                            specs[stage] = prepare(stage, specs[stage])
                     spec = specs[stage]
                     if spec.get('text') != record['sentence']:
                         raise ValueError('Media specification changed the example')

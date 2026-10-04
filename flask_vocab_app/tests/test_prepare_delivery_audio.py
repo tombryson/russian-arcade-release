@@ -139,6 +139,22 @@ class DeliveryAudioCommandTests(unittest.TestCase):
             command.main(['--workers','4'])
         self.constructor.assert_not_called()
 
+    def test_new_v4_clips_keep_their_model_in_a_legacy_manifest(self):
+        self.config['ELEVENLABS_MODEL']='eleven_v4'
+        self.audio.mkdir(parents=True)
+        (self.audio/'clip-0.mp3').write_bytes(b'legacy-audio')
+        old={'bytes':12,'text':self.clips[0]['text'],'speaker':'nina'}
+        self.manifest.write_text(json.dumps({'provider':'elevenlabs','model':'eleven_multilingual_v2',
+            'speakers':{'nina':'saved-voice'},'clips':{'clip-0':old}}))
+        self.generated(self.clips[:2])
+        with patch.object(command,'app_config',return_value=self.config):
+            command.main(['--generated'])
+        saved=json.loads(self.manifest.read_text())
+        self.assertEqual(saved['model'],'eleven_multilingual_v2')
+        self.assertEqual(saved['clips']['clip-0'],old)
+        self.assertEqual(saved['clips']['clip-1']['model'],'eleven_v4')
+        self.provider.speak.assert_called_once_with(self.clips[1]['text'],'saved-voice')
+
 
 if __name__=='__main__':
     unittest.main()

@@ -1,6 +1,28 @@
 # Russian text-to-speech comparison
 
-Completed on 4 October 2026: twelve recordings from the original three models, followed by four from standard MAI Voice 2.1. All sixteen succeeded without retries. Listening judgements remain pending. This comparison does not change production speech generation.
+Completed on 4 October 2026: twelve recordings from the original three models, followed by four from standard MAI Voice 2.1. All sixteen succeeded without retries. The user selected ElevenLabs v4 after listening. The comparison itself made no production changes; the subsequent application migration is described below.
+
+## Selection and application migration
+
+ElevenLabs `eleven_v4` is the selected model for new application recordings.
+Both speech adapters use it, covering native and Anki cards, comprehension,
+phrasebook sentences, curriculum listening, game dialogue and Step-through
+Speaking. Random selection from the existing four Russian voices is preserved.
+
+A separate compatibility check generated the same short Russian passage with
+all four voices through the application adapter. All four requests succeeded
+without retries and decoded to MP3 recordings of 6.0–6.6 seconds. The published
+standard-rate estimate was under US$0.03; the provider invoice was not checked.
+This check establishes playback compatibility, not independent language review.
+
+Pending audio jobs switch their saved generation plan to v4 before calling the
+provider. Existing playable recordings and their original metadata are retained.
+The hosted allowance reserves the standard US$0.08 per 1,000 characters, avoiding
+dependence on the temporary discount. Fluent Speaking remains on its separate
+OpenAI live audio transport; it does not use the recorded-speech adapter.
+
+The public application demo is retired separately from this local comparison.
+Comparison recordings remain outside the public repository.
 
 ## Models and voices
 
@@ -8,7 +30,7 @@ The comparison uses four Russian passages. Both ElevenLabs models use one voice 
 
 | Model | Voice | Request settings |
 | --- | --- | --- |
-| `eleven_multilingual_v2` — current production model | TatanaLuke, `ymDCYd8puC7gYjxIamPt` | Stability `0.8`, similarity `0.85`, style `0.0`; MP3, 44.1 kHz, 128 kbps |
+| `eleven_multilingual_v2` — production model at comparison time | TatanaLuke, `ymDCYd8puC7gYjxIamPt` | Stability `0.8`, similarity `0.85`, style `0.0`; MP3, 44.1 kHz, 128 kbps |
 | `microsoft/mai-voice-2.1-flash` — through OpenRouter | `ru-RU-Masha:MAI-Voice-2.1-Flash` | Plain text, MP3; no style controls |
 | `microsoft/mai-voice-2.1` — added separately | `ru-RU-Masha:MAI-Voice-2.1` | Plain text, MP3; no style controls |
 | `eleven_v4` | Same TatanaLuke voice | Stability `0.8`, similarity `0.85`; MP3, 44.1 kHz, 128 kbps |

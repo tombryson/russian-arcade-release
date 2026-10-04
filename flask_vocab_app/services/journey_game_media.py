@@ -35,12 +35,12 @@ class JourneyGameMediaService:
             raise LearningError('not_found', 'This lesson audio is not available.', 404)
         return context
 
-    def _policy(self):
+    def _policy(self, *, model=None):
         # The choice is still random for each new recording. Store the chosen
         # voice in spec_json so retries and repeat listens preserve it exactly.
         speech = getattr(self.provider, 'speech', None)
         policy = {'version': POLICY_VERSION, 'provider': type(self.provider).__name__,
-                  'model': getattr(speech, 'model', None),
+                  'model': model if model is not None else getattr(speech, 'model', None),
                   'voices': list(getattr(speech, 'voice_ids', ()))}
         return hashlib.sha256(encoded(policy).encode('utf-8')).hexdigest()
 
@@ -125,8 +125,19 @@ class JourneyGameMediaService:
         return None
 
     def _cached(self, conn, key):
-        return conn.execute('SELECT * FROM journey_game_media WHERE text_hash=? AND policy_hash=?',
-                            (key, self._policy())).fetchone()
+        row = conn.execute('SELECT * FROM journey_game_media WHERE text_hash=? AND policy_hash=?',
+                           (key, self._policy())).fetchone()
+        if row or getattr(getattr(self.provider, 'speech', None), 'model', None) != 'eleven_v4':
+            return row
+        # Keep completed legacy recordings playable, and find their unfinished
+        # jobs so a model upgrade cannot randomly choose a replacement voice.
+        # Other provider/voice policy changes still require a separate entry.
+        for previous in conn.execute('SELECT * FROM journey_game_media WHERE text_hash=? ORDER BY updated_at DESC,id', (key,)):
+            spec = json.loads(previous['spec_json'])
+            if (spec.get('model') and spec['model'] != 'eleven_v4'
+                    and previous['policy_hash'] == self._policy(model=spec['model'])):
+                return previous
+        return None
 
     def reusable_audio(self, conn, text):
         """Internal native-card bridge for already generated authored audio.
@@ -182,9 +193,14 @@ class JourneyGameMediaService:
                 conn.execute('INSERT INTO journey_game_media(id,text_hash,text,policy_hash,spec_json,created_at,updated_at) '
                              'VALUES (?,?,?,?,?,?,?)',
                              (job_id, key, context['text'], self._policy(), encoded(spec), now, now))
+            prepare = getattr(self.provider, 'prepare_pending_spec', None)
+            if callable(prepare):
+                spec = prepare('sentence_audio', spec)
+            if spec.get('text') != context['text']:
+                raise LearningError('invalid_media', 'The audio does not match this lesson.', 409)
             claim = identifier()
-            conn.execute("UPDATE journey_game_media SET status='running',claim_id=?,lease_until=?,error=NULL,updated_at=? WHERE id=?",
-                         (claim, now + LEASE_SECONDS, now, job_id))
+            conn.execute("UPDATE journey_game_media SET status='running',claim_id=?,lease_until=?,spec_json=?,policy_hash=?,error=NULL,updated_at=? WHERE id=?",
+                         (claim, now + LEASE_SECONDS, encoded(spec), self._policy(), now, job_id))
         # Do not hold a database transaction across the paid network request.
         try:
             data = self.provider.generate('sentence_audio', spec)

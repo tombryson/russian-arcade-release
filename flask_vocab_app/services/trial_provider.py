@@ -45,6 +45,16 @@ TEXT_RATES = {
 }
 IMAGE_RATES = {'gpt-image-2': ('2.50', '15')}
 TRANSCRIPTION_MODELS = {'gpt-transcribe', 'gpt-4o-transcribe', 'gpt-4o-mini-transcribe', 'whisper-1'}
+# Microdollars per character. v4 uses its standard $0.08/1K rate, checked
+# 2026-10-04; the temporary launch discount is deliberately excluded.
+# Keep the existing conservative $0.20/1K reservations for legacy models.
+ELEVENLABS_CHARACTER_RATES = {
+    'eleven_v4': 80,
+    'eleven_multilingual_v2': 200,
+    'eleven_v3': 200,
+    'eleven_turbo_v2_5': 200,
+    'eleven_flash_v2_5': 200,
+}
 MAX_TEXT_BYTES = 96_000
 MAX_OUTPUT_TOKENS = 12_000
 MAX_IMAGE_BYTES = 8_000_000
@@ -362,14 +372,13 @@ def elevenlabs_call(config, text, model, voice_id, invoke):
     config = config_snapshot(config)
     if not trial_enabled(config):
         return invoke()
-    if model not in ('eleven_multilingual_v2', 'eleven_v3', 'eleven_turbo_v2_5', 'eleven_flash_v2_5'):
+    if model not in ELEVENLABS_CHARACTER_RATES:
         logger.warning('AI trial audio request denied: voice model is not supported')
         raise TrialDenied('Audio playback is currently unavailable. Please try again later.')
     if not isinstance(text, str) or not 1 <= len(text) <= 3000:
         raise TrialDenied('Use at most 3,000 characters for one recording.')
-    # $0.20/1K chars conservatively covers current $0.10 v2/v3 pricing.
     return provider_call(config, 'elevenlabs.tts', {'text': text, 'model': model, 'voice': voice_id},
-                         len(text) * 200, invoke)
+                         len(text) * ELEVENLABS_CHARACTER_RATES[model], invoke)
 
 
 def mai_call(config, path, model, options, invoke):

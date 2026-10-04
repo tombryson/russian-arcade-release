@@ -37,9 +37,11 @@ class HostedAccountPageTests(unittest.TestCase):
         self.assertNotIn('Already use GitHub here?', single)
         self.assertNotIn('disabled', single)
 
-    def test_no_provider_keeps_guest_access_without_dead_buttons(self):
+    def test_no_provider_offers_home_without_promising_demo_access(self):
         html = render_account_page('Sign-in unavailable', 'Please try again later.')
-        self.assertIn('Explore the demo', html)
+        self.assertIn('Home <span', html)
+        self.assertNotIn('Explore the demo', html)
+        self.assertNotIn('Try demo', html)
         self.assertNotIn('/trial/sign-in/', html)
         self.assertNotIn('.env', html)
 

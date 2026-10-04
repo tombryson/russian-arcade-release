@@ -216,6 +216,30 @@ class TrialProviderTests(unittest.TestCase):
                 operation()
         self.assertEqual(call.call_count, 2)
 
+    def test_v4_tts_reserves_standard_rate_before_network(self):
+        text = 'Привет' * 500
+        def response():
+            rows = self.rows()
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(rows[0]['state'], 'reserved')
+            # 3,000 Unicode characters at the standard $0.08/1K rate.
+            self.assertEqual(rows[0]['reserved'], 240_000)
+            return 'audio'
+        call = Mock(side_effect=response)
+        self.assertEqual(elevenlabs_call(self.config, text, 'eleven_v4', 'voice', call), 'audio')
+        call.assert_called_once()
+        self.assertEqual(self.rows()[0]['actual'], 240_000)
+        self.assertEqual(self.rows()[0]['state'], 'settled')
+
+    def test_v4_tts_rejects_invalid_text_before_reservation_or_network(self):
+        call = Mock()
+        for text in ('', 'x' * 3001, None):
+            with self.subTest(text_length=len(text) if isinstance(text, str) else None), \
+                 self.assertRaises(TrialDenied):
+                elevenlabs_call(self.config, text, 'eleven_v4', 'voice', call)
+        call.assert_not_called()
+        self.assertEqual(self.rows(), [])
+
     def test_missing_ledger_cannot_reset_spending(self):
         self.path.unlink()
         with self.assertRaises(TrialDenied):

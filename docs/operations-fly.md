@@ -1,48 +1,30 @@
 # Russian Arcade on Fly.io
 
-## Public sample fallback
+## Hosted personal accounts
 
-Demo entry: https://russian-arcade.fly.dev/demo/
+Application: https://russian-arcade.fly.dev/
 
-Sample fallback: https://russian-arcade.fly.dev/
+The public demo is retired. Visitors sign in with Google or GitHub before opening
+activities. Signed-in accounts retain their database, media, lessons and progress.
+Old `/demo/` page links return to the main site. Guest API requests and mutations
+return `410`; they never fall through into a personal workspace.
 
-The user selected a public demonstration with synthetic content, rather than
-uploading their private learning installation. `fly.toml` sets `PUBLIC_DEMO=true`.
-The public entry point creates a new disposable SQLite database on every process
-start, seeds 13 vocabulary lemmas and 15 authored contextual cloze cards from
-First steps, and gives each browser a separate temporary profile. No personal
-vocabulary, lessons, recordings or local OAuth files are copied into the release.
+`PUBLIC_DEMO=true` is the legacy name for the restricted public hosting boundary.
+Keep it enabled. Set `HOSTED_PUBLIC_DEMO_ENABLED=false` and
+`HOSTED_GUEST_DEMO_ENABLED=false` to disable both guest workspaces and the old
+anonymous sample fallback. Account-only hosting requires `HOSTED_TRIAL_ROOT`.
+It does not create a disposable sample database at startup.
 
-Visitors can try the First steps lessons, browse sample vocabulary, review sample
-cloze cards with the native scheduler, play sample games and explore activity/scenario catalogues.
-The sample cards demonstrate text review; they do not include generated images
-or speech. Generation, uploads, editing, live speaking and switching profiles are
-blocked in anonymous sample mode. Provider-backed functionality requires a
-configured local installation or the separately enabled guest demo or signed-in trial below.
+The base `/data/vocab.db` must exist and contain the migrated schema. It is used
+for health checks and application setup, not as a shared learning workspace.
+Before the first account-only deployment, initialize it if absent with the
+application's `upgrade_database` function. Never replace an existing database.
+Back up all account databases, the identity registry and spending ledger first.
 
-Only explicitly allowed routes operate in demo mode, including legacy GET
-routes that otherwise could trigger provider calls. Profile APIs return only the
-current browser's identity. CSRF and activity ownership checks remain enabled.
-Provider keys are cleared in the sample application's configuration even when the
-same host runs the signed-in trial. A sample-only deployment requires a generated
-`FLASK_SECRET_KEY`; the trial requires its own OAuth and provider configuration.
-
-The demo runs as one Sydney Machine with one threaded Gunicorn process (eight
-threads), one shared CPU and 2 GB RAM. Anonymous sample progress resets on
-restart/deployment. The signed-in trial uses separate persistent storage.
-SQLite enforces these shared sample limits:
-
-- 1,200 application requests per minute, excluding static assets.
-- 600 writes per minute and 10,000 per UTC day across all visitors.
-- 60 writes per minute and 300 per UTC day for one browser credential.
-- 30 new profiles per minute, 120 per hour and 2,000 in total.
-
-Counters and profile admission are transactional. Refreshing cookies does not
-reset the shared limits. HTTP 429 responses include `Retry-After`. Static files
-remain available at the limit. These controls do not replace edge-level abuse
-protection, and the temporary counters must not be used for paid AI allowances.
-Reset a full demo with `fly apps restart -a russian-arcade`. Do not treat it as a
-production account service or promise permanent learning records.
+The service uses one Sydney Machine, one threaded Gunicorn process (eight
+threads), one shared CPU and 2 GB RAM. Removing demo access does not delete guest
+files, reset budgets or alter personal accounts. Later storage reclamation is a
+separate operation after backups and retention decisions.
 
 Before deploying, check that the configured volume exists in Sydney:
 
@@ -73,29 +55,13 @@ responses include a one-year HSTS policy; `/healthz`
 checks database readiness. Keep a single Machine: in-memory/background ownership
 and SQLite are not configured for replicas.
 
-Validation covers visitor isolation, blocked generation/upload/Drive endpoints,
-CSRF, private deployment authentication, sample page rendering and native cloze
-reveal. Also verify the live homepage, stylesheet/script assets and HTTPS checks
-after each deployment.
-
-## No-login AI demo
-
-Enable `HOSTED_GUEST_DEMO_ENABLED=true` to serve a temporary visitor workspace at `/demo/`. `/demo` redirects to this canonical path. Activity pages, API requests and generated media stay under `/demo/`; the visitor does not need Google or GitHub. The main site at `/` opens a personal account or offers sign-in and demo entry. Personal and demo cookies coexist, with the route selecting the workspace.
-
-Demo visitors have separate databases, media and progress. The demo cookie expires after 24 hours. The server bounds new guest admission and retained workspaces, then removes expired guest files when they are no longer in use. The persistent spending ledger is never deleted during guest cleanup.
-
-Guest admission allows 12 new sessions per minute, 30 per hour and 100 per UTC day, with at most 32 retained guest workspaces. Each has a 32 MiB storage allowance. Requests are limited to 180 per minute per guest; writes to 30 per minute and 300 per day. Shared guest limits are 1,200 requests per minute, 180 writes per minute and 1,000 writes per day. Counters survive restarts. AI use shares the same US$1 daily, US$20 monthly and US$10 lifetime allowance as signed-in accounts.
-
-Set the guest flag independently from `HOSTED_ACCOUNTS_ENABLED`. Paid generation still needs `AI_TRIAL_ENABLED=true`, dedicated demo provider credentials and the existing ledger. OAuth credentials are only needed for personal sign-in. Turning off guest admission prevents new guest sessions; turn off AI or pause its ledger to stop paid work.
-
-A temporary visitor is identified by a server-issued cookie, not verified identity. Clearing cookies may request another guest workspace. Global admission, storage and spending limits remain in force. Do not present the per-visitor budget as protection against a determined person who creates multiple sessions.
-
-Temporary work is not imported when a visitor signs in. The personal workspace remains separate. The account page states the 24-hour lifetime and offers optional sign-in.
+Validation covers account isolation, anonymous request rejection, retired demo
+routes, CSRF, provider budgets and saved media. Verify the live sign-in page,
+stylesheet assets, `/healthz`, and existing signed-in workspaces after deployment.
 
 ## Hosted accounts and AI funding
 
-Visitors can use the no-login demo, try free samples, or sign in to a persistent account. Account
-access and paid AI have separate switches. Accounts need Google or GitHub sign-in and
+Visitors sign in to a persistent account. Account access and paid AI have separate switches. Accounts need Google or GitHub sign-in and
 persistent storage. AI also needs dedicated provider credentials and an existing
 spending ledger. A source release does not activate either switch.
 
@@ -105,7 +71,7 @@ repository or Google Drive access and discards provider tokens after verifying
 the account. Register the GitHub callback as
 `https://russian-arcade.fly.dev/trial/callback` and the Google callback as
 `https://russian-arcade.fly.dev/trial/callback/google`. Provider identity uses a
-stable subject, not a browser-supplied name. Signing out returns to the main sign-in entry. The separate `/demo/` workspace remains available until its own session expires.
+stable subject, not a browser-supplied name. Signing out returns to the main sign-in entry. Old demo sessions no longer grant access.
 
 See [account sign-in](account-sign-in.md) for Google configuration and connecting
 Google to an existing GitHub account. Connected methods share the same account
@@ -158,7 +124,7 @@ For a data migration, create an empty file at
 `HOSTED_TRIAL_ROOT/operator/maintenance/<identity-digest>`. New content requests
 for that account receive HTTP 503 with `Retry-After: 60`. Sign-in, account status
 and sign-out remain available, and signing in does not open or seed the paused
-workspace. Other accounts and anonymous samples continue to work.
+workspace. Other accounts continue to work.
 
 The marker blocks new requests; it does not cancel requests or background jobs
 already running. Drain those jobs or stop the worker before taking the final
@@ -174,7 +140,9 @@ The hosted configuration uses the `arcade_data` volume mounted at `/data`:
 | `HOSTED_TRIAL_ROOT=/data/trial` | Identity registry and per-account workspaces |
 | `/data/trial/ai-budget.sqlite3` | Shared persistent spending ledger |
 | `HOSTED_ACCOUNTS_ENABLED=false` | Enable account sign-in only after OAuth is configured |
-| `HOSTED_GUEST_DEMO_ENABLED=false` | Enable the 24-hour, no-login demo after validation |
+| `HOSTED_PUBLIC_DEMO_ENABLED=false` | Disable all public demo access and anonymous samples |
+| `HOSTED_GUEST_DEMO_ENABLED=false` | Disable temporary visitor admission |
+| `ELEVENLABS_MODEL=eleven_v4` | Model for new generated speech |
 | `AI_TRIAL_ENABLED=false` | Keep paid work off until configuration and checks pass |
 | `GITHUB_OAUTH_CLIENT_ID`, `GITHUB_OAUTH_CLIENT_SECRET` | Dedicated GitHub OAuth application |
 | `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET` | Dedicated Google OAuth web client; separate from Drive capture |
@@ -227,8 +195,8 @@ AI status separately if only one is activated.
 
 | Scope | Admission limit |
 |---|---|
-| One personal account or temporary demo visitor | US$1 per UTC day; US$2 for the lifetime of the demo |
-| All guests, accounts and providers | US$1 per UTC day; US$20 per UTC calendar month; US$10 for the lifetime of the demo |
+| One personal account | US$1 per UTC day; US$2 total |
+| All accounts and providers, including historical guest spend | US$1 per UTC day; US$20 per UTC calendar month; US$10 total |
 | Provider calls per account | 30 in a rolling 60-second window; 120 per UTC day |
 | Standard flashcard generator | Five cards per hosted batch; local installations retain twenty |
 
@@ -300,11 +268,11 @@ ownership and server-enforced live-call termination. Confirm the final hosted
 settings and a successful provider-backed run; unit tests alone do not verify
 the deployed OAuth app or provider account.
 
-## Optional private household installation (not this public demo)
+## Optional private household installation
 
 The following is a separate future deployment procedure for real personal data.
 Use another app, omit `PUBLIC_DEMO`, mount a persistent volume and configure the
-mandatory HTTP Basic credentials. Do not change the public demo into a personal
+mandatory HTTP Basic credentials. Do not change the hosted service into a personal
 installation by merely copying its data.
 
 ## Build and storage
@@ -389,3 +357,19 @@ together during maintenance.
 References: [Fly volumes](https://fly.io/docs/volumes/overview/),
 [configuration](https://fly.io/docs/reference/configuration/),
 [runtime secrets](https://fly.io/docs/apps/secrets/).
+
+## Speech model
+
+New recorded speech uses `eleven_v4`. Both ElevenLabs adapters share model-aware
+settings: stability `0.8`, similarity boost `0.85`, with no unsupported style or
+speed field. The existing four Russian voices remain randomly selected.
+
+Pending recordings adopt v4 while preserving their text and selected voice.
+Completed recordings and their original model metadata remain intact. The
+application does not regenerate a user's saved audio just because a model changes.
+Fluent Speaking retains its separate OpenAI live audio transport.
+
+The budget adapter reserves v4 speech at the standard US$0.08 per 1,000 characters,
+not the temporary launch discount. Existing shared and per-account limits apply.
+Legacy `DEMO_*_API_KEY` secret names still supply hosted accounts; do not delete
+those credentials when removing demo access.

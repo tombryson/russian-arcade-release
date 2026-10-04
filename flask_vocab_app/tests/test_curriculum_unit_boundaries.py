@@ -103,7 +103,7 @@ class PublicCurriculumUnitBoundaryTests(unittest.TestCase):
     def setUp(self):
         from hosted import create_hosted_app
         from public_demo import prepare_demo
-        environment = patch.dict(os.environ, {'PUBLIC_DEMO': 'true',
+        environment = patch.dict(os.environ, {'PUBLIC_DEMO': 'true', 'HOSTED_PUBLIC_DEMO_ENABLED': 'true',
             'FLASK_SECRET_KEY': 'synthetic-test-secret-' * 3, 'HOSTED_HOSTNAME': 'arcade.example',
             'HOSTED_TRIAL_ROOT': '', 'AI_TRIAL_ENABLED': 'false', 'HOSTED_ACCOUNTS_ENABLED': 'false'})
         environment.start()

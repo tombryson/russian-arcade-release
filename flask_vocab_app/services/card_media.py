@@ -29,6 +29,12 @@ class NativeMediaProvider:
         return {'model': self.speech.model, 'voice_id': random.choice(self.speech.voice_ids),
                 'text': form if kind == 'word_audio' else item['context']}
 
+    def prepare_pending_spec(self, kind, spec):
+        """Use v4 for unfinished speech while keeping its chosen voice and text."""
+        if kind in ('word_audio', 'sentence_audio') and self.speech.model == 'eleven_v4':
+            return {**spec, 'model': self.speech.model}
+        return spec
+
     def generate(self, kind, spec):
         if kind == 'image':
             result = self.images.generate_image_url(spec['text'], spec['word'], model=spec['model'], no_text=spec.get('no_text',True))
@@ -106,8 +112,14 @@ class CardMediaService:
             row = None if running else conn.execute("SELECT * FROM native_card_media_jobs WHERE card_id=? AND (status='pending' OR (status='running' AND lease_until<=?)) ORDER BY created_at,rowid LIMIT 1",(card_id,self.clock())).fetchone()
             job = dict(row) if row else None
             if job:
+                # Once bytes exist, the saved model remains their provenance,
+                # even if a prior publish was interrupted. Refresh only work
+                # that will make a new provider call under this claim.
+                prepare = getattr(self.provider, 'prepare_pending_spec', None)
+                if not job['asset_id'] and prepare:
+                    job['spec'] = encoded(prepare(job['kind'], json.loads(job['spec'])))
                 claim = identifier()
-                conn.execute("UPDATE native_card_media_jobs SET status='running',claim_id=?,lease_until=? WHERE id=?",(claim,self.clock()+300,job['id']))
+                conn.execute("UPDATE native_card_media_jobs SET status='running',claim_id=?,lease_until=?,spec=? WHERE id=?",(claim,self.clock()+300,job['spec'],job['id']))
         if running:
             return self.status(credential,card_id)
         if job:

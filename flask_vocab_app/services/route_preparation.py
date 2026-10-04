@@ -14,13 +14,13 @@ from pathlib import Path
 import re
 
 from repositories.learning_repository import timestamp, transaction
+from services.elevenlabs_service import voice_settings_for_model
 from services.learning_assets import import_asset
 from services.route_content import line
 
 logger = logging.getLogger(__name__)
 VERSION = 'delivery-preparation-v1'
 PROMPT_VERSION = 'delivery-dialogue-v2'
-VOICE_SETTINGS = {'stability': 0.8, 'similarity_boost': 0.85, 'style': 0.0}
 MAX_LEGS = 6
 MAX_LINES = 64
 MAX_CHARACTERS = 7000
@@ -154,7 +154,7 @@ class RoutePreparationService:
             'model': str(self.config.get('OPENAI_MODEL_FLASHCARDS') or
                          (vars(self.text_provider).get('flashcard_model', '') if self.text_provider is not None else '') or
                          vars(type(self.text_provider)).get('flashcard_model', '')).removeprefix('openai/'),
-            'voices': selected, 'audio_model': self.config.get('ELEVENLABS_MODEL', 'eleven_multilingual_v2'),
+            'voices': selected, 'audio_model': self.config.get('ELEVENLABS_MODEL', 'eleven_v4'),
             'dialogue': [{} for _ in result['legs']], 'audio': {}, 'audio_attempts': {}, 'error': None,
         }
         self._check_limits(result)
@@ -180,8 +180,9 @@ class RoutePreparationService:
 
     def _spec(self, pack, speaker, item):
         state = pack['_route_preparation']
+        model = state.get('audio_models', {}).get(_digest([speaker, item['text']]), state['audio_model'])
         return {'text': item['text'], 'voice_id': state['voices'].get(speaker), 'language': 'ru',
-                'provider': 'elevenlabs', 'model': state['audio_model'], 'voice_settings': dict(VOICE_SETTINGS),
+                'provider': 'elevenlabs', 'model': model, 'voice_settings': voice_settings_for_model(model),
                 'scope': state['scope']}
 
     def _static(self, speaker, item, spec):
@@ -195,7 +196,8 @@ class RoutePreparationService:
             clip = manifest['clips'][item['id']]
             return bool(clip['speaker'] == speaker and clip['text'] == item['text']
                         and manifest.get('speakers', {}).get(speaker) == spec['voice_id']
-                        and manifest.get('provider') == spec['provider'] and manifest.get('model') == spec['model']
+                        and manifest.get('provider') == spec['provider']
+                        and clip.get('model', manifest.get('model')) == spec['model']
                         and (self.static_audio_root / (item['id'] + '.mp3')).is_file())
         except (OSError, ValueError, KeyError, TypeError):
             return False
@@ -295,8 +297,7 @@ class RoutePreparationService:
             raise PreparationFailure('The conversation request did not finish. Retry to keep the same delivery.')
         return json.loads(choice.message.content)
 
-    def _audio(self, pack, selected):
-        speaker, item, spec = selected
+    def _cached_asset(self, spec):
         spec_hash = _digest(spec)
         source = 'Delivery speech v1 ' + spec_hash
         with transaction(self.db_path) as conn:
@@ -305,15 +306,33 @@ class RoutePreparationService:
             # provenance alone cannot represent several specs with equal bytes.
             legacy = conn.execute('SELECT id FROM learning_assets WHERE source=? ORDER BY created_at DESC', (source,)).fetchall()
         candidates = ([mapped['asset_id']] if mapped else []) + [row['id'] for row in legacy]
-        asset_id = next((value for value in candidates if self._valid_asset(value)), None)
+        return next((value for value in candidates if self._valid_asset(value)), None)
+
+    def _audio(self, pack, selected):
+        speaker, item, spec = selected
+        asset_id = self._cached_asset(spec)
+        if not asset_id and self.config.get('ELEVENLABS_MODEL', 'eleven_v4') == 'eleven_v4' and spec['model'] != 'eleven_v4':
+            # Existing recordings keep their original model and cache identity.
+            # Only missing speech moves to v4, with the same selected voice.
+            state = pack['_route_preparation']
+            previous_hash = _digest(spec)
+            state.setdefault('audio_models', {})[_digest([speaker, item['text']])] = 'eleven_v4'
+            spec = self._spec(pack, speaker, item)
+            attempts = state.setdefault('audio_attempts', {})
+            attempts[_digest(spec)] = max(attempts.get(_digest(spec), 0), attempts.get(previous_hash, 0))
+            if self._static(speaker, item, spec):
+                return
+            asset_id = self._cached_asset(spec)
+        spec_hash = _digest(spec)
+        source = 'Delivery speech v1 ' + spec_hash
         if not asset_id:
             if self.speech_provider is None or not spec['voice_id']:
                 raise PreparationFailure('Configure a Russian ElevenLabs voice in the existing local settings, then retry.')
             if not self.config.get('ELEVENLABS_API_KEY'):
                 raise PreparationFailure('Add the ElevenLabs API key to the existing local configuration, then retry.')
             actual_config = getattr(self.speech_provider, 'config', self.config)
-            if (self.config.get('ELEVENLABS_MODEL', 'eleven_multilingual_v2') != spec['model']
-                    or actual_config.get('ELEVENLABS_MODEL', 'eleven_multilingual_v2') != spec['model']):
+            if (self.config.get('ELEVENLABS_MODEL', 'eleven_v4') != spec['model']
+                    or actual_config.get('ELEVENLABS_MODEL', 'eleven_v4') != spec['model']):
                 raise PreparationFailure('The speech model changed during preparation. Restore it or start a new delivery.')
             attempts = pack['_route_preparation'].setdefault('audio_attempts', {})
             key = _digest(spec)

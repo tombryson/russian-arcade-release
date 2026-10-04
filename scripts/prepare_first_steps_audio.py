@@ -118,6 +118,9 @@ def main(argv=None):
     for url, text, digest, path in pending:
         clip = saved['clips'].setdefault(url, {'text_sha256': digest, 'voice_id': random.choice(voices),
                                               'model': model})
+        # A saved, unfinished voice selection survives retries; its model must
+        # describe the request made now, rather than the previous failed run.
+        clip['model'] = model
         _save_manifest(manifest, saved)
         try:
             data = speak(text, clip['voice_id'])

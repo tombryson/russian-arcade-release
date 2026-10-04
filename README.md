@@ -4,7 +4,7 @@ Russian Arcade is a Russian learning application with vocabulary, flashcards, re
 
 Barsik (Барсик), a cat delivering a letter, guides the introductory lessons and journey activities. The application supports both younger learners and adults. Individual study is the default; household controls are optional.
 
-**[Try the public demo](https://russian-arcade.fly.dev/demo/)** · [Local setup](#local-setup) · [Architecture](#architecture-and-technology-stack) · [Documentation](#documentation)
+**[Open Russian Arcade](https://russian-arcade.fly.dev/)** · [Local setup](#local-setup) · [Architecture](#architecture-and-technology-stack) · [Documentation](#documentation)
 
 <p align="center">
   <img src="flask_vocab_app/ui/src/assets/barsik.webp" alt="Barsik holding a letter beside a red postbox." width="320">
@@ -211,17 +211,15 @@ One Flask application serves the backend and interface. Preact powers the homepa
 
 Model settings are listed in [config.py](flask_vocab_app/config.py) and [`.env.example`](.env.example). AI features require provider credentials and access to the configured models. Provider charges apply.
 
-## Public demo and project status
+## Hosted application and project status
 
-The **[public demo](https://russian-arcade.fly.dev/demo/)** opens without a login. Each visitor receives a separate workspace for 24 hours, starting with authored vocabulary and sample cards. Visitors do not share progress, uploads or recordings.
+The **[hosted application](https://russian-arcade.fly.dev/)** requires sign-in with Google or GitHub. Each account keeps its own vocabulary, cards, lessons and progress. The public demo has been retired; old `/demo/` links return to the main site. Existing personal accounts and saved work are preserved.
 
-AI generation uses a shared allowance: **US$1 per day, US$20 per month and US$10 in total**. Each temporary visitor or personal account also has a US$1 daily and US$2 total limit. Clearing cookies cannot reset the shared allowance. Cookie-based visitor limits are not proof of a unique person; admission limits and the shared ledger remain the spending boundary. Saved sample practice remains available when AI funding runs out.
+Existing GitHub users can connect Google from their account settings to use either provider with the same saved data. See the [sign-in guide](docs/account-sign-in.md).
 
-**Sign-in is optional.** Google and GitHub are supported when configured by the operator. Personal accounts keep their own vocabulary, cards, lessons and progress. Existing GitHub users can connect Google from their account page without moving their data. Temporary demo work is separate and is not automatically imported into a personal account. See the [sign-in guide](docs/account-sign-in.md).
+AI generation retains its shared allowance: **US$1 per day, US$20 per month and US$10 in total**. Each account also has a US$1 daily and US$2 total limit. Removing guest access does not reset usage or raise these limits. Saved practice remains available when AI funding runs out.
 
-The main site opens your personal account, or offers sign-in and a link to the demo. Demo activities stay under `/demo/`, including navigation, API requests and private media. Personal and demo workspaces can be open in separate tabs without switching each other.
-
-The no-login demo and paid AI are separate deployment switches. When the guest demo is disabled, anonymous visitors can still try free samples. That fallback uses no paid providers and resets on restart. See [demo operation](docs/operations-fly.md).
+Generated recordings use **ElevenLabs v4**, with a randomly selected Russian voice from the configured pool. This includes cards, stories, phrasebook sentences, games, curriculum listening and Step-through dialogue. Existing recordings remain playable. Fluent Speaking uses OpenAI's separate live audio connection.
 
 The server reserves costs before provider calls and limits each account to 30 calls per rolling minute and 120 per day. The standard flashcard generator allows at most five cards per hosted batch. Pictures, speech, transcription and assessment all count; one activity may need several calls. Saved practice remains available after the allowance runs out. Lingocoins do not buy AI credits.
 
@@ -229,7 +227,7 @@ Live calls close after one minute, but a server failure can prevent that close; 
 
 The application is under active development, with local individual and household use as its main deployment model. Current limits include:
 
-- Local profiles do not provide hosted account authentication. Hosted personal accounts use verified sign-in; temporary demo access uses a separate browser session.
+- Local profiles do not provide hosted account authentication. Hosted personal accounts use verified sign-in.
 - Background work uses threads within the application. Running multiple instances requires changes to storage and worker coordination.
 - OCR, generated content and automated assessment can contain errors.
 - Lesson selections feed cards and games. Broader lesson-based writing and speaking integration remains planned.

@@ -5,6 +5,7 @@ import threading
 import unittest
 from concurrent.futures import ThreadPoolExecutor
 from types import SimpleNamespace
+from unittest.mock import patch
 
 from repositories.learning_repository import LearningError, transaction
 from services.card_media import NativeMediaProvider
@@ -166,6 +167,50 @@ class JourneyGameMediaTests(unittest.TestCase):
         self.assertEqual(media.prepare(self.key)['status'], 'ready')
         self.assertEqual(len(self.provider.calls), 2)
         self.assertNotEqual(self.provider.calls[0][1]['model'], self.provider.calls[1][1]['model'])
+
+    def test_v4_upgrade_reuses_completed_legacy_audio_without_relabeling_it(self):
+        provider = NativeMediaProvider(None, SimpleNamespace(api_key='test-only', model='eleven_multilingual_v2',
+                                                           voice_ids=('one', 'two')))
+        provider.generate = self.provider.generate
+        media = JourneyGameMediaService(self.db, self.store, provider, self.authorize)
+        self.assertEqual(media.prepare(self.key)['status'], 'ready')
+        with transaction(self.db) as conn:
+            original = dict(conn.execute('SELECT * FROM journey_game_media').fetchone())
+        provider.speech.model = 'eleven_v4'
+        with patch('services.card_media.random.choice') as choose:
+            self.assertEqual(media.prepare(self.key)['status'], 'ready')
+        choose.assert_not_called()
+        self.assertEqual(media.asset(self.key)[0].read_bytes(), self.provider.mp3)
+        with transaction(self.db) as conn:
+            self.assertEqual(dict(conn.execute('SELECT * FROM journey_game_media').fetchone()), original)
+        self.assertEqual(len(self.provider.calls), 1)
+        provider.speech.voice_ids = ('different-voice',)
+        self.assertEqual(media.status(self.key)['status'], 'pending')
+
+    def test_v4_retry_upgrades_legacy_policy_and_spec_before_call_preserving_selected_voice(self):
+        provider = NativeMediaProvider(None, SimpleNamespace(api_key='test-only', model='eleven_multilingual_v2',
+                                                           voice_ids=('one', 'two')))
+        provider.generate = self.provider.generate
+        media = JourneyGameMediaService(self.db, self.store, provider, self.authorize)
+        self.provider.fail = {'sentence_audio'}
+        self.assertEqual(media.prepare(self.key)['status'], 'failed')
+        original = self.provider.calls[0][1]
+        self.provider.fail.clear()
+        provider.speech.model = 'eleven_v4'
+        def generate(kind, spec):
+            with transaction(self.db, write=True) as conn:
+                rows = conn.execute('SELECT * FROM journey_game_media').fetchall()
+                self.assertEqual(len(rows), 1)
+                self.assertEqual(rows[0]['status'], 'running')
+                self.assertEqual(rows[0]['policy_hash'], media._policy())
+                self.assertEqual(json.loads(rows[0]['spec_json']), spec)
+                self.assertEqual(spec, {**original, 'model': 'eleven_v4'})
+            return self.provider.generate(kind, spec)
+        provider.generate = generate
+        with patch('services.card_media.random.choice') as choose:
+            self.assertEqual(media.prepare(self.key)['status'], 'ready')
+        choose.assert_not_called()
+        self.assertEqual(len(self.provider.calls), 2)
 
     def test_image_bytes_cannot_be_returned_as_game_audio(self):
         self.provider.generate = lambda *_: self.provider.image

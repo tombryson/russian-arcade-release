@@ -10,7 +10,7 @@ from services.demo_limits import DemoLimits
 
 class PublicDemoTests(unittest.TestCase):
     def setUp(self):
-        env = patch.dict(os.environ, PUBLIC_DEMO='true', FLASK_SECRET_KEY='synthetic-test-secret-' * 3,
+        env = patch.dict(os.environ, PUBLIC_DEMO='true', HOSTED_PUBLIC_DEMO_ENABLED='true', FLASK_SECRET_KEY='synthetic-test-secret-' * 3,
                          HOSTED_HOSTNAME='russian-arcade.fly.dev')
         env.start()
         self.addCleanup(env.stop)

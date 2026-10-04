@@ -1,18 +1,16 @@
 # Account sign-in
 
-Hosted users can sign in with Google or GitHub. The sign-in page shows only
-configured providers, with Google first. `/demo/` opens a separate, 24-hour
-visitor workspace without sign-in when the guest demo is enabled. Free sample
-activities remain available as a fallback.
+Hosted users sign in with Google or GitHub. The page shows only configured
+providers, with Google first. The public demo is retired. Old `/demo/` page links
+return to the main site; expired guest cookies cannot create or open a workspace.
 
 Sign-in and paid AI are separate. Adding a provider does not change the AI
-allowance or enable a paid service. Signing in opens the personal account; it
-does not import temporary demo work.
+allowance or enable a paid service. Signing in opens the personal account.
 
 For signed-in users, the avatar opens the profile overview at `/post/profiles`.
-It shows the current account's course milestones and skill ratings. **Account
-settings** opens `/trial/account` for sign-in methods and sign-out. Local profile
-selection and the temporary demo account page keep their existing behaviour.
+It shows course milestones and skill ratings. **Account settings** opens
+`/trial/account` for sign-in methods and sign-out. Local profile selection is
+unchanged.
 
 ## Existing accounts
 
@@ -110,7 +108,7 @@ For a hosted smoke test, check:
 
 - Google and GitHub each return to the requested application page.
 - An existing GitHub account can connect Google and reopen its saved data.
-- Signing out returns to the sample demo.
+- Signing out returns to the sign-in page.
 - Cancelled or expired sign-in offers a clear retry without provider diagnostics.
 - A separate account cannot see or connect an identity belonging to another user.
 
@@ -118,10 +116,17 @@ Email sign-in, Apple sign-in, passkeys and self-service account merging are not
 implemented in this pass. Email would require a mail provider, delivery setup,
 single-use verification links and request limits.
 
-## Demo routing
+## Retired demo routes
 
-With the guest demo enabled, `/` opens the personal workspace or the sign-in entry. `/demo/` opens the temporary workspace directly. `/demo` redirects to `/demo/`; it does not send visitors back to the main app. Demo pages, activity APIs and generated media stay under that prefix. Packaged assets and OAuth routes remain shared at the origin.
+`HOSTED_PUBLIC_DEMO_ENABLED=false` disables both the anonymous sample site and
+`/demo/` workspaces. Keep `HOSTED_GUEST_DEMO_ENABLED=false` as well. The older
+`PUBLIC_DEMO=true` setting remains a hosted security boundary; turning it off
+selects the separate HTTP Basic deployment mode.
 
-The server selects the workspace from the route and its verified cookie. A personal sign-in cookie never replaces the demo workspace, and a demo cookie never activates a demo on the main site. Both can be open in separate tabs. Cookies retain `Path=/` as required by their `__Host-` names. Requests still validate the account scope and CSRF token.
+Anonymous application pages offer sign-in. Anonymous API requests return `401`.
+Old demo page links return to the main site; demo API requests and mutations
+return `410` without opening an account or calling a provider. OAuth callbacks,
+existing personal sessions, account databases and spending records are preserved.
 
-An expired demo API request returns `401` with a link to start again. It never silently creates a replacement workspace. The demo account page has a **Leave demo** link to the main site.
+Demo retirement does not delete historical guest files or import them into an
+account. Any later storage cleanup is a separate administrative operation.

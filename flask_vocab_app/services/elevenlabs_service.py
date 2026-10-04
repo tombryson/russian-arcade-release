@@ -11,6 +11,16 @@ from pydub import AudioSegment
 
 logger = logging.getLogger(__name__)
 
+
+def voice_settings_for_model(model):
+    """Return the fixed listening settings supported by the selected model."""
+    settings = {"stability": 0.8, "similarity_boost": 0.85}
+    # v4 accepts stability and similarity only; style/speed are not supported.
+    if model != "eleven_v4":
+        settings["style"] = 0.0
+    return settings
+
+
 class ElevenLabsService:
     def __init__(self, api_key, media_dir, voice_ids=ELEVENLABS_VOICE_IDS, model=ELEVENLABS_MODEL, config=None):
         self.config = config_snapshot(config)
@@ -28,7 +38,7 @@ class ElevenLabsService:
         data = {
             "text": sentence,
             "model_id": self.model,
-            "voice_settings": {"stability": 0.8, "similarity_boost": 0.85, "style": 0.0}
+            "voice_settings": voice_settings_for_model(self.model)
         }
         logger.info(f"Generating audio for sentence: {sentence} with filename: {filename}")
         try:

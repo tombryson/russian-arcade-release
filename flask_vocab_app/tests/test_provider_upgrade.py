@@ -1,3 +1,5 @@
+import os
+import runpy
 import tempfile
 import unittest
 from pathlib import Path
@@ -6,10 +8,75 @@ from unittest.mock import Mock, patch
 from services.yandex_service import YandexService
 from services.anki_connect import AnkiConnect
 from services.openai_service import OpenAIService
-from services.elevenlabs_service import ElevenLabsService
+from services.elevenlabs_service import ElevenLabsService, voice_settings_for_model
+from services.speech_provider import SpeechProvider
 
 
 class ProviderUpgradeTests(unittest.TestCase):
+    def test_default_audio_model_and_russian_voice_pool(self):
+        config_path = Path(__file__).resolve().parents[1] / 'config.py'
+        with patch.dict(os.environ, {}, clear=True), patch('dotenv.load_dotenv'):
+            settings = runpy.run_path(str(config_path))
+            app_settings = settings['app_config']()
+        self.assertEqual(settings['ELEVENLABS_MODEL'], 'eleven_v4')
+        self.assertEqual(app_settings['ELEVENLABS_MODEL'], 'eleven_v4')
+        self.assertEqual(app_settings['ELEVENLABS_VOICE_IDS'], (
+            'ymDCYd8puC7gYjxIamPt', 'gXMhWmiqsFkrcssqVb5k',
+            'sRk0zCqhS2Cmv0bzx5wA', '3EuKHIEZbSzrHGNmdYsx'))
+
+    def test_audio_model_environment_override_is_preserved(self):
+        config_path = Path(__file__).resolve().parents[1] / 'config.py'
+        with patch.dict(os.environ, {'ELEVENLABS_MODEL': 'eleven_multilingual_v2'}, clear=True), \
+             patch('dotenv.load_dotenv'):
+            settings = runpy.run_path(str(config_path))
+        self.assertEqual(settings['ELEVENLABS_MODEL'], 'eleven_multilingual_v2')
+
+    def test_voice_settings_follow_model_capabilities_and_do_not_share_state(self):
+        expected = {'stability': .8, 'similarity_boost': .85}
+        self.assertEqual(voice_settings_for_model('eleven_v4'), expected)
+        self.assertEqual(voice_settings_for_model('eleven_multilingual_v2'), {**expected, 'style': 0.0})
+        changed = voice_settings_for_model('eleven_v4')
+        changed['stability'] = 0
+        self.assertEqual(voice_settings_for_model('eleven_v4'), expected)
+
+    def test_audio_generation_v4_payload_preserves_random_voice_selection(self):
+        voices = ('ymDCYd8puC7gYjxIamPt', 'gXMhWmiqsFkrcssqVb5k',
+                  'sRk0zCqhS2Cmv0bzx5wA', '3EuKHIEZbSzrHGNmdYsx')
+        service = ElevenLabsService('synthetic', '/unused', voice_ids=voices, model='eleven_v4')
+        with patch('services.elevenlabs_service.random.choice', side_effect=voices) as choose, \
+             patch('services.elevenlabs_service.requests.post', side_effect=RuntimeError('offline')) as post:
+            for index, voice in enumerate(voices):
+                service.generate_audio('Кот.', f'{index}.mp3')
+        self.assertEqual(choose.call_count, len(voices))
+        self.assertTrue(all(call.args == (voices,) for call in choose.call_args_list))
+        for voice, call in zip(voices, post.call_args_list):
+            self.assertTrue(call.args[0].endswith('/' + voice))
+            self.assertEqual(call.kwargs['json'], {
+                'text': 'Кот.', 'model_id': 'eleven_v4',
+                'voice_settings': {'stability': .8, 'similarity_boost': .85}})
+
+    def test_conversation_speech_uses_model_compatible_payload(self):
+        for model in ('eleven_v4', 'eleven_multilingual_v2'):
+            with self.subTest(model=model):
+                provider = SpeechProvider({'ELEVENLABS_API_KEY': 'synthetic', 'ELEVENLABS_MODEL': model})
+                with patch('services.speech_provider.requests.post', return_value=Mock(ok=True, content=b'audio')) as post, \
+                     patch('services.speech_provider.audio_info', return_value=1):
+                    self.assertEqual(provider.speak('Привет!', 'selected-voice'), b'audio')
+                self.assertTrue(post.call_args.args[0].endswith('/selected-voice'))
+                self.assertEqual(post.call_args.kwargs['json'], {
+                    'text': 'Привет!', 'model_id': model,
+                    'voice_settings': voice_settings_for_model(model)})
+
+    def test_conversation_speech_defaults_to_configured_model(self):
+        provider = SpeechProvider({'ELEVENLABS_API_KEY': 'synthetic'})
+        with patch('services.speech_provider.ELEVENLABS_MODEL', 'eleven_v4'), \
+             patch('services.speech_provider.requests.post', return_value=Mock(ok=True, content=b'audio')) as post, \
+             patch('services.speech_provider.audio_info', return_value=1):
+            provider.speak('Привет!', 'selected-voice')
+        self.assertEqual(post.call_args.kwargs['json']['model_id'], 'eleven_v4')
+        self.assertEqual(post.call_args.kwargs['json']['voice_settings'],
+                         {'stability': .8, 'similarity_boost': .85})
+
     def test_translation_failure_is_not_card_content(self):
         service = YandexService('synthetic')
         with patch('services.yandex_service.requests.post', side_effect=RuntimeError('failure')):

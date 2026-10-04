@@ -33,7 +33,7 @@ def _save_manifest(manifest, saved):
     _write_atomic(manifest,(json.dumps(saved,ensure_ascii=False,indent=2)+'\n').encode())
 
 
-def _prepare_clips(provider, todo, saved, root, manifest, workers):
+def _prepare_clips(provider, todo, saved, root, manifest, workers, *, model):
     """Only the main thread saves results; at most three calls can be in flight."""
     remaining=iter(todo)
     completed=0
@@ -57,7 +57,8 @@ def _prepare_clips(provider, todo, saved, root, manifest, workers):
                     failures.append(type(error).__name__)
                     continue
                 _write_atomic(root/(clip['id']+'.mp3'),data)
-                saved['clips'][clip['id']]={'text':clip['text'],'speaker':clip['speaker'],'bytes':len(data)}
+                saved['clips'][clip['id']]={'text':clip['text'],'speaker':clip['speaker'],'bytes':len(data),
+                                          'model':model}
                 _save_manifest(manifest,saved)
                 completed+=1
                 print(f'Saved {completed}/{len(todo)}',flush=True)
@@ -111,7 +112,7 @@ def main(argv=None):
     root.mkdir(parents=True,exist_ok=True)
     _save_manifest(manifest,saved)
     provider=SpeechProvider(config)
-    _prepare_clips(provider,todo,saved,root,manifest,args.workers)
+    _prepare_clips(provider,todo,saved,root,manifest,args.workers,model=config.get('ELEVENLABS_MODEL', 'eleven_v4'))
 
 
 if __name__=='__main__':

@@ -4,6 +4,7 @@ import json
 import threading
 import unittest
 from concurrent.futures import ThreadPoolExecutor
+from types import SimpleNamespace
 from unittest.mock import patch
 
 from PIL import Image
@@ -92,6 +93,63 @@ class CardMediaTests(unittest.TestCase):
         self.assertFalse(retry['complete']);self.finish(retry)
         self.assertEqual(len(self.provider.calls),4);self.assertEqual(self.provider.calls[-1],failed);self.assertEqual(len(self.text.calls),1)
         self.assertEqual(self.library()['cards'][0]['id'],card['id'])
+
+    def test_unfinished_audio_migrates_to_v4_before_generation_preserving_voice_and_text(self):
+        batch = self.generate()
+        card_id = self.library()['cards'][0]['id']
+        original_specs = {}
+        with transaction(self.db, write=True) as conn:
+            for row in conn.execute('SELECT * FROM native_card_media_jobs WHERE card_id=?', (card_id,)).fetchall():
+                spec = json.loads(row['spec'])
+                if row['kind'] != 'image':
+                    spec['model'] = 'eleven_multilingual_v2'
+                original_specs[row['kind']] = spec
+                conn.execute('UPDATE native_card_media_jobs SET spec=? WHERE id=?', (json.dumps(spec), row['id']))
+            # An expired claim with no result also needs a new provider call.
+            conn.execute("UPDATE native_card_media_jobs SET status='running',lease_until=0 WHERE card_id=? AND kind='word_audio'", (card_id,))
+        native = NativeMediaProvider(None, SimpleNamespace(model='eleven_v4'))
+        def generate(kind, spec):
+            with transaction(self.db) as conn:
+                saved = conn.execute('SELECT spec,status FROM native_card_media_jobs WHERE card_id=? AND kind=?', (card_id, kind)).fetchone()
+            self.assertEqual(json.loads(saved['spec']), spec)
+            self.assertEqual(saved['status'], 'running')
+            return self.provider.generate(kind, spec)
+        native.generate = generate
+        self.media.provider = native
+        self.finish(batch)
+        self.assertEqual(len(self.provider.calls), 3)
+        for kind, spec in self.provider.calls:
+            expected = original_specs[kind]
+            if kind != 'image':
+                expected = {**expected, 'model': 'eleven_v4'}
+            self.assertEqual(spec, expected)
+
+    def test_v4_migration_retains_provenance_of_audio_saved_before_publish_failure(self):
+        self.generate(media=False)
+        card_id = self.library()['cards'][0]['id']
+        self.media.queue(self.access, card_id, ('word_audio',))
+        with transaction(self.db, write=True) as conn:
+            row = conn.execute('SELECT id,spec FROM native_card_media_jobs WHERE card_id=?', (card_id,)).fetchone()
+            original_spec = {**json.loads(row['spec']), 'model': 'eleven_multilingual_v2'}
+            conn.execute('UPDATE native_card_media_jobs SET spec=? WHERE id=?', (json.dumps(original_spec), row['id']))
+        with patch.object(self.services['content'], 'publish', side_effect=RuntimeError('interrupted')):
+            result = self.media.advance(self.access, card_id)
+        self.assertEqual(result['failed'], 1)
+        with transaction(self.db) as conn:
+            before = dict(conn.execute('SELECT spec,asset_id FROM native_card_media_jobs WHERE card_id=?', (card_id,)).fetchone())
+        self.assertIsNotNone(before['asset_id'])
+        native = NativeMediaProvider(None, SimpleNamespace(model='eleven_v4'))
+        native.generate = self.provider.generate
+        self.media.provider = native
+        self.media.retry(self.access, card_id)
+        result = self.media.advance(self.access, card_id)
+        self.assertEqual(result['saved'], 1)
+        self.assertEqual(len(self.provider.calls), 1)
+        with transaction(self.db) as conn:
+            after = dict(conn.execute('SELECT spec,asset_id FROM native_card_media_jobs WHERE card_id=?', (card_id,)).fetchone())
+        self.assertEqual(after, before)
+        self.assertEqual(json.loads(after['spec']), original_spec)
+        self.assertEqual(self.library()['cards'][0]['assets'][0]['id'], before['asset_id'])
 
     def test_allowance_denial_pauses_media_with_the_actual_limit_message(self):
         self.generate()

@@ -16,12 +16,11 @@ import tempfile
 from pydub import AudioSegment
 
 from repositories.learning_repository import LearningError
-from services.elevenlabs_service import ElevenLabsService
+from services.elevenlabs_service import ElevenLabsService, voice_settings_for_model
 
 VERSION = 'curriculum-generated-audio-v1'
 DIRECTORY = 'curriculum-audio'
 MAX_BYTES = 10 * 1024 * 1024
-VOICE_SETTINGS = {'stability': 0.8, 'similarity_boost': 0.85, 'style': 0.0}
 _DESCRIPTOR_FIELDS = {'kind', 'storage_key', 'sha256', 'transcript_sha256', 'spec_sha256', 'duration_ms', 'size_bytes'}
 _SPEC_FIELDS = {'version', 'text', 'transcript_sha256', 'provider', 'model', 'voice_id', 'voice_settings'}
 
@@ -44,7 +43,7 @@ def transcript_hash(transcript):
 def _validate_spec(spec):
     if (not isinstance(spec, dict) or set(spec) != _SPEC_FIELDS
             or spec['version'] != VERSION or spec['provider'] != 'elevenlabs'
-            or spec['voice_settings'] != VOICE_SETTINGS
+            or spec['voice_settings'] != voice_settings_for_model(spec['model'])
             or spec['transcript_sha256'] != transcript_hash(spec['text'])):
         raise ValueError('The frozen recording plan has changed.')
     for name in ('model', 'voice_id'):
@@ -59,10 +58,24 @@ def plan_audio(transcript, speech_provider):
     voices = tuple(getattr(speech_provider, 'voice_ids', None) or config.get('ELEVENLABS_VOICE_IDS') or ())
     if not voices:
         raise ValueError('Audio playback is currently unavailable. Please try again later.')
-    model = getattr(speech_provider, 'model', None) or config.get('ELEVENLABS_MODEL')
+    model = getattr(speech_provider, 'model', None) or config.get('ELEVENLABS_MODEL') or 'eleven_v4'
     return _validate_spec({'version': VERSION, 'text': transcript, 'transcript_sha256': transcript_hash(transcript),
                           'provider': 'elevenlabs', 'model': model, 'voice_id': random.choice(voices),
-                          'voice_settings': dict(VOICE_SETTINGS)})
+                          'voice_settings': voice_settings_for_model(model)})
+
+
+def upgrade_pending_audio_spec(spec, speech_provider):
+    """Move an unrecorded plan to v4 without choosing another voice or text.
+
+    Published and staged recordings retain their original spec and hash. The
+    caller must persist this replacement before attempting speech generation.
+    """
+    _validate_spec(spec)
+    model = (getattr(speech_provider, 'model', None)
+             or speech_provider.config.get('ELEVENLABS_MODEL') or 'eleven_v4')
+    if model == 'eleven_v4' and spec['model'] != model:
+        return _validate_spec({**spec, 'model': model, 'voice_settings': voice_settings_for_model(model)})
+    return spec
 
 
 def validate_descriptor(audio, transcript):
@@ -129,6 +142,8 @@ def _decoded_duration(path):
 def generate_audio(spec, speech_provider, media_root):
     """One explicit generation attempt, outside any database transaction."""
     _validate_spec(spec)
+    if upgrade_pending_audio_spec(spec, speech_provider) != spec:
+        raise ValueError('Save the updated recording plan before preparing its audio.')
     root, _ = _root(media_root)
     # The new instance retains the configured billing wrappers and credentials,
     # while the persisted voice/model stay fixed if configuration later changes.

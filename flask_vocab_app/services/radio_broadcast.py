@@ -344,6 +344,9 @@ class RadioBroadcastService:
                     self._preparation(conn, session_id)
                     if 'speech_spec' not in record:
                         record['speech_spec'] = self.media_provider.spec('sentence_audio', {'context': script}, '')
+                    prepare = getattr(self.media_provider, 'prepare_pending_spec', None)
+                    if prepare:
+                        record['speech_spec'] = prepare('sentence_audio', record['speech_spec'])
                     if record['speech_spec'].get('text') != script:
                         raise ValueError('Recording specification changed the script')
                     result = conn.execute('UPDATE journey_game_preparations SET items_json=?,updated_at=? WHERE session_id=? AND claim_id=?',

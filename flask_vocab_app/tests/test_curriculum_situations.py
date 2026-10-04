@@ -211,6 +211,29 @@ class CurriculumSituationIntegrationTests(unittest.TestCase):
         self.assertEqual(self.generation.call_count, 3)
         self.assertIsNone(self.row(state)['document_json'])
 
+    def test_pending_legacy_audio_retry_saves_v4_plan_before_call_and_keeps_voice(self):
+        self.service.speech.model = 'eleven_multilingual_v2'
+        waiting = self.prepare(self.start(mode='listening'))
+        self.audio_factory.side_effect = RuntimeError('speech failed')
+        failed = self.prepare(waiting)
+        before = self.row(failed)
+        old_voice = json.loads(before['voice_json'])
+        self.service.speech.model = 'eleven_v4'
+        self.service.speech.voice_ids = ('new-voice',)
+        def upgraded_speech(key, directory, **kwargs):
+            saved = json.loads(self.row(failed)['voice_json'])
+            self.assertEqual(saved, {**old_voice, 'model': 'eleven_v4',
+                                    'voice_settings': {'stability': 0.8, 'similarity_boost': 0.85}})
+            self.assertEqual(kwargs['voice_ids'], (old_voice['voice_id'],))
+            self.assertEqual(kwargs['model'], 'eleven_v4')
+            return self.speech(key, directory, **kwargs)
+        self.audio_factory.side_effect = upgraded_speech
+        ready = self.prepare(failed, retry=True)
+        self.assertEqual(ready['state'], 'ready')
+        self.assertEqual(self.row(ready)['document_json'], before['document_json'])
+        self.assertEqual(self.row(ready)['audio_attempts'], 2)
+        self.generation.assert_called_once()
+
     def test_audio_retry_retains_text_and_selected_voice_and_complete_playback(self):
         pending = self.start(mode='listening')
         waiting = self.prepare(pending)

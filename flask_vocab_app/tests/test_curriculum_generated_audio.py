@@ -15,7 +15,7 @@ from contracts.learning import validate_pack
 from repositories.learning_repository import LearningError
 from services.curriculum_generated_audio import (
     DIRECTORY, generate_audio, plan_audio, validate_descriptor,
-    validate_saved_generated_audio, verify_generated_audio,
+    validate_saved_generated_audio, verify_generated_audio, upgrade_pending_audio_spec,
 )
 from services.learning_backup import backup_learning_store
 from services.learning_listening import verify_audio
@@ -96,6 +96,35 @@ class CurriculumGeneratedAudioTests(unittest.TestCase):
         self.assertIn('configured_model', metadata)
         self.assertEqual(path.read_bytes(), self.recording)
         self.assertFalse(list(self.root.glob('.curriculum-speech-*')))
+
+    def test_v4_plan_settings_and_audio_identity_match_the_request(self):
+        self.provider.model = 'eleven_v4'
+        self.spec = plan_audio(self.text, self.provider)
+        self.assertEqual(self.spec['voice_settings'], {'stability': 0.8, 'similarity_boost': 0.85})
+        audio = self.audio()
+        path = verify_generated_audio(audio, self.text, self.root)
+        self.assertEqual(json.loads(path.with_suffix('.json').read_text())['spec'], self.spec)
+
+    def test_upgrade_pending_plan_preserves_voice_and_text_and_completed_legacy_audio(self):
+        self.provider.model = 'eleven_multilingual_v2'
+        self.spec = plan_audio(self.text, self.provider)
+        original = dict(self.spec)
+        audio = self.audio()
+        path = verify_generated_audio(audio, self.text, self.root)
+        metadata = path.with_suffix('.json').read_bytes()
+        self.provider.model = 'eleven_v4'
+        with patch('services.curriculum_generated_audio.random.choice') as choose:
+            upgraded = upgrade_pending_audio_spec(self.spec, self.provider)
+        choose.assert_not_called()
+        self.assertEqual(upgraded, {**original, 'model': 'eleven_v4',
+                                   'voice_settings': {'stability': 0.8, 'similarity_boost': 0.85}})
+        self.assertEqual(self.spec, original)
+        self.assertEqual(verify_generated_audio(audio, self.text, self.root), path)
+        self.assertEqual(path.with_suffix('.json').read_bytes(), metadata)
+        self.factory.reset_mock()
+        with self.assertRaisesRegex(ValueError, 'updated recording plan'):
+            self.audio()
+        self.factory.assert_not_called()
 
     def test_provider_failure_does_not_retry_publish_or_leave_partial_files(self):
         service = Mock()

@@ -35,7 +35,7 @@ def load_config(path):
         raise ValueError('ConfigurationUnavailable')
     values = dotenv_values(path, interpolate=False)
     config = {name: values.get(name) for name in ('OPENAI_API_KEY', 'ELEVENLABS_API_KEY')}
-    config['ELEVENLABS_MODEL'] = values.get('ELEVENLABS_MODEL') or 'eleven_multilingual_v2'
+    config['ELEVENLABS_MODEL'] = values.get('ELEVENLABS_MODEL') or 'eleven_v4'
     config['SPEAKING_ASSESSMENT_MODEL'] = values.get('SPEAKING_ASSESSMENT_MODEL') or 'gpt-audio-1.5'
     config['ELEVENLABS_VOICE_IDS'] = tuple(v.strip() for v in (values.get('ELEVENLABS_VOICE_IDS') or ','.join(DEFAULT_VOICES)).split(',') if v.strip())
     if not all(config.get(name) for name in ('OPENAI_API_KEY', 'ELEVENLABS_API_KEY', 'ELEVENLABS_VOICE_IDS')):

@@ -9,6 +9,8 @@ import wave
 from pathlib import Path
 
 import requests
+from config import ELEVENLABS_MODEL
+from .elevenlabs_service import voice_settings_for_model
 from .trial_provider import config_snapshot, openai_client, elevenlabs_call, mai_call, trial_enabled
 from .ai_trial_budget import TrialDenied
 
@@ -129,12 +131,12 @@ class SpeechProvider:
             logger.warning('Speech playback unavailable: ELEVENLABS_API_KEY is not configured')
             raise SpeechError('Audio playback is currently unavailable. You can still read the dialogue.')
         try:
-            model = self.config.get('ELEVENLABS_MODEL', 'eleven_multilingual_v2')
+            model = self.config.get('ELEVENLABS_MODEL', ELEVENLABS_MODEL)
             response = elevenlabs_call(self.config, text, model, voice_id,
                 lambda: requests.post(f'https://api.elevenlabs.io/v1/text-to-speech/{voice_id}',
                 headers={'xi-api-key': key}, json={'text': text,
                     'model_id': model,
-                    'voice_settings': {'stability': 0.8, 'similarity_boost': 0.85, 'style': 0.0}}, timeout=(10, 60)))
+                    'voice_settings': voice_settings_for_model(model)}, timeout=(10, 60)))
             data = _response(response, 'Speech playback').content
             with tempfile.TemporaryDirectory() as tmp:
                 audio = Path(tmp) / 'reply.mp3'

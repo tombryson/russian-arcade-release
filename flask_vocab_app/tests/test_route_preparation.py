@@ -317,6 +317,65 @@ class RoutePreparationTests(unittest.TestCase):
         self.assertEqual(self.speech.calls, [])
         self.assertIn('speech model changed', failed['_route_preparation']['error'])
 
+    def test_v4_default_spec_uses_supported_settings(self):
+        self.config.pop('ELEVENLABS_MODEL')
+        planned = self.service.plan(pack(), scope='v4-owner')
+        speaker, item = next(spoken_lines(planned))
+        spec = self.service._spec(planned, speaker, item)
+        self.assertEqual(spec['model'], 'eleven_v4')
+        self.assertEqual(spec['voice_settings'], {'stability': 0.8, 'similarity_boost': 0.85})
+
+    def test_legacy_pending_recordings_upgrade_without_replacing_completed_audio_or_voices(self):
+        self.config['ELEVENLABS_MODEL'] = 'eleven_multilingual_v2'
+        self.pack = self.service.plan(pack(), scope='legacy-owner')
+        self.advance()
+        self.advance()
+        self.advance()
+        before = deepcopy(self.pack)
+        old_audio = before['_route_preparation']['audio']
+        self.config['ELEVENLABS_MODEL'] = 'eleven_v4'
+        self.finish()
+        self.assertEqual(self.pack['_route_preparation']['voices'], before['_route_preparation']['voices'])
+        for key, recording in old_audio.items():
+            self.assertEqual(self.pack['_route_preparation']['audio'][key], recording)
+        added = {key: recording for key, recording in self.pack['_route_preparation']['audio'].items()
+                 if key not in old_audio}
+        self.assertTrue(added)
+        for recording in added.values():
+            self.assertEqual(recording['spec']['model'], 'eleven_v4')
+            self.assertEqual(recording['spec']['voice_settings'], {'stability': 0.8, 'similarity_boost': 0.85})
+        self.assertEqual(len(self.speech.calls), len({(speaker, item['text']) for speaker, item in spoken_lines(self.pack)}))
+        self.assertEqual(self.service.advance(self.pack), self.pack)
+
+    def test_legacy_cache_recovery_does_not_regenerate_after_v4_upgrade(self):
+        self.config['ELEVENLABS_MODEL'] = 'eleven_multilingual_v2'
+        self.pack = self.service.plan(pack(), scope='legacy-owner')
+        self.advance()
+        self.advance()
+        checkpoint = deepcopy(self.pack)
+        self.advance()
+        completed = deepcopy(self.pack)
+        self.config['ELEVENLABS_MODEL'] = 'eleven_v4'
+        replay = self.service.advance(checkpoint)
+        self.assertEqual(len(self.speech.calls), 1)
+        self.assertEqual(replay['_route_preparation']['audio'], completed['_route_preparation']['audio'])
+        self.assertEqual(replay['legs'], completed['legs'])
+        self.assertNotIn('audio_models', replay['_route_preparation'])
+
+    def test_legacy_attempt_limit_survives_v4_spec_upgrade(self):
+        self.config['ELEVENLABS_MODEL'] = 'eleven_multilingual_v2'
+        self.pack = self.service.plan(pack(), scope='legacy-owner')
+        self.advance()
+        self.advance()
+        self.speech.fail = True
+        for _ in range(3):
+            self.pack = self.service.advance(self.pack)
+        self.config['ELEVENLABS_MODEL'] = 'eleven_v4'
+        self.speech.fail = False
+        failed = self.service.advance(self.pack)
+        self.assertIn('retry limit', failed['_route_preparation']['error'])
+        self.assertEqual(len(self.speech.calls), 3)
+
     def test_duplicate_extras_or_required_text_cannot_create_repeated_line_ids(self):
         repeated = {'text': 'Спасибо за помощь.', 'english': 'Thank you for your help.'}
         required = self.pack['legs'][0]['lines'][0]
@@ -433,6 +492,22 @@ class RoutePreparationTests(unittest.TestCase):
         (folder / 'manifest.json').write_text(json.dumps(wrong))
         self.advance()
         self.assertEqual(self.speech.calls[-1][0], first['text'])
+
+    def test_static_v4_clip_can_be_reused_from_a_legacy_batch_manifest(self):
+        self.config['ELEVENLABS_MODEL'] = 'eleven_v4'
+        self.pack = self.service.plan(pack(), scope='v4-owner')
+        self.advance()
+        self.advance()
+        speaker, first = next(spoken_lines(self.pack))
+        folder = self.service.static_audio_root
+        folder.mkdir()
+        (folder / (first['id'] + '.mp3')).write_bytes(b'prepared-v4-media')
+        (folder / 'manifest.json').write_text(json.dumps({
+            'provider': 'elevenlabs', 'model': 'eleven_multilingual_v2', 'speakers': {speaker: 'voice-a'},
+            'clips': {first['id']: {'speaker': speaker, 'text': first['text'], 'model': 'eleven_v4'}}}))
+        self.assertTrue(self.service._audio_ready(self.pack, speaker, first))
+        self.advance()
+        self.assertNotEqual(self.speech.calls[0][0], first['text'])
 
 
 if __name__ == '__main__':

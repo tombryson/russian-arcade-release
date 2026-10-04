@@ -130,7 +130,7 @@ class CurriculumSituations:
 
     def advance(self, access, sid, *, retry=False):
         from services.curriculum_situation_content import generate
-        from services.curriculum_generated_audio import plan_audio, generate_audio
+        from services.curriculum_generated_audio import plan_audio, generate_audio, upgrade_pending_audio_spec
         with transaction(self.db_path, write=True) as conn:
             row = self._owned(conn, access, sid)
             if row['state'] == 'ready' or (row['state'] == 'running' and row['lease_until'] > self.clock()):
@@ -164,8 +164,10 @@ class CurriculumSituations:
                         self._claimed(conn, access, sid, claim)
                         self._publish(conn, access, sid, document)
             elif stage == 'audio':
-                if voice is None:
-                    voice = plan_audio(document['response']['text'], self.speech)
+                updated_voice = (plan_audio(document['response']['text'], self.speech) if voice is None
+                                 else upgrade_pending_audio_spec(voice, self.speech))
+                if updated_voice != voice:
+                    voice = updated_voice
                     with transaction(self.db_path, write=True) as conn:
                         self._claimed(conn, access, sid, claim)
                         conn.execute('UPDATE curriculum_situations SET voice_json=? WHERE id=?', (encoded(voice), sid))

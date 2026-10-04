@@ -125,6 +125,26 @@ class FirstStepsAudioPublicationTests(unittest.TestCase):
             command.main(['--provider', 'openai', '--dry-run'])
         self.constructor.assert_not_called()
 
+    def test_unfinished_elevenlabs_clip_records_v4_while_retaining_its_selected_voice(self):
+        self.directory.mkdir(parents=True)
+        self.manifest.write_text(json.dumps({'provider': 'elevenlabs', 'clips': {self.url: {
+            'text_sha256': hashlib.sha256('Слово.'.encode()).hexdigest(),
+            'voice_id': 'saved-voice', 'model': 'eleven_multilingual_v2',
+        }}}))
+        config = {'ELEVENLABS_API_KEY': 'test', 'ELEVENLABS_VOICE_IDS': ['different-voice'], 'ELEVENLABS_MODEL': 'eleven_v4'}
+        provider = Mock()
+        def speak(text, voice):
+            saved = json.loads(self.manifest.read_text())['clips'][self.url]
+            self.assertEqual(saved['model'], 'eleven_v4')
+            self.assertEqual(voice, 'saved-voice')
+            return recording(6000)
+        provider.speak.side_effect = speak
+        with patch('config.app_config', return_value=config), patch('services.speech_provider.SpeechProvider', return_value=provider), \
+                patch('requests.get', return_value=Mock(ok=True, json=lambda: {'character_limit': 1000, 'character_count': 0})):
+            command.main(['--max-new', '1'])
+        provider.speak.assert_called_once_with('Слово.', 'saved-voice')
+        self.assertEqual(json.loads(self.manifest.read_text())['clips'][self.url]['model'], 'eleven_v4')
+
     def test_reuse_accepts_audible_recording_without_provider_calls(self):
         data = recording(6000)
         self.save_published(data)

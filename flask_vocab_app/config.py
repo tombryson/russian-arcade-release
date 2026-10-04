@@ -58,7 +58,7 @@ OPENAI_MODEL_FAST = os.environ.get("OPENAI_MODEL_FAST", "gpt-5-mini")
 OPENAI_MODEL_VISION = os.environ.get("OPENAI_MODEL_VISION", OPENAI_MODEL_HIGH)
 OPENAI_IMAGE_MODEL = os.environ.get("OPENAI_IMAGE_MODEL", "gpt-image-2")
 
-ELEVENLABS_MODEL = os.environ.get("ELEVENLABS_MODEL", "eleven_multilingual_v2")
+ELEVENLABS_MODEL = os.environ.get("ELEVENLABS_MODEL", "eleven_v4")
 ELEVENLABS_VOICE_IDS = tuple(value.strip() for value in os.environ.get(
     "ELEVENLABS_VOICE_IDS", "ymDCYd8puC7gYjxIamPt,gXMhWmiqsFkrcssqVb5k,sRk0zCqhS2Cmv0bzx5wA,3EuKHIEZbSzrHGNmdYsx"
 ).split(",") if value.strip())

@@ -4,9 +4,11 @@ import json
 import threading
 import unittest
 from concurrent.futures import ThreadPoolExecutor
+from types import SimpleNamespace
 
 from repositories.learning_repository import LearningError, encoded, transaction
 from services.journey_game_preparation import JourneyGamePreparationService
+from services.card_media import NativeMediaProvider
 from services.learning_assets import import_asset
 from tests.support import isolated_app
 from tests.test_card_media import MediaProvider
@@ -132,6 +134,33 @@ class JourneyGamePreparationTests(unittest.TestCase):
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM native_card_batches').fetchone()[0], 0)
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM journey_game_examples').fetchone()[0], 1)
             self.assertFalse(conn.execute('PRAGMA foreign_key_check').fetchall())
+
+    def test_pending_legacy_audio_switches_to_v4_without_repeating_text_or_image(self):
+        self.service.advance('first')
+        self.service.advance('first')
+        self.media.fail = {'sentence_audio'}
+        self.assertEqual(self.service.advance('first')['status'], 'failed')
+        with transaction(self.db, write=True) as conn:
+            items = json.loads(conn.execute('SELECT items_json FROM journey_game_preparations WHERE session_id=?', ('first',)).fetchone()[0])
+            legacy_spec = items[0]['_preparation']['specs']['sentence_audio']
+            legacy_spec['model'] = 'eleven_multilingual_v2'
+            conn.execute('UPDATE journey_game_preparations SET items_json=? WHERE session_id=?', (encoded(items), 'first'))
+        expected = {**legacy_spec, 'model': 'eleven_v4'}
+        self.media.fail.clear()
+        native = NativeMediaProvider(None, SimpleNamespace(model='eleven_v4'))
+        def generate(kind, spec):
+            with transaction(self.db) as conn:
+                saved = json.loads(conn.execute('SELECT items_json FROM journey_game_preparations WHERE session_id=?', ('first',)).fetchone()[0])
+            self.assertEqual(saved[0]['_preparation']['specs']['sentence_audio'], expected)
+            self.assertEqual(spec, expected)
+            return self.media.generate(kind, spec)
+        native.generate = generate
+        self.service.media_provider = native
+        self.assertEqual(self.service.advance('first', retry=True)['status'], 'ready')
+        self.assertEqual(len(self.provider.calls), 1)
+        self.assertEqual([kind for kind, _ in self.media.calls], ['image', 'sentence_audio', 'sentence_audio'])
+        self.assertEqual(self.media.calls[-1], ('sentence_audio', expected))
+        self.assertEqual(self.records()[0]['assets'][0], items[0]['assets'][0])
 
     def test_discovery_failure_keeps_safe_reason_and_retries_only_the_missing_example(self):
         from services.game_activity_policy import discovery_request
@@ -403,15 +432,19 @@ class JourneyGamePreparationTests(unittest.TestCase):
 
     def test_shared_audio_cache_and_missing_image_file_keep_text_and_audio(self):
         audio_id = import_asset(self.db, self.store, self.media.mp3, 'Existing exact text audio')
+        self.media.prepare_pending_spec = NativeMediaProvider(None, SimpleNamespace(model='eleven_v4')).prepare_pending_spec
 
         class SharedAudio:
             @staticmethod
             def reusable_audio(conn, text):
-                return {'asset_id': audio_id, 'spec': {'text': text, 'voice_id': 'original-voice', 'model': 'test'}}
+                return {'asset_id': audio_id, 'spec': {'text': text, 'voice_id': 'original-voice', 'model': 'eleven_multilingual_v2'}}
 
         self.service.shared_audio = SharedAudio()
         self.assertEqual(self.finish()['status'], 'ready')
         self.assertEqual([kind for kind, _ in self.media.calls], ['image'])
+        with transaction(self.db) as conn:
+            saved = json.loads(conn.execute('SELECT items_json FROM journey_game_preparations WHERE session_id=?', ('first',)).fetchone()[0])
+        self.assertEqual(saved[0]['_preparation']['specs']['sentence_audio']['model'], 'eleven_multilingual_v2')
         image_id = next(a['id'] for a in self.records()[0]['assets'] if a['kind'] == 'image')
         with transaction(self.db) as conn:
             key = conn.execute('SELECT storage_key FROM learning_assets WHERE id=?', (image_id,)).fetchone()[0]

@@ -11,6 +11,7 @@ from unittest.mock import MagicMock
 from pydub import AudioSegment
 
 from repositories.learning_repository import LearningError, encoded, transaction
+from services.card_media import NativeMediaProvider
 from services.radio_broadcast import (
     RadioBroadcastService, WORD, generate_broadcast, initial_request, validate_broadcast,
 )
@@ -173,6 +174,47 @@ class RadioBroadcastTests(unittest.TestCase):
         self.assertEqual(self.media.calls, [first, first])
         self.assertEqual(len(self.provider.calls), 1)
         self.assertEqual(self.media.specs, ['sentence_audio'])
+
+    def test_pending_legacy_recording_uses_v4_with_saved_voice_and_script(self):
+        self.service.advance('radio-session')
+        self.media.fail = True
+        self.assertEqual(self.service.advance('radio-session')['status'], 'failed')
+        with transaction(self.db, write=True) as conn:
+            records = json.loads(conn.execute('SELECT items_json FROM journey_game_preparations WHERE session_id=?', ('radio-session',)).fetchone()[0])
+            legacy_spec = records[0]['speech_spec']
+            legacy_spec['model'] = 'eleven_multilingual_v2'
+            conn.execute('UPDATE journey_game_preparations SET items_json=? WHERE session_id=?', (encoded(records), 'radio-session'))
+        expected = {**legacy_spec, 'model': 'eleven_v4'}
+        native = NativeMediaProvider(None, SimpleNamespace(model='eleven_v4'))
+        self.media.fail = False
+        def generate(kind, spec):
+            with transaction(self.db) as conn:
+                saved = json.loads(conn.execute('SELECT items_json FROM journey_game_preparations WHERE session_id=?', ('radio-session',)).fetchone()[0])
+            self.assertEqual(saved[0]['speech_spec'], expected)
+            self.assertEqual(spec, expected)
+            return self.media.generate(kind, spec)
+        native.generate = generate
+        self.service.media_provider = native
+        self.assertEqual(self.service.advance('radio-session', retry=True)['status'], 'ready')
+        self.assertEqual(len(self.provider.calls), 1)
+        self.assertEqual(len(self.media.calls), 2)
+        self.assertEqual(self.media.calls[-1], ('sentence_audio', expected))
+        self.assertEqual(self.content()['broadcast']['script'], SCRIPT)
+
+    def test_ready_legacy_recording_keeps_its_asset_and_provenance_after_v4_upgrade(self):
+        self.service.advance('radio-session')
+        self.service.advance('radio-session')
+        with transaction(self.db, write=True) as conn:
+            records = json.loads(conn.execute('SELECT items_json FROM journey_game_preparations WHERE session_id=?', ('radio-session',)).fetchone()[0])
+            records[0]['speech_spec']['model'] = 'eleven_multilingual_v2'
+            before = encoded(records)
+            conn.execute('UPDATE journey_game_preparations SET items_json=? WHERE session_id=?', (before, 'radio-session'))
+        self.service.media_provider = NativeMediaProvider(None, SimpleNamespace(model='eleven_v4'))
+        self.assertEqual(self.service.advance('radio-session')['status'], 'ready')
+        self.assertEqual(len(self.media.calls), 1)
+        with transaction(self.db) as conn:
+            after = conn.execute('SELECT items_json FROM journey_game_preparations WHERE session_id=?', ('radio-session',)).fetchone()[0]
+        self.assertEqual(after, before)
 
     def test_concurrent_prepare_claims_generation_once_and_releases_sqlite_before_network(self):
         self.provider.wait, self.provider.release = threading.Event(), threading.Event()
