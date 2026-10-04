@@ -83,7 +83,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles' 
   return <section class="page first-delivery lesson-player">
     <div class="lesson-player-nav">
       <a class="text-link" href="#first-steps"><span aria-hidden="true">← </span>First steps</a>
-      <a class="text-link" href="#alphabet?from=first-delivery">Learn the alphabet <span aria-hidden="true">→</span></a>
+      <a class="text-link" href="#alphabet?from=first-delivery">Have you learned the alphabet? <span aria-hidden="true">→</span></a>
     </div>
     <div class={`first-delivery-stage${step < 2 ? ' is-explainer' : ''}`}>
       <header class="first-delivery-heading">
@@ -107,10 +107,10 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles' 
             </details>
           </div>
         </> : step === 1 ? <>
-          <p class="onboarding-intro-copy">Practise the topics at each stop to move Barsik along the bar.</p>
+          <p class="onboarding-intro-copy">The bar at the top shows Barsik’s progress.</p>
           <div class="tutorial-progress-introduction">
             <img class="tutorial-progress-barsik" src="/static/images/barsik-running-v1.webp" width="92" height="68" alt="Barsik running with his letter bag." />
-            <div><h2>Choose what to practise</h2><p>Tap Barsik on the bar to see your journey and find activities for your next stop.</p><p>You can also practise from the Activities menu.</p></div>
+            <div><h2>Your first steps</h2><p>Learn your first three Russian words, then build on them in four short lessons. We’ll take you through them in order.</p></div>
           </div>
         </> : step === 2 ? <>
           {question ? learning ? <div class="tutorial-word-card">

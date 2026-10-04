@@ -91,7 +91,7 @@ describe('Your first words',()=>{
   it('introduces coins then progress without a dummy quiz or an early reward',async()=>{
     const api=server();const onIntroduce=vi.fn();render(<FirstDelivery next={next} onIntroduce={onIntroduce} courseJourney />);
     expect(screen.getByRole('link',{name:'First steps'}).getAttribute('href')).toBe('#first-steps');
-    expect(screen.getByRole('link',{name:'Learn the alphabet'}).getAttribute('href')).toBe('#alphabet?from=first-delivery');
+    expect(screen.getByRole('link',{name:'Have you learned the alphabet?'}).getAttribute('href')).toBe('#alphabet?from=first-delivery');
     expect(screen.queryByText('Lesson 1 of 5')).toBeNull();
     expect(screen.queryByRole('list',{name:'Tutorial progress'})).toBeNull();
     expect(screen.queryByText('Before the journey')).toBeNull();
@@ -99,6 +99,9 @@ describe('Your first words',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
     expect(onIntroduce.mock.calls).toEqual([['coins'],['progress']]);
     expect(document.activeElement).toBe(screen.getByRole('heading',{name:'Help Barsik reach the next stop.'}));
+    expect(screen.getByText('Learn your first three Russian words, then build on them in four short lessons. We’ll take you through them in order.')).toBeTruthy();
+    expect(screen.getByRole('button',{name:'Learn your first words'})).toBeTruthy();
+    expect(screen.queryByText(/Choose what to practise|Tap Barsik on the bar|You can also practise from/)).toBeNull();
     expect(screen.queryByText('Which word means “hello”?')).toBeNull();
     await waitFor(()=>expect(api.fetch).toHaveBeenCalledOnce());expect(api.posts()).toHaveLength(0);
   });

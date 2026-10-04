@@ -77,6 +77,7 @@ describe('First steps chapter',()=>{
     expect(await screen.findByText('1 of 5 lessons complete')).toBeTruthy();
     expect(screen.getByRole('list',{name:'First steps lessons'}).children).toHaveLength(5);
     expect(screen.getByRole('link',{name:'Start lesson 2'}).getAttribute('href')).toBe('#first-steps/bag');
+    expect(screen.getByRole('link',{name:'Have you learned the alphabet?'}).getAttribute('href')).toBe('#alphabet?from=first-steps');
     expect(screen.getByRole('link',{name:/Hello, Barsik!.*Completed/}).getAttribute('href')).toBe('#first-delivery');
     expect(screen.queryByRole('link',{name:/Introduce yourself/})).toBeNull();
     expect(screen.getByRole('link',{name:'Choose an activity'}).getAttribute('href')).toBe('#activities');
