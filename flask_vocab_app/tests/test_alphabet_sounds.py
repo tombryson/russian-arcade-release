@@ -95,7 +95,7 @@ class AlphabetSoundCatalogueTests(unittest.TestCase):
 class AlphabetSpeechDurationTests(unittest.TestCase):
     def test_per_letter_duration_exceptions_do_not_count_external_silence(self):
         targets = {**dict.fromkeys(('ve', 'en', 'tse', 'short-i', 'zhe'), 150),
-                   **dict.fromkeys(('o', 'shcha', 'ef', 'che', 'pe'), 130), 'sha': 110}
+                   **dict.fromkeys(('o', 'shcha', 'che', 'pe'), 130), 'sha': 110, 'ef': 160}
         silence = AudioSegment.silent(duration=500, frame_rate=48000)
         for letter_id, duration in targets.items():
             tone = Sine(330, sample_rate=48000).to_audio_segment(duration=duration).apply_gain(-15)
@@ -122,7 +122,7 @@ class AlphabetSpeechDurationTests(unittest.TestCase):
             with self.subTest(letter_id=letter_id):
                 self.assertEqual(command.require_speech(release, letter_id=letter_id), duration - quiet_ms)
                 with self.assertRaisesRegex(ValueError, f'{duration} ms'):
-                    command.require_speech(release, letter_id='ef' if duration == 130 else 've')
+                    command.require_speech(release, letter_id='o' if duration == 130 else 've')
                 for padded in (silence + tone[:duration - quiet_ms], tone[:duration - quiet_ms] + silence):
                     with self.assertRaisesRegex(ValueError, f'{duration} ms'):
                         command.require_speech(padded, letter_id=letter_id)
@@ -303,20 +303,20 @@ class AlphabetSoundPreparationTests(unittest.TestCase):
                     command.render(self.root / recipe['source'], destination, recipe)
                 self.assertEqual(destination.read_bytes(), b'keep existing recording')
 
-    def test_ef_130_ms_crop_passes_loading_and_render_but_129_ms_is_rejected(self):
+    def test_ef_160_ms_crop_passes_loading_and_render_but_159_ms_is_rejected(self):
         clips = {**self.clips, 'ef-sound.mp3': {**self.clips['ef-sound.mp3'], 'kind': 'sound', 'ipa': 'f', 'display_text': 'ф'}}
-        recipe = self.isolated_recipe(end_ms=230)
-        male = self.isolated_recipe(source=command.SOURCE_PREFIX + 'male/ef-name.mp3', end_ms=230)
+        recipe = self.isolated_recipe(end_ms=260)
+        male = self.isolated_recipe(source=command.SOURCE_PREFIX + 'male/ef-name.mp3', end_ms=260)
         self.load_recipes({**self.recipes, 'female-ef': recipe, 'male-ef': male}, clips)
         destination = self.root / 'isolated-output.mp3'
         result = command.render(self.root / recipe['source'], destination, recipe, letter_id='ef')
-        self.assertEqual(result['source_active_ms'], 130)
-        self.assertEqual(len(AudioSegment.from_file(destination)), 130 + 60 + 100)
+        self.assertEqual(result['source_active_ms'], 160)
+        self.assertEqual(len(AudioSegment.from_file(destination)), 160 + 60 + 100)
         before = destination.read_bytes()
-        shorter = {**recipe, 'end_ms': 229}
-        with self.assertRaisesRegex(ValueError, '130 ms'):
+        shorter = {**recipe, 'end_ms': 259}
+        with self.assertRaisesRegex(ValueError, '160 ms'):
             self.load_recipes({**self.recipes, 'female-ef': shorter, 'male-ef': male}, clips)
-        with self.assertRaisesRegex(ValueError, '130 ms'):
+        with self.assertRaisesRegex(ValueError, '160 ms'):
             command.render(self.root / recipe['source'], destination, shorter, letter_id='ef')
         self.assertEqual(destination.read_bytes(), before)
 

@@ -13,7 +13,7 @@
       "en": 150,
       "o": 130,
       "shcha": 130,
-      "ef": 130,
+      "ef": 160,
       "che": 130,
       "tse": 150,
       "pe": 130,
@@ -248,7 +248,7 @@
       "source_sha256": "51caf980d9ab4a19602e62d3d2c26c9f8bdb8d9dca9a1a25ee41755c93bb0e74",
       "mode": "crop",
       "start_ms": 240,
-      "end_ms": 370,
+      "end_ms": 400,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
@@ -558,7 +558,7 @@
       "source_sha256": "7705f18ef290cb3ae0788c02b47f7361ac600b6ff1038fe57800e44751514035",
       "mode": "crop",
       "start_ms": 230,
-      "end_ms": 360,
+      "end_ms": 390,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
