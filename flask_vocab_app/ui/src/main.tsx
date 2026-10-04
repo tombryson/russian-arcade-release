@@ -5,6 +5,7 @@ import '@fontsource/golos-text/cyrillic-400.css';
 import '@fontsource/golos-text/cyrillic-500.css';
 import '@fontsource/unbounded/latin-500.css';
 import '@fontsource/unbounded/cyrillic-500.css';
+import '@fontsource/caveat/latin-600.css';
 import './styles/tokens.generated.css';
 import './styles/word-post.css';
 import './styles/flashcards.css';
