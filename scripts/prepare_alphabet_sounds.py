@@ -1,7 +1,7 @@
 """Build packaged Russian pronunciation examples from fixed v4 recordings.
 
 Default is a read-only plan. --execute copies vowel recordings and complete
-consonant-vowel practice syllables, with explicit 80 ms crops for О and Ф.
+consonant-vowel practice syllables, with explicit 110 ms crops for О and Ф.
 Authored source hashes are checked. No credentials or provider calls are used.
 --verify checks source provenance and output hashes.
 Waveform inspection and automatic checks are not native-listener certification.
@@ -26,12 +26,12 @@ RECORDED_PREFIX = 'scripts/audio-sources/alphabet/syllables-v1/'
 DIRECTORY = audio.DIRECTORY / 'sounds'
 RECIPES = ROOT / 'scripts/data/alphabet-sound-crops.json'
 MODEL = audio.MODEL
-VERSION = 'alphabet-sounds-v5'
-RECIPE_VERSION = 'alphabet-sound-crops-v4'
+VERSION = 'alphabet-sounds-v6'
+RECIPE_VERSION = 'alphabet-sound-crops-v5'
 MAX_CLIPS = 31
 MIN_SPEECH_MS = 160
 # Explicit listening adjustments; all other isolated sounds keep the default.
-MIN_SPEECH_MS_BY_LETTER = {'o': 80, 'ef': 80}
+MIN_SPEECH_MS_BY_LETTER = {'o': 110, 'ef': 110}
 SPEECH_THRESHOLD_DBFS = -45
 SPEECH_FRAME_MS = 1
 VOWELS = frozenset(('a', 'ye', 'yo', 'i', 'o', 'u', 'yery', 'e', 'yu', 'ya'))
@@ -235,7 +235,7 @@ def prepare(directory, specs, *, voice, selected=None, max_new=MAX_CLIPS, source
     if saved is None:
         saved = {'version': VERSION, 'method': 'v4-pronunciation-examples-with-explicit-sound-crops',
                  'voice': voice, 'voice_id': VOICE_IDS[voice], 'processing': PROCESSING,
-                 'review': 'О and Ф use 80 ms source crops. Other examples preserve whole source recordings. Signal-duration checks are not a pronunciation review.',
+                 'review': 'О and Ф use 110 ms source crops. Other examples preserve whole source recordings. Signal-duration checks are not a pronunciation review.',
                  'clips': {}}
     for filename in todo:
         spec = specs[filename]

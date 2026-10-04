@@ -1,5 +1,5 @@
 {
-  "version": "alphabet-sound-crops-v4",
+  "version": "alphabet-sound-crops-v5",
   "review": "Whole consonant-vowel practice syllables replace cropped consonants. Every example has at least 160 ms of detected source speech. No cropping, repetition, stretching, or artificial amplification. Duration checks do not certify pronunciation.",
   "processing": {
     "normalization_dbfs": -20,
@@ -11,8 +11,8 @@
     "speech_frame_ms": 1,
     "speech_threshold_dbfs": -45,
     "minimum_speech_ms_by_letter": {
-      "o": 80,
-      "ef": 80
+      "o": 110,
+      "ef": 110
     }
   },
   "clips": {
@@ -171,7 +171,7 @@
       "source_sha256": "4c8af4715ab39eba786feac7363afaef6a52091aae70c5bd85a3d8fdad087d2f",
       "mode": "crop",
       "start_ms": 60,
-      "end_ms": 140,
+      "end_ms": 170,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
@@ -231,7 +231,7 @@
       "source_sha256": "51caf980d9ab4a19602e62d3d2c26c9f8bdb8d9dca9a1a25ee41755c93bb0e74",
       "mode": "crop",
       "start_ms": 240,
-      "end_ms": 320,
+      "end_ms": 350,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
@@ -481,7 +481,7 @@
       "source_sha256": "94c4581f8e13e48d4f257bc31d37097dc81b8841e854758872bd325fbffa9b6d",
       "mode": "crop",
       "start_ms": 60,
-      "end_ms": 140,
+      "end_ms": 170,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
@@ -541,7 +541,7 @@
       "source_sha256": "7705f18ef290cb3ae0788c02b47f7361ac600b6ff1038fe57800e44751514035",
       "mode": "crop",
       "start_ms": 230,
-      "end_ms": 310,
+      "end_ms": 340,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3

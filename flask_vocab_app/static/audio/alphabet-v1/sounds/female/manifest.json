@@ -1,5 +1,5 @@
 {
-  "version": "alphabet-sounds-v5",
+  "version": "alphabet-sounds-v6",
   "method": "v4-pronunciation-examples-with-explicit-sound-crops",
   "voice": "female",
   "voice_id": "ymDCYd8puC7gYjxIamPt",
@@ -11,13 +11,13 @@
     "max_gain_db": 3,
     "minimum_speech_ms": 160,
     "minimum_speech_ms_by_letter": {
-      "o": 80,
-      "ef": 80
+      "o": 110,
+      "ef": 110
     },
     "speech_frame_ms": 1,
     "speech_threshold_dbfs": -45
   },
-  "review": "О and Ф use 80 ms source crops. Other examples preserve whole source recordings. Signal-duration checks are not a pronunciation review.",
+  "review": "О and Ф use 110 ms source crops. Other examples preserve whole source recordings. Signal-duration checks are not a pronunciation review.",
   "clips": {
     "a-sound.mp3": {
       "letter_id": "a",
@@ -623,7 +623,7 @@
         "source_sha256": "4c8af4715ab39eba786feac7363afaef6a52091aae70c5bd85a3d8fdad087d2f",
         "mode": "crop",
         "start_ms": 60,
-        "end_ms": 140,
+        "end_ms": 170,
         "repetitions": 1,
         "fade_in_ms": 2,
         "fade_out_ms": 3
@@ -637,12 +637,12 @@
       },
       "model": "eleven_v4",
       "voice_id": "ymDCYd8puC7gYjxIamPt",
-      "gain_db": -8.259942564989284,
-      "source_active_ms": 80,
+      "gain_db": -7.593925088325486,
+      "source_active_ms": 110,
       "processing_applied": "single crop, edge fades, bounded gain and padding",
-      "audio_sha256": "980101c9d144a19a30a4942cba4f59067011ba7c6a9f0c166a10b1c5f5c189ea",
-      "duration_ms": 240,
-      "size_bytes": 5058,
+      "audio_sha256": "5168e8ff2ef32d4b9f707efa21c78c406468451f7a6b7bc3f51e21129b81fc56",
+      "duration_ms": 270,
+      "size_bytes": 5476,
       "leading_silence_ms": 60,
       "trailing_silence_ms": 100
     },
@@ -857,7 +857,7 @@
         "source_sha256": "51caf980d9ab4a19602e62d3d2c26c9f8bdb8d9dca9a1a25ee41755c93bb0e74",
         "mode": "crop",
         "start_ms": 240,
-        "end_ms": 320,
+        "end_ms": 350,
         "repetitions": 1,
         "fade_in_ms": 2,
         "fade_out_ms": 3
@@ -872,11 +872,11 @@
       "model": "eleven_v4",
       "voice_id": "ymDCYd8puC7gYjxIamPt",
       "gain_db": 3,
-      "source_active_ms": 80,
+      "source_active_ms": 110,
       "processing_applied": "single crop, edge fades, bounded gain and padding",
-      "audio_sha256": "f44f3647f2ad6f7ca0576b67cc5c87e9ce3679073d08c2a643bcf7c81341ddd2",
-      "duration_ms": 240,
-      "size_bytes": 5058,
+      "audio_sha256": "21e7bcbb5125cecb7b41f6699c81b6c1d7bb04161b3e1c801a2871f6c951c21d",
+      "duration_ms": 270,
+      "size_bytes": 5476,
       "leading_silence_ms": 60,
       "trailing_silence_ms": 100
     },
