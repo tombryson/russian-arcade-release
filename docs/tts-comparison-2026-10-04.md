@@ -1,15 +1,16 @@
 # Russian text-to-speech comparison
 
-Completed the first generation run on 4 October 2026: all twelve recordings succeeded without retries. Listening judgements remain pending. This comparison does not change production speech generation.
+Completed on 4 October 2026: twelve recordings from the original three models, followed by four from standard MAI Voice 2.1. All sixteen succeeded without retries. Listening judgements remain pending. This comparison does not change production speech generation.
 
 ## Models and voices
 
-The test compares three models using the same four Russian passages. Both ElevenLabs models use one voice from the application's existing pool. MAI uses a Russian female voice from its own catalogue.
+The comparison uses four Russian passages. Both ElevenLabs models use one voice from the application's existing pool. Both MAI variants use the Russian Masha voice from their own catalogue.
 
 | Model | Voice | Request settings |
 | --- | --- | --- |
 | `eleven_multilingual_v2` — current production model | TatanaLuke, `ymDCYd8puC7gYjxIamPt` | Stability `0.8`, similarity `0.85`, style `0.0`; MP3, 44.1 kHz, 128 kbps |
 | `microsoft/mai-voice-2.1-flash` — through OpenRouter | `ru-RU-Masha:MAI-Voice-2.1-Flash` | Plain text, MP3; no style controls |
+| `microsoft/mai-voice-2.1` — added separately | `ru-RU-Masha:MAI-Voice-2.1` | Plain text, MP3; no style controls |
 | `eleven_v4` | Same TatanaLuke voice | Stability `0.8`, similarity `0.85`; MP3, 44.1 kHz, 128 kbps |
 
 The application continues to select randomly from its four configured ElevenLabs voices. Pinning one voice here makes the two ElevenLabs results easier to compare. MAI's different voice means this is a comparison of usable model-and-voice combinations, not an isolated measurement of model quality.
@@ -24,12 +25,15 @@ Rates checked on 4 October 2026:
 | --- | ---: |
 | ElevenLabs Multilingual v2 | $0.080 |
 | MAI Voice 2.1 Flash | $0.015 |
+| MAI Voice 2.1 | $0.022 |
 | ElevenLabs v4, promotion ending 12 October 2026 | $0.022 |
 | ElevenLabs v4, listed standard rate | $0.080 |
 
 At these rates, v4's standard price matches v2. MAI is cheaper. These are published estimates; subscription credits, taxes and actual account charges may differ. [ElevenLabs API pricing](https://elevenlabs.io/pricing/api), [OpenRouter MAI pricing](https://openrouter.ai/microsoft/mai-voice-2.1-flash)
 
-The four passages contain 768 characters in total. Generating them with all three models requires at most 12 synthesis calls: approximately **$0.089856** at the promotional rates, or **$0.1344** using v4's standard rate. The runner rejects a batch estimated above $1, makes no automatic retries and stops after the first synthesis or audio-processing failure. This local test budget is separate from the application's demo allowance.
+The four passages contain 768 characters in total. The original three-model run required 12 synthesis calls: approximately **$0.089856** at the promotional rates, or **$0.1344** using v4's standard rate. The runner rejects a batch estimated above $1, makes no automatic retries and stops after the first synthesis or audio-processing failure. This local test budget is separate from the application's demo allowance.
+
+The standard MAI addition costs an estimated **$0.016896** for four more calls. Its published rate is $22 per million characters. The combined four-model estimate is **$0.106752** at the current promotional rates, or **$0.151296** at standard rates. [MAI Voice 2.1 pricing](https://openrouter.ai/microsoft/mai-voice-2.1)
 
 ## Test material
 
@@ -76,6 +80,16 @@ The output directory contains:
 
 Serve only that output directory on localhost to use the listening page. The raw recordings remain available for checking artifacts introduced by normalization. Matching average level is not a perceptual loudness guarantee.
 
+To add standard MAI to a completed three-model run:
+
+```sh
+python scripts/add_mai_tts_comparison.py /absolute/path/to/comparison
+python scripts/add_mai_tts_comparison.py /absolute/path/to/comparison --live \
+  --env-file /absolute/path/to/existing/.env
+```
+
+The first command validates the saved text and audio hashes and reports the price without requesting credentials or speech. The second generates only four new clips, using `OPENROUTER_API_KEY`. It rejects duplicate additions, stops after a failure and preserves the original manifest, page and recordings. Its separate generation receipt records timestamps, cost estimates and outcomes. Existing A/B/C labels stay fixed; the added sample is D, so this addition is not a newly blinded four-way trial.
+
 ## Results and decision
 
 All twelve synthesis requests succeeded without retries. Each original recording and normalized copy passed decoding and duration checks. The sixteen offline runner tests also passed.
@@ -95,3 +109,11 @@ Pronunciation, naturalness and preference have not been scored. Actual account c
 The manifest distinguishes time to the first response chunk from time to the complete recording. Neither proves when a browser could begin playing. Normalization time is recorded separately. Four short passages are sufficient for an initial comparison, not a latency benchmark or a complete Russian pronunciation assessment.
 
 Select a replacement only after listening to all four passages. Keep the current provider if a cheaper model loses Russian stress or endings. If v4 cannot use the existing voice reliably, assess voice migration as a separate decision rather than silently changing the application's voice pool.
+
+### Standard MAI addition
+
+All four standard MAI requests succeeded on the first attempt. They use the original passages and Masha voice identity, with the `MAI-Voice-2.1` suffix. The original twelve result rows and all raw/listening audio hashes are unchanged. Sample D identifies the addition in each passage; existing A/B/C labels retain their meanings.
+
+Median first-chunk time was **1.267 seconds**, and median complete-response time was **2.151 seconds**. This was a later sequential batch, not an interleaved latency benchmark. Its short-word recording lasts **19.920 seconds**, and its story lasts **28.224 seconds**. These measurements do not establish pronunciation quality.
+
+The seven extension tests passed, including preserved recordings, duplicate prevention, price checks and restoration of the original page if publication fails. All four new clips passed decoding and normalization checks. The browser played the short-word sample to completion without media or console errors. The other three new clips were not played to completion during this check. No production provider setting changed.

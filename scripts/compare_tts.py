@@ -76,7 +76,7 @@ def estimate(samples, today=None):
             'limitation': 'Published character-rate estimate; subscription credits, taxes and actual charges are not verified.'}
 
 
-def load_credentials(path):
+def load_credentials(path, names=('ELEVENLABS_API_KEY', 'OPENROUTER_API_KEY')):
     from dotenv import dotenv_values
     if not path.is_file():
         raise ComparisonError('ConfigurationUnavailable')
@@ -84,8 +84,7 @@ def load_credentials(path):
     for source in (os.environ, values):
         if any(str(source.get(k) or '').strip().lower() not in ('', '0', 'false', 'no', 'off') for k in HOSTED_FLAGS):
             raise ComparisonError('HostedTrialRequiresMeteredAdapters')
-    keys = {name: os.environ.get(name) or values.get(name)
-            for name in ('ELEVENLABS_API_KEY', 'OPENROUTER_API_KEY')}
+    keys = {name: os.environ.get(name) or values.get(name) for name in names}
     if not all(isinstance(v, str) and v.strip() for v in keys.values()):
         raise ComparisonError('ConfigurationUnavailable')
     return keys
@@ -224,13 +223,15 @@ def render_html(result, directory):
     caveat = ('<p>ElevenLabs v4 support for this professional voice was unconfirmed at preflight. This run is also a compatibility test; successful synthesis does not prove equivalent voice support.</p>'
               if result.get('allow_unverified_voice') else '')
     document = '''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Russian speech comparison</title><style>body{font:17px/1.5 system-ui;max-width:1160px;margin:36px auto;padding:0 20px;color:#242742;background:#fffaf0}h1{font-size:30px}h2{font-size:23px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}article{border:1px solid #bbb;padding:18px;border-radius:12px}audio{width:100%}section{margin:36px 0}.transcript{white-space:pre-line;max-width:85ch}button{padding:10px 16px;font:inherit}article p{overflow-wrap:anywhere}.identity{font-size:14px}@media(max-width:750px){.grid{grid-template-columns:1fr}}</style>
+<title>Russian speech comparison</title><style>body{font:17px/1.5 system-ui;max-width:1160px;margin:36px auto;padding:0 20px;color:#242742;background:#fffaf0}h1{font-size:30px}h2{font-size:23px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}article{border:1px solid #bbb;padding:18px;border-radius:12px}audio{width:100%}section{margin:36px 0}.transcript{white-space:pre-line;max-width:85ch}button{padding:10px 16px;font:inherit}article p{overflow-wrap:anywhere}.identity{font-size:14px}@media(max-width:750px){.grid{grid-template-columns:1fr}}</style>
 <h1>Russian speech comparison</h1><p>Listen to each version before revealing its model. Samples share the same text and average audio level. MAI uses a different voice; this is a provider-and-voice comparison.</p>
 <p>Compare pronunciation and endings, stress, natural pacing, dialogue expression, and any omitted or added words. The last passage is a diagnostic probe, not lesson prose.</p>
 <p><a href="transcripts.json" download>Download transcripts</a></p><button id="reveal" type="button" aria-expanded="false">Reveal models and timings</button>
 <div class="identity" hidden><p><a href="manifest.json" download>Download results</a></p><p>First chunk is network timing, not demonstrated browser playback latency. Estimates are not actual charges.</p><pre id="cost"></pre></div>
 ''' + '<div class="identity" hidden>' + caveat + '</div>' + ''.join(sections) + '<script>document.getElementById("reveal").onclick=function(){document.querySelectorAll(".identity").forEach(e=>e.hidden=!e.hidden);this.setAttribute("aria-expanded",this.getAttribute("aria-expanded")==="false"?"true":"false");this.textContent=this.textContent.startsWith("Reveal")?"Hide models and timings":"Reveal models and timings"};document.getElementById("cost").textContent=' + json.dumps('Conservative estimate: $' + str(result['budget']['conservative_estimate_usd']) + '\nPublished-rate estimate: $' + str(result['budget']['published_estimate_usd']) + '\nActual charge: unknown') + ';document.querySelectorAll("audio").forEach(a=>a.addEventListener("play",()=>document.querySelectorAll("audio").forEach(b=>{if(a!==b)b.pause()})));</script></html>'
-    (directory / 'listen.html').write_text(document)
+    temporary = directory / 'listen.html.tmp'
+    temporary.write_text(document)
+    temporary.replace(directory / 'listen.html')
 
 
 def run(samples, keys, directory, eleven_voice, mai_voice=VOICE_MAI, seed=20261004,
