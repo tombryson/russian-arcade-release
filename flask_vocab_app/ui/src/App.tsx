@@ -345,7 +345,7 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
                 <p class="quiet section-note">This list shows vocabulary from your recent saved activity answers.</p></>}
         </section>}
     </main>
-    {!lessonWorkspace && <footer class="bottom"><span>Russian Arcade - Tom Bryson 2026</span></footer>}
+    {location.page === 'home' && <footer class="bottom"><span>Russian Arcade - Tom Bryson 2026</span></footer>}
     </div>
     </div>
   </div></GameLanguage.Provider>;
