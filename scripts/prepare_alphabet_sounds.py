@@ -32,7 +32,7 @@ MAX_CLIPS = 31
 MIN_SPEECH_MS = 160
 # Explicit listening adjustments; all other isolated sounds keep the default.
 MIN_SPEECH_MS_BY_LETTER = {
-    've': 150, 'en': 150, 'o': 130, 'shcha': 130, 'ef': 160, 'che': 130, 'tse': 150, 'pe': 130,
+    've': 150, 'en': 150, 'o': 130, 'shcha': 130, 'ef': 170, 'che': 130, 'tse': 150, 'pe': 130,
     'sha': 110, 'short-i': 150, 'zhe': 150,
 }
 # Preserve natural low-energy portions inside the measured speech span.

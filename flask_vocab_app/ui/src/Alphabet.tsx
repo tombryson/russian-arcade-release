@@ -92,7 +92,7 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     audio.onended = () => { if (attempt.current === current) stopAudio(); };
     audio.onerror = fail;
     // Refresh cached pronunciation clips when the recording set changes.
-    const revision = clip === 'sound' ? (letter.id === 'ef' ? 'ef-160-v1' : voice === 'female' && letter.id === 'en' ? 'en-full-v1' : 'sounds-v9')
+    const revision = clip === 'sound' ? (letter.id === 'ef' ? 'ef-170-v1' : voice === 'female' && letter.id === 'en' ? 'en-full-v1' : 'sounds-v9')
       : clip === 'name' && voice === 'male' && letter.id === 'ye' ? 'ye-v2' : '';
     audio.src = appUrl(recordings[voice]) + (revision ? `?v=${revision}` : '');
     try {

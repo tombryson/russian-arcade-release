@@ -87,7 +87,7 @@ describe('Russian alphabet', () => {
       const detail = screen.getByRole('complementary', {name: `About ${upper} ${lower}`});
       expect(within(detail).getByRole('button', {name: `Stop sound: ${upper}`})).toBeTruthy();
       expect(detail.textContent).not.toContain('Practice syllable:');
-      expect(container.querySelector('audio')?.getAttribute('src')).toBe(`/static/audio/alphabet-v1/sounds/${label.toLowerCase()}/${id}-sound.mp3?v=${id === 'ef' ? 'ef-160-v1' : 'sounds-v9'}`);
+      expect(container.querySelector('audio')?.getAttribute('src')).toBe(`/static/audio/alphabet-v1/sounds/${label.toLowerCase()}/${id}-sound.mp3?v=${id === 'ef' ? 'ef-170-v1' : 'sounds-v9'}`);
     }
     expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(2);
   });

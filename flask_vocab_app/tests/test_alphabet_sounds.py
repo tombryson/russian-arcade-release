@@ -95,7 +95,7 @@ class AlphabetSoundCatalogueTests(unittest.TestCase):
 class AlphabetSpeechDurationTests(unittest.TestCase):
     def test_per_letter_duration_exceptions_do_not_count_external_silence(self):
         targets = {**dict.fromkeys(('ve', 'en', 'tse', 'short-i', 'zhe'), 150),
-                   **dict.fromkeys(('o', 'shcha', 'che', 'pe'), 130), 'sha': 110, 'ef': 160}
+                   **dict.fromkeys(('o', 'shcha', 'che', 'pe'), 130), 'sha': 110, 'ef': 170}
         silence = AudioSegment.silent(duration=500, frame_rate=48000)
         for letter_id, duration in targets.items():
             tone = Sine(330, sample_rate=48000).to_audio_segment(duration=duration).apply_gain(-15)
@@ -278,18 +278,18 @@ class AlphabetSoundPreparationTests(unittest.TestCase):
         with self.assertRaises(Exception):
             self.prepare()
 
-    def test_an_isolated_160_ms_clip_plays_once_with_only_edge_padding(self):
-        recipe = self.isolated_recipe(end_ms=260)
+    def test_an_isolated_170_ms_clip_plays_once_with_only_edge_padding(self):
+        recipe = self.isolated_recipe(end_ms=270)
         clips = {**self.clips, 'ef-sound.mp3': {**self.clips['ef-sound.mp3'], 'kind': 'sound', 'ipa': 'f', 'display_text': 'ф'}}
         self.load_recipes({**self.recipes, 'female-ef': recipe,
                            'male-ef': self.isolated_recipe(source=command.SOURCE_PREFIX + 'male/ef-name.mp3')}, clips)
         destination = self.root / 'isolated-output.mp3'
         result = command.render(self.root / recipe['source'], destination, recipe)
         recording = AudioSegment.from_file(destination)
-        self.assertEqual(len(recording), 160 + 60 + 100)
-        self.assertEqual(result['source_active_ms'], 160)
-        self.assertGreater(recording[60:220].dBFS, -40)
-        self.assertLess(recording[245:].dBFS, -50)
+        self.assertEqual(len(recording), 170 + 60 + 100)
+        self.assertEqual(result['source_active_ms'], 170)
+        self.assertGreater(recording[60:230].dBFS, -40)
+        self.assertLess(recording[255:].dBFS, -50)
 
     def test_under_160_ms_crops_are_rejected_by_loading_and_direct_render(self):
         destination = self.root / 'untouched-output.mp3'
@@ -303,20 +303,20 @@ class AlphabetSoundPreparationTests(unittest.TestCase):
                     command.render(self.root / recipe['source'], destination, recipe)
                 self.assertEqual(destination.read_bytes(), b'keep existing recording')
 
-    def test_ef_160_ms_crop_passes_loading_and_render_but_159_ms_is_rejected(self):
+    def test_ef_170_ms_crop_passes_loading_and_render_but_169_ms_is_rejected(self):
         clips = {**self.clips, 'ef-sound.mp3': {**self.clips['ef-sound.mp3'], 'kind': 'sound', 'ipa': 'f', 'display_text': 'ф'}}
-        recipe = self.isolated_recipe(end_ms=260)
-        male = self.isolated_recipe(source=command.SOURCE_PREFIX + 'male/ef-name.mp3', end_ms=260)
+        recipe = self.isolated_recipe(end_ms=270)
+        male = self.isolated_recipe(source=command.SOURCE_PREFIX + 'male/ef-name.mp3', end_ms=270)
         self.load_recipes({**self.recipes, 'female-ef': recipe, 'male-ef': male}, clips)
         destination = self.root / 'isolated-output.mp3'
         result = command.render(self.root / recipe['source'], destination, recipe, letter_id='ef')
-        self.assertEqual(result['source_active_ms'], 160)
-        self.assertEqual(len(AudioSegment.from_file(destination)), 160 + 60 + 100)
+        self.assertEqual(result['source_active_ms'], 170)
+        self.assertEqual(len(AudioSegment.from_file(destination)), 170 + 60 + 100)
         before = destination.read_bytes()
-        shorter = {**recipe, 'end_ms': 259}
-        with self.assertRaisesRegex(ValueError, '160 ms'):
+        shorter = {**recipe, 'end_ms': 269}
+        with self.assertRaisesRegex(ValueError, '170 ms'):
             self.load_recipes({**self.recipes, 'female-ef': shorter, 'male-ef': male}, clips)
-        with self.assertRaisesRegex(ValueError, '160 ms'):
+        with self.assertRaisesRegex(ValueError, '170 ms'):
             command.render(self.root / recipe['source'], destination, shorter, letter_id='ef')
         self.assertEqual(destination.read_bytes(), before)
 

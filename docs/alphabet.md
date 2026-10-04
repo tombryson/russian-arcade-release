@@ -30,7 +30,7 @@ The current excerpt durations apply to both voices unless specified:
 | --- | --- | --- |
 | Н (male only), Ц, Й, Ж, В | 150 ms | 310 ms |
 | О, Щ, Ч, П | 130 ms | 290 ms |
-| Ф | 160 ms | 320 ms |
+| Ф | 170 ms | 330 ms |
 | Ш | 110 ms | 270 ms |
 
 Each excerpt adds 60 ms of leading and 100 ms of trailing silence. No looping or stretching is applied. Both Й excerpts and the male Ч and Ц excerpts reach the following vowel transition. These short samples do not replace listening to the complete example words.
