@@ -271,6 +271,61 @@ class CurriculumSituationIntegrationTests(unittest.TestCase):
         self.assertEqual(self.row(resumed)['document_json'], self.row(waiting)['document_json'])
         self.assertEqual(self.generation.call_count, 3)
 
+    def test_pending_and_failed_audio_text_is_not_semantic_exposure(self):
+        from services.curriculum_situation_content import build_request, resolve_source_references
+        from services.curriculum_units import get_unit
+        from tests.test_curriculum_situation_content import meaning_provider_response
+        self.generation.side_effect = lambda request, provider: validate_output(
+            request, resolve_source_references(request, meaning_provider_response(request)))
+        waiting = self.prepare(self.start(mode='listening', unit='location-destination-v1'))
+        self.assertEqual((waiting['state'], waiting['stage']), ('pending', 'audio'))
+        self.assertIsNotNone(self.row(waiting)['document_json'])
+        for expected in ('pending', 'failed'):
+            with self.subTest(state=expected):
+                if expected == 'failed':
+                    self.audio_factory.side_effect = RuntimeError('synthetic audio failure')
+                    waiting = self.prepare(waiting)
+                    self.assertEqual(waiting['state'], 'failed')
+                started = self.start(unit='location-destination-v1')
+                request = json.loads(self.row(started)['request_json'])
+                self.assertEqual(request['recent'], [])
+                unexposed = build_request(get_unit('location-destination-v1'), request['seed'], mode='reading')
+                self.assertEqual(request['language_plan']['family_id'], unexposed['language_plan']['family_id'])
+                # Permit another explicit reading start without issuing this
+                # synthetic pending task or consuming another text call.
+                with transaction(self.db, write=True) as conn:
+                    conn.execute("UPDATE curriculum_situations SET state='failed',text_attempts=3 WHERE id=?", (started['id'],))
+
+    def test_other_units_do_not_crowd_out_issued_semantic_exposure(self):
+        from services.curriculum_situation_content import resolve_source_references
+        from tests.test_curriculum_situation_content import meaning_provider_response
+        self.generation.side_effect = lambda request, provider: validate_output(
+            request, resolve_source_references(request, meaning_provider_response(request)))
+        ready = self.prepare(self.start(unit='location-destination-v1'))
+        issued = self.row(ready)
+        saved = self.player(ready)
+        self.complete(saved, self.pack(saved))
+        prior_family = json.loads(issued['document_json'])['request']['language_plan']['family_id']
+        self.generation.side_effect = self.generate
+        other = self.prepare(self.start(unit='present-actions-v1'))
+        self.assertEqual(other['state'], 'ready')
+        # Seed a busy profile's other issued history beyond the global limit.
+        # Only chronology matters here; retain a real accepted document and
+        # owned session rather than pretending a failed preparation was seen.
+        with transaction(self.db, write=True) as conn:
+            conn.execute('UPDATE curriculum_situations SET created_at=created_at-7200 WHERE id IN (?,?)', (ready['id'], other['id']))
+            for index in range(13):
+                now = issued['created_at'] - 7200 + index + 1
+                conn.execute(
+                    'INSERT INTO curriculum_situations(id,profile_id,unit_id,mode,request_json,document_json,state,stage,session_id,created_at,updated_at) '
+                    'SELECT ?,profile_id,unit_id,mode,request_json,document_json,state,stage,session_id,?,? FROM curriculum_situations WHERE id=?',
+                    ('other-history-' + str(index), now, now, other['id']))
+        next_state = self.start(mode='listening', unit='location-destination-v1')
+        request = json.loads(self.row(next_state)['request_json'])
+        self.assertEqual(len(request['recent']), 1)
+        self.assertEqual(request['recent'][0]['family_id'], prior_family)
+        self.assertNotEqual(request['language_plan']['family_id'], prior_family)
+
     def test_post_budget_denial_keeps_saved_status_and_never_retries_on_poll(self):
         from services.ai_trial_budget import TrialDenied
         state = self.start()

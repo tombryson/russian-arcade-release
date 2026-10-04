@@ -11,12 +11,14 @@ export type AnswerFeedback = { outcome: string; answer?: string; deferred?: bool
 export type PracticeDraft = {response: {text: string}; revision: number};
 export type SequenceAction = {step_id: string; label?: string; label_ru?: string; url?: string};
 export type PracticeSequence = {run_id: string; step_id: string; step_label?: string; step_label_ru?: string; lesson_url: string; next_action?: SequenceAction | null};
+export type PassageWordReading = {lemma: string | null; pos?: string | null; in_vocabulary: boolean; can_add: boolean; dictionary_url?: string | null; mnemonic?: string; enrichment_pending?: boolean};
+export type PassageWord = PassageWordReading & {word: string; context: string; meaning?: string; translation?: string; message?: string; added?: boolean; choices: (PassageWordReading & {label: string})[]};
 export type PracticeSession = {
   id: string; profile_id: string; title: string; revision: number; status: string;
   completed_items: number; total_items: number;
   origin?: {href: string; title: string};
   draft_enabled?: boolean; draft?: PracticeDraft; sequence?: PracticeSequence;
-  item: { id: string; type?: 'choice' | 'controlled_text' | 'listening_choice'; prompt: string; passage?: string; choices?: { id: string; text: string }[]; has_hint: boolean; hint?: string; asset_ids?: string[]; audio?: {url: string; sha256: string; duration_ms: number}; listened?: boolean; transcript?: string | null; has_transcript?: boolean } | null;
+  item: { id: string; type?: 'choice' | 'controlled_text' | 'listening_choice'; prompt: string; passage?: string; word_lookup?: boolean; choices?: { id: string; text: string }[]; has_hint: boolean; hint?: string; asset_ids?: string[]; audio?: {url: string; sha256: string; duration_ms: number}; listened?: boolean; transcript?: string | null; has_transcript?: boolean } | null;
   attempts: { id: string; prompt?: string; feedback: AnswerFeedback }[];
 };
 export class ApiError extends Error {

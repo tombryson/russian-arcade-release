@@ -89,6 +89,8 @@ def install_household_policy(app):
             'learning.start_session', 'learning.read_session', 'learning.attempt', 'learning.help_item',
             'learning.session_audio',
             'learning.listened_item', 'learning.transcript_item', 'learning.save_draft',
+            'learning.lookup_passage_word', 'learning.capture_passage_word',
+            'learning.saved_passage_words',
         }:
             abort(404)
         if enabled and (len(app.config.get('SECRET_KEY') or '') < 32 or app.config['SECRET_KEY'] == 'dev-secret-key-change-me'):

@@ -117,6 +117,15 @@ main, .bottom { max-width: 1180px; margin: auto; }
 .practice-passage { min-width: 0; overflow-wrap: anywhere; }
 .letter .practice-passage p { margin: 0 0 16px; font: 400 20px/1.65 var(--wp-font-reading); white-space: pre-line; }
 .letter .practice-passage p:last-child { margin-bottom: 0; }
+.passage-word-note { display:block; color:var(--wp-text-secondary); margin-bottom:10px; font:400 13px/1.4 var(--wp-font-reading); }
+.passage-word { display:inline; padding:0; border:0; border-radius:3px; background:transparent; color:inherit; font:inherit; cursor:pointer; }
+.passage-word:hover,.passage-word[aria-pressed="true"] { background:#e5ead4; color:var(--wp-text-onTicket); }
+.passage-word:focus-visible { outline:3px solid #8f633d; outline-offset:3px; }
+.passage-word-detail { margin-top:16px; padding:16px; border:1px solid var(--wp-border-subtle); border-radius:10px; }
+.passage-word-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.letter .passage-word-detail p { margin:8px 0; font:400 15px/1.5 var(--wp-font-reading); white-space:normal; }
+.passage-word-detail blockquote { margin:12px 0; padding-left:12px; border-left:3px solid #b7c39e; font:400 17px/1.6 var(--wp-font-reading); }
+.passage-word-detail select { display:block; max-width:100%; margin:8px 0; }
 .practice-reading-question { min-width: 0; padding-inline-start: 28px; border-inline-start: 1px solid var(--wp-border-subtle); }
 .page .practice-reading-question .practice-prompt { font: 500 23px/1.4 var(--wp-font-reading); letter-spacing: 0; }
 .practice-reading-question .options { display: grid; gap: 12px; margin-block: 16px; }

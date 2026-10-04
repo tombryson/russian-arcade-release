@@ -1,10 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks';
-import { api, ApiError, type PracticeSession } from './learning-api';
+import { api, ApiError, type PracticeSession, type PassageWord } from './learning-api';
 import { Feedback, Sheet } from './components';
 import {appUrl} from './app-url';
 import {usePracticeDraft} from './usePracticeDraft';
+import {PassageWords, type WordSelection} from './PassageWords';
 
-type Operation = 'attempts' | 'help' | 'listened' | 'transcript';
+type Operation = 'attempts' | 'help' | 'listened' | 'transcript' | 'words/lookup' | 'words';
 type Command = {url: string; body: object; operation: Operation};
 
 export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { sessionId: string; profileId: string; onFinish: () => void; language?: 'en'|'ru' }) {
@@ -27,6 +28,9 @@ export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { 
   const heading = useRef<HTMLHeadingElement>(null);
   const draft = usePracticeDraft(saved, answerText, setAnswerText, language);
   const [conflictedText, setConflictedText] = useState('');
+  const [wordSelection, setWordSelection] = useState<WordSelection>();
+  const [wordEntry, setWordEntry] = useState<PassageWord>();
+  useLayoutEffect(() => { setWordSelection(undefined); setWordEntry(undefined); }, [sessionId, profileId, saved?.item?.id]);
 
   useEffect(() => {
     const request = new AbortController(); controller.current = request;
@@ -43,7 +47,7 @@ export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { 
   }, [sessionId, profileId, reload]);
   useEffect(() => { heading.current?.focus(); }, [saved?.completed_items, feedback]);
 
-  async function submit(operation: Operation, answer?: {choice_id: string} | {text: string}) {
+  async function submit(operation: Operation, answer?: {choice_id: string} | {text: string}, word?: WordSelection & {lemma?: string; pos?: string}) {
     if (!saved?.item || sending.current || blocked || saved.id !== sessionId || saved.profile_id !== profileId) return;
     if (pending.current && pending.current.operation !== operation) return;
     if (operation === 'attempts' && saved.item.type === 'listening_choice' && !saved.item.listened && !saved.item.transcript) return;
@@ -55,13 +59,15 @@ export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { 
     if (!pending.current) pending.current = { operation, url: `/api/v1/learning-sessions/${sessionId}/${operation}`, body: {
       submission_id: crypto.randomUUID(), expected_revision: saved.revision, item_id: saved.item.id,
       ...(operation === 'attempts' ? { answer } : {}),
+      ...(word ?? {}),
     } };
     sending.current = true; setBusy(true); setError('');
     try {
-      const result = await api<PracticeSession>(pending.current.url, pending.current.body, signal);
+      const result = await api<PracticeSession & {word?: PassageWord}>(pending.current.url, pending.current.body, signal);
       if (signal?.aborted || requestEpoch.current !== epoch) return;
       if (result.profile_id !== profileId) throw new Error('The learner changed. Open this activity again.');
       pending.current = undefined; setSaved(result); setFeedback(operation === 'attempts');
+      if (result.word) setWordEntry(result.word);
       if (operation === 'attempts') setAnswerText('');
     } catch (reason) {
       if (signal?.aborted || requestEpoch.current !== epoch) return;
@@ -71,9 +77,14 @@ export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { 
         setError('Practice changed in another tab. The latest saved answer is shown here.');
       } else if (reason instanceof ApiError && reason.code === 'audio_unavailable' && operation === 'listened') {
         pending.current = undefined; setCompletedAudio(null); setAudioFailed(playbackKey); setError('');
+      } else if (reason instanceof ApiError && reason.code === 'vocabulary_enrichment_pending' && reason.currentSession?.profile_id === profileId) {
+        const current = reason.currentSession as PracticeSession & {word?: PassageWord};
+        pending.current = undefined; setSaved(current); setWordEntry(current.word); setError(reason.message);
       } else if (reason instanceof ApiError && ['locked', 'profile_changed', 'account_changed', 'access_required', 'adult_required', 'learner_required', 'content_unavailable', 'not_found', 'csrf_failed'].includes(reason.code)) {
         if (answerText) setConflictedText(answerText);
         pending.current = undefined; setBlocked(true); setSaved(undefined); setError(reason.message);
+      } else if (operation === 'words' || operation === 'words/lookup') {
+        setError(reason instanceof ApiError ? reason.message : t('Word help could not be confirmed. Try again.', 'Не удалось подтвердить подсказку. Повторите попытку.'));
       } else setError(operation === 'listened'
         ? 'We could not save your listening progress. Try saving again; you do not need to replay the audio.'
         : operation === 'transcript' ? 'The transcript could not open. Try again.'
@@ -111,6 +122,10 @@ export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { 
     try { await player.play(); }
     catch { if (activePlayback.current === key) setAudioFailed(playbackKey); }
   }
+  const passageWords = (text: string) => <PassageWords text={text} selection={wordSelection} entry={wordEntry}
+    disabled={busy || !!pending.current} language={language} onClose={() => {if (!sending.current && !pending.current) {setWordSelection(undefined); setWordEntry(undefined); setError('');}}}
+    onLookup={selection => {if (sending.current || pending.current || blocked) return; setWordSelection(selection); setWordEntry(undefined); void submit('words/lookup', undefined, selection);}}
+    onSave={(lemma, pos) => {if (wordSelection) void submit('words', undefined, {...wordSelection, lemma, pos});}} />;
   return <section class={`page practice-page${saved?.item?.passage ? ' practice-reading-page' : ''}`}><div class="lesson-head"><a class="text-link" href={appUrl(saved?.sequence?.lesson_url ?? saved?.origin?.href ?? "#activities")}>{saved?.origin ? saved.origin.title : saved?.sequence ? t("Back to lesson", "К уроку") : t("Back to activities", "К занятиям")}</a><span class="quiet">{draft.active ? draft.status : busy ? t('Saving…','Сохраняем…') : pending.current ? t('Save not confirmed','Сохранение не подтверждено') : saved?.sequence ? (language === 'ru' ? saved.sequence.step_label_ru : saved.sequence.step_label) : saved?.origin ? `${Math.min(saved.completed_items + (showResult || saved.status === 'completed' ? 0 : 1), saved.total_items)} of ${saved.total_items}` : saved ? t('Progress saved','Прогресс сохранён') : ''}</span></div>
     {!saved ? <><h1 ref={heading} tabIndex={-1}>{error ? t('This activity could not open.','Не удалось открыть задание.') : t('Opening your practice…','Открываем практику…')}</h1>{error ? <><p role="alert">{error}</p><div class="action-row">{!blocked && <button class="cta" onClick={() => { pending.current = undefined; setReload(value => value + 1); }}>{t('Try again','Повторить')}</button>}<a href="/post/profiles">{t('Choose a profile','Выбрать профиль')}</a></div></> : <p role="status">{t('Loading your saved answers.','Загружаем сохранённые ответы.')}</p>}</>
       : <>{!saved.origin && !saved.sequence && <p class="kicker">{saved.title}</p>}{(!saved.origin && !saved.sequence || showResult || saved.status === 'completed') && <h1 ref={heading} tabIndex={-1}>{showResult ? last.deferred ? t('Reply saved.','Ответ сохранён.') : last.outcome === 'correct' ? t('That’s right.','Верно.') : t('Let’s look at the answer.','Посмотрим на ответ.') : saved.status === 'completed' ? t('Practice complete.','Практика завершена.') : t(`Question ${saved.completed_items + 1} of ${saved.total_items}`,`Вопрос ${saved.completed_items + 1} из ${saved.total_items}`)}</h1>}
@@ -123,7 +138,7 @@ export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { 
               </li>)}</ol></details>{saved.origin || saved.sequence ? <a class="cta" href={appUrl(saved.sequence?.next_action?.url ?? saved.sequence?.lesson_url ?? saved.origin?.href ?? '/curriculum')}>{(language === 'ru' ? saved.sequence?.next_action?.label_ru : saved.sequence?.next_action?.label) ?? t('Continue learning','Продолжить урок')} →</a> : <button class="cta" onClick={onFinish}>{t('Back to activities','К занятиям')}</button>}</Sheet>
             : saved.item && <Sheet><div class={saved.item.passage ? 'practice-reading-layout' : undefined}>
               {saved.item.passage && <section class="practice-passage" lang="ru" aria-label={t('Reading text','Текст для чтения')}>
-                {saved.item.passage.split(/\n\s*\n/).map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+                {saved.item.word_lookup ? passageWords(saved.item.passage) : saved.item.passage.split(/\n\s*\n/).map((paragraph, index) => <p key={index}>{paragraph}</p>)}
               </section>}
               <div class={saved.item.passage ? 'practice-reading-question' : undefined}>
               {saved.origin || saved.sequence ? <h1 class="practice-prompt" ref={heading} tabIndex={-1} lang={saved.item.passage ? language : 'ru'}>{saved.item.prompt}</h1> : <h2 class="practice-prompt">{saved.item.prompt}</h2>}
@@ -134,7 +149,7 @@ export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { 
                 {audioFailed === playbackKey && playbackKey && <div class="practice-audio-error" role="alert"><span>{t('The audio is unavailable.','Аудио недоступно.')}</span><button class="text-link" disabled={busy || !!pending.current} onClick={() => void retryAudio()}>{t('Retry audio','Повторить аудио')}</button></div>}
                 {!saved.item.audio && <p>{t('The audio is unavailable. You can read the transcript.','Аудио недоступно. Можно прочитать текст.')}</p>}
                 {saved.item.has_transcript && !saved.item.transcript && <button class="text-link" disabled={busy || !!pending.current} onClick={() => void submit('transcript')}>{t('Show transcript','Показать текст')}</button>}
-                {saved.item.transcript && <div class="practice-transcript"><p class="answer-label">{t('Transcript','Текст записи')}</p><p lang="ru">{saved.item.transcript}</p></div>}
+                {saved.item.transcript && <div class="practice-transcript"><p class="answer-label">{t('Transcript','Текст записи')}</p>{saved.item.word_lookup ? passageWords(saved.item.transcript) : <p lang="ru">{saved.item.transcript}</p>}</div>}
               </div>}
               {saved.item.type === 'controlled_text' ? <form class="practice-answer-form" onSubmit={event => {event.preventDefault(); if(answerText.trim()) void submit('attempts', {text: answerText});}}>
                 <label class="answer-label" htmlFor="practice-form-answer">{t('Your answer in Russian','Ваш ответ по-русски')}</label>

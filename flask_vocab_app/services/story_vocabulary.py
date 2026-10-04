@@ -107,6 +107,11 @@ def capture_story_word(db_path, word, lemma, pos, source):
     _record_word_help(db_path, word, source)
     with transaction(db_path, write=True) as conn:
         result = save_word(conn, content, word, lemma, pos)
+    return enrich_captured_word(db_path, result)
+
+
+def enrich_captured_word(db_path, result):
+    """Finish an explicit capture through the shared, metered enrichment path."""
     # The configured service meters hosted provider calls and keeps retries
     # idempotent. Commit morphology first; AI must never hold a write lock.
     try:

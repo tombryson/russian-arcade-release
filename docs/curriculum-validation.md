@@ -206,6 +206,8 @@ These are small synthetic regression samples with provisional authored labels. T
 
 ## Browser playback checks
 
+The [4 October pass](curriculum-pass-2026-10-04.md) adds a separate text evaluation: 18 first-attempt calls, 17 structurally accepted, 14 judged usable for supported comprehension in assistant review. Its report retains the three weak texts and rejected response. There was no pronunciation review or paid audio generation in that evaluation. Do not combine these results with the earlier Writing-marking agreement figures.
+
 On 24 September 2026, a fresh Codex in-app browser tab played the authored location clip through its native controls to the end: duration 7.476825 seconds, no media error. The receipt unlocked answers. Replay and 0.75× playback worked. Saving and advancing restored the listening requirement for the next question. Explicit transcript use was marked as assistance.
 
 A generated Comprehension test fixture also played a real bundled MP3, unlocked response fields, saved five responses and restored them after reload. Generation and marking were mocked. This checks playback, transport and saved state, not provider accuracy or the linguistic quality of generated content. Keyboard Space operated the native player.

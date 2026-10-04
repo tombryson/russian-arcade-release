@@ -59,6 +59,40 @@ class SituationCheckTests(unittest.TestCase):
             provider.assert_not_called()
         self.assertFalse(self.directory.exists())
 
+    def test_synthetic_vocabulary_profiles_reach_writer_without_claiming_known_grammar(self):
+        plan = command.make_plan(['location-destination-v1'], limit=2, seed='lexical-inputs',
+                                 vocabulary_profile='places-visits')
+        self.assertFalse(plan['learner_data_used'])
+        self.assertEqual(plan['vocabulary_fixture'], command.VOCABULARY_PROFILES['places-visits'])
+        for sample in plan['samples']:
+            request = sample['request']
+            self.assertIn('библиотека', request['known_lemmas'])
+            rows = {row['lemma']: row for row in request['writer_brief']['familiar_words']}
+            self.assertEqual(rows['музей']['forms'], ['музей', 'музее'])
+            self.assertNotIn('музеем', rows['музей']['forms'])
+        plan['vocabulary_fixture'].clear()
+        self.assertTrue(command.VOCABULARY_PROFILES['places-visits'])
+        with self.assertRaises(ValueError):
+            command.make_plan(vocabulary_profile='private-user')
+
+    def test_full_passage_observations_do_not_treat_all_unknown_candidates_as_errors(self):
+        request = {'known_lemmas': ['книга', 'читать'],
+                   'vocabulary': [{'lemma': 'книга', 'forms': ['книгу']}]}
+        document = {'response': {'text': 'Анна читает книгу. Потом она думает о музыке.'}}
+        observations = command.lexical_observations(request, document)
+        self.assertEqual(observations['familiar_fixture_lemmas_used'], ['книга'])
+        candidates = {row['form']: row for row in observations['outside_known_lemma_candidates']}
+        self.assertNotIn('читает', candidates)
+        self.assertTrue(candidates['Анна']['possible_name'])
+        self.assertIn('музыка', candidates['музыке']['possible_lemmas'])
+        self.assertNotIn('unfamiliar_word_count', observations)
+
+    def test_cost_report_is_a_labelled_budget_estimate_not_a_bill(self):
+        cost = command.estimated_cost('gpt-5.6-luna', {'prompt_tokens': 1000, 'completion_tokens': 1000})
+        self.assertAlmostEqual(cost['usd'], 0.0014)
+        self.assertIn('Not a provider invoice', cost['basis'])
+        self.assertIsNone(command.estimated_cost('unknown-model', {'prompt_tokens': 10, 'completion_tokens': 20}))
+
     def test_optional_dry_output_contains_requests_but_no_claim_of_acceptance(self):
         with patch('services.curriculum_situation_content.generate') as generate:
             report = command.evaluate(self.plan, self.directory)

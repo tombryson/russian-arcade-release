@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check fresh A1 situation generation; dry run unless --live is explicit.
 
-Samples use authored teaching inputs, never a learner database. Listening samples
+Samples use authored teaching inputs and optional synthetic vocabulary, never a learner database. Listening samples
 check text only: this command does not synthesize or play audio. Structural
 acceptance is separate from Russian-language review, which remains pending.
 """
@@ -25,6 +25,26 @@ sys.path.insert(0, str(ROOT / 'flask_vocab_app'))
 MAX_CALLS = 12
 MAX_OUTPUT_TOKENS = 6500
 FORMAT_VERSION = 'curriculum-situation-check-v1'
+VOCABULARY_PROFILES = {
+    'teaching-only': [],
+    'everyday-core': [
+        {'lemma': 'сейчас', 'forms': ['сейчас']}, {'lemma': 'потом', 'forms': ['потом']},
+        {'lemma': 'здесь', 'forms': ['здесь']}, {'lemma': 'там', 'forms': ['там']},
+        {'lemma': 'друг', 'forms': ['друг', 'друга']}, {'lemma': 'ждать', 'forms': ['жду', 'ждал']}],
+    'places-visits': [
+        {'lemma': 'кафе', 'forms': ['кафе']}, {'lemma': 'музей', 'forms': ['музей', 'музее']},
+        {'lemma': 'библиотека', 'forms': ['библиотека', 'библиотеке']},
+        {'lemma': 'гостиница', 'forms': ['гостиница', 'гостинице']},
+        {'lemma': 'поездка', 'forms': ['поездка']}, {'lemma': 'встреча', 'forms': ['встреча']}],
+    'books-interests': [
+        {'lemma': 'книга', 'forms': ['книга', 'книгу']}, {'lemma': 'рассказ', 'forms': ['рассказ']},
+        {'lemma': 'музыка', 'forms': ['музыка', 'музыке']}, {'lemma': 'спорт', 'forms': ['спорт']},
+        {'lemma': 'отдых', 'forms': ['отдых', 'отдыхе']}, {'lemma': 'читать', 'forms': ['читаю', 'читал']}],
+}
+REVIEW_DIMENSIONS = (
+    'russian_grammar', 'communicative_purpose_and_viewpoint', 'timeline_and_referents',
+    'supporting_constructions', 'whole_passage_vocabulary', 'questions_and_answerability',
+    'distractor_quality', 'economy_and_cohesion')
 
 
 def encoded(value):
@@ -87,7 +107,8 @@ def new_output_directory(value):
     return path
 
 
-def make_plan(unit_ids=(), modes=('reading', 'listening'), *, limit=4, seed=None):
+def make_plan(unit_ids=(), modes=('reading', 'listening'), *, limit=4, seed=None,
+              vocabulary_profile='teaching-only'):
     from services import curriculum_situation_content as content
     from services.curriculum_units import DATA_DIR, UNIT_IDS, get_unit
     if type(limit) is not int or not 1 <= limit <= MAX_CALLS:
@@ -97,6 +118,8 @@ def make_plan(unit_ids=(), modes=('reading', 'listening'), *, limit=4, seed=None
         raise ValueError('Choose distinct existing A1 unit IDs.')
     if not modes or len(modes) != len(set(modes)) or not set(modes) <= {'reading', 'listening'}:
         raise ValueError('Choose reading, listening or both modes.')
+    if vocabulary_profile not in VOCABULARY_PROFILES:
+        raise ValueError('Choose an existing synthetic vocabulary profile.')
     seed = seed or uuid.uuid4().hex
     if not isinstance(seed, str) or not re.fullmatch(r'[A-Za-z0-9_.-]{1,80}', seed):
         raise ValueError('Use a seed of 1–80 letters, digits, dots, dashes or underscores.')
@@ -105,7 +128,8 @@ def make_plan(unit_ids=(), modes=('reading', 'listening'), *, limit=4, seed=None
     for index in range(limit):
         uid, mode = pairs[index % len(pairs)]
         sample_id = 'sample-' + str(index + 1).zfill(2)
-        request = content.build_request(get_unit(uid), f'{seed}-{sample_id}', mode=mode)
+        request = content.build_request(get_unit(uid), f'{seed}-{sample_id}',
+            vocabulary=deepcopy(VOCABULARY_PROFILES[vocabulary_profile]), mode=mode)
         prompt = content.prompt_for(request) if hasattr(content, 'prompt_for') else None
         cases.append({'id': sample_id, 'unit_id': uid, 'mode': mode, 'request': request,
                       'request_sha256': digest(request),
@@ -116,7 +140,50 @@ def make_plan(unit_ids=(), modes=('reading', 'listening'), *, limit=4, seed=None
             'generator_sha256': hashlib.sha256(Path(content.__file__).read_bytes()).hexdigest(),
             'prompt_provenance': 'Each live sample hashes the exact system messages sent to the provider.',
             'maximum_calls': limit, 'maximum_output_tokens_per_call': MAX_OUTPUT_TOKENS,
-            'automatic_retries': 0, 'audio_calls': 0, 'learner_data_used': False, 'samples': cases}
+            'automatic_retries': 0, 'audio_calls': 0, 'learner_data_used': False,
+            'vocabulary_profile': vocabulary_profile,
+            'vocabulary_fixture': deepcopy(VOCABULARY_PROFILES[vocabulary_profile]),
+            'vocabulary_interpretation': 'Observed familiar forms, not proof that every case form or construction is known.',
+            'review_dimensions': list(REVIEW_DIMENSIONS), 'samples': cases}
+
+
+def lexical_observations(request, document):
+    """Surface observations for review, not a claim of vocabulary difficulty.
+
+    Retain ambiguity: any known analysis can match a familiar lemma. An unknown
+    candidate may be a common connector or a name; a reviewer must decide.
+    """
+    from services.curriculum_situation_content import WORD, _normal
+    from utils.story_processing import get_morph
+    known = {_normal(lemma) for lemma in request.get('known_lemmas', [])}
+    fixture = {_normal(row['lemma']) for row in request['vocabulary']}
+    observed, reused = {}, set()
+    for form in WORD.findall(document['response']['text']):
+        parses = [p for p in get_morph().parse(form) if p.is_known]
+        lemmas = {_normal(p.normal_form) for p in parses}
+        reused.update(lemmas & fixture)
+        if lemmas & known:
+            continue
+        observed.setdefault(form, {'form': form, 'possible_lemmas': sorted(lemmas),
+            'possible_parts_of_speech': sorted({p.tag.POS for p in parses if p.tag.POS}),
+            'possible_name': any('Name' in p.tag or 'Surn' in p.tag or 'Geox' in p.tag for p in parses)})
+    return {'familiar_fixture_lemmas_used': sorted(reused),
+            'outside_known_lemma_candidates': list(observed.values()),
+            'interpretation': 'Morphology candidates for whole-passage review; not an automatic unfamiliar-word count or language grade.'}
+
+
+def estimated_cost(model, usage):
+    """Report the app's uncached token-rate estimate separately from billing."""
+    from services.trial_provider import TEXT_RATES, _tokens_cost
+    if not usage or model not in TEXT_RATES:
+        return None
+    incoming, outgoing = usage.get('prompt_tokens'), usage.get('completion_tokens')
+    if type(incoming) is not int or type(outgoing) is not int:
+        return None
+    return {'usd': _tokens_cost(incoming, outgoing, TEXT_RATES[model]) / 1_000_000,
+            'basis': 'Application budget rates; assumes uncached input. Not a provider invoice.',
+            'input_usd_per_million': str(TEXT_RATES[model][0]),
+            'output_usd_per_million': str(TEXT_RATES[model][1])}
 
 
 def sanitizer(secrets=()):
@@ -252,6 +319,7 @@ def evaluate(plan, directory, provider=None, *, secrets=()):
             try:
                 document = generate(sample['request'], wrapped)
                 row.update(state='accepted', structural_acceptance=True, accepted_document=document)
+                row['lexical_observations'] = lexical_observations(sample['request'], document)
             except Exception as error:
                 # A returned completion rejected by local validation is distinct
                 # from transport/auth/allowance failure. Neither proves language quality.
@@ -263,6 +331,7 @@ def evaluate(plan, directory, provider=None, *, secrets=()):
                     row['validation_reason'] = validation_reason(error)
             finally:
                 row['duration_seconds'] = round(time.monotonic() - started, 3)
+                row['cost_estimate'] = estimated_cost(provider.flashcard_model, row.get('usage'))
                 save()
             if row['state'] == 'provider_unavailable':
                 break  # No implicit retries or further calls after provider failure.
@@ -283,6 +352,8 @@ def main(argv=None):
     parser.add_argument('--mode', choices=('reading', 'listening', 'both'), default='both')
     parser.add_argument('--limit', type=int, default=4, help='Total samples, including both modes; 1–12.')
     parser.add_argument('--seed', help='Reproducible batch seed; a new seed is generated if omitted.')
+    parser.add_argument('--vocabulary-profile', choices=tuple(VOCABULARY_PROFILES), default='teaching-only',
+                        help='Synthetic familiar words and observed forms; no learner data is read.')
     parser.add_argument('--env-file', type=Path, help='Read this file only on --live; shell values take precedence.')
     parser.add_argument('--output-dir', type=Path, help='New external output directory with an existing parent; required for --live.')
     args = parser.parse_args(argv)
@@ -292,7 +363,8 @@ def main(argv=None):
         if args.output_dir is not None:
             new_output_directory(args.output_dir)
         modes = ('reading', 'listening') if args.mode == 'both' else (args.mode,)
-        plan = make_plan(args.units, modes, limit=args.limit, seed=args.seed)
+        plan = make_plan(args.units, modes, limit=args.limit, seed=args.seed,
+                         vocabulary_profile=args.vocabulary_profile)
         provider = None
         if args.live:
             config = load_config(args.env_file)

@@ -112,7 +112,14 @@ class CurriculumSituations:
                 for word in words:
                     forms = [dict(form) for form in conn.execute('SELECT form,tags FROM forms WHERE word_id=? ORDER BY count DESC,id LIMIT 6', (word['id'],))]
                     vocabulary.append({'lemma': word['lemma'], 'pos': word['pos'], 'forms': forms})
-                recent = [json.loads(value[0]) for value in conn.execute('SELECT document_json FROM curriculum_situations WHERE profile_id=? AND document_json IS NOT NULL ORDER BY created_at DESC,rowid DESC LIMIT 12', (profile['id'],))]
+                # A busy profile's other lessons must not erase this unit's
+                # recent semantic families. Reading/listening share exposure.
+                # Accepted text awaiting audio/publication has not been issued
+                # to the learner and must not count as an encountered family.
+                recent = [json.loads(value[0]) for value in conn.execute(
+                    "SELECT document_json FROM curriculum_situations WHERE profile_id=? AND unit_id=? "
+                    "AND state='ready' AND session_id IS NOT NULL AND document_json IS NOT NULL "
+                    "ORDER BY created_at DESC,rowid DESC LIMIT 12", (profile['id'], unit_id))]
                 sid = identifier()
                 plan = build_request(unit, sid, vocabulary, recent, mode=mode)
                 conn.execute("INSERT INTO curriculum_situations(id,profile_id,unit_id,mode,request_json,state,stage,created_at,updated_at) VALUES (?,?,?,?,?,'pending','text',?,?)",

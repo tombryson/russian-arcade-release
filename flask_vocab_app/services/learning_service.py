@@ -173,6 +173,8 @@ class LearningService:
             support = current_item_support(conn, session_id, item, pack, saved['current_index']) if item['type'] == 'listening_choice' else {'listened': False, 'support': []}
             current = child_item(item, help_used=bool(saved['help_used']), listened=support['listened'],
                                  transcript_used='transcript' in support['support'])
+            if pack['id'].startswith('curriculum-unit:situation-v1:'):
+                current['word_lookup'] = True
             if item['type'] == 'listening_choice':
                 # Shared static requests use the anonymous hosted application.
                 # Keep the immutable asset reference in the pack, and expose an
@@ -285,6 +287,9 @@ class LearningService:
                 listening = item['type'] == 'listening_choice'
                 support = item_support(conn, session_id, item) if listening else {
                     'listened': False, 'support': ['hint'] if saved['help_used'] else []}
+                if not listening and conn.execute('SELECT 1 FROM learning_hint_usage WHERE session_id=? AND item_id=?',
+                                                   (session_id, item['id'])).fetchone():
+                    support['support'] = ['hint']
                 if listening and not support['listened'] and 'transcript' not in support['support']:
                     raise LearningError('listen_required', 'Listen to the message or open its transcript before answering.', 409)
                 if pack['id'].startswith('curriculum-unit:sequence:'):

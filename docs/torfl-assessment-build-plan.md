@@ -55,6 +55,10 @@ The language-design pass now starts with the Russian: the communicative purpose,
 
 The immediate priorities are language quality, useful variation and connecting new vocabulary to the rest of the app. More services, progress bars or stock recordings are not required. Keep the existing learning player, vocabulary pipeline, saved tasks and provider limits.
 
+**Local progress, 4 October:** the first two implementation targets below are built. The three detailed units now have two distinct situation families each, selected using recent family history before their words. The reading-duration family is reachable. Generated passages offer optional word lookup and saving through the existing enrichment pipeline. Old tasks and answers retain their original contracts. These changes are not yet deployed.
+
+The [pass report](curriculum-pass-2026-10-04.md) records 18 live text calls: 17 structural acceptances, but only 14 judged usable for supported comprehension in assistant review. Three need revision and one was rejected. No core Russian grammar error was found; prose and supporting vocabulary still need work. Before extending the other fourteen plans, check the thought-and-speech family under the final prompt, close the essential-vocabulary annotation gaps, and test familiar-word adaptation with matched inputs. Original passage sentences are retained with saved words, but automatic reuse as flashcards still needs a prepared translation and contextual validation. The table retains the intended order and completion criteria; it does not claim those language-quality goals are finished.
+
 | Order | Deliverable | Completion evidence |
 | --- | --- | --- |
 | 1 | Improve the three detailed reading/listening plans and evaluate the current prose prompt. | Fresh samples have a coherent speaker, addressee and purpose; correct Russian; answerable questions; and appropriate supporting language. Report rejected and weak samples as well as successes. |
@@ -67,11 +71,11 @@ The immediate priorities are language quality, useful variation and connecting n
 
 Start with a person who needs to tell, ask or find out something. Decide what the addressee must understand or do, then choose the Russian constructions that express it. The writer should realise that situation without adding filler to satisfy a length target. Keep the speaker, viewpoint, register and timeline consistent.
 
-The latest saved source-v4 batch passed five of six structural checks. Assistant review judged three usable for supported comprehension and none fully polished. This small development batch is not a production success-rate estimate. It nevertheless identifies concrete faults: a message addressing Анна ends by narrating what Анна knows; another adds «Это была поездка Лены» without useful information. The final removal of the sentence minimum has not had a fresh provider check.
+The earlier source-v4 batch passed five of six structural checks. Assistant review judged three usable for supported comprehension and none fully polished. A message addressing Анна ended by narrating what Анна knew; another added «Это была поездка Лены» without useful information. The new source-v5 batches check the shorter-message policy and revise address, viewpoint and cohesion guidance. Their results remain a small development sample, not a production success-rate estimate.
 
-The current plans also repeat the same information pattern under different recipe names. Location always asks about two current places and one destination. Calendar reading always uses a completed stay, its location, date and duration; calendar listening uses a stay, duration and companion. Topic tasks always pair two speakers with their subjects and a location. These can generate new text, but their communicative variety is limited.
+The baseline plans repeated the same information pattern under different recipe names. Location always asked about two current places and one destination. Calendar tasks always used a completed stay. Topic tasks paired two speakers with their subjects and a location. Plan v4 adds shared-place/diverging-destination, reading-duration, and stated-thought versus conversation families. These change the information relationship, but two families per unit remain a limited starting range.
 
-The [provider-free plan audit](validation/russian-content-audit-2026-10-04.json) checks 100 seeds for each of those six unit/mode combinations. Each combination keeps one fact-role structure. This finding concerns these detailed reading/listening plans, not every generator in the application.
+The [baseline plan audit](validation/russian-content-audit-2026-10-04.json) found one fact-role structure per unit/mode. The [follow-up audit](validation/curriculum-situations-2026-10-04.json) checks the same 600 seeds and reaches both families in every combination. These audits concern the three detailed reading/listening plans, not every generator in the application. Family coverage does not prove natural prose.
 
 Develop at least two distinct situation families for each of the three units. A family must change what the learner needs to resolve: for example, locating a friend versus acting on a changed meeting plan, or understanding the length of a visit versus time spent on an activity. Use only taught language or explicitly supported new language. Different names, dates and nouns alone do not establish a different family.
 
@@ -87,9 +91,9 @@ For every family, specify:
 
 Sentence count should follow the message's purpose. The current generation contract requires exactly three assessed facts, each bound to one question. Keep that contract and the three-question player until a deliberate versioned change is made. If a proposed situation cannot support three useful questions, redesign its information or give it a different declared task shape. Do not pad the prose.
 
-There is a concrete generator gap to correct: the calendar plan defines a reading-duration context, but its current recipe identifiers never select it. Add a reachable, taught activity-duration family and verify the selected semantic plans across seeds. More recipe labels around the same stay do not resolve this.
+The previously unreachable calendar reading-duration context is now selected and tested. It distinguishes time spent reading from finishing a book. Listening uses duration, venue and another reader; it does not introduce untaught spoken ordinal dates.
 
-Run three bounded batches of six text calls: three units × reading/listening × three fresh seeds overall. The existing command caps each run at twelve calls. Start with a dry run, preserve every response and make no automatic retry. Add synthetic familiar-vocabulary fixtures to the evaluation command before claiming to test vocabulary adaptation; it currently uses unit teaching inputs. Do not use private learner data for this evaluation.
+The three planned batches of six text calls are recorded in the pass report. Each used a dry run, a fresh seed and a synthetic vocabulary profile; there were no automatic retries or private learner inputs. The evaluation command now supports explicit vocabulary fixtures. Because profiles and seeds changed together, these runs do not establish vocabulary adaptation. Use the same seed with different profiles for that separate comparison.
 
 Review grammatical correctness, communicative purpose, supporting difficulty, referents, distractors, naturalness and meaningful variation separately. A schema pass is not a language pass. Record cost, latency, first-attempt acceptance and all rejections. Check for every known defect, then evaluate corrected work with new seeds. This is a release check for the sampled scope, not catalogue-wide validation or an exam-readiness estimate.
 
@@ -103,9 +107,11 @@ Implementation starts in `curriculum_situation_plans.py`, `curriculum_situation_
 
 ### 2. Vocabulary integration
 
-Generated passages currently render as plain paragraphs in `ui/src/Practice.tsx`. Reuse the existing story word lookup and vocabulary-enrichment services. Resolve the selected surface form within the saved passage, retain the lemma and contextual meaning, and show ambiguity where it cannot be resolved confidently. Do not introduce a universal English meaning field or insert bare words directly into the database.
+Generated passages now use `ui/src/PassageWords.tsx` within the existing player. The server verifies the selected word and its exact position in the saved passage. Lookup and saving reuse the existing morphology, mnemonic and enrichment services. A contextual annotation applies only when it identifies one occurrence; repeated homographs retain alternatives. Unannotated words may have no established contextual English meaning. No universal translation field is added.
 
 Reading can offer word help on demand. Listening must keep its transcript hidden until requested; opening it or receiving answer-related help must retain the existing support record. Saving a word must be idempotent and include the existing mnemonic and morphology work. New passage vocabulary should then be available to the normal flashcard generator with contextual clozes, images and audio.
+
+Captures retain the original sentence, selected reading, offsets and passage hash in owned command receipts. The saved-word read endpoint retrieves them after completion without another provider call. Complete card examples require more than this provenance: prepare the sentence translation and contextual target before inserting them into the example cache. That original-sentence reuse remains future work.
 
 ### 3. Extend the language plans
 

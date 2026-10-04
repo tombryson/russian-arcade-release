@@ -19,7 +19,8 @@ class SituationLanguagePlansTests(unittest.TestCase):
                 source = unit(identity)
                 before = deepcopy(source)
                 plans = [build_language_plan(source, str(n), mode) for n in range(60)]
-                self.assertGreaterEqual(len({p['purpose'] for p in plans}), 3)
+                self.assertEqual(len({p['family_id'] for p in plans}), 2)
+                self.assertEqual(len({p['purpose'] for p in plans}), 2)
                 self.assertEqual(plans[0], build_language_plan(source, '0', mode))
                 self.assertEqual(source, before)
                 self.assertTrue(all(p['answer_frames'] and p['contrast_rules'] for p in plans))
@@ -38,8 +39,11 @@ class SituationLanguagePlansTests(unittest.TestCase):
             self.assertTrue(any(p.normal_form == row['lemma'] and 'accs' in p.tag for p in get_morph().parse(there)))
         self.assertIn('movement alone', ' '.join(plan['grammar_limits']))
         listening = build_language_plan(unit(LOCATION), 'places', 'listening')
-        self.assertEqual({k: v for k, v in plan.items() if k != 'mode'},
-                         {k: v for k, v in listening.items() if k != 'mode'})
+        self.assertEqual(plan['family_id'], listening['family_id'])
+        self.assertEqual(plan['meaning_plan']['facts'], listening['meaning_plan']['facts'])
+        self.assertEqual(plan['checked_forms'], listening['checked_forms'])
+        self.assertEqual(plan['medium'], 'a personal message')
+        self.assertEqual(listening['medium'], 'a personal voice message')
 
     def test_form_examples_do_not_close_the_vocabulary_to_a_three_place_game(self):
         plans = [build_language_plan(unit(LOCATION), str(n), 'reading') for n in range(20)]
@@ -123,7 +127,7 @@ class SituationLanguagePlansTests(unittest.TestCase):
                 for seed in range(30):
                     plan = build_language_plan(unit(identity), str(seed), mode)
                     meaning = plan['meaning_plan']
-                    self.assertEqual(plan['version'], 'curriculum-language-plan-v3')
+                    self.assertEqual(plan['version'], 'curriculum-language-plan-v4')
                     self.assertEqual([f['id'] for f in meaning['facts']], ['f1', 'f2', 'f3'])
                     participants = {p['name_ru'] for p in meaning['participants']}
                     outsiders = {meaning['writer']['name_ru'], meaning['addressee']['name_ru']}
@@ -142,22 +146,30 @@ class SituationLanguagePlansTests(unittest.TestCase):
                     meaning['facts'][0]['value_ru'] = 'changed'
                     self.assertNotEqual(plan, build_language_plan(unit(identity), str(seed), mode))
 
-    def test_location_has_one_next_stop_and_two_current_locations(self):
-        destinations = set()
-        for seed in range(60):
+    def test_location_families_resolve_finding_friends_or_choosing_a_separate_route(self):
+        destinations, signatures = set(), set()
+        for seed in range(100):
             plan = build_language_plan(unit(LOCATION), str(seed), 'reading')
             facts = plan['meaning_plan']['facts']
-            here, next_stop, other_here = facts
-            self.assertEqual([f['role'] for f in facts], ['location', 'destination', 'location'])
+            here, next_stop, other = facts
+            roles = tuple(f['role'] for f in facts)
+            signatures.add(roles)
             self.assertEqual(here['subject_name'], next_stop['subject_name'])
-            self.assertNotEqual(here['subject_name'], other_here['subject_name'])
+            self.assertNotEqual(here['subject_name'], other['subject_name'])
             lookup = {r['destination']: r['location'] for r in plan['extension_policy']['place_frames']}
-            self.assertNotIn(lookup[next_stop['value_ru']], (here['value_ru'], other_here['value_ru']))
-            self.assertNotEqual(here['value_ru'], other_here['value_ru'])
+            if plan['family_id'] == 'location-split-outing':
+                self.assertEqual(roles, ('location', 'destination', 'destination'))
+                self.assertIn(other['subject_name'], here['question_frame_ru'])
+                self.assertEqual(len({here['value_ru'], lookup[next_stop['value_ru']], lookup[other['value_ru']]}), 3)
+                self.assertIn('together', plan['meaning_plan']['timeline_en'])
+            else:
+                self.assertEqual(roles, ('location', 'destination', 'location'))
+                self.assertEqual(len({here['value_ru'], lookup[next_stop['value_ru']], other['value_ru']}), 3)
             destinations.add(next_stop['value_ru'])
+        self.assertEqual(len(signatures), 2)
         self.assertGreater(len(destinations), 10)
 
-    def test_calendar_stay_has_one_duration_without_an_untaught_listening_date(self):
+    def test_calendar_families_have_event_specific_durations_without_a_listening_date(self):
         for seed in range(30):
             for mode in ('reading', 'listening'):
                 plan = build_language_plan(unit(CALENDAR), str(seed), mode)
@@ -165,10 +177,24 @@ class SituationLanguagePlansTests(unittest.TestCase):
                 self.assertEqual([f['role'] for f in facts],
                                  ['duration', 'location', 'date' if mode == 'reading' else 'person'])
                 self.assertEqual(facts[0]['subject_name'], facts[1]['subject_name'])
+                reading_activity = plan['family_id'] == 'calendar-reading-period'
                 self.assertEqual(set([facts[0]['value_ru'], *facts[0]['alternative_frames']]),
-                                 {'день', 'неделю', 'месяц'})
+                                 {'час', 'день', 'неделю'} if reading_activity else {'день', 'неделю', 'месяц'})
+                verb = 'читал' if reading_activity else 'жил'
+                self.assertIn(verb, facts[0]['question_frame_ru'])
+                self.assertIn(verb, facts[1]['question_frame_ru'])
+                if reading_activity:
+                    self.assertIn('no completion', plan['meaning_plan']['timeline_en'])
+                    self.assertTrue(plan['supported_phrases'])
+                    self.assertIn('read', facts[0]['feedback']['detail_en'])
+                    self.assertNotIn('stay', facts[0]['feedback']['caption_en'])
                 if mode == 'reading':
                     self.assertEqual(facts[2]['subject_name'], facts[0]['subject_name'])
+                    if reading_activity:
+                        self.assertIn('читать', facts[2]['question_frame_ru'])
+                        self.assertIn('начал', ' '.join(row['ru'] for row in plan['supported_phrases']))
+                        self.assertIn('beginning', ' '.join(plan['grammar_limits']))
+                        self.assertIn('reading', facts[2]['feedback']['caption_en'])
                 else:
                     companion = facts[2]['value_ru']
                     self.assertNotEqual(companion, facts[0]['subject_name'])
@@ -176,13 +202,22 @@ class SituationLanguagePlansTests(unittest.TestCase):
                     self.assertFalse(any('date' in f['role'] for f in facts))
                     self.assertIn('No calendar date', plan['meaning_plan']['timeline_en'])
 
-    def test_topics_keep_one_subject_per_speaker_and_a_shared_venue(self):
+    def test_topics_distinguish_two_speakers_from_one_friends_disclosed_thought(self):
         for seed in range(30):
             plan = build_language_plan(unit(TOPICS), str(seed), 'reading')
             person, thing, venue = plan['meaning_plan']['facts']
             self.assertEqual([person['role'], thing['role'], venue['role']],
                              ['topic_person', 'topic_thing', 'location'])
-            self.assertNotEqual(person['subject_name'], thing['subject_name'])
+            if plan['family_id'] == 'topics-thought-and-speech':
+                self.assertEqual(person['subject_name'], thing['subject_name'])
+                self.assertIn('говорит', person['question_frame_ru'])
+                self.assertIn('думает', thing['question_frame_ru'])
+                self.assertIn('direct-disclosure', plan['meaning_plan']['timeline_en'])
+                self.assertIn('говорит: «Я думаю', ' '.join(row['ru'] for row in plan['supported_phrases']))
+                self.assertIn('thinking', thing['feedback']['detail_en'])
+            else:
+                self.assertNotEqual(person['subject_name'], thing['subject_name'])
+                self.assertIn('говорит', thing['question_frame_ru'])
             self.assertEqual(person['subject_name'], venue['subject_name'])
             self.assertNotEqual(person['value_ru'], thing['value_ru'])
             for topic in (person, thing):
@@ -190,7 +225,11 @@ class SituationLanguagePlansTests(unittest.TestCase):
             if person['value_ru'] == 'об Анне':
                 all_names = [p['name_ru'] for p in plan['meaning_plan']['participants']]
                 self.assertNotIn('Анна', all_names)
-            self.assertIn('no topic changes', plan['meaning_plan']['timeline_en'])
+            if plan['family_id'] == 'topics-join-conversation':
+                self.assertIn('no topic changes', plan['meaning_plan']['timeline_en'])
+            else:
+                self.assertNotIn('sole topic', person['relation_en'])
+                self.assertIn('not inferred', plan['meaning_plan']['timeline_en'])
 
     def test_stay_venues_are_distinct_named_cities_not_overlapping_location_types(self):
         expected = {'в Москве', 'в Петербурге', 'в Туле', 'в Самаре', 'в Омске', 'в Минске'}
@@ -198,6 +237,8 @@ class SituationLanguagePlansTests(unittest.TestCase):
         for mode in ('reading', 'listening'):
             for seed in range(30):
                 plan = build_language_plan(unit(CALENDAR), str(seed), mode)
+                if plan['family_id'] != 'calendar-completed-stay':
+                    continue
                 self.assertEqual(plan['meaning_plan']['venue_family'], 'named-city')
                 venue = next(f for f in plan['meaning_plan']['facts'] if f['role'] == 'location')
                 choices = {venue['value_ru'], *venue['alternative_frames']}
@@ -209,6 +250,61 @@ class SituationLanguagePlansTests(unittest.TestCase):
                     self.assertTrue(any(p.normal_form == row['lemma'].lower() and 'loct' in p.tag
                                         for p in get_morph().parse(row['location'].split()[-1])))
         self.assertEqual(observed, expected)
+
+    def test_recent_semantic_exposure_selects_family_before_lexical_sampling(self):
+        for identity in (LOCATION, CALENDAR, TOPICS):
+            source = unit(identity)
+            first = build_language_plan(source, 'same-words', 'reading')
+            a = first['family_id']
+            second = build_language_plan(source, 'same-words', 'reading', recent_families=[a])
+            b = second['family_id']
+            self.assertNotEqual(a, b)
+            # Equal counts: newest-first history sends the older family next.
+            self.assertEqual(build_language_plan(source, 'same-words', 'reading', recent_families=[a, b]), second)
+            # Counts take priority over recency: b is most recent but less used.
+            self.assertEqual(build_language_plan(source, 'same-words', 'reading', recent_families=[b, a, a]), second)
+            # Equivalent semantic history cannot perturb the later lexical RNG.
+            self.assertEqual(build_language_plan(source, 'same-words', 'reading', recent_families=['retired', a, None]), second)
+            self.assertEqual(build_language_plan(source, 'same-words', 'reading', recent_families=['unknown']), first)
+            # History carries between modalities for the same communicative problem.
+            heard = build_language_plan(source, 'same-words', 'listening', recent_families=[a])
+            self.assertEqual(heard['family_id'], b)
+
+    def test_both_families_are_reachable_in_every_modality_and_have_teaching_contracts(self):
+        for identity in (LOCATION, CALENDAR, TOPICS):
+            by_mode = {}
+            for mode in ('reading', 'listening'):
+                plans = [build_language_plan(unit(identity), str(seed), mode) for seed in range(100)]
+                by_mode[mode] = {plan['family_id'] for plan in plans}
+                self.assertEqual(len(by_mode[mode]), 2)
+                for plan in plans:
+                    meaning = plan['meaning_plan']
+                    self.assertEqual(meaning['family_id'], plan['family_id'])
+                    self.assertEqual(meaning['medium_en'], plan['medium'])
+                    self.assertTrue(meaning['speaker_relationship_en'])
+                    self.assertTrue(plan['family_contract']['relationships_en'])
+                    self.assertTrue(plan['family_contract']['question_purpose_en'])
+                    self.assertTrue(plan['family_contract']['implausible_combinations'])
+                    self.assertTrue(plan['family_contract']['seed_changes_en'])
+                    self.assertIn('names', plan['family_contract']['exposure_identity_en'])
+                    for fact in meaning['facts']:
+                        self.assertEqual(set(fact['feedback']), {'detail_en', 'detail_ru', 'caption_en', 'caption_ru'})
+                        self.assertTrue(all(fact['feedback'].values()))
+                if identity == CALENDAR:
+                    self.assertEqual({plan['duration_context']['id'] for plan in plans}, {'temporary-stay', 'reading-period'})
+            self.assertEqual(by_mode['reading'], by_mode['listening'])
+
+    def test_venues_avoid_overlapping_work_street_labels_and_weeklong_cafe_sessions(self):
+        for seed in range(100):
+            location = build_language_plan(unit(LOCATION), str(seed), 'reading')
+            self.assertFalse({'улица', 'работа'} & {row['lemma'] for row in location['checked_forms']})
+            topics = build_language_plan(unit(TOPICS), str(seed), 'reading')
+            venue = topics['meaning_plan']['facts'][2]
+            self.assertNotIn('на работе', [venue['value_ru'], *venue['alternative_frames']])
+            calendar = build_language_plan(unit(CALENDAR), str(seed), 'reading')
+            facts = calendar['meaning_plan']['facts']
+            if calendar['family_id'] == 'calendar-reading-period' and facts[0]['value_ru'] == 'неделю':
+                self.assertEqual(facts[1]['value_ru'], 'в библиотеке')
 
     def test_no_plan_is_inferred_from_the_level_label_or_missing_teaching(self):
         self.assertIsNone(build_language_plan(unit('present-actions-v1'), 'seed', 'reading'))

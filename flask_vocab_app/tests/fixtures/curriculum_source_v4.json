@@ -1,0 +1,1143 @@
+{
+  "request": {
+    "version": "curriculum-situation-v1",
+    "unit": {
+      "id": "location-destination-v1",
+      "level": "A1",
+      "topic_id": "places",
+      "title": "Where and where to",
+      "title_ru": "Где и куда"
+    },
+    "source_sha256": "70a5a50ddc9dcee60758ee4344af68e499efc874a47c7c8e7c0355b130998529",
+    "seed": "frozen-source-v4-regression",
+    "mode": "reading",
+    "situation": {
+      "setting": "a short local outing",
+      "purpose": "Pass on one friend’s next stop and another friend’s current location so the addressee can join them.",
+      "format": "a short everyday account"
+    },
+    "teaching": [
+      {
+        "title": "Where? · Где?",
+        "note": "With в or на, use the prepositional case to say where someone is. Learn the preposition with the place.",
+        "examples": [
+          {
+            "ru": "Барсик в школе.",
+            "en": "Barsik is at school."
+          },
+          {
+            "ru": "Нина на почте.",
+            "en": "Nina is at the post office."
+          },
+          {
+            "ru": "Мы в парке.",
+            "en": "We are in the park."
+          }
+        ]
+      },
+      {
+        "title": "Where to? · Куда?",
+        "note": "Use the accusative case for a destination with в or на. Movement alone does not decide the case: walking inside a park is still в парке.",
+        "examples": [
+          {
+            "ru": "Барсик идёт в школу.",
+            "en": "Barsik is walking to school."
+          },
+          {
+            "ru": "Нина идёт на почту.",
+            "en": "Nina is walking to the post office."
+          },
+          {
+            "ru": "Мы идём в парк.",
+            "en": "We are walking to the park."
+          }
+        ]
+      }
+    ],
+    "language_targets": [
+      {
+        "id": "a1.language.prepositional-location",
+        "expectation": "Choose a stationary location phrase and distinguish it from movement to that same place."
+      },
+      {
+        "id": "a1.language.accusative-destination",
+        "expectation": "Choose в or на and a destination form when the context describes movement towards a place."
+      }
+    ],
+    "receptive_targets": [
+      {
+        "id": "a1.reading.practical-information",
+        "expectation": "Find the needed place, person, opening time, item or price in a short everyday written message."
+      },
+      {
+        "id": "a1.reading.narrative-meaning",
+        "expectation": "Identify the main event and important details in an unfamiliar short account using language at this level."
+      },
+      {
+        "id": "a1.reading.reference-and-sequence",
+        "expectation": "Follow who a pronoun refers to and which event happens before or after another in a simple text."
+      }
+    ],
+    "vocabulary": [],
+    "recent": [],
+    "limits": {
+      "minimum_words": 1,
+      "maximum_words": 70,
+      "questions": 3,
+      "maximum_new_lemmas": 3,
+      "minimum_sentences": 1,
+      "maximum_sentences": 10
+    },
+    "known_lemmas": [
+      "барсик",
+      "в",
+      "идти",
+      "мы",
+      "на",
+      "нина",
+      "парк",
+      "парка",
+      "парок",
+      "почесть",
+      "почта",
+      "почтить",
+      "школа"
+    ],
+    "language_plan": {
+      "version": "curriculum-language-plan-v3",
+      "unit_id": "location-destination-v1",
+      "mode": "reading",
+      "recipe_id": "share-next-stop",
+      "setting": "a short local outing",
+      "purpose": "Pass on one friend’s next stop and another friend’s current location so the addressee can join them.",
+      "language_requirement_ids": [
+        "a1.language.prepositional-location",
+        "a1.language.accusative-destination"
+      ],
+      "supporting_language": [
+        "Use short clauses and familiar connecting words; make every personal reference explicit.",
+        "The unit examples are language inputs, not evidence that the learner already knows every form.",
+        "Use the taught present forms of быть/implied location and идти, with сейчас and потом."
+      ],
+      "grammar_limits": [
+        "Contrast a current position with a destination; do not infer destination from movement alone.",
+        "Do not require origins, prefixed motion verbs, transport or directions with untaught case frames.",
+        "Keep each question about one named person and one stated point in the plan.",
+        "Use complete в/на phrases in answers. All alternatives must fit the question grammatically."
+      ],
+      "answer_frames": [
+        {
+          "role": "location",
+          "question_ru": "Где?",
+          "requirement_id": "a1.language.prepositional-location",
+          "form_key": "location"
+        },
+        {
+          "role": "destination",
+          "question_ru": "Куда?",
+          "requirement_id": "a1.language.accusative-destination",
+          "form_key": "destination"
+        }
+      ],
+      "contrast_rules": [
+        {
+          "requirement_id": "a1.language.prepositional-location",
+          "rule": "stationary-location",
+          "form_key": "location",
+          "meaning_en": "Where the person is now, not their next destination."
+        },
+        {
+          "requirement_id": "a1.language.accusative-destination",
+          "rule": "directed-destination",
+          "form_key": "destination",
+          "meaning_en": "Where the person is going, not movement within a place."
+        }
+      ],
+      "checked_forms": [
+        {
+          "lemma": "остановка",
+          "location": "на остановке",
+          "destination": "на остановку"
+        },
+        {
+          "lemma": "парк",
+          "location": "в парке",
+          "destination": "в парк"
+        },
+        {
+          "lemma": "гостиница",
+          "location": "в гостинице",
+          "destination": "в гостиницу"
+        },
+        {
+          "lemma": "кафе",
+          "location": "в кафе",
+          "destination": "в кафе"
+        },
+        {
+          "lemma": "ресторан",
+          "location": "в ресторане",
+          "destination": "в ресторан"
+        },
+        {
+          "lemma": "школа",
+          "location": "в школе",
+          "destination": "в школу"
+        }
+      ],
+      "extension_policy": {
+        "checked_forms_are_examples": true,
+        "lexical_sources": [
+          "unit teaching",
+          "supplied familiar vocabulary",
+          "bounded new vocabulary"
+        ],
+        "requirements": [
+          "Apply a taught construction to additional suitable nouns; do not confuse a new noun with a new grammatical requirement.",
+          "Validate the inflected form, lexical sense and required preposition before accepting it.",
+          "Keep unfamiliar content vocabulary within the request allowance and provide its contextual support.",
+          "A noun in the vocabulary store does not establish that its whole paradigm or a new construction has been taught."
+        ],
+        "place_frames": [
+          {
+            "lemma": "школа",
+            "location": "в школе",
+            "destination": "в школу"
+          },
+          {
+            "lemma": "почта",
+            "location": "на почте",
+            "destination": "на почту"
+          },
+          {
+            "lemma": "парк",
+            "location": "в парке",
+            "destination": "в парк"
+          },
+          {
+            "lemma": "магазин",
+            "location": "в магазине",
+            "destination": "в магазин"
+          },
+          {
+            "lemma": "библиотека",
+            "location": "в библиотеке",
+            "destination": "в библиотеку"
+          },
+          {
+            "lemma": "кафе",
+            "location": "в кафе",
+            "destination": "в кафе"
+          },
+          {
+            "lemma": "банк",
+            "location": "в банке",
+            "destination": "в банк"
+          },
+          {
+            "lemma": "музей",
+            "location": "в музее",
+            "destination": "в музей"
+          },
+          {
+            "lemma": "театр",
+            "location": "в театре",
+            "destination": "в театр"
+          },
+          {
+            "lemma": "ресторан",
+            "location": "в ресторане",
+            "destination": "в ресторан"
+          },
+          {
+            "lemma": "аптека",
+            "location": "в аптеке",
+            "destination": "в аптеку"
+          },
+          {
+            "lemma": "больница",
+            "location": "в больнице",
+            "destination": "в больницу"
+          },
+          {
+            "lemma": "гостиница",
+            "location": "в гостинице",
+            "destination": "в гостиницу"
+          },
+          {
+            "lemma": "университет",
+            "location": "в университете",
+            "destination": "в университет"
+          },
+          {
+            "lemma": "вокзал",
+            "location": "на вокзале",
+            "destination": "на вокзал"
+          },
+          {
+            "lemma": "улица",
+            "location": "на улице",
+            "destination": "на улицу"
+          },
+          {
+            "lemma": "работа",
+            "location": "на работе",
+            "destination": "на работу"
+          },
+          {
+            "lemma": "остановка",
+            "location": "на остановке",
+            "destination": "на остановку"
+          }
+        ],
+        "place_rule": "Use a conventional location/destination pair from this lexical reference or another supplied, verified source. Do not choose в/на from morphology alone. Regular singular -е locations and taught accusative patterns can use further common places. A supported invariable noun such as кафе is valid, but its identical forms require explicit location/destination context; do not score an ending contrast there."
+      },
+      "meaning_plan": {
+        "version": "situation-meaning-v1",
+        "writer": {
+          "name_ru": "Анна",
+          "name_en": "Anna",
+          "gender": "feminine"
+        },
+        "addressee": {
+          "name_ru": "Нина",
+          "name_en": "Nina",
+          "gender": "feminine"
+        },
+        "participants": [
+          {
+            "name_ru": "Вера",
+            "name_en": "Vera",
+            "gender": "feminine"
+          },
+          {
+            "name_ru": "Оля",
+            "name_en": "Olya",
+            "gender": "feminine"
+          }
+        ],
+        "context_en": "a short local outing",
+        "purpose_en": "Pass on one friend’s next stop and another friend’s current location so the addressee can join them.",
+        "timeline_en": "Now Vera is at one place and Olya is at another. Then Vera goes to exactly one next stop. No subsequent stop or shared movement is specified.",
+        "facts": [
+          {
+            "id": "f1",
+            "role": "location",
+            "subject_name": "Вера",
+            "subject_en": "Vera",
+            "value_ru": "в кафе",
+            "question_frame_ru": "Где сейчас Вера?",
+            "relation_en": "Current location, before any movement.",
+            "alternative_frames": [
+              "в школе",
+              "в ресторане"
+            ]
+          },
+          {
+            "id": "f2",
+            "role": "destination",
+            "subject_name": "Вера",
+            "subject_en": "Vera",
+            "value_ru": "в школу",
+            "question_frame_ru": "Куда потом идёт Вера?",
+            "relation_en": "The only next destination.",
+            "alternative_frames": [
+              "в кафе",
+              "в ресторан"
+            ]
+          },
+          {
+            "id": "f3",
+            "role": "location",
+            "subject_name": "Оля",
+            "subject_en": "Olya",
+            "value_ru": "в ресторане",
+            "question_frame_ru": "Где сейчас Оля?",
+            "relation_en": "The other person’s current location.",
+            "alternative_frames": [
+              "в кафе",
+              "в школе"
+            ]
+          }
+        ],
+        "constraints": [
+          "Report these three facts about the named people; do not add other assessable events.",
+          "The writer and addressee are not the people whose actions are being reported.",
+          "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+          "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+        ]
+      }
+    },
+    "generation_revision": "source-v4",
+    "writer_brief": {
+      "level": "A1",
+      "mode": "reading",
+      "format": "a short everyday account",
+      "writer": {
+        "name_ru": "Анна",
+        "name_en": "Anna",
+        "gender": "feminine"
+      },
+      "addressee": {
+        "name_ru": "Нина",
+        "name_en": "Nina",
+        "gender": "feminine"
+      },
+      "participants": [
+        {
+          "name_ru": "Вера",
+          "name_en": "Vera",
+          "gender": "feminine"
+        },
+        {
+          "name_ru": "Оля",
+          "name_en": "Olya",
+          "gender": "feminine"
+        }
+      ],
+      "context": "a short local outing",
+      "purpose": "Pass on one friend’s next stop and another friend’s current location so the addressee can join them.",
+      "timeline": "Now Vera is at one place and Olya is at another. Then Vera goes to exactly one next stop. No subsequent stop or shared movement is specified.",
+      "facts": [
+        {
+          "id": "f1",
+          "role": "location",
+          "subject_name": "Вера",
+          "subject_en": "Vera",
+          "value_ru": "в кафе",
+          "question_frame_ru": "Где сейчас Вера?",
+          "relation_en": "Current location, before any movement.",
+          "alternative_frames": [
+            "в школе",
+            "в ресторане"
+          ]
+        },
+        {
+          "id": "f2",
+          "role": "destination",
+          "subject_name": "Вера",
+          "subject_en": "Vera",
+          "value_ru": "в школу",
+          "question_frame_ru": "Куда потом идёт Вера?",
+          "relation_en": "The only next destination.",
+          "alternative_frames": [
+            "в кафе",
+            "в ресторан"
+          ]
+        },
+        {
+          "id": "f3",
+          "role": "location",
+          "subject_name": "Оля",
+          "subject_en": "Olya",
+          "value_ru": "в ресторане",
+          "question_frame_ru": "Где сейчас Оля?",
+          "relation_en": "The other person’s current location.",
+          "alternative_frames": [
+            "в кафе",
+            "в школе"
+          ]
+        }
+      ],
+      "limits": {
+        "minimum_words": 1,
+        "maximum_words": 70,
+        "questions": 3,
+        "maximum_new_lemmas": 3,
+        "minimum_sentences": 1,
+        "maximum_sentences": 10
+      },
+      "language_scope": [
+        "Contrast a current position with a destination; do not infer destination from movement alone.",
+        "Do not require origins, prefixed motion verbs, transport or directions with untaught case frames.",
+        "Keep each question about one named person and one stated point in the plan.",
+        "Use complete в/на phrases in answers. All alternatives must fit the question grammatically."
+      ],
+      "event_constraints": [
+        "Report these three facts about the named people; do not add other assessable events.",
+        "The writer and addressee are not the people whose actions are being reported.",
+        "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+        "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+      ],
+      "familiar_words": [],
+      "known_lemmas": [
+        "барсик",
+        "в",
+        "идти",
+        "мы",
+        "на",
+        "нина",
+        "парк",
+        "парка",
+        "парок",
+        "почесть",
+        "почта",
+        "почтить",
+        "школа"
+      ],
+      "supporting_examples": [
+        "Барсик в школе.",
+        "Барсик идёт в школу.",
+        "Нина на почте.",
+        "Нина идёт на почту."
+      ],
+      "avoid_repeating": []
+    },
+    "generation_input_sha256": "3a8318e7fe49147ce66d78ad5109df7957d58c6b992e8eaa609a3b3253a8028c",
+    "generation_prompt_sha256": "544589c674e2c254471b7b9faf69ae91190bd1711f18ddea7ac660db69847965",
+    "generation_schema_sha256": "d2240e55388ed57425838b2045bcb27f8bd2b5260037478ed4cf3bf784737b84"
+  },
+  "provider_response": {
+    "title": "Сообщение другу",
+    "title_en": "A message to a friend",
+    "sentences": [
+      "Нина, привет!",
+      "У меня есть новости для тебя, и я хочу немного рассказать о наших друзьях.",
+      "Вера сейчас в кафе.",
+      "Потом Вера идёт в школу.",
+      "Оля сейчас в ресторане.",
+      "Вот такие новости сегодня, напиши мне ответ, когда у тебя будет время."
+    ],
+    "questions": {
+      "f1": {
+        "prompt_ru": "Где сейчас Вера?",
+        "prompt_en": "Where is Vera now?",
+        "sentence_ids": [
+          "s3"
+        ]
+      },
+      "f2": {
+        "prompt_ru": "Куда потом идёт Вера?",
+        "prompt_en": "Where is Vera going next?",
+        "sentence_ids": [
+          "s4"
+        ]
+      },
+      "f3": {
+        "prompt_ru": "Где сейчас Оля?",
+        "prompt_en": "Where is Olya now?",
+        "sentence_ids": [
+          "s5"
+        ]
+      }
+    },
+    "new_vocabulary": []
+  },
+  "document": {
+    "version": "curriculum-situation-v1",
+    "request": {
+      "version": "curriculum-situation-v1",
+      "unit": {
+        "id": "location-destination-v1",
+        "level": "A1",
+        "topic_id": "places",
+        "title": "Where and where to",
+        "title_ru": "Где и куда"
+      },
+      "source_sha256": "70a5a50ddc9dcee60758ee4344af68e499efc874a47c7c8e7c0355b130998529",
+      "seed": "frozen-source-v4-regression",
+      "mode": "reading",
+      "situation": {
+        "setting": "a short local outing",
+        "purpose": "Pass on one friend’s next stop and another friend’s current location so the addressee can join them.",
+        "format": "a short everyday account"
+      },
+      "teaching": [
+        {
+          "title": "Where? · Где?",
+          "note": "With в or на, use the prepositional case to say where someone is. Learn the preposition with the place.",
+          "examples": [
+            {
+              "ru": "Барсик в школе.",
+              "en": "Barsik is at school."
+            },
+            {
+              "ru": "Нина на почте.",
+              "en": "Nina is at the post office."
+            },
+            {
+              "ru": "Мы в парке.",
+              "en": "We are in the park."
+            }
+          ]
+        },
+        {
+          "title": "Where to? · Куда?",
+          "note": "Use the accusative case for a destination with в or на. Movement alone does not decide the case: walking inside a park is still в парке.",
+          "examples": [
+            {
+              "ru": "Барсик идёт в школу.",
+              "en": "Barsik is walking to school."
+            },
+            {
+              "ru": "Нина идёт на почту.",
+              "en": "Nina is walking to the post office."
+            },
+            {
+              "ru": "Мы идём в парк.",
+              "en": "We are walking to the park."
+            }
+          ]
+        }
+      ],
+      "language_targets": [
+        {
+          "id": "a1.language.prepositional-location",
+          "expectation": "Choose a stationary location phrase and distinguish it from movement to that same place."
+        },
+        {
+          "id": "a1.language.accusative-destination",
+          "expectation": "Choose в or на and a destination form when the context describes movement towards a place."
+        }
+      ],
+      "receptive_targets": [
+        {
+          "id": "a1.reading.practical-information",
+          "expectation": "Find the needed place, person, opening time, item or price in a short everyday written message."
+        },
+        {
+          "id": "a1.reading.narrative-meaning",
+          "expectation": "Identify the main event and important details in an unfamiliar short account using language at this level."
+        },
+        {
+          "id": "a1.reading.reference-and-sequence",
+          "expectation": "Follow who a pronoun refers to and which event happens before or after another in a simple text."
+        }
+      ],
+      "vocabulary": [],
+      "recent": [],
+      "limits": {
+        "minimum_words": 1,
+        "maximum_words": 70,
+        "questions": 3,
+        "maximum_new_lemmas": 3,
+        "minimum_sentences": 1,
+        "maximum_sentences": 10
+      },
+      "known_lemmas": [
+        "барсик",
+        "в",
+        "идти",
+        "мы",
+        "на",
+        "нина",
+        "парк",
+        "парка",
+        "парок",
+        "почесть",
+        "почта",
+        "почтить",
+        "школа"
+      ],
+      "language_plan": {
+        "version": "curriculum-language-plan-v3",
+        "unit_id": "location-destination-v1",
+        "mode": "reading",
+        "recipe_id": "share-next-stop",
+        "setting": "a short local outing",
+        "purpose": "Pass on one friend’s next stop and another friend’s current location so the addressee can join them.",
+        "language_requirement_ids": [
+          "a1.language.prepositional-location",
+          "a1.language.accusative-destination"
+        ],
+        "supporting_language": [
+          "Use short clauses and familiar connecting words; make every personal reference explicit.",
+          "The unit examples are language inputs, not evidence that the learner already knows every form.",
+          "Use the taught present forms of быть/implied location and идти, with сейчас and потом."
+        ],
+        "grammar_limits": [
+          "Contrast a current position with a destination; do not infer destination from movement alone.",
+          "Do not require origins, prefixed motion verbs, transport or directions with untaught case frames.",
+          "Keep each question about one named person and one stated point in the plan.",
+          "Use complete в/на phrases in answers. All alternatives must fit the question grammatically."
+        ],
+        "answer_frames": [
+          {
+            "role": "location",
+            "question_ru": "Где?",
+            "requirement_id": "a1.language.prepositional-location",
+            "form_key": "location"
+          },
+          {
+            "role": "destination",
+            "question_ru": "Куда?",
+            "requirement_id": "a1.language.accusative-destination",
+            "form_key": "destination"
+          }
+        ],
+        "contrast_rules": [
+          {
+            "requirement_id": "a1.language.prepositional-location",
+            "rule": "stationary-location",
+            "form_key": "location",
+            "meaning_en": "Where the person is now, not their next destination."
+          },
+          {
+            "requirement_id": "a1.language.accusative-destination",
+            "rule": "directed-destination",
+            "form_key": "destination",
+            "meaning_en": "Where the person is going, not movement within a place."
+          }
+        ],
+        "checked_forms": [
+          {
+            "lemma": "остановка",
+            "location": "на остановке",
+            "destination": "на остановку"
+          },
+          {
+            "lemma": "парк",
+            "location": "в парке",
+            "destination": "в парк"
+          },
+          {
+            "lemma": "гостиница",
+            "location": "в гостинице",
+            "destination": "в гостиницу"
+          },
+          {
+            "lemma": "кафе",
+            "location": "в кафе",
+            "destination": "в кафе"
+          },
+          {
+            "lemma": "ресторан",
+            "location": "в ресторане",
+            "destination": "в ресторан"
+          },
+          {
+            "lemma": "школа",
+            "location": "в школе",
+            "destination": "в школу"
+          }
+        ],
+        "extension_policy": {
+          "checked_forms_are_examples": true,
+          "lexical_sources": [
+            "unit teaching",
+            "supplied familiar vocabulary",
+            "bounded new vocabulary"
+          ],
+          "requirements": [
+            "Apply a taught construction to additional suitable nouns; do not confuse a new noun with a new grammatical requirement.",
+            "Validate the inflected form, lexical sense and required preposition before accepting it.",
+            "Keep unfamiliar content vocabulary within the request allowance and provide its contextual support.",
+            "A noun in the vocabulary store does not establish that its whole paradigm or a new construction has been taught."
+          ],
+          "place_frames": [
+            {
+              "lemma": "школа",
+              "location": "в школе",
+              "destination": "в школу"
+            },
+            {
+              "lemma": "почта",
+              "location": "на почте",
+              "destination": "на почту"
+            },
+            {
+              "lemma": "парк",
+              "location": "в парке",
+              "destination": "в парк"
+            },
+            {
+              "lemma": "магазин",
+              "location": "в магазине",
+              "destination": "в магазин"
+            },
+            {
+              "lemma": "библиотека",
+              "location": "в библиотеке",
+              "destination": "в библиотеку"
+            },
+            {
+              "lemma": "кафе",
+              "location": "в кафе",
+              "destination": "в кафе"
+            },
+            {
+              "lemma": "банк",
+              "location": "в банке",
+              "destination": "в банк"
+            },
+            {
+              "lemma": "музей",
+              "location": "в музее",
+              "destination": "в музей"
+            },
+            {
+              "lemma": "театр",
+              "location": "в театре",
+              "destination": "в театр"
+            },
+            {
+              "lemma": "ресторан",
+              "location": "в ресторане",
+              "destination": "в ресторан"
+            },
+            {
+              "lemma": "аптека",
+              "location": "в аптеке",
+              "destination": "в аптеку"
+            },
+            {
+              "lemma": "больница",
+              "location": "в больнице",
+              "destination": "в больницу"
+            },
+            {
+              "lemma": "гостиница",
+              "location": "в гостинице",
+              "destination": "в гостиницу"
+            },
+            {
+              "lemma": "университет",
+              "location": "в университете",
+              "destination": "в университет"
+            },
+            {
+              "lemma": "вокзал",
+              "location": "на вокзале",
+              "destination": "на вокзал"
+            },
+            {
+              "lemma": "улица",
+              "location": "на улице",
+              "destination": "на улицу"
+            },
+            {
+              "lemma": "работа",
+              "location": "на работе",
+              "destination": "на работу"
+            },
+            {
+              "lemma": "остановка",
+              "location": "на остановке",
+              "destination": "на остановку"
+            }
+          ],
+          "place_rule": "Use a conventional location/destination pair from this lexical reference or another supplied, verified source. Do not choose в/на from morphology alone. Regular singular -е locations and taught accusative patterns can use further common places. A supported invariable noun such as кафе is valid, but its identical forms require explicit location/destination context; do not score an ending contrast there."
+        },
+        "meaning_plan": {
+          "version": "situation-meaning-v1",
+          "writer": {
+            "name_ru": "Анна",
+            "name_en": "Anna",
+            "gender": "feminine"
+          },
+          "addressee": {
+            "name_ru": "Нина",
+            "name_en": "Nina",
+            "gender": "feminine"
+          },
+          "participants": [
+            {
+              "name_ru": "Вера",
+              "name_en": "Vera",
+              "gender": "feminine"
+            },
+            {
+              "name_ru": "Оля",
+              "name_en": "Olya",
+              "gender": "feminine"
+            }
+          ],
+          "context_en": "a short local outing",
+          "purpose_en": "Pass on one friend’s next stop and another friend’s current location so the addressee can join them.",
+          "timeline_en": "Now Vera is at one place and Olya is at another. Then Vera goes to exactly one next stop. No subsequent stop or shared movement is specified.",
+          "facts": [
+            {
+              "id": "f1",
+              "role": "location",
+              "subject_name": "Вера",
+              "subject_en": "Vera",
+              "value_ru": "в кафе",
+              "question_frame_ru": "Где сейчас Вера?",
+              "relation_en": "Current location, before any movement.",
+              "alternative_frames": [
+                "в школе",
+                "в ресторане"
+              ]
+            },
+            {
+              "id": "f2",
+              "role": "destination",
+              "subject_name": "Вера",
+              "subject_en": "Vera",
+              "value_ru": "в школу",
+              "question_frame_ru": "Куда потом идёт Вера?",
+              "relation_en": "The only next destination.",
+              "alternative_frames": [
+                "в кафе",
+                "в ресторан"
+              ]
+            },
+            {
+              "id": "f3",
+              "role": "location",
+              "subject_name": "Оля",
+              "subject_en": "Olya",
+              "value_ru": "в ресторане",
+              "question_frame_ru": "Где сейчас Оля?",
+              "relation_en": "The other person’s current location.",
+              "alternative_frames": [
+                "в кафе",
+                "в школе"
+              ]
+            }
+          ],
+          "constraints": [
+            "Report these three facts about the named people; do not add other assessable events.",
+            "The writer and addressee are not the people whose actions are being reported.",
+            "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+            "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+          ]
+        }
+      },
+      "generation_revision": "source-v4",
+      "writer_brief": {
+        "level": "A1",
+        "mode": "reading",
+        "format": "a short everyday account",
+        "writer": {
+          "name_ru": "Анна",
+          "name_en": "Anna",
+          "gender": "feminine"
+        },
+        "addressee": {
+          "name_ru": "Нина",
+          "name_en": "Nina",
+          "gender": "feminine"
+        },
+        "participants": [
+          {
+            "name_ru": "Вера",
+            "name_en": "Vera",
+            "gender": "feminine"
+          },
+          {
+            "name_ru": "Оля",
+            "name_en": "Olya",
+            "gender": "feminine"
+          }
+        ],
+        "context": "a short local outing",
+        "purpose": "Pass on one friend’s next stop and another friend’s current location so the addressee can join them.",
+        "timeline": "Now Vera is at one place and Olya is at another. Then Vera goes to exactly one next stop. No subsequent stop or shared movement is specified.",
+        "facts": [
+          {
+            "id": "f1",
+            "role": "location",
+            "subject_name": "Вера",
+            "subject_en": "Vera",
+            "value_ru": "в кафе",
+            "question_frame_ru": "Где сейчас Вера?",
+            "relation_en": "Current location, before any movement.",
+            "alternative_frames": [
+              "в школе",
+              "в ресторане"
+            ]
+          },
+          {
+            "id": "f2",
+            "role": "destination",
+            "subject_name": "Вера",
+            "subject_en": "Vera",
+            "value_ru": "в школу",
+            "question_frame_ru": "Куда потом идёт Вера?",
+            "relation_en": "The only next destination.",
+            "alternative_frames": [
+              "в кафе",
+              "в ресторан"
+            ]
+          },
+          {
+            "id": "f3",
+            "role": "location",
+            "subject_name": "Оля",
+            "subject_en": "Olya",
+            "value_ru": "в ресторане",
+            "question_frame_ru": "Где сейчас Оля?",
+            "relation_en": "The other person’s current location.",
+            "alternative_frames": [
+              "в кафе",
+              "в школе"
+            ]
+          }
+        ],
+        "limits": {
+          "minimum_words": 1,
+          "maximum_words": 70,
+          "questions": 3,
+          "maximum_new_lemmas": 3,
+          "minimum_sentences": 1,
+          "maximum_sentences": 10
+        },
+        "language_scope": [
+          "Contrast a current position with a destination; do not infer destination from movement alone.",
+          "Do not require origins, prefixed motion verbs, transport or directions with untaught case frames.",
+          "Keep each question about one named person and one stated point in the plan.",
+          "Use complete в/на phrases in answers. All alternatives must fit the question grammatically."
+        ],
+        "event_constraints": [
+          "Report these three facts about the named people; do not add other assessable events.",
+          "The writer and addressee are not the people whose actions are being reported.",
+          "Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.",
+          "Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name."
+        ],
+        "familiar_words": [],
+        "known_lemmas": [
+          "барсик",
+          "в",
+          "идти",
+          "мы",
+          "на",
+          "нина",
+          "парк",
+          "парка",
+          "парок",
+          "почесть",
+          "почта",
+          "почтить",
+          "школа"
+        ],
+        "supporting_examples": [
+          "Барсик в школе.",
+          "Барсик идёт в школу.",
+          "Нина на почте.",
+          "Нина идёт на почту."
+        ],
+        "avoid_repeating": []
+      },
+      "generation_input_sha256": "3a8318e7fe49147ce66d78ad5109df7957d58c6b992e8eaa609a3b3253a8028c",
+      "generation_prompt_sha256": "544589c674e2c254471b7b9faf69ae91190bd1711f18ddea7ac660db69847965",
+      "generation_schema_sha256": "d2240e55388ed57425838b2045bcb27f8bd2b5260037478ed4cf3bf784737b84"
+    },
+    "response": {
+      "plan": {
+        "goal_en": "Pass on one friend’s next stop and another friend’s current location so the addressee can join them.",
+        "facts": [
+          {
+            "id": "f1",
+            "meaning_en": "Where is Vera now?",
+            "value_ru": "в кафе",
+            "answer_kind": "location"
+          },
+          {
+            "id": "f2",
+            "meaning_en": "Where is Vera going next?",
+            "value_ru": "в школу",
+            "answer_kind": "destination"
+          },
+          {
+            "id": "f3",
+            "meaning_en": "Where is Olya now?",
+            "value_ru": "в ресторане",
+            "answer_kind": "location"
+          }
+        ]
+      },
+      "title": "Сообщение другу",
+      "title_en": "A message to a friend",
+      "grammar_coverage": [
+        {
+          "requirement_id": "a1.language.prepositional-location",
+          "excerpt": "Вера сейчас в кафе."
+        },
+        {
+          "requirement_id": "a1.language.accusative-destination",
+          "excerpt": "Потом Вера идёт в школу."
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "fact_id": "f1",
+          "prompt_ru": "Где сейчас Вера?",
+          "prompt_en": "Where is Vera now?",
+          "choices": [
+            {
+              "id": "a",
+              "text": "в кафе"
+            },
+            {
+              "id": "b",
+              "text": "в школе"
+            },
+            {
+              "id": "c",
+              "text": "в ресторане"
+            }
+          ],
+          "answer": "a",
+          "requirement_id": "a1.reading.practical-information",
+          "hint_ru": "Прочитайте ещё раз и найдите ответ: где сейчас Вера?",
+          "explanation_ru": "Здесь сказано, где человек сейчас. «Вера сейчас в кафе.»",
+          "evidence": "Вера сейчас в кафе.",
+          "hint": "Read again and find where Vera is now.",
+          "explanation": "This gives the current location. «Вера сейчас в кафе.»",
+          "expectation": "Find the needed place, person, opening time, item or price in a short everyday written message."
+        },
+        {
+          "id": "q2",
+          "fact_id": "f2",
+          "prompt_ru": "Куда потом идёт Вера?",
+          "prompt_en": "Where is Vera going next?",
+          "choices": [
+            {
+              "id": "a",
+              "text": "в школу"
+            },
+            {
+              "id": "b",
+              "text": "в кафе"
+            },
+            {
+              "id": "c",
+              "text": "в ресторан"
+            }
+          ],
+          "answer": "a",
+          "requirement_id": "a1.reading.practical-information",
+          "hint_ru": "Прочитайте ещё раз и найдите ответ: куда потом идёт Вера?",
+          "explanation_ru": "Здесь сказано, куда человек идёт потом. «Потом Вера идёт в школу.»",
+          "evidence": "Потом Вера идёт в школу.",
+          "hint": "Read again and find where Vera goes next.",
+          "explanation": "This gives the next stop. «Потом Вера идёт в школу.»",
+          "expectation": "Find the needed place, person, opening time, item or price in a short everyday written message."
+        },
+        {
+          "id": "q3",
+          "fact_id": "f3",
+          "prompt_ru": "Где сейчас Оля?",
+          "prompt_en": "Where is Olya now?",
+          "choices": [
+            {
+              "id": "a",
+              "text": "в ресторане"
+            },
+            {
+              "id": "b",
+              "text": "в кафе"
+            },
+            {
+              "id": "c",
+              "text": "в школе"
+            }
+          ],
+          "answer": "a",
+          "requirement_id": "a1.reading.practical-information",
+          "hint_ru": "Прочитайте ещё раз и найдите ответ: где сейчас Оля?",
+          "explanation_ru": "Здесь сказано, где человек сейчас. «Оля сейчас в ресторане.»",
+          "evidence": "Оля сейчас в ресторане.",
+          "hint": "Read again and find where Olya is now.",
+          "explanation": "This gives the current location. «Оля сейчас в ресторане.»",
+          "expectation": "Find the needed place, person, opening time, item or price in a short everyday written message."
+        }
+      ],
+      "new_vocabulary": [],
+      "text": "Нина, привет! У меня есть новости для тебя, и я хочу немного рассказать о наших друзьях. Вера сейчас в кафе. Потом Вера идёт в школу. Оля сейчас в ресторане. Вот такие новости сегодня, напиши мне ответ, когда у тебя будет время."
+    },
+    "content_sha256": "663a73544a0e9e95985109b419df1941b54103f56d5a4d361725aac3357f81c2"
+  }
+}

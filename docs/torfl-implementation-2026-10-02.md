@@ -2,6 +2,14 @@
 
 Date: 2 October 2026; deployment and plan status updated 4 October. Scope: the [TORFL delivery plan](torfl-assessment-build-plan.md), P0/P1 foundations and ongoing P2 procedural content. Earlier verification sections retain the scope of their original runs; the deployment update below is the current release status.
 
+## Local follow-up — 4 October 2026
+
+The next pass adds two semantic situation families for each detailed reading/listening unit and selects them from recent same-unit history. Location, calendar and conversation-topic tasks keep three related facts and grammatical alternatives. The previously unreachable reading-duration family is now generated. Source-v5 prose guidance clarifies viewpoint and brevity; saved source-v4 requests retain their previous adapter.
+
+Generated passages now support optional word lookup and saving through the normal lemma, morphology, mnemonic and enrichment pipeline. Listening retains its transcript boundary. Reading word help marks remaining questions about the same passage as assisted. Exact source context survives in owned capture receipts. Automatic reuse of those original sentences for cards remains pending; incomplete translations are not placed in the prepared-example cache.
+
+The [pass report](curriculum-pass-2026-10-04.md) records 600 generated-plan checks and 18 live text calls. Seventeen passed structural validation; assistant review found fourteen usable for supported comprehension, three needing revision, and one correctly rejected. Prose, missing vocabulary support and the unsampled final thought-and-speech prompt remain work. These changes are local; Fly still runs the release below. Speech providers, randomized voices, credentials and allowances are unchanged.
+
 ## Deployment update — 3 October 2026
 
 The procedural and language-design changes are live on Fly at `0bcba58`, including `/demo/`. The release used image `linguistic-0bcba58`. Both [application CI](https://github.com/tombryson/russian-arcade-release/actions/runs/37019509171) and [security CI](https://github.com/tombryson/russian-arcade-release/actions/runs/37019510053) passed. Application checks covered 2,118 backend tests and 833 frontend tests across 63 files. Two stale review/migration test fixtures were corrected before the successful run.
@@ -35,7 +43,7 @@ reward policy and do not award proficiency. Account import drops private editori
 history and rebuilds pending novelty guidance for the destination account. See
 [procedural content](procedural-content.md) for scope and verification.
 
-## Current P2 follow-up
+## P2 follow-up included in the 3 October release
 
 `calendar-and-duration-v1` teaches the month in a date and bare duration phrases. It supplies the date number rather than claiming to assess ordinal date formation. Generation samples valid dates and keeps elapsed time distinct from a starting time or delay. Correct alternatives such as неделю / одну неделю remain accepted.
 
@@ -47,7 +55,7 @@ New unit reading/listening uses a generated situation tied to the unit’s objec
 
 The initial provider check found only one manually acceptable exercise in seven calls. A further eighteen calls tested language-specific plans for location/destination, dates/duration and conversation topics. These plans establish participants, related facts, timelines and full governed answer phrases before the model writes. Comprehension alternatives represent different meanings in grammatical Russian; they do not test case endings through deliberately broken options. Hints and explanations now use checked guidance and exact source quotes.
 
-The last six-call batch passed five structural checks. The Russian forms and answer relationships improved, but some messages still contain filler or an awkward narrative voice. One failed vocabulary annotation was rejected. This is measurable progress, not proof of natural Russian or reliable whole-catalogue generation. The final removal of a sentence-count minimum has regression coverage but no fresh provider evaluation. See the [language-design evaluation](procedural-content.md#language-design-follow-up), including all failed samples. The other fourteen units still need equivalent linguistic plans, and the player still needs normal word lookup and saving for generated passages. This follow-up was included in the 3 October deployment.
+That follow-up’s last six-call batch passed five structural checks. Some messages still contained filler or an awkward narrative voice, and one vocabulary annotation was rejected. The shorter-message prompt and passage word tools were evaluated or implemented in the subsequent local pass above. See the [earlier language-design evaluation](procedural-content.md#language-design-follow-up), including its failed samples. The other fourteen units still need equivalent linguistic plans.
 
 ## Delivered in the repository
 

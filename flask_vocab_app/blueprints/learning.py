@@ -194,6 +194,26 @@ def create_learning_blueprint(household, content, learning, store):
     def transcript_item(session_id):
         return jsonify(learning.command(access_id(), session_id, 'transcript', body({'submission_id','expected_revision','item_id'})))
 
+    @bp.post('/api/v1/learning-sessions/<session_id>/words/lookup')
+    @access_policy('child')
+    def lookup_passage_word(session_id):
+        from services.practice_vocabulary import command
+        return jsonify(command(learning, access_id(), session_id, body(
+            {'submission_id', 'expected_revision', 'item_id', 'word', 'offset'})))
+
+    @bp.post('/api/v1/learning-sessions/<session_id>/words')
+    @access_policy('child')
+    def capture_passage_word(session_id):
+        from services.practice_vocabulary import command
+        return jsonify(command(learning, access_id(), session_id, body(
+            {'submission_id', 'expected_revision', 'item_id', 'word', 'offset', 'lemma', 'pos'}), capture=True))
+
+    @bp.get('/api/v1/learning-sessions/<session_id>/words')
+    @access_policy('child')
+    def saved_passage_words(session_id):
+        from services.practice_vocabulary import saved_words
+        return jsonify(saved_words(learning, access_id(), session_id))
+
     @bp.get('/api/v1/assets/<asset_id>')
     @access_policy('public')
     def asset(asset_id):

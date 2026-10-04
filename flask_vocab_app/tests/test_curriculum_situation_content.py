@@ -113,7 +113,7 @@ def meaning_provider_response(request):
             'sentence_ids': ['s' + str(len(sentences))],
             'hint_en': 'Find the detail about this person.', 'hint_ru': 'Найдите нужную информацию об этом человеке.',
             'explanation_en': 'The message states this fact about the named person.', 'explanation_ru': sentence}
-        if request.get('generation_revision') == 'source-v4':
+        if request.get('generation_revision') in content.CHECKED_FEEDBACK_REVISIONS:
             for field in ('hint_en', 'hint_ru', 'explanation_en', 'explanation_ru'):
                 questions[fact['id']].pop(field)
     sentences.append('Вот такие новости сегодня, напиши мне ответ, когда у тебя будет время.')
@@ -496,9 +496,95 @@ class GuidedLanguageTests(unittest.TestCase):
 
 
 class MeaningBriefTests(unittest.TestCase):
+    def test_actual_frozen_source_v4_request_still_generates_identically(self):
+        fixture = json.loads((Path(__file__).parent / 'fixtures/curriculum_source_v4.json').read_text())
+        request = fixture['request']
+        self.assertEqual(request['generation_revision'], 'source-v4')
+        provider = MagicMock()
+        provider.flashcard_model = 'existing-model'
+        call = provider.client.with_options.return_value.chat.completions.create
+        call.return_value = SimpleNamespace(choices=[SimpleNamespace(finish_reason='stop',
+            message=SimpleNamespace(refusal=None, content=json.dumps(fixture['provider_response'])))])
+        self.assertEqual(content.generate(request, provider), fixture['document'])
+        self.assertEqual(call.call_args.kwargs['messages'][0]['content'], content.SYSTEM_PROMPT_V4)
+
+    def test_frozen_v4_exposure_selects_the_other_family_without_rewriting_the_request(self):
+        fixture = json.loads((Path(__file__).parent / 'fixtures/curriculum_source_v4.json').read_text())
+        before = deepcopy(fixture)
+        request = fixture['request']
+        plan = request['language_plan']
+        self.assertEqual(plan['version'], 'curriculum-language-plan-v3')
+        self.assertNotIn('family_id', plan)
+        path = Path(__file__).resolve().parents[1] / 'data/curriculum_units' / (plan['unit_id'] + '.json')
+        unit = json.loads(path.read_text())
+        for mode in ('reading', 'listening'):
+            newer = content.build_request(unit, 'legacy-exposure', recent=[fixture['document']], mode=mode)
+            self.assertEqual(newer['recent'][0]['family_id'], 'location-find-before-moving')
+            self.assertEqual(newer['language_plan']['family_id'], 'location-split-outing')
+        self.assertEqual(fixture, before)
+        self.assertEqual(request['generation_prompt_sha256'], hashlib.sha256(content.prompt_for(request).encode()).hexdigest())
+        self.assertEqual(request['generation_schema_sha256'], content._hash(content.provider_schema(request)))
+
+    def test_only_known_v3_units_and_recipe_ids_are_inferred_as_legacy_exposure(self):
+        recipes = {
+            'location-destination-v1': ('location-find-before-moving',
+                ('find-a-friend', 'coordinate-two-people', 'share-next-stop')),
+            'calendar-and-duration-v1': ('calendar-completed-stay',
+                ('report-a-visit', 'share-travel-news', 'remember-a-stay', 'report-a-stay', 'share-trip-news', 'remember-a-visit')),
+            'talking-about-topics-v1': ('topics-join-conversation',
+                ('join-a-conversation', 'find-an-interesting-conversation', 'share-conversation-news')),
+        }
+        for unit_id, (family, identifiers) in recipes.items():
+            for recipe in identifiers:
+                plan = {'version': 'curriculum-language-plan-v3', 'unit_id': unit_id, 'recipe_id': recipe}
+                row = {'request': {'language_plan': plan}, 'text': 'Synthetic issued passage.'}
+                self.assertEqual(content._recent([row])[0]['family_id'], family)
+            for changed in ({'version': 'curriculum-language-plan-v2'}, {'unit_id': 'unknown-unit'},
+                            {'recipe_id': 'unknown-recipe'}):
+                row = {'request': {'language_plan': {**plan, **changed}}, 'text': 'Synthetic issued passage.'}
+                self.assertNotIn('family_id', content._recent([row])[0])
+
+    def test_recent_family_selection_crosses_modes_but_not_units(self):
+        path = Path(__file__).resolve().parents[1] / 'data/curriculum_units/location-destination-v1.json'
+        unit = json.loads(path.read_text())
+        first = content.build_request(unit, 'semantic-history', mode='reading')
+        history = [{'request': first, 'response': {'text': 'Synthetic accepted passage.'}}]
+        next_request = content.build_request(unit, 'semantic-history', recent=history, mode='listening')
+        self.assertNotEqual(first['language_plan']['family_id'], next_request['language_plan']['family_id'])
+        history[0]['request'] = deepcopy(first)
+        history[0]['request']['language_plan']['unit_id'] = 'some-other-unit'
+        untouched = content.build_request(unit, 'semantic-history', recent=history, mode='reading')
+        self.assertEqual(first['language_plan']['family_id'], untouched['language_plan']['family_id'])
+
+    def test_particle_annotation_retains_its_real_analysis(self):
+        request = self.request()
+        wire = meaning_provider_response(request)
+        name = request['language_plan']['meaning_plan']['participants'][0]['name_ru']
+        wire['sentences'].append(f'{name} тоже знает об этом.')
+        wire['new_vocabulary'] = [{'lemma': 'тоже', 'pos': 'PRCL',
+            'sentence_id': 's' + str(len(wire['sentences'])), 'meaning_en': 'also'}]
+        # This fixture deliberately treats the connective as new support.
+        request['known_lemmas'] = [word for word in request['known_lemmas'] if word != 'тоже']
+        response = content.resolve_source_references(request, wire)
+        self.assertEqual(response['new_vocabulary'][0]['form'], 'тоже')
+        self.assertEqual(response['new_vocabulary'][0]['pos'], 'PRCL')
+        wire['new_vocabulary'][0]['lemma'] = 'также'
+        with self.assertRaisesRegex(ValueError, 'surface form'):
+            content.resolve_source_references(request, wire)
+
     def request(self, unit='location-destination-v1', mode='reading'):
         path = Path(__file__).resolve().parents[1] / 'data/curriculum_units' / (unit + '.json')
-        return content.build_request(json.loads(path.read_text()), 'meaning-test', mode=mode)
+        # These tests exercise the original three event shapes. Separate family
+        # tests below exercise fresh shapes; a new RNG order must not silently
+        # turn a stay fixture into an unrelated reading activity.
+        original = {'location-destination-v1': 'location-find-before-moving',
+                    'calendar-and-duration-v1': 'calendar-completed-stay',
+                    'talking-about-topics-v1': 'topics-join-conversation'}[unit]
+        for index in range(50):
+            request = content.build_request(json.loads(path.read_text()), f'meaning-test-{index}', mode=mode)
+            if request['language_plan']['family_id'] == original:
+                return request
+        self.fail('The original situation family is unreachable.')
 
     def test_six_guided_modes_bind_answers_and_derive_coverage(self):
         for unit in ('location-destination-v1', 'calendar-and-duration-v1', 'talking-about-topics-v1'):
@@ -530,7 +616,7 @@ class MeaningBriefTests(unittest.TestCase):
         for private in ('source_sha256', 'language_targets', 'receptive_targets', 'extension_policy'):
             self.assertNotIn(private, sent)
         self.assertEqual(sent['known_lemmas'], request['known_lemmas'])
-        self.assertEqual(content.prompt_for(request), content.SYSTEM_PROMPT_V4)
+        self.assertEqual(content.prompt_for(request), content.SYSTEM_PROMPT_V5)
         provider.client.with_options.assert_called_once_with(timeout=60, max_retries=0)
         request['writer_brief']['purpose'] = 'changed'
         with self.assertRaisesRegex(ValueError, 'frozen generation input'):
