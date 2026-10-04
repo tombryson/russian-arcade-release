@@ -85,6 +85,8 @@ Changed source and evidence files contain no literal matches for the configured 
 
 ## Next priorities
 
+This is the earlier pass record. The subsequent [extension report](curriculum-expansion-2026-10-04.md) updates the status of these items; the results above remain historical evidence.
+
 1. Evaluate the thought-and-speech family with the final prompt in both modes; preserve weak results as well as successes. The existing 18 calls do not complete that check.
 2. Make learner-visible support for selected new constructions explicit. Fix missing central-word annotations and define consistent treatment of common linking words, without treating every morphology candidate as an unfamiliar lemma.
 3. Prepare complete contextual examples from captured passage receipts before enabling automatic original-sentence card reuse: sentence translation, contextual meaning and appropriate morphology must be established.

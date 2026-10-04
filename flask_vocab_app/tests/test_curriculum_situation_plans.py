@@ -127,7 +127,7 @@ class SituationLanguagePlansTests(unittest.TestCase):
                 for seed in range(30):
                     plan = build_language_plan(unit(identity), str(seed), mode)
                     meaning = plan['meaning_plan']
-                    self.assertEqual(plan['version'], 'curriculum-language-plan-v4')
+                    self.assertEqual(plan['version'], 'curriculum-language-plan-v5')
                     self.assertEqual([f['id'] for f in meaning['facts']], ['f1', 'f2', 'f3'])
                     participants = {p['name_ru'] for p in meaning['participants']}
                     outsiders = {meaning['writer']['name_ru'], meaning['addressee']['name_ru']}
@@ -180,7 +180,7 @@ class SituationLanguagePlansTests(unittest.TestCase):
                 reading_activity = plan['family_id'] == 'calendar-reading-period'
                 self.assertEqual(set([facts[0]['value_ru'], *facts[0]['alternative_frames']]),
                                  {'час', 'день', 'неделю'} if reading_activity else {'день', 'неделю', 'месяц'})
-                verb = 'читал' if reading_activity else 'жил'
+                verb = 'читал' if reading_activity else 'был'
                 self.assertIn(verb, facts[0]['question_frame_ru'])
                 self.assertIn(verb, facts[1]['question_frame_ru'])
                 if reading_activity:
@@ -213,7 +213,8 @@ class SituationLanguagePlansTests(unittest.TestCase):
                 self.assertIn('говорит', person['question_frame_ru'])
                 self.assertIn('думает', thing['question_frame_ru'])
                 self.assertIn('direct-disclosure', plan['meaning_plan']['timeline_en'])
-                self.assertIn('говорит: «Я думаю', ' '.join(row['ru'] for row in plan['supported_phrases']))
+                self.assertIn('Я думаю', ' '.join(row['ru'] for row in plan['supported_phrases']))
+                self.assertIn('добавляет', ' '.join(row['ru'] for row in plan['supported_phrases']))
                 self.assertIn('thinking', thing['feedback']['detail_en'])
             else:
                 self.assertNotEqual(person['subject_name'], thing['subject_name'])
@@ -307,7 +308,9 @@ class SituationLanguagePlansTests(unittest.TestCase):
                 self.assertEqual(facts[1]['value_ru'], 'в библиотеке')
 
     def test_no_plan_is_inferred_from_the_level_label_or_missing_teaching(self):
-        self.assertIsNone(build_language_plan(unit('present-actions-v1'), 'seed', 'reading'))
+        unknown = unit('present-actions-v1')
+        unknown['id'] = 'unplanned-topic-v1'
+        self.assertIsNone(build_language_plan(unknown, 'seed', 'reading'))
         source = unit(LOCATION)
         source['questions'] = []
         with self.assertRaises(ValueError):

@@ -13,7 +13,7 @@ from pydub.generators import Sine
 from repositories.learning_repository import transaction
 from services.curriculum_situation_content import validate_output
 from tests.support import isolated_app
-from tests.test_curriculum_situation_content import situation_response
+from tests.test_curriculum_situation_content import legacy_build_request, situation_response
 
 
 class CurriculumSituationIntegrationTests(unittest.TestCase):
@@ -35,6 +35,11 @@ class CurriculumSituationIntegrationTests(unittest.TestCase):
         self.profile_id = self.identity['profile']['id']
         with self.client.session_transaction() as state:
             self.access = state['personal_access_id']
+        # These provider-free lifecycle tests retain their original authored
+        # source-v2/v5 passages. New v6 language quality is tested separately;
+        # do not weaken its validator to admit this old synthetic passage.
+        self.request_factory = patch('services.curriculum_situation_content.build_request',
+                                     side_effect=legacy_build_request).start()
         self.generation = patch('services.curriculum_situation_content.generate', side_effect=self.generate).start()
         self.addCleanup(patch.stopall)
         self.audio_factory = patch('services.curriculum_generated_audio.ElevenLabsService', side_effect=self.speech).start()

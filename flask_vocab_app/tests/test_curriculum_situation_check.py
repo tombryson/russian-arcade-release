@@ -10,7 +10,7 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import Mock, patch
 
-from tests.test_curriculum_situation_content import situation_response, provider_response
+from tests.test_curriculum_situation_content import legacy_build_request, situation_response, provider_response
 
 ROOT = Path(__file__).resolve().parents[2]
 SPEC = importlib.util.spec_from_file_location('situation_check', ROOT / 'scripts/check_curriculum_situations.py')
@@ -23,7 +23,11 @@ class SituationCheckTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.directory = Path(self.temp.name).resolve() / 'new-check'
-        self.plan = command.make_plan(['present-actions-v1'], limit=2, seed='test-batch')
+        # The authored provider replies below belong to source-v2. Preserve
+        # that contract for journal/cost/failure tests; other plan tests still
+        # exercise the current generator and its stricter language policy.
+        with patch('services.curriculum_situation_content.build_request', side_effect=legacy_build_request):
+            self.plan = command.make_plan(['present-actions-v1'], limit=2, seed='test-batch')
 
     def provider(self, outputs):
         client = Mock()

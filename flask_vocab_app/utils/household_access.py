@@ -88,7 +88,7 @@ def install_household_policy(app):
             'learning.household', 'learning.state', 'learning.post', 'learning.pocket', 'learning.asset',
             'learning.start_session', 'learning.read_session', 'learning.attempt', 'learning.help_item',
             'learning.session_audio',
-            'learning.listened_item', 'learning.transcript_item', 'learning.save_draft',
+            'learning.listened_item', 'learning.transcript_item', 'learning.save_draft', 'learning.passage_help',
             'learning.lookup_passage_word', 'learning.capture_passage_word',
             'learning.saved_passage_words',
         }:

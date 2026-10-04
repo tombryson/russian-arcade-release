@@ -9,7 +9,8 @@ from tests.test_curriculum_situation_content import situation_response
 
 
 class PracticeVocabularyTests(unittest.TestCase):
-    # Share the provider-free generated-task setup without inheriting its tests.
+    # Share the source-v2 provider-free task fixture without inheriting tests.
+    # Its extra homographs exercise capture, not the v6 unfamiliar-word limit.
     setUpClass = classmethod(situations.CurriculumSituationIntegrationTests.setUpClass.__func__)
     setUp = situations.CurriculumSituationIntegrationTests.setUp
     speech = situations.CurriculumSituationIntegrationTests.speech

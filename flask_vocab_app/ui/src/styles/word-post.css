@@ -126,6 +126,13 @@ main, .bottom { max-width: 1180px; margin: auto; }
 .letter .passage-word-detail p { margin:8px 0; font:400 15px/1.5 var(--wp-font-reading); white-space:normal; }
 .passage-word-detail blockquote { margin:12px 0; padding-left:12px; border-left:3px solid #b7c39e; font:400 17px/1.6 var(--wp-font-reading); }
 .passage-word-detail select { display:block; max-width:100%; margin:8px 0; }
+.practice-passage-support { margin-top:16px; padding-top:10px; border-top:1px solid var(--wp-border-subtle); font:400 15px/1.5 var(--wp-font-reading); }
+.practice-passage-support > button { display:flex; align-items:center; gap:12px; font:inherit; }
+.practice-passage-support dl { margin:12px 0 0; }
+.practice-passage-support dl > div { display:grid; grid-template-columns:minmax(90px,1fr) minmax(0,2fr); gap:8px 16px; margin-top:10px; }
+.practice-passage-support dt { font-weight:700; overflow-wrap:anywhere; }
+.practice-passage-support dd { margin:0; min-width:0; }
+.practice-passage-support small { display:block; margin-top:3px; color:var(--wp-text-secondary); font-size:13px; overflow-wrap:anywhere; }
 .practice-reading-question { min-width: 0; padding-inline-start: 28px; border-inline-start: 1px solid var(--wp-border-subtle); }
 .page .practice-reading-question .practice-prompt { font: 500 23px/1.4 var(--wp-font-reading); letter-spacing: 0; }
 .practice-reading-question .options { display: grid; gap: 12px; margin-block: 16px; }

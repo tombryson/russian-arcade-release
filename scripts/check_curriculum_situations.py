@@ -228,8 +228,10 @@ def validation_reason(error):
     frame = error.__traceback__
     while frame is not None and frame.tb_next is not None:
         frame = frame.tb_next
-    validator = ROOT / 'flask_vocab_app/services/curriculum_situation_content.py'
-    if type(error) is ValueError and frame is not None and Path(frame.tb_frame.f_code.co_filename) == validator:
+    validators = {ROOT / ('flask_vocab_app/services/' + name + '.py') for name in (
+        'curriculum_situation_content', 'curriculum_passage_language', 'curriculum_plan_validation',
+        'curriculum_situation_plans_personal', 'curriculum_situation_plans_relations')}
+    if type(error) is ValueError and frame is not None and Path(frame.tb_frame.f_code.co_filename) in validators:
         return str(error)[:500]
     return None
 

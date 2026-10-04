@@ -7,7 +7,7 @@ None; sharing an A1 label is not sufficient to infer their prerequisites.
 from copy import deepcopy
 import random
 
-VERSION = 'curriculum-language-plan-v4'
+VERSION = 'curriculum-language-plan-v5'
 
 LOCATION = 'location-destination-v1'
 CALENDAR = 'calendar-and-duration-v1'
@@ -219,7 +219,7 @@ objects. Their pools are lexical references that can grow, not finished stories.
         'constraints': [
             'Report these three facts about the named people; do not add other assessable events.',
             'The writer and addressee are not the people whose actions are being reported.',
-            'Keep the subject’s name with each assessed fact. Connect clauses naturally; do not pad the message.',
+            'Identify each subject within the source span; use clear pronouns to connect related clauses and avoid repeated names.',
             'Use names in questions, not ambiguous я, мы or она. A who-question must not contain its answer name.',
             *plan['family_contract']['implausible_combinations'],
         ],
@@ -260,16 +260,19 @@ objects. Their pools are lexical references that can grow, not finished stories.
         venues = ([row for row in _PLACES if row['lemma'] in ('библиотека', 'кафе', 'парк')]
                   if reading_activity else list(_STAY_PLACES))
         duration = rng.choice(plan['duration_context']['phrase_examples'])
-        if reading_activity and duration == 'неделю':
-            # A week can be distributed over repeat visits to a library.
-            venue = next(row for row in venues if row['lemma'] == 'библиотека')
+        if reading_activity and duration in ('день', 'неделю'):
+            # Extended reading belongs indoors; a written winter date should
+            # not accidentally imply an entire day reading in a park.
+            indoors = [row for row in venues if row['lemma'] in (
+                ('библиотека',) if duration == 'неделю' else ('библиотека', 'кафе'))]
+            venue = rng.choice(indoors)
             venue_options = rng.sample([row for row in venues if row != venue], 2)
         else:
             venue, *venue_options = rng.sample(venues, 3)
         meaning['venue_family'] = 'reading-venue' if reading_activity else 'named-city'
         durations = [v for v in plan['duration_context']['phrase_examples'] if v != duration]
         female = first['gender'] == 'feminine'
-        past_verb = ('читала' if female else 'читал') if reading_activity else ('жила' if female else 'жил')
+        past_verb = ('читала' if female else 'читал') if reading_activity else ('была' if female else 'был')
         activity = 'reading activity' if reading_activity else 'stay'
         meaning['timeline_en'] = (
             f"One {activity} by {first['name_en']}. State its venue and elapsed duration. "
@@ -295,7 +298,7 @@ objects. Their pools are lexical references that can grow, not finished stories.
             meaning['timeline_en'] += f' The written date is the start of that {activity}, not a second event.'
         else:
             meaning['facts'].append(_fact('f3', 'person', second, second['name_ru'],
-                'Кто ещё там читал?' if reading_activity else 'Кто ещё там жил?',
+                'Кто ещё там читал?' if reading_activity else 'Кто ещё там был?',
                 'The one other reader at that venue.' if reading_activity else 'The one companion who also stayed at that venue.',
                 [writer['name_ru'], addressee['name_ru']]))
             meaning['timeline_en'] += (
@@ -352,7 +355,7 @@ def _add_checked_feedback(plan, meaning):
     for fact in meaning['facts']:
         name, english, role = fact['subject_name'], fact['subject_en'], fact['role']
         female = people[name]['gender'] == 'feminine'
-        past = ('читала' if female else 'читал') if activity else ('жила' if female else 'жил')
+        past = ('читала' if female else 'читал') if activity else ('была' if female else 'был')
         started = ('начала читать' if female else 'начал читать') if activity else ('приехала' if female else 'приехал')
         thought = role == 'topic_thing' and plan['family_id'] == 'topics-thought-and-speech'
         details = {
@@ -377,13 +380,13 @@ def _add_checked_feedback(plan, meaning):
             'person': ('the other reader’s name' if activity else 'the other person’s name',
                        'имя ещё одного человека',
                        'This names the other person who read there.' if activity else 'This names the other person who stayed there.',
-                       'Здесь назван ещё один человек, который там читал.' if activity else 'Здесь назван ещё один человек, который там жил.'),
+                       'Здесь назван ещё один человек, который там читал.' if activity else 'Здесь назван ещё один человек, который там был.'),
         }
         values = details[role]
         if role == 'location' and calendar:
             values = (f"where {english} {'read' if activity else 'stayed'}", f'где {name} {past}',
                       'This gives the place of reading.' if activity else 'This gives the place of the stay.',
-                      'Здесь сказано, где человек читал.' if activity else 'Здесь сказано, где человек жил.')
+                      'Здесь сказано, где человек читал.' if activity else 'Здесь сказано, где человек был.')
         fact['feedback'] = dict(zip(('detail_en', 'detail_ru', 'caption_en', 'caption_ru'), values))
 
 def _frame(role, question, requirement, form_key):
@@ -411,7 +414,9 @@ duration target only. No plan is a new access gate or a proficiency judgement.
     if identity == 'location-destination-v2':
         identity = LOCATION
     if identity not in _REQUIREMENTS:
-        return None
+        from services.curriculum_situation_plans_personal import build_plan as personal
+        from services.curriculum_situation_plans_relations import build_plan as relations
+        return personal(unit, seed, mode, recent_families) or relations(unit, seed, mode, recent_families)
     if unit.get('level') != 'A1':
         raise ValueError('This language plan only describes its taught A1 scope.')
     selected = list(_REQUIREMENTS[identity])
@@ -541,12 +546,17 @@ duration target only. No plan is a new access gate or a proficiency judgement.
         ]
         if family['id'] == 'topics-thought-and-speech':
             plan['supported_phrases'].append({
-                'ru': 'Миша говорит: «Я думаю об отдыхе».',
-                'en': 'Misha says: “I am thinking about a rest.”',
+                'ru': 'Я думаю',
+                'en': 'I am thinking',
                 'scope': 'Support this bounded direct-disclosure frame; substitute the frozen name and thing-topic. The quote conveys the thought fact, not another event.',
             })
+            plan['supported_phrases'].append({
+                'ru': 'добавляет', 'en': 'adds',
+                'scope': 'An optional reporting verb for the explicitly disclosed thought after the separate conversation topic.',
+            })
             plan['grammar_limits'].append(
-                'Make the thought credible with the supplied named-speaker говорит: «Я думаю ...» disclosure frame. '
+                'Make the thought credible with a named-speaker direct disclosure «Я думаю ...». '
+                'The supplied добавляет can introduce it after the separate conversation topic without repeating говорит. '
                 'Use the frozen name as the quote’s speaker and the frozen thought-topic. '
                 'This bounded direct quote is allowed; no guessed thoughts, indirect speech or extra dialogue.')
         plan['answer_frames'] = [_frame('topic_person', 'О ком?', topic, 'topic'),

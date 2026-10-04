@@ -173,6 +173,8 @@ class LearningService:
             support = current_item_support(conn, session_id, item, pack, saved['current_index']) if item['type'] == 'listening_choice' else {'listened': False, 'support': []}
             current = child_item(item, help_used=bool(saved['help_used']), listened=support['listened'],
                                  transcript_used='transcript' in support['support'])
+            from services.learning_passage_support import child_support
+            current.update(child_support(conn, session_id, item, transcript_used='transcript' in support['support']))
             if pack['id'].startswith('curriculum-unit:situation-v1:'):
                 current['word_lookup'] = True
             if item['type'] == 'listening_choice':

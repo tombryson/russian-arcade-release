@@ -5,7 +5,7 @@ import {appUrl} from './app-url';
 import {usePracticeDraft} from './usePracticeDraft';
 import {PassageWords, type WordSelection} from './PassageWords';
 
-type Operation = 'attempts' | 'help' | 'listened' | 'transcript' | 'words/lookup' | 'words';
+type Operation = 'attempts' | 'help' | 'listened' | 'transcript' | 'passage-help' | 'words/lookup' | 'words';
 type Command = {url: string; body: object; operation: Operation};
 
 export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { sessionId: string; profileId: string; onFinish: () => void; language?: 'en'|'ru' }) {
@@ -30,7 +30,9 @@ export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { 
   const [conflictedText, setConflictedText] = useState('');
   const [wordSelection, setWordSelection] = useState<WordSelection>();
   const [wordEntry, setWordEntry] = useState<PassageWord>();
+  const [passageSupportOpen, setPassageSupportOpen] = useState<boolean>();
   useLayoutEffect(() => { setWordSelection(undefined); setWordEntry(undefined); }, [sessionId, profileId, saved?.item?.id]);
+  useLayoutEffect(() => { setPassageSupportOpen(undefined); }, [sessionId, profileId, saved?.item?.passage, saved?.item?.transcript]);
 
   useEffect(() => {
     const request = new AbortController(); controller.current = request;
@@ -88,6 +90,7 @@ export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { 
       } else setError(operation === 'listened'
         ? 'We could not save your listening progress. Try saving again; you do not need to replay the audio.'
         : operation === 'transcript' ? 'The transcript could not open. Try again.'
+        : operation === 'passage-help' ? 'Word support could not open. Try again.'
         : 'We could not confirm the save. Your answer is still here. Try saving again.');
     } finally { if (!signal?.aborted && requestEpoch.current === epoch) { sending.current = false; setBusy(false); } }
   }
@@ -126,6 +129,22 @@ export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { 
     disabled={busy || !!pending.current} language={language} onClose={() => {if (!sending.current && !pending.current) {setWordSelection(undefined); setWordEntry(undefined); setError('');}}}
     onLookup={selection => {if (sending.current || pending.current || blocked) return; setWordSelection(selection); setWordEntry(undefined); void submit('words/lookup', undefined, selection);}}
     onSave={(lemma, pos) => {if (wordSelection) void submit('words', undefined, {...wordSelection, lemma, pos});}} />;
+  const supportExpanded = passageSupportOpen ?? !!saved?.item?.passage_support;
+  const passageSupport = saved?.item?.has_passage_support && (!isListening || !!saved.item.transcript) &&
+    <aside class="practice-passage-support" lang={language}>
+      <button class="text-link" aria-expanded={supportExpanded} aria-controls="practice-passage-support"
+        disabled={busy || !!pending.current} onClick={() => {
+          if (saved.item?.passage_support) setPassageSupportOpen(!supportExpanded);
+          else void submit('passage-help');
+        }}>{t('Words and phrases', 'Слова и выражения')} <span aria-hidden="true">{supportExpanded ? '−' : '+'}</span></button>
+      {supportExpanded && saved.item?.passage_support && <dl id="practice-passage-support">
+        {saved.item.passage_support.map((entry, index) => <div key={index}>
+          <dt lang="ru">{entry.text}</dt><dd><span lang="en">{entry.meaning_en}</span>
+            {entry.sentence && entry.sentence !== entry.text && <small lang="ru">{entry.sentence}</small>}
+          </dd>
+        </div>)}
+      </dl>}
+    </aside>;
   return <section class={`page practice-page${saved?.item?.passage ? ' practice-reading-page' : ''}`}><div class="lesson-head"><a class="text-link" href={appUrl(saved?.sequence?.lesson_url ?? saved?.origin?.href ?? "#activities")}>{saved?.origin ? saved.origin.title : saved?.sequence ? t("Back to lesson", "К уроку") : t("Back to activities", "К занятиям")}</a><span class="quiet">{draft.active ? draft.status : busy ? t('Saving…','Сохраняем…') : pending.current ? t('Save not confirmed','Сохранение не подтверждено') : saved?.sequence ? (language === 'ru' ? saved.sequence.step_label_ru : saved.sequence.step_label) : saved?.origin ? `${Math.min(saved.completed_items + (showResult || saved.status === 'completed' ? 0 : 1), saved.total_items)} of ${saved.total_items}` : saved ? t('Progress saved','Прогресс сохранён') : ''}</span></div>
     {!saved ? <><h1 ref={heading} tabIndex={-1}>{error ? t('This activity could not open.','Не удалось открыть задание.') : t('Opening your practice…','Открываем практику…')}</h1>{error ? <><p role="alert">{error}</p><div class="action-row">{!blocked && <button class="cta" onClick={() => { pending.current = undefined; setReload(value => value + 1); }}>{t('Try again','Повторить')}</button>}<a href="/post/profiles">{t('Choose a profile','Выбрать профиль')}</a></div></> : <p role="status">{t('Loading your saved answers.','Загружаем сохранённые ответы.')}</p>}</>
       : <>{!saved.origin && !saved.sequence && <p class="kicker">{saved.title}</p>}{(!saved.origin && !saved.sequence || showResult || saved.status === 'completed') && <h1 ref={heading} tabIndex={-1}>{showResult ? last.deferred ? t('Reply saved.','Ответ сохранён.') : last.outcome === 'correct' ? t('That’s right.','Верно.') : t('Let’s look at the answer.','Посмотрим на ответ.') : saved.status === 'completed' ? t('Practice complete.','Практика завершена.') : t(`Question ${saved.completed_items + 1} of ${saved.total_items}`,`Вопрос ${saved.completed_items + 1} из ${saved.total_items}`)}</h1>}
@@ -139,6 +158,7 @@ export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { 
             : saved.item && <Sheet><div class={saved.item.passage ? 'practice-reading-layout' : undefined}>
               {saved.item.passage && <section class="practice-passage" lang="ru" aria-label={t('Reading text','Текст для чтения')}>
                 {saved.item.word_lookup ? passageWords(saved.item.passage) : saved.item.passage.split(/\n\s*\n/).map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+                {passageSupport}
               </section>}
               <div class={saved.item.passage ? 'practice-reading-question' : undefined}>
               {saved.origin || saved.sequence ? <h1 class="practice-prompt" ref={heading} tabIndex={-1} lang={saved.item.passage ? language : 'ru'}>{saved.item.prompt}</h1> : <h2 class="practice-prompt">{saved.item.prompt}</h2>}
@@ -149,7 +169,7 @@ export function Practice({ sessionId, profileId, onFinish, language = 'en' }: { 
                 {audioFailed === playbackKey && playbackKey && <div class="practice-audio-error" role="alert"><span>{t('The audio is unavailable.','Аудио недоступно.')}</span><button class="text-link" disabled={busy || !!pending.current} onClick={() => void retryAudio()}>{t('Retry audio','Повторить аудио')}</button></div>}
                 {!saved.item.audio && <p>{t('The audio is unavailable. You can read the transcript.','Аудио недоступно. Можно прочитать текст.')}</p>}
                 {saved.item.has_transcript && !saved.item.transcript && <button class="text-link" disabled={busy || !!pending.current} onClick={() => void submit('transcript')}>{t('Show transcript','Показать текст')}</button>}
-                {saved.item.transcript && <div class="practice-transcript"><p class="answer-label">{t('Transcript','Текст записи')}</p>{saved.item.word_lookup ? passageWords(saved.item.transcript) : <p lang="ru">{saved.item.transcript}</p>}</div>}
+                {saved.item.transcript && <div class="practice-transcript"><p class="answer-label">{t('Transcript','Текст записи')}</p>{saved.item.word_lookup ? passageWords(saved.item.transcript) : <p lang="ru">{saved.item.transcript}</p>}{passageSupport}</div>}
               </div>}
               {saved.item.type === 'controlled_text' ? <form class="practice-answer-form" onSubmit={event => {event.preventDefault(); if(answerText.trim()) void submit('attempts', {text: answerText});}}>
                 <label class="answer-label" htmlFor="practice-form-answer">{t('Your answer in Russian','Ваш ответ по-русски')}</label>

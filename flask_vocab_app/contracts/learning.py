@@ -91,7 +91,7 @@ def validate_pack(pack):
         reject('A pack needs between 1 and 100 items.')
     seen = set()
     for item in pack['items']:
-        fields(item, {'id','type','prompt','answer'}, {'word_id','hint','asset_ids','direction','choices','accepted_answers','audio','transcript','passage'})
+        fields(item, {'id','type','prompt','answer'}, {'word_id','hint','asset_ids','direction','choices','accepted_answers','audio','transcript','passage','passage_support'})
         item_id = key(item['id'], 'Item ID')
         if item_id in seen:
             reject('Item IDs must be unique within a pack.')
@@ -122,6 +122,25 @@ def validate_pack(pack):
                     reject('Listening audio must last 1–180 seconds.')
         elif 'audio' in item or 'transcript' in item:
             reject('Only listening questions can contain audio and a transcript.')
+        if 'passage_support' in item:
+            passage = item.get('passage') or item.get('transcript')
+            rows = item['passage_support']
+            if pack['kind'] != 'activity' or not passage or not isinstance(rows, list) or not 1 <= len(rows) <= 8:
+                reject('Passage support needs 1–8 words or phrases from a reading or recording.')
+            for row in rows:
+                fields(row, {'kind', 'text', 'meaning_en'}, {'sentence'})
+                if row['kind'] not in ('word', 'phrase'):
+                    reject('Passage support must be a word or phrase.')
+                russian = text(row['text'], 'Supported expression', 160)
+                text(row['meaning_en'], 'Contextual meaning', 240)
+                if not re.search('[А-Яа-яЁё]', russian):
+                    reject('Supported expressions must contain Russian text.')
+                if 'sentence' in row:
+                    sentence = text(row['sentence'], 'Supported sentence', 600)
+                    if sentence not in passage or russian not in sentence:
+                        reject('Support must quote its expression in the saved passage.')
+                elif russian not in passage:
+                    reject('Support must use an expression from the saved passage.')
         if 'hint' in item:
             text(item['hint'], 'Hint')
         if 'word_id' in item and (type(item['word_id']) is not int or item['word_id'] < 1):

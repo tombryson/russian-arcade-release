@@ -1,6 +1,6 @@
 # Procedural content
 
-Implementation record, started 2 October 2026; status and priorities updated 4 October. Fly remains at `0bcba58`. A further local pass adds situation families and passage vocabulary tools; see its [implementation and evaluation report](curriculum-pass-2026-10-04.md). The [deployment record](torfl-implementation-2026-10-02.md#deployment-update--3-october-2026) distinguishes released behaviour from local changes.
+Implementation record, started 2 October 2026; status and priorities updated 4 October. Fly remains at `0bcba58`. Local passes add situation families, passage vocabulary tools and plans for all seventeen A1 units; see the [initial report](curriculum-pass-2026-10-04.md) and [extension report](curriculum-expansion-2026-10-04.md). The [deployment record](torfl-implementation-2026-10-02.md#deployment-update--3-october-2026) distinguishes released behaviour from local changes.
 
 Russian Arcade uses fixed learning objectives and variable practice. A new seed must change the language problem or situation. Shuffling answers, changing a name or replaying a saved question does not establish novelty.
 
@@ -62,7 +62,7 @@ A duplicate response does not trigger an unbounded paid retry. The learner can e
 
 Begin with a communicative need and the Russian needed to express it. A level label, a topic and valid JSON do not establish that an exercise is suitable. The learner needs prior teaching of the relevant meaning, construction and supporting vocabulary. Grammar examples in a message provide context for comprehension; choosing its answer does not demonstrate that the learner can produce that grammar independently.
 
-The first three detailed generation plans distinguish these uses:
+The original three generation plans distinguish these uses. The [extension report](curriculum-expansion-2026-10-04.md#generation-coverage) lists the fourteen added units and their situation families:
 
 | Unit | What the learner needs to understand | Language and answer design |
 | --- | --- | --- |
@@ -78,9 +78,9 @@ Software validation must be described narrowly. Quoting a source sentence proves
 
 ### Meaning before wording
 
-For the three detailed plans, generation begins with named participants and three related facts. A location message gives a person's current place, their one next destination and another person's current place. A calendar message concerns one stay. A conversation report keeps each speaker attached to their own topic. The seed varies these facts before the model writes the message.
+For all seventeen plans, generation begins with named participants and three related facts. A location message gives a person's current place, their one next destination and another person's current place. A calendar message concerns a visit or time spent reading. A conversation report keeps each speaker attached to their own topic. The seed varies these facts before the model writes the message.
 
-The writer receives a concise brief rather than the full internal requirement catalogue. It supplies the message, questions, English question support and source references. The saved plan supplies answer values and alternatives. Code assigns answer keys and resolves the source references. A question must identify the relevant person and event. A wrong option can occur elsewhere in the message: recognising who said or did something is part of comprehension.
+The writer receives a concise brief rather than the full internal requirement catalogue. It supplies the message and source references. The fourteen added plans keep their authored Russian questions and English equivalents; the original three retain constrained model-written questions. The saved plan supplies answer values and alternatives. Code assigns answer keys and resolves the source references. A question must identify the relevant person and event. A wrong option can occur elsewhere in the message: recognising who said or did something is part of comprehension.
 
 Hints and feedback follow the question's meaning. They distinguish a current place from a past stay, a date from a duration, and a person from a conversation topic. Feedback quotes the actual source. The model does not need to invent a grammar explanation for every comprehension answer. These checked patterns support generated messages; they are not a stock story bank.
 
@@ -92,7 +92,7 @@ The request records the plan, prompt, response schema and writer-input hashes. N
 
 Each unit offers a new reading or listening situation. The request includes its level, taught constructions, examples, requirement references, familiar lemmas and their stored forms. It also includes recent situations to discourage repetition. A small amount of new vocabulary is allowed. The local 4 October player exposes optional word lookup and saving from the frozen passage through the existing enrichment pipeline. This integration is not yet deployed; original-sentence reuse for cards remains pending.
 
-The model returns a short message and three questions. The detailed plans already contain the facts; the other units still ask the model to select them. Questions must point to source sentences and use an answer stated in that evidence. Checks reject missing facts, unsupported answers, repeated options, recent duplicates and malformed language fields. Unit-specific checks also reject known errors such as a cardinal number used as an ordinal calendar date. These checks constrain generation; they do not prove that every sentence is natural or every distractor is unambiguous. The three-entry vocabulary limit bounds annotations, not every unfamiliar word in a passage; lexical difficulty still needs review.
+The model returns a short message with evidence for three questions. Every unit plan supplies its facts before generation. Questions must point to source sentences and use an answer stated in that evidence. Checks reject missing facts, unsupported answers, repeated options, recent duplicates and malformed language fields. Unit-specific checks also reject known errors such as a cardinal number used as an ordinal calendar date. These checks constrain generation; they do not prove that every sentence is natural or every distractor is unambiguous. New source-v6 passages must support unfamiliar content words with a contextual annotation or a supplied expression that actually occurs in the message. Familiar lemmas, proper names and function words follow explicit policies; these checks do not establish contextual sense or proficiency.
 
 Accepted text is saved before audio starts. A listening task then selects a voice from the existing configured pool, freezes that choice and creates its recording. An audio retry uses the same text and voice. The player receives the saved task only after publication succeeds. Reading has a separate passage area beside its questions on wide screens and above them on narrow screens.
 
@@ -175,7 +175,7 @@ Generated passages now support optional word help and capture through the shared
 ## Remaining work
 
 1. Extend rule coverage and checked lexical classes where the source inventory still has gaps. Calendar dates, duration and simple о/об topics now have partial teaching and generated practice; they do not close the whole A1 inventory. Add teaching before requiring new constructions.
-2. Close the specific prose and vocabulary-support gaps in the 4 October report before expanding scope. Evaluate the thought-and-speech family in both modes with the final prompt. Compare matched seeds with different familiar-word inputs before claiming adaptation. The other fourteen A1 units still need detailed linguistic plans. A stock-recording batch is not a release requirement.
+2. Continue the language-quality checks in the extension report. All seventeen A1 units now have detailed plans, but their families and lexical classes remain bounded. Compare matched seeds with different familiar-word inputs before claiming adaptation. A stock-recording batch is not a release requirement.
 3. Connect retained passage-source receipts to contextual card preparation, including sentence translation and target validation. Lookup, optional saving, mnemonics and normal vocabulary card generation are connected; automatic reuse of the original passage sentence is not.
 4. Extend fresh original production and connected sequences beyond the current location lesson. All seventeen units already have original Writing briefs, but ordinary unit Writing resumes the same brief and measures communication through one criterion. Add new purposes, unit-specific spoken exchanges and separately elicited grammar observations. Generating another controlled question does not substitute for original writing or speech.
 5. Expand assessment forms under a five-domain blueprint. Keep assessment exposure separate from ordinary practice novelty. Do not treat random variation as calibrated exam difficulty.

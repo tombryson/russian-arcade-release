@@ -194,6 +194,13 @@ def create_learning_blueprint(household, content, learning, store):
     def transcript_item(session_id):
         return jsonify(learning.command(access_id(), session_id, 'transcript', body({'submission_id','expected_revision','item_id'})))
 
+    @bp.post('/api/v1/learning-sessions/<session_id>/passage-help')
+    @access_policy('child')
+    def passage_help(session_id):
+        from services.learning_passage_support import command
+        return jsonify(command(learning, access_id(), session_id, body(
+            {'submission_id', 'expected_revision', 'item_id'})))
+
     @bp.post('/api/v1/learning-sessions/<session_id>/words/lookup')
     @access_policy('child')
     def lookup_passage_word(session_id):

@@ -6,15 +6,40 @@ from pathlib import Path
 import re
 from types import SimpleNamespace
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from services import curriculum_situation_content as content
 
+_current_build_request = content.build_request
+
+
+def legacy_build_request(unit, seed, vocabulary=(), recent=(), mode='reading'):
+    """Construct only the historical contracts used by authored test fixtures.
+
+    These passages test source references, transport and saved-session behavior,
+    not the latest prose/lexical policy. New generation has separate v6 tests.
+    Keep production validation intact and reject accidental use for other units.
+    """
+    if unit['id'] == 'present-actions-v1':
+        # This fixture predates a checked semantic plan for present actions.
+        with patch('services.curriculum_situation_plans.build_language_plan', return_value=None):
+            return _current_build_request(unit, seed, vocabulary, recent, mode)
+    if unit['id'] not in {'location-destination-v1', 'calendar-and-duration-v1', 'talking-about-topics-v1'}:
+        raise ValueError('No legacy authored situation fixture exists for this unit.')
+    request = _current_build_request(unit, seed, vocabulary, recent, mode)
+    request['generation_revision'] = 'source-v5'
+    request['writer_brief'] = content._writer_brief(request)
+    request['generation_input_sha256'] = content._hash(request['writer_brief'])
+    request['generation_prompt_sha256'] = hashlib.sha256(content.prompt_for(request).encode()).hexdigest()
+    request['generation_schema_sha256'] = content._hash(content.provider_schema(request))
+    return request
+
 
 def situation_request(mode='reading', seed='fresh-message', **kwargs):
+    """Original source-v2 contract for the fixed Anna/Oleg test passage."""
     path = Path(__file__).resolve().parents[1] / 'data/curriculum_units/present-actions-v1.json'
     unit = json.loads(path.read_text(encoding='utf-8'))
-    return content.build_request(unit, seed, mode=mode, **kwargs)
+    return legacy_build_request(unit, seed, mode=mode, **kwargs)
 
 
 def situation_response(request):
@@ -496,6 +521,23 @@ class GuidedLanguageTests(unittest.TestCase):
 
 
 class MeaningBriefTests(unittest.TestCase):
+    def test_actual_frozen_source_v5_request_still_generates_identically(self):
+        fixture = json.loads((Path(__file__).parent / 'fixtures/curriculum_source_v5.json').read_text())
+        request = fixture['request']
+        self.assertEqual(request['generation_revision'], 'source-v5')
+        provider = MagicMock()
+        provider.flashcard_model = 'existing-model'
+        call = provider.client.with_options.return_value.chat.completions.create
+        call.return_value = SimpleNamespace(choices=[SimpleNamespace(finish_reason='stop',
+            message=SimpleNamespace(refusal=None, content=json.dumps(fixture['provider_response'])))])
+        generated = content.generate(request, provider)
+        self.assertEqual(generated, fixture['document'])
+        self.assertEqual(content.provider_schema(request), fixture['schema'])
+        self.assertEqual(content.prompt_for(request), fixture['prompt'])
+        self.assertEqual(call.call_args.kwargs['messages'][0]['content'], content.SYSTEM_PROMPT_V5)
+        pack = content.to_pack(generated, content_id=content.PREFIX + request['unit']['id'] + ':legacy-v5')
+        self.assertTrue(all('passage_support' not in item for item in pack['items']))
+
     def test_actual_frozen_source_v4_request_still_generates_identically(self):
         fixture = json.loads((Path(__file__).parent / 'fixtures/curriculum_source_v4.json').read_text())
         request = fixture['request']
@@ -581,7 +623,7 @@ class MeaningBriefTests(unittest.TestCase):
                     'calendar-and-duration-v1': 'calendar-completed-stay',
                     'talking-about-topics-v1': 'topics-join-conversation'}[unit]
         for index in range(50):
-            request = content.build_request(json.loads(path.read_text()), f'meaning-test-{index}', mode=mode)
+            request = legacy_build_request(json.loads(path.read_text()), f'meaning-test-{index}', mode=mode)
             if request['language_plan']['family_id'] == original:
                 return request
         self.fail('The original situation family is unreachable.')

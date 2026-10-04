@@ -4,6 +4,8 @@
 
 Updated 4 October 2026. The current release is `0bcba58`, deployed on 3 October. See the [deployment record](torfl-implementation-2026-10-02.md#deployment-update--3-october-2026) for full CI and live checks, and the [ordered work plan](torfl-assessment-build-plan.md#next-implementation-pass) for remaining language and assessment work. Historical test counts below belong to their stated runs.
 
+The subsequent local [generation and passage-support pass](curriculum-expansion-2026-10-04.md) adds two situation families to all seventeen units and optional contextual word help. Its text evaluations, browser checks and remaining language limits are recorded separately. Those changes are not yet deployed.
+
 The application has 17 authored A1 teaching units and an opt-in diagnostic pilot covering five skills. They work without a tutor. Human review is optional editorial quality assurance for the maintainers, not a prerequisite for using the app or receiving feedback.
 
 The examples and answer keys remain provisional. No independent human review or learner trial is recorded. The pilot does not award a level, unlock activities or claim to be a TORFL examination.
