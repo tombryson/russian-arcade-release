@@ -95,10 +95,11 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
     <div class="lesson-player-nav">
       <a class="text-link" href="#first-steps"><span aria-hidden="true">← </span>First steps</a>
     </div>
-    <div class={`first-delivery-stage${['coins','progress','alphabet'].includes(step) ? ' is-explainer' : ''}${step === 'alphabet' ? ' is-alphabet' : ''}`}>
-      <header class="first-delivery-heading">
+    <div class={`first-delivery-stage${['coins','progress','alphabet'].includes(step) ? ' is-explainer' : ''}${step === 'alphabet' ? ' is-alphabet' : ''}${step === 'words' ? ' is-word-practice' : ''}`}>
+      <header class={`first-delivery-heading${learning && learning.reading_help ? ' has-reading-help' : ''}`}>
         <h1 ref={heading} tabIndex={-1}>{title}</h1>
         {caption && <p class="lesson-counter">{caption}</p>}
+        {learning && learning.reading_help && <details key={question?.id} class="tutorial-reading-help"><summary>Read this word</summary><p>{learning.reading_help}</p></details>}
       </header>
       <div class={`first-delivery-content${step === 'progress' ? ' is-progress-introduction' : step === 'alphabet' ? ' is-alphabet-introduction' : ''}`}>
         {step === 'coins' ? <>
@@ -130,11 +131,12 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
           </a>
         </> : step === 'words' ? <>
           {question ? learning ? <div class="tutorial-word-card">
-            <p class="tutorial-new-word" lang="ru">{learning.word_display ?? learning.word}</p>
+            <div class="tutorial-pronunciation">
+              <p class="tutorial-new-word" lang="ru">{learning.word_display ?? learning.word}</p>
+              <LessonAudio inline key={question.id} src={learning.audio_url} label={learning.word}/>
+            </div>
             <p class="tutorial-word-meaning" lang="en">{learning.meaning}</p>
-            <LessonAudio key={question.id} src={learning.audio_url} label={learning.word}/>
-            <p>{learning.explanation}</p>
-            {learning.reading_help && <details class="tutorial-reading-help"><summary>Read this word</summary><p>{learning.reading_help}</p></details>}
+            <p class="tutorial-word-context">{learning.explanation}</p>
           </div> : attempt?.phase === 'feedback' && feedback ? <>
             <p class="answer-label">{feedback.correct ? 'That’s right.' : 'Here’s the word you need.'}</p>
             <p class="answer-text" lang="ru">{feedback.correct_answer}</p>
@@ -163,7 +165,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
           {learning && question ? <button class="cta" disabled={busy} onClick={()=>void save('learn',{question_id:question.id})}>{busy ? 'Saving…' : attempt!.question_index+1===attempt!.total_questions ? 'Try these words' : 'Next word'} <span aria-hidden="true">→</span></button>
             : question && attempt?.phase === 'feedback' && feedback ? <button class="cta" disabled={busy} onClick={()=>void save('continue',{question_id:question.id})}>{busy ? 'Saving…' : attempt.question_index+1===attempt.total_questions ? 'Finish activity' : 'Next word'} <span aria-hidden="true">→</span></button>
             : !question && <button class="cta" disabled={busy} onClick={()=>void save('complete')}>{busy ? 'Saving…' : 'Finish activity'} <span aria-hidden="true">→</span></button>}
-          <button class="text-link" disabled={busy} onClick={replay}>Back to the introduction</button>
+          <button class="text-link first-delivery-return" disabled={busy} onClick={replay}>Back to the introduction</button>
         </> : <>
           <a class="cta" href={next.href}>{next.label} <span aria-hidden="true">→</span></a><button class="text-link" onClick={replay}>Revisit the introduction</button>
         </>}
