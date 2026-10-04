@@ -1,4 +1,4 @@
-"""Sound preparation keeps pilots bounded and never substitutes letter names."""
+"""Pronunciation examples preserve whole syllables and require audible speech."""
 import contextlib
 import importlib.util
 import io
@@ -24,14 +24,16 @@ class AlphabetSoundCatalogueTests(unittest.TestCase):
         self.assertEqual(len(clips), 31)
         self.assertFalse({'hard-sign-sound.mp3', 'soft-sign-sound.mp3'} & set(clips))
         for filename, spec in clips.items():
-            self.assertEqual(spec['kind'], 'sound')
             self.assertEqual(filename, spec['letter_id'] + '-sound.mp3')
-        self.assertEqual(clips['be-sound.mp3']['ipa'], 'b')
-        self.assertEqual(clips['ef-sound.mp3']['ipa'], 'f')
-        self.assertEqual(clips['short-i-sound.mp3']['ipa'], 'j')
+        self.assertEqual(sum(spec['kind'] == 'syllable' for spec in clips.values()), 21)
+        self.assertEqual(sum(spec['kind'] == 'sound' for spec in clips.values()), 10)
+        self.assertEqual(clips['be-sound.mp3']['display_text'], 'ба')
+        self.assertEqual(clips['be-sound.mp3']['ipa'], 'ba')
+        self.assertEqual(clips['ef-sound.mp3']['ipa'], 'fa')
+        self.assertEqual(clips['short-i-sound.mp3']['ipa'], 'jo')
         self.assertEqual(clips['e-sound.mp3']['ipa'], 'ɛ')
-        self.assertEqual(clips['shcha-sound.mp3']['ipa'], 'ɕː')
-        self.assertEqual(clips['che-sound.mp3']['ipa'], 't͡ɕ')
+        self.assertEqual(clips['shcha-sound.mp3']['ipa'], 'ɕːa')
+        self.assertEqual(clips['che-sound.mp3']['ipa'], 't͡ɕa')
         self.assertEqual(clips['ye-sound.mp3']['ipa'], 'je')
 
     def test_catalogue_requires_both_sound_voices_and_no_sound_for_signs(self):
@@ -72,12 +74,45 @@ class AlphabetSoundCatalogueTests(unittest.TestCase):
             self.assertEqual(list(Path(directory).iterdir()), [])
 
 
+class AlphabetSpeechDurationTests(unittest.TestCase):
+    def test_exactly_160_ms_of_signal_passes_but_159_does_not(self):
+        tone = Sine(330).to_audio_segment(duration=160).apply_gain(-15)
+        self.assertEqual(command.require_speech(tone), 160)
+        with self.assertRaisesRegex(ValueError, '160 ms'):
+            command.require_speech(tone[:159])
+
+    def test_external_padding_cannot_round_159_ms_up_to_the_minimum(self):
+        for leading_ms in (500, 503):
+            for speech_ms in (159, 160):
+                recording = (AudioSegment.silent(duration=leading_ms, frame_rate=44100)
+                             + Sine(330).to_audio_segment(duration=speech_ms).apply_gain(-15)
+                             + AudioSegment.silent(duration=500, frame_rate=44100))
+                with self.subTest(leading_ms=leading_ms, speech_ms=speech_ms):
+                    if speech_ms == 159:
+                        with self.assertRaisesRegex(ValueError, '160 ms'):
+                            command.require_speech(recording)
+                    else:
+                        self.assertEqual(command.require_speech(recording), 160)
+
+    def test_silence_quiet_signal_and_a_long_file_with_a_tiny_burst_do_not_count(self):
+        silence = AudioSegment.silent(duration=1000, frame_rate=44100)
+        burst = Sine(330).to_audio_segment(duration=20).apply_gain(-15)
+        quiet = Sine(330).to_audio_segment(duration=1000).apply_gain(-50)
+        for recording in (silence, quiet, silence + burst + silence):
+            with self.subTest(duration=len(recording), level=recording.dBFS), self.assertRaisesRegex(ValueError, 'silence does not count'):
+                command.require_speech(recording)
+
+
 class AlphabetSoundPreparationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        stream = io.BytesIO()
-        Sine(330).to_audio_segment(duration=350).apply_gain(-15).export(stream, format='mp3')
-        cls.recording = stream.getvalue()
+        cls.recordings = {}
+        for name, frequency in (('name', 330), ('syllable', 550)):
+            stream = io.BytesIO()
+            Sine(frequency).to_audio_segment(duration=350).apply_gain(-15).export(stream, format='mp3')
+            cls.recordings[name] = stream.getvalue()
+        cls.recording = cls.recordings['name']
+        cls.syllable_recording = cls.recordings['syllable']
 
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -97,17 +132,30 @@ class AlphabetSoundPreparationTests(unittest.TestCase):
                 spoken = 'а.' if letter == 'a' else 'эф.'
                 records[source.name] = {'model': 'eleven_v4', 'voice_id': command.VOICE_IDS[voice],
                     'text': spoken, 'text_sha256': command.audio.digest(spoken.encode()),
-                    **command.audio.audio_metadata(source)}
+                    'audio_sha256': command.audio.digest(self.recording), 'duration_ms': 350}
                 self.recipes[voice + '-' + letter] = {'source': source.relative_to(self.root).as_posix(),
-                    'source_sha256': command.audio.digest(self.recording), 'mode': 'copy' if letter == 'a' else 'crop',
-                    'start_ms': None if letter == 'a' else 100, 'end_ms': None if letter == 'a' else 250,
-                    'repetitions': 1, 'fade_in_ms': 0 if letter == 'a' else 2, 'fade_out_ms': 0 if letter == 'a' else 3}
+                    'source_sha256': command.audio.digest(self.recording), 'mode': 'copy',
+                    'start_ms': None, 'end_ms': None, 'repetitions': 1, 'fade_in_ms': 0, 'fade_out_ms': 0}
             command.audio.save_manifest(source_dir, {'version': command.audio.VERSION, 'provider': 'elevenlabs',
                 'model': 'eleven_v4', 'voice': voice, 'voice_id': command.VOICE_IDS[voice],
                 'voice_settings': command.audio.SETTINGS, 'clips': records})
+            self.write_syllable(voice, self.syllable_recording, 350)
         output = contextlib.redirect_stdout(io.StringIO())
         output.__enter__()
         self.addCleanup(output.__exit__, None, None, None)
+
+    def write_syllable(self, voice, recording, duration):
+        source = self.root / command.RECORDED_PREFIX / (voice + '-ef.mp3')
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_bytes(recording)
+        provenance = {'payload': {'text': 'фа.', 'model_id': 'eleven_v4', 'language_code': 'ru',
+                                  'voice_settings': command.audio.SETTINGS},
+                      'voice_id': command.VOICE_IDS[voice], 'sha256': command.audio.digest(recording),
+                      'duration_ms': duration}
+        source.with_suffix('.json').write_text(json.dumps(provenance))
+        self.recipes[voice + '-ef'].update(source=source.relative_to(self.root).as_posix(),
+                                         source_sha256=command.audio.digest(recording))
+        return source
 
     def specs(self, voice='female'):
         return command.source_specs(self.clips, self.recipes, voice, self.root)
@@ -115,14 +163,32 @@ class AlphabetSoundPreparationTests(unittest.TestCase):
     def prepare(self, voice='female', **kwargs):
         return command.prepare(self.directory / voice, self.specs(voice), voice=voice, source_dir=self.root, **kwargs)
 
-    def test_vowels_copy_exact_bytes_and_consonants_keep_source_provenance(self):
-        before = {path: path.read_bytes() for path in (self.root / command.SOURCE_PREFIX).rglob('*') if path.is_file()}
+    def isolated_recipe(self, **changes):
+        recipe = {**self.recipes['female-ef'], 'source': command.SOURCE_PREFIX + 'ef-name.mp3',
+                  'source_sha256': command.audio.digest(self.recording), 'mode': 'crop',
+                  'start_ms': 100, 'end_ms': 280, 'fade_in_ms': 2, 'fade_out_ms': 3}
+        return {**recipe, **changes}
+
+    def load_recipes(self, recipes=None, clips=None):
+        path = self.root / 'recipes.json'
+        path.write_text(json.dumps({'version': command.RECIPE_VERSION, 'processing': command.PROCESSING,
+                                    'clips': self.recipes if recipes is None else recipes}))
+        return command.load_recipes(path, self.clips if clips is None else clips)
+
+    def test_vowels_and_whole_syllables_copy_exact_bytes_with_correct_provenance(self):
+        before = {path: path.read_bytes() for path in self.root.rglob('*') if path.is_file()}
+        self.load_recipes()
         saved = self.prepare()
         self.assertEqual((self.directory / 'female/a-sound.mp3').read_bytes(), self.recording)
+        self.assertEqual((self.directory / 'female/ef-sound.mp3').read_bytes(), self.syllable_recording)
         self.assertNotEqual((self.directory / 'female/ef-sound.mp3').read_bytes(), self.recording)
-        self.assertEqual(saved['clips']['ef-sound.mp3']['source_generation']['text'], 'эф.')
-        self.assertEqual(saved['clips']['ef-sound.mp3']['ipa'], 'f')
-        self.assertEqual(saved['clips']['ef-sound.mp3']['duration_ms'], 310)
+        record = saved['clips']['ef-sound.mp3']
+        self.assertEqual(record['source_generation']['text'], 'фа.')
+        self.assertEqual(record['kind'], 'syllable')
+        self.assertEqual(record['ipa'], 'fa')
+        self.assertEqual(record['duration_ms'], 350)
+        self.assertEqual(record['source_active_ms'], 350)
+        self.assertEqual(record['gain_db'], 0)
         self.assertEqual({path: path.read_bytes() for path in before}, before)
         self.assertEqual(command.plan(self.directory / 'female', self.specs(), 'female')[1], [])
 
@@ -141,7 +207,7 @@ class AlphabetSoundPreparationTests(unittest.TestCase):
         male = self.prepare('male')
         self.assertEqual(female['voice_id'], command.VOICE_IDS['female'])
         self.assertEqual(male['voice_id'], command.VOICE_IDS['male'])
-        self.assertTrue(male['clips']['ef-sound.mp3']['recipe']['source'].endswith('/male/ef-name.mp3'))
+        self.assertTrue(male['clips']['ef-sound.mp3']['recipe']['source'].endswith('/male-ef.mp3'))
         with self.assertRaises(ValueError):
             command.plan(self.directory / 'female', self.specs('male'), 'male')
 
@@ -159,80 +225,113 @@ class AlphabetSoundPreparationTests(unittest.TestCase):
         self.recipes['female-ef']['end_ms'] = 240
         with self.assertRaisesRegex(ValueError, 'recipe changed'):
             self.prepare()
-        self.recipes['female-ef']['end_ms'] = 250
+        self.recipes['female-ef']['end_ms'] = None
         (self.directory / 'female/a-sound.mp3').write_bytes(b'broken')
         with self.assertRaises(Exception):
             self.prepare()
 
-    def test_short_clip_plays_once_with_only_edge_padding(self):
-        recipe = self.recipes['female-ef']
-        recipe.update(start_ms=100, end_ms=114, repetitions=1, fade_in_ms=.5, fade_out_ms=.2)
-        saved = self.prepare(selected={'ef-sound.mp3'})
-        self.assertEqual(saved['clips']['ef-sound.mp3']['duration_ms'], 14 + 60 + 100)
-        recording = AudioSegment.from_file(self.directory / 'female/ef-sound.mp3')
-        self.assertGreater(recording[60:74].dBFS, -40)
-        self.assertLess(recording[100:].dBFS, -50)
+    def test_an_isolated_160_ms_clip_plays_once_with_only_edge_padding(self):
+        recipe = self.isolated_recipe(end_ms=260)
+        clips = {**self.clips, 'ef-sound.mp3': {**self.clips['ef-sound.mp3'], 'kind': 'sound', 'ipa': 'f', 'display_text': 'ф'}}
+        self.load_recipes({**self.recipes, 'female-ef': recipe,
+                           'male-ef': self.isolated_recipe(source=command.SOURCE_PREFIX + 'male/ef-name.mp3')}, clips)
+        destination = self.root / 'isolated-output.mp3'
+        result = command.render(self.root / recipe['source'], destination, recipe)
+        recording = AudioSegment.from_file(destination)
+        self.assertEqual(len(recording), 160 + 60 + 100)
+        self.assertEqual(result['source_active_ms'], 160)
+        self.assertGreater(recording[60:220].dBFS, -40)
+        self.assertLess(recording[245:].dBFS, -50)
+
+    def test_under_160_ms_crops_are_rejected_by_loading_and_direct_render(self):
+        clips = {**self.clips, 'ef-sound.mp3': {**self.clips['ef-sound.mp3'], 'kind': 'sound', 'ipa': 'f'}}
+        destination = self.root / 'untouched-output.mp3'
+        destination.write_bytes(b'keep existing recording')
+        for duration in (14, 159):
+            recipe = self.isolated_recipe(end_ms=100 + duration)
+            with self.subTest(duration=duration):
+                with self.assertRaisesRegex(ValueError, '160 ms'):
+                    self.load_recipes({**self.recipes, 'female-ef': recipe,
+                           'male-ef': self.isolated_recipe(source=command.SOURCE_PREFIX + 'male/ef-name.mp3')}, clips)
+                with self.assertRaisesRegex(ValueError, '160 ms'):
+                    command.render(self.root / recipe['source'], destination, recipe)
+                self.assertEqual(destination.read_bytes(), b'keep existing recording')
+
+    def test_a_long_file_with_a_tiny_burst_cannot_pass_copy_or_crop_guards(self):
+        segment = (AudioSegment.silent(duration=500, frame_rate=44100)
+                   + Sine(330).to_audio_segment(duration=20).apply_gain(-15)
+                   + AudioSegment.silent(duration=500, frame_rate=44100))
+        stream = io.BytesIO()
+        segment.export(stream, format='mp3')
+        source = self.write_syllable('female', stream.getvalue(), len(segment))
+        with self.assertRaisesRegex(ValueError, 'audible source speech'):
+            self.specs()
+        destination = self.root / 'output-must-not-exist.mp3'
+        for mode in ('copy', 'crop'):
+            recipe = {**self.recipes['female-ef'], 'mode': mode}
+            if mode == 'crop':
+                recipe.update(start_ms=0, end_ms=len(segment))
+            with self.subTest(mode=mode), self.assertRaisesRegex(ValueError, 'audible source speech'):
+                command.render(source, destination, recipe)
+            self.assertFalse(destination.exists())
+        self.assertFalse(self.directory.exists())
 
     def test_renderer_rejects_repetitions_even_when_recipe_validation_is_bypassed(self):
         destination = self.root / 'existing-output.mp3'
         destination.write_bytes(b'preserve this output')
-        for letter in ('a', 'ef'):
-            recipe = {**self.recipes['female-' + letter], 'repetitions': 3}
+        for recipe in (self.recipes['female-ef'], self.isolated_recipe()):
+            recipe = {**recipe, 'repetitions': 3}
             with self.subTest(mode=recipe['mode']), self.assertRaisesRegex(ValueError, 'without repeats'):
                 command.render(self.root / recipe['source'], destination, recipe)
             self.assertEqual(destination.read_bytes(), b'preserve this output')
 
-    def test_quiet_clips_receive_at_most_three_decibels_of_gain(self):
+    def test_quiet_but_audible_clips_receive_at_most_three_decibels_of_gain(self):
         source = self.root / 'quiet-source.mp3'
         destination = self.root / 'quiet-output.mp3'
-        with Sine(330).to_audio_segment(duration=350).apply_gain(-40).export(source, format='mp3'):
+        with Sine(330).to_audio_segment(duration=350).apply_gain(-35).export(source, format='mp3'):
             pass
-        original = AudioSegment.from_file(source)[100:250]
-        result = command.render(source, destination, self.recipes['female-ef'])
+        original = AudioSegment.from_file(source)[100:280]
+        result = command.render(source, destination, self.isolated_recipe())
         rendered = AudioSegment.from_file(destination)
-        self.assertEqual(len(rendered), 150 + 60 + 100)
+        # MP3 decoding can round the container duration by one millisecond;
+        # the source activity threshold above remains exact.
+        self.assertAlmostEqual(len(rendered), 180 + 60 + 100, delta=1)
+        self.assertEqual(result['source_active_ms'], 180)
         self.assertEqual(result['gain_db'], 3)
-        # Measure the encoded result too: a quiet source must remain quiet,
-        # rather than being amplified to the general -20 dBFS target.
-        observed_gain = rendered[60:210].dBFS - original.dBFS
+        observed_gain = rendered[60:240].dBFS - original.dBFS
         self.assertGreater(observed_gain, 1.5)
         self.assertLessEqual(observed_gain, 3.25)
-        self.assertLess(rendered[60:210].dBFS, -35)
+        self.assertLess(rendered[60:240].dBFS, -30)
 
-    def test_authored_recipe_rejects_traversal_wrong_voice_and_invalid_intervals(self):
-        path = self.root / 'recipes.json'
-        pristine = json.loads(json.dumps(self.recipes))
-        cases = [('source', '../outside.mp3'), ('source', command.SOURCE_PREFIX + 'male/ef-name.mp3'),
-                 ('end_ms', 99), ('start_ms', -1), ('repetitions', 2), ('repetitions', 3), ('fade_out_ms', 200)]
-        for field, value in cases:
-            recipes = json.loads(json.dumps(pristine))
-            recipes['female-ef'][field] = value
-            path.write_text(json.dumps({'version': command.RECIPE_VERSION, 'processing': command.PROCESSING, 'clips': recipes}))
+    def test_authored_recipe_rejects_traversal_wrong_voice_repeats_and_syllable_edits(self):
+        for field, value in [('source', '../outside.mp3'), ('source', command.RECORDED_PREFIX + 'male-ef.mp3'),
+                             ('end_ms', 300), ('start_ms', 0), ('repetitions', 2), ('repetitions', 3), ('fade_out_ms', 1)]:
+            recipes = {**self.recipes, 'female-ef': {**self.recipes['female-ef'], field: value}}
             with self.subTest(field=field, value=value), self.assertRaises(ValueError):
-                command.load_recipes(path, self.clips)
+                self.load_recipes(recipes)
+        with self.assertRaisesRegex(ValueError, 'syllables must remain whole'):
+            self.load_recipes({**self.recipes, 'female-ef': self.isolated_recipe()})
 
-    def test_additional_recorded_source_requires_matching_request_and_hash(self):
-        source = self.root / command.RECORDED_PREFIX / 'female-ef.mp3'
-        source.parent.mkdir(parents=True)
-        source.write_bytes(self.recording)
-        provenance = {'payload': {'text': 'фффф', 'model_id': 'eleven_v4', 'language_code': 'ru',
-                                   'voice_settings': command.audio.SETTINGS},
-                      'voice_id': command.VOICE_IDS['female'], 'sha256': command.audio.digest(self.recording), 'duration_ms': 350}
-        source.with_suffix('.json').write_text(json.dumps(provenance))
-        self.recipes['female-ef']['source'] = source.relative_to(self.root).as_posix()
-        self.assertEqual(self.specs()['ef-sound.mp3']['source_generation']['request']['text'], 'фффф')
-        provenance['voice_id'] = command.VOICE_IDS['male']
-        source.with_suffix('.json').write_text(json.dumps(provenance))
-        with self.assertRaisesRegex(ValueError, 'request provenance'):
-            self.specs()
+    def test_syllable_source_requires_matching_text_voice_model_and_hash(self):
+        source = self.root / self.recipes['female-ef']['source']
+        path = source.with_suffix('.json')
+        original = json.loads(path.read_text())
+        self.assertEqual(self.specs()['ef-sound.mp3']['source_generation']['request']['text'], 'фа.')
+        cases = [('voice_id', command.VOICE_IDS['male']), ('sha256', '0' * 64),
+                 ('text', 'эф.'), ('model_id', 'eleven_multilingual_v2'), ('language_code', 'en')]
+        for field, value in cases:
+            provenance = json.loads(json.dumps(original))
+            target = provenance if field in ('voice_id', 'sha256') else provenance['payload']
+            target[field] = value
+            path.write_text(json.dumps(provenance))
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                self.specs()
+        path.write_text(json.dumps(original))
 
-    def test_copying_a_consonant_name_cannot_masquerade_as_its_sound(self):
-        recipe = self.recipes['female-ef']
-        recipe.update(mode='copy', start_ms=None, end_ms=None, repetitions=1, fade_in_ms=0, fade_out_ms=0)
-        path = self.root / 'recipes.json'
-        path.write_text(json.dumps({'version': command.RECIPE_VERSION, 'processing': command.PROCESSING, 'clips': self.recipes}))
-        with self.assertRaisesRegex(ValueError, 'Copied vowel recordings'):
-            command.load_recipes(path, self.clips)
+    def test_copying_a_consonant_name_cannot_masquerade_as_a_practice_syllable(self):
+        recipe = {**self.recipes['female-ef'], 'source': command.SOURCE_PREFIX + 'ef-name.mp3'}
+        with self.assertRaisesRegex(ValueError, 'explicitly labelled practice syllable'):
+            self.load_recipes({**self.recipes, 'female-ef': recipe})
 
 
 if __name__ == '__main__':

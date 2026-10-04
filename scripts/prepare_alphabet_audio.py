@@ -60,16 +60,21 @@ def load_clips(path=DATA, *, voice='female'):
         raise ValueError('Choose the female or male recording set.')
     data = json.loads(Path(path).read_text())
     alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
-    fields = {'id', 'upper', 'lower', 'name', 'nameAudio', 'example', 'exampleMeaning', 'exampleAudio', 'kind', 'note', 'soundIpa', 'soundAudio'}
+    fields = {'id', 'upper', 'lower', 'name', 'nameAudio', 'example', 'exampleMeaning', 'exampleAudio', 'kind', 'note', 'soundIpa', 'soundAudio', 'practiceSyllable'}
     if (not isinstance(data, list) or len(data) != 33
             or ''.join(item.get('upper', '') for item in data) != alphabet):
         raise ValueError('The catalogue must contain all 33 letters in alphabetical order.')
     clips = {}
     for item in data:
-        if (set(item) != fields or not all(isinstance(item[field], str) and item[field] for field in fields - {'nameAudio', 'exampleAudio', 'soundIpa', 'soundAudio'})
+        if (set(item) != fields or not all(isinstance(item[field], str) and item[field] for field in fields - {'nameAudio', 'exampleAudio', 'soundIpa', 'soundAudio', 'practiceSyllable'})
                 or not re.fullmatch('[a-z][a-z0-9-]*', item['id']) or item['lower'] != item['upper'].lower()
                 or item['kind'] != ('vowel' if item['upper'] in 'АЕЁИОУЫЭЮЯ' else 'sign' if item['upper'] in 'ЪЬ' else 'consonant')):
             raise ValueError('The alphabet catalogue has an invalid letter.')
+        if item['practiceSyllable'] is not None and (
+                item['kind'] != 'consonant' or not isinstance(item['practiceSyllable'], str)
+                or not re.fullmatch('[бвгджзйклмнпрстфхцчшщ][ао]', item['practiceSyllable'])
+                or item['practiceSyllable'][0] != item['lower']):
+            raise ValueError('A practice syllable must be a short Russian consonant-vowel example.')
         for kind, field, url_field in (('name', 'name', 'nameAudio'), ('word', 'example', 'exampleAudio')):
             filename = item['id'] + '-' + kind + '.mp3'
             expected_urls = {variant: '/static/audio/alphabet-v1/' + ('male/' if variant == 'male' else '') + filename

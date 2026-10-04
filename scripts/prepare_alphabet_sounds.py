@@ -1,7 +1,7 @@
-"""Build packaged Russian sound examples from fixed, inspected v4 recordings.
+"""Build packaged Russian pronunciation examples from fixed v4 recordings.
 
-Default is a read-only plan. --execute copies vowel recordings and extracts
-consonants using the authored source hashes and boundaries. No credentials or
+Default is a read-only plan. --execute copies vowel recordings and complete
+consonant-vowel practice syllables using the authored source hashes. No credentials or
 provider calls are used. --verify checks source provenance and output hashes.
 Waveform inspection and automatic checks are not native-listener certification.
 """
@@ -21,17 +21,21 @@ SPEC.loader.exec_module(audio)
 DATA = audio.DATA
 SOURCES = ROOT
 SOURCE_PREFIX = 'flask_vocab_app/static/audio/alphabet-v1/'
-RECORDED_PREFIX = 'scripts/audio-sources/alphabet/'
+RECORDED_PREFIX = 'scripts/audio-sources/alphabet/syllables-v1/'
 DIRECTORY = audio.DIRECTORY / 'sounds'
 RECIPES = ROOT / 'scripts/data/alphabet-sound-crops.json'
 MODEL = audio.MODEL
-VERSION = 'alphabet-sounds-v3'
-RECIPE_VERSION = 'alphabet-sound-crops-v2'
+VERSION = 'alphabet-sounds-v4'
+RECIPE_VERSION = 'alphabet-sound-crops-v3'
 MAX_CLIPS = 31
+MIN_SPEECH_MS = 160
+SPEECH_THRESHOLD_DBFS = -45
+SPEECH_FRAME_MS = 1
 VOWELS = frozenset(('a', 'ye', 'yo', 'i', 'o', 'u', 'yery', 'e', 'yu', 'ya'))
 VOICE_IDS = {'female': 'ymDCYd8puC7gYjxIamPt', 'male': 'sRk0zCqhS2Cmv0bzx5wA'}
 PROCESSING = {'normalization_dbfs': -20, 'max_peak_dbfs': -3, 'leading_ms': 60,
-              'trailing_ms': 100, 'max_gain_db': 3}
+              'trailing_ms': 100, 'max_gain_db': 3, 'minimum_speech_ms': MIN_SPEECH_MS,
+              'speech_frame_ms': SPEECH_FRAME_MS, 'speech_threshold_dbfs': SPEECH_THRESHOLD_DBFS}
 
 
 def load_clips(path=DATA):
@@ -47,7 +51,8 @@ def load_clips(path=DATA):
         expected = {voice: '/static/audio/alphabet-v1/sounds/' + voice + '/' + filename for voice in VOICE_IDS}
         if not isinstance(ipa, str) or not re.fullmatch(r'[a-zɡɨɫʂʐɕɛʲː͡]{1,12}', ipa) or urls != expected:
             raise ValueError('Every sounding letter needs IPA and both exact sound recording URLs.')
-        clips[filename] = {'letter_id': item['id'], 'kind': 'sound', 'display_text': item['lower'], 'ipa': ipa}
+        clips[filename] = {'letter_id': item['id'], 'kind': 'syllable' if item['practiceSyllable'] else 'sound',
+                           'display_text': item['practiceSyllable'] or item['lower'], 'ipa': ipa}
     if len(clips) != MAX_CLIPS:
         raise ValueError('The alphabet needs exactly 31 sounding letters.')
     return clips
@@ -84,16 +89,20 @@ def load_recipes(path=RECIPES, clips=None):
                     or recipe['mode'] not in ('copy', 'crop')):
                 raise ValueError('A sound recipe needs its exact same-voice source and processing instructions.')
             if recipe['mode'] == 'copy':
-                if (item['letter_id'] not in VOWELS or recipe['source'] != prefix + item['letter_id'] + '-name.mp3'
+                expected_source = (prefix + item['letter_id'] + '-name.mp3' if item['letter_id'] in VOWELS
+                                   else RECORDED_PREFIX + voice + '-' + item['letter_id'] + '.mp3')
+                if (recipe['source'] != expected_source or (item['letter_id'] not in VOWELS and item['kind'] != 'syllable')
                         or any(recipe[key] is not None for key in ('start_ms', 'end_ms'))
-                        or recipe['repetitions'] != 1 or recipe['fade_in_ms'] != 0 or recipe['fade_out_ms'] != 0):
-                    raise ValueError('Copied vowel recordings must stay byte-for-byte unchanged.')
+                        or recipe['fade_in_ms'] != 0 or recipe['fade_out_ms'] != 0):
+                    raise ValueError('Copy only an unchanged vowel recording or an explicitly labelled practice syllable.')
             else:
                 if (any(type(recipe[key]) not in (int, float) or not math.isfinite(recipe[key]) for key in ('start_ms', 'end_ms', 'fade_in_ms', 'fade_out_ms'))
                         or not 0 <= recipe['start_ms'] < recipe['end_ms'] <= 15000
+                        or recipe['end_ms'] - recipe['start_ms'] < MIN_SPEECH_MS
+                        or item['kind'] == 'syllable'
                         or not 0 <= recipe['fade_in_ms'] <= 10 or not 0 <= recipe['fade_out_ms'] <= 10
                         or recipe['fade_in_ms'] + recipe['fade_out_ms'] >= recipe['end_ms'] - recipe['start_ms']):
-                    raise ValueError('A consonant crop needs bounded, nonempty source intervals and small edge fades.')
+                    raise ValueError('An isolated sound needs at least 160 ms of source audio; practice syllables must remain whole.')
     return data['clips']
 
 
@@ -115,7 +124,7 @@ def source_specs(clips, recipes, voice, source_dir=SOURCES):
             payload = generated.get('payload', {})
             if (payload.get('model_id') != MODEL or payload.get('language_code') != 'ru'
                     or payload.get('voice_settings') != audio.SETTINGS or generated.get('voice_id') != VOICE_IDS[voice]
-                    or not isinstance(payload.get('text'), str) or not 1 <= len(payload['text']) <= 500):
+                    or payload.get('text') != item['display_text'] + '.' or item['kind'] != 'syllable'):
                 raise ValueError('An authored source needs its exact Russian v4 request provenance.')
             record = {'model': MODEL, 'voice_id': generated['voice_id'], 'text': payload['text'],
                       'text_sha256': audio.digest(payload['text'].encode()), 'audio_sha256': generated.get('sha256'),
@@ -128,6 +137,9 @@ def source_specs(clips, recipes, voice, source_dir=SOURCES):
             raise ValueError('A sound source changed or does not have verified v4 provenance.')
         if recipe['mode'] == 'crop' and recipe['end_ms'] > record.get('duration_ms', 0):
             raise ValueError('A sound crop exceeds its source recording.')
+        if item['kind'] == 'syllable':
+            from pydub import AudioSegment
+            require_speech(AudioSegment.from_file(source, format='mp3'))
         provenance = {key: record[key] for key in ('model', 'voice_id', 'text', 'text_sha256', 'audio_sha256')}
         if 'request' in record:
             provenance['request'] = record['request']
@@ -160,17 +172,30 @@ def plan(directory, specs, voice):
     return saved, todo
 
 
+def require_speech(recording):
+    # Measure the source signal, not MP3/container duration or added padding.
+    # This detects undersized/quiet clips; it cannot certify pronunciation.
+    active_ms = sum(len(recording[start:start + SPEECH_FRAME_MS])
+                    for start in range(0, len(recording), SPEECH_FRAME_MS)
+                    if recording[start:start + SPEECH_FRAME_MS].dBFS > SPEECH_THRESHOLD_DBFS)
+    if active_ms < MIN_SPEECH_MS:
+        raise ValueError('A pronunciation example needs at least 160 ms of audible source speech; silence does not count.')
+    return active_ms
+
+
 def render(source, destination, recipe):
     if recipe['repetitions'] != 1:
         raise ValueError('Each recording must contain one pronunciation, without repeats.')
     from pydub import AudioSegment
-    if recipe['mode'] == 'copy':
-        destination.write_bytes(source.read_bytes())
-        return {'gain_db': 0, 'processing_applied': 'byte-for-byte copy'}
     original = AudioSegment.from_file(source, format='mp3')
+    if recipe['mode'] == 'copy':
+        active_ms = require_speech(original)
+        destination.write_bytes(source.read_bytes())
+        return {'gain_db': 0, 'source_active_ms': active_ms, 'processing_applied': 'byte-for-byte copy'}
+    if recipe['end_ms'] - recipe['start_ms'] < MIN_SPEECH_MS:
+        raise ValueError('A pronunciation crop needs at least 160 ms of source audio.')
     crop = original[recipe['start_ms']:recipe['end_ms']]
-    if not math.isfinite(crop.dBFS):
-        raise ValueError('The authored crop contains no audible signal.')
+    active_ms = require_speech(crop)
     crop = crop.fade_in(recipe['fade_in_ms']).fade_out(recipe['fade_out_ms'])
     gain = min(PROCESSING['max_gain_db'], PROCESSING['normalization_dbfs'] - crop.dBFS,
                PROCESSING['max_peak_dbfs'] - crop.max_dBFS)
@@ -179,7 +204,7 @@ def render(source, destination, recipe):
               + AudioSegment.silent(duration=PROCESSING['trailing_ms'], frame_rate=crop.frame_rate))
     with result.export(destination, format='mp3', bitrate='128k'):
         pass
-    return {'gain_db': gain, 'processing_applied': 'single crop, edge fades, bounded gain and padding'}
+    return {'gain_db': gain, 'source_active_ms': active_ms, 'processing_applied': 'single crop, edge fades, bounded gain and padding'}
 
 
 def prepare(directory, specs, *, voice, selected=None, max_new=MAX_CLIPS, source_dir=SOURCES):
@@ -201,9 +226,9 @@ def prepare(directory, specs, *, voice, selected=None, max_new=MAX_CLIPS, source
         return saved
     directory.mkdir(parents=True, exist_ok=True)
     if saved is None:
-        saved = {'version': VERSION, 'method': 'extract-existing-v4-alphabet-recordings',
+        saved = {'version': VERSION, 'method': 'whole-v4-pronunciation-examples',
                  'voice': voice, 'voice_id': VOICE_IDS[voice], 'processing': PROCESSING,
-                 'review': 'Source boundaries inspected with waveforms and spectrograms; automatic checks are not native-listener certification.',
+                 'review': 'Whole pronunciation examples preserve source speech. Signal-duration checks are not a pronunciation review.',
                  'clips': {}}
     for filename in todo:
         spec = specs[filename]

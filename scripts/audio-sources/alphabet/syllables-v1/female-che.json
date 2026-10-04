@@ -1,0 +1,42 @@
+{
+  "id": "female-che",
+  "voice": "female",
+  "letter_id": "che",
+  "payload": {
+    "text": "ча.",
+    "model_id": "eleven_v4",
+    "language_code": "ru",
+    "voice_settings": {
+      "stability": 0.8,
+      "similarity_boost": 0.85
+    }
+  },
+  "voice_id": "ymDCYd8puC7gYjxIamPt",
+  "state": "complete",
+  "duration_ms": 560,
+  "sha256": "e60dcca99f0c20a645aa98710cc6440deddc8524241418c1b713c40507d1c5cb",
+  "bytes": 10075,
+  "file": "female-che.mp3",
+  "timing": {
+    "first_body_chunk_ms": 905,
+    "complete_response_ms": 906,
+    "first_chunk_bytes": 4096,
+    "content_type": "audio/mpeg"
+  },
+  "activity": {
+    "active_frame_count": 70,
+    "frame_count": 112,
+    "active_ms": 350,
+    "speech_start_ms": 30,
+    "speech_end_ms": 420,
+    "speech_span_ms": 390,
+    "separated_activity_regions": [
+      {
+        "start_ms": 30,
+        "end_ms": 420,
+        "active_ms": 350
+      }
+    ]
+  },
+  "flags": []
+}

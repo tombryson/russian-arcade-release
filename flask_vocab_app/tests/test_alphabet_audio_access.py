@@ -27,6 +27,8 @@ class AlphabetAccessTests(unittest.TestCase):
                          'audio/alphabet-v1/sounds/female/hard-sign-sound.mp3', 'audio/alphabet-v1/sounds/male/soft-sign-sound.mp3',
                          'audio/alphabet-v1/sounds/female/../male/a-sound.mp3',
                          'audio/alphabet-v1/sounds/other/a-sound.mp3', 'audio/alphabet-v1/sounds/female/unknown-sound.mp3',
+                         'audio/alphabet-v1/syllables-v1/female-ef.mp3',
+                         'scripts/audio-sources/alphabet/syllables-v1/female-ef.mp3',
                          'media/alphabet-v1/a-name.mp3', 'uploads/recording.mp3'):
             self.assertFalse(is_public_alphabet_recording(filename), filename)
 
@@ -57,6 +59,9 @@ class AlphabetAccessTests(unittest.TestCase):
                       ('a', 'soundAudio', {'female': '/static/audio/alphabet-v1/a-name.mp3',
                                            'male': '/static/audio/alphabet-v1/male/a-name.mp3'}),
                       ('a', 'soundIpa', None), ('a', 'soundIpa', '/a/'),
+                      ('ef', 'soundAudio', None),
+                      ('ef', 'soundAudio', {'female': '/static/audio/alphabet-v1/ef-name.mp3',
+                                            'male': '/static/audio/alphabet-v1/male/ef-name.mp3'}),
                       ('hard-sign', 'soundIpa', 'a'), ('soft-sign', 'soundAudio', {})]
             for letter_id, field, value in broken:
                 with self.subTest(letter=letter_id, field=field, value=value):
@@ -85,9 +90,11 @@ class AlphabetAccessTests(unittest.TestCase):
         for voice in ('female', 'male'):
             (audio / 'sounds' / voice).mkdir(parents=True)
             (audio / 'sounds' / voice / 'a-sound.mp3').write_bytes(content)
+            (audio / 'sounds' / voice / 'ef-sound.mp3').write_bytes(content)
         (audio / 'private-note.mp3').write_bytes(b'private recording')
         client = app.test_client()
-        for path in ('a-name.mp3', 'male/a-name.mp3', 'sounds/female/a-sound.mp3', 'sounds/male/a-sound.mp3'):
+        for path in ('a-name.mp3', 'male/a-name.mp3', 'sounds/female/a-sound.mp3', 'sounds/male/a-sound.mp3',
+                     'sounds/female/ef-sound.mp3?v=syllables-v4', 'sounds/male/ef-sound.mp3?v=syllables-v4'):
             with client.get('/static/audio/alphabet-v1/' + path, headers={'Range': 'bytes=0-31'}) as response:
                 self.assertEqual(response.status_code, 206)
                 self.assertEqual(response.data, content[:32])

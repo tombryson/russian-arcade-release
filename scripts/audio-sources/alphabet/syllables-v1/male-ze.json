@@ -1,0 +1,42 @@
+{
+  "id": "male-ze",
+  "voice": "male",
+  "letter_id": "ze",
+  "payload": {
+    "text": "за.",
+    "model_id": "eleven_v4",
+    "language_code": "ru",
+    "voice_settings": {
+      "stability": 0.8,
+      "similarity_boost": 0.85
+    }
+  },
+  "voice_id": "sRk0zCqhS2Cmv0bzx5wA",
+  "state": "complete",
+  "duration_ms": 640,
+  "sha256": "1aca3aafae52a99a4380c73154c9121ce7ba849053442e97378b67cdf152bdc4",
+  "bytes": 11328,
+  "file": "male-ze.mp3",
+  "timing": {
+    "first_body_chunk_ms": 920,
+    "complete_response_ms": 920,
+    "first_chunk_bytes": 4096,
+    "content_type": "audio/mpeg"
+  },
+  "activity": {
+    "active_frame_count": 80,
+    "frame_count": 128,
+    "active_ms": 400,
+    "speech_start_ms": 35,
+    "speech_end_ms": 440,
+    "speech_span_ms": 405,
+    "separated_activity_regions": [
+      {
+        "start_ms": 35,
+        "end_ms": 440,
+        "active_ms": 400
+      }
+    ]
+  },
+  "flags": []
+}

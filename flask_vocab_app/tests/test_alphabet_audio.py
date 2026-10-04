@@ -26,11 +26,17 @@ class AlphabetCatalogueTests(unittest.TestCase):
         rows = {row['upper']: row for row in data}
         self.assertEqual(rows['Й']['name'], 'и кра́ткое')
         self.assertEqual(rows['Й']['kind'], 'consonant')
+        self.assertEqual(rows['Й']['practiceSyllable'], 'йо')
+        self.assertEqual(rows['П']['practiceSyllable'], 'па')
         self.assertIn('no exact english equivalent', rows['Ы']['note'].lower())
         for letter in 'ЪЬ':
             self.assertIsNone(rows[letter]['soundIpa'])
             self.assertIsNone(rows[letter]['soundAudio'])
         for row in data:
+            if row['kind'] == 'consonant':
+                self.assertEqual(row['practiceSyllable'], row['lower'] + ('о' if row['upper'] == 'Й' else 'а'))
+            else:
+                self.assertIsNone(row['practiceSyllable'])
             self.assertIn(row['lower'], row['example'].lower())
             vowels = sum(char in 'аеёиоуыэюя' for char in row['example'])
             self.assertTrue(vowels == 1 or '\u0301' in row['example'] or 'ё' in row['example'])
@@ -42,6 +48,17 @@ class AlphabetCatalogueTests(unittest.TestCase):
         self.assertEqual(clips['be-word.mp3']['text'], 'банан.')
         self.assertEqual(command.load_clips(voice='male'), clips)
         self.assertEqual(len({url for row in data for field in ('nameAudio', 'exampleAudio') for url in row[field].values()}), 132)
+
+    def test_practice_syllable_labels_reject_names_and_nonconsonant_entries(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'catalogue.json'
+            for letter_id, syllable in [('be', 'бэ'), ('be', 'ба ба'), ('be', '/ba/'),
+                                        ('be', 1), ('a', 'ба'), ('hard-sign', 'ба')]:
+                data = json.loads(command.DATA.read_text())
+                next(row for row in data if row['id'] == letter_id)['practiceSyllable'] = syllable
+                path.write_text(json.dumps(data))
+                with self.subTest(letter=letter_id, syllable=syllable), self.assertRaises(ValueError):
+                    command.load_clips(path)
 
     def test_voice_matrices_reject_missing_unknown_or_misdirected_recordings(self):
         source = json.loads(command.DATA.read_text())

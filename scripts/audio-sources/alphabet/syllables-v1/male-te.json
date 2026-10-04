@@ -1,0 +1,42 @@
+{
+  "id": "male-te",
+  "voice": "male",
+  "letter_id": "te",
+  "payload": {
+    "text": "та.",
+    "model_id": "eleven_v4",
+    "language_code": "ru",
+    "voice_settings": {
+      "stability": 0.8,
+      "similarity_boost": 0.85
+    }
+  },
+  "voice_id": "sRk0zCqhS2Cmv0bzx5wA",
+  "state": "complete",
+  "duration_ms": 720,
+  "sha256": "58b0f046b5d746467d611d16072cd0b987597418f5a56a4b8a199024be7c1a3d",
+  "bytes": 12582,
+  "file": "male-te.mp3",
+  "timing": {
+    "first_body_chunk_ms": 924,
+    "complete_response_ms": 925,
+    "first_chunk_bytes": 4096,
+    "content_type": "audio/mpeg"
+  },
+  "activity": {
+    "active_frame_count": 49,
+    "frame_count": 144,
+    "active_ms": 245,
+    "speech_start_ms": 80,
+    "speech_end_ms": 325,
+    "speech_span_ms": 245,
+    "separated_activity_regions": [
+      {
+        "start_ms": 80,
+        "end_ms": 325,
+        "active_ms": 245
+      }
+    ]
+  },
+  "flags": []
+}
