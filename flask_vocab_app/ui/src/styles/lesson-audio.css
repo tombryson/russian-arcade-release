@@ -14,9 +14,6 @@
 :is(.tutorial-word-choice,.first-steps-choice) .lesson-audio-controls {padding:0}
 .lesson-player :is(.tutorial-word-choice,.first-steps-choice) .lesson-audio-button {min-width:44px;min-height:44px;padding:8px;border:1px solid var(--wp-border-subtle);border-radius:50%;background:var(--wp-surface-paper);color:inherit}
 :is(.tutorial-word-choice,.first-steps-choice) .lesson-audio-error {grid-column:1/-1;margin:0 12px 12px}
-.tutorial-reading-help {font-size:14px;margin:12px 0 20px}
-.tutorial-reading-help summary {cursor:pointer;padding-block:8px}
-.tutorial-reading-help p {margin-block:8px}
 
 /* Teaching cards keep playback beside the word, in one small control group. */
 .lesson-audio.is-inline {margin:0;max-width:100%}

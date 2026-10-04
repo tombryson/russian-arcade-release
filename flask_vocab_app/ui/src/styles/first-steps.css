@@ -14,61 +14,69 @@
 .first-steps-row.is-locked { color:var(--wp-text-secondary); }
 .first-steps-row.is-locked .first-steps-number { color:inherit; }
 .first-steps-row.is-completed .first-steps-status { color:var(--wp-accent-learning); }
-.first-steps-card-head { display:flex; justify-content:space-between; gap:24px; align-items:start; }
-.first-steps-card-head>div:first-child { min-width:0; flex:1 1 220px; }
-.first-steps-teaching .first-steps-art { flex:0 0 100px; width:100px; height:100px; }
-.first-steps .letter .first-steps-word { margin:16px 0 8px; font-size:clamp(36px,6vw,56px); line-height:1.3; color:var(--wp-accent-learning); overflow-wrap:anywhere; }
-.first-steps .letter .first-steps-meaning { margin:0 0 24px; font-size:22px; }
-.first-steps .letter .first-steps-context { margin-top:18px; padding-top:18px; border-top:1px solid var(--wp-border-subtle); }
-.first-steps .letter .first-steps-passage { white-space:pre-line; font-size:clamp(22px,3vw,29px); line-height:1.6; margin-bottom:24px; }
-.first-steps .options { align-items:stretch; }
-.first-steps .word { flex:1 1 160px; }
-.first-steps .letter .first-steps-meaning {margin-bottom:10px;font-size:20px}
-.first-steps .letter .first-steps-word.is-phrase {font-size:clamp(24px,3.7vw,34px);line-height:1.45}
-.first-steps-examples {list-style:none;display:grid;gap:12px;margin:18px 0;padding:16px 0 0;border-top:1px solid var(--wp-border-subtle)}
-.first-steps .letter .first-steps-examples p {margin:0;line-height:1.5}
-.first-steps .letter .first-steps-examples p[lang=ru] {font-size:21px}
-.first-steps .letter .first-steps-examples p[lang=en] {font-size:14px;color:var(--wp-text-secondary);margin-top:3px}
-.first-steps-reading-help {font-size:14px;margin-block:12px}
-.first-steps-reading-help summary {padding-block:8px;cursor:pointer}
-.first-steps-name-slot {margin:18px 0;padding-top:14px;border-top:1px solid var(--wp-border-subtle)}
+.first-steps-teaching-main,.first-steps-question-context {display:flex;justify-content:space-between;align-items:center;gap:20px}
+.first-steps-word-block,.first-steps-question-context>div:first-child {min-width:0;flex:1}
+.first-steps-pronunciation {display:flex;align-items:center;flex-wrap:wrap;gap:8px 18px}
+.first-steps-teaching .first-steps-art,.first-steps-question-context .first-steps-art {flex:none;width:92px;height:92px}
+.first-steps .first-steps-word {margin:0 0 4px;font-size:clamp(36px,6vw,56px);line-height:1.3;color:var(--wp-accent-learning);overflow-wrap:anywhere}
+.first-steps .first-steps-word.is-phrase {font-size:clamp(24px,3.7vw,34px);line-height:1.45}
+.first-steps .first-steps-meaning {margin:0 0 10px;font-size:24px}
+.first-steps .first-steps-explanation {margin:14px 0 4px;line-height:1.6}
+.first-steps .first-steps-passage {white-space:pre-line;font-size:clamp(22px,3vw,29px);line-height:1.5;margin:0 0 12px}
+.first-steps-question-context {margin-bottom:20px}
+.first-steps-transcript {margin:12px 0 0;line-height:1.6}
+.first-steps .options {align-items:stretch}
+.first-steps .word {flex:1 1 160px}
+.first-steps-examples {list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px 24px;margin:20px 0 0;padding:16px 0 0;border-top:1px solid var(--wp-border-subtle)}
+.first-steps-examples p {margin:0;line-height:1.5}
+.first-steps-examples p[lang=ru] {font-size:21px}
+.first-steps-examples p[lang=en] {font-size:14px;color:var(--wp-text-secondary);margin-top:3px}
+.first-steps-name-slot {margin:20px 0 0;padding-top:16px;border-top:1px solid var(--wp-border-subtle)}
 .first-steps-name-slot label {display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:14px}
 .first-steps-name-slot input {max-width:100%;min-width:0;padding:10px 12px;border:1px solid var(--wp-border-subtle);border-radius:6px;color:inherit;background:transparent;font:inherit}
 .first-steps-name-slot output {display:block;margin-top:12px;font-size:22px}
-.first-steps .letter .first-steps-name-slot .quiet {font-size:13px;margin-top:8px}
-.first-steps-question-review {margin-block:16px}
-.first-steps-question-review>.text-link {font-size:14px}
-.first-steps-review-examples {list-style:none;padding:0;margin:12px 0 18px;display:grid;gap:18px}
-.first-steps-review-examples>li {padding:14px 16px;border:1px solid var(--wp-border-subtle);border-radius:8px}
+.first-steps .first-steps-name-slot .quiet {font-size:13px;margin:8px 0 0}
+.first-steps-review-examples {list-style:none;padding:16px 0 0;margin:20px 0 0;display:grid;gap:18px;border-top:1px solid var(--wp-border-subtle)}
+.first-steps-review-examples>li {padding-bottom:16px;border-bottom:1px solid var(--wp-border-subtle)}
+.first-steps-review-examples>li:last-child {padding-bottom:0;border:0}
 .first-steps-review-examples strong {font-size:23px;font-weight:500}
-.first-steps .letter .first-steps-review-examples>li>p {font-size:14px;margin:6px 0;line-height:1.6}
-.first-steps-review-word {display:flex;align-items:center;gap:12px}
+.first-steps .first-steps-review-examples>li>p {font-size:14px;margin:6px 0;line-height:1.6}
+.first-steps-review-word {display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px}
 .first-steps-version-note {font-size:13px;line-height:1.6;color:var(--wp-text-secondary);margin-block:18px}
 .first-steps-version-note a {text-underline-offset:3px}
-.first-steps-question-count { margin-top:26px; color:var(--wp-text-secondary); font-size:13px; }
-.first-steps-reward { margin-top:24px; padding:18px 22px; border-radius:14px; background:#f5ebcb; color:#263b33; }
-.first-steps-reward strong { font-size:21px; }
-.first-steps-reward p:last-child { margin-bottom:0; }
-.first-steps-error { margin-top:24px; padding:18px 22px; border:1px solid #bd7865; border-radius:12px; }
-.first-steps-review { margin-top:24px; }
-.first-steps-review summary { padding-block:12px; font-weight:500; cursor:pointer; }
-.first-steps-review-list { list-style:none; margin:0; padding:0; }
-.first-steps-review-list li { padding:20px 0; border-top:1px solid var(--wp-border-subtle); }
-.first-steps-review-list strong[lang=ru] { display:block; color:var(--wp-accent-learning); font-size:25px; font-weight:500; }
-.first-steps-review-list p { margin-top:6px; }
-.first-steps-empty { padding-block:40px; }
-.first-steps-practice { margin-top:40px; padding-top:28px; border-top:1px solid var(--wp-border-subtle); }
-.first-steps-practice h2 { margin-bottom:12px; }
-.first-steps-practice>p { color:var(--wp-text-secondary); }
-@media(hover:hover) { a.first-steps-row:hover h2 { text-decoration:underline; text-underline-offset:5px; } }
+.first-steps-resolution {margin:0 0 16px;font-size:19px;line-height:1.6}
+.first-steps-reward {margin:0;color:var(--wp-accent-learning)}
+.first-steps-reward p {margin:8px 0}
+.first-steps-reward strong {font-size:21px;font-weight:500}
+.first-steps-error {margin-top:24px;padding:18px 22px;border:1px solid #bd7865;border-radius:12px}
+.first-steps-review {margin-top:16px;border-top:1px solid var(--wp-border-subtle)}
+.first-steps-review summary {padding:12px 0;font-size:15px;cursor:pointer}
+.first-steps-review-list {list-style:none;margin:0;padding:0}
+.first-steps-review-list li {padding:12px 0;border-top:1px solid var(--wp-border-subtle)}
+.first-steps-review-list strong[lang=ru] {display:block;color:var(--wp-accent-learning);font-size:23px;font-weight:500}
+.first-steps-review-list p {margin:4px 0 0;font-size:15px;color:var(--wp-text-secondary)}
+.first-steps-empty {padding-block:40px}
+.first-steps-practice {display:flex;align-items:center;flex-wrap:wrap;gap:8px 24px;margin-top:20px;padding:12px 0 0;border-top:1px solid var(--wp-border-subtle)}
+.first-steps-practice h2 {margin:0;font:500 16px/1.4 var(--wp-font-reading);color:var(--wp-text-secondary)}
+.first-steps-practice .action-row {margin:0;gap:8px 24px}
+.first-steps-practice .text-link {font-size:15px}
+.first-steps-practice .first-steps-error {flex-basis:100%}
+@media(hover:hover) {a.first-steps-row:hover h2 {text-decoration:underline;text-underline-offset:5px}}
 @media(max-width:600px) {
-  .first-steps-header { grid-template-columns:minmax(0,1fr); gap:20px; }
-  .first-steps-header>.first-steps-art { display:none; }
-  .first-steps-row { grid-template-columns:34px minmax(0,1fr); gap:14px; padding:24px 4px; }
-  .first-steps-status { grid-column:2; }
-  .first-steps-card-head { gap:16px; flex-wrap:wrap; }
-  .first-steps .letter .first-steps-word { font-size:clamp(28px,7vw,36px); }
-  .first-steps-teaching .first-steps-art { flex-basis:70px; width:70px; height:70px; }
-  .first-steps .word { flex-basis:100%; }
+  .first-steps-header {grid-template-columns:minmax(0,1fr);gap:20px}
+  .first-steps-header>.first-steps-art {display:none}
+  .first-steps-row {grid-template-columns:34px minmax(0,1fr);gap:14px;padding:24px 4px}
+  .first-steps-status {grid-column:2}
+  .first-steps-teaching-main {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 16px}
+  .first-steps-word-block {display:contents}
+  .first-steps-pronunciation {grid-column:1}
+  .first-steps-teaching-main>.first-steps-art {grid-column:2;grid-row:1;align-self:start;margin-top:8px}
+  .first-steps-teaching-main .first-steps-meaning,.first-steps-teaching-main .first-steps-explanation {grid-column:1/-1;margin:0}
+  .first-steps-teaching .first-steps-art,.first-steps-question-context .first-steps-art {width:64px;height:64px}
+  .first-steps .first-steps-word {font-size:clamp(28px,7vw,36px)}
+  .first-steps .first-steps-word.is-phrase {font-size:24px}
+  .first-steps .first-steps-meaning {font-size:20px}
+  .first-steps-examples {grid-template-columns:minmax(0,1fr)}
+  .first-steps .word {flex-basis:100%}
   .first-steps-choice {flex-basis:100%}
 }

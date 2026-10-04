@@ -2,10 +2,10 @@
 .tutorial-progress-barsik { width:92px; height:68px; object-fit:contain; margin-top:6px; }
 .tutorial-progress-introduction h2 { margin-top:0; }
 .tutorial-reading-passage { white-space:pre-line; margin:0 0 24px; font-size:clamp(23px,3vw,32px); line-height:1.6; }
-.tutorial-reward { margin:24px 0 0; padding:18px 20px; border-radius:14px; background:#f5ebcb; color:#263b33; }
-.tutorial-reward p { color:inherit; }
+.tutorial-reward { margin:16px 0 0; color:var(--wp-accent-learning); }
+.tutorial-reward p { margin:8px 0; color:inherit; }
 .tutorial-reward p:last-child { margin-bottom:0; }
-.tutorial-reward strong { font-size:20px; }
+.tutorial-reward strong { font-size:21px; font-weight:500; }
 .tutorial-save-error { margin-top:24px; padding:18px 20px; border:1px solid #bd7865; border-radius:14px; }
 .tutorial-answer-review { margin:0; padding-left:24px; }
 .tutorial-answer-review li { padding:10px 0; }
@@ -18,13 +18,7 @@
 .tutorial-word-card .cta { margin-top:14px; }
 
 /* Keep introduction slides steady; let the exercises fit their content. */
-.page.lesson-player.first-delivery { max-width:1180px; min-height:0; margin-inline:auto; padding:20px 32px 32px; }
-.first-delivery .lesson-player-nav { border:0; margin-bottom:12px; padding:0; }
-.first-delivery-stage { display:grid; gap:20px; padding:24px 28px; border:1px solid var(--wp-border-subtle); border-radius:12px; background:var(--wp-surface-sheet); }
 .first-delivery-stage.is-explainer { grid-template-rows:auto 1fr auto; min-height:460px; }
-.first-delivery-heading { display:flex; flex-direction:column; gap:6px; }
-.first-delivery-heading h1 { margin:0; font:500 clamp(26px,2.6vw,34px)/1.35 var(--wp-font-display); letter-spacing:-1px; text-wrap:initial; }
-.first-delivery-heading .lesson-counter { margin:0; min-height:21px; font-size:13px; color:var(--wp-text-secondary); }
 .first-delivery-content { min-width:0; }
 .first-delivery-content p { max-width:64ch; }
 .first-delivery .onboarding-intro-copy { margin:0 0 20px; font-size:19px; line-height:1.5; color:var(--wp-text-secondary); }
@@ -70,9 +64,6 @@
   .first-delivery .tutorial-progress-introduction h2 { font-size:20px; }
   .first-delivery .tutorial-progress-introduction p { grid-column:1/-1; margin:0; font-size:17px; }
   .first-delivery-content.is-progress-introduction { gap:20px; padding-block:4px; }
-  .page.lesson-player.first-delivery { padding:12px 16px 24px; }
-  .first-delivery .lesson-player-nav { margin-bottom:12px; }
-  .first-delivery-stage { padding:20px 18px; gap:16px; }
   .first-delivery-stage.is-explainer { min-height:580px; }
   .first-delivery .onboarding-intro-copy { margin-bottom:16px; font-size:17px; }
   .first-delivery .is-explainer .first-delivery-actions { grid-template-columns:minmax(0,1fr); grid-template-rows:58px minmax(48px,auto); min-height:114px; }
@@ -107,20 +98,11 @@
 }
 
 /* Optional reading help and return navigation sit at the edge of the word card. */
-.first-delivery-heading.has-reading-help {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 20px;align-items:start}
-.first-delivery-heading.has-reading-help h1,.first-delivery-heading.has-reading-help .lesson-counter {grid-column:1}
-.first-delivery-heading .tutorial-reading-help {grid-column:2;grid-row:1 / span 2;max-width:min(260px,38vw);margin:0;font-size:14px;color:var(--wp-text-secondary)}
-.first-delivery-heading .tutorial-reading-help summary {min-height:40px;padding:8px 0;text-align:right;cursor:pointer}
-.first-delivery-heading .tutorial-reading-help p {margin:8px 0 0;line-height:1.6}
 .tutorial-pronunciation {display:flex;align-items:center;flex-wrap:wrap;gap:8px 18px}
 .first-delivery .tutorial-word-context {margin:14px 0 4px}
 .first-delivery .is-word-practice .first-delivery-actions {align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:12px}
 .first-delivery-actions .first-delivery-return {margin-left:auto;text-align:right}
 @media(max-width:600px) {
-  .first-delivery-heading.has-reading-help {gap:6px 12px}
-  .first-delivery-heading.has-reading-help h1 {grid-column:1/-1}
-  .first-delivery-heading.has-reading-help .lesson-counter {align-self:center}
-  .first-delivery-heading .tutorial-reading-help {grid-row:2;max-width:42vw}
   .first-delivery .is-word-practice .first-delivery-actions {row-gap:12px}
   .first-delivery-actions .first-delivery-return {font-size:14px}
 }

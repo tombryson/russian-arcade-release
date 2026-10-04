@@ -117,6 +117,25 @@ pipeline. They do not justify direct inserts that skip enrichment, mnemonics or
 normal validation. English meanings describe the example context; they are not
 proposed as one permanent translation per lemma.
 
+## Lesson presentation
+
+All five lessons use `IntroLessonCard` for teaching, questions, feedback and
+completion. The title, counter and actions keep the same spacing. Reading help
+sits at the top right and starts closed for each teaching card. Normal and slow
+playback stay beside the Russian word or phrase.
+
+Translated examples sit together below the explanation. Longer dialogues wrap;
+noun comparisons can use columns on wider screens. Illustrations appear only
+when the content defines one. The name exercise remains local and ungraded.
+
+Questions put hints and example review in one action row. Opening examples still
+records support before displaying them. Listening transcripts stay hidden until
+the backend permits them. Audio controls never submit an answer.
+
+Completion keeps the next lesson as the main action. Rewards and optional word
+review remain inside the same card; further practice is a small row below it.
+The site footer is omitted while a lesson is open.
+
 ## Evidence and limits
 
 The questions check recognition, understanding and supported selection. They do
@@ -141,7 +160,7 @@ All 21 recordings are packaged with the application. They were generated from
 291 authored Russian characters using `gpt-4o-mini-tts`, with variation between
 the `marin` and `cedar` voices. ElevenLabs lacked sufficient capacity for this
 set; its application configuration remains unchanged. These are AI-generated
-voices, identified as such in the player. See the
+voices; their provenance is recorded in the audio manifest. See the
 [speech API reference](https://developers.openai.com/api/docs/guides/text-to-speech).
 
 `scripts/prepare_first_steps_audio.py --provider openai --dry-run` verifies the

@@ -12,8 +12,8 @@ const summaries:FirstStepsSummary[]=[
   {id:'ownership',position:5,title:'Say what is yours',description:'Choose мой, моя or моё for familiar words.',status:'locked',href:'#first-steps/ownership'},
 ];
 const cards:FirstStepsTeaching[]=[
-  {id:'bag-word',title:'Barsik’s bag',word:'сумка',meaning:'a bag',explanation:'Barsik keeps the letter in his bag.',example:'Это сумка.',translation:'This is a bag.',visual:'bag'},
-  {id:'letter-word',title:'Your letter',word:'письмо',meaning:'a letter',explanation:'The letter is for you.',visual:'envelope'},
+  {id:'bag-word',title:'Barsik’s bag',word:'сумка',meaning:'a bag',explanation:'Barsik keeps the letter in his bag.',example:'Это сумка.',translation:'This is a bag.',visual:'bag',reading_help:'Су́мка has two syllables.'},
+  {id:'letter-word',title:'Your letter',word:'письмо',meaning:'a letter',explanation:'The letter is for you.',visual:'envelope',reading_help:'The stress in письмо́ is on the final syllable.'},
 ];
 const questions=[
   {id:'bag-q',prompt:'Which word means a bag?',choices:[{id:'bag',text:'сумка'},{id:'letter',text:'письмо'}]},
@@ -123,6 +123,18 @@ describe('First steps lesson player',()=>{
     await waitFor(()=>expect(view.container.querySelector('audio')!.playbackRate).toBe(.75));
     expect(api.posts()).toHaveLength(0);
   });
+  it('starts optional reading help closed for each new teaching card',async()=>{
+    const api=server(lesson({attempt:attempt()}));render(<FirstSteps lessonId="bag"/>);
+    const summary=await screen.findByText('Read this word');
+    expect(summary.closest('details')!.open).toBe(false);
+    fireEvent.click(summary);
+    expect(summary.closest('details')!.open).toBe(true);
+    expect(api.posts()).toHaveLength(0);
+    await click('Continue');await screen.findByRole('heading',{name:cards[1].title});
+    expect(screen.getByText(cards[1].reading_help!)).toBeTruthy();
+    expect(screen.getByText('Read this word').closest('details')!.open).toBe(false);
+    expect(screen.queryByText(cards[0].reading_help!)).toBeNull();
+  });
   it('lets learners try their own name locally without grading or saving it',async()=>{
     const teaching={...cards[0],word:'Меня зовут…',meaning:'My name is…',name_slot:true};
     const api=server(lesson({attempt:attempt({teaching})}));render(<FirstSteps lessonId="introductions"/>);
@@ -139,6 +151,10 @@ describe('First steps lesson player',()=>{
     expect(review.getAttribute('aria-expanded')).toBe('false');expect(screen.queryByText('Barsik keeps the letter in his bag.')).toBeNull();
     await click('Review examples');await screen.findByText('Barsik keeps the letter in his bag.');
     expect(review.getAttribute('aria-expanded')).toBe('true');
+    expect(screen.getByText('a bag').getAttribute('lang')).toBe('en');
+    expect(screen.getByText('Это сумка.').getAttribute('lang')).toBe('ru');
+    expect(screen.getByText('This is a bag.').getAttribute('lang')).toBe('en');
+    expect(screen.queryByText('Сумка means a bag.')).toBeNull();
     const writes=api.posts();expect(writes).toHaveLength(1);
     expect(writes[0][0]).toBe(root+'/bag/review?version=first-steps-v2');expect(JSON.parse(String(writes[0][1]?.body))).toEqual({question_id:'bag-q'});
     await click('Review examples');expect(screen.queryByText('Barsik keeps the letter in his bag.')).toBeNull();
@@ -148,12 +164,25 @@ describe('First steps lesson player',()=>{
     expect(screen.queryByText('Barsik keeps the letter in his bag.')).toBeNull();
     expect(screen.getByRole('button',{name:'Review examples'}).getAttribute('aria-expanded')).toBe('false');
   });
-  it('labels English classification answers correctly while keeping question recordings neutral',async()=>{
-    const question={...questions[0],audio_url:'/static/audio/first-steps-v2/gender-listen.mp3',choices_language:'en' as const,choices:[{id:'bag',text:'Feminine'},{id:'letter',text:'Neuter'}]};
-    server(lesson({attempt:attempt({phase:'question',teaching:null,question})}));render(<FirstSteps lessonId="gender"/>);
-    expect((await screen.findByRole('button',{name:'Feminine'})).getAttribute('lang')).toBe('en');
-    expect(screen.getByRole('button',{name:'Listen to the question'})).toBeTruthy();
+  it.each([
+    {lessonId:'bag',language:'ru' as const,choices:questions[0].choices},
+    {lessonId:'gender',language:'en' as const,choices:[{id:'bag',text:'Feminine'},{id:'letter',text:'Neuter'}]},
+  ])('plays question and $language choice recordings without submitting an answer',async({lessonId,language,choices})=>{
+    const play=vi.spyOn(HTMLMediaElement.prototype,'play').mockResolvedValue();
+    vi.spyOn(HTMLMediaElement.prototype,'pause').mockImplementation(()=>{});
+    const question={...questions[0],audio_url:'/static/audio/first-steps-v2/question.mp3',choices_language:language,choices:choices.map(choice=>({...choice,audio_url:`/static/audio/first-steps-v2/${choice.id}.mp3`}))};
+    const api=server(lesson({attempt:attempt({phase:'question',teaching:null,question})}));render(<FirstSteps lessonId={lessonId}/>);
+    expect((await screen.findByRole('button',{name:choices[0].text})).getAttribute('lang')).toBe(language);
+    await click('Listen to the question');await screen.findByRole('button',{name:'Pause the question'});
+    await click('Slow replay of the question');
+    await click(`Listen to ${choices[0].text}`);await screen.findByRole('button',{name:`Pause ${choices[0].text}`});
+    expect(play).toHaveBeenCalledTimes(3);
+    expect(api.posts()).toHaveLength(0);expect(api.state.lesson.attempt?.answers).toEqual([]);
+    expect(screen.getByRole('heading',{name:question.prompt})).toBeTruthy();
     expect(screen.queryByText('Это сумка.')).toBeNull();
+    expect(screen.queryByText('Сумка means a bag.')).toBeNull();
+    await click(choices[0].text);await screen.findByText('That’s right.');
+    expect(api.posts().map(([url,request])=>[url,JSON.parse(String(request?.body))])).toEqual([[`${root}/${lessonId}/answer`,{question_id:question.id,answer:choices[0].id}]]);
   });
   it('keeps old answers readable at their version and offers the revised lesson without restarting',async()=>{
     const saved=done({version:'first-steps-v1',attempt:attempt({version:'first-steps-v1',phase:'completed',teaching:null,question:null,answers:[answer(0)],completed_at:123}),updated_lesson_href:'#first-steps/bag?version=first-steps-v2'});
@@ -227,7 +256,7 @@ describe('First steps lesson player',()=>{
 
   it('does not celebrate a failed completion and retries completion without acknowledging twice',async()=>{
     const api=server(lesson({attempt:attempt({phase:'feedback',teaching:null,question_index:1,question:questions[1],answers:[{...answer(0),acknowledged:true},answer(1)]})}));api.state.failNext='complete';render(<FirstSteps lessonId="bag"/>);
-    await click('Finish lesson');await screen.findByRole('alert');expect(screen.queryByText('+3 Lingocoins')).toBeNull();expect(screen.queryByText('First steps · Lesson complete')).toBeNull();
+    await click('Finish lesson');await screen.findByRole('alert');expect(screen.queryByText('+3 Lingocoins')).toBeNull();expect(screen.queryByText('Lesson complete')).toBeNull();
     await click('Try again');expect(await screen.findByText('+3 Lingocoins')).toBeTruthy();
     expect(screen.getByRole('link',{name:'Next: Introduce yourself'}).getAttribute('href')).toBe('#first-steps/introductions');
     expect(api.posts().filter(([url])=>url.endsWith('/continue'))).toHaveLength(1);expect(api.posts().filter(([url])=>url.endsWith('/complete'))).toHaveLength(2);
@@ -239,6 +268,7 @@ describe('First steps lesson player',()=>{
     expect(screen.getByText('Revisit your words')).toBeTruthy();expect(screen.queryByText('Your saved answers')).toBeNull();
     expect(screen.getByText('сумка',{exact:true}).getAttribute('lang')).toBe('ru');
     expect(screen.getByText('a bag',{exact:true}).getAttribute('lang')).toBe('en');
+    expect(screen.queryByText('Сумка means a bag.')).toBeNull();expect(screen.queryByText('Письмо means a letter.')).toBeNull();
     expect(screen.queryByText('Barsik keeps the letter in his bag.')).toBeNull();expect(screen.queryByRole('button',{name:'Start again'})).toBeNull();expect(api.posts()).toHaveLength(0);
   });
 

@@ -1,7 +1,7 @@
 import { appUrl } from './app-url';
 import {useEffect,useRef,useState} from 'preact/hooks';
-import type {Ref} from 'preact';
-import {Feedback,Sheet} from './components';
+import {Feedback} from './components';
+import {IntroLessonCard} from './IntroLessonCard';
 import {api,ApiError} from './learning-api';
 import {firstStepsEndpoint,firstStepsHref,getFirstSteps,getFirstStepsLesson,saveFirstSteps,type FirstStepsAction,type FirstStepsChapter,type FirstStepsLesson,type FirstStepsSummary,type FirstStepsTeaching} from './first-steps-api';
 import {LessonVisual} from './LessonVisual';
@@ -36,7 +36,7 @@ function PracticeActions({lessonId,chapter=false,version}:{lessonId?:string;chap
     } catch(cause) {if(mounted.current)setError(cause instanceof Error ? cause.message : 'Your practice could not open. Please try again.');}
     finally {pending.current=false;if(mounted.current)setBusy('');}
   }
-  return <div class="first-steps-practice"><h2>Keep these words going</h2><p>{chapter ? 'Revisit your words with flashcards, or use them to write something of your own.' : 'Make flashcards from this lesson to practise these words again.'}</p><div class="action-row">
+  return <div class="first-steps-practice"><h2>More practice</h2><div class="action-row">
     <button class="text-link" disabled={!!busy} onClick={()=>void open('cards')}>{busy==='cards' ? 'Opening flashcards…' : chapter ? 'Make chapter flashcards' : 'Make flashcards'} <span aria-hidden="true">→</span></button>
     {chapter && <button class="text-link" disabled={!!busy} onClick={()=>void open('jumble')}>{busy==='jumble' ? 'Opening practice…' : 'Write with these words'} <span aria-hidden="true">→</span></button>}
     {chapter && <a class="text-link" href="#speaking/scenario/directions">Try a conversation <span aria-hidden="true">→</span></a>}
@@ -88,13 +88,24 @@ function NamePractice() {
   const [name,setName]=useState('');
   return <div class="first-steps-name-slot"><label>Your name<input value={name} maxLength={60} autoComplete="off" onInput={event=>setName(event.currentTarget.value)} placeholder="Type your name"/></label>{name.trim() && <output><span lang="ru">Меня зовут</span> {name.trim()}.</output>}<p class="quiet">Try your name in Russian or your own alphabet. This isn’t graded.</p></div>;
 }
-function TeachingCard({teaching,headingRef}:{teaching:FirstStepsTeaching;headingRef:Ref<HTMLHeadingElement>}) {
-  return <div class="first-steps-teaching"><div class="first-steps-card-head"><div><h1 class="lesson-task-heading" ref={headingRef} tabIndex={-1}>{teaching.title}</h1><p class={`first-steps-word${teaching.word.length>28?' is-phrase':''}`} lang="ru">{teaching.word_display ?? teaching.word}</p><p class="first-steps-meaning" lang="en">{teaching.meaning}</p><LessonAudio key={teaching.id} src={teaching.audio_url} label={teaching.word}/></div><LessonVisual kind={teaching.visual} /></div>
-    <p>{teaching.explanation}</p><TeachingExamples teaching={teaching}/>
-    {teaching.reading_help && <details class="first-steps-reading-help"><summary>Read this word</summary><p>{teaching.reading_help}</p></details>}
+function TeachingCard({teaching}:{teaching:FirstStepsTeaching}) {
+  return <div class="first-steps-teaching">
+    <div class="first-steps-teaching-main">
+      <div class="first-steps-word-block">
+        <div class="first-steps-pronunciation">
+          <p class={`first-steps-word${teaching.word.length>28?' is-phrase':''}`} lang="ru">{teaching.word_display ?? teaching.word}</p>
+          <LessonAudio inline key={teaching.id} src={teaching.audio_url} label={teaching.word}/>
+        </div>
+        <p class="first-steps-meaning" lang="en">{teaching.meaning}</p>
+        <p class="first-steps-explanation">{teaching.explanation}</p>
+      </div>
+      {teaching.visual && <LessonVisual kind={teaching.visual}/>}
+    </div>
+    <TeachingExamples teaching={teaching}/>
     {teaching.name_slot && <NamePractice key={teaching.id}/>}
   </div>;
 }
+
 function FirstStepsPlayer({lessonId,version,profileHref,journeyHref}:{lessonId:string;version?:string;profileHref:string;journeyHref:string}) {
   const [state,setState]=useState<FirstStepsLesson>();
   const [busy,setBusy]=useState(false);
@@ -147,34 +158,63 @@ function FirstStepsPlayer({lessonId,version,profileHref,journeyHref}:{lessonId:s
   }
   function retry(){const request=retryRequest.current;request.action==='load' ? void load() : void save(request.action,request.body);}
   function review(){if(reviewOpen)setReviewQuestion('');else if(question && reviewed.current===question.id)setReviewQuestion(question.id);else if(question)void save('review',{question_id:question.id});}
-  return <section class="page first-steps lesson-player">
+  const learning=attempt?.phase==='learn' && teaching;
+  const completed=attempt?.phase==='completed';
+  const answered=attempt?.phase==='feedback' && feedback;
+  const counter=completed ? 'Lesson complete' : attempt?.phase==='ready' ? undefined
+    : learning ? `Learn · ${attempt!.teaching_index+1} of ${attempt!.total_teaching}`
+    : `Try · ${(attempt?.question_index ?? 0)+1} of ${attempt?.total_questions ?? 0}`;
+  const title=completed ? state!.lesson.title : learning ? learning.title : question?.prompt ?? 'Practice complete';
+
+  return <section class="page first-steps lesson-player intro-lesson-player">
     <div class="lesson-player-nav"><a class="text-link" href={firstStepsHref(currentVersion)}><span aria-hidden="true">← </span>First steps</a>{state && <span class="quiet lesson-name">{state.lesson.title}</span>}</div>
     {state?.updated_lesson_href && <p class="first-steps-version-note">This lesson has been revised for beginners. <a href={state.updated_lesson_href}>Start the revised lesson</a></p>}
     {!attempt && <h1 ref={heading} tabIndex={-1}>{state?.lesson.title ?? 'First steps with Barsik'}</h1>}
     {!attempt && !error && <p role="status" class="first-steps-empty">Opening your lesson…</p>}
-    {state && attempt && (attempt.phase==='completed' ? <>
-      <p class="kicker">First steps · Lesson complete</p><h1 ref={heading} tabIndex={-1}>{state.lesson.title}</h1>
-      <p class="intro">{state.resolution ?? 'You’ve finished this lesson. Ready for the next part?'}</p>
-      <Sheet>
-        {state.reward && state.reward.amount>0 ? <div class="first-steps-reward" role="status"><p><strong>{state.reward.awarded_now && state.reward.status==='credited' ? `+${state.reward.amount} Lingocoins` : `${state.reward.amount} Lingocoins earned`}</strong></p>{state.reward.status==='credited' && <p>{state.reward.awarded_now ? 'Your lesson and coins are saved.' : 'Your lesson and reward are already saved.'}</p>}<ProfileSave profileHref={profileHref} pending={state.reward.status==='pending' ? state.pending_reward : 0}/></div> : <p>Your lesson is complete. No coins were added.</p>}
-        {legacy ? <details class="first-steps-review"><summary>Your saved answers</summary><ol class="first-steps-review-list">{attempt.answers.map(item=><li key={item.question_id}><strong lang={item.choices_language ?? 'ru'}>{item.answer_text}</strong><p>{item.feedback}</p>{item.hint_used && <p class="quiet">You used a hint.</p>}</li>)}</ol></details> : <details class="first-steps-review"><summary>Revisit your words</summary><ul class="first-steps-review-list">{state.teaching_cards.map(item=><li key={item.id}><div class="first-steps-review-word"><strong lang="ru">{item.word_display ?? item.word}</strong><LessonAudio compact src={item.audio_url} label={item.word}/></div><p lang="en">{item.meaning}</p></li>)}</ul></details>}
-      </Sheet>
-      <div class="action-row">{state.next_lesson ? <a class="cta" href={state.next_lesson.href}>{nextLessonLabel(state.next_lesson)} <span aria-hidden="true">→</span></a> : <a class="cta" href={journeyHref}>Start at home <span aria-hidden="true">→</span></a>}<a class="text-link" href={firstStepsHref(currentVersion)}>All five lessons <span aria-hidden="true">→</span></a></div>
-      {state.profile_id && <PracticeActions lessonId={state.lesson.id} chapter={state.chapter_complete} version={currentVersion}/>}
-    </> : <>
-      <Sheet>{attempt.phase!=='ready' && <p class="lesson-counter">{attempt.phase==='learn' ? `Learn · ${attempt.teaching_index+1} of ${attempt.total_teaching}` : `Try · ${attempt.question_index+1} of ${attempt.total_questions}`}</p>}
-        {attempt.phase==='learn' && teaching ? <><TeachingCard teaching={teaching} headingRef={heading}/><button class="cta" disabled={busy} onClick={()=>void save('learn',{teaching_id:teaching.id})}>{busy ? 'Saving…' : attempt.teaching_index+1===attempt.total_teaching ? 'Try what you’ve learned' : 'Continue'} <span aria-hidden="true">→</span></button></> : question ? <>
-        {question.visual && <LessonVisual kind={question.visual} decorative={false}/>} {question.passage && <p class="first-steps-passage" lang="ru">{question.passage}</p>}<h1 class="lesson-task-heading" ref={heading} tabIndex={-1}>{question.prompt}</h1>
-        <LessonAudio key={question.id} src={question.audio_url} label="the question"/>{question.transcript && <p lang="ru" class="first-steps-transcript">{question.transcript}</p>}
-        {attempt.phase==='feedback' && feedback ? <><p class="answer-label">{feedback.correct ? 'That’s right.' : 'Here’s the answer.'}</p><p class="answer-text" lang={question.choices_language ?? 'ru'}>{feedback.correct_answer}</p><Feedback>{feedback.feedback}</Feedback><button class="cta" disabled={busy} onClick={()=>void save('continue',{question_id:question.id})}>{busy ? 'Saving…' : attempt.question_index+1===attempt.total_questions ? 'Finish lesson' : 'Continue'} <span aria-hidden="true">→</span></button></> : <>
-          <div class="options">{question.choices.map(choice=><div class="first-steps-choice" key={choice.id}><button class="word" lang={question.choices_language ?? 'ru'} disabled={busy} onClick={()=>void save('answer',{question_id:question.id,answer:choice.id})}>{choice.text}</button><LessonAudio compact src={choice.audio_url} label={choice.text}/></div>)}</div>
-          {question.review_available && <div class="first-steps-question-review"><button type="button" class="text-link" aria-expanded={reviewOpen} aria-controls="first-steps-examples" disabled={busy} onClick={review}>Review examples</button>{reviewOpen && <ul id="first-steps-examples" class="first-steps-review-examples">{state.teaching_cards.map(item=><li key={item.id}><strong lang="ru">{item.word_display ?? item.word}</strong><p lang="en">{item.meaning}</p><LessonAudio src={item.audio_url} label={item.word}/><p>{item.explanation}</p><TeachingExamples teaching={item}/></li>)}</ul>}</div>}
-          {question.hint ? <Feedback>{question.hint}</Feedback> : <button class="text-link" disabled={busy} onClick={()=>void save('hint',{question_id:question.id})}>Show a hint</button>}
-          {busy && <p class="quiet" role="status">Saving…</p>}
-        </>}
-      </> : <><h1 class="lesson-task-heading" ref={heading} tabIndex={-1}>Practice complete</h1><p>You’ve finished every question. Let’s see how Barsik is getting on.</p><button class="cta" disabled={busy} onClick={()=>void save('complete')}>{busy ? 'Saving…' : 'Finish lesson'} <span aria-hidden="true">→</span></button></>}
-      </Sheet>
-    </>)}
+    {state && attempt && <>
+      <IntroLessonCard title={title} counter={counter} headingRef={heading}
+        readingHelp={learning ? learning.reading_help : undefined} readingKey={teaching?.id}
+        actions={completed ? <>
+          {state.next_lesson ? <a class="cta" href={state.next_lesson.href}>{nextLessonLabel(state.next_lesson)} <span aria-hidden="true">→</span></a> : <a class="cta" href={journeyHref}>Start at home <span aria-hidden="true">→</span></a>}
+          <a class="text-link intro-lesson-secondary" href={firstStepsHref(currentVersion)}>All five lessons</a>
+        </> : learning ? <button class="cta" disabled={busy} onClick={()=>void save('learn',{teaching_id:learning.id})}>{busy ? 'Saving…' : attempt.teaching_index+1===attempt.total_teaching ? 'Try what you’ve learned' : 'Continue'} <span aria-hidden="true">→</span></button>
+        : question && answered ? <button class="cta" disabled={busy} onClick={()=>void save('continue',{question_id:question.id})}>{busy ? 'Saving…' : attempt.question_index+1===attempt.total_questions ? 'Finish lesson' : 'Continue'} <span aria-hidden="true">→</span></button>
+        : question ? <>
+          {!question.hint && <button class="text-link" disabled={busy} onClick={()=>void save('hint',{question_id:question.id})}>Show a hint</button>}
+          {question.review_available && <button type="button" class="text-link intro-lesson-secondary" aria-expanded={reviewOpen} aria-controls="first-steps-examples" disabled={busy} onClick={review}>Review examples</button>}
+        </> : <button class="cta" disabled={busy} onClick={()=>void save('complete')}>{busy ? 'Saving…' : 'Finish lesson'} <span aria-hidden="true">→</span></button>}>
+        {completed ? <>
+          <p class="first-steps-resolution">{state.resolution ?? 'You’ve finished this lesson. Ready for the next part?'}</p>
+          {state.reward && state.reward.amount>0 ? <div class="first-steps-reward" role="status">
+            <p><strong>{state.reward.awarded_now && state.reward.status==='credited' ? `+${state.reward.amount} Lingocoins` : `${state.reward.amount} Lingocoins earned`}</strong></p>
+            <ProfileSave profileHref={profileHref} pending={state.reward.status==='pending' ? state.pending_reward : 0}/>
+          </div> : <p>Your lesson is complete. No coins were added.</p>}
+          {legacy ? <details class="first-steps-review"><summary>Your saved answers</summary><ol class="first-steps-review-list">{attempt.answers.map(item=><li key={item.question_id}><strong lang={item.choices_language ?? 'ru'}>{item.answer_text}</strong><p>{item.feedback}</p>{item.hint_used && <p class="quiet">You used a hint.</p>}</li>)}</ol></details>
+            : <details class="first-steps-review"><summary>Revisit your words</summary><ul class="first-steps-review-list">{state.teaching_cards.map(item=><li key={item.id}><div class="first-steps-review-word"><strong lang="ru">{item.word_display ?? item.word}</strong><LessonAudio compact src={item.audio_url} label={item.word}/></div><p lang="en">{item.meaning}</p></li>)}</ul></details>}
+        </> : learning ? <TeachingCard teaching={learning}/>
+        : question ? <>
+          {(question.visual || question.passage || question.audio_url || question.transcript) && <div class="first-steps-question-context"><div>
+            {question.passage && <p class="first-steps-passage" lang="ru">{question.passage}</p>}
+            <LessonAudio inline key={question.id} src={question.audio_url} label="the question"/>
+            {question.transcript && <p lang="ru" class="first-steps-transcript">{question.transcript}</p>}
+          </div>{question.visual && <LessonVisual kind={question.visual} decorative={false}/>}</div>}
+          {answered ? <>
+            <p class="answer-label">{answered.correct ? 'That’s right.' : 'Here’s the answer.'}</p>
+            <p class="answer-text" lang={question.choices_language ?? 'ru'}>{answered.correct_answer}</p>
+            <Feedback>{answered.feedback}</Feedback>
+          </> : <>
+            <div class="options">{question.choices.map(choice=><div class="first-steps-choice" key={choice.id}><button class="word" lang={question.choices_language ?? 'ru'} disabled={busy} onClick={()=>void save('answer',{question_id:question.id,answer:choice.id})}>{choice.text}</button><LessonAudio compact src={choice.audio_url} label={choice.text}/></div>)}</div>
+            {question.hint && <Feedback>{question.hint}</Feedback>}
+            {reviewOpen && <ul id="first-steps-examples" class="first-steps-review-examples">{state.teaching_cards.map(item=><li key={item.id}>
+              <div class="first-steps-review-word"><strong lang="ru">{item.word_display ?? item.word}</strong><LessonAudio inline src={item.audio_url} label={item.word}/></div>
+              <p lang="en">{item.meaning}</p><p>{item.explanation}</p><TeachingExamples teaching={item}/>
+            </li>)}</ul>}
+            {busy && <p class="quiet" role="status">Saving…</p>}
+          </>}
+        </> : <p>You’ve finished every question. Let’s see how Barsik is getting on.</p>}
+      </IntroLessonCard>
+      {completed && state.profile_id && <PracticeActions lessonId={state.lesson.id} chapter={state.chapter_complete} version={currentVersion}/>}
+    </>}
     {state?.previous_lesson && <p class="first-steps-version-note"><a href={state.previous_lesson.href}>{state.previous_lesson.title}</a></p>}
     {error && (locked ? <div class="first-steps-error" role="alert"><p>{error}</p><a class="text-link" href={firstStepsHref(currentVersion)}>See your next lesson <span aria-hidden="true">→</span></a></div> : <RetryNotice message={error} onRetry={retry} busy={busy}/>)}
   </section>;
