@@ -125,7 +125,6 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
         </> : step === 'alphabet' ? <div class="tutorial-alphabet-introduction">
           <div class="tutorial-alphabet-letters" lang="ru" aria-hidden="true"><span>Аа</span><span>Бб</span><span>Вв</span></div>
           <p class="onboarding-intro-copy">New to Russian? Explore the alphabet and hear how each letter sounds.</p>
-          <p>Already know it? Continue to your first words.</p>
         </div> : step === 'words' ? <>
           {question ? learning ? <div class="tutorial-word-card">
             <p class="tutorial-new-word" lang="ru">{learning.word_display ?? learning.word}</p>
