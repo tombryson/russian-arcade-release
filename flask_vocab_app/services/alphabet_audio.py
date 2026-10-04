@@ -29,6 +29,21 @@ def public_recordings():
                 if path in paths:
                     raise ValueError('Alphabet recording URLs must be unique.')
                 paths.add(path)
+        ipa, sounds = letter.get('soundIpa'), letter.get('soundAudio')
+        if letter['id'] in ('hard-sign', 'soft-sign'):
+            if 'soundIpa' not in letter or 'soundAudio' not in letter or ipa is not None or sounds is not None:
+                raise ValueError('Hard and soft signs have no independent sound recording.')
+            continue
+        if (not isinstance(ipa, str) or not re.fullmatch(r'[a-zɡɨɫʂʐɕɛʲː͡]{1,12}', ipa)
+                or not isinstance(sounds, dict) or set(sounds) != {'female', 'male'}):
+            raise ValueError('Alphabet sounds need IPA and both published voices.')
+        for voice, path in sounds.items():
+            expected = PREFIX + 'sounds/' + voice + '/' + letter['id'] + '-sound.mp3'
+            if path != expected:
+                raise ValueError('Alphabet sounds need an exact packaged recording URL.')
+            paths.add(path)
+    if len(paths) != 194:
+        raise ValueError('The alphabet needs its 194 distinct published recordings.')
     return frozenset(paths)
 
 

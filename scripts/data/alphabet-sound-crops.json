@@ -1,0 +1,633 @@
+{
+  "version": "alphabet-sound-crops-v1",
+  "review": "Explicit boundaries chosen from waveform and spectrogram inspection. Automatic phonetic screening is fallible; no native-listener certification is claimed. Stops repeat three times without stretching. Original name and word recordings remain unchanged.",
+  "processing": {
+    "normalization_dbfs": -20,
+    "max_peak_dbfs": -3,
+    "leading_ms": 60,
+    "trailing_ms": 100,
+    "repeat_gap_ms": 180
+  },
+  "clips": {
+    "female-a": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/a-name.mp3",
+      "source_sha256": "11bd26942991a96d7bd3edd1199412c0bad397b4374be1feb64a60956f28a6ac",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "female-be": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/be-name.mp3",
+      "source_sha256": "de331e08239045efe7f0484ffd5dcb189855587e546377c36793c9ab39503ded",
+      "mode": "crop",
+      "start_ms": 25,
+      "end_ms": 181,
+      "repetitions": 3,
+      "fade_in_ms": 0.5,
+      "fade_out_ms": 0.2
+    },
+    "female-ve": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/ve-name.mp3",
+      "source_sha256": "f6d53f9bfdb91b49f9d9f2a957fa0bea1570991dc532271240edce2ce25add5f",
+      "mode": "crop",
+      "start_ms": 25,
+      "end_ms": 180,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-ge": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/ge-name.mp3",
+      "source_sha256": "f1c183f969ef0602f21fb53c222da1c60d444abb9b3750db9c8ac856262e6fbc",
+      "mode": "crop",
+      "start_ms": 20,
+      "end_ms": 179,
+      "repetitions": 3,
+      "fade_in_ms": 0.5,
+      "fade_out_ms": 0.2
+    },
+    "female-de": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/de-name.mp3",
+      "source_sha256": "eaaed52a136961a05712ee476620974bf8dd5eb430da7599d64b3d56fb043d62",
+      "mode": "crop",
+      "start_ms": 24,
+      "end_ms": 183,
+      "repetitions": 3,
+      "fade_in_ms": 0.5,
+      "fade_out_ms": 0.2
+    },
+    "female-ye": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/ye-name.mp3",
+      "source_sha256": "119fb174437883eaace2b0d1be2b70da4050414c86f22bb0700b187fcb549486",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "female-yo": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/yo-name.mp3",
+      "source_sha256": "478bcd7247a94dbcd8e8112f6ea9e3319ef8176a1606f86ba82706611d088272",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "female-zhe": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/zhe-name.mp3",
+      "source_sha256": "ac883c1e52cbc55df08c7744f9c58b6803e4fd1c1edd00d3f2d84123791a81cf",
+      "mode": "crop",
+      "start_ms": 35,
+      "end_ms": 215,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-ze": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/ze-name.mp3",
+      "source_sha256": "2dcb6f4be4c1bb5cc767119ed6fe6f1fd52f2cc546dc55d338034ca4e3ea9b04",
+      "mode": "crop",
+      "start_ms": 25,
+      "end_ms": 185,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-i": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/i-name.mp3",
+      "source_sha256": "2cadf533d043f6eddb0b5da653225c7c431d5d897a688dac0ff313dd0dcbe0f7",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "female-short-i": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/short-i-word.mp3",
+      "source_sha256": "4e1a4c55c412bec5434a5829d23a0bdde646e73333b9724a19a4d6367cb5940d",
+      "mode": "crop",
+      "start_ms": 22,
+      "end_ms": 120,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-ka": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/ka-name.mp3",
+      "source_sha256": "4e220ef149b76fe596fd1390792321702e02fabc08b725b0dde073dda0230886",
+      "mode": "crop",
+      "start_ms": 40,
+      "end_ms": 105,
+      "repetitions": 3,
+      "fade_in_ms": 0.5,
+      "fade_out_ms": 0.2
+    },
+    "female-el": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/el-word.mp3",
+      "source_sha256": "cd4698d7ef462e919f56dbf96b3b9564812cf52c7615ca6e3b1e6ef1a61d4adc",
+      "mode": "crop",
+      "start_ms": 48,
+      "end_ms": 123,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-em": {
+      "source": "scripts/audio-sources/alphabet/female-em.mp3",
+      "source_sha256": "ee2b60a8cd6504f413a2a08271a7aa037051bd6a0a46fa932abc48e6fded2bab",
+      "mode": "crop",
+      "start_ms": 60,
+      "end_ms": 850,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-en": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/en-name.mp3",
+      "source_sha256": "41c7381a6520ea48674d43f7f686653735b22ca3c4b6ae86efa7703364767603",
+      "mode": "crop",
+      "start_ms": 235,
+      "end_ms": 340,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-o": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/o-name.mp3",
+      "source_sha256": "4c8af4715ab39eba786feac7363afaef6a52091aae70c5bd85a3d8fdad087d2f",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "female-pe": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/pe-name.mp3",
+      "source_sha256": "8d077f03b4c6000aad1229fc8b59328afb3bf17dc1a7cab77e1679a275e5f712",
+      "mode": "crop",
+      "start_ms": 88,
+      "end_ms": 111,
+      "repetitions": 3,
+      "fade_in_ms": 0.5,
+      "fade_out_ms": 0.2
+    },
+    "female-er": {
+      "source": "scripts/audio-sources/alphabet/female-er.mp3",
+      "source_sha256": "d3aacb1fa6d564aa94b58e160c4259c9f903483606b70a90d58ad4b18eeef031",
+      "mode": "crop",
+      "start_ms": 95,
+      "end_ms": 660,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-es": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/es-name.mp3",
+      "source_sha256": "f15dd23351f8d48369997d37695b972ab8b96a18c365c70b31de1e9fd2cddd92",
+      "mode": "crop",
+      "start_ms": 230,
+      "end_ms": 460,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-te": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/te-name.mp3",
+      "source_sha256": "cd20639bea3aac215598c9eda077a2f7577d1025f6e7d5456f503480ed03626c",
+      "mode": "crop",
+      "start_ms": 58,
+      "end_ms": 91,
+      "repetitions": 3,
+      "fade_in_ms": 0.5,
+      "fade_out_ms": 0.2
+    },
+    "female-u": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/u-name.mp3",
+      "source_sha256": "6dd7d7b1930dedff8f73dbeb5e964183977e51a475afd4c8de27d61193246c36",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "female-ef": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/ef-name.mp3",
+      "source_sha256": "51caf980d9ab4a19602e62d3d2c26c9f8bdb8d9dca9a1a25ee41755c93bb0e74",
+      "mode": "crop",
+      "start_ms": 230,
+      "end_ms": 480,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-kha": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/kha-name.mp3",
+      "source_sha256": "53215b9a3684cb5d4d9def58c9034c2a19db0da14dae2f64fbdb05b8d260e141",
+      "mode": "crop",
+      "start_ms": 50,
+      "end_ms": 200,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-tse": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/tse-name.mp3",
+      "source_sha256": "bfbe1c164bf40dcabe403f06a465c34e7e547d2b832a871cdf0a63b771b85571",
+      "mode": "crop",
+      "start_ms": 15,
+      "end_ms": 170,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-che": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/che-name.mp3",
+      "source_sha256": "0f0f2852128be1cea1c575f60cfe1e5da5e5a3e541f0838d46057327e507649b",
+      "mode": "crop",
+      "start_ms": 24,
+      "end_ms": 168,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-sha": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/sha-name.mp3",
+      "source_sha256": "086cec825f636c540dfc51e800ec4a0344f6c648ac94989ffae4b2a96b755141",
+      "mode": "crop",
+      "start_ms": 55,
+      "end_ms": 205,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-shcha": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/shcha-name.mp3",
+      "source_sha256": "ba8375c581ba7ec17de5e30f6f553a75304941e4c66e44fb45a4424b8cd70b83",
+      "mode": "crop",
+      "start_ms": 40,
+      "end_ms": 220,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "female-yery": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/yery-name.mp3",
+      "source_sha256": "4daf42847af6bd16514951ca5dbd415d372e39eec4912f2dfe603c0bd98749d8",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "female-e": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/e-name.mp3",
+      "source_sha256": "cab168da1da86d20fd16e3ba365a1857ff0b8fbf36839a7008d52970036d4d73",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "female-yu": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/yu-name.mp3",
+      "source_sha256": "698e361771acf80227c6c1d8c0d8b313e72b58964d6744753ba39d9ddd89f2df",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "female-ya": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/ya-name.mp3",
+      "source_sha256": "1853968edf12921f44c5e85aaaa84f2f6c2584b1c171b41478a7a4aa0a156dbf",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "male-a": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/a-name.mp3",
+      "source_sha256": "a8cff052d751d2981f6187a8e5b41fc1d46344df11c7f3e0143e2944f091d9e3",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "male-be": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/be-name.mp3",
+      "source_sha256": "daa84898c086c3ae76107b9617c8ea693ec5595e4a312bd62b6610cf0c81d59b",
+      "mode": "crop",
+      "start_ms": 25,
+      "end_ms": 163,
+      "repetitions": 3,
+      "fade_in_ms": 0.5,
+      "fade_out_ms": 0.2
+    },
+    "male-ve": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/ve-name.mp3",
+      "source_sha256": "6db66d0a17d57b33e7a742157f33492a06955504b0d3b843e95a59de34de3210",
+      "mode": "crop",
+      "start_ms": 35,
+      "end_ms": 190,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-ge": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/ge-name.mp3",
+      "source_sha256": "18401ee41722ebc924cd92f98dfd773cef9ea0493b691961e6bad0336ebe49a2",
+      "mode": "crop",
+      "start_ms": 15,
+      "end_ms": 146,
+      "repetitions": 3,
+      "fade_in_ms": 0.5,
+      "fade_out_ms": 0.2
+    },
+    "male-de": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/de-name.mp3",
+      "source_sha256": "2bda599e0858a62dbd9992f88ebb04b088d75799d353aeef037128b7833b74dc",
+      "mode": "crop",
+      "start_ms": 15,
+      "end_ms": 168,
+      "repetitions": 3,
+      "fade_in_ms": 0.5,
+      "fade_out_ms": 0.2
+    },
+    "male-ye": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/ye-name.mp3",
+      "source_sha256": "16c2ec81bd6dcafa9a4e3dedc5aec65e1ca6d931869804a368cfea5e597b2020",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "male-yo": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/yo-name.mp3",
+      "source_sha256": "9880b446e7c13058051bfb5a924102354c00f1841ed40789b3d7a1b0545db1fb",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "male-zhe": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/zhe-name.mp3",
+      "source_sha256": "4fce76df467ac3b3b964dd5f96350ffbd55b87fca693ae59d372ca3b8ebf1ac1",
+      "mode": "crop",
+      "start_ms": 30,
+      "end_ms": 200,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-ze": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/ze-name.mp3",
+      "source_sha256": "38462378c90235b6b69d6de3fa36a667c93136ab189478f293773efcce799010",
+      "mode": "crop",
+      "start_ms": 25,
+      "end_ms": 180,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-i": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/i-name.mp3",
+      "source_sha256": "86aaf875b279d162a3a058fe65d2aa6a71003039b2ba08c859d64b0dc14938a8",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "male-short-i": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/short-i-word.mp3",
+      "source_sha256": "114320ea78bb59b93b0403ca47d37f6354be2d47b0ecc2d460061dc93056b2f6",
+      "mode": "crop",
+      "start_ms": 20,
+      "end_ms": 108,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-ka": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/ka-name.mp3",
+      "source_sha256": "293d27ebff948592080d44439d7b27ab36d947bbe25c73daa6078b989f94c2ab",
+      "mode": "crop",
+      "start_ms": 21,
+      "end_ms": 70,
+      "repetitions": 3,
+      "fade_in_ms": 0.5,
+      "fade_out_ms": 0.2
+    },
+    "male-el": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/el-word.mp3",
+      "source_sha256": "76ed161f14a1ecfccae864f4265c4919e250014732ccbf39aad31eacb8e191e2",
+      "mode": "crop",
+      "start_ms": 45,
+      "end_ms": 118,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-em": {
+      "source": "scripts/audio-sources/alphabet/male-em.mp3",
+      "source_sha256": "21ad638d196e668209b3fcb9fd017e9f852282ea9a6a4d41cac13acce9c5fcd4",
+      "mode": "crop",
+      "start_ms": 40,
+      "end_ms": 850,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-en": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/en-name.mp3",
+      "source_sha256": "8ce549981be87e7ca8378397c85746ed1ab9b18b7568d8489891327bee1a6c87",
+      "mode": "crop",
+      "start_ms": 240,
+      "end_ms": 360,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-o": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/o-name.mp3",
+      "source_sha256": "94c4581f8e13e48d4f257bc31d37097dc81b8841e854758872bd325fbffa9b6d",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "male-pe": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/pe-name.mp3",
+      "source_sha256": "34fb6ff1ae03df00bfe6615fd4c159d0ab25cf484fbfb1594b929785b0ad3769",
+      "mode": "crop",
+      "start_ms": 83,
+      "end_ms": 97,
+      "repetitions": 3,
+      "fade_in_ms": 0.5,
+      "fade_out_ms": 0.2
+    },
+    "male-er": {
+      "source": "scripts/audio-sources/alphabet/male-er.mp3",
+      "source_sha256": "f52a3a3f24c391abeb8b69abbec4c52eb8bbbf507c5fbea84acbd3a87a422217",
+      "mode": "crop",
+      "start_ms": 30,
+      "end_ms": 680,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-es": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/es-name.mp3",
+      "source_sha256": "00ba9ee800c0627e7d19d73c2dca6fe86d6d2259135e07e0b0a5c129c5ae65e1",
+      "mode": "crop",
+      "start_ms": 230,
+      "end_ms": 460,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-te": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/te-name.mp3",
+      "source_sha256": "08e81d17562b33fac319fd31aec5e6a86ac41682f07fb188b2825d0621405e8c",
+      "mode": "crop",
+      "start_ms": 65,
+      "end_ms": 94,
+      "repetitions": 3,
+      "fade_in_ms": 0.5,
+      "fade_out_ms": 0.2
+    },
+    "male-u": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/u-name.mp3",
+      "source_sha256": "84a202e27188b9be4ff78288c85e7ab75c4396effbf629cc2d9e446669b4adae",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "male-ef": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/ef-name.mp3",
+      "source_sha256": "7705f18ef290cb3ae0788c02b47f7361ac600b6ff1038fe57800e44751514035",
+      "mode": "crop",
+      "start_ms": 230,
+      "end_ms": 510,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-kha": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/kha-name.mp3",
+      "source_sha256": "4e0bdd16ed79519076a5c8c921e06580d6a64d567ab5549208692072dc2b5d8c",
+      "mode": "crop",
+      "start_ms": 45,
+      "end_ms": 190,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-tse": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/tse-name.mp3",
+      "source_sha256": "4946ff5090a1bab40acd848092c1fa86e2d1147c8bc873b074944834f63a4a61",
+      "mode": "crop",
+      "start_ms": 20,
+      "end_ms": 160,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-che": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/che-name.mp3",
+      "source_sha256": "a2631375e9d4d4498f938f870e2727afd50404c0e177271e4fb75c3bd5a91411",
+      "mode": "crop",
+      "start_ms": 20,
+      "end_ms": 140,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-sha": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/sha-name.mp3",
+      "source_sha256": "c88f4246699b73bd395c7f84937cff34c263f086405c2de584aee182d24f4c2f",
+      "mode": "crop",
+      "start_ms": 65,
+      "end_ms": 185,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-shcha": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/shcha-name.mp3",
+      "source_sha256": "98e37a10ac4154cdc19543b68d0a8e2146a82ac774fcbbac13b91c259b0ab95f",
+      "mode": "crop",
+      "start_ms": 45,
+      "end_ms": 198,
+      "repetitions": 1,
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
+    },
+    "male-yery": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/yery-name.mp3",
+      "source_sha256": "8f5aa1eedb82143a7cb718529cc47a1908f2ea1810251f34716f1c32884b68ec",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "male-e": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/e-name.mp3",
+      "source_sha256": "b23278d1e46120903e8f3b993bee30dd80d2d92b4336be2c153041fee32670f0",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "male-yu": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/yu-name.mp3",
+      "source_sha256": "233156900021d6a64d10c887e7b538ab3dd5b994ff712a57d4222ef01264775c",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    },
+    "male-ya": {
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/ya-name.mp3",
+      "source_sha256": "86d2c868569ae2c7b2f522fd32c89acd3b034bc7e1ddee3099637c785e1212b5",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
+      "repetitions": 1,
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
+    }
+  }
+}

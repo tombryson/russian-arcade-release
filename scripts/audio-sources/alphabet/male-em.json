@@ -1,0 +1,14 @@
+{
+  "payload": {
+    "text": "мммм",
+    "model_id": "eleven_v4",
+    "language_code": "ru",
+    "voice_settings": {
+      "stability": 0.8,
+      "similarity_boost": 0.85
+    }
+  },
+  "voice_id": "sRk0zCqhS2Cmv0bzx5wA",
+  "duration_ms": 1280,
+  "sha256": "21ad638d196e668209b3fcb9fd017e9f852282ea9a6a4d41cac13acce9c5fcd4"
+}

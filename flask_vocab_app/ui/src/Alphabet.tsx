@@ -8,9 +8,10 @@ type Voice = 'female' | 'male';
 type Letter = {
   id: string; upper: string; lower: string; name: string; nameAudio: Record<Voice, string>;
   example: string; exampleMeaning: string; exampleAudio: Record<Voice, string>;
+  soundIpa: string | null; soundAudio: Record<Voice, string> | null;
   kind: 'vowel' | 'consonant' | 'sign'; note: string;
 };
-type Clip = 'name' | 'word';
+type Clip = 'sound' | 'name' | 'word';
 const letters = alphabetData as Letter[];
 const labels = {vowel: 'Vowel', consonant: 'Consonant', sign: 'Sign'};
 const voicePreference = 'word-post-alphabet-voice';
@@ -68,6 +69,8 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     stopAudio();
     setSelectedId(letter.id);
     setError('');
+    const recordings = clip === 'sound' ? letter.soundAudio : clip === 'name' ? letter.nameAudio : letter.exampleAudio;
+    if (!recordings) return;
     const audio = player.current;
     if (!audio) return;
     const current = attempt.current;
@@ -81,7 +84,7 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     };
     audio.onended = () => { if (attempt.current === current) stopAudio(); };
     audio.onerror = fail;
-    audio.src = appUrl((clip === 'name' ? letter.nameAudio : letter.exampleAudio)[voice]);
+    audio.src = appUrl(recordings[voice]);
     try {
       await audio.play();
     } catch { fail(); }
@@ -114,6 +117,7 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
   }
 
   const namePlaying = playing === `${selected.id}:name`;
+  const soundPlaying = playing === `${selected.id}:sound`;
   const wordPlaying = playing === `${selected.id}:word`;
   return <section class="page alphabet-page" aria-labelledby="alphabet-heading">
     <a class="text-link alphabet-back" href={returnHref}><span aria-hidden="true">← </span>{returnLabel}</a>
@@ -127,7 +131,7 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
       </fieldset>
     </header>
     <div class="alphabet-toolbar">
-      <p class="alphabet-instruction">Click a letter or example word to listen.</p>
+      <p class="alphabet-instruction">Click a letter to hear its sound. Try the example word too.</p>
       <ul class="alphabet-legend" aria-label="Letter types">{(['vowel', 'consonant', 'sign'] as const).map(kind =>
         <li class={`alphabet-kind-${kind}`} key={kind}><span aria-hidden="true"/>{labels[kind]}s</li>)}</ul>
     </div>
@@ -136,13 +140,13 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
         <p id="alphabet-keyboard-help" class="alphabet-sr-only">Use the arrow keys to choose a letter, then press Enter or Space to listen.</p>
         <ol ref={grid} class="alphabet-grid" aria-label="Russian letters" aria-describedby="alphabet-keyboard-help">
           {letters.map((letter, index) => <li key={letter.id}>
-            <button type="button" class={`alphabet-letter alphabet-kind-${letter.kind}${selected.id === letter.id ? ' is-selected' : ''}${playing === `${letter.id}:name` ? ' is-playing' : ''}`}
-              aria-label={`Listen to ${letter.upper} ${letter.lower} (${letter.name}), ${labels[letter.kind].toLowerCase()}`}
+            <button type="button" class={`alphabet-letter alphabet-kind-${letter.kind}${selected.id === letter.id ? ' is-selected' : ''}${playing === `${letter.id}:sound` ? ' is-playing' : ''}`}
+              aria-label={letter.soundAudio ? `Listen to ${letter.upper} ${letter.lower} sound, ${labels[letter.kind].toLowerCase()}` : `Explore ${letter.upper} ${letter.lower}, sign`}
               aria-pressed={selected.id === letter.id} aria-controls="alphabet-detail" tabIndex={selected.id === letter.id ? 0 : -1}
-              onClick={() => void play(letter, 'name')}
+              onClick={() => void play(letter, 'sound')}
               onKeyDown={event => move(event, index)}>
               <span class="alphabet-letter-pair" lang="ru"><span>{letter.upper}</span><span>{letter.lower}</span></span>
-              <span class="alphabet-letter-indicator" aria-hidden="true">{playing === `${letter.id}:name` ? '♪' : ''}</span>
+              <span class="alphabet-letter-indicator" aria-hidden="true">{playing === `${letter.id}:sound` ? '♪' : ''}</span>
             </button>
           </li>)}
         </ol>
@@ -150,15 +154,20 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
       </div>
       <aside id="alphabet-detail" class={`alphabet-detail alphabet-kind-${selected.kind}`} aria-label={`About ${selected.upper} ${selected.lower}`}>
         <div class="alphabet-detail-meta"><span>Letter {String(position + 1).padStart(2, '0')} / 33</span><span class="alphabet-kind-label">{labels[selected.kind]}</span></div>
-        <h2 class="alphabet-detail-pair" lang="ru"><span>{selected.upper}</span><span>{selected.lower}</span></h2>
-        <button type="button" class="alphabet-name-play" onClick={() => playOrStop('name')} aria-label={`${namePlaying ? 'Stop' : 'Listen to'} letter name: ${selected.name}`}>
-          <span><span class="alphabet-detail-label">Letter name</span><strong lang="ru">{selected.name}</strong></span><span class="alphabet-play-icon"><Speaker playing={namePlaying}/></span>
-        </button>
+        <h2 class="alphabet-detail-pair" lang="ru">{selected.soundAudio
+          ? <button type="button" class="alphabet-sound-play" onClick={() => playOrStop('sound')} aria-label={`${soundPlaying ? 'Stop' : 'Listen to'} sound: ${selected.upper}`}>
+            <span>{selected.upper}</span><span>{selected.lower}</span><span class="alphabet-play-icon"><Speaker playing={soundPlaying}/></span>
+          </button>
+          : <><span>{selected.upper}</span><span>{selected.lower}</span></>}</h2>
+        <p class="alphabet-sound-caption">{!selected.soundAudio ? 'No sound of its own.' : 'ЕЁЮЯ'.includes(selected.upper) ? 'Sound at the start of a word' : 'Letter sound'}</p>
         <button type="button" class={`alphabet-example${wordPlaying ? ' is-playing' : ''}`} onClick={() => playOrStop('word')} aria-label={`${wordPlaying ? 'Stop' : 'Listen to'} word: ${selected.example} (${selected.exampleMeaning})`}>
           <span class="alphabet-detail-label">In a word</span><span class="alphabet-example-row"><strong lang="ru"><ExampleWord letter={selected}/></strong><span class="alphabet-play-icon"><Speaker playing={wordPlaying}/></span></span>
           <span class="alphabet-example-meaning">{selected.exampleMeaning}</span>
         </button>
         <p class="alphabet-note">{selected.note}</p>
+        <button type="button" class="alphabet-name-play" onClick={() => playOrStop('name')} aria-label={`${namePlaying ? 'Stop' : 'Listen to'} letter name: ${selected.name}`}>
+          <span>Letter name: <strong lang="ru">{selected.name}</strong></span><Speaker playing={namePlaying}/>
+        </button>
       </aside>
     </div>
     {error && <p class="alphabet-error" role="status">{error}</p>}

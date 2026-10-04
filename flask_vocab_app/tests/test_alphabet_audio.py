@@ -26,9 +26,10 @@ class AlphabetCatalogueTests(unittest.TestCase):
         rows = {row['upper']: row for row in data}
         self.assertEqual(rows['Й']['name'], 'и кра́ткое')
         self.assertEqual(rows['Й']['kind'], 'consonant')
-        self.assertIn('no exact English equivalent', rows['Ы']['note'])
+        self.assertIn('no exact english equivalent', rows['Ы']['note'].lower())
         for letter in 'ЪЬ':
-            self.assertIn('no sound of its own', rows[letter]['note'])
+            self.assertIsNone(rows[letter]['soundIpa'])
+            self.assertIsNone(rows[letter]['soundAudio'])
         for row in data:
             self.assertIn(row['lower'], row['example'].lower())
             vowels = sum(char in 'аеёиоуыэюя' for char in row['example'])

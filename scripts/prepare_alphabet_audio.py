@@ -60,13 +60,13 @@ def load_clips(path=DATA, *, voice='female'):
         raise ValueError('Choose the female or male recording set.')
     data = json.loads(Path(path).read_text())
     alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
-    fields = {'id', 'upper', 'lower', 'name', 'nameAudio', 'example', 'exampleMeaning', 'exampleAudio', 'kind', 'note'}
+    fields = {'id', 'upper', 'lower', 'name', 'nameAudio', 'example', 'exampleMeaning', 'exampleAudio', 'kind', 'note', 'soundIpa', 'soundAudio'}
     if (not isinstance(data, list) or len(data) != 33
             or ''.join(item.get('upper', '') for item in data) != alphabet):
         raise ValueError('The catalogue must contain all 33 letters in alphabetical order.')
     clips = {}
     for item in data:
-        if (set(item) != fields or not all(isinstance(item[field], str) and item[field] for field in fields - {'nameAudio', 'exampleAudio'})
+        if (set(item) != fields or not all(isinstance(item[field], str) and item[field] for field in fields - {'nameAudio', 'exampleAudio', 'soundIpa', 'soundAudio'})
                 or not re.fullmatch('[a-z][a-z0-9-]*', item['id']) or item['lower'] != item['upper'].lower()
                 or item['kind'] != ('vowel' if item['upper'] in 'АЕЁИОУЫЭЮЯ' else 'sign' if item['upper'] in 'ЪЬ' else 'consonant')):
             raise ValueError('The alphabet catalogue has an invalid letter.')
