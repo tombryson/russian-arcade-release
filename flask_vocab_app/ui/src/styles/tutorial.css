@@ -88,14 +88,14 @@
 
 .first-delivery-content.is-alphabet-introduction { display:flex; flex-direction:column; justify-content:space-evenly; gap:24px; padding-block:8px; }
 .first-delivery .is-alphabet-introduction .onboarding-intro-copy { margin:0; }
-.page .tutorial-alphabet-invitation { display:flex; align-items:center; align-self:flex-start; gap:28px; max-width:100%; padding:12px 0; border:0; border-radius:8px; background:transparent; color:var(--wp-text-primary); text-decoration:none; }
+.page .tutorial-alphabet-invitation { display:flex; align-items:center; align-self:flex-start; gap:28px; max-width:100%; box-sizing:border-box; padding:18px 22px; border:2px solid currentColor; border-radius:12px; background:transparent; color:var(--wp-text-primary); text-decoration:none; }
 .tutorial-alphabet-invitation-label { font:600 32px/1.2 'Caveat', cursive; }
-.tutorial-alphabet-letters { display:flex; flex:none; gap:12px; }
+.tutorial-alphabet-letters { display:flex; flex:none; gap:12px; max-width:100%; }
 .tutorial-alphabet-letters span { display:grid; place-items:center; width:76px; height:88px; border-radius:8px; background:var(--wp-surface-ticket); color:var(--wp-text-onTicket); font:500 34px/1 var(--wp-font-reading); }
 .first-delivery-stage.is-alphabet .first-delivery-actions { grid-template-rows:auto; min-height:58px; }
 .page .tutorial-alphabet-invitation:focus-visible { outline:3px solid var(--wp-text-primary); outline-offset:6px; }
 @media(hover:hover) {
-  .page .tutorial-alphabet-invitation:hover .tutorial-alphabet-letters span { box-shadow:0 3px 0 var(--wp-text-onTicket); }
+  .page .tutorial-alphabet-invitation:hover { box-shadow:0 3px 0 var(--wp-text-primary); }
 }
 @media(max-width:760px) {
   .page .tutorial-alphabet-invitation { flex-direction:column; align-self:center; gap:16px; text-align:center; }
