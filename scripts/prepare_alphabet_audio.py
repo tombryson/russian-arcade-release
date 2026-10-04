@@ -1,9 +1,10 @@
-"""Prepare the 66 packaged Russian alphabet clips with ElevenLabs v4.
+"""Prepare one set of 66 packaged Russian alphabet clips with ElevenLabs v4.
 
 Default is a provider-free dry run. --execute uses the selected dotenv
-file's credentials, chooses one configured voice for the whole set, and
-preserves verified recordings on every rerun. --verify checks all shipped bytes
-and decodes every clip without credentials or provider calls.
+file's credentials and an explicit configured voice for each new set.
+Female recordings retain their original paths; male recordings and their
+manifest live in male/. Reruns preserve verified recordings. --verify checks
+the selected set without credentials or provider calls.
 """
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -12,7 +13,6 @@ import json
 import logging
 import math
 from pathlib import Path
-import random
 import re
 import sys
 import tempfile
@@ -55,7 +55,9 @@ def save_manifest(directory, manifest):
     atomic_write(directory / 'manifest.json', (json.dumps(manifest, ensure_ascii=False, indent=2) + '\n').encode())
 
 
-def load_clips(path=DATA):
+def load_clips(path=DATA, *, voice='female'):
+    if voice not in ('female', 'male'):
+        raise ValueError('Choose the female or male recording set.')
     data = json.loads(Path(path).read_text())
     alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
     fields = {'id', 'upper', 'lower', 'name', 'nameAudio', 'example', 'exampleMeaning', 'exampleAudio', 'kind', 'note'}
@@ -64,13 +66,15 @@ def load_clips(path=DATA):
         raise ValueError('The catalogue must contain all 33 letters in alphabetical order.')
     clips = {}
     for item in data:
-        if (set(item) != fields or not all(isinstance(value, str) and value for value in item.values())
+        if (set(item) != fields or not all(isinstance(item[field], str) and item[field] for field in fields - {'nameAudio', 'exampleAudio'})
                 or not re.fullmatch('[a-z][a-z0-9-]*', item['id']) or item['lower'] != item['upper'].lower()
                 or item['kind'] != ('vowel' if item['upper'] in 'АЕЁИОУЫЭЮЯ' else 'sign' if item['upper'] in 'ЪЬ' else 'consonant')):
             raise ValueError('The alphabet catalogue has an invalid letter.')
         for kind, field, url_field in (('name', 'name', 'nameAudio'), ('word', 'example', 'exampleAudio')):
             filename = item['id'] + '-' + kind + '.mp3'
-            if item[url_field] != '/static/audio/alphabet-v1/' + filename or filename in clips:
+            expected_urls = {variant: '/static/audio/alphabet-v1/' + ('male/' if variant == 'male' else '') + filename
+                             for variant in ('female', 'male')}
+            if item[url_field] != expected_urls or filename in clips:
                 raise ValueError('Alphabet audio URLs must have unique, fixed filenames.')
             spoken = (NAME_SPEECH.get(item['id'], item[field]) if kind == 'name' else item[field]).replace('\u0301', '')
             if not re.fullmatch('[А-Яа-яЁё ]{1,40}', spoken):
@@ -112,11 +116,12 @@ def trim_padding(path):
             'trimmed_leading_ms': start, 'trimmed_trailing_ms': end}
 
 
-def plan(directory, clips):
+def plan(directory, clips, *, voice='female'):
     manifest_path = directory / 'manifest.json'
     saved = json.loads(manifest_path.read_text()) if manifest_path.exists() else None
     if saved and (saved.get('version') != VERSION or saved.get('provider') != 'elevenlabs'
                   or saved.get('model') != MODEL or saved.get('voice_settings') != SETTINGS
+                  or saved.get('voice', 'female') != voice
                   or not isinstance(saved.get('clips'), dict) or set(saved['clips']) - set(clips)):
         raise ValueError('The saved alphabet manifest does not match this recording set.')
     todo = []
@@ -154,18 +159,26 @@ def load_config(path):
     return {'ELEVENLABS_API_KEY': key, 'ELEVENLABS_MODEL': MODEL, 'ELEVENLABS_VOICE_IDS': voices}
 
 
-def prepare(directory, clips, config, *, max_new=MAX_CLIPS, workers=3, service_factory=None):
-    saved, todo = plan(directory, clips)
+def prepare(directory, clips, config, *, voice='female', voice_id=None, max_new=MAX_CLIPS, workers=3, service_factory=None):
+    if voice not in ('female', 'male'):
+        raise ValueError('Choose the female or male recording set.')
+    saved, todo = plan(directory, clips, voice=voice)
     if not 0 <= max_new <= MAX_CLIPS or len(todo) > max_new or workers not in (1, 2, 3):
         raise ValueError('The requested batch exceeds the recording limits.')
+    if voice_id is not None and (not isinstance(voice_id, str) or not re.fullmatch('[A-Za-z0-9]{1,100}', voice_id)):
+        raise ValueError('Choose an explicit configured voice ID.')
+    if saved and voice_id is not None and voice_id != saved['voice_id']:
+        raise ValueError('The saved recording voice cannot change; use a new recording version.')
     if not todo:
         return saved
     if config.get('ELEVENLABS_MODEL') != MODEL or not config.get('ELEVENLABS_API_KEY') or not config.get('ELEVENLABS_VOICE_IDS'):
         raise ValueError('Alphabet speech requires v4 and configured credentials and voices.')
+    if saved is None and voice_id not in config['ELEVENLABS_VOICE_IDS']:
+        raise ValueError('A new recording set requires an explicit configured voice ID; verify its voice label before generation.')
     directory.mkdir(parents=True, exist_ok=True)
     if saved is None:
         saved = {'version': VERSION, 'provider': 'elevenlabs', 'model': MODEL,
-                 'voice_id': random.choice(config['ELEVENLABS_VOICE_IDS']), 'voice_settings': SETTINGS,
+                 'voice': voice, 'voice_id': voice_id, 'voice_settings': SETTINGS,
                  'normalization_dbfs': -20, 'edge_padding_ms': EDGE_PADDING_MS,
                  'silence_threshold_dbfs': SILENCE_THRESHOLD_DBFS, 'sources': SOURCES, 'clips': {}}
     save_manifest(directory, saved)
@@ -223,12 +236,17 @@ def main(argv=None):
     mode.add_argument('--execute', action='store_true')
     mode.add_argument('--verify', action='store_true')
     parser.add_argument('--env-file', type=Path)
+    parser.add_argument('--voice', choices=('female', 'male'), default='female')
+    parser.add_argument('--voice-id', help='Explicit configured voice ID for a new recording set; existing sets keep their saved voice.')
     parser.add_argument('--max-new', type=int, default=MAX_CLIPS)
     parser.add_argument('--workers', type=int, choices=(1, 2, 3), default=3)
     args = parser.parse_args(argv)
     try:
-        clips = load_clips()
-        saved, todo = plan(DIRECTORY, clips)
+        clips = load_clips(voice=args.voice)
+        directory = DIRECTORY / 'male' if args.voice == 'male' else DIRECTORY
+        saved, todo = plan(directory, clips, voice=args.voice)
+        if saved and args.voice_id is not None and args.voice_id != saved['voice_id']:
+            raise ValueError('The saved recording voice cannot change; use a new recording version.')
         provider_calls = 0
         if args.verify and todo:
             raise ValueError('The alphabet still has missing recordings.')
@@ -236,9 +254,10 @@ def main(argv=None):
             if args.env_file is None:
                 parser.error('--execute requires --env-file when recordings are missing.')
             provider_calls = len(todo)
-            saved = prepare(DIRECTORY, clips, load_config(args.env_file), max_new=args.max_new, workers=args.workers)
-            _, todo = plan(DIRECTORY, clips)
-        print(json.dumps({'model': MODEL, 'clips': len(clips), 'verified': len(clips) - len(todo),
+            saved = prepare(directory, clips, load_config(args.env_file), voice=args.voice, voice_id=args.voice_id,
+                            max_new=args.max_new, workers=args.workers)
+            _, todo = plan(directory, clips, voice=args.voice)
+        print(json.dumps({'model': MODEL, 'voice': args.voice, 'clips': len(clips), 'verified': len(clips) - len(todo),
                           'missing': len(todo), 'new_characters': sum(len(clips[name]['text']) for name in todo),
                           'provider_calls': provider_calls, 'complete': not todo}))
         return 0

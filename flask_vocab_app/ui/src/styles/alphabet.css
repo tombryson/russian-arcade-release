@@ -5,12 +5,13 @@
 .alphabet-title-line { display:flex; flex-wrap:wrap; align-items:baseline; gap:9px 14px; }
 .alphabet-page .alphabet-header h1 { margin:0; font:500 clamp(24px,3vw,32px)/1.35 var(--wp-font-display); letter-spacing:-.035em; }
 .alphabet-title-line>span { color:var(--wp-text-secondary); font:400 13px/1.5 var(--wp-font-reading); letter-spacing:0; white-space:nowrap; }
-.alphabet-hover-switch { display:inline-flex; align-items:center; gap:8px; flex-shrink:0; min-height:44px; padding:9px 0 9px 9px; color:var(--wp-text-primary); background:none; border:0; font:400 12px/1.5 var(--wp-font-reading); cursor:pointer; }
-.alphabet-switch-track { display:block; width:29px; height:18px; padding:3px; border-radius:20px; background:var(--wp-border-subtle); }
-.alphabet-switch-track>span { display:block; width:12px; height:12px; border-radius:50%; background:var(--wp-surface-sheet); transition:transform var(--wp-motion); }
-.alphabet-hover-switch[aria-checked=true] .alphabet-switch-track { background:var(--wp-accent-learning); }
-.alphabet-hover-switch[aria-checked=true] .alphabet-switch-track>span { transform:translateX(11px); }
-.alphabet-switch-value { color:var(--wp-text-secondary); min-width:18px; }
+.alphabet-voice { display:flex; flex:0 0 auto; gap:2px; margin:0; padding:3px; border:1px solid var(--wp-border-subtle); border-radius:8px; }
+.alphabet-voice legend { padding:0 5px; color:var(--wp-text-secondary); font-size:11px; }
+.alphabet-voice label { position:relative; cursor:pointer; }
+.alphabet-voice input { position:absolute; opacity:0; width:1px; height:1px; }
+.alphabet-voice label>span { display:block; padding:8px 13px; border-radius:5px; color:var(--wp-text-secondary); font-size:13px; line-height:1.4; }
+.alphabet-voice .is-selected>span { background:var(--wp-text-primary); color:var(--wp-surface-sheet); }
+.alphabet-voice input:focus-visible+span { outline:3px solid var(--wp-accent-learning); outline-offset:3px; }
 .alphabet-toolbar { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px 18px; margin:15px 0 20px; }
 .alphabet-instruction { margin:0; color:var(--wp-text-secondary); font-size:13px; line-height:1.6; }
 .alphabet-legend { display:flex; flex-wrap:wrap; gap:13px; list-style:none; padding:0; margin:0; }
@@ -64,7 +65,6 @@
   .alphabet-header { flex-wrap:wrap; gap:7px; }
   .alphabet-page .alphabet-header h1 { font-size:25px; }
   .alphabet-header .kicker { font-size:10px; }
-  .alphabet-hover-switch { padding:7px 0; min-height:44px; }
   .alphabet-toolbar { margin:5px 0 15px; gap:10px; }
   .alphabet-instruction { font-size:12px; }
   .alphabet-layout { grid-template-columns:minmax(0,1fr); gap:18px; }

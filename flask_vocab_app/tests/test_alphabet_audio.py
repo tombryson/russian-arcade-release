@@ -39,6 +39,28 @@ class AlphabetCatalogueTests(unittest.TestCase):
         self.assertEqual(clips['tse-name.mp3']['text'], 'цэ.')
         self.assertEqual(clips['be-word.mp3']['display_text'], 'бана́н')
         self.assertEqual(clips['be-word.mp3']['text'], 'банан.')
+        self.assertEqual(command.load_clips(voice='male'), clips)
+        self.assertEqual(len({url for row in data for field in ('nameAudio', 'exampleAudio') for url in row[field].values()}), 132)
+
+    def test_voice_matrices_reject_missing_unknown_or_misdirected_recordings(self):
+        source = json.loads(command.DATA.read_text())
+        broken = [
+            '/static/audio/alphabet-v1/a-name.mp3',
+            {'female': '/static/audio/alphabet-v1/a-name.mp3'},
+            {**source[0]['nameAudio'], 'other': '/static/audio/alphabet-v1/a-name.mp3'},
+            {**source[0]['nameAudio'], 'male': source[0]['nameAudio']['female']},
+            {**source[0]['nameAudio'], 'male': '/static/audio/alphabet-v1/male/../a-name.mp3'},
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'catalogue.json'
+            for matrix in broken:
+                with self.subTest(matrix=matrix):
+                    data = json.loads(command.DATA.read_text())
+                    data[0]['nameAudio'] = matrix
+                    path.write_text(json.dumps(data))
+                    for voice in ('female', 'male'):
+                        with self.assertRaises(ValueError):
+                            command.load_clips(path, voice=voice)
 
     def test_dry_run_needs_no_credentials_and_performs_no_writes(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(command, 'DIRECTORY', Path(directory)), \
@@ -75,7 +97,7 @@ class AlphabetPreparationTests(unittest.TestCase):
         test = self
         class Provider:
             def generate_audio(self, text, filename):
-                saved = json.loads((test.directory / 'manifest.json').read_text())
+                saved = json.loads((Path(directory).parent / 'manifest.json').read_text())
                 test.assertEqual(saved['voice_id'], voice_ids[0])
                 test.assertEqual(saved['clips'][filename]['text'], text)
                 test.calls.append((text, voice_ids[0]))
@@ -86,12 +108,11 @@ class AlphabetPreparationTests(unittest.TestCase):
         return Provider()
 
     def prepare(self, **kwargs):
-        return command.prepare(self.directory, self.clips, self.config, service_factory=self.provider, **kwargs)
+        return command.prepare(self.directory, self.clips, self.config, service_factory=self.provider,
+                               **{'voice_id': 'two', **kwargs})
 
-    def test_random_voice_is_saved_once_and_completed_clips_are_reused(self):
-        with patch.object(command.random, 'choice', return_value='two') as choice:
-            saved = self.prepare()
-        choice.assert_called_once_with(('one', 'two'))
+    def test_explicit_voice_is_saved_once_and_completed_clips_are_reused(self):
+        saved = self.prepare()
         self.assertEqual({voice for _, voice in self.calls}, {'two'})
         self.assertEqual(len(self.calls), 3)
         before = (self.directory / 'manifest.json').read_bytes()
@@ -121,12 +142,42 @@ class AlphabetPreparationTests(unittest.TestCase):
         self.assertFalse((self.directory / 'a-name.mp3').exists())
         self.assertNotIn('Private provider body', (self.directory / 'manifest.json').read_text())
         self.fail.clear()
-        with patch.object(command.random, 'choice') as choice:
-            saved = self.prepare(workers=2)
-        choice.assert_not_called()
+        saved = self.prepare(workers=2, voice_id=None)
         self.assertEqual(len(self.calls), 4)
         self.assertEqual({voice for _, voice in self.calls}, {selected})
         self.assertEqual(saved['clips']['a-name.mp3']['attempts'], 2)
+
+    def test_new_voice_sets_require_a_configured_explicit_voice_before_writes(self):
+        for voice in ('female', 'male'):
+            for voice_id in (None, 'unconfigured', '../unsafe'):
+                with self.subTest(voice=voice, voice_id=voice_id), self.assertRaises(ValueError):
+                    self.prepare(voice=voice, voice_id=voice_id)
+                self.assertFalse(self.directory.exists())
+                self.assertEqual(self.calls, [])
+
+    def test_a_conflicting_voice_override_cannot_relabel_a_saved_set(self):
+        self.prepare()
+        before = (self.directory / 'manifest.json').read_bytes()
+        with self.assertRaisesRegex(ValueError, 'saved recording voice cannot change'):
+            self.prepare(voice_id='one')
+        self.assertEqual(len(self.calls), 3)
+        self.assertEqual((self.directory / 'manifest.json').read_bytes(), before)
+
+    def test_male_generation_preserves_legacy_female_bytes_and_uses_a_separate_manifest(self):
+        female = self.prepare()
+        female.pop('voice')  # The shipped female manifest predates voice labels.
+        command.save_manifest(self.directory, female)
+        before = {path.name: path.read_bytes() for path in self.directory.iterdir() if path.is_file()}
+        male_directory = self.directory / 'male'
+        male = command.prepare(male_directory, self.clips, self.config, voice='male', voice_id='one', service_factory=self.provider)
+        self.assertEqual({path.name: path.read_bytes() for path in self.directory.iterdir() if path.is_file()}, before)
+        self.assertEqual(male['voice_id'], 'one')
+        self.assertEqual(male['voice'], 'male')
+        self.assertEqual(command.plan(self.directory, self.clips)[1], [])
+        self.assertEqual(command.plan(male_directory, self.clips, voice='male')[1], [])
+        self.assertEqual(len(self.calls), 6)
+        with self.assertRaisesRegex(ValueError, 'manifest does not match'):
+            command.plan(self.directory, self.clips, voice='male')
 
     def test_changed_bytes_or_text_cannot_be_silently_regenerated(self):
         self.prepare()

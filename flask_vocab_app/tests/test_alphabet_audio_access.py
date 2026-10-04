@@ -1,8 +1,10 @@
 """Packaged alphabet playback stays public; learner recordings stay private."""
 from pathlib import Path
+import json
 import sqlite3
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from hosted_demo_mount import packaged_asset
 from services.alphabet_audio import is_public_alphabet_recording, public_recordings
@@ -10,16 +12,36 @@ from tests.support import isolated_app, select_test_profile
 
 
 class AlphabetAccessTests(unittest.TestCase):
-    def test_only_the_66_published_recordings_are_public(self):
+    def test_only_the_132_published_recordings_are_public(self):
         paths = public_recordings()
-        self.assertEqual(len(paths), 66)
+        self.assertEqual(len(paths), 132)
         for path in paths:
             self.assertTrue(is_public_alphabet_recording(path.removeprefix('/static/')))
         for filename in ('audio/alphabet-v1/unknown-name.mp3', 'audio/alphabet-v1/manifest.json',
                          'audio/alphabet-v1/a-name.wav', 'audio/alphabet-v1/../private.mp3',
                          'audio/alphabet-v1/../../media/recording.mp3',
+                         'audio/alphabet-v1/male/manifest.json', 'audio/alphabet-v1/male/unknown-name.mp3',
+                         'audio/alphabet-v1/male/../a-name.mp3', 'audio/alphabet-v1/female/a-name.mp3',
                          'media/alphabet-v1/a-name.mp3', 'uploads/recording.mp3'):
             self.assertFalse(is_public_alphabet_recording(filename), filename)
+
+    def test_malformed_or_missing_voice_matrices_fail_closed_without_fallback(self):
+        from services import alphabet_audio
+        source = json.loads(alphabet_audio.CONTENT.read_text())
+        with tempfile.TemporaryDirectory() as directory:
+            content = Path(directory) / 'alphabet.json'
+            for matrix in (source[0]['nameAudio']['female'], {'female': source[0]['nameAudio']['female']},
+                           {**source[0]['nameAudio'], 'male': source[0]['nameAudio']['female']},
+                           {**source[0]['nameAudio'], 'male': '/static/audio/alphabet-v1/male/../a-name.mp3'}):
+                data = json.loads(alphabet_audio.CONTENT.read_text())
+                data[0]['nameAudio'] = matrix
+                content.write_text(json.dumps(data))
+                public_recordings.cache_clear()
+                try:
+                    with patch.object(alphabet_audio, 'CONTENT', content), self.assertRaises(ValueError):
+                        public_recordings()
+                finally:
+                    public_recordings.cache_clear()
 
     def test_household_guard_allows_packaged_audio_but_not_unlisted_files(self):
         app = isolated_app(self, signed_in=False)
@@ -31,12 +53,15 @@ class AlphabetAccessTests(unittest.TestCase):
         audio.mkdir(parents=True)
         content = b'ID3' + b'synthetic-test-recording' * 50
         (audio / 'a-name.mp3').write_bytes(content)
+        (audio / 'male').mkdir()
+        (audio / 'male/a-name.mp3').write_bytes(content)
         (audio / 'private-note.mp3').write_bytes(b'private recording')
         client = app.test_client()
-        with client.get('/static/audio/alphabet-v1/a-name.mp3', headers={'Range': 'bytes=0-31'}) as response:
-            self.assertEqual(response.status_code, 206)
-            self.assertEqual(response.data, content[:32])
-            self.assertEqual(response.mimetype, 'audio/mpeg')
+        for path in ('a-name.mp3', 'male/a-name.mp3'):
+            with client.get('/static/audio/alphabet-v1/' + path, headers={'Range': 'bytes=0-31'}) as response:
+                self.assertEqual(response.status_code, 206)
+                self.assertEqual(response.data, content[:32])
+                self.assertEqual(response.mimetype, 'audio/mpeg')
         with client.get('/static/audio/alphabet-v1/private-note.mp3') as response:
             self.assertEqual(response.status_code, 302)
             self.assertEqual(response.location, '/post/household')

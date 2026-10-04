@@ -4,22 +4,20 @@ import {appUrl} from './app-url';
 import alphabetData from './alphabet-data.json';
 import './styles/alphabet.css';
 
+type Voice = 'female' | 'male';
 type Letter = {
-  id: string; upper: string; lower: string; name: string; nameAudio: string;
-  example: string; exampleMeaning: string; exampleAudio: string;
+  id: string; upper: string; lower: string; name: string; nameAudio: Record<Voice, string>;
+  example: string; exampleMeaning: string; exampleAudio: Record<Voice, string>;
   kind: 'vowel' | 'consonant' | 'sign'; note: string;
 };
 type Clip = 'name' | 'word';
 const letters = alphabetData as Letter[];
 const labels = {vowel: 'Vowel', consonant: 'Consonant', sign: 'Sign'};
-const preferenceKey = 'word-post-alphabet-hover-sound';
-const hoverDelay = 180;
-
-function initialHoverSound() {
-  try { return localStorage.getItem(preferenceKey) !== 'off'; }
-  catch { return true; }
+const voicePreference = 'word-post-alphabet-voice';
+function initialVoice(): Voice {
+  try { return localStorage.getItem(voicePreference) === 'male' ? 'male' : 'female'; }
+  catch { return 'female'; }
 }
-
 function Speaker({playing = false}: {playing?: boolean}) {
   return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     {playing ? <><path d="M9 5v14M15 5v14"/></> : <><path d="m11 5-5 4H3v6h3l5 4z"/><path d="M15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/></>}
@@ -33,26 +31,18 @@ function ExampleWord({letter}: {letter: Letter}) {
 }
 
 export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'}: {returnHref?: string; returnLabel?: string}) {
+  const [voice, setVoice] = useState<Voice>(initialVoice);
   const [selectedId, setSelectedId] = useState(letters[0].id);
-  const [hoverSound, setHoverSound] = useState(initialHoverSound);
-  const [activated, setActivated] = useState(false);
   const [playing, setPlaying] = useState('');
   const [error, setError] = useState('');
   const player = useRef<HTMLAudioElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const grid = useRef<HTMLOListElement>(null);
-  const hoverTimer = useRef<ReturnType<typeof setTimeout>>();
-  const audioActivated = useRef(false);
   const attempt = useRef(0);
-  const active = useRef<{key: string; source: 'manual' | 'hover'}>();
+  const active = useRef<string>();
   const mounted = useRef(true);
   const selected = letters.find(letter => letter.id === selectedId) ?? letters[0];
   const position = letters.indexOf(selected);
-
-  function cancelHover() {
-    if (hoverTimer.current !== undefined) clearTimeout(hoverTimer.current);
-    hoverTimer.current = undefined;
-  }
 
   function stopAudio(audio: HTMLAudioElement | null = player.current) {
     attempt.current += 1;
@@ -71,11 +61,10 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     mounted.current = true;
     heading.current?.focus({preventScroll: true});
     const audio = player.current;
-    return () => { mounted.current = false; cancelHover(); stopAudio(audio); };
+    return () => { mounted.current = false; stopAudio(audio); };
   }, []);
 
-  async function play(letter: Letter, clip: Clip, source: 'manual' | 'hover' = 'manual') {
-    cancelHover();
+  async function play(letter: Letter, clip: Clip) {
     stopAudio();
     setSelectedId(letter.id);
     setError('');
@@ -83,45 +72,32 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     if (!audio) return;
     const current = attempt.current;
     const key = `${letter.id}:${clip}`;
-    active.current = {key, source};
+    active.current = key;
     setPlaying(key);
     const fail = () => {
       if (!mounted.current || attempt.current !== current) return;
       stopAudio();
-      audioActivated.current = false;
-      setActivated(false);
       setError('Audio couldn’t play. Press a play button to try again.');
     };
     audio.onended = () => { if (attempt.current === current) stopAudio(); };
     audio.onerror = fail;
-    audio.src = appUrl(clip === 'name' ? letter.nameAudio : letter.exampleAudio);
+    audio.src = appUrl((clip === 'name' ? letter.nameAudio : letter.exampleAudio)[voice]);
     try {
       await audio.play();
-      if (!mounted.current || attempt.current !== current) return;
-      audioActivated.current = true;
-      setActivated(true);
     } catch { fail(); }
   }
 
   function playOrStop(clip: Clip) {
-    cancelHover();
-    if (active.current?.key === `${selected.id}:${clip}`) stopAudio();
+    if (active.current === `${selected.id}:${clip}`) stopAudio();
     else void play(selected, clip);
   }
 
-  function hover(letter: Letter, event: JSX.TargetedPointerEvent<HTMLButtonElement>) {
-    cancelHover();
-    if (event.pointerType !== 'mouse' || !hoverSound || !audioActivated.current) return;
-    hoverTimer.current = setTimeout(() => { void play(letter, 'name', 'hover'); }, hoverDelay);
-  }
-
-  function toggleHoverSound() {
-    const enabled = !hoverSound;
-    setHoverSound(enabled);
-    cancelHover();
-    if (!enabled && active.current?.source === 'hover') stopAudio();
-    try { localStorage.setItem(preferenceKey, enabled ? 'on' : 'off'); }
-    catch { /* The preference still works when browser storage is unavailable. */ }
+  function chooseVoice(next: Voice) {
+    if (next === voice) return;
+    stopAudio();
+    setError('');
+    setVoice(next);
+    try { localStorage.setItem(voicePreference, next); } catch { /* Playback also works without storage. */ }
   }
 
   function move(event: JSX.TargetedKeyboardEvent<HTMLButtonElement>, index: number) {
@@ -132,7 +108,6 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     if (next === null) return;
     event.preventDefault();
     const destination = Math.max(0, Math.min(letters.length - 1, next));
-    cancelHover();
     stopAudio();
     setSelectedId(letters[destination].id);
     grid.current?.querySelectorAll<HTMLButtonElement>('button')[destination]?.focus();
@@ -144,13 +119,15 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     <a class="text-link alphabet-back" href={returnHref}><span aria-hidden="true">← </span>{returnLabel}</a>
     <header class="alphabet-header">
       <div><p class="kicker">Letters & sounds</p><div class="alphabet-title-line"><h1 ref={heading} tabIndex={-1} id="alphabet-heading">Russian alphabet</h1><span>33 letters</span></div></div>
-      <button type="button" class="alphabet-hover-switch" role="switch" aria-checked={hoverSound} onClick={toggleHoverSound}>
-        <span class="alphabet-switch-track" aria-hidden="true"><span/></span>Hover sound <span class="alphabet-switch-value">{hoverSound ? 'On' : 'Off'}</span>
-      </button>
+      <fieldset class="alphabet-voice"><legend>Voice</legend>
+        {(['female', 'male'] as const).map(option => <label key={option} class={voice === option ? 'is-selected' : ''}>
+          <input type="radio" name="alphabet-voice" value={option} checked={voice === option} onChange={() => chooseVoice(option)}/>
+          <span>{option === 'female' ? 'Female' : 'Male'}</span>
+        </label>)}
+      </fieldset>
     </header>
     <div class="alphabet-toolbar">
-      <p class="alphabet-instruction">{!activated && hoverSound ? 'Select a letter to listen. Then hover to hear others.'
-        : hoverSound ? 'Hover to hear a letter. Select its word to hear it in context.' : 'Select a letter or its word to listen.'}</p>
+      <p class="alphabet-instruction">Click a letter or example word to listen.</p>
       <ul class="alphabet-legend" aria-label="Letter types">{(['vowel', 'consonant', 'sign'] as const).map(kind =>
         <li class={`alphabet-kind-${kind}`} key={kind}><span aria-hidden="true"/>{labels[kind]}s</li>)}</ul>
     </div>
@@ -162,7 +139,7 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
             <button type="button" class={`alphabet-letter alphabet-kind-${letter.kind}${selected.id === letter.id ? ' is-selected' : ''}${playing === `${letter.id}:name` ? ' is-playing' : ''}`}
               aria-label={`Listen to ${letter.upper} ${letter.lower} (${letter.name}), ${labels[letter.kind].toLowerCase()}`}
               aria-pressed={selected.id === letter.id} aria-controls="alphabet-detail" tabIndex={selected.id === letter.id ? 0 : -1}
-              onClick={() => void play(letter, 'name')} onPointerEnter={event => hover(letter, event)} onPointerLeave={cancelHover}
+              onClick={() => void play(letter, 'name')}
               onKeyDown={event => move(event, index)}>
               <span class="alphabet-letter-pair" lang="ru"><span>{letter.upper}</span><span>{letter.lower}</span></span>
               <span class="alphabet-letter-indicator" aria-hidden="true">{playing === `${letter.id}:name` ? '♪' : ''}</span>
