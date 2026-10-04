@@ -1,5 +1,5 @@
 {
-  "version": "alphabet-sound-crops-v5",
+  "version": "alphabet-sound-crops-v6",
   "review": "Whole consonant-vowel practice syllables replace cropped consonants. Every example has at least 160 ms of detected source speech. No cropping, repetition, stretching, or artificial amplification. Duration checks do not certify pronunciation.",
   "processing": {
     "normalization_dbfs": -20,
@@ -8,12 +8,20 @@
     "trailing_ms": 100,
     "max_gain_db": 3,
     "minimum_speech_ms": 160,
-    "speech_frame_ms": 1,
-    "speech_threshold_dbfs": -45,
     "minimum_speech_ms_by_letter": {
       "o": 110,
-      "ef": 110
-    }
+      "ef": 110,
+      "che": 110,
+      "shcha": 110,
+      "sha": 110,
+      "short-i": 110,
+      "zhe": 110
+    },
+    "max_internal_quiet_ms_by_letter": {
+      "che": 5
+    },
+    "speech_frame_ms": 1,
+    "speech_threshold_dbfs": -45
   },
   "clips": {
     "female-a": {
@@ -87,14 +95,14 @@
       "fade_out_ms": 0
     },
     "female-zhe": {
-      "source": "scripts/audio-sources/alphabet/syllables-v1/female-zhe.mp3",
-      "source_sha256": "4693f6481e40d2366cae14ed1d8eead33142436a7f46e51292779f54134aae90",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "source": "flask_vocab_app/static/audio/alphabet-v1/zhe-name.mp3",
+      "source_sha256": "ac883c1e52cbc55df08c7744f9c58b6803e4fd1c1edd00d3f2d84123791a81cf",
+      "mode": "crop",
+      "start_ms": 80,
+      "end_ms": 190,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "female-ze": {
       "source": "scripts/audio-sources/alphabet/syllables-v1/female-ze.mp3",
@@ -119,12 +127,12 @@
     "female-short-i": {
       "source": "scripts/audio-sources/alphabet/syllables-v1/female-short-i.mp3",
       "source_sha256": "8bd931a91a828d4f1f98164e135f4946e1ecc8dc1fff5de1b1646b666825e922",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "mode": "crop",
+      "start_ms": 30,
+      "end_ms": 140,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "female-ka": {
       "source": "scripts/audio-sources/alphabet/syllables-v1/female-ka.mp3",
@@ -257,34 +265,34 @@
       "fade_out_ms": 0
     },
     "female-che": {
-      "source": "scripts/audio-sources/alphabet/syllables-v1/female-che.mp3",
-      "source_sha256": "e60dcca99f0c20a645aa98710cc6440deddc8524241418c1b713c40507d1c5cb",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "source": "flask_vocab_app/static/audio/alphabet-v1/che-name.mp3",
+      "source_sha256": "0f0f2852128be1cea1c575f60cfe1e5da5e5a3e541f0838d46057327e507649b",
+      "mode": "crop",
+      "start_ms": 27,
+      "end_ms": 137,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "female-sha": {
-      "source": "scripts/audio-sources/alphabet/syllables-v1/female-sha.mp3",
-      "source_sha256": "0e9ff3ea9aae886e0237fcd392911334bd9c275e44574e49b043a6653d6c1acf",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "source": "flask_vocab_app/static/audio/alphabet-v1/sha-name.mp3",
+      "source_sha256": "086cec825f636c540dfc51e800ec4a0344f6c648ac94989ffae4b2a96b755141",
+      "mode": "crop",
+      "start_ms": 70,
+      "end_ms": 180,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "female-shcha": {
-      "source": "scripts/audio-sources/alphabet/syllables-v1/female-shcha.mp3",
-      "source_sha256": "4cd1a78cc166c6e793ceef0a98f17e4a68dadbb0d0f6b4afb4081c696c969cd5",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "source": "flask_vocab_app/static/audio/alphabet-v1/shcha-name.mp3",
+      "source_sha256": "ba8375c581ba7ec17de5e30f6f553a75304941e4c66e44fb45a4424b8cd70b83",
+      "mode": "crop",
+      "start_ms": 70,
+      "end_ms": 180,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "female-yery": {
       "source": "flask_vocab_app/static/audio/alphabet-v1/yery-name.mp3",
@@ -397,14 +405,14 @@
       "fade_out_ms": 0
     },
     "male-zhe": {
-      "source": "scripts/audio-sources/alphabet/syllables-v1/male-zhe.mp3",
-      "source_sha256": "b1f511d7308ab7ab0ce2f68f3de83ac0fe4627db21b3a80649f6ed310d6726a7",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/zhe-name.mp3",
+      "source_sha256": "4fce76df467ac3b3b964dd5f96350ffbd55b87fca693ae59d372ca3b8ebf1ac1",
+      "mode": "crop",
+      "start_ms": 80,
+      "end_ms": 190,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "male-ze": {
       "source": "scripts/audio-sources/alphabet/syllables-v1/male-ze.mp3",
@@ -427,14 +435,14 @@
       "fade_out_ms": 0
     },
     "male-short-i": {
-      "source": "scripts/audio-sources/alphabet/syllables-v1/male-short-i.mp3",
-      "source_sha256": "571b2a9f2fa4a24eeadc8c31217ffefef1cfae3102b0a717ea886373be3e4863",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/short-i-word.mp3",
+      "source_sha256": "114320ea78bb59b93b0403ca47d37f6354be2d47b0ecc2d460061dc93056b2f6",
+      "mode": "crop",
+      "start_ms": 27,
+      "end_ms": 137,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "male-ka": {
       "source": "scripts/audio-sources/alphabet/syllables-v1/male-ka.mp3",
@@ -567,34 +575,34 @@
       "fade_out_ms": 0
     },
     "male-che": {
-      "source": "scripts/audio-sources/alphabet/syllables-v1/male-che.mp3",
-      "source_sha256": "7be530d3673f88b4ad35f185f99bd097051386c3b25013991a7d6b7c8b69b89b",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/che-name.mp3",
+      "source_sha256": "a2631375e9d4d4498f938f870e2727afd50404c0e177271e4fb75c3bd5a91411",
+      "mode": "crop",
+      "start_ms": 24,
+      "end_ms": 134,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "male-sha": {
-      "source": "scripts/audio-sources/alphabet/syllables-v1/male-sha.mp3",
-      "source_sha256": "d2beee07e796865aba8a45ec2284fc980ea18217bf965bfbad2d7e5d878aabf1",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/sha-name.mp3",
+      "source_sha256": "c88f4246699b73bd395c7f84937cff34c263f086405c2de584aee182d24f4c2f",
+      "mode": "crop",
+      "start_ms": 70,
+      "end_ms": 180,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "male-shcha": {
-      "source": "scripts/audio-sources/alphabet/syllables-v1/male-shcha.mp3",
-      "source_sha256": "494ef184c0c6ad59d9ec39ccb8cce7f6e2a929db6f2a7014c5dae7cd33f9c538",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/shcha-name.mp3",
+      "source_sha256": "98e37a10ac4154cdc19543b68d0a8e2146a82ac774fcbbac13b91c259b0ab95f",
+      "mode": "crop",
+      "start_ms": 65,
+      "end_ms": 175,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "male-yery": {
       "source": "flask_vocab_app/static/audio/alphabet-v1/male/yery-name.mp3",

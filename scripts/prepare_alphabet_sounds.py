@@ -1,7 +1,7 @@
 """Build packaged Russian pronunciation examples from fixed v4 recordings.
 
 Default is a read-only plan. --execute copies vowel recordings and complete
-consonant-vowel practice syllables, with explicit 110 ms crops for О and Ф.
+consonant-vowel practice syllables, with explicit 110 ms crops for О, Ф, Ч, Щ, Ш, Й and Ж.
 Authored source hashes are checked. No credentials or provider calls are used.
 --verify checks source provenance and output hashes.
 Waveform inspection and automatic checks are not native-listener certification.
@@ -26,12 +26,16 @@ RECORDED_PREFIX = 'scripts/audio-sources/alphabet/syllables-v1/'
 DIRECTORY = audio.DIRECTORY / 'sounds'
 RECIPES = ROOT / 'scripts/data/alphabet-sound-crops.json'
 MODEL = audio.MODEL
-VERSION = 'alphabet-sounds-v6'
-RECIPE_VERSION = 'alphabet-sound-crops-v5'
+VERSION = 'alphabet-sounds-v7'
+RECIPE_VERSION = 'alphabet-sound-crops-v6'
 MAX_CLIPS = 31
 MIN_SPEECH_MS = 160
 # Explicit listening adjustments; all other isolated sounds keep the default.
-MIN_SPEECH_MS_BY_LETTER = {'o': 110, 'ef': 110}
+MIN_SPEECH_MS_BY_LETTER = {'o': 110, 'ef': 110, 'che': 110, 'shcha': 110, 'sha': 110, 'short-i': 110, 'zhe': 110}
+# The male Ч release has five quiet milliseconds inside its consonant span.
+# Preserve that release instead of moving the crop into the following vowel.
+MAX_INTERNAL_QUIET_MS = {'che': 5}
+RECORDED_CROP_TEXT = {'short-i': 'йо.'}
 SPEECH_THRESHOLD_DBFS = -45
 SPEECH_FRAME_MS = 1
 VOWELS = frozenset(('a', 'ye', 'yo', 'i', 'o', 'u', 'yery', 'e', 'yu', 'ya'))
@@ -39,6 +43,7 @@ VOICE_IDS = {'female': 'ymDCYd8puC7gYjxIamPt', 'male': 'sRk0zCqhS2Cmv0bzx5wA'}
 PROCESSING = {'normalization_dbfs': -20, 'max_peak_dbfs': -3, 'leading_ms': 60,
               'trailing_ms': 100, 'max_gain_db': 3, 'minimum_speech_ms': MIN_SPEECH_MS,
               'minimum_speech_ms_by_letter': MIN_SPEECH_MS_BY_LETTER,
+              'max_internal_quiet_ms_by_letter': MAX_INTERNAL_QUIET_MS,
               'speech_frame_ms': SPEECH_FRAME_MS, 'speech_threshold_dbfs': SPEECH_THRESHOLD_DBFS}
 
 
@@ -127,9 +132,11 @@ def source_specs(clips, recipes, voice, source_dir=SOURCES):
         if recipe['source'].startswith(RECORDED_PREFIX):
             generated = json.loads(source.with_suffix('.json').read_text())
             payload = generated.get('payload', {})
+            expected_text = (item['display_text'] + '.' if item['kind'] == 'syllable'
+                             else RECORDED_CROP_TEXT.get(item['letter_id']) if recipe['mode'] == 'crop' else None)
             if (payload.get('model_id') != MODEL or payload.get('language_code') != 'ru'
                     or payload.get('voice_settings') != audio.SETTINGS or generated.get('voice_id') != VOICE_IDS[voice]
-                    or payload.get('text') != item['display_text'] + '.' or item['kind'] != 'syllable'):
+                    or expected_text is None or payload.get('text') != expected_text):
                 raise ValueError('An authored source needs its exact Russian v4 request provenance.')
             record = {'model': MODEL, 'voice_id': generated['voice_id'], 'text': payload['text'],
                       'text_sha256': audio.digest(payload['text'].encode()), 'audio_sha256': generated.get('sha256'),
@@ -180,11 +187,13 @@ def plan(directory, specs, voice):
 def require_speech(recording, *, letter_id=None):
     # Measure the source signal, not MP3/container duration or added padding.
     # This detects undersized/quiet clips; it cannot certify pronunciation.
-    active_ms = sum(len(recording[start:start + SPEECH_FRAME_MS])
-                    for start in range(0, len(recording), SPEECH_FRAME_MS)
-                    if recording[start:start + SPEECH_FRAME_MS].dBFS > SPEECH_THRESHOLD_DBFS)
+    active_frames = [(start, len(recording[start:start + SPEECH_FRAME_MS]))
+                     for start in range(0, len(recording), SPEECH_FRAME_MS)
+                     if recording[start:start + SPEECH_FRAME_MS].dBFS > SPEECH_THRESHOLD_DBFS]
+    active_ms = sum(length for _, length in active_frames)
+    span_ms = active_frames[-1][0] + active_frames[-1][1] - active_frames[0][0] if active_frames else 0
     minimum = MIN_SPEECH_MS_BY_LETTER.get(letter_id, MIN_SPEECH_MS)
-    if active_ms < minimum:
+    if span_ms < minimum or active_ms < minimum - MAX_INTERNAL_QUIET_MS.get(letter_id, 0):
         raise ValueError(f'A pronunciation example needs at least {minimum} ms of audible source speech; silence does not count.')
     return active_ms
 
@@ -235,7 +244,7 @@ def prepare(directory, specs, *, voice, selected=None, max_new=MAX_CLIPS, source
     if saved is None:
         saved = {'version': VERSION, 'method': 'v4-pronunciation-examples-with-explicit-sound-crops',
                  'voice': voice, 'voice_id': VOICE_IDS[voice], 'processing': PROCESSING,
-                 'review': 'О and Ф use 110 ms source crops. Other examples preserve whole source recordings. Signal-duration checks are not a pronunciation review.',
+                 'review': 'О, Ф, Ч, Щ, Ш, Й and Ж use 110 ms source crops. Other examples preserve whole source recordings. Signal-duration checks are not a pronunciation review.',
                  'clips': {}}
     for filename in todo:
         spec = specs[filename]

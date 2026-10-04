@@ -26,14 +26,14 @@ class AlphabetCatalogueTests(unittest.TestCase):
         rows = {row['upper']: row for row in data}
         self.assertEqual(rows['Й']['name'], 'и кра́ткое')
         self.assertEqual(rows['Й']['kind'], 'consonant')
-        self.assertEqual(rows['Й']['practiceSyllable'], 'йо')
+        self.assertIsNone(rows['Й']['practiceSyllable'])
         self.assertEqual(rows['П']['practiceSyllable'], 'па')
         self.assertIn('no exact english equivalent', rows['Ы']['note'].lower())
         for letter in 'ЪЬ':
             self.assertIsNone(rows[letter]['soundIpa'])
             self.assertIsNone(rows[letter]['soundAudio'])
         for row in data:
-            if row['kind'] == 'consonant' and row['upper'] != 'Ф':
+            if row['kind'] == 'consonant' and row['upper'] not in 'ФЧЩШЙЖ':
                 self.assertEqual(row['practiceSyllable'], row['lower'] + ('о' if row['upper'] == 'Й' else 'а'))
             else:
                 self.assertIsNone(row['practiceSyllable'])

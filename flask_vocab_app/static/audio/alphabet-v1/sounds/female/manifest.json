@@ -1,5 +1,5 @@
 {
-  "version": "alphabet-sounds-v6",
+  "version": "alphabet-sounds-v7",
   "method": "v4-pronunciation-examples-with-explicit-sound-crops",
   "voice": "female",
   "voice_id": "ymDCYd8puC7gYjxIamPt",
@@ -12,12 +12,20 @@
     "minimum_speech_ms": 160,
     "minimum_speech_ms_by_letter": {
       "o": 110,
-      "ef": 110
+      "ef": 110,
+      "che": 110,
+      "shcha": 110,
+      "sha": 110,
+      "short-i": 110,
+      "zhe": 110
+    },
+    "max_internal_quiet_ms_by_letter": {
+      "che": 5
     },
     "speech_frame_ms": 1,
     "speech_threshold_dbfs": -45
   },
-  "review": "О and Ф use 110 ms source crops. Other examples preserve whole source recordings. Signal-duration checks are not a pronunciation review.",
+  "review": "О, Ф, Ч, Щ, Ш, Й and Ж use 110 ms source crops. Other examples preserve whole source recordings. Signal-duration checks are not a pronunciation review.",
   "clips": {
     "a-sound.mp3": {
       "letter_id": "a",
@@ -288,45 +296,36 @@
     },
     "zhe-sound.mp3": {
       "letter_id": "zhe",
-      "kind": "syllable",
-      "display_text": "жа",
-      "ipa": "ʐa",
+      "kind": "sound",
+      "display_text": "ж",
+      "ipa": "ʐ",
       "recipe": {
-        "source": "scripts/audio-sources/alphabet/syllables-v1/female-zhe.mp3",
-        "source_sha256": "4693f6481e40d2366cae14ed1d8eead33142436a7f46e51292779f54134aae90",
-        "mode": "copy",
-        "start_ms": null,
-        "end_ms": null,
+        "source": "flask_vocab_app/static/audio/alphabet-v1/zhe-name.mp3",
+        "source_sha256": "ac883c1e52cbc55df08c7744f9c58b6803e4fd1c1edd00d3f2d84123791a81cf",
+        "mode": "crop",
+        "start_ms": 80,
+        "end_ms": 190,
         "repetitions": 1,
-        "fade_in_ms": 0,
-        "fade_out_ms": 0
+        "fade_in_ms": 2,
+        "fade_out_ms": 3
       },
       "source_generation": {
         "model": "eleven_v4",
         "voice_id": "ymDCYd8puC7gYjxIamPt",
-        "text": "жа.",
-        "text_sha256": "6946710a19224c9bd5b5682177c398cdad5a27a7f23232e79bb1ea5ac6e7a1c9",
-        "audio_sha256": "4693f6481e40d2366cae14ed1d8eead33142436a7f46e51292779f54134aae90",
-        "request": {
-          "text": "жа.",
-          "model_id": "eleven_v4",
-          "language_code": "ru",
-          "voice_settings": {
-            "stability": 0.8,
-            "similarity_boost": 0.85
-          }
-        }
+        "text": "жэ.",
+        "text_sha256": "309f6e7007910eb2cdf7f5044cc857d3ce39d56818a81cc3ba6975c5df5bd51b",
+        "audio_sha256": "ac883c1e52cbc55df08c7744f9c58b6803e4fd1c1edd00d3f2d84123791a81cf"
       },
       "model": "eleven_v4",
       "voice_id": "ymDCYd8puC7gYjxIamPt",
-      "gain_db": 0,
-      "source_active_ms": 387,
-      "processing_applied": "byte-for-byte copy",
-      "audio_sha256": "4693f6481e40d2366cae14ed1d8eead33142436a7f46e51292779f54134aae90",
-      "duration_ms": 720,
-      "size_bytes": 12582,
-      "leading_silence_ms": 15,
-      "trailing_silence_ms": 260
+      "gain_db": -0.2975570963673704,
+      "source_active_ms": 110,
+      "processing_applied": "single crop, edge fades, bounded gain and padding",
+      "audio_sha256": "668feed5b1315418d35d7b8fd3be6c11c2c114504b271280efb22af3f10b2b01",
+      "duration_ms": 270,
+      "size_bytes": 5476,
+      "leading_silence_ms": 60,
+      "trailing_silence_ms": 100
     },
     "ze-sound.mp3": {
       "letter_id": "ze",
@@ -405,18 +404,18 @@
     },
     "short-i-sound.mp3": {
       "letter_id": "short-i",
-      "kind": "syllable",
-      "display_text": "йо",
-      "ipa": "jo",
+      "kind": "sound",
+      "display_text": "й",
+      "ipa": "j",
       "recipe": {
         "source": "scripts/audio-sources/alphabet/syllables-v1/female-short-i.mp3",
         "source_sha256": "8bd931a91a828d4f1f98164e135f4946e1ecc8dc1fff5de1b1646b666825e922",
-        "mode": "copy",
-        "start_ms": null,
-        "end_ms": null,
+        "mode": "crop",
+        "start_ms": 30,
+        "end_ms": 140,
         "repetitions": 1,
-        "fade_in_ms": 0,
-        "fade_out_ms": 0
+        "fade_in_ms": 2,
+        "fade_out_ms": 3
       },
       "source_generation": {
         "model": "eleven_v4",
@@ -436,14 +435,14 @@
       },
       "model": "eleven_v4",
       "voice_id": "ymDCYd8puC7gYjxIamPt",
-      "gain_db": 0,
-      "source_active_ms": 406,
-      "processing_applied": "byte-for-byte copy",
-      "audio_sha256": "8bd931a91a828d4f1f98164e135f4946e1ecc8dc1fff5de1b1646b666825e922",
-      "duration_ms": 720,
-      "size_bytes": 12582,
-      "leading_silence_ms": 25,
-      "trailing_silence_ms": 0
+      "gain_db": 3,
+      "source_active_ms": 110,
+      "processing_applied": "single crop, edge fades, bounded gain and padding",
+      "audio_sha256": "b8aadd0c70c3ec2832af6de4fe82688204236ed8b772dd92172f28acc413c4ba",
+      "duration_ms": 270,
+      "size_bytes": 5476,
+      "leading_silence_ms": 60,
+      "trailing_silence_ms": 100
     },
     "ka-sound.mp3": {
       "letter_id": "ka",
@@ -966,129 +965,102 @@
     },
     "che-sound.mp3": {
       "letter_id": "che",
-      "kind": "syllable",
-      "display_text": "ча",
-      "ipa": "t͡ɕa",
+      "kind": "sound",
+      "display_text": "ч",
+      "ipa": "t͡ɕ",
       "recipe": {
-        "source": "scripts/audio-sources/alphabet/syllables-v1/female-che.mp3",
-        "source_sha256": "e60dcca99f0c20a645aa98710cc6440deddc8524241418c1b713c40507d1c5cb",
-        "mode": "copy",
-        "start_ms": null,
-        "end_ms": null,
+        "source": "flask_vocab_app/static/audio/alphabet-v1/che-name.mp3",
+        "source_sha256": "0f0f2852128be1cea1c575f60cfe1e5da5e5a3e541f0838d46057327e507649b",
+        "mode": "crop",
+        "start_ms": 27,
+        "end_ms": 137,
         "repetitions": 1,
-        "fade_in_ms": 0,
-        "fade_out_ms": 0
+        "fade_in_ms": 2,
+        "fade_out_ms": 3
       },
       "source_generation": {
         "model": "eleven_v4",
         "voice_id": "ymDCYd8puC7gYjxIamPt",
-        "text": "ча.",
-        "text_sha256": "a58f7c05ababe960c997a639edceff72168cb95bf16edbc59f295b78f588f5c8",
-        "audio_sha256": "e60dcca99f0c20a645aa98710cc6440deddc8524241418c1b713c40507d1c5cb",
-        "request": {
-          "text": "ча.",
-          "model_id": "eleven_v4",
-          "language_code": "ru",
-          "voice_settings": {
-            "stability": 0.8,
-            "similarity_boost": 0.85
-          }
-        }
+        "text": "че.",
+        "text_sha256": "3558ebdf0e03df9109eb3ee09b800793431fb8514e1b2cb66391502ab5b70662",
+        "audio_sha256": "0f0f2852128be1cea1c575f60cfe1e5da5e5a3e541f0838d46057327e507649b"
       },
       "model": "eleven_v4",
       "voice_id": "ymDCYd8puC7gYjxIamPt",
-      "gain_db": 0,
-      "source_active_ms": 333,
-      "processing_applied": "byte-for-byte copy",
-      "audio_sha256": "e60dcca99f0c20a645aa98710cc6440deddc8524241418c1b713c40507d1c5cb",
-      "duration_ms": 560,
-      "size_bytes": 10075,
-      "leading_silence_ms": 0,
-      "trailing_silence_ms": 130
+      "gain_db": -2.0036906783539585,
+      "source_active_ms": 110,
+      "processing_applied": "single crop, edge fades, bounded gain and padding",
+      "audio_sha256": "6471bc5dfc867d4c7b86c4d05c86384bc2b2791191ab8d60586f260e810e216f",
+      "duration_ms": 270,
+      "size_bytes": 5476,
+      "leading_silence_ms": 60,
+      "trailing_silence_ms": 100
     },
     "sha-sound.mp3": {
       "letter_id": "sha",
-      "kind": "syllable",
-      "display_text": "ша",
-      "ipa": "ʂa",
+      "kind": "sound",
+      "display_text": "ш",
+      "ipa": "ʂ",
       "recipe": {
-        "source": "scripts/audio-sources/alphabet/syllables-v1/female-sha.mp3",
-        "source_sha256": "0e9ff3ea9aae886e0237fcd392911334bd9c275e44574e49b043a6653d6c1acf",
-        "mode": "copy",
-        "start_ms": null,
-        "end_ms": null,
+        "source": "flask_vocab_app/static/audio/alphabet-v1/sha-name.mp3",
+        "source_sha256": "086cec825f636c540dfc51e800ec4a0344f6c648ac94989ffae4b2a96b755141",
+        "mode": "crop",
+        "start_ms": 70,
+        "end_ms": 180,
         "repetitions": 1,
-        "fade_in_ms": 0,
-        "fade_out_ms": 0
+        "fade_in_ms": 2,
+        "fade_out_ms": 3
       },
       "source_generation": {
         "model": "eleven_v4",
         "voice_id": "ymDCYd8puC7gYjxIamPt",
         "text": "ша.",
         "text_sha256": "c41ce0391862c479b561090e6495dd2ca00c9e9f22b7fc2ee11b5b50ac1266ed",
-        "audio_sha256": "0e9ff3ea9aae886e0237fcd392911334bd9c275e44574e49b043a6653d6c1acf",
-        "request": {
-          "text": "ша.",
-          "model_id": "eleven_v4",
-          "language_code": "ru",
-          "voice_settings": {
-            "stability": 0.8,
-            "similarity_boost": 0.85
-          }
-        }
+        "audio_sha256": "086cec825f636c540dfc51e800ec4a0344f6c648ac94989ffae4b2a96b755141"
       },
       "model": "eleven_v4",
       "voice_id": "ymDCYd8puC7gYjxIamPt",
-      "gain_db": 0,
-      "source_active_ms": 355,
-      "processing_applied": "byte-for-byte copy",
-      "audio_sha256": "0e9ff3ea9aae886e0237fcd392911334bd9c275e44574e49b043a6653d6c1acf",
-      "duration_ms": 720,
-      "size_bytes": 12582,
-      "leading_silence_ms": 5,
-      "trailing_silence_ms": 285
+      "gain_db": -1.0878392888808754,
+      "source_active_ms": 110,
+      "processing_applied": "single crop, edge fades, bounded gain and padding",
+      "audio_sha256": "65da52fa5e22c3c62dc67539fd00269369d545c463ced7fe6472b3c650f15552",
+      "duration_ms": 270,
+      "size_bytes": 5476,
+      "leading_silence_ms": 60,
+      "trailing_silence_ms": 100
     },
     "shcha-sound.mp3": {
       "letter_id": "shcha",
-      "kind": "syllable",
-      "display_text": "ща",
-      "ipa": "ɕːa",
+      "kind": "sound",
+      "display_text": "щ",
+      "ipa": "ɕː",
       "recipe": {
-        "source": "scripts/audio-sources/alphabet/syllables-v1/female-shcha.mp3",
-        "source_sha256": "4cd1a78cc166c6e793ceef0a98f17e4a68dadbb0d0f6b4afb4081c696c969cd5",
-        "mode": "copy",
-        "start_ms": null,
-        "end_ms": null,
+        "source": "flask_vocab_app/static/audio/alphabet-v1/shcha-name.mp3",
+        "source_sha256": "ba8375c581ba7ec17de5e30f6f553a75304941e4c66e44fb45a4424b8cd70b83",
+        "mode": "crop",
+        "start_ms": 70,
+        "end_ms": 180,
         "repetitions": 1,
-        "fade_in_ms": 0,
-        "fade_out_ms": 0
+        "fade_in_ms": 2,
+        "fade_out_ms": 3
       },
       "source_generation": {
         "model": "eleven_v4",
         "voice_id": "ymDCYd8puC7gYjxIamPt",
         "text": "ща.",
         "text_sha256": "3b67c231a4fb4533c3dcb2d6516008c1badffa835eeb57a25757f9cb5a2d05da",
-        "audio_sha256": "4cd1a78cc166c6e793ceef0a98f17e4a68dadbb0d0f6b4afb4081c696c969cd5",
-        "request": {
-          "text": "ща.",
-          "model_id": "eleven_v4",
-          "language_code": "ru",
-          "voice_settings": {
-            "stability": 0.8,
-            "similarity_boost": 0.85
-          }
-        }
+        "audio_sha256": "ba8375c581ba7ec17de5e30f6f553a75304941e4c66e44fb45a4424b8cd70b83"
       },
       "model": "eleven_v4",
       "voice_id": "ymDCYd8puC7gYjxIamPt",
-      "gain_db": 0,
-      "source_active_ms": 427,
-      "processing_applied": "byte-for-byte copy",
-      "audio_sha256": "4cd1a78cc166c6e793ceef0a98f17e4a68dadbb0d0f6b4afb4081c696c969cd5",
-      "duration_ms": 800,
-      "size_bytes": 13836,
-      "leading_silence_ms": 40,
-      "trailing_silence_ms": 0
+      "gain_db": -1.4317436556747545,
+      "source_active_ms": 110,
+      "processing_applied": "single crop, edge fades, bounded gain and padding",
+      "audio_sha256": "f1d7630b3f44bc6f46d53813932dd18dc489b6991f9ea9f4908f10b3198ce00f",
+      "duration_ms": 270,
+      "size_bytes": 5476,
+      "leading_silence_ms": 60,
+      "trailing_silence_ms": 100
     },
     "yery-sound.mp3": {
       "letter_id": "yery",
