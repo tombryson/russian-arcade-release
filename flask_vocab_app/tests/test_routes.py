@@ -112,12 +112,12 @@ class RouteSmokeTests(unittest.TestCase):
                 self.assertIn('id="saved-stories"', html)
                 self.assertIn('id="comprehension-form"', html)
                 self.assertIn('name="custom_story"', html)
-                self.assertIn("Create Story", html)
+                self.assertIn("Create story", html)
 
     def test_system_ui_language_can_switch_between_english_and_russian(self):
         english = self.client.get("/comprehension").get_data(as_text=True)
         self.assertIn("Comprehension", english)
-        self.assertIn("Create Story", english)
+        self.assertIn("Create story", english)
         self.assertIn('value="en"', english)
         self.assertIn('aria-pressed="true"', english)
 
@@ -143,7 +143,7 @@ class RouteSmokeTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertIn("Comprehension", english_again)
-        self.assertIn("Create Story", english_again)
+        self.assertIn("Create story", english_again)
 
     def test_sidebar_navigation_sequence_preserves_main_content_contract(self):
         self.client.set_cookie('ui_navigation', 'sidebar')

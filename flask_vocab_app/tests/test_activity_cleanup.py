@@ -84,10 +84,11 @@ class ActivityCleanupTests(unittest.TestCase):
         html = self.client.get('/comprehension').get_data(as_text=True)
         document = Document(html)
         self.assertIn('open', document.element('saved-stories'))
-        self.assertNotIn('open', document.element('new-story'))
+        self.assertIn('open', document.element('new-story'))
         self.assertIn('Девочка по имени Анна живет ...', html)
         self.assertNotIn('(any, beginner)', html)
-        self.assertIn('Questions: 2', html)
+        self.assertIn(f'href="/comprehension/load/{self.story_id}"', html)
+        self.assertNotIn('Questions: 2', html)
         with sqlite3.connect(self.app.config['DB_PATH']) as conn:
             self.assertEqual(conn.execute('SELECT title FROM saved_stories WHERE id=?', (self.story_id,)).fetchone()[0], self.title)
 
