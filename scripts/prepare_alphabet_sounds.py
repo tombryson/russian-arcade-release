@@ -67,9 +67,21 @@ def load_clips(path=DATA):
             raise ValueError('Every sounding letter needs IPA and both exact sound recording URLs.')
         clips[filename] = {'letter_id': item['id'], 'kind': 'syllable' if item['practiceSyllable'] else 'sound',
                            'display_text': item['practiceSyllable'] or item['lower'], 'ipa': ipa}
+        if item.get('soundByVoice'):
+            clips[filename]['voice_overrides'] = {
+                voice: {'kind': 'syllable' if value['practiceSyllable'] else 'sound',
+                        'display_text': value['practiceSyllable'] or item['lower'], 'ipa': value['soundIpa']}
+                for voice, value in item['soundByVoice'].items()
+            }
     if len(clips) != MAX_CLIPS:
         raise ValueError('The alphabet needs exactly 31 sounding letters.')
     return clips
+
+
+def for_voice(item, voice):
+    """Resolve the label used to validate and package this voice's recording."""
+    return {**{key: value for key, value in item.items() if key != 'voice_overrides'},
+            **item.get('voice_overrides', {}).get(voice, {})}
 
 
 def selection(clips, letters=None):
@@ -93,6 +105,7 @@ def load_recipes(path=RECIPES, clips=None):
     fields = {'source', 'source_sha256', 'mode', 'start_ms', 'end_ms', 'repetitions', 'fade_in_ms', 'fade_out_ms'}
     for voice in VOICE_IDS:
         for item in clips.values():
+            item = for_voice(item, voice)
             recipe = data['clips'][voice + '-' + item['letter_id']]
             prefix = SOURCE_PREFIX + ('male/' if voice == 'male' else '')
             allowed = {prefix + item['letter_id'] + '-' + kind + '.mp3' for kind in ('name', 'word')}
@@ -134,6 +147,7 @@ def source_specs(clips, recipes, voice, source_dir=SOURCES):
         raise ValueError('The source recording manifest must match the pinned v4 voice.')
     specs = {}
     for filename, item in clips.items():
+        item = for_voice(item, voice)
         recipe = recipes[voice + '-' + item['letter_id']]
         source = source_dir / recipe['source']
         if recipe['source'].startswith(RECORDED_PREFIX):

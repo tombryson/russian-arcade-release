@@ -572,36 +572,45 @@
     },
     "en-sound.mp3": {
       "letter_id": "en",
-      "kind": "sound",
-      "display_text": "н",
-      "ipa": "n",
+      "kind": "syllable",
+      "display_text": "на",
+      "ipa": "na",
       "recipe": {
-        "source": "flask_vocab_app/static/audio/alphabet-v1/en-name.mp3",
-        "source_sha256": "41c7381a6520ea48674d43f7f686653735b22ca3c4b6ae86efa7703364767603",
-        "mode": "crop",
-        "start_ms": 200,
-        "end_ms": 350,
+        "source": "scripts/audio-sources/alphabet/syllables-v1/female-en.mp3",
+        "source_sha256": "8e811fb0b22f953200154d09fda60cf3357837e4c896fd83bc9af7a7d5817013",
+        "mode": "copy",
+        "start_ms": null,
+        "end_ms": null,
         "repetitions": 1,
-        "fade_in_ms": 2,
-        "fade_out_ms": 3
+        "fade_in_ms": 0,
+        "fade_out_ms": 0
       },
       "source_generation": {
         "model": "eleven_v4",
         "voice_id": "ymDCYd8puC7gYjxIamPt",
-        "text": "эн.",
-        "text_sha256": "97e8c6786780fbc990ae4d5733d49af7b39a43273c5998917947dd3a21cb1e67",
-        "audio_sha256": "41c7381a6520ea48674d43f7f686653735b22ca3c4b6ae86efa7703364767603"
+        "text": "на.",
+        "text_sha256": "423b54451e5e388aaa98a32ed48196f54ee631c25ba48739d1262f60a9df0c14",
+        "audio_sha256": "8e811fb0b22f953200154d09fda60cf3357837e4c896fd83bc9af7a7d5817013",
+        "request": {
+          "text": "на.",
+          "model_id": "eleven_v4",
+          "language_code": "ru",
+          "voice_settings": {
+            "stability": 0.8,
+            "similarity_boost": 0.85
+          }
+        }
       },
       "model": "eleven_v4",
       "voice_id": "ymDCYd8puC7gYjxIamPt",
-      "gain_db": 3,
-      "source_active_ms": 147,
-      "processing_applied": "single crop, edge fades, bounded gain and padding",
-      "audio_sha256": "a183f2d3401756d42ab19ff98aa28a06fc794db89b556ca613baa5489029c748",
-      "duration_ms": 310,
-      "size_bytes": 5894,
-      "leading_silence_ms": 60,
-      "trailing_silence_ms": 100
+      "gain_db": 0,
+      "source_active_ms": 363,
+      "processing_applied": "byte-for-byte copy",
+      "audio_sha256": "8e811fb0b22f953200154d09fda60cf3357837e4c896fd83bc9af7a7d5817013",
+      "duration_ms": 720,
+      "size_bytes": 12582,
+      "leading_silence_ms": 30,
+      "trailing_silence_ms": 300
     },
     "o-sound.mp3": {
       "letter_id": "o",

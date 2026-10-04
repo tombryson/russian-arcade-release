@@ -9,6 +9,7 @@ type Letter = {
   id: string; upper: string; lower: string; name: string; nameAudio: Record<Voice, string>;
   example: string; exampleMeaning: string; exampleAudio: Record<Voice, string>;
   soundIpa: string | null; soundAudio: Record<Voice, string> | null; practiceSyllable: string | null;
+  soundByVoice?: Partial<Record<Voice, {soundIpa: string; practiceSyllable: string | null}>>;
   kind: 'vowel' | 'consonant' | 'sign'; note: string;
 };
 type Clip = 'sound' | 'name' | 'word';
@@ -18,6 +19,9 @@ const silentSigns = letters.filter(letter => letter.kind === 'sign');
 const signNames: Record<string, string> = {'hard-sign': 'Hard sign', 'soft-sign': 'Soft sign'};
 const labels = {vowel: 'Vowel', consonant: 'Consonant', sign: 'Silent sign'};
 const voicePreference = 'word-post-alphabet-voice';
+function pronunciation(letter: Letter, voice: Voice) {
+  return letter.soundByVoice?.[voice] ?? letter;
+}
 function initialVoice(): Voice {
   try { return localStorage.getItem(voicePreference) === 'male' ? 'male' : 'female'; }
   catch { return 'female'; }
@@ -45,6 +49,7 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
   const active = useRef<string>();
   const mounted = useRef(true);
   const selected = letters.find(letter => letter.id === selectedId) ?? letters[0];
+  const selectedSyllable = pronunciation(selected, voice).practiceSyllable;
   const position = letters.indexOf(selected);
 
   function stopAudio(audio: HTMLAudioElement | null = player.current) {
@@ -87,7 +92,7 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     audio.onended = () => { if (attempt.current === current) stopAudio(); };
     audio.onerror = fail;
     // Refresh cached pronunciation clips when the recording set changes.
-    const revision = clip === 'sound' ? 'sounds-v9'
+    const revision = clip === 'sound' ? (voice === 'female' && letter.id === 'en' ? 'en-full-v1' : 'sounds-v9')
       : clip === 'name' && voice === 'male' && letter.id === 'ye' ? 'ye-v2' : '';
     audio.src = appUrl(recordings[voice]) + (revision ? `?v=${revision}` : '');
     try {
@@ -127,7 +132,7 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     return group.map((letter, index) => <li key={letter.id}>
       <button type="button" class={`alphabet-letter alphabet-kind-${letter.kind}${selected.id === letter.id ? ' is-selected' : ''}${playing === `${letter.id}:sound` ? ' is-playing' : ''}`}
         aria-label={!letter.soundAudio ? `Explore ${letter.upper} ${letter.lower}, ${signNames[letter.id].toLowerCase()}`
-          : letter.practiceSyllable ? `Listen to syllable ${letter.practiceSyllable} for ${letter.upper} ${letter.lower}, consonant`
+          : pronunciation(letter, voice).practiceSyllable ? `Listen to syllable ${pronunciation(letter, voice).practiceSyllable} for ${letter.upper} ${letter.lower}, consonant`
           : `Listen to ${letter.upper} ${letter.lower} sound, ${labels[letter.kind].toLowerCase()}`}
         aria-pressed={selected.id === letter.id} aria-controls="alphabet-detail" tabIndex={tabStop === letter.id ? 0 : -1}
         onClick={() => void play(letter, 'sound')}
@@ -171,12 +176,12 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
       <aside id="alphabet-detail" class={`alphabet-detail alphabet-kind-${selected.kind}`} aria-label={`About ${selected.upper} ${selected.lower}`}>
         <div class="alphabet-detail-meta"><span>Letter {String(position + 1).padStart(2, '0')} / 33</span><span class="alphabet-kind-label">{labels[selected.kind]}</span></div>
         <h2 class="alphabet-detail-pair" lang="ru">{selected.soundAudio
-          ? <button type="button" class="alphabet-sound-play" onClick={() => playOrStop('sound')} aria-label={`${soundPlaying ? 'Stop' : 'Listen to'} ${selected.practiceSyllable ? `syllable: ${selected.practiceSyllable}` : `sound: ${selected.upper}`}`}>
+          ? <button type="button" class="alphabet-sound-play" onClick={() => playOrStop('sound')} aria-label={`${soundPlaying ? 'Stop' : 'Listen to'} ${selectedSyllable ? `syllable: ${selectedSyllable}` : `sound: ${selected.upper}`}`}>
             <span>{selected.upper}</span><span>{selected.lower}</span><span class="alphabet-play-icon"><Speaker playing={soundPlaying}/></span>
           </button>
           : <><span>{selected.upper}</span><span>{selected.lower}</span></>}</h2>
         <p class="alphabet-sound-caption">{!selected.soundAudio ? 'No sound of its own.'
-          : selected.practiceSyllable ? <>Practice syllable: <span lang="ru">{selected.practiceSyllable}</span><br/>{selected.upper} followed by <span lang="ru">{selected.practiceSyllable.slice(1)}</span>.</>
+          : selectedSyllable ? <>Practice syllable: <span lang="ru">{selectedSyllable}</span><br/>{selected.upper} followed by <span lang="ru">{selectedSyllable.slice(1)}</span>.</>
           : 'ЕЁЮЯ'.includes(selected.upper) ? 'Sound at the start of a word' : 'Letter sound'}</p>
         <button type="button" class={`alphabet-example${wordPlaying ? ' is-playing' : ''}`} onClick={() => playOrStop('word')} aria-label={`${wordPlaying ? 'Stop' : 'Listen to'} word: ${selected.example} (${selected.exampleMeaning})`}>
           <span class="alphabet-detail-label">In a word</span><span class="alphabet-example-row"><strong lang="ru"><ExampleWord letter={selected}/></strong><span class="alphabet-play-icon"><Speaker playing={wordPlaying}/></span></span>

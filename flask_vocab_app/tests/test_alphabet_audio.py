@@ -86,6 +86,20 @@ class AlphabetCatalogueTests(unittest.TestCase):
                         with self.assertRaises(ValueError):
                             command.load_clips(path, voice=voice)
 
+    def test_voice_specific_pronunciation_rejects_wrong_letter_or_missing_metadata(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'catalogue.json'
+            for variant in (None, {'other': {'practiceSyllable': 'на', 'soundIpa': 'na'}},
+                            {'female': {'practiceSyllable': 'на'}},
+                            {'female': {'practiceSyllable': 'эн', 'soundIpa': 'n'}},
+                            {'female': {'practiceSyllable': 'ба', 'soundIpa': 'ba'}},
+                            {'female': {'practiceSyllable': 'на', 'soundIpa': '/na/'}}):
+                data = json.loads(command.DATA.read_text())
+                next(row for row in data if row['id'] == 'en')['soundByVoice'] = variant
+                path.write_text(json.dumps(data))
+                with self.subTest(variant=variant), self.assertRaises(ValueError):
+                    command.load_clips(path)
+
     def test_dry_run_needs_no_credentials_and_performs_no_writes(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(command, 'DIRECTORY', Path(directory)), \
                 patch.object(command, 'load_config', side_effect=AssertionError('Dry runs cannot read keys')), \

@@ -69,15 +69,25 @@ def load_clips(path=DATA, *, voice='female'):
         raise ValueError('The catalogue must contain all 33 letters in alphabetical order.')
     clips = {}
     for item in data:
-        if (set(item) != fields or not all(isinstance(item[field], str) and item[field] for field in fields - {'nameAudio', 'exampleAudio', 'soundIpa', 'soundAudio', 'practiceSyllable'})
+        if (set(item) - {'soundByVoice'} != fields or not all(isinstance(item[field], str) and item[field] for field in fields - {'nameAudio', 'exampleAudio', 'soundIpa', 'soundAudio', 'practiceSyllable'})
                 or not re.fullmatch('[a-z][a-z0-9-]*', item['id']) or item['lower'] != item['upper'].lower()
                 or item['kind'] != ('vowel' if item['upper'] in 'АЕЁИОУЫЭЮЯ' else 'sign' if item['upper'] in 'ЪЬ' else 'consonant')):
             raise ValueError('The alphabet catalogue has an invalid letter.')
-        if item['practiceSyllable'] is not None and (
-                item['kind'] != 'consonant' or not isinstance(item['practiceSyllable'], str)
-                or not re.fullmatch('[бвгджзйклмнпрстфхцчшщ][ао]', item['practiceSyllable'])
-                or item['practiceSyllable'][0] != item['lower']):
-            raise ValueError('A practice syllable must be a short Russian consonant-vowel example.')
+        variants = item.get('soundByVoice', {})
+        if (not isinstance(variants, dict) or set(variants) - {'female', 'male'}
+                or (variants and item['kind'] != 'consonant')
+                or any(not isinstance(value, dict) or set(value) != {'practiceSyllable', 'soundIpa'}
+                       or not isinstance(value['soundIpa'], str)
+                       or not re.fullmatch(r'[a-zɡɨɫʂʐɕɛʲː͡]{1,12}', value['soundIpa'])
+                       for value in variants.values())):
+            raise ValueError('A voice-specific pronunciation needs its syllable and IPA target.')
+        for pronunciation in (item, *variants.values()):
+            syllable = pronunciation['practiceSyllable']
+            if syllable is not None and (
+                    item['kind'] != 'consonant' or not isinstance(syllable, str)
+                    or not re.fullmatch('[бвгджзйклмнпрстфхцчшщ][ао]', syllable)
+                    or syllable[0] != item['lower']):
+                raise ValueError('A practice syllable must be a short Russian consonant-vowel example.')
         for kind, field, url_field in (('name', 'name', 'nameAudio'), ('word', 'example', 'exampleAudio')):
             filename = item['id'] + '-' + kind + '.mp3'
             expected_urls = {variant: '/static/audio/alphabet-v1/' + ('male/' if variant == 'male' else '') + filename

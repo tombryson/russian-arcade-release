@@ -43,7 +43,7 @@ describe('Russian alphabet', () => {
     expect(screen.getByRole('region', {name: 'Silent signs'})).toBeTruthy();
     expect(signButtons().map(button => button.getAttribute('aria-label'))).toEqual(['Explore Ъ ъ, hard sign', 'Explore Ь ь, soft sign']);
     expect(screen.getByText('No sound of their own.')).toBeTruthy();
-    expect(buttons.filter(button => button.getAttribute('aria-label')?.startsWith('Listen to syllable '))).toHaveLength(12);
+    expect(buttons.filter(button => button.getAttribute('aria-label')?.startsWith('Listen to syllable '))).toHaveLength(13);
     expect(screen.getByText('Letter sound')).toBeTruthy();
     expect(screen.getByRole('link', {name: 'Your first delivery'}).getAttribute('href')).toBe('#first-delivery');
     expect(screen.getByText('Click a letter to hear a pronunciation example. Try the word too.')).toBeTruthy();
@@ -76,7 +76,7 @@ describe('Russian alphabet', () => {
   });
 
   it.each([
-    ['В', 'в', 've'], ['Н', 'н', 'en'], ['Ц', 'ц', 'tse'],
+    ['В', 'в', 've'], ['Ц', 'ц', 'tse'],
     ['Ф', 'ф', 'ef'], ['Ч', 'ч', 'che'], ['Щ', 'щ', 'shcha'],
     ['Ш', 'ш', 'sha'], ['Й', 'й', 'short-i'], ['Ж', 'ж', 'zhe'],
   ] as const)('plays isolated %s in both voices with the matching label', async (upper, lower, id) => {
@@ -89,6 +89,27 @@ describe('Russian alphabet', () => {
       expect(detail.textContent).not.toContain('Practice syllable:');
       expect(container.querySelector('audio')?.getAttribute('src')).toBe(`/static/audio/alphabet-v1/sounds/${label.toLowerCase()}/${id}-sound.mp3?v=sounds-v9`);
     }
+    expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(2);
+  });
+
+  it('plays the full female Н syllable and updates its label when switching to the male sound', async () => {
+    const {container} = render(<Alphabet/>);
+    const audio = container.querySelector('audio')!;
+    await click(screen.getByRole('button', {name: 'Listen to syllable на for Н н, consonant'}));
+    const detail = screen.getByRole('complementary', {name: 'About Н н'});
+    expect(detail.textContent).toContain('Practice syllable: на');
+    expect(detail.textContent).toContain('Н followed by а.');
+    expect(audio.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/female/en-sound.mp3?v=en-full-v1');
+    expect(within(detail).getByRole('button', {name: 'Stop syllable: на'})).toBeTruthy();
+    await click(voiceRadio('Male'));
+    expect(audio.getAttribute('src')).toBeNull();
+    expect(detail.textContent).not.toContain('Practice syllable:');
+    await click(screen.getByRole('button', {name: 'Listen to Н н sound, consonant'}));
+    expect(audio.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/male/en-sound.mp3?v=sounds-v9');
+    expect(within(detail).getByRole('button', {name: 'Stop sound: Н'})).toBeTruthy();
+    await click(voiceRadio('Female'));
+    expect(audio.getAttribute('src')).toBeNull();
+    expect(within(detail).getByRole('button', {name: 'Listen to syllable: на'})).toBeTruthy();
     expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(2);
   });
 

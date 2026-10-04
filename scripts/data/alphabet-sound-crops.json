@@ -174,14 +174,14 @@
       "fade_out_ms": 0
     },
     "female-en": {
-      "source": "flask_vocab_app/static/audio/alphabet-v1/en-name.mp3",
-      "source_sha256": "41c7381a6520ea48674d43f7f686653735b22ca3c4b6ae86efa7703364767603",
-      "mode": "crop",
-      "start_ms": 200,
-      "end_ms": 350,
+      "source": "scripts/audio-sources/alphabet/syllables-v1/female-en.mp3",
+      "source_sha256": "8e811fb0b22f953200154d09fda60cf3357837e4c896fd83bc9af7a7d5817013",
+      "mode": "copy",
+      "start_ms": null,
+      "end_ms": null,
       "repetitions": 1,
-      "fade_in_ms": 2,
-      "fade_out_ms": 3
+      "fade_in_ms": 0,
+      "fade_out_ms": 0
     },
     "female-o": {
       "source": "flask_vocab_app/static/audio/alphabet-v1/o-name.mp3",

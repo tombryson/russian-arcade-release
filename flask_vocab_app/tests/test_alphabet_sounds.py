@@ -61,6 +61,24 @@ class AlphabetSoundCatalogueTests(unittest.TestCase):
             with self.subTest(letters=letters), self.assertRaises(ValueError):
                 command.selection(clips, letters)
 
+    def test_female_en_preserves_the_entire_syllable_without_changing_male_en(self):
+        clips = command.load_clips()
+        recipes = command.load_recipes(clips=clips)
+        female = command.for_voice(clips['en-sound.mp3'], 'female')
+        male = command.for_voice(clips['en-sound.mp3'], 'male')
+        self.assertEqual((female['kind'], female['display_text'], female['ipa']), ('syllable', 'на', 'na'))
+        self.assertEqual((male['kind'], male['display_text'], male['ipa']), ('sound', 'н', 'n'))
+        recipe = recipes['female-en']
+        self.assertEqual(recipe['mode'], 'copy')
+        self.assertIsNone(recipe['start_ms'])
+        self.assertIsNone(recipe['end_ms'])
+        source = command.ROOT / recipe['source']
+        packaged = command.DIRECTORY / 'female/en-sound.mp3'
+        self.assertEqual(packaged.read_bytes(), source.read_bytes())
+        self.assertEqual(len(AudioSegment.from_file(packaged)), 720)
+        self.assertEqual(recipes['male-en']['mode'], 'crop')
+        self.assertEqual(recipes['male-en']['end_ms'] - recipes['male-en']['start_ms'], 150)
+
     def test_pilot_dry_run_and_missing_verification_never_read_keys_or_write(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(command, 'DIRECTORY', Path(directory)), \
                 patch.object(command.audio, 'load_config', side_effect=AssertionError('No credentials in a dry run')), \
