@@ -1,6 +1,16 @@
 # Curriculum implementation record
 
-Date: 2 October 2026; language-design follow-up updated 3 October. Scope: the [TORFL delivery plan](torfl-assessment-build-plan.md), P0/P1 foundations and ongoing P2 procedural content.
+Date: 2 October 2026; deployment and plan status updated 4 October. Scope: the [TORFL delivery plan](torfl-assessment-build-plan.md), P0/P1 foundations and ongoing P2 procedural content. Earlier verification sections retain the scope of their original runs; the deployment update below is the current release status.
+
+## Deployment update — 3 October 2026
+
+The procedural and language-design changes are live on Fly at `0bcba58`, including `/demo/`. The release used image `linguistic-0bcba58`. Both [application CI](https://github.com/tombryson/russian-arcade-release/actions/runs/37019509171) and [security CI](https://github.com/tombryson/russian-arcade-release/actions/runs/37019510053) passed. Application checks covered 2,118 backend tests and 833 frontend tests across 63 files. Two stale review/migration test fixtures were corrected before the successful run.
+
+Seventeen persistent databases were backed up. Migration 064 was rehearsed on copies of all fifteen existing learning databases, with existing row counts retained and integrity checks passing. Live source checks matched thirty changed application files. Database integrity and Fly health checks passed after deployment. Tenant databases upgrade when opened; untouched workspaces need not all have the new schema immediately.
+
+Live checks verified the application assets, four unit pages and their generated-situation entry actions, fresh grammar practice, saved and replayed answers, typed practice, bundled artwork, owned listening delivery and isolation between two guest workspaces. The new calendar unit rendered in a browser without console errors. Account, demo and AI availability settings were preserved. No paid provider calls were made during these checks.
+
+The live audio request returned playable media with HTTP 206. This verifies delivery, not audible pronunciation or a fresh generated-audio listening session on production. Natural learner speech, target-device playback and generated prose quality remain open. See the [next implementation pass](torfl-assessment-build-plan.md#next-implementation-pass) for the current order of work.
 
 ## Procedural follow-up
 
@@ -37,7 +47,7 @@ New unit reading/listening uses a generated situation tied to the unit’s objec
 
 The initial provider check found only one manually acceptable exercise in seven calls. A further eighteen calls tested language-specific plans for location/destination, dates/duration and conversation topics. These plans establish participants, related facts, timelines and full governed answer phrases before the model writes. Comprehension alternatives represent different meanings in grammatical Russian; they do not test case endings through deliberately broken options. Hints and explanations now use checked guidance and exact source quotes.
 
-The last six-call batch passed five structural checks. The Russian forms and answer relationships improved, but some messages still contain filler or an awkward narrative voice. One failed vocabulary annotation was rejected. This is measurable progress, not proof of natural Russian or reliable whole-catalogue generation. The final removal of a sentence-count minimum has regression coverage but no fresh provider evaluation. See the [language-design evaluation](procedural-content.md#language-design-follow-up), including all failed samples. The other fourteen units still need equivalent linguistic plans, and the player still needs normal word lookup and saving for generated passages. This follow-up has not been deployed.
+The last six-call batch passed five structural checks. The Russian forms and answer relationships improved, but some messages still contain filler or an awkward narrative voice. One failed vocabulary annotation was rejected. This is measurable progress, not proof of natural Russian or reliable whole-catalogue generation. The final removal of a sentence-count minimum has regression coverage but no fresh provider evaluation. See the [language-design evaluation](procedural-content.md#language-design-follow-up), including all failed samples. The other fourteen units still need equivalent linguistic plans, and the player still needs normal word lookup and saving for generated passages. This follow-up was included in the 3 October deployment.
 
 ## Delivered in the repository
 
@@ -118,7 +128,7 @@ Additive migrations 056–060 introduce lesson runs/bindings/receipts, draft and
 
 The provider-free preview exposes authored practice only and marks production tasks unavailable. Eligible guest and signed-in workspaces retain the existing provider allowance and rate-limit policies. The new endpoints do not increase the demo budget. The legacy unit remains a fallback; disabling a new catalogue entry must not delete saved runs or media.
 
-No production deployment is implied by this record. Deployment and post-deployment playback checks must identify their actual environment and release.
+The deployment update above identifies the shipped environment and release. Keep later deployment and post-deployment playback checks equally specific; the earlier local results do not imply an audible check of production speech.
 
 ## Remaining work
 

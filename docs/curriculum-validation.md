@@ -2,6 +2,8 @@
 
 ## Current status
 
+Updated 4 October 2026. The current release is `0bcba58`, deployed on 3 October. See the [deployment record](torfl-implementation-2026-10-02.md#deployment-update--3-october-2026) for full CI and live checks, and the [ordered work plan](torfl-assessment-build-plan.md#next-implementation-pass) for remaining language and assessment work. Historical test counts below belong to their stated runs.
+
 The application has 17 authored A1 teaching units and an opt-in diagnostic pilot covering five skills. They work without a tutor. Human review is optional editorial quality assurance for the maintainers, not a prerequisite for using the app or receiving feedback.
 
 The examples and answer keys remain provisional. No independent human review or learner trial is recorded. The pilot does not award a level, unlock activities or claim to be a TORFL examination.
@@ -22,7 +24,7 @@ The examples and answer keys remain provisional. No independent human review or 
 | Activities and completed results | The distinction between an activity and its result | 8 | 5 | 3 clips |
 | Where from and where to | Origins, destinations and prepositions | 8 | 5 | 3 clips |
 | Reasons, questions and connected messages | Short connected accounts and requests for information | 8 | 5 | 3 clips |
-| Activities and future professions | Заниматься + activity; буду + profession | 8 | 6 | Not recorded |
+| Activities and future professions | Заниматься + activity; буду + profession | 8 | 6 | Prepared on demand |
 | Dates and duration | Month names in dates; duration without a preposition | 6 | 6 | Prepared on demand |
 | Talking about people and interests | О/об + prepositional for the topic of speech or thought | 6 | 6 | Prepared on demand |
 
@@ -30,7 +32,7 @@ Together the units provide 116 authored contextual choices, 82 typed prompts and
 
 These units do not cover the whole A1 grammar system. Supplied infinitives in motion tasks test conjugation; separate choices test the distinction between movement types. Unit Speaking links open existing scenarios. They do not transfer a unit criterion automatically. The nine earlier authored Fluent A1 variants retain their original-audio criteria. Generated Speaking variants have separate criteria bound to their exact situations. These observe the named communication task, not every scenario goal or full speaking proficiency.
 
-The earlier 14 authored three-item listening packs are recorded. Both pilot listening forms are also recorded. The new instrumental unit has no listening pack yet. Each recording retains its authored script and manifest; the application checks file readiness before offering listening.
+The earlier 14 authored three-item listening packs are recorded. Both pilot listening forms are also recorded. Instrumental activities/professions, dates/duration and conversation topics have no prerecorded authored packs; eligible workspaces can generate their listening text and audio on demand. All 17 units offer that generated path. Authored recordings retain their scripts and manifests; generated recordings retain the accepted text, selected voice and media hashes. The application checks readiness before offering playback.
 
 ### Recording update — 2 October 2026
 

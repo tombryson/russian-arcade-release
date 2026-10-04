@@ -1,10 +1,12 @@
 # TORFL curriculum and assessment delivery plan
 
-**Implementation specification, updated 2 October 2026. Original code baseline: `ba9bee7`; initial document: `8fdb608`.**
+**Implementation specification, updated 4 October 2026. Deployed baseline: `0bcba58`. Original code baseline: `ba9bee7`; initial document: `8fdb608`.**
 
 This document defines the remaining work needed for Russian Arcade to teach and assess the published requirements of A1–B2 Russian. The supplied *ТРКИ-I* training book provides a concrete B1 example of what learners must eventually do.
 
 It supplements the [curriculum implementation plan](curriculum-uplift-plan.md). The current implementation is recorded below and in the [implementation record](torfl-implementation-2026-10-02.md). The connected A1 sequence, storage, activity adapters and profile projection are now implemented in the repository. This does not mean that every later delivery package is finished or deployed. Full-level assessment thresholds remain subject to validation.
+
+The latest procedural practice and generated reading/listening work was deployed to Fly on 3 October, including the `/demo/` workspace. CI passed 2,118 backend and 833 frontend tests. Live checks verified new unit pages, saved answers, audio delivery and guest isolation. These establish operation, not the naturalness of generated Russian. See [the next implementation pass](#next-implementation-pass) before starting further work; the P0/P1 construction steps later in this document are retained design specifications, not a request to rebuild completed infrastructure.
 
 Read by purpose:
 
@@ -45,9 +47,81 @@ The [validation record](curriculum-validation.md) records no independent languag
 
 The [procedural implementation record](procedural-content.md) documents the new generators and their limits. Curriculum grammar now produces owned, frozen sets; Scene and Speaking compose situations from explicit facts; ordinary AI activities receive bounded recent-content history. Teaching and assessment objectives stay versioned. Changing an answer order or character name is not evidence of new content.
 
-P2 content work extends these rules and their teaching, rather than adding isolated banks of complete questions. The new date/duration and о/об units cover three named source requirements partially. New reading and listening now have a persistent generation path using unit objectives, taught language and explicit facts, with source-grounded questions and answers. Audio is prepared from the accepted text on demand; no stock recording batch is required for each content variant. Provider acceptance and language quality still need improvement and measurement before rollout. The diagnostic pilot and Journey letters remain authored. Broader P3 forms still require a declared sampling blueprint, ambiguity checks, audio and validated marking. This pass does not convert practice scores into a full-level pass.
+P2 content work extends these rules and their teaching, rather than adding isolated banks of complete questions. The new date/duration and о/об units cover three named source requirements partially. New reading and listening now have a persistent generation path using unit objectives, taught language and explicit facts, with source-grounded questions and answers. Audio is prepared from the accepted text on demand; no stock recording batch is required for each content variant. The deployed generators still need better prose and measured language quality before their scope expands. The diagnostic pilot and Journey letters remain authored. Broader P3 forms still require a declared sampling blueprint, ambiguity checks, audio and validated marking. This pass does not convert practice scores into a full-level pass.
 
 The language-design pass now starts with the Russian: the communicative purpose, prerequisite constructions, natural answer phrases and credible alternatives. Three unit plans freeze related facts before generation and supply checked hints and source-based feedback. A comprehension question must distinguish meanings; it must not rely on an obviously wrong ending to identify the answer. Written-date teaching does not establish spoken-date comprehension. Short messages should carry useful information without padding to meet a universal length target. The [linguistic design](procedural-content.md#linguistic-design) and [eighteen-call evaluation](procedural-content.md#language-design-follow-up) record the implementation and remaining quality limits.
+
+## Next implementation pass
+
+The immediate priorities are language quality, useful variation and connecting new vocabulary to the rest of the app. More services, progress bars or stock recordings are not required. Keep the existing learning player, vocabulary pipeline, saved tasks and provider limits.
+
+| Order | Deliverable | Completion evidence |
+| --- | --- | --- |
+| 1 | Improve the three detailed reading/listening plans and evaluate the current prose prompt. | Fresh samples have a coherent speaker, addressee and purpose; correct Russian; answerable questions; and appropriate supporting language. Report rejected and weak samples as well as successes. |
+| 2 | Add word lookup and saving to generated passages. | A selected form retains its sentence context and uses the existing lemma, mnemonic and enrichment pipeline. Saving is optional. Listening transcripts and answer-related help retain their support rules. |
+| 3 | Extend linguistic plans to the remaining 14 units, in small groups. | Each group teaches its tested contrasts and has distinct situation families checked in reading and listening. A broad A1 prompt does not count as a completed plan. |
+| 4 | Add fresh Writing briefs and unit-specific Speaking beyond the connected location lesson. | Every unit already has an original Writing brief. New situations retain earlier work and elicit original messages and replies. Reports distinguish understandable meaning, correct use of an elicited construction and insufficient evidence. |
+| 5 | Expand the diagnostic and later-level courses. | A versioned five-domain blueprint, broader task sampling and evaluation against responses not used for tuning. Existing pilot scores remain diagnostic. |
+
+### 1. Natural Russian and meaningful variation
+
+Start with a person who needs to tell, ask or find out something. Decide what the addressee must understand or do, then choose the Russian constructions that express it. The writer should realise that situation without adding filler to satisfy a length target. Keep the speaker, viewpoint, register and timeline consistent.
+
+The latest saved source-v4 batch passed five of six structural checks. Assistant review judged three usable for supported comprehension and none fully polished. This small development batch is not a production success-rate estimate. It nevertheless identifies concrete faults: a message addressing Анна ends by narrating what Анна knows; another adds «Это была поездка Лены» without useful information. The final removal of the sentence minimum has not had a fresh provider check.
+
+The current plans also repeat the same information pattern under different recipe names. Location always asks about two current places and one destination. Calendar reading always uses a completed stay, its location, date and duration; calendar listening uses a stay, duration and companion. Topic tasks always pair two speakers with their subjects and a location. These can generate new text, but their communicative variety is limited.
+
+The [provider-free plan audit](validation/russian-content-audit-2026-10-04.json) checks 100 seeds for each of those six unit/mode combinations. Each combination keeps one fact-role structure. This finding concerns these detailed reading/listening plans, not every generator in the application.
+
+Develop at least two distinct situation families for each of the three units. A family must change what the learner needs to resolve: for example, locating a friend versus acting on a changed meeting plan, or understanding the length of a visit versus time spent on an activity. Use only taught language or explicitly supported new language. Different names, dates and nouns alone do not establish a different family.
+
+Choose the situation family using recent semantic exposure before selecting its words. Recent text excerpts and exact-duplicate rejection alone cannot prevent the same problem returning with different names.
+
+For every family, specify:
+
+- Who is speaking, to whom, why, and through which medium: note, message, announcement or brief exchange.
+- The facts and relationships needed to answer. Preserve natural alternative answers where the task allows them.
+- The target construction, permitted supporting grammar, familiar vocabulary and a small amount of supported new vocabulary.
+- The question's purpose and plausible alternatives. A reading question distinguishes meanings; a form exercise may explicitly test an ending.
+- What the seed changes, which combinations are implausible, and which changes should count as a previously encountered task.
+
+Sentence count should follow the message's purpose. The current generation contract requires exactly three assessed facts, each bound to one question. Keep that contract and the three-question player until a deliberate versioned change is made. If a proposed situation cannot support three useful questions, redesign its information or give it a different declared task shape. Do not pad the prose.
+
+There is a concrete generator gap to correct: the calendar plan defines a reading-duration context, but its current recipe identifiers never select it. Add a reachable, taught activity-duration family and verify the selected semantic plans across seeds. More recipe labels around the same stay do not resolve this.
+
+Run three bounded batches of six text calls: three units × reading/listening × three fresh seeds overall. The existing command caps each run at twelve calls. Start with a dry run, preserve every response and make no automatic retry. Add synthetic familiar-vocabulary fixtures to the evaluation command before claiming to test vocabulary adaptation; it currently uses unit teaching inputs. Do not use private learner data for this evaluation.
+
+Review grammatical correctness, communicative purpose, supporting difficulty, referents, distractors, naturalness and meaningful variation separately. A schema pass is not a language pass. Record cost, latency, first-attempt acceptance and all rejections. Check for every known defect, then evaluate corrected work with new seeds. This is a release check for the sampled scope, not catalogue-wide validation or an exam-readiness estimate.
+
+Review unfamiliar language across the complete passage. The current limit of three vocabulary annotations does not prove that only three unfamiliar words occur. A familiar lemma also does not establish knowledge of its case forms or governing construction. Allow useful supported expressions, such as an invitation, deliberately. Do not label idiomatic Russian incorrect simply because it is outside the target construction. Keep annotation errors separate from errors in the Russian itself.
+
+Review analyser disagreements as a separate validation task. The rejected «тоже» annotation does not make its sentence ungrammatical. Normalise justified annotation differences against the existing morphology pipeline without accepting wrong surface forms or inventing a lexical sense. An analyser's preferred parse alone cannot settle every contextual interpretation.
+
+Prepare audio only after accepting its text. Retain randomized voice selection and save the chosen voice with the task. Check pronunciation and prosody audibly, including Russian stress and the intended readings of numbers. Successful playback alone does not establish good Russian speech. Do not add an extra model judge to every learner request by default; any proposed quality pass must have a measured benefit, cost and failure policy.
+
+Implementation starts in `curriculum_situation_plans.py`, `curriculum_situation_content.py` and `scripts/check_curriculum_situations.py`. Publish material prompt or plan changes as new versions. Preserve old adapters, issued questions and saved answers.
+
+### 2. Vocabulary integration
+
+Generated passages currently render as plain paragraphs in `ui/src/Practice.tsx`. Reuse the existing story word lookup and vocabulary-enrichment services. Resolve the selected surface form within the saved passage, retain the lemma and contextual meaning, and show ambiguity where it cannot be resolved confidently. Do not introduce a universal English meaning field or insert bare words directly into the database.
+
+Reading can offer word help on demand. Listening must keep its transcript hidden until requested; opening it or receiving answer-related help must retain the existing support record. Saving a word must be idempotent and include the existing mnemonic and morphology work. New passage vocabulary should then be available to the normal flashcard generator with contextual clozes, images and audio.
+
+### 3. Extend the language plans
+
+Work through coherent groups: personal reference and agreement; actions and routines; possession, objects and recipients; motion, origins and aspect; quantities, needs and social exchanges; then connected messages and instrumental activities/professions. Check actual prerequisites before choosing each group. These are work groups, not new access locks.
+
+A plan must describe the Russian relationship being learned, not just a topic or case label. Distinguish recipient from companion, absence from possession, location from destination, and process from result. Separate each unit's taught lexical classes from its remaining coverage. Add explanation before testing a new contrast. Broader original writing, speech and full A1 coverage remain separate work after a generator exists.
+
+Concrete teaching gaps include adjective forms outside nominative descriptions, the allocated departure/arrival motion requirement, and spoken ordinal dates. The existing units deliberately cover narrower uses. Do not infer complete coverage from their titles or from a zero in the separate sequence-mapping inventory. Identify the missing construction, teach it, then extend its generation and evidence contract.
+
+### 4. Production and assessment
+
+Reuse the existing original-response stores and two-turn exchange. Add new purposes such as making a request, explaining what is missing or arranging a time. Let learners answer in natural Russian; do not require them to reproduce the model's sentence. Retain the original audio so transcription cannot silently erase grammatical mistakes.
+
+Ordinary unit Writing currently reopens one saved brief and observes one communication criterion. Add an explicit new-situation action while preserving resume, drafts and feedback for the old brief. Add grammatical criteria only when the new task actually elicits those forms. The connected location/destination sequence already has more detailed evidence; reuse that design without forcing every unit through the same activity list.
+
+Expand assessment variation under its blueprint, with fresh tasks held back from practice and tuning. Keep known help and repeated exposure attached to results. Test natural learner recordings and disputed alternatives before strengthening grading or level gates. This is maintainer validation; the learner still uses a standalone application without needing a tutor.
 
 ## Exam sources and assessment rules
 

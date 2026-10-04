@@ -1,0 +1,142 @@
+{
+  "date": "2026-10-04",
+  "baseline_commit": "0bcba586ae37c4fdb7237c0973297fb7c0095cfd",
+  "language_plan_version": "curriculum-language-plan-v3",
+  "source_sha256": "e00fd7615c326c5985923763d787047ed80905b4b96dce69425c662c94fb1b51",
+  "seed_pattern": "audit-2026-10-04-{i}, i=0..99",
+  "provider_calls": 0,
+  "plans_checked": 600,
+  "scope": "Detailed linguistic plans only; does not measure all application generators or generated prose quality.",
+  "results": [
+    {
+      "unit_id": "location-destination-v1",
+      "mode": "reading",
+      "seeds": 100,
+      "fact_structures": [
+        {
+          "roles": [
+            "location",
+            "destination",
+            "location"
+          ],
+          "count": 100
+        }
+      ],
+      "recipe_counts": {
+        "coordinate-two-people": 36,
+        "find-a-friend": 27,
+        "share-next-stop": 37
+      },
+      "duration_context_counts": {}
+    },
+    {
+      "unit_id": "location-destination-v1",
+      "mode": "listening",
+      "seeds": 100,
+      "fact_structures": [
+        {
+          "roles": [
+            "location",
+            "destination",
+            "location"
+          ],
+          "count": 100
+        }
+      ],
+      "recipe_counts": {
+        "coordinate-two-people": 36,
+        "find-a-friend": 27,
+        "share-next-stop": 37
+      },
+      "duration_context_counts": {}
+    },
+    {
+      "unit_id": "calendar-and-duration-v1",
+      "mode": "reading",
+      "seeds": 100,
+      "fact_structures": [
+        {
+          "roles": [
+            "duration",
+            "location",
+            "date"
+          ],
+          "count": 100
+        }
+      ],
+      "recipe_counts": {
+        "remember-a-stay": 38,
+        "report-a-visit": 36,
+        "share-travel-news": 26
+      },
+      "duration_context_counts": {
+        "temporary-stay": 100
+      }
+    },
+    {
+      "unit_id": "calendar-and-duration-v1",
+      "mode": "listening",
+      "seeds": 100,
+      "fact_structures": [
+        {
+          "roles": [
+            "duration",
+            "location",
+            "person"
+          ],
+          "count": 100
+        }
+      ],
+      "recipe_counts": {
+        "remember-a-visit": 38,
+        "report-a-stay": 36,
+        "share-trip-news": 26
+      },
+      "duration_context_counts": {
+        "temporary-stay": 100
+      }
+    },
+    {
+      "unit_id": "talking-about-topics-v1",
+      "mode": "reading",
+      "seeds": 100,
+      "fact_structures": [
+        {
+          "roles": [
+            "topic_person",
+            "topic_thing",
+            "location"
+          ],
+          "count": 100
+        }
+      ],
+      "recipe_counts": {
+        "find-an-interesting-conversation": 41,
+        "join-a-conversation": 24,
+        "share-conversation-news": 35
+      },
+      "duration_context_counts": {}
+    },
+    {
+      "unit_id": "talking-about-topics-v1",
+      "mode": "listening",
+      "seeds": 100,
+      "fact_structures": [
+        {
+          "roles": [
+            "topic_person",
+            "topic_thing",
+            "location"
+          ],
+          "count": 100
+        }
+      ],
+      "recipe_counts": {
+        "find-an-interesting-conversation": 41,
+        "join-a-conversation": 24,
+        "share-conversation-news": 35
+      },
+      "duration_context_counts": {}
+    }
+  ]
+}

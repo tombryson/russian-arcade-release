@@ -50,7 +50,8 @@ def render():
         unit = get_unit(unit_id)
         listening_count = len(listening_content(unit_id)['items']) if unit_id in LISTENING_IDS else 0
         lines.append(f"| {unit['title']} (`{unit_id}`) | {len(unit['questions'])} | {len(unit['forms']['questions'])} | {listening_count} |")
-    lines += ['', 'Each unit also opens its own Writing task. A zero listening count means that no listening activity is offered for that unit. '
+    lines += ['', 'Each unit also opens its own Writing task. A zero listening count means no prerecorded authored pack is included in this inventory. '
+              'All 17 units also offer generated listening with audio prepared on demand in workspaces with generation available; those tasks are not counted here. '
               'Speaking links to existing scenarios do not automatically add a unit-specific Speaking criterion. '
               'See [the validation record and reviewer workflow](curriculum-validation.md) for the pending language and learner review.', '',
               f"There are {len(data['direct_task_contracts'])} directly authored task definitions linked to "

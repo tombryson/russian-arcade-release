@@ -45,7 +45,7 @@ Runtime-generated tasks are not part of this static count. Source editions beyon
 | Dates and duration (`calendar-and-duration-v1`) | 6 | 6 | 0 |
 | Talking about people and interests (`talking-about-topics-v1`) | 6 | 6 | 0 |
 
-Each unit also opens its own Writing task. A zero listening count means that no listening activity is offered for that unit. Speaking links to existing scenarios do not automatically add a unit-specific Speaking criterion. See [the validation record and reviewer workflow](curriculum-validation.md) for the pending language and learner review.
+Each unit also opens its own Writing task. A zero listening count means no prerecorded authored pack is included in this inventory. All 17 units also offer generated listening with audio prepared on demand in workspaces with generation available; those tasks are not counted here. Speaking links to existing scenarios do not automatically add a unit-specific Speaking criterion. See [the validation record and reviewer workflow](curriculum-validation.md) for the pending language and learner review.
 
 There are 266 directly authored task definitions linked to 50 reference requirements. These counts include the narrow mapped Speaking diagnostics listed below.
 

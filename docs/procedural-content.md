@@ -1,6 +1,6 @@
 # Procedural content
 
-Implementation record, 2 October 2026; language-design follow-up updated 3 October. The current follow-up is repository work; deployment and live evaluation are recorded separately.
+Implementation record, started 2 October 2026; status and priorities updated 4 October. The language-design follow-up is deployed at `0bcba58`. See [deployment verification](torfl-implementation-2026-10-02.md#deployment-update--3-october-2026) and the [next implementation pass](torfl-assessment-build-plan.md#next-implementation-pass).
 
 Russian Arcade uses fixed learning objectives and variable practice. A new seed must change the language problem or situation. Shuffling answers, changing a name or replaying a saved question does not establish novelty.
 
@@ -140,6 +140,8 @@ The acceptable listening message produced a valid 26.053-second recording throug
 
 No production deployment was performed in this follow-up.
 
+The subsequent 3 October deployment included this work. Its live audio check verified delivery through the owned endpoint; it did not repeat the earlier generated-recording browser playback or provide an audible pronunciation review.
+
 ### Language-design follow-up
 
 Three further batches tested the location/destination, calendar/duration and conversation-topic units in both reading and listening. Each case made one text call, with no automatic retry or audio generation. The configured model remained `gpt-5.6-luna`. The [evaluation record](validation/curriculum-situations-2026-10-02.json) retains all responses, failures, frozen facts, usage and provenance. It separates software acceptance from assistant language review; it is not independent review or learner calibration.
@@ -156,14 +158,20 @@ The final request no longer imposes a four-sentence minimum on these three units
 
 The final backend regression run passed 124 tests covering generation, linguistic plans, the evaluation command, saved tasks, preparation, audio and account imports. Separate compatibility checks retained 34 legacy documents/packs and the captured earlier prompt/schema contracts. The source scan found no credentials. These checks verify the implemented boundaries, not general Russian fluency or the quality of every generated lesson.
 
-This follow-up changes generation and validation only. It does not change the player, model, credentials, randomized voice pool, allowances, rewards or personal data. Audio still starts after text acceptance. There was no deployment or new audio/browser check in this language-design pass.
+This follow-up changes generation and validation only. It does not change the player, model, credentials, randomized voice pool, allowances, rewards or personal data. Audio still starts after text acceptance. There was no deployment or new audio/browser check during the language-design pass itself; deployment followed on 3 October.
+
+### Variation audit — 4 October 2026
+
+A [provider-free audit](validation/russian-content-audit-2026-10-04.json) sampled 100 seeds for each detailed unit in each mode: 600 plans. Names, places and values change, but each unit/mode retains one fact-role structure. Calendar plans all select a temporary stay. The defined reading-duration context is unreachable through the current recipe identifiers. This identifies a concrete expansion task; it does not mean that the whole application uses fixed content.
+
+The next pass should vary the communicative problem as well as its details, while preserving taught constructions and plausible alternatives. First improve and evaluate the three existing plans, then extend them to the other units. The [ordered implementation plan](torfl-assessment-build-plan.md#next-implementation-pass) defines prose checks, vocabulary integration, production tasks and assessment work separately.
 
 ## Remaining work
 
 1. Extend rule coverage and checked lexical classes where the source inventory still has gaps. Calendar dates, duration and simple о/об topics now have partial teaching and generated practice; they do not close the whole A1 inventory. Add teaching before requiring new constructions.
-2. Improve generated prose and prerequisite control before rollout. The three detailed plans now bind people, events and governed phrases before generation, but naturalness, unfamiliar supporting language and semantic ambiguity still need evaluation. The other fourteen A1 units retain the broader generation contract and need their own linguistic plans. Evaluate fresh seeds and familiar-vocabulary inputs; do not report only structural acceptance. A stock-recording batch is not a release requirement.
+2. Improve deployed prose and prerequisite control before expanding scope. The three detailed plans now bind people, events and governed phrases before generation, but naturalness, unfamiliar supporting language and semantic ambiguity still need evaluation. Add distinct event families: their current fact structures still repeat. The other fourteen A1 units retain the broader generation contract and need their own linguistic plans. Evaluate fresh seeds and familiar-vocabulary inputs; do not report only structural acceptance. A stock-recording batch is not a release requirement.
 3. Connect new words in generated passages to the existing lookup, mnemonic and vocabulary-enrichment pipeline. Show contextual help without turning a comprehension task into a list of dictionary meanings. Preserve existing authored recordings and uploaded lesson revisions.
-4. Extend original production and connected sequences beyond the current location lesson. Generating another controlled question does not substitute for original writing or speech.
+4. Extend fresh original production and connected sequences beyond the current location lesson. All seventeen units already have original Writing briefs, but ordinary unit Writing resumes the same brief and measures communication through one criterion. Add new purposes, unit-specific spoken exchanges and separately elicited grammar observations. Generating another controlled question does not substitute for original writing or speech.
 5. Expand assessment forms under a five-domain blueprint. Keep assessment exposure separate from ordinary practice novelty. Do not treat random variation as calibrated exam difficulty.
 6. Compare generated Russian and marking against held-out responses and natural learner recordings. Automated morphology and software tests cannot establish pronunciation quality or exam readiness.
 
