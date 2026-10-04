@@ -46,7 +46,13 @@ class AlphabetCatalogueTests(unittest.TestCase):
         self.assertEqual(clips['tse-name.mp3']['text'], 'цэ.')
         self.assertEqual(clips['be-word.mp3']['display_text'], 'бана́н')
         self.assertEqual(clips['be-word.mp3']['text'], 'банан.')
-        self.assertEqual(command.load_clips(voice='male'), clips)
+        male_clips = command.load_clips(voice='male')
+        self.assertEqual(male_clips['ye-name.mp3']['display_text'], 'е')
+        self.assertEqual(male_clips['ye-name.mp3']['text'], 'йэ.')
+        self.assertEqual(clips['ye-name.mp3']['text'], 'е.')
+        self.assertEqual(male_clips['ye-name.mp3']['text_sha256'], command.digest('йэ.'.encode()))
+        self.assertEqual({key: value for key, value in male_clips.items() if key != 'ye-name.mp3'},
+                         {key: value for key, value in clips.items() if key != 'ye-name.mp3'})
         self.assertEqual(len({url for row in data for field in ('nameAudio', 'exampleAudio') for url in row[field].values()}), 132)
 
     def test_practice_syllable_labels_reject_names_and_nonconsonant_entries(self):

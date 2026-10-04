@@ -76,8 +76,8 @@ class AlphabetSoundCatalogueTests(unittest.TestCase):
 
 class AlphabetSpeechDurationTests(unittest.TestCase):
     def test_per_letter_duration_exceptions_do_not_count_external_silence(self):
-        targets = {**dict.fromkeys(('ve', 'en', 'o', 'shcha', 'ef', 'che', 'tse', 'pe'), 130),
-                   **dict.fromkeys(('sha', 'short-i', 'zhe'), 110)}
+        targets = {**dict.fromkeys(('ve', 'en', 'tse', 'short-i', 'zhe'), 150),
+                   **dict.fromkeys(('o', 'shcha', 'ef', 'che', 'pe'), 130), 'sha': 110}
         silence = AudioSegment.silent(duration=500, frame_rate=48000)
         for letter_id, duration in targets.items():
             tone = Sine(330, sample_rate=48000).to_audio_segment(duration=duration).apply_gain(-15)
@@ -97,16 +97,16 @@ class AlphabetSpeechDurationTests(unittest.TestCase):
             command.require_speech(tone[:159])
 
     def test_selected_consonants_preserve_internal_quiet_without_counting_padding(self):
-        tone = Sine(330, sample_rate=48000).to_audio_segment(duration=130).apply_gain(-15)
-        for letter_id, quiet_ms in (('che', 5), ('en', 1), ('tse', 12)):
+        for letter_id, duration, quiet_ms in (('che', 130, 5), ('en', 150, 3), ('tse', 150, 12)):
+            tone = Sine(330, sample_rate=48000).to_audio_segment(duration=duration).apply_gain(-15)
             silence = AudioSegment.silent(duration=quiet_ms, frame_rate=48000)
             release = tone[:5] + silence + tone[5 + quiet_ms:]
             with self.subTest(letter_id=letter_id):
-                self.assertEqual(command.require_speech(release, letter_id=letter_id), 130 - quiet_ms)
-                with self.assertRaisesRegex(ValueError, '130 ms'):
-                    command.require_speech(release, letter_id='ef')
-                for padded in (silence + tone[:130 - quiet_ms], tone[:130 - quiet_ms] + silence):
-                    with self.assertRaisesRegex(ValueError, '130 ms'):
+                self.assertEqual(command.require_speech(release, letter_id=letter_id), duration - quiet_ms)
+                with self.assertRaisesRegex(ValueError, f'{duration} ms'):
+                    command.require_speech(release, letter_id='ef' if duration == 130 else 've')
+                for padded in (silence + tone[:duration - quiet_ms], tone[:duration - quiet_ms] + silence):
+                    with self.assertRaisesRegex(ValueError, f'{duration} ms'):
                         command.require_speech(padded, letter_id=letter_id)
 
     def test_external_padding_cannot_round_159_ms_up_to_the_minimum(self):
@@ -381,7 +381,7 @@ class AlphabetSoundPreparationTests(unittest.TestCase):
         provenance['payload']['text'] = 'йо.'
         source.with_suffix('.json').write_text(json.dumps(provenance))
         recipe = {**self.recipes['female-ef'], 'source': source.relative_to(self.root).as_posix(),
-                  'mode': 'crop', 'start_ms': 30, 'end_ms': 140}
+                  'mode': 'crop', 'start_ms': 30, 'end_ms': 180}
         clips = {'short-i-sound.mp3': {'letter_id': 'short-i', 'kind': 'sound', 'ipa': 'j', 'display_text': 'й'}}
         specs = command.source_specs(clips, {'female-short-i': recipe}, 'female', self.root)
         self.assertEqual(specs['short-i-sound.mp3']['source_generation']['request']['text'], 'йо.')

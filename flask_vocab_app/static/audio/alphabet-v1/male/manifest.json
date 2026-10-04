@@ -201,19 +201,31 @@
       "letter_id": "ye",
       "kind": "name",
       "display_text": "е",
-      "text": "е.",
-      "text_sha256": "7bd407966342d4093ff3bfa5a8f1408d43f9277510dcaca3a3bef6d771aa32ac",
+      "text": "йэ.",
+      "text_sha256": "4091b96399b96edfc9b26689d949e66702c102cdd24b9f3cdccd4d0af8609729",
       "model": "eleven_v4",
       "voice_id": "sRk0zCqhS2Cmv0bzx5wA",
       "attempts": 1,
-      "audio_sha256": "16c2ec81bd6dcafa9a4e3dedc5aec65e1ca6d931869804a368cfea5e597b2020",
-      "duration_ms": 535,
-      "size_bytes": 4823,
-      "leading_silence_ms": 25,
-      "trailing_silence_ms": 80,
-      "source_duration_ms": 720,
+      "audio_sha256": "574a326c2597d8405174acb4dcf0df606a032fa5646f392abe37a3e7dad18c94",
+      "duration_ms": 640,
+      "size_bytes": 5659,
+      "leading_silence_ms": 20,
+      "trailing_silence_ms": 95,
+      "source_duration_ms": 640,
       "trimmed_leading_ms": 0,
-      "trimmed_trailing_ms": 185
+      "trimmed_trailing_ms": 0,
+      "request": {
+        "text": "йэ.",
+        "model_id": "eleven_v4",
+        "language_code": "ru",
+        "voice_settings": {
+          "stability": 0.8,
+          "similarity_boost": 0.85
+        }
+      },
+      "source_file": "scripts/audio-sources/alphabet/names-v2/male-ye.mp3",
+      "source_audio_sha256": "fbf5179f0e68f1e70194f29cebe83117640432b310648f99ae667c76901b0d44",
+      "normalization_gain_db": 8.952708475957554
     },
     "ye-word.mp3": {
       "letter_id": "ye",

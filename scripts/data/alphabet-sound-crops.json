@@ -1,5 +1,5 @@
 {
-  "version": "alphabet-sound-crops-v7",
+  "version": "alphabet-sound-crops-v8",
   "review": "Whole consonant-vowel practice syllables replace cropped consonants. Every example has at least 160 ms of detected source speech. No cropping, repetition, stretching, or artificial amplification. Duration checks do not certify pronunciation.",
   "processing": {
     "normalization_dbfs": -20,
@@ -9,21 +9,21 @@
     "max_gain_db": 3,
     "minimum_speech_ms": 160,
     "minimum_speech_ms_by_letter": {
-      "ve": 130,
-      "en": 130,
+      "ve": 150,
+      "en": 150,
       "o": 130,
       "shcha": 130,
       "ef": 130,
       "che": 130,
-      "tse": 130,
+      "tse": 150,
       "pe": 130,
       "sha": 110,
-      "short-i": 110,
-      "zhe": 110
+      "short-i": 150,
+      "zhe": 150
     },
     "max_internal_quiet_ms_by_letter": {
       "che": 5,
-      "en": 1,
+      "en": 3,
       "tse": 12
     },
     "cropped_syllable_ids": [
@@ -57,8 +57,8 @@
       "source": "flask_vocab_app/static/audio/alphabet-v1/ve-name.mp3",
       "source_sha256": "f6d53f9bfdb91b49f9d9f2a957fa0bea1570991dc532271240edce2ce25add5f",
       "mode": "crop",
-      "start_ms": 40,
-      "end_ms": 170,
+      "start_ms": 35,
+      "end_ms": 185,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
@@ -107,8 +107,8 @@
       "source": "flask_vocab_app/static/audio/alphabet-v1/zhe-name.mp3",
       "source_sha256": "ac883c1e52cbc55df08c7744f9c58b6803e4fd1c1edd00d3f2d84123791a81cf",
       "mode": "crop",
-      "start_ms": 80,
-      "end_ms": 190,
+      "start_ms": 60,
+      "end_ms": 210,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
@@ -138,7 +138,7 @@
       "source_sha256": "8bd931a91a828d4f1f98164e135f4946e1ecc8dc1fff5de1b1646b666825e922",
       "mode": "crop",
       "start_ms": 30,
-      "end_ms": 140,
+      "end_ms": 180,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
@@ -178,7 +178,7 @@
       "source_sha256": "41c7381a6520ea48674d43f7f686653735b22ca3c4b6ae86efa7703364767603",
       "mode": "crop",
       "start_ms": 200,
-      "end_ms": 330,
+      "end_ms": 350,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
@@ -268,7 +268,7 @@
       "source_sha256": "bfbe1c164bf40dcabe403f06a465c34e7e547d2b832a871cdf0a63b771b85571",
       "mode": "crop",
       "start_ms": 21,
-      "end_ms": 151,
+      "end_ms": 171,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
@@ -367,8 +367,8 @@
       "source": "flask_vocab_app/static/audio/alphabet-v1/male/ve-name.mp3",
       "source_sha256": "6db66d0a17d57b33e7a742157f33492a06955504b0d3b843e95a59de34de3210",
       "mode": "crop",
-      "start_ms": 50,
-      "end_ms": 180,
+      "start_ms": 41,
+      "end_ms": 191,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
@@ -395,7 +395,7 @@
     },
     "male-ye": {
       "source": "flask_vocab_app/static/audio/alphabet-v1/male/ye-name.mp3",
-      "source_sha256": "16c2ec81bd6dcafa9a4e3dedc5aec65e1ca6d931869804a368cfea5e597b2020",
+      "source_sha256": "574a326c2597d8405174acb4dcf0df606a032fa5646f392abe37a3e7dad18c94",
       "mode": "copy",
       "start_ms": null,
       "end_ms": null,
@@ -417,8 +417,8 @@
       "source": "flask_vocab_app/static/audio/alphabet-v1/male/zhe-name.mp3",
       "source_sha256": "4fce76df467ac3b3b964dd5f96350ffbd55b87fca693ae59d372ca3b8ebf1ac1",
       "mode": "crop",
-      "start_ms": 80,
-      "end_ms": 190,
+      "start_ms": 60,
+      "end_ms": 210,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
@@ -448,7 +448,7 @@
       "source_sha256": "114320ea78bb59b93b0403ca47d37f6354be2d47b0ecc2d460061dc93056b2f6",
       "mode": "crop",
       "start_ms": 27,
-      "end_ms": 137,
+      "end_ms": 177,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
@@ -488,7 +488,7 @@
       "source_sha256": "8ce549981be87e7ca8378397c85746ed1ab9b18b7568d8489891327bee1a6c87",
       "mode": "crop",
       "start_ms": 210,
-      "end_ms": 340,
+      "end_ms": 360,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3
@@ -578,7 +578,7 @@
       "source_sha256": "4946ff5090a1bab40acd848092c1fa86e2d1147c8bc873b074944834f63a4a61",
       "mode": "crop",
       "start_ms": 36,
-      "end_ms": 166,
+      "end_ms": 186,
       "repetitions": 1,
       "fade_in_ms": 2,
       "fade_out_ms": 3

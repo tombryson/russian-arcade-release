@@ -26,18 +26,18 @@ RECORDED_PREFIX = 'scripts/audio-sources/alphabet/syllables-v1/'
 DIRECTORY = audio.DIRECTORY / 'sounds'
 RECIPES = ROOT / 'scripts/data/alphabet-sound-crops.json'
 MODEL = audio.MODEL
-VERSION = 'alphabet-sounds-v8'
-RECIPE_VERSION = 'alphabet-sound-crops-v7'
+VERSION = 'alphabet-sounds-v9'
+RECIPE_VERSION = 'alphabet-sound-crops-v8'
 MAX_CLIPS = 31
 MIN_SPEECH_MS = 160
 # Explicit listening adjustments; all other isolated sounds keep the default.
 MIN_SPEECH_MS_BY_LETTER = {
-    've': 130, 'en': 130, 'o': 130, 'shcha': 130, 'ef': 130, 'che': 130, 'tse': 130, 'pe': 130,
-    'sha': 110, 'short-i': 110, 'zhe': 110,
+    've': 150, 'en': 150, 'o': 130, 'shcha': 130, 'ef': 130, 'che': 130, 'tse': 150, 'pe': 130,
+    'sha': 110, 'short-i': 150, 'zhe': 150,
 }
 # Preserve natural low-energy portions inside the measured speech span.
 # Moving past them would remove releases or extend cuts into adjacent vowels.
-MAX_INTERNAL_QUIET_MS = {'che': 5, 'en': 1, 'tse': 12}
+MAX_INTERNAL_QUIET_MS = {'che': 5, 'en': 3, 'tse': 12}
 RECORDED_CROP_TEXT = {'short-i': 'йо.'}
 CROPPED_SYLLABLE_IDS = frozenset(('pe',))
 SPEECH_THRESHOLD_DBFS = -45

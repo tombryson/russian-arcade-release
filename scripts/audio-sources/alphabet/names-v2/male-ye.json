@@ -1,0 +1,32 @@
+{
+  "id": "male-ye-yeh",
+  "voice_id": "sRk0zCqhS2Cmv0bzx5wA",
+  "payload": {
+    "text": "йэ.",
+    "model_id": "eleven_v4",
+    "language_code": "ru",
+    "voice_settings": {
+      "stability": 0.8,
+      "similarity_boost": 0.85
+    }
+  },
+  "state": "complete",
+  "file": "male-ye.mp3",
+  "sha256": "fbf5179f0e68f1e70194f29cebe83117640432b310648f99ae667c76901b0d44",
+  "duration_ms": 640,
+  "bytes": 11328,
+  "timing": {
+    "first_body_chunk_ms": 1238,
+    "complete_response_ms": 1238,
+    "first_chunk_bytes": 4096,
+    "content_type": "audio/mpeg"
+  },
+  "activity": {
+    "threshold_dbfs": -45,
+    "frame_ms": 1,
+    "active_ms": 405,
+    "start_ms": 22,
+    "end_ms": 469,
+    "span_ms": 447
+  }
+}

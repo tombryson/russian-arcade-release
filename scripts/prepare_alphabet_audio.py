@@ -34,6 +34,9 @@ SOURCES = [
 # Conventional names are written же and це; their names have э, not the
 # unstressed vowel in the particle же. These are pronunciation spellings only.
 NAME_SPEECH = {'zhe': 'жэ', 'tse': 'цэ'}
+# Felix omitted the initial /j/ in isolated «е». Use a pronunciation spelling
+# for this voice's request; the displayed letter name remains «е».
+NAME_SPEECH_BY_VOICE = {'male': {'ye': 'йэ'}}
 
 
 def digest(data):
@@ -81,7 +84,8 @@ def load_clips(path=DATA, *, voice='female'):
                              for variant in ('female', 'male')}
             if item[url_field] != expected_urls or filename in clips:
                 raise ValueError('Alphabet audio URLs must have unique, fixed filenames.')
-            spoken = (NAME_SPEECH.get(item['id'], item[field]) if kind == 'name' else item[field]).replace('\u0301', '')
+            spoken = (NAME_SPEECH_BY_VOICE.get(voice, {}).get(item['id'], NAME_SPEECH.get(item['id'], item[field]))
+                      if kind == 'name' else item[field]).replace('\u0301', '')
             if not re.fullmatch('[А-Яа-яЁё ]{1,40}', spoken):
                 raise ValueError('Alphabet speech must be a short Russian name or word.')
             text = spoken + '.'

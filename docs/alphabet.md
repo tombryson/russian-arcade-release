@@ -10,26 +10,29 @@ The Female / Male selector applies to every sound, letter name and example word.
 
 `flask_vocab_app/ui/src/alphabet-data.json` is the shared content source. Each entry has the uppercase and lowercase letter, a pronunciation target, an optional practice syllable, its Russian name, a word with marked stress, an English meaning and a short pronunciation note. IPA targets are authoring data; learners do not need to read phonetic notation.
 
-Clicking a vowel plays its sound. Clicking most consonants plays a complete **practice syllable**, such as **па** for П. The panel labels each practice syllable and identifies its consonant and vowel. В, Н, Ф, Ч, Ц, Щ, Ш, Й and Ж play short sound excerpts, labelled “Letter sound”. The male Й excerpt includes the transition into the following vowel; it is not a pure isolated /j/. The large letter replays the same example. Separate controls play the whole example word and the letter name.
+Clicking a vowel plays its sound. Clicking most consonants plays a **practice syllable**, such as **па** for П. The panel labels each practice syllable and identifies its consonant and vowel. В, Н, Ф, Ч, Ц, Щ, Ш, Й and Ж play short sound excerpts, labelled “Letter sound”. Both Й excerpts include the transition into the following vowel; they are not pure isolated /j/. The large letter replays the same example. Separate controls play the whole example word and the letter name.
 
 Practice syllables use a hard consonant before а where the consonant has a hard/soft pair. Ч and Щ remain soft; Й is a brief glide, as in йо́гурт. Some syllables, such as ка, coincide with the letter's name. The two controls still identify their roles. Е, ё, ю and я demonstrate stressed word-initial pronunciation. The hard and soft signs have no independent sound: selecting either is silent, with its name, example word and explanation available.
 
-All packaged speech uses ElevenLabs v4 (`eleven_v4`). There are two complete voice sets: TatanaLuke (female) and Felix (male). Each has 33 letter names, 33 example words and 31 pronunciation examples. Playback uses static files and makes no AI request. Original name and word recordings remain unchanged.
+All packaged speech uses ElevenLabs v4 (`eleven_v4`). There are two complete voice sets: TatanaLuke (female) and Felix (male). Each has 33 letter names, 33 example words and 31 pronunciation examples. Playback uses static files and makes no AI request.
 
-Most practice syllables are complete provider recordings. П uses a shorter excerpt of па and retains that syllable label: it includes the following vowel rather than a sustained isolated /p/. Vowels reuse their original recordings, except О.
+The male Е name and sound were replaced using the pronunciation spelling `йэ.` to elicit the initial /j/. The learner still sees Е. The complete replacement is 640 ms; no speech was cropped. Its source and exact request are retained in `scripts/audio-sources/alphabet/names-v2/`. A blind audio-model check identified [je] in the replacement and no initial glide in the earlier recording. This is model screening, not native-listener certification. The female Е, both Э recordings and all example words remain unchanged.
+
+Most practice syllables are complete provider recordings. П uses a shorter excerpt of па and retains that syllable label: it includes the following vowel rather than a sustained isolated /p/. Vowels reuse their letter-name recordings, except О.
 
 The current excerpt durations apply to both voices:
 
 | Letters | Source window | Playback including padding |
 | --- | --- | --- |
-| В, Н, О, Щ, Ф, Ч, Ц, П | 130 ms | 290 ms |
-| Ш, Й, Ж | 110 ms | 270 ms |
+| Н, Ц, Й, Ж, В | 150 ms | 310 ms |
+| О, Щ, Ф, Ч, П | 130 ms | 290 ms |
+| Ш | 110 ms | 270 ms |
 
-Each excerpt adds 60 ms of leading and 100 ms of trailing silence. No looping or stretching is applied. The male Й, Ч and Ц excerpts reach the following vowel transition. These short samples do not replace listening to the complete example words.
+Each excerpt adds 60 ms of leading and 100 ms of trailing silence. No looping or stretching is applied. Both Й excerpts and the male Ч and Ц excerpts reach the following vowel transition. These short samples do not replace listening to the complete example words.
 
-The default guard requires 160 ms of detected source speech. The table’s letters have explicit duration exceptions. Signal is measured in 1 ms frames above −45 dBFS; Ч, Н and Ц allow respectively five, one and twelve internal quiet milliseconds to preserve the natural signal. Leading and trailing silence do not satisfy the minimum. These are asset checks, not pronunciation certification.
+The default guard requires 160 ms of detected source speech. The table’s letters have explicit duration exceptions. Signal is measured in 1 ms frames above −45 dBFS; Ч, Н and Ц allow respectively five, three and twelve internal quiet milliseconds to preserve the natural signal. Leading and trailing silence do not satisfy the minimum. These are asset checks, not pronunciation certification.
 
-Sources and requests are saved in `scripts/audio-sources/alphabet/syllables-v1/` and the original name/word manifests. `scripts/data/alphabet-sound-crops.json` selects 40 complete copies and 22 excerpts. Manifests record the source requests, crop bounds, hashes and active duration. Versioned playback URLs prevent browsers from reusing old clips. Original name and word recordings remain unchanged.
+Sources and requests are saved in `scripts/audio-sources/alphabet/` and the name/word manifests. `scripts/data/alphabet-sound-crops.json` selects 40 complete copies and 22 excerpts. Manifests record the source requests, crop bounds, hashes and active duration. Versioned playback URLs prevent browsers from reusing old clips.
 
 ## Preparing recordings
 

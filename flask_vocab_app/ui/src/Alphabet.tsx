@@ -85,7 +85,9 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     audio.onended = () => { if (attempt.current === current) stopAudio(); };
     audio.onerror = fail;
     // Refresh cached pronunciation clips when the recording set changes.
-    audio.src = appUrl(recordings[voice]) + (clip === 'sound' ? '?v=sounds-v8' : '');
+    const revision = clip === 'sound' ? 'sounds-v9'
+      : clip === 'name' && voice === 'male' && letter.id === 'ye' ? 'ye-v2' : '';
+    audio.src = appUrl(recordings[voice]) + (revision ? `?v=${revision}` : '');
     try {
       await audio.play();
     } catch { fail(); }
