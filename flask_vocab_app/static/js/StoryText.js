@@ -173,31 +173,35 @@ export function StoryText({ words, initialVisibility, source = {} }) {
                 onClose: closeModal,
             }),
         h(
-            'button',
-            {
-                onClick: () => toggleVisibility('revealed'),
-                'aria-pressed': visibility === 'revealed',
-                className: 'btn btn-secondary me-2',
-            },
-            uiText('show_text'),
-        ),
-        h(
-            'button',
-            {
-                onClick: () => toggleVisibility('partially_hidden'),
-                'aria-pressed': visibility === 'partially_hidden',
-                className: 'btn btn-secondary me-2',
-            },
-            uiText('hide_some_words'),
-        ),
-        h(
-            'button',
-            {
-                onClick: () => toggleVisibility('fully_hidden'),
-                'aria-pressed': visibility === 'fully_hidden',
-                className: 'btn btn-secondary',
-            },
-            uiText('hide_text'),
+            'div',
+            { className: 'reading-text-tools' },
+            h(
+                'button',
+                {
+                    onClick: () => toggleVisibility('revealed'),
+                    'aria-pressed': visibility === 'revealed',
+                    className: 'btn btn-secondary me-2',
+                },
+                uiText('show_text'),
+            ),
+            h(
+                'button',
+                {
+                    onClick: () => toggleVisibility('partially_hidden'),
+                    'aria-pressed': visibility === 'partially_hidden',
+                    className: 'btn btn-secondary me-2',
+                },
+                uiText('hide_some_words'),
+            ),
+            h(
+                'button',
+                {
+                    onClick: () => toggleVisibility('fully_hidden'),
+                    'aria-pressed': visibility === 'fully_hidden',
+                    className: 'btn btn-secondary',
+                },
+                uiText('hide_text'),
+            ),
         ),
     );
 }

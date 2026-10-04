@@ -146,7 +146,7 @@ class StoryTitlePersistenceTests(unittest.TestCase):
         self.assertEqual(self.repository.load(story_id)['title'], STORY['title'])
         self.assertEqual(self.repository.load(story_id)['title_en'], STORY['title_en'])
         loaded = self.client.get(f'/comprehension/load/{story_id}').get_data(as_text=True)
-        self.assertIn(f'lang="en">{STORY["title_en"]}</h2>', loaded)
+        self.assertIn(f'lang="en">{STORY["title_en"]}</h1>', loaded)
 
     def test_interface_language_selects_title_in_library_and_reader(self):
         story_id = self.save()
@@ -156,7 +156,7 @@ class StoryTitlePersistenceTests(unittest.TestCase):
             self.assertIn(f'class="reading-story-title" lang="{language}">{title}</span>', library)
             for headers in [{}, {'HX-Request': 'true', 'HX-Target': 'mainContent'}]:
                 reader = self.client.get(f'/comprehension/load/{story_id}', headers=headers).get_data(as_text=True)
-                self.assertIn(f'lang="{language}">{title}</h2>', reader)
+                self.assertIn(f'lang="{language}">{title}</h1>', reader)
                 self.assertIn('Анна', reader)
         saved = self.repository.load(story_id)
         self.assertEqual(saved['text'], STORY['text'])

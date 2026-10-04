@@ -28,9 +28,9 @@
             <legend class="visually-hidden">{{ ui_t('comprehension.questions') }}</legend>
             {% for question in story.questions %}
             <div class="question-card">
-                <label for="story-answer-{{ loop.index0 }}" class="form-label"><strong>{{ ui_t('comprehension.question') }} {{ loop.index }}:</strong> {{ question }}</label>
+                <label for="story-answer-{{ loop.index0 }}" class="form-label"><span class="reading-question-number" aria-hidden="true">{{ loop.index }}</span><span><span class="visually-hidden">{{ ui_t('comprehension.question') }} {{ loop.index }}: </span>{{ question }}</span></label>
                 {% set answer = story.answers[loop.index0] if story.answers and loop.index0 < story.answers|length else '' %}
-                <textarea id="story-answer-{{ loop.index0 }}" {% if preserve_answers %}hx-preserve{% endif %} name="answers[]" lang="ru" class="form-control" rows="4" data-question-index="{{ loop.index0 }}">{{ answer }}</textarea>
+                <textarea id="story-answer-{{ loop.index0 }}" {% if preserve_answers %}hx-preserve{% endif %} name="answers[]" lang="ru" class="form-control" rows="2" data-question-index="{{ loop.index0 }}">{{ answer }}</textarea>
             </div>
             {% endfor %}
             {% if story.questions %}

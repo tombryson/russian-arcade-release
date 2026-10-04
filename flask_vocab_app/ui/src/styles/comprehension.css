@@ -1,0 +1,97 @@
+/* Comprehension: a short setup, then the passage and questions as one workspace. */
+.arcade-workspace .comprehension-page { padding-top:28px; }
+.arcade-workspace .comprehension-page .reading-workspace { max-width:1120px; margin:0 auto; }
+.arcade-workspace .comprehension-page .activity-header { margin-bottom:24px; }
+.arcade-workspace .comprehension-page .activity-description { margin-top:8px; }
+.arcade-workspace .reading-back { display:none; width:fit-content; margin-bottom:18px; color:var(--wp-text-primary); text-underline-offset:4px; }
+.arcade-workspace .reading-setup { display:grid; gap:24px; }
+.arcade-workspace .reading-disclosure { min-width:0; margin:0; }
+.arcade-workspace .reading-disclosure > summary { width:fit-content; cursor:pointer; font-weight:500; min-height:44px; padding:9px 0; }
+.arcade-workspace .reading-create { position:static; padding:20px 24px; border:1px solid var(--wp-border-subtle); border-radius:16px; background:var(--wp-surface-sheet); }
+.arcade-workspace .reading-create > summary { font-size:21px; padding:0; min-height:32px; }
+.arcade-workspace .reading-create form { margin:0; padding:16px 0 0; max-width:none; }
+.arcade-workspace .reading-create .comprehension-mode { gap:10px; margin:0 0 18px; }
+.arcade-workspace .reading-create .comprehension-mode label { position:relative; display:flex; gap:8px; padding:8px 14px; min-height:44px; border:1px solid var(--wp-border-subtle); border-radius:8px; cursor:pointer; }
+.arcade-workspace .reading-create .comprehension-mode label:has(input:checked) { border-color:var(--wp-accent-learning); background:color-mix(in srgb,var(--wp-accent-learning) 9%,var(--wp-surface-sheet)); }
+.arcade-workspace .reading-create .comprehension-mode input { accent-color:var(--wp-accent-learning); }
+.arcade-workspace .reading-settings { display:grid; grid-template-columns:minmax(0,1fr) minmax(160px,.5fr) auto; align-items:end; gap:16px; }
+.arcade-workspace .reading-settings > div { min-width:0; }
+.arcade-workspace .reading-settings .form-label { margin-bottom:6px; font-size:14px; }
+.arcade-workspace .reading-settings .form-select { width:100%; }
+.arcade-workspace .reading-create-button { display:inline-flex; align-items:center; justify-content:center; gap:10px; white-space:nowrap; }
+.reading-generation-spinner { width:18px; height:18px; flex:none; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:reading-generation-spin .8s linear infinite; }
+.reading-generation-spinner[hidden] { display:none; }
+@keyframes reading-generation-spin { to { transform:rotate(360deg); } }
+@media (prefers-reduced-motion:reduce) { .reading-generation-spinner { animation:none; } }
+.arcade-workspace .reading-custom-text { margin-top:14px; }
+.arcade-workspace .reading-custom-text > summary { width:fit-content; cursor:pointer; padding:6px 0; color:var(--wp-text-secondary); font-size:14px; }
+.arcade-workspace .reading-custom-text textarea { width:100%; margin-top:8px; padding:12px; resize:vertical; }
+.arcade-workspace .reading-saved { border-top:1px solid var(--wp-border-subtle); padding-top:8px; }
+.arcade-workspace .reading-count { margin-left:8px; font-size:14px; color:var(--wp-text-secondary); }
+.arcade-workspace .reading-library { list-style:none; padding:0; margin:0; }
+.arcade-workspace .reading-library li { border-bottom:1px solid var(--wp-border-subtle); }
+.arcade-workspace .reading-library a { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 8px; color:var(--wp-text-primary); text-decoration:none; }
+.arcade-workspace .reading-library a:hover, .arcade-workspace .reading-library a[aria-current] { background:var(--wp-surface-sheet); }
+.arcade-workspace .reading-library-copy { min-width:0; }
+.arcade-workspace .reading-story-title { display:block; font-size:17px; font-weight:500; line-height:1.45; overflow-wrap:anywhere; }
+.arcade-workspace .reading-meta { display:flex; flex-wrap:wrap; gap:4px 12px; color:var(--wp-text-secondary); font-size:13px; margin-top:3px; }
+.arcade-workspace .reading-current { display:inline-block; font-size:13px; color:var(--wp-accent-learning); }
+.arcade-workspace .reading-library-arrow { flex:none; font-size:22px; }
+.arcade-workspace .reading-empty { margin:4px 0 12px; color:var(--wp-text-secondary); }
+.arcade-workspace .reading-active:empty, .arcade-workspace #reading-action-feedback:empty { display:none; }
+.arcade-workspace #reading-action-feedback:not(:empty) { grid-column:1 / -1; margin:0; }
+
+/* The same shell becomes a compact toolbar after an HTMX story load. */
+.arcade-workspace .reading-workspace:has([data-story-loaded]) .reading-entry-heading { display:none; }
+.arcade-workspace .reading-workspace:has([data-story-loaded]) .reading-back { display:block; }
+.arcade-workspace .reading-workspace:has([data-story-loaded]) .reading-setup { grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+.arcade-workspace .reading-workspace:has([data-story-loaded]) .reading-disclosure { padding:0; border:0; border-radius:0; background:transparent; }
+.arcade-workspace .reading-workspace:has([data-story-loaded]) .reading-disclosure > summary { padding:8px 0; font-size:15px; min-height:40px; }
+.arcade-workspace .reading-workspace:has([data-story-loaded]) #reading-action-feedback { order:1; }
+.arcade-workspace .reading-workspace:has([data-story-loaded]) .reading-create form { padding:14px 0; }
+.arcade-workspace .reading-workspace:has([data-story-loaded]) .reading-settings { grid-template-columns:minmax(0,1fr) minmax(130px,.6fr); }
+.arcade-workspace .reading-workspace:has([data-story-loaded]) .reading-create-button { justify-self:start; }
+.arcade-workspace .reading-story { margin:0; padding:24px; border:1px solid var(--wp-border-subtle); border-radius:16px; background:var(--wp-surface-sheet); }
+.arcade-workspace .reading-story-heading { margin-bottom:20px; }
+.arcade-workspace .reading-story-heading h1 { margin:0; font:500 28px/1.3 var(--wp-font-reading); letter-spacing:0; overflow-wrap:anywhere; }
+.arcade-workspace .reading-task-layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:32px; align-items:start; }
+.arcade-workspace .reading-passage, .arcade-workspace .reading-questions { min-width:0; }
+.arcade-workspace .reading-story .story-text, .arcade-workspace .reading-transcript > .story-text-mount > p { font-size:20px; line-height:1.85; }
+.arcade-workspace .reading-transcript > .story-text-mount > p { white-space:pre-wrap; }
+.arcade-workspace .reading-story .story-illustration { float:right; width:128px; max-width:35%; height:auto; margin:0 0 16px 20px; border:0; border-radius:10px; filter:none; }
+.arcade-workspace .reading-story .audio-player { margin:0 0 16px; justify-content:flex-start; }
+.arcade-workspace .reading-story audio { width:100%; max-width:420px; }
+.arcade-workspace .reading-story .reading-text-tools { display:flex; flex-wrap:wrap; gap:6px; clear:both; margin-top:20px; }
+.arcade-workspace .reading-story .reading-text-tools .btn { min-height:36px; margin:0 !important; padding:6px 10px; font-size:13px; border:1px solid var(--wp-border-subtle); border-radius:6px; background:transparent; color:var(--wp-text-secondary); }
+.arcade-workspace .reading-story .reading-text-tools .btn[aria-pressed="true"] { color:var(--wp-text-primary); border-color:var(--wp-text-secondary); background:var(--wp-surface-paper); }
+.arcade-workspace .reading-questions { border-left:1px solid var(--wp-border-subtle); padding-left:28px; }
+.arcade-workspace .reading-story .qa-heading { display:block; margin:0 0 12px; font-size:20px; }
+.arcade-workspace .reading-story .questions-container { max-height:none; overflow:visible; padding:0; }
+.arcade-workspace .reading-story #question-form { display:block; margin:0; padding:0; border:0; }
+.arcade-workspace .reading-story .question-card { background:transparent; border:0; border-radius:0; padding:0; margin-bottom:20px; }
+.arcade-workspace .reading-story .question-card label { display:flex; align-items:baseline; gap:10px; margin-bottom:8px; font-size:16px; line-height:1.5; }
+.arcade-workspace .reading-question-number { color:var(--wp-text-secondary); font-size:13px; flex:none; }
+.arcade-workspace .reading-story .question-card textarea { min-height:76px; padding:10px 12px; font-size:17px; line-height:1.5; resize:vertical; border-radius:8px; }
+.arcade-workspace .reading-story #question-form button[type="submit"] { margin-top:0 !important; }
+.arcade-workspace .reading-more-questions { display:block; margin-top:14px; font-size:14px; }
+.arcade-workspace .reading-check-result { margin-top:20px; padding-top:16px; border-top:1px solid var(--wp-border-subtle); }
+/* Listening uses the full width until the learner asks for the transcript. */
+.arcade-workspace .reading-story[data-transcript-visible="false"] .reading-task-layout { grid-template-columns:1fr; gap:16px; }
+.arcade-workspace .reading-story[data-transcript-visible="false"] .reading-questions { padding:0; border:0; }
+.arcade-workspace .reading-story[data-transcript-visible="false"] .reading-answer-fields { display:grid; grid-template-columns:1fr 1fr; gap:0 28px; }
+.arcade-workspace .reading-story[data-transcript-visible="false"] #question-form button[type="submit"] { justify-self:start; }
+@media (max-width:900px) {
+  .arcade-workspace .reading-task-layout { grid-template-columns:1fr; gap:28px; }
+  .arcade-workspace .reading-questions { border-left:0; padding-left:0; border-top:1px solid var(--wp-border-subtle); padding-top:24px; }
+}
+@media (max-width:600px) {
+  .arcade-workspace .comprehension-page { padding:20px 16px 40px; }
+  .arcade-workspace .reading-create, .arcade-workspace .reading-story { padding:18px; }
+  .arcade-workspace .reading-settings { grid-template-columns:1fr; gap:12px; }
+  .arcade-workspace .reading-story[data-transcript-visible="false"] .reading-answer-fields { grid-template-columns:1fr; }
+  .arcade-workspace .reading-create-button { justify-self:start; }
+  .arcade-workspace .reading-workspace:has([data-story-loaded]) .reading-setup { grid-template-columns:1fr; gap:0; }
+  .arcade-workspace .reading-workspace:has([data-story-loaded]) .reading-settings { grid-template-columns:1fr; }
+  .arcade-workspace .reading-story-heading h1 { font-size:24px; }
+  .arcade-workspace .reading-story .story-text { font-size:19px; }
+}

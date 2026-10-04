@@ -6,3 +6,4 @@ import '@fontsource/unbounded/latin-500.css';
 import '@fontsource/unbounded/cyrillic-500.css';
 import './styles/tokens.generated.css';
 import './styles/legacy.css';
+import './styles/comprehension.css';

@@ -51,48 +51,6 @@ html { scroll-padding-top: 116px; }
 .arcade-header :focus-visible { outline-color: var(--wp-surface-ticket); }
 .arcade-skip { position: absolute; top: 0; z-index: 1100; padding: 16px; background: var(--wp-surface-ticket); color: var(--wp-text-onTicket); transform: translateY(-110%); }
 .arcade-skip:focus { transform: none; }
-.arcade-workspace .reading-workspace { max-width: 1040px; margin: 0 auto; }
-.arcade-workspace .reading-intro { margin-bottom: 32px; }
-.arcade-workspace .reading-intro p { max-width: 60ch; color: var(--wp-text-secondary); margin: 12px 0 0; }
-.arcade-workspace .reading-disclosure { background: var(--wp-surface-sheet); border: 1px solid var(--wp-border-subtle); border-radius: 16px; margin-bottom: 16px; overflow: hidden; }
-.arcade-workspace .reading-disclosure summary { cursor: pointer; padding: 18px 22px; font-weight: 500; min-height: 56px; }
-.arcade-workspace .reading-disclosure[open] summary { border-bottom: 1px solid var(--wp-border-subtle); }
-.arcade-workspace .reading-count { display: inline-block; margin-left: 8px; padding: 0 9px; background: var(--wp-surface-ticket); color: var(--wp-text-onTicket); border-radius: 20px; font-size: 14px; }
-.arcade-workspace .reading-library { list-style: none; padding: 8px 22px; margin: 0; }
-.arcade-workspace .reading-library li + li { border-top: 1px solid var(--wp-border-subtle); }
-.arcade-workspace .reading-library a { display: block; padding: 20px 12px; border-radius: 10px; color: var(--wp-text-primary); text-decoration: none; }
-.arcade-workspace .reading-library a:hover, .arcade-workspace .reading-library a[aria-current] { background: var(--wp-surface-paper); }
-.arcade-workspace .reading-story-title { display: block; font-size: 19px; line-height: 1.5; overflow-wrap: anywhere; }
-.arcade-workspace .reading-meta { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--wp-text-secondary); font-size: 14px; margin-top: 6px; }
-.arcade-workspace .reading-current { display: inline-block; margin-top: 8px; font-size: 13px; color: var(--wp-accent-learning); }
-.arcade-workspace .reading-empty { padding: 22px; margin: 0; }
-.arcade-workspace .reading-disclosure.comprehension-panel { position: static; }
-.arcade-workspace .reading-disclosure > p, .arcade-workspace .reading-disclosure form { padding: 20px 22px; margin: 0; }
-.arcade-workspace .reading-disclosure form { padding-top: 0; max-width: 640px; }
-.arcade-workspace .reading-active:empty { display: none; }
-.arcade-workspace .reading-create-button { display:inline-flex; align-items:center; justify-content:center; gap:10px; }
-.reading-generation-spinner { width:18px; height:18px; flex:none; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:reading-generation-spin .8s linear infinite; }
-.reading-generation-spinner[hidden] { display:none; }
-@keyframes reading-generation-spin { to { transform:rotate(360deg); } }
-@media (prefers-reduced-motion:reduce) { .reading-generation-spinner { animation:none; } }
-.arcade-workspace .reading-story { margin-top: 32px; padding: clamp(20px, 4vw, 40px); border: 1px solid var(--wp-border-subtle); border-radius: 20px; background: var(--wp-surface-sheet); }
-.arcade-workspace .reading-story-heading { margin-bottom: 28px; }
-.arcade-workspace .reading-story-heading p { color: var(--wp-text-secondary); max-width: 65ch; }
-.arcade-workspace .reading-story .story-text { font-size: 21px; }
-.arcade-workspace .reading-story .story-text .btn { font-size: 14px; margin-bottom: 10px; }
-.arcade-workspace .reading-story .story-illustration { width: 100%; border: 0; border-radius: 12px; filter: none; }
-.arcade-workspace .reading-story .audio-player { margin: 20px 0 32px; justify-content: flex-start; }
-.arcade-workspace .reading-story audio { width: 100%; max-width: 420px; }
-.arcade-workspace .reading-story .qa-heading { display: block; margin: 32px 0 0; font-size: 23px; }
-.arcade-workspace .reading-story .questions-container { max-height: none; overflow: visible; padding: 0; }
-.arcade-workspace .reading-story #question-form { display: block; }
-.arcade-workspace .reading-story .question-card { background: transparent; border-bottom: 1px solid var(--wp-border-subtle); border-radius: 0; padding: 20px 0 28px; }
-.arcade-workspace .reading-story .question-card label { display: block; margin-bottom: 12px; }
-@media (max-width: 600px) {
-  .arcade-workspace .reading-library { padding: 4px 10px; }
-  .arcade-workspace .reading-story > .row { flex-direction: column; }
-  .arcade-workspace .reading-story .story-illustration { max-width: 180px; margin: 16px 0; }
-}
 @media (max-width: 991.98px) {
   .arcade-workspace .sidebar { top: auto; height: auto; overflow: visible; }
   .arcade-workspace .main-content { margin-left: 0; width: 100%; min-height: 0; }

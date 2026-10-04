@@ -500,7 +500,7 @@
         try {
             const [{ h, render }, { StoryText }] = await Promise.all([
                 loadPreact(),
-                import('/static/js/StoryText.js?v=3'),
+                import('/static/js/StoryText.js?v=4'),
             ]);
             const words = JSON.parse(storyContainer.dataset.words || '[]');
             const taskId = document.querySelector('#question-form [name="task_id"]')?.value || storyContainer.dataset.taskId;
