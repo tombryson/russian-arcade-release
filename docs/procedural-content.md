@@ -1,6 +1,6 @@
 # Procedural content
 
-Implementation record, started 2 October 2026; status and priorities updated 4 October. Fly remains at `0bcba58`. Local passes add situation families, passage vocabulary tools and plans for all seventeen A1 units; see the [initial report](curriculum-pass-2026-10-04.md) and [extension report](curriculum-expansion-2026-10-04.md). The [deployment record](torfl-implementation-2026-10-02.md#deployment-update--3-october-2026) distinguishes released behaviour from local changes.
+Implementation record, started 2 October 2026; status and priorities updated 4 October. Fly runs `7e493e6`, including situation families, passage vocabulary tools and plans for all seventeen A1 units. See the [initial report](curriculum-pass-2026-10-04.md), [extension report](curriculum-expansion-2026-10-04.md) and [deployment record](torfl-implementation-2026-10-02.md#deployment-update--4-october-2026) for scope, verification and remaining work.
 
 Russian Arcade uses fixed learning objectives and variable practice. A new seed must change the language problem or situation. Shuffling answers, changing a name or replaying a saved question does not establish novelty.
 
@@ -90,7 +90,7 @@ The request records the plan, prompt, response schema and writer-input hashes. N
 
 ### Preparation and persistence
 
-Each unit offers a new reading or listening situation. The request includes its level, taught constructions, examples, requirement references, familiar lemmas and their stored forms. It also includes recent situations to discourage repetition. A small amount of new vocabulary is allowed. The local 4 October player exposes optional word lookup and saving from the frozen passage through the existing enrichment pipeline. This integration is not yet deployed; original-sentence reuse for cards remains pending.
+Each unit offers a new reading or listening situation. The request includes its level, taught constructions, examples, requirement references, familiar lemmas and their stored forms. It also includes recent situations to discourage repetition. A small amount of new vocabulary is allowed. The player deployed on 4 October exposes optional word lookup and saving from the frozen passage through the existing enrichment pipeline. Original-sentence reuse for cards remains pending.
 
 The model returns a short message with evidence for three questions. Every unit plan supplies its facts before generation. Questions must point to source sentences and use an answer stated in that evidence. Checks reject missing facts, unsupported answers, repeated options, recent duplicates and malformed language fields. Unit-specific checks also reject known errors such as a cardinal number used as an ordinal calendar date. These checks constrain generation; they do not prove that every sentence is natural or every distractor is unambiguous. New source-v6 passages must support unfamiliar content words with a contextual annotation or a supplied expression that actually occurs in the message. Familiar lemmas, proper names and function words follow explicit policies; these checks do not establish contextual sense or proficiency.
 

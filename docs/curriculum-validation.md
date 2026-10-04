@@ -2,9 +2,9 @@
 
 ## Current status
 
-Updated 4 October 2026. The current release is `0bcba58`, deployed on 3 October. See the [deployment record](torfl-implementation-2026-10-02.md#deployment-update--3-october-2026) for full CI and live checks, and the [ordered work plan](torfl-assessment-build-plan.md#next-implementation-pass) for remaining language and assessment work. Historical test counts below belong to their stated runs.
+Updated 4 October 2026. The current release is `7e493e6`, deployed on 4 October. See the [deployment record](torfl-implementation-2026-10-02.md#deployment-update--4-october-2026) for full CI and live checks, and the [ordered work plan](torfl-assessment-build-plan.md#next-implementation-pass) for remaining language and assessment work. Historical test counts below belong to their stated runs.
 
-The subsequent local [generation and passage-support pass](curriculum-expansion-2026-10-04.md) adds two situation families to all seventeen units and optional contextual word help. Its text evaluations, browser checks and remaining language limits are recorded separately. Those changes are not yet deployed.
+The deployed [generation and passage-support pass](curriculum-expansion-2026-10-04.md) adds two situation families to all seventeen units and optional contextual word help. Its text evaluations, browser checks and remaining language limits are recorded separately. Clean release CI passed 2,221 backend tests and 843 frontend tests across 65 files. Live checks verified delivery and source identity; they did not repeat the generated-audio or word-saving walkthroughs.
 
 The application has 17 authored A1 teaching units and an opt-in diagnostic pilot covering five skills. They work without a tutor. Human review is optional editorial quality assurance for the maintainers, not a prerequisite for using the app or receiving feedback.
 

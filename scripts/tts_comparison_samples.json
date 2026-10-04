@@ -1,0 +1,26 @@
+[
+  {
+    "id": "words-and-endings",
+    "title": "Words and endings",
+    "purpose": "Short-card pronunciation, ё, and audible gender and plural endings.",
+    "text": "Письмо. Спасибо! Ещё. Мой брат. Моя сестра. Моё письмо. Мы читаем новые письма."
+  },
+  {
+    "id": "narration",
+    "title": "A short story",
+    "purpose": "Connected narration, case endings, ё, sentence rhythm and intelligibility.",
+    "text": "Сегодня мы с младшей сестрой идём в библиотеку. На улице холодно, поэтому мы надеваем тёплые куртки. В библиотеке сестра выбирает книгу о путешествиях, а я пишу письмо нашему другу. Он недавно переехал в другой город и скучает по нам. Через час мы пойдём домой. По дороге купим хлеб и свежие яблоки. Вечером мама приготовит чай, и мы вместе посмотрим наши старые фотографии."
+  },
+  {
+    "id": "dialogue",
+    "title": "At the café",
+    "purpose": "Question intonation, turn boundaries, polite requests and natural expression.",
+    "text": "— Добрый день! Мне, пожалуйста, чай и пирог.\n— Чай с лимоном?\n— Да, спасибо. А пирог свежий?\n— Конечно, его испекли утром.\n— Отлично! Сколько с меня?"
+  },
+  {
+    "id": "contextual-stress",
+    "title": "Contextual stress probe",
+    "purpose": "Deliberately separate diagnostic examples: замо́к/за́мок, плачу́/пла́чу, мука́/му́ка. Accent marks are omitted from the synthesis input.",
+    "text": "На двери висит старый замок. На холме стоит старый замок. В магазине я плачу за хлеб. Когда мне грустно, я плачу. Для пирога нужна мука. Какая мука — ждать так долго!"
+  }
+]

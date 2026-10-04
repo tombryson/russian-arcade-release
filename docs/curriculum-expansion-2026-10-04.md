@@ -1,6 +1,6 @@
 # A1 generation and passage support
 
-Local implementation, 4 October 2026. This continues the [earlier pass](curriculum-pass-2026-10-04.md) with optional vocabulary support and generation plans for the remaining fourteen units. It does not change the deployed version or the scope of the exam pilot.
+Implemented and deployed on 4 October 2026 at `7e493e6`. This continues the [earlier pass](curriculum-pass-2026-10-04.md) with optional vocabulary support and generation plans for the remaining fourteen units. See the [deployment record](torfl-implementation-2026-10-02.md#deployment-update--4-october-2026) for release verification. The scope of the exam pilot is unchanged.
 
 ## Generation coverage
 
@@ -75,7 +75,7 @@ The complete UI suite passes 843 tests in 65 files. TypeScript and the productio
 
 That playback check verifies the player and disclosure rules. It does not assess newly generated speech, provider pronunciation or prosody.
 
-Backend discovery exercised 2,184 tests. Three old plan assertions needed updating for the new coverage and wording. The final affected suite passes all 200 tests, including those assertions, the new language guards, passage help, saved-task compatibility, vocabulary capture and audio access. The suite includes an unchanged source-v5 fixture and all 68 unit/family/mode adapter combinations. No database migration, provider change or deployment is part of this pass.
+Backend discovery exercised 2,184 tests. Three old plan assertions needed updating for the new coverage and wording. The final affected suite passes all 200 tests, including those assertions, the new language guards, passage help, saved-task compatibility, vocabulary capture and audio access. The suite includes an unchanged source-v5 fixture and all 68 unit/family/mode adapter combinations. The subsequent clean release CI passed all 2,221 backend tests and 843 frontend tests. The release adds no database migration or production speech-provider change.
 
 ## Remaining work
 

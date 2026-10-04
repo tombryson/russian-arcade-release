@@ -2,17 +2,27 @@
 
 Date: 2 October 2026; deployment and plan status updated 4 October. Scope: the [TORFL delivery plan](torfl-assessment-build-plan.md), P0/P1 foundations and ongoing P2 procedural content. Earlier verification sections retain the scope of their original runs; the deployment update below is the current release status.
 
-## Local follow-up — 4 October 2026
+## Deployment update — 4 October 2026
 
-The next pass adds two semantic situation families for each detailed reading/listening unit and selects them from recent same-unit history. Location, calendar and conversation-topic tasks keep three related facts and grammatical alternatives. The previously unreachable reading-duration family is now generated. Source-v5 prose guidance clarifies viewpoint and brevity; saved source-v4 requests retain their previous adapter.
+Release `7e493e6` is live on Fly for the main application and `/demo/`. It adds two reading/listening situation families to all seventeen A1 units and optional contextual word support. Saved tasks keep their original contracts. [Application CI](https://github.com/tombryson/russian-arcade-release/actions/runs/37179741224) passed 2,221 backend tests and 843 frontend tests across 65 files. [Security CI](https://github.com/tombryson/russian-arcade-release/actions/runs/37179741205) also passed.
+
+The deployed image is `registry.fly.io/russian-arcade:curriculum-7e493e6`, with digest `sha256:83e6d4c52b84c990b9dfcef37be508e53951ce0016489548aa210bbf41dff168`. The existing Sydney machine and data volume were retained. Before deployment, four persistent databases were backed up using SQLite's backup API; all backup integrity checks passed. The backup is `/data/backups/predeploy-7e493e6-20261004T052528Z`. This release adds no database migration.
+
+Fly health checks passed. The main page, `/demo/`, `/healthz`, `/curriculum` and the demo location/destination unit returned HTTP 200. The new JavaScript bundle and both stylesheets were served successfully. Hashes of five changed backend service files matched the local release. The demo home page rendered without browser console errors.
+
+These live checks used no paid generation. They did not repeat the full word-lookup/save flow or generated-audio playback on production. The [extension report](curriculum-expansion-2026-10-04.md) retains the earlier isolated browser checks and language-evaluation results. Production speech providers, randomized voices, settings, credentials and allowances are unchanged. The requested three-way TTS comparison is a separate local evaluation, not a production provider change.
+
+## Initial follow-up — 4 October 2026
+
+The initial 4 October pass added two semantic situation families to the three detailed reading/listening units, selected using recent same-unit history. Location, calendar and conversation-topic tasks retain three related facts and grammatical alternatives. The previously unreachable reading-duration family is now generated. Source-v5 prose guidance clarifies viewpoint and brevity; saved source-v4 requests retain their previous adapter.
 
 Generated passages now support optional word lookup and saving through the normal lemma, morphology, mnemonic and enrichment pipeline. Listening retains its transcript boundary. Reading word help marks remaining questions about the same passage as assisted. Exact source context survives in owned capture receipts. Automatic reuse of those original sentences for cards remains pending; incomplete translations are not placed in the prepared-example cache.
 
-The [pass report](curriculum-pass-2026-10-04.md) records 600 generated-plan checks and 18 live text calls. Seventeen passed structural validation; assistant review found fourteen usable for supported comprehension, three needing revision, and one correctly rejected. Prose, missing vocabulary support and the unsampled final thought-and-speech prompt remain work. These changes are local; Fly still runs the release below. Speech providers, randomized voices, credentials and allowances are unchanged.
+The [pass report](curriculum-pass-2026-10-04.md) records 600 generated-plan checks and 18 live text calls. Seventeen passed structural validation; assistant review found fourteen usable for supported comprehension, three needing revision, and one correctly rejected. At that stage, prose, missing vocabulary support and the unsampled final thought-and-speech prompt remained work. This was followed by the [seventeen-unit extension](curriculum-expansion-2026-10-04.md) and the 4 October deployment recorded above. Speech providers, randomized voices, credentials and allowances are unchanged.
 
 ## Deployment update — 3 October 2026
 
-The procedural and language-design changes are live on Fly at `0bcba58`, including `/demo/`. The release used image `linguistic-0bcba58`. Both [application CI](https://github.com/tombryson/russian-arcade-release/actions/runs/37019509171) and [security CI](https://github.com/tombryson/russian-arcade-release/actions/runs/37019510053) passed. Application checks covered 2,118 backend tests and 833 frontend tests across 63 files. Two stale review/migration test fixtures were corrected before the successful run.
+The procedural and language-design changes were deployed to Fly at `0bcba58` on 3 October, including `/demo/`. The release used image `linguistic-0bcba58`. Both [application CI](https://github.com/tombryson/russian-arcade-release/actions/runs/37019509171) and [security CI](https://github.com/tombryson/russian-arcade-release/actions/runs/37019510053) passed. Application checks covered 2,118 backend tests and 833 frontend tests across 63 files. Two stale review/migration test fixtures were corrected before the successful run.
 
 Seventeen persistent databases were backed up. Migration 064 was rehearsed on copies of all fifteen existing learning databases, with existing row counts retained and integrity checks passing. Live source checks matched thirty changed application files. Database integrity and Fly health checks passed after deployment. Tenant databases upgrade when opened; untouched workspaces need not all have the new schema immediately.
 
@@ -55,7 +65,7 @@ New unit reading/listening uses a generated situation tied to the unit’s objec
 
 The initial provider check found only one manually acceptable exercise in seven calls. A further eighteen calls tested language-specific plans for location/destination, dates/duration and conversation topics. These plans establish participants, related facts, timelines and full governed answer phrases before the model writes. Comprehension alternatives represent different meanings in grammatical Russian; they do not test case endings through deliberately broken options. Hints and explanations now use checked guidance and exact source quotes.
 
-That follow-up’s last six-call batch passed five structural checks. Some messages still contained filler or an awkward narrative voice, and one vocabulary annotation was rejected. The shorter-message prompt and passage word tools were evaluated or implemented in the subsequent local pass above. See the [earlier language-design evaluation](procedural-content.md#language-design-follow-up), including its failed samples. The other fourteen units still need equivalent linguistic plans.
+That follow-up’s last six-call batch passed five structural checks. Some messages still contained filler or an awkward narrative voice, and one vocabulary annotation was rejected. The shorter-message prompt and passage word tools were evaluated or implemented in the subsequent 4 October passes above. See the [earlier language-design evaluation](procedural-content.md#language-design-follow-up), including its failed samples. At that point, the other fourteen units still needed equivalent linguistic plans; the 4 October extension supplies them.
 
 ## Delivered in the repository
 
