@@ -122,10 +122,13 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
             <img class="tutorial-progress-barsik" src="/static/images/barsik-running-v1.webp" width="92" height="68" alt="Barsik running with his letter bag." />
             <div><h2>Your first steps</h2><p>Learn your first three Russian words, then build on them in four short lessons. We’ll take you through them in order.</p></div>
           </div>
-        </> : step === 'alphabet' ? <a class="tutorial-alphabet-invitation" href="#alphabet?from=first-delivery" aria-labelledby="alphabet-invitation-label">
-          <span class="tutorial-alphabet-letters" lang="ru" aria-hidden="true"><span>Аа</span><span>Бб</span><span>Вв</span></span>
-          <span class="tutorial-alphabet-invitation-copy"><span id="alphabet-invitation-label" class="tutorial-alphabet-invitation-label">Learn the alphabet</span><span>Hear the letters and try them in words.</span></span>
-        </a> : step === 'words' ? <>
+        </> : step === 'alphabet' ? <>
+          <p class="onboarding-intro-copy">Explore the alphabet and hear how each letter sounds.</p>
+          <a class="tutorial-alphabet-invitation" href="#alphabet?from=first-delivery" aria-labelledby="alphabet-invitation-label">
+            <span class="tutorial-alphabet-letters" lang="ru" aria-hidden="true"><span>Аа</span><span>Бб</span><span>Вв</span></span>
+            <span id="alphabet-invitation-label" class="tutorial-alphabet-invitation-label">Learn the alphabet</span>
+          </a>
+        </> : step === 'words' ? <>
           {question ? learning ? <div class="tutorial-word-card">
             <p class="tutorial-new-word" lang="ru">{learning.word_display ?? learning.word}</p>
             <p class="tutorial-word-meaning" lang="en">{learning.meaning}</p>

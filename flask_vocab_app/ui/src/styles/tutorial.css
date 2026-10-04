@@ -86,21 +86,20 @@
   .onboarding-coins .lingocoin { width:30px; height:30px; font-size:18px; }
 }
 
-.first-delivery-content.is-alphabet-introduction { display:grid; }
-.page .tutorial-alphabet-invitation { display:flex; align-items:center; justify-content:center; gap:32px; padding:24px; border:0; border-radius:12px; background:var(--wp-surface-ticket); color:var(--wp-text-onTicket); text-decoration:none; }
-.tutorial-alphabet-invitation-copy { display:grid; gap:12px; max-width:28ch; font-size:18px; line-height:1.5; }
-.tutorial-alphabet-invitation-label { font:600 38px/1.2 'Caveat', cursive; }
+.first-delivery-content.is-alphabet-introduction { display:flex; flex-direction:column; justify-content:space-evenly; gap:24px; padding-block:8px; }
+.first-delivery .is-alphabet-introduction .onboarding-intro-copy { margin:0; }
+.page .tutorial-alphabet-invitation { display:flex; align-items:center; align-self:flex-start; gap:28px; max-width:100%; padding:12px 0; border:0; border-radius:8px; background:transparent; color:var(--wp-text-primary); text-decoration:none; }
+.tutorial-alphabet-invitation-label { font:600 32px/1.2 'Caveat', cursive; }
 .tutorial-alphabet-letters { display:flex; flex:none; gap:12px; }
-.tutorial-alphabet-letters span { display:grid; place-items:center; width:76px; height:88px; border-radius:8px; background:var(--wp-surface-sheet); color:var(--wp-text-primary); font:500 34px/1 var(--wp-font-reading); }
+.tutorial-alphabet-letters span { display:grid; place-items:center; width:76px; height:88px; border-radius:8px; background:var(--wp-surface-ticket); color:var(--wp-text-onTicket); font:500 34px/1 var(--wp-font-reading); }
 .first-delivery-stage.is-alphabet .first-delivery-actions { grid-template-rows:auto; min-height:58px; }
-.page .tutorial-alphabet-invitation:focus-visible { outline:3px solid var(--wp-text-primary); outline-offset:4px; }
+.page .tutorial-alphabet-invitation:focus-visible { outline:3px solid var(--wp-text-primary); outline-offset:6px; }
 @media(hover:hover) {
-  .page .tutorial-alphabet-invitation:hover { box-shadow:inset 0 0 0 3px var(--wp-text-onTicket); }
+  .page .tutorial-alphabet-invitation:hover .tutorial-alphabet-letters span { box-shadow:0 3px 0 var(--wp-text-onTicket); }
 }
 @media(max-width:760px) {
-  .page .tutorial-alphabet-invitation { flex-direction:column; gap:20px; text-align:center; }
-  .tutorial-alphabet-invitation-copy { gap:8px; font-size:17px; }
-  .tutorial-alphabet-invitation-label { font-size:34px; }
+  .page .tutorial-alphabet-invitation { flex-direction:column; align-self:center; gap:16px; text-align:center; }
+  .tutorial-alphabet-invitation-label { font-size:30px; }
   .tutorial-alphabet-letters { gap:10px; }
   .tutorial-alphabet-letters span { width:64px; height:72px; font-size:28px; }
 }
