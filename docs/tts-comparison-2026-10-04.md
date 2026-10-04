@@ -21,8 +21,9 @@ The hosted allowance reserves the standard US$0.08 per 1,000 characters, avoidin
 dependence on the temporary discount. Fluent Speaking remains on its separate
 OpenAI live audio transport; it does not use the recorded-speech adapter.
 
-The public application demo is retired separately from this local comparison.
-Comparison recordings remain outside the public repository.
+The local comparison page and its port 5084 server have been closed. Recordings
+remain outside the public repository. The public `/demo/` application remains
+available with its existing access and spending controls.
 
 ## Models and voices
 

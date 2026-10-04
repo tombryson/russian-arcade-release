@@ -46,7 +46,6 @@ class HostedProfileOverviewTests(unittest.TestCase):
             root=self.root, ledger_path=self.root / 'budget.sqlite3',
             secret='synthetic-profile-secret-' * 3, hostname='arcade.example',
             enabled=True, ai_enabled=False, guest_demo_enabled=True,
-            public_preview_enabled=True,
             identity_provider=self.provider, max_cached_apps=3,
         )
         self.alice, self.boris = Client(self.dispatch, Response), Client(self.dispatch, Response)

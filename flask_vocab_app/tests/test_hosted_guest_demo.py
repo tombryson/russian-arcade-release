@@ -38,7 +38,6 @@ class HostedGuestDemoTests(unittest.TestCase):
             lambda environ, respond: Response('public samples')(environ, respond), self.factory,
             root=self.root, ledger_path=self.ledger.path, secret='synthetic-demo-test-secret-' * 3,
             hostname='arcade.example', enabled=True, ai_enabled=True, guest_demo_enabled=True,
-            public_preview_enabled=True,
             identity_provider=self.provider, budget=self.ledger, seed=lambda *_: None,
             clock=lambda: self.now, max_cached_apps=3, max_guests=3)
         # Dispatcher tests use tiny workspaces; full application coverage lives

@@ -278,8 +278,7 @@ class HostedTrialDispatcher:
                  max_tenants=100, max_cached_apps=8, identity_provider=None,
                  google_client_id='', google_client_secret='', identity_providers=None,
                  budget=None, seed=seed_trial_workspace, clock=time.time,
-                 guest_demo_enabled=False, max_guests=DEFAULT_MAX_GUESTS,
-                 public_preview_enabled=False):
+                 guest_demo_enabled=False, max_guests=DEFAULT_MAX_GUESTS):
         self.public_application, self.app_factory = public_application, app_factory
         self.root, self.ledger_path = Path(root).resolve(), Path(ledger_path).resolve()
         self.secret, self.hostname, self.enabled = secret, hostname, enabled
@@ -289,9 +288,7 @@ class HostedTrialDispatcher:
         self.ai_enabled = bool(self.config.get('AI_TRIAL_ENABLED', enabled)) if ai_enabled is None else bool(ai_enabled)
         self.config['AI_TRIAL_ENABLED'] = self.ai_enabled
         self.max_tenants, self.max_cached_apps = max_tenants, max_cached_apps
-        self.public_preview_enabled = bool(public_preview_enabled)
-        self.guest_demo_enabled = self.public_preview_enabled and bool(guest_demo_enabled)
-        self.max_guests = max_guests
+        self.guest_demo_enabled, self.max_guests = bool(guest_demo_enabled), max_guests
         self.last_guest_cleanup = 0
         self.clock, self.seed = clock, seed
         self.providers = {
@@ -555,7 +552,7 @@ class HostedTrialDispatcher:
     def _begin(self, request, provider_name='github', *, account=None):
         provider = self.providers.get(provider_name)
         if not self.enabled or not provider or not provider.configured:
-            return self._page('Sign-in unavailable', 'This sign-in option is not available. Please try again later.', 503)
+            return self._page('Sign-in unavailable', 'This sign-in option is not available. You can still explore the sample activities.', 503)
         state, browser, verifier, nonce = (secrets.token_urlsafe(size) for size in (32, 32, 48, 32))
         now = int(self.clock())
         with self._db() as conn:
@@ -788,23 +785,6 @@ class HostedTrialDispatcher:
             return app
 
     def __call__(self, environ, start_response):
-        path = environ.get('PATH_INFO', '')
-        if not self.public_preview_enabled and (path == '/demo' or path.startswith('/demo/')):
-            request = Request(environ)
-            if request.host != self.hostname:
-                response = self._response(Response('Unknown host', status=400))
-            elif (request.method in ('GET', 'HEAD')
-                    and not path.startswith('/demo/api/')
-                    and path not in {'/demo/api', '/demo/trial/status'}):
-                # Reset old activity fragments. Guest IDs must never become
-                # personal workspace resource IDs by stripping the prefix.
-                response = self._response(redirect('/#home'))
-                response.delete_cookie(GUEST_COOKIE, secure=True, httponly=True, samesite='Lax', path='/')
-            else:
-                response = self._json({'error': {'code': 'demo_retired',
-                    'message': 'The demo is no longer available. Sign in to continue.',
-                    'sign_in_url': '/trial/sign-in'}}, 410)
-            return response(environ, start_response)
         if environ.get('PATH_INFO', '').startswith('/demo/'):
             return DemoMount(self._dispatch)(environ, start_response)
         return self._dispatch(environ, start_response)
@@ -816,7 +796,7 @@ class HostedTrialDispatcher:
         # Sign-in and recovery pages must render even while a learner's
         # workspace is paused. Only these packaged public files bypass it.
         if request.method in ('GET', 'HEAD') and (request.path in ACCOUNT_PUBLIC_ASSETS
-                or (self.guest_demo_enabled or not self.public_preview_enabled) and packaged_asset(request.path)):
+                or self.guest_demo_enabled and packaged_asset(request.path)):
             return self.public_application(environ, start_response)
         try:
             demo_area = bool(environ.get('russian_arcade.demo'))
@@ -841,8 +821,8 @@ class HostedTrialDispatcher:
                     'sign_in_url': '/trial/sign-in', 'account_url': '/trial/account'})
             elif request.path == '/trial/account' and request.method == 'GET':
                 if account:
-                    ai_message = ('AI use has account and shared spending limits. '
-                                  'Saved practice remains available when an allowance is used.'
+                    ai_message = ('Your AI demo allowance is US$1 per day and US$2 in total. '
+                                  'All visitors share US$1 per day and US$10 in total. Saved practice remains available when an allowance is used.'
                                   if self.ai_enabled else
                                   'AI generation is currently turned off. Your saved practice remains available.')
                     response = self._page('Account settings', '', account=account,
@@ -856,18 +836,16 @@ class HostedTrialDispatcher:
                             if self.ai_enabled else 'AI generation is currently turned off. Sample activities remain available.'))
                 elif self._provider_options():
                     response = self._page('Sign in', '', next_url=safe_return_url(request.args.get('next')))
-                elif self.public_preview_enabled:
-                    response = self._page('Public preview',
-                        'Personal sign-in is not enabled on this site. Sample activities are available in the public preview.')
                 else:
-                    response = self._page('Sign-in unavailable', 'Please try again later.', 503)
+                    response = self._page('Public preview',
+                        'You are using a temporary demo profile. Personal sign-in is not enabled on this site yet. You can try the sample activities here, or use the full app in a local installation.')
             elif request.path == '/trial/sign-in' and request.method == 'GET':
                 if account:
                     response = self._response(redirect('/post/profiles'))
                 elif self._provider_options():
                     response = self._page('Sign in', '', next_url=safe_return_url(request.args.get('next')))
                 else:
-                    response = self._page('Sign-in unavailable', 'Please try again later.', 503)
+                    response = self._page('Sign-in unavailable', 'Personal sign-in is not enabled on this site yet. You can still explore the sample activities.', 503)
             elif request.path in {'/trial/sign-in/google', '/trial/sign-in/github'} and request.method == 'GET':
                 response = self._begin(request, request.path.rsplit('/', 1)[1])
             elif request.path == '/trial/callback' and request.method == 'GET':
@@ -923,19 +901,19 @@ class HostedTrialDispatcher:
                     raise
                 return ClosingIterator(result, release)
             else:
-                if self.guest_demo_enabled or not self.public_preview_enabled:
-                    # Anonymous visitors never enter an account workspace.
+                if self.guest_demo_enabled:
+                    # The main site is the personal-account entry. Anonymous
+                    # visitors enter the explicit /demo/ area to try activities.
                     if request.method in ('GET', 'HEAD') and not request.path.startswith('/api/'):
                         response = self._page('Russian Arcade' if request.path == '/' else 'Sign in',
                             'Learn and practise Russian.' if request.path == '/' else '',
                             next_url=safe_return_url(request.full_path.rstrip('?')))
                     else:
                         response = self._json({'error': {'code': 'sign_in_required',
-                            'message': 'Sign in to continue.',
-                            'sign_in_url': '/trial/sign-in',
-                            **({'demo_url': '/demo/'} if self.guest_demo_enabled else {})}}, 401)
+                            'message': 'Sign in or open the demo to continue.',
+                            'sign_in_url': '/trial/sign-in', 'demo_url': '/demo/'}}, 401)
                     return response(environ, start_response)
                 return self.public_application(environ, start_response)
         except (sqlite3.Error, OSError, TrialIdentityError):
-            response = self._page('Temporarily unavailable', 'Please try again shortly.', 503)
+            response = self._page('Demo temporarily unavailable', 'Please try again shortly.', 503)
         return response(environ, start_response)

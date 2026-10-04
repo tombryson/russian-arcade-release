@@ -26,7 +26,6 @@ class HostedTrialIntegrationTests(unittest.TestCase):
         self.root = Path(self.directory.name).resolve()
         self.env = patch.dict(os.environ, {
             'PUBLIC_DEMO': 'true', 'HOSTED_HOSTNAME': 'arcade.example',
-            'HOSTED_PUBLIC_DEMO_ENABLED': 'true',
             'FLASK_SECRET_KEY': 'synthetic-session-secret-' * 3,
             'HOSTED_TRIAL_ROOT': str(self.root), 'AI_TRIAL_ENABLED': 'true',
             'GOOGLE_OAUTH_CLIENT_ID': '', 'GOOGLE_OAUTH_CLIENT_SECRET': '',

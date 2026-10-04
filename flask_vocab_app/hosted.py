@@ -1,6 +1,6 @@
 """Fly-only entry point. Local development continues to use app.create_app.
 
-Supports a private installation or a public account sign-in site with
+Supports a private installation or a public sample site with optional,
 persistent personal accounts and separately enabled AI workspaces.
 Local files and credentials are never published.
 """
@@ -81,9 +81,6 @@ def settings():
 def create_hosted_app():
     values = settings()
     public = os.environ.get('PUBLIC_DEMO') == 'true'
-    # PUBLIC_DEMO is the historical hosted security boundary, not permission
-    # to open guest workspaces. The old sample experience now needs an opt-in.
-    public_demo_enabled = public and os.environ.get('HOSTED_PUBLIC_DEMO_ENABLED') == 'true'
     from app import create_app
     overrides = {
         'SECRET_KEY': values['FLASK_SECRET_KEY'],
@@ -98,15 +95,15 @@ def create_hosted_app():
                          YANDEX_API_KEY='', GOOGLE_DRIVE_AUTO_AUTH=False, PUBLIC_DEMO=True,
                          MAX_CONTENT_LENGTH=16384)
     app = create_app(overrides)
-    if public_demo_enabled:
+    if public:
         from public_demo import install_demo
         install_demo(app)
     application = app.wsgi_app
     ai_enabled = os.environ.get('AI_TRIAL_ENABLED') == 'true'
-    guest_demo_enabled = public_demo_enabled and os.environ.get('HOSTED_GUEST_DEMO_ENABLED') == 'true'
+    guest_demo_enabled = os.environ.get('HOSTED_GUEST_DEMO_ENABLED') == 'true'
     accounts_default = 'false' if guest_demo_enabled else os.environ.get('AI_TRIAL_ENABLED')
     accounts_enabled = os.environ.get('HOSTED_ACCOUNTS_ENABLED', accounts_default) == 'true'
-    if public and (not public_demo_enabled or accounts_enabled or ai_enabled or guest_demo_enabled) and not os.environ.get('HOSTED_TRIAL_ROOT'):
+    if public and (accounts_enabled or ai_enabled or guest_demo_enabled) and not os.environ.get('HOSTED_TRIAL_ROOT'):
         raise RuntimeError('Hosted accounts require HOSTED_TRIAL_ROOT on persistent storage.')
     if public and os.environ.get('HOSTED_TRIAL_ROOT'):
         from hosted_trial import HostedTrialDispatcher
@@ -117,7 +114,6 @@ def create_hosted_app():
                                and os.environ.get(provider + '_OAUTH_CLIENT_SECRET')
                                for provider in ('GOOGLE', 'GITHUB'))
         app.config['HOSTED_ACCOUNTS_ENABLED'] = accounts_enabled and oauth_configured
-        app.config['HOSTED_PUBLIC_DEMO_ENABLED'] = public_demo_enabled
         app.config['HOSTED_GUEST_DEMO_ENABLED'] = guest_demo_enabled
         app.config['HOSTED_TRIAL_AVAILABLE'] = ai_enabled and (guest_demo_enabled or app.config['HOSTED_ACCOUNTS_ENABLED'])
         if ai_enabled:
@@ -141,7 +137,6 @@ def create_hosted_app():
             ledger_path=ledger_path, secret=values['FLASK_SECRET_KEY'],
             hostname=values['HOSTED_HOSTNAME'], enabled=accounts_enabled, ai_enabled=ai_enabled, app_config=trial_config,
             guest_demo_enabled=guest_demo_enabled,
-            public_preview_enabled=public_demo_enabled,
             client_id=os.environ.get('GITHUB_OAUTH_CLIENT_ID', ''),
             client_secret=os.environ.get('GITHUB_OAUTH_CLIENT_SECRET', ''),
             google_client_id=os.environ.get('GOOGLE_OAUTH_CLIENT_ID', ''),
@@ -156,8 +151,7 @@ def create_hosted_app():
 
 
 def main():
-    if (os.environ.get('PUBLIC_DEMO') == 'true'
-            and os.environ.get('HOSTED_PUBLIC_DEMO_ENABLED') == 'true'):
+    if os.environ.get('PUBLIC_DEMO') == 'true':
         from public_demo import prepare_demo
         prepare_demo()
     values = settings()

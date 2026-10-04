@@ -49,7 +49,7 @@ class HostedTrialTests(unittest.TestCase):
         self.dispatch = HostedTrialDispatcher(lambda e, s: Response('public samples')(e, s), self.factory,
             root=self.root, ledger_path=self.root / 'budget.sqlite3', secret='test-secret-' * 4,
             hostname='arcade.example', enabled=True, identity_provider=self.provider, budget=self.budget,
-            max_cached_apps=1, max_tenants=2, public_preview_enabled=True)
+            max_cached_apps=1, max_tenants=2)
         self.a, self.b = Client(self.dispatch, Response), Client(self.dispatch, Response)
 
     def factory(self, settings):
@@ -194,9 +194,8 @@ class HostedTrialTests(unittest.TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertIn('<h1>Account settings</h1>', page.text)
         self.assertIn('Signed in as <strong>sample-user</strong>.', page.text)
-        self.assertIn('AI use has account and shared spending limits.', page.text)
-        self.assertIn('Saved practice remains available when an allowance is used.', page.text)
-        self.assertNotIn('AI demo allowance', page.text)
+        self.assertIn('Your AI demo allowance is US$1 per day and US$2 in total.', page.text)
+        self.assertIn('All visitors share US$1 per day and US$10 in total.', page.text)
         self.assertIn('action="/trial/sign-out"', page.text)
         self.assertNotIn('href="/trial/sign-in/github"', page.text)
         token = re.search('name="csrf_token" value="([^"]+)"', page.text)[1]

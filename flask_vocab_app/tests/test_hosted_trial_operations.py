@@ -33,8 +33,7 @@ class HostedOperatorTests(unittest.TestCase):
             lambda environ, respond: Response('public samples')(environ, respond),
             self.factory, root=self.root, ledger_path=self.root / 'budget.sqlite3',
             secret='test-secret-' * 4, hostname='arcade.example', enabled=True,
-            identity_provider=self.provider, budget=self.budget, seed=self.seed,
-            public_preview_enabled=True)
+            identity_provider=self.provider, budget=self.budget, seed=self.seed)
         # These tests exercise the dispatcher. Existing integration tests cover
         # the profile middleware and full database migrations.
         sessions = patch('hosted_trial.install_trial_session')

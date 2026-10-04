@@ -1,4 +1,4 @@
-# Hosted personal accounts. PUBLIC_DEMO retains the restricted hosting boundary.
+# Public synthetic demo. Personal installations use the private hosted entry point.
 app = "russian-arcade"
 primary_region = "syd"
 kill_signal = "SIGTERM"
@@ -9,8 +9,6 @@ kill_timeout = 120
 
 [env]
   PUBLIC_DEMO = "true"
-  HOSTED_PUBLIC_DEMO_ENABLED = "false"
-  HOSTED_GUEST_DEMO_ENABLED = "false"
   ELEVENLABS_MODEL = "eleven_v4"
   HOSTED_HOSTNAME = "russian-arcade.fly.dev"
   VOCAB_DB_PATH = "/data/vocab.db"
