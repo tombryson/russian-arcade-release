@@ -5,11 +5,13 @@ import {LessonAudio} from './LessonAudio';
 import settingOffArt from './assets/barsik-setting-off-transparent-v2.webp';
 import './styles/tutorial.css';
 
+type IntroductionStep = 'coins' | 'progress' | 'alphabet' | 'words' | 'complete';
 type NextAction = { href: string; label: string; description: string };
 type RetryRequest={action:FirstDeliveryAction;body:unknown}|{action:'load'};
 
-export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles' }: { next: NextAction; onIntroduce?: (milestone: 'coins' | 'progress') => void; profileHref?:string;courseJourney?:boolean }) {
-  const [step, setStep] = useState(0);
+export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles', entryStep, introductionComplete=true }: { next: NextAction; onIntroduce?: (milestone: 'coins' | 'progress') => void; profileHref?:string;courseJourney?:boolean;entryStep?:'alphabet';introductionComplete?:boolean }) {
+  const initialStep = useRef<IntroductionStep>(entryStep && introductionComplete ? entryStep : 'coins');
+  const [step, setStep] = useState<IntroductionStep>(initialStep.current);
   const [practice,setPractice]=useState<FirstDeliveryState>();
   const [busy,setBusy]=useState(false);
   const [error,setError]=useState('');
@@ -21,7 +23,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles' 
   const question=attempt?.question;
   const feedback=attempt?.answers.find(item=>item.question_id===question?.id);
   useEffect(() => {
-    const milestone = step === 0 ? 'coins' : step === 1 ? 'progress' : null;
+    const milestone = step === 'coins' ? 'coins' : step === 'progress' ? 'progress' : null;
     if (!onIntroduce || !milestone || introduced.current.has(milestone)) return;
     introduced.current.add(milestone);
     onIntroduce(milestone);
@@ -30,17 +32,24 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles' 
   useEffect(() => { window.scrollTo(0, 0); }, [step, attempt?.question_index]);
   useEffect(()=>{mounted.current=true;void load();return()=>{mounted.current=false;};},[]);
 
-  function accept(result:FirstDeliveryState,resume=false) {
+  function showStep(nextStep:IntroductionStep) {
+    // Keep browser Back and reload on the invitation when visiting the alphabet.
+    if (/^#first-delivery(?:\?|$)/.test(window.location.hash)) {
+      const hash=nextStep==='alphabet' ? '#first-delivery?step=alphabet' : '#first-delivery';
+      window.history.replaceState(window.history.state,'',hash);
+    }
+    setStep(nextStep);
+  }
+  function accept(result:FirstDeliveryState,resume=true) {
     if (!mounted.current) return;
     setPractice(result);
-    if (result.attempt?.version!=='first-delivery-v2') return;
-    if (result.attempt.phase==='completed') setStep(3);
-    else if (resume) setStep(2);
+    if (!resume || result.attempt?.version!=='first-delivery-v2') return;
+    showStep(result.attempt.phase==='completed' ? 'complete' : 'words');
   }
   async function load() {
     if (inFlight.current) return;
     inFlight.current=true;setBusy(true);setError('');retryRequest.current={action:'load'};
-    try {accept(await firstDeliveryState(),true);}
+    try {accept(await firstDeliveryState(),initialStep.current!=='alphabet');}
     catch(cause) {if(mounted.current)setError(cause instanceof Error ? cause.message : 'Your activity could not load. Please try again.');}
     finally {inFlight.current=false;if(mounted.current)setBusy(false);}
   }
@@ -63,35 +72,36 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles' 
     if(request.action==='load')void load();else void save(request.action,request.body);
   }
   function replay() {
-    setStep(0);
+    showStep('coins');
     setPractice(current=>current?.reward ? {...current,reward:{...current.reward,awarded_now:false}} : current);
   }
   function openActivity() {
-    if(attempt?.version==='first-delivery-v2') setStep(attempt.phase==='completed' ? 3 : 2);
+    if (!practice || busy) return;
+    if(attempt?.version==='first-delivery-v2') showStep(attempt.phase==='completed' ? 'complete' : 'words');
     else void save('start',attempt ? {restart:true} : {});
   }
 
-  const learning = step === 2 && attempt?.phase === 'learn' && question?.lesson;
-  const title = step === 0 ? 'Before we set off…'
-    : step === 1 ? 'Help Barsik reach the next stop.'
-    : step === 2 ? (question ? (learning ? question.title : question.prompt) : 'Your first words')
+  const learning = step === 'words' && attempt?.phase === 'learn' && question?.lesson;
+  const title = step === 'coins' ? 'Before we set off…'
+    : step === 'progress' ? 'Help Barsik reach the next stop.'
+    : step === 'alphabet' ? 'Learn the alphabet'
+    : step === 'words' ? (question ? (learning ? question.title : question.prompt) : 'Your first words')
     : 'Your first lesson is complete.';
-  const caption = step === 1 ? 'One word at a time'
-    : step === 2 && question ? `${learning ? 'Learn' : 'Try'} · Word ${attempt!.question_index+1} of ${attempt!.total_questions}`
-    : step === 3 ? 'Hello, Barsik!' : '';
+  const caption = step === 'progress' ? 'One word at a time'
+    : step === 'words' && question ? `${learning ? 'Learn' : 'Try'} · Word ${attempt!.question_index+1} of ${attempt!.total_questions}`
+    : step === 'complete' ? 'Hello, Barsik!' : '';
 
   return <section class="page first-delivery lesson-player">
     <div class="lesson-player-nav">
       <a class="text-link" href="#first-steps"><span aria-hidden="true">← </span>First steps</a>
-      <a class="text-link alphabet-prompt-link" href="#alphabet?from=first-delivery"><span class="alphabet-prompt-icon" lang="ru" aria-hidden="true">Аа</span><span>Learn the alphabet</span></a>
     </div>
-    <div class={`first-delivery-stage${step < 2 ? ' is-explainer' : ''}`}>
+    <div class={`first-delivery-stage${['coins','progress','alphabet'].includes(step) ? ' is-explainer' : ''}`}>
       <header class="first-delivery-heading">
         <h1 ref={heading} tabIndex={-1}>{title}</h1>
         {caption && <p class="lesson-counter">{caption}</p>}
       </header>
       <div class="first-delivery-content">
-        {step === 0 ? <>
+        {step === 'coins' ? <>
           <p class="onboarding-intro-copy">Practise Russian and help Barsik deliver your letter.</p>
           <div class="onboarding-coins">
             <div class="onboarding-coins-copy">
@@ -106,13 +116,17 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles' 
               <p>The first-activity bonus is awarded once.</p>
             </details>
           </div>
-        </> : step === 1 ? <>
+        </> : step === 'progress' ? <>
           <p class="onboarding-intro-copy">The bar at the top shows Barsik’s progress.</p>
           <div class="tutorial-progress-introduction">
             <img class="tutorial-progress-barsik" src="/static/images/barsik-running-v1.webp" width="92" height="68" alt="Barsik running with his letter bag." />
             <div><h2>Your first steps</h2><p>Learn your first three Russian words, then build on them in four short lessons. We’ll take you through them in order.</p></div>
           </div>
-        </> : step === 2 ? <>
+        </> : step === 'alphabet' ? <div class="tutorial-alphabet-introduction">
+          <div class="tutorial-alphabet-letters" lang="ru" aria-hidden="true"><span>Аа</span><span>Бб</span><span>Вв</span></div>
+          <p class="onboarding-intro-copy">New to Russian? Explore the alphabet and hear how each letter sounds.</p>
+          <p>Already know it? Continue to your first words.</p>
+        </div> : step === 'words' ? <>
           {question ? learning ? <div class="tutorial-word-card">
             <p class="tutorial-new-word" lang="ru">{learning.word_display ?? learning.word}</p>
             <p class="tutorial-word-meaning" lang="en">{learning.meaning}</p>
@@ -137,11 +151,13 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles' 
         </>}
       </div>
       <div class="action-row first-delivery-actions">
-        {step === 0 ? <>
-          <button class="cta" onClick={() => setStep(1)}>Continue <span aria-hidden="true">→</span></button><a class="text-link" href="#activities">Go straight to activities</a>
-        </> : step === 1 ? <>
-          <button class="cta" disabled={busy} onClick={openActivity}>Learn your first words <span aria-hidden="true">→</span></button><button class="text-link" onClick={() => setStep(0)}>Back to Lingocoins</button>
-        </> : step === 2 ? <>
+        {step === 'coins' ? <>
+          <button class="cta" onClick={() => showStep('progress')}>Continue <span aria-hidden="true">→</span></button><a class="text-link" href="#activities">Go straight to activities</a>
+        </> : step === 'progress' ? <>
+          <button class="cta" onClick={() => showStep('alphabet')}>Continue <span aria-hidden="true">→</span></button><button class="text-link" onClick={() => showStep('coins')}>Back to Lingocoins</button>
+        </> : step === 'alphabet' ? <>
+          <a class="cta" href="#alphabet?from=first-delivery">Learn the alphabet <span aria-hidden="true">→</span></a><button class="text-link" disabled={busy || !practice} onClick={openActivity}>Continue to first words</button>
+        </> : step === 'words' ? <>
           {learning && question ? <button class="cta" disabled={busy} onClick={()=>void save('learn',{question_id:question.id})}>{busy ? 'Saving…' : attempt!.question_index+1===attempt!.total_questions ? 'Try these words' : 'Next word'} <span aria-hidden="true">→</span></button>
             : question && attempt?.phase === 'feedback' && feedback ? <button class="cta" disabled={busy} onClick={()=>void save('continue',{question_id:question.id})}>{busy ? 'Saving…' : attempt.question_index+1===attempt.total_questions ? 'Finish activity' : 'Next word'} <span aria-hidden="true">→</span></button>
             : !question && <button class="cta" disabled={busy} onClick={()=>void save('complete')}>{busy ? 'Saving…' : 'Finish activity'} <span aria-hidden="true">→</span></button>}

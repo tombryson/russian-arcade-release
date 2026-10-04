@@ -4,7 +4,9 @@ Revised direction, 15 September 2026. The first delivery is one continuous begin
 
 ## Learner flow
 
-The coin introduction reveals the counter. The progress introduction then reveals Barsik's line. The learner meets three word cards in order: **Привет!** (hello), **письмо** (a letter), and **Спасибо!** (thank you). These belong to the same delivery: meeting Barsik, seeing the letter he carries, and thanking him. Each card teaches the Russian word and its meaning before continuing.
+The coin introduction reveals the counter. The progress introduction then reveals Barsik's line. An alphabet slide follows, before any word practice. It offers **Learn the alphabet** or **Continue to first words**. The alphabet opens with both voice sets and click-to-play audio; its return link restores the invitation. Learning the alphabet is optional and earns no reward. There is no side invitation on the coin or progress slide.
+
+The learner then meets three word cards in order: **Привет!** (hello), **письмо** (a letter), and **Спасибо!** (thank you). These belong to the same delivery: meeting Barsik, seeing the letter he carries, and thanking him. Each card teaches the Russian word and its meaning before continuing.
 
 After all three cards, the learner answers three recall questions. Every answer button is Russian, and every option is one of the three words already taught. The teaching card and its revealed meaning are absent during recall. Choosing an answer shows feedback; continuing opens the next question immediately. Hints remain available without reducing the welcome reward. The final feedback leads directly to the completion result, with no second “let’s begin” or activity handoff.
 
@@ -33,6 +35,8 @@ A guest can complete the same first delivery before creating a profile. The resu
 Creating a **new personal profile** transfers that guest's introduction milestones, first answers, hint history and completed reward exactly once. The transfer and new profile creation are atomic. An interrupted or retried creation cannot apply the pending completion to two profiles. A selected household learner can complete their own first delivery, but household profile creation does not claim a guest attempt.
 
 Selecting an **existing** profile never imports the guest's answers, rating evidence, bonus or introduction milestones. That profile resumes its own first delivery. Switching or ending a session must not make one learner's attempt available to another. Guest ownership must survive ordinary reloads without relying on an arbitrary attempt ID supplied by the browser.
+
+The invitation uses `#first-delivery?step=alphabet` so reload and browser Back restore it. An ordinary `#first-delivery` visit still resumes saved practice. Continuing from the invitation resumes the same attempt, including a completed result, without resetting answers or rewards. A fresh session must see the coin and progress introductions first. A failed initial read keeps starting practice disabled until retry succeeds.
 
 ## Persistence and verification
 

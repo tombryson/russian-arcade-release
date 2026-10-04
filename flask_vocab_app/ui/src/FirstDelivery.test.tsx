@@ -23,10 +23,10 @@ function server(initial=empty()) {
   const state={value:initial,failNext:'',holdNext:'',release:undefined as undefined|(()=>void)};
   const fetch=vi.fn(async(url:string,request?:RequestInit)=>{
     if(url!==endpoint && !url.startsWith(endpoint+'/')) throw new Error(`Unexpected request: ${url}`);
-    if(request?.method==='GET') return response(state.value);
-    const action=url.split('/').at(-1)!;
+    const action=request?.method==='GET' ? 'load' : url.split('/').at(-1)!;
     if(state.holdNext===action) {state.holdNext='';await new Promise<void>(resolve=>{state.release=resolve;});}
     if(state.failNext===action) {state.failNext='';return response({error:{code:'offline',message:'Please try saving again.'}},false);}
+    if(action==='load') return response(state.value);
     const body=JSON.parse(request?.body as string);
     if(action==='start' && (!state.value.attempt || body.restart)) state.value={...state.value,attempt:attempt({phase:'learn',question:question(0,true)})};
     const current=state.value.attempt;if(!current) throw new Error('No activity');
@@ -53,8 +53,9 @@ function server(initial=empty()) {
 }
 async function start() {
   fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
-  await waitFor(()=>expect(screen.getByRole('button',{name:'Learn your first words'}).hasAttribute('disabled')).toBe(false));
-  fireEvent.click(screen.getByRole('button',{name:'Learn your first words'}));
+  fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
+  await waitFor(()=>expect(screen.getByRole('button',{name:'Continue to first words'}).hasAttribute('disabled')).toBe(false));
+  fireEvent.click(screen.getByRole('button',{name:'Continue to first words'}));
   await screen.findByText('Hello',{exact:true});
 }
 async function learnWords() {
@@ -62,7 +63,7 @@ async function learnWords() {
   fireEvent.click(screen.getByRole('button',{name:'Next word'}));await screen.findByText('Thank you',{exact:true});
   fireEvent.click(screen.getByRole('button',{name:'Try these words'}));await screen.findByRole('button',{name:'Привет!'});
 }
-beforeEach(()=>vi.stubGlobal('scrollTo',vi.fn()));
+beforeEach(()=>{vi.stubGlobal('scrollTo',vi.fn());window.history.replaceState({},'','#first-delivery');});
 afterEach(()=>{vi.unstubAllGlobals();vi.restoreAllMocks();});
 
 describe('Your first words',()=>{
@@ -88,10 +89,10 @@ describe('Your first words',()=>{
     expect(screen.getByRole('button',{name:'Привет!',exact:true})).toBeTruthy();
     expect(api.posts()).toHaveLength(0);expect(api.state.value.attempt?.answers).toEqual([]);
   });
-  it('introduces coins then progress without a dummy quiz or an early reward',async()=>{
+  it('introduces coins, progress, then the alphabet without starting an activity or awarding a reward',async()=>{
     const api=server();const onIntroduce=vi.fn();render(<FirstDelivery next={next} onIntroduce={onIntroduce} courseJourney />);
     expect(screen.getByRole('link',{name:'First steps'}).getAttribute('href')).toBe('#first-steps');
-    expect(screen.getByRole('link',{name:'Learn the alphabet',exact:true}).getAttribute('href')).toBe('#alphabet?from=first-delivery');
+    expect(screen.queryByRole('link',{name:'Learn the alphabet',exact:true})).toBeNull();
     expect(screen.queryByText('Lesson 1 of 5')).toBeNull();
     expect(screen.queryByRole('list',{name:'Tutorial progress'})).toBeNull();
     expect(screen.queryByText('Before the journey')).toBeNull();
@@ -100,10 +101,84 @@ describe('Your first words',()=>{
     expect(onIntroduce.mock.calls).toEqual([['coins'],['progress']]);
     expect(document.activeElement).toBe(screen.getByRole('heading',{name:'Help Barsik reach the next stop.'}));
     expect(screen.getByText('Learn your first three Russian words, then build on them in four short lessons. We’ll take you through them in order.')).toBeTruthy();
-    expect(screen.getByRole('button',{name:'Learn your first words'})).toBeTruthy();
+    expect(screen.queryByRole('link',{name:'Learn the alphabet',exact:true})).toBeNull();
     expect(screen.queryByText(/Choose what to practise|Tap Barsik on the bar|You can also practise from/)).toBeNull();
     expect(screen.queryByText('Which word means “hello”?')).toBeNull();
+    fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
+    expect(document.activeElement).toBe(screen.getByRole('heading',{name:'Learn the alphabet',level:1}));
+    expect(screen.getByRole('link',{name:'Learn the alphabet',exact:true}).getAttribute('href')).toBe('#alphabet?from=first-delivery');
+    expect(screen.getByRole('button',{name:'Continue to first words'})).toBeTruthy();
+    expect(window.location.hash).toBe('#first-delivery?step=alphabet');
+    expect(onIntroduce.mock.calls).toEqual([['coins'],['progress']]);
+    expect(screen.queryByText(/Lingocoins earned|\+3 Lingocoins/)).toBeNull();
     await waitFor(()=>expect(api.fetch).toHaveBeenCalledOnce());expect(api.posts()).toHaveLength(0);
+  });
+  it('preserves an explicit alphabet invitation while loading and then resumes the saved word without a POST',async()=>{
+    const api=server({...empty(),attempt:attempt({phase:'learn',question_index:1,question:question(1,true)})});api.state.holdNext='load';
+    window.history.replaceState({},'','#first-delivery?step=alphabet');
+    render(<FirstDelivery next={next} entryStep="alphabet" />);
+    expect(screen.getByRole('heading',{name:'Learn the alphabet'})).toBeTruthy();
+    expect(screen.getByRole('button',{name:'Continue to first words'}).hasAttribute('disabled')).toBe(true);
+    await act(async()=>api.state.release!());
+    await waitFor(()=>expect(screen.getByRole('button',{name:'Continue to first words'}).hasAttribute('disabled')).toBe(false));
+    expect(screen.getByRole('heading',{name:'Learn the alphabet'})).toBeTruthy();
+    expect(screen.queryByText('a letter',{exact:true})).toBeNull();
+    expect(api.posts()).toHaveLength(0);
+    fireEvent.click(screen.getByRole('button',{name:'Continue to first words'}));
+    expect(screen.getByText('a letter',{exact:true})).toBeTruthy();
+    expect(window.location.hash).toBe('#first-delivery');
+    expect(api.posts()).toHaveLength(0);
+  });
+  it('keeps a completed saved attempt behind the explicit invitation until continuing',async()=>{
+    const api=server(completed({amount:2,status:'credited',awarded_now:false}));const onIntroduce=vi.fn();
+    window.history.replaceState({},'','#first-delivery?step=alphabet');
+    render(<FirstDelivery next={next} entryStep="alphabet" onIntroduce={onIntroduce} />);
+    await waitFor(()=>expect(screen.getByRole('button',{name:'Continue to first words'}).hasAttribute('disabled')).toBe(false));
+    expect(screen.getByRole('heading',{name:'Learn the alphabet'})).toBeTruthy();
+    expect(screen.queryByText('2 Lingocoins earned')).toBeNull();
+    expect(onIntroduce).not.toHaveBeenCalled();expect(api.posts()).toHaveLength(0);
+    fireEvent.click(screen.getByRole('button',{name:'Continue to first words'}));
+    expect(screen.getByText('2 Lingocoins earned')).toBeTruthy();
+    expect(screen.queryByText('+2 Lingocoins')).toBeNull();
+    expect(window.location.hash).toBe('#first-delivery');expect(api.posts()).toHaveLength(0);
+  });
+  it('keeps a fresh explicit entry in the introduction when its initial load and milestones update',async()=>{
+    const api=server();api.state.holdNext='load';const onIntroduce=vi.fn();
+    window.history.replaceState({},'','#first-delivery?step=alphabet');
+    const view=render(<FirstDelivery next={next} entryStep="alphabet" introductionComplete={false} onIntroduce={onIntroduce} />);
+    expect(screen.getByRole('heading',{name:'Before we set off…'})).toBeTruthy();
+    await act(async()=>api.state.release!());
+    expect(screen.getByRole('heading',{name:'Before we set off…'})).toBeTruthy();
+    fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
+    view.rerender(<FirstDelivery next={next} entryStep="alphabet" introductionComplete onIntroduce={onIntroduce} />);
+    expect(screen.getByRole('heading',{name:'Help Barsik reach the next stop.'})).toBeTruthy();
+    expect(onIntroduce.mock.calls).toEqual([['coins'],['progress']]);
+    fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
+    expect(screen.getByRole('heading',{name:'Learn the alphabet'})).toBeTruthy();
+    expect(api.posts()).toHaveLength(0);
+    await waitFor(()=>expect(screen.getByRole('button',{name:'Continue to first words'}).hasAttribute('disabled')).toBe(false));
+    fireEvent.click(screen.getByRole('button',{name:'Continue to first words'}));
+    await screen.findByText('Hello',{exact:true});
+    expect(api.posts().map(([url])=>url.split('/').at(-1))).toEqual(['start']);
+  });
+  it('prevents starting after the initial load fails and allows retrying from the invitation',async()=>{
+    const api=server();api.state.failNext='load';
+    window.history.replaceState({},'','#first-delivery?step=alphabet');
+    render(<FirstDelivery next={next} entryStep="alphabet" />);
+    await screen.findByRole('alert');
+    expect(screen.getByRole('heading',{name:'Learn the alphabet'})).toBeTruthy();
+    const continueButton=screen.getByRole('button',{name:'Continue to first words'});
+    expect(continueButton.hasAttribute('disabled')).toBe(true);
+    fireEvent.click(continueButton);expect(api.posts()).toHaveLength(0);
+    expect(screen.getByRole('link',{name:'Learn the alphabet',exact:true}).getAttribute('href')).toBe('#alphabet?from=first-delivery');
+    fireEvent.click(screen.getByRole('button',{name:'Try again'}));
+    await waitFor(()=>expect(screen.getByRole('button',{name:'Continue to first words'}).hasAttribute('disabled')).toBe(false));
+    expect(screen.queryByRole('alert')).toBeNull();
+    expect(api.fetch.mock.calls.filter(([,request])=>request?.method==='GET')).toHaveLength(2);
+    fireEvent.click(screen.getByRole('button',{name:'Continue to first words'}));
+    await screen.findByText('Hello',{exact:true});
+    expect(api.posts().map(([url])=>url.split('/').at(-1))).toEqual(['start']);
+    expect(window.location.hash).toBe('#first-delivery');
   });
   it('teaches all three words before Russian-only choices and continues without changing activities',async()=>{
     const api=server();render(<FirstDelivery next={next} />);await start();
@@ -169,7 +244,9 @@ describe('Your first words',()=>{
     render(<FirstDelivery next={next} />);fireEvent.click(await screen.findByRole('button',{name:'Finish activity'}));await screen.findByRole('alert');
     expect(screen.queryByText('+3 Lingocoins')).toBeNull();
     fireEvent.click(screen.getByRole('button',{name:'Try again'}));await screen.findByText('+3 Lingocoins');
-    const count=api.posts().length;fireEvent.click(screen.getByRole('button',{name:'Revisit the introduction'}));fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));fireEvent.click(screen.getByRole('button',{name:'Learn your first words'}));
+    const count=api.posts().length;fireEvent.click(screen.getByRole('button',{name:'Revisit the introduction'}));fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
+    expect(screen.getByRole('heading',{name:'Learn the alphabet'})).toBeTruthy();
+    fireEvent.click(screen.getByRole('button',{name:'Continue to first words'}));
     expect(screen.queryByText('+3 Lingocoins')).toBeNull();expect(api.posts()).toHaveLength(count);
   });
   it('resumes the actual credited amount without another completion request',async()=>{

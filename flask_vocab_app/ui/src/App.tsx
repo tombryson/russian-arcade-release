@@ -34,7 +34,7 @@ import sleepingBarsik from './assets/barsik-sleeping-v1.webp';
 import './styles/lesson-player.css';
 
 type Page = 'home' | 'activities' | 'alphabet' | 'words' | 'practice' | 'assessment' | 'first-delivery' | 'first-steps' | 'flashcards' | 'review' | 'generate' | 'conversation' | 'speech-lab' | 'speaking' | 'journey' | 'game' | 'games' | 'shop';
-type Route = { alphabetFrom?:'first-delivery'|'first-steps'; unitExchangeId?:string; page: Page; gameId?:string; sessionId?: string; worldId?:string; chapterId?:string; courseReleaseId?:string; checkpointId?:string;coursePracticeId?:string;courseSectionId?:string; wordId?: number; lessonId?: string; firstStepsVersion?:string; topic?:string; scenarioId?:string; speakingLevel?:PracticeLevel; speakingMode?:'fluent'|'step'; canonicalHash?: string };
+type Route = { firstDeliveryStep?:'alphabet'; alphabetFrom?:'first-delivery'|'first-steps'; unitExchangeId?:string; page: Page; gameId?:string; sessionId?: string; worldId?:string; chapterId?:string; courseReleaseId?:string; checkpointId?:string;coursePracticeId?:string;courseSectionId?:string; wordId?: number; lessonId?: string; firstStepsVersion?:string; topic?:string; scenarioId?:string; speakingLevel?:PracticeLevel; speakingMode?:'fluent'|'step'; canonicalHash?: string };
 function route(): Route {
   const hash = window.location.hash.slice(1);
   if (hash === 'alphabet' || hash.startsWith('alphabet?')) {
@@ -85,7 +85,10 @@ function route(): Route {
   }
   const session = /^practice\/([A-Za-z0-9_.:-]+)$/.exec(hash);
   if (session) return { page: 'practice', sessionId: session[1] };
-  if (hash === 'first-delivery') return { page: 'first-delivery' };
+  if (hash === 'first-delivery' || hash.startsWith('first-delivery?')) {
+    const step=new URLSearchParams(hash.split('?')[1]).get('step');
+    return {page:'first-delivery',firstDeliveryStep:step==='alphabet' ? step : undefined};
+  }
   if (hash === 'shop') return { page: 'shop' };
   if (hash === 'games') return { page: 'games' };
   if (hash === 'activities' || hash === 'letter') return { page: 'activities' };
@@ -105,6 +108,7 @@ type State = { mode: 'loading' | 'legacy' | 'adult' | 'locked' | 'child' | 'pers
 
 export function App({ householdEnabled = false, nativeEnabled = true, language = 'en', csrfToken = '', navigation, navigationLayout = 'top', initialProfile, initialOnboarding, accountMode = 'local', signInAvailable = false, demoAvailable = false, sessionScope, defaultCourseRelease='a1-v1' }: { defaultCourseRelease?:string;householdEnabled?: boolean; nativeEnabled?: boolean; language?: Language; csrfToken?: string; navigation?: ActivityNavigation | null; navigationLayout?: 'top' | 'sidebar'; initialProfile?: UserProfile | null; initialOnboarding?: OnboardingState; accountMode?: AccountMode; signInAvailable?: boolean; demoAvailable?: boolean; sessionScope?: string }) {
   const [location, setLocation] = useState<Route>(route);
+  const [routeVisit, setRouteVisit] = useState(0);
   const onboarding=useOnboarding(initialOnboarding);
   const [state, setState] = useState<State>({ mode: householdEnabled ? 'loading' : 'legacy' });
   const signedOut = !householdEnabled && initialProfile === null;
@@ -168,6 +172,8 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
     const navigate = () => {
       if (window.location.hash === '#main') return;
       navigated.current = true; setLocation(route());
+      // Explicit navigation reopens the requested introduction slide, even after an internal resume.
+      setRouteVisit(value=>value+1);
     };
     window.addEventListener('hashchange', navigate);
     return () => window.removeEventListener('hashchange', navigate);
@@ -292,11 +298,11 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
         : state.mode === 'loading' ? <section class="page"><h1 ref={heading} tabIndex={-1}>Opening your activities…</h1><p role="status">Checking your saved learning.</p></section>
         : state.mode === 'error' ? <section class="page"><h1 ref={heading} tabIndex={-1}>Your activities could not open.</h1><p role="alert">{state.error}</p><div class="action-row"><button class="cta" onClick={() => setRefresh(value => value + 1)}>Try again</button>{householdEnabled ? <a href="/post/household">Choose a learner</a> : <a href="#activities">Back to activities</a>}</div></section>
         : location.page === 'game' ? <JourneyGame key={`${profile?.id ?? state.mode}:${location.sessionId ?? location.gameId}`} gameId={location.gameId} sessionId={location.sessionId} profileHref={householdEnabled ? '/post/household' : '/post/profiles'}/>
-        : location.page === 'alphabet' ? <Alphabet returnHref={location.alphabetFrom ? `#${location.alphabetFrom}` : '#activities'} returnLabel={location.alphabetFrom === 'first-delivery' ? 'Back to your first words' : location.alphabetFrom === 'first-steps' ? 'First steps' : 'Activities'} />
+        : location.page === 'alphabet' ? <Alphabet returnHref={location.alphabetFrom==='first-delivery' ? '#first-delivery?step=alphabet' : location.alphabetFrom ? `#${location.alphabetFrom}` : '#activities'} returnLabel={location.alphabetFrom === 'first-delivery' ? 'Back to your introduction' : location.alphabetFrom === 'first-steps' ? 'First steps' : 'Activities'} />
         : location.page === 'first-steps' ? <FirstSteps key={`${profile?.id ?? state.mode}:${location.firstStepsVersion ?? ''}:${location.lessonId ?? 'overview'}`} lessonId={location.lessonId} version={location.firstStepsVersion} journeyHref={courseHref(progression.data?.course?.release_id ?? defaultCourseRelease,'home')} profileHref={householdEnabled ? '/post/household' : '/post/profiles'} />
         : location.page === 'shop' ? <GameShop key={profile?.id ?? state.mode} profileHref={householdEnabled ? '/post/household' : '/post/profiles'} />
         : location.page === 'games' ? <section class="page activity-entry games-page"><div class="activity-entry-content"><ActivityHeader title={language === 'ru' ? 'Игры' : 'Games'} description={language === 'ru' ? 'Выберите игру. Новые игры можно открыть в магазине.' : 'Choose a game to play. Unlock more in the shop.'} headingRef={heading} headingTabIndex={-1} actions={<a class="text-link" href="#shop">{language === 'ru' ? 'Магазин' : 'Shop'} <span aria-hidden="true">→</span></a>} /><GameCatalogue key={profile?.id ?? state.mode} context="games" /></div></section>
-        : location.page === 'first-delivery' ? <><FirstDelivery key={state.home?.profile.id ?? state.mode} next={tutorialNext} courseJourney={courseJourney} onIntroduce={onboarding.introduce} profileHref={householdEnabled ? "/post/household" : "/post/profiles"} />{onboarding.error && <div class="page onboarding-save-note" role="status"><p>{language==='ru' ? 'Не удалось сохранить знакомство с приложением.' : 'Your introduction could not be saved.'} {onboarding.error}</p><button class="text-link" onClick={()=>void onboarding.retry()}>{language==='ru' ? 'Попробовать ещё раз' : 'Try saving again'}</button></div>}</>
+        : location.page === 'first-delivery' ? <><FirstDelivery key={`${state.home?.profile.id ?? state.mode}:${routeVisit}`} entryStep={location.firstDeliveryStep} introductionComplete={onboarding.state.progress_introduced} next={tutorialNext} courseJourney={courseJourney} onIntroduce={onboarding.introduce} profileHref={householdEnabled ? "/post/household" : "/post/profiles"} />{onboarding.error && <div class="page onboarding-save-note" role="status"><p>{language==='ru' ? 'Не удалось сохранить знакомство с приложением.' : 'Your introduction could not be saved.'} {onboarding.error}</p><button class="text-link" onClick={()=>void onboarding.retry()}>{language==='ru' ? 'Попробовать ещё раз' : 'Try saving again'}</button></div>}</>
         : location.page === 'journey' && location.worldId && !onboarding.state.coins_introduced ? <section class="page"><h1>Your first delivery</h1><p>Meet Barsik and see how your practice helps his journey.</p><a class="cta" href="#first-delivery">Let’s begin</a></section>
         : location.page === 'journey' && (location.coursePracticeId || location.courseSectionId) ? <CoursePreparation key={`${profile?.id ?? state.mode}:${location.courseReleaseId ?? ''}:${location.coursePracticeId ?? location.courseSectionId}`} releaseId={location.courseReleaseId} practiceId={location.coursePracticeId} sectionId={location.courseSectionId} language={language} progression={progression}/>
         : location.page === 'journey' ? location.worldId ? <Journey key={`${profile?.id ?? state.mode}:${location.worldId}`} worldId={location.worldId} language={language} progression={progression} /> : <CourseJourney key={`${profile?.id ?? state.mode}:${location.courseReleaseId ?? ''}:${location.chapterId ?? location.checkpointId ?? 'overview'}`} releaseId={location.courseReleaseId} chapterId={location.chapterId} attemptId={location.checkpointId} language={language} progression={progression} />

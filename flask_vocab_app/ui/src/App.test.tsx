@@ -18,10 +18,85 @@ describe('Russian Arcade activity home', () => {
     const fetch = vi.fn(); vi.stubGlobal('fetch', fetch);
     render(<App initialProfile={null}/>);
     expect(await screen.findByRole('heading', {name:'Russian alphabet', level:1})).toBeTruthy();
-    expect(screen.getByRole('link', {name:/Back to your first words/}).getAttribute('href')).toBe('#first-delivery');
+    expect(screen.getByRole('link', {name:/Back to your introduction/}).getAttribute('href')).toBe('#first-delivery?step=alphabet');
     expect(screen.queryByText('Who’s learning?')).toBeNull();
     expect(fetch).not.toHaveBeenCalled();
     expect(screen.getByLabelText('Activities').getAttribute('data-active')).toBe('true');
+  });
+  it.each(['/', '/demo/'])('returns to the alphabet invitation at %s without resuming or rewarding a completed lesson', async path => {
+    window.history.replaceState(null, '', `${path}#first-delivery?step=alphabet`);
+    const fetch = vi.fn((_url: string, _options?: RequestInit) => response({
+      profile_id:null,
+      attempt:{id:'intro',version:'first-delivery-v2',phase:'completed',question_index:3,total_questions:3,question:null,answers:[],completed_at:1},
+      pending_reward:3,reward:{amount:3,status:'pending',awarded_now:false},
+    }));
+    vi.stubGlobal('fetch', fetch);
+    render(<App initialProfile={null} initialOnboarding={{profile_id:null,coins_introduced:true,progress_introduced:true}}/>);
+
+    await screen.findByRole('heading', {name:'Learn the alphabet', level:1});
+    await vi.waitFor(() => expect((screen.getByRole('button', {name:'Continue to first words'}) as HTMLButtonElement).disabled).toBe(false));
+    expect(screen.queryByRole('heading', {name:'Your first lesson is complete.'})).toBeNull();
+    expect(screen.queryByText(/Lingocoins earned/)).toBeNull();
+    const alphabet = screen.getByRole('link', {name:'Learn the alphabet'});
+    expect(alphabet.getAttribute('href')).toBe('#alphabet?from=first-delivery');
+    expect(fetch.mock.calls.map(([url]) => url)).toEqual([`${path === '/demo/' ? '/demo' : ''}/api/v1/onboarding/practice`]);
+
+    fireEvent.click(alphabet);
+    await screen.findByRole('heading', {name:'Russian alphabet', level:1});
+    expect(window.location.pathname).toBe(path);
+    const back = screen.getByRole('link', {name:/Back to your introduction/});
+    expect(back.getAttribute('href')).toBe('#first-delivery?step=alphabet');
+    fireEvent.click(back);
+    await screen.findByRole('heading', {name:'Learn the alphabet', level:1});
+    await vi.waitFor(() => expect(fetch.mock.calls).toHaveLength(2));
+    expect(window.location.hash).toBe('#first-delivery?step=alphabet');
+    expect(window.location.pathname).toBe(path);
+    expect(screen.queryByRole('heading', {name:'Your first lesson is complete.'})).toBeNull();
+    expect(screen.queryByText(/Lingocoins earned/)).toBeNull();
+    expect(fetch.mock.calls.every(([,options]) => options?.method === 'GET')).toBe(true);
+  });
+  it.each(['/', '/demo/'])('reopens the explicit alphabet invitation after continuing to saved words at %s', async path => {
+    window.history.replaceState(null, '', `${path}#first-delivery?step=alphabet`);
+    const fetch = vi.fn((_url: string, _options?: RequestInit) => response({
+      profile_id:null,
+      attempt:{id:'intro',version:'first-delivery-v2',phase:'learn',question_index:0,total_questions:3,
+        question:{id:'hello',title:'Meet Barsik',prompt:'Which word means hello?',choices:[],
+          lesson:{word:'Привет',meaning:'Hello',explanation:'Say hello to Barsik.'}},
+        answers:[],completed_at:null},
+      pending_reward:0,reward:null,
+    }));
+    vi.stubGlobal('fetch', fetch);
+    render(<App initialProfile={null} initialOnboarding={{profile_id:null,coins_introduced:true,progress_introduced:true}}/>);
+    await screen.findByRole('heading', {name:'Learn the alphabet', level:1});
+    await vi.waitFor(() => expect((screen.getByRole('button', {name:'Continue to first words'}) as HTMLButtonElement).disabled).toBe(false));
+
+    fireEvent.click(screen.getByRole('button', {name:'Continue to first words'}));
+    expect(await screen.findByRole('heading', {name:'Meet Barsik', level:1})).toBeTruthy();
+    expect(window.location.hash).toBe('#first-delivery');
+    expect(fetch.mock.calls).toHaveLength(1);
+
+    await act(() => { window.location.hash = '#first-delivery?step=alphabet'; });
+    expect(await screen.findByRole('heading', {name:'Learn the alphabet', level:1})).toBeTruthy();
+    await vi.waitFor(() => expect((screen.getByRole('button', {name:'Continue to first words'}) as HTMLButtonElement).disabled).toBe(false));
+    expect(screen.queryByRole('heading', {name:'Meet Barsik', level:1})).toBeNull();
+    expect(window.location.pathname).toBe(path);
+    expect(window.location.hash).toBe('#first-delivery?step=alphabet');
+    expect(fetch.mock.calls).toHaveLength(2);
+    expect(fetch.mock.calls.every(([,options]) => options?.method === 'GET')).toBe(true);
+  });
+  it('starts an unfinished introduction at coins even when the alphabet invitation is linked directly', async () => {
+    window.history.replaceState(null, '', '/#first-delivery?step=alphabet');
+    const fetch = vi.fn((url: string, options?: RequestInit) => response(url === '/api/v1/onboarding/practice'
+      ? {profile_id:null,attempt:null,pending_reward:0,reward:null}
+      : {profile_id:null,coins_introduced:true,progress_introduced:JSON.parse(String(options?.body)).milestone === 'progress'}));
+    vi.stubGlobal('fetch', fetch);
+    render(<App initialProfile={null} initialOnboarding={{profile_id:null,coins_introduced:false,progress_introduced:false}}/>);
+    expect(await screen.findByRole('heading', {name:'Before we set off…', level:1})).toBeTruthy();
+    expect(screen.queryByRole('heading', {name:'Learn the alphabet', level:1})).toBeNull();
+    fireEvent.click(screen.getByRole('button', {name:'Continue'}));
+    expect(await screen.findByRole('heading', {name:'Help Barsik reach the next stop.', level:1})).toBeTruthy();
+    expect(screen.queryByRole('heading', {name:'Learn the alphabet', level:1})).toBeNull();
+    expect(fetch.mock.calls.filter(([,options]) => options?.method === 'POST').every(([url]) => url === '/api/v1/onboarding')).toBe(true);
   });
   it('ignores an unknown alphabet return destination', async () => {
     window.history.replaceState(null, '', '/#alphabet?from=https://example.com');
@@ -190,6 +265,7 @@ describe('Russian Arcade activity home', () => {
     expect(document.activeElement).toBe(screen.getByRole('heading', { name: 'Choose what to practise' }));
   });
   it('opens the introductions without a duplicate greeting quiz or an early reward', async () => {
+    const replaceState = vi.spyOn(window.history, 'replaceState');
     const fetch = vi.fn((url:string,options?:RequestInit)=>response(['/api/v1/first-steps','/api/v1/games'].includes(url) ? {profile_id:null,lessons:Array(5).fill({}),next_lesson:{id:'hello',position:1,title:'Hello, Barsik!',description:'Meet Barsik.',status:'available',href:'#first-delivery'},complete:false} : url==='/api/v1/onboarding' ? {profile_id:null,coins_introduced:true,progress_introduced:JSON.parse(String(options?.body)).milestone==='progress'} : url==='/api/v1/onboarding/practice' ? {profile_id:null,attempt:null,pending_reward:0,reward:null} : {})); vi.stubGlobal('fetch', fetch);
     render(<App />);
     fireEvent.click(await screen.findByRole('link', { name: /First steps · 1 of 5/ }));
@@ -198,7 +274,13 @@ describe('Russian Arcade activity home', () => {
     expect(window.location.hash).toBe('#first-delivery');
     expect(screen.getByRole('link', { name: 'Home' }).getAttribute('aria-current')).toBe('page');
     fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
-    expect(screen.getByRole('button', { name: 'Learn your first words' })).toBeTruthy();
+    expect(screen.getByRole('heading', { name: 'Help Barsik reach the next stop.', level:1 })).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    expect(screen.getByRole('heading', { name: 'Learn the alphabet', level:1 })).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'Learn the alphabet' }).getAttribute('href')).toBe('#alphabet?from=first-delivery');
+    expect(screen.getByRole('button', { name: 'Continue to first words' })).toBeTruthy();
+    expect(window.location.hash).toBe('#first-delivery?step=alphabet');
+    expect(replaceState.mock.calls.some(([, , url]) => String(url).endsWith('#first-delivery?step=alphabet'))).toBe(true);
     expect(screen.queryByRole('heading', { name: 'Which word means “hello”?' })).toBeNull();
     expect(screen.queryByText(/No coins were added/)).toBeNull();
     expect(fetch.mock.calls.filter(([,options])=>options?.method==='POST').every(([url])=>url==='/api/v1/onboarding')).toBe(true);
