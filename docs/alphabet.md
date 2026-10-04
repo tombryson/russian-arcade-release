@@ -18,7 +18,7 @@ The audio is prepared with ElevenLabs v4 (`eleven_v4`) and committed under `flas
 
 Sound recordings are separate assets under `sounds/female/` and `sounds/male/`. Direct isolated-IPA synthesis was tested and rejected: several takes added vowels or spoke more than the intended sound. The consonant clips instead use selected portions of v4 recordings, with separate sustained takes for М and Р. Vowel names already contain the required sound and can be reused. Existing name and word recordings are preserved. A missing consonant sound must never fall back to its letter name.
 
-Short stop consonants are repeated three times with gaps; they are not stretched or given an extra vowel. Their word examples matter because a release on its own provides less pronunciation context. Hard Л comes from ла́мпа, not the soft ending of эль. Й comes from the beginning of йо́гурт. Crop boundaries, source checksums and processing settings are recorded in `scripts/data/alphabet-sound-crops.json`. The additional М/Р sources and their v4 request metadata are in `scripts/audio-sources/alphabet/`. These files let the sound clips be rebuilt without further synthesis.
+Each recording plays once. The preparation script rejects repetition and limits amplification to 3 dB. Earlier stop clips were incorrectly looped and over-amplified; those files have been rebuilt. A short isolated release still gives less pronunciation context than the whole word, so removing repeats does not by itself establish pronunciation quality. Hard Л comes from ла́мпа, not the soft ending of эль. Й comes from the beginning of йо́гурт. Crop boundaries, source checksums and processing settings are recorded in `scripts/data/alphabet-sound-crops.json`. The additional М/Р sources and their v4 request metadata are in `scripts/audio-sources/alphabet/`. These files let the sound clips be rebuilt without further synthesis. Sound playback URLs include a version query to invalidate the earlier recordings in browser caches.
 
 ## Preparing recordings
 
@@ -38,6 +38,8 @@ python scripts/prepare_alphabet_sounds.py --voice male --verify
 The first command is a dry run. The second uses the explicitly supplied credential file to prepare the male recordings. A new set requires an explicit configured voice ID; confirm its language and voice description before generation. Reruns preserve verified recordings. Verification checks saved assets without calling a provider. Keep credentials outside version control. The sound preparation script is separate: it uses the checked-in v4 sources and makes no provider requests.
 
 Waveform and spectrogram checks were used to select consonant boundaries and reject unwanted vowels. An audio-model screening pass was inconsistent on very short clips and is not treated as a pronunciation certificate. These checks do not establish native-listener approval.
+
+A small MAI-Voice-2.1 trial for П, Г, Р and С was also generated on 4 October 2026. Its raw candidates remain outside the application; successful synthesis is not grounds for replacing the current examples.
 
 Before publishing changed content, listen to the affected recordings. Check letter names, word stress, vowel reduction, consonant softness and the treatment of `ё`, `й`, `ъ` and `ь`. Successful synthesis or file decoding alone does not establish pronunciation accuracy. Do not describe all recordings as reviewed unless that listening review has taken place.
 

@@ -1,12 +1,12 @@
 {
-  "version": "alphabet-sound-crops-v1",
-  "review": "Explicit boundaries chosen from waveform and spectrogram inspection. Automatic phonetic screening is fallible; no native-listener certification is claimed. Stops repeat three times without stretching. Original name and word recordings remain unchanged.",
+  "version": "alphabet-sound-crops-v2",
+  "review": "One pronunciation per recording. No repeated clips. Gain is limited to 3 dB; listening quality is not established by waveform or decoding checks.",
   "processing": {
     "normalization_dbfs": -20,
     "max_peak_dbfs": -3,
     "leading_ms": 60,
     "trailing_ms": 100,
-    "repeat_gap_ms": 180
+    "max_gain_db": 3
   },
   "clips": {
     "female-a": {
@@ -25,7 +25,7 @@
       "mode": "crop",
       "start_ms": 25,
       "end_ms": 181,
-      "repetitions": 3,
+      "repetitions": 1,
       "fade_in_ms": 0.5,
       "fade_out_ms": 0.2
     },
@@ -45,7 +45,7 @@
       "mode": "crop",
       "start_ms": 20,
       "end_ms": 179,
-      "repetitions": 3,
+      "repetitions": 1,
       "fade_in_ms": 0.5,
       "fade_out_ms": 0.2
     },
@@ -55,7 +55,7 @@
       "mode": "crop",
       "start_ms": 24,
       "end_ms": 183,
-      "repetitions": 3,
+      "repetitions": 1,
       "fade_in_ms": 0.5,
       "fade_out_ms": 0.2
     },
@@ -125,7 +125,7 @@
       "mode": "crop",
       "start_ms": 40,
       "end_ms": 105,
-      "repetitions": 3,
+      "repetitions": 1,
       "fade_in_ms": 0.5,
       "fade_out_ms": 0.2
     },
@@ -175,7 +175,7 @@
       "mode": "crop",
       "start_ms": 88,
       "end_ms": 111,
-      "repetitions": 3,
+      "repetitions": 1,
       "fade_in_ms": 0.5,
       "fade_out_ms": 0.2
     },
@@ -205,7 +205,7 @@
       "mode": "crop",
       "start_ms": 58,
       "end_ms": 91,
-      "repetitions": 3,
+      "repetitions": 1,
       "fade_in_ms": 0.5,
       "fade_out_ms": 0.2
     },
@@ -335,7 +335,7 @@
       "mode": "crop",
       "start_ms": 25,
       "end_ms": 163,
-      "repetitions": 3,
+      "repetitions": 1,
       "fade_in_ms": 0.5,
       "fade_out_ms": 0.2
     },
@@ -355,7 +355,7 @@
       "mode": "crop",
       "start_ms": 15,
       "end_ms": 146,
-      "repetitions": 3,
+      "repetitions": 1,
       "fade_in_ms": 0.5,
       "fade_out_ms": 0.2
     },
@@ -365,7 +365,7 @@
       "mode": "crop",
       "start_ms": 15,
       "end_ms": 168,
-      "repetitions": 3,
+      "repetitions": 1,
       "fade_in_ms": 0.5,
       "fade_out_ms": 0.2
     },
@@ -435,7 +435,7 @@
       "mode": "crop",
       "start_ms": 21,
       "end_ms": 70,
-      "repetitions": 3,
+      "repetitions": 1,
       "fade_in_ms": 0.5,
       "fade_out_ms": 0.2
     },
@@ -485,7 +485,7 @@
       "mode": "crop",
       "start_ms": 83,
       "end_ms": 97,
-      "repetitions": 3,
+      "repetitions": 1,
       "fade_in_ms": 0.5,
       "fade_out_ms": 0.2
     },
@@ -515,7 +515,7 @@
       "mode": "crop",
       "start_ms": 65,
       "end_ms": 94,
-      "repetitions": 3,
+      "repetitions": 1,
       "fade_in_ms": 0.5,
       "fade_out_ms": 0.2
     },

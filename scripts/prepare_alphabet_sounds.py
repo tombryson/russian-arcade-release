@@ -25,13 +25,13 @@ RECORDED_PREFIX = 'scripts/audio-sources/alphabet/'
 DIRECTORY = audio.DIRECTORY / 'sounds'
 RECIPES = ROOT / 'scripts/data/alphabet-sound-crops.json'
 MODEL = audio.MODEL
-VERSION = 'alphabet-sounds-v2'
-RECIPE_VERSION = 'alphabet-sound-crops-v1'
+VERSION = 'alphabet-sounds-v3'
+RECIPE_VERSION = 'alphabet-sound-crops-v2'
 MAX_CLIPS = 31
 VOWELS = frozenset(('a', 'ye', 'yo', 'i', 'o', 'u', 'yery', 'e', 'yu', 'ya'))
 VOICE_IDS = {'female': 'ymDCYd8puC7gYjxIamPt', 'male': 'sRk0zCqhS2Cmv0bzx5wA'}
 PROCESSING = {'normalization_dbfs': -20, 'max_peak_dbfs': -3, 'leading_ms': 60,
-              'trailing_ms': 100, 'repeat_gap_ms': 180}
+              'trailing_ms': 100, 'max_gain_db': 3}
 
 
 def load_clips(path=DATA):
@@ -80,7 +80,7 @@ def load_recipes(path=RECIPES, clips=None):
             allowed.add(RECORDED_PREFIX + voice + '-' + item['letter_id'] + '.mp3')
             if (not isinstance(recipe, dict) or set(recipe) != fields or recipe['source'] not in allowed
                     or not isinstance(recipe['source_sha256'], str) or not re.fullmatch('[a-f0-9]{64}', recipe['source_sha256'])
-                    or type(recipe['repetitions']) is not int or recipe['repetitions'] not in (1, 3)
+                    or type(recipe['repetitions']) is not int or recipe['repetitions'] != 1
                     or recipe['mode'] not in ('copy', 'crop')):
                 raise ValueError('A sound recipe needs its exact same-voice source and processing instructions.')
             if recipe['mode'] == 'copy':
@@ -161,6 +161,8 @@ def plan(directory, specs, voice):
 
 
 def render(source, destination, recipe):
+    if recipe['repetitions'] != 1:
+        raise ValueError('Each recording must contain one pronunciation, without repeats.')
     from pydub import AudioSegment
     if recipe['mode'] == 'copy':
         destination.write_bytes(source.read_bytes())
@@ -170,17 +172,14 @@ def render(source, destination, recipe):
     if not math.isfinite(crop.dBFS):
         raise ValueError('The authored crop contains no audible signal.')
     crop = crop.fade_in(recipe['fade_in_ms']).fade_out(recipe['fade_out_ms'])
-    gain = min(PROCESSING['normalization_dbfs'] - crop.dBFS, PROCESSING['max_peak_dbfs'] - crop.max_dBFS)
+    gain = min(PROCESSING['max_gain_db'], PROCESSING['normalization_dbfs'] - crop.dBFS,
+               PROCESSING['max_peak_dbfs'] - crop.max_dBFS)
     crop = crop.apply_gain(gain)
-    gap = AudioSegment.silent(duration=PROCESSING['repeat_gap_ms'], frame_rate=crop.frame_rate)
-    body = crop
-    for _ in range(recipe['repetitions'] - 1):
-        body += gap + crop
-    result = (AudioSegment.silent(duration=PROCESSING['leading_ms'], frame_rate=crop.frame_rate) + body
+    result = (AudioSegment.silent(duration=PROCESSING['leading_ms'], frame_rate=crop.frame_rate) + crop
               + AudioSegment.silent(duration=PROCESSING['trailing_ms'], frame_rate=crop.frame_rate))
     with result.export(destination, format='mp3', bitrate='128k'):
         pass
-    return {'gain_db': gain, 'processing_applied': 'crop, edge fades, bounded gain, repetition and padding'}
+    return {'gain_db': gain, 'processing_applied': 'single crop, edge fades, bounded gain and padding'}
 
 
 def prepare(directory, specs, *, voice, selected=None, max_new=MAX_CLIPS, source_dir=SOURCES):

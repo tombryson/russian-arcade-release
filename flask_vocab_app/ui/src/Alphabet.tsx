@@ -84,7 +84,8 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     };
     audio.onended = () => { if (attempt.current === current) stopAudio(); };
     audio.onerror = fail;
-    audio.src = appUrl(recordings[voice]);
+    // A new version prevents browsers replaying the previous looped sound files.
+    audio.src = appUrl(recordings[voice]) + (clip === 'sound' ? '?v=single-v3' : '');
     try {
       await audio.play();
     } catch { fail(); }

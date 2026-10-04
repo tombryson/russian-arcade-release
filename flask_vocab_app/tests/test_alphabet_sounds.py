@@ -8,6 +8,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+from pydub import AudioSegment
 from pydub.generators import Sine
 
 
@@ -163,17 +164,46 @@ class AlphabetSoundPreparationTests(unittest.TestCase):
         with self.assertRaises(Exception):
             self.prepare()
 
-    def test_stops_repeat_without_stretching_and_with_explicit_gaps(self):
+    def test_short_clip_plays_once_with_only_edge_padding(self):
         recipe = self.recipes['female-ef']
-        recipe.update(start_ms=100, end_ms=114, repetitions=3, fade_in_ms=.5, fade_out_ms=.2)
+        recipe.update(start_ms=100, end_ms=114, repetitions=1, fade_in_ms=.5, fade_out_ms=.2)
         saved = self.prepare(selected={'ef-sound.mp3'})
-        self.assertEqual(saved['clips']['ef-sound.mp3']['duration_ms'], 14 * 3 + 180 * 2 + 60 + 100)
+        self.assertEqual(saved['clips']['ef-sound.mp3']['duration_ms'], 14 + 60 + 100)
+        recording = AudioSegment.from_file(self.directory / 'female/ef-sound.mp3')
+        self.assertGreater(recording[60:74].dBFS, -40)
+        self.assertLess(recording[100:].dBFS, -50)
+
+    def test_renderer_rejects_repetitions_even_when_recipe_validation_is_bypassed(self):
+        destination = self.root / 'existing-output.mp3'
+        destination.write_bytes(b'preserve this output')
+        for letter in ('a', 'ef'):
+            recipe = {**self.recipes['female-' + letter], 'repetitions': 3}
+            with self.subTest(mode=recipe['mode']), self.assertRaisesRegex(ValueError, 'without repeats'):
+                command.render(self.root / recipe['source'], destination, recipe)
+            self.assertEqual(destination.read_bytes(), b'preserve this output')
+
+    def test_quiet_clips_receive_at_most_three_decibels_of_gain(self):
+        source = self.root / 'quiet-source.mp3'
+        destination = self.root / 'quiet-output.mp3'
+        with Sine(330).to_audio_segment(duration=350).apply_gain(-40).export(source, format='mp3'):
+            pass
+        original = AudioSegment.from_file(source)[100:250]
+        result = command.render(source, destination, self.recipes['female-ef'])
+        rendered = AudioSegment.from_file(destination)
+        self.assertEqual(len(rendered), 150 + 60 + 100)
+        self.assertEqual(result['gain_db'], 3)
+        # Measure the encoded result too: a quiet source must remain quiet,
+        # rather than being amplified to the general -20 dBFS target.
+        observed_gain = rendered[60:210].dBFS - original.dBFS
+        self.assertGreater(observed_gain, 1.5)
+        self.assertLessEqual(observed_gain, 3.25)
+        self.assertLess(rendered[60:210].dBFS, -35)
 
     def test_authored_recipe_rejects_traversal_wrong_voice_and_invalid_intervals(self):
         path = self.root / 'recipes.json'
         pristine = json.loads(json.dumps(self.recipes))
         cases = [('source', '../outside.mp3'), ('source', command.SOURCE_PREFIX + 'male/ef-name.mp3'),
-                 ('end_ms', 99), ('start_ms', -1), ('repetitions', 2), ('fade_out_ms', 200)]
+                 ('end_ms', 99), ('start_ms', -1), ('repetitions', 2), ('repetitions', 3), ('fade_out_ms', 200)]
         for field, value in cases:
             recipes = json.loads(json.dumps(pristine))
             recipes['female-ef'][field] = value
