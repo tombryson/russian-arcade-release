@@ -2,11 +2,19 @@
 .page.lesson-player.intro-lesson-player {max-width:1180px;min-height:0;margin-inline:auto;padding:20px 32px 32px}
 .intro-lesson-player .lesson-player-nav {border:0;margin-bottom:12px;padding:0}
 .intro-lesson-card {display:grid;gap:20px;padding:24px 28px;border:1px solid var(--wp-border-subtle);border-radius:12px;background:var(--wp-surface-sheet)}
+/* Reserve the same working area for teaching, answers and feedback. Content can
+   grow when help opens or text wraps; it must never be squeezed into a height. */
+.intro-lesson-card.is-lesson-workspace {min-block-size:560px;grid-template-rows:auto minmax(min-content,1fr) auto}
+.is-lesson-workspace>.intro-lesson-content {display:flex;flex-direction:column;justify-content:center}
 .intro-lesson-heading {display:flex;flex-direction:column;gap:6px}
 .intro-lesson-heading h1 {margin:0;font:500 clamp(26px,2.6vw,34px)/1.35 var(--wp-font-display);letter-spacing:-1px;text-wrap:initial}
 .intro-lesson-heading .lesson-counter {margin:0;min-height:21px;font-size:13px;color:var(--wp-text-secondary)}
 .intro-lesson-heading.has-reading-help {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 20px;align-items:start}
 .intro-lesson-heading.has-reading-help h1,.intro-lesson-heading.has-reading-help .lesson-counter {grid-column:1}
+.intro-lesson-heading.has-illustration {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 20px;align-items:start}
+.intro-lesson-heading.has-illustration h1,.intro-lesson-heading.has-illustration .lesson-counter {grid-column:1}
+.intro-lesson-illustration {grid-column:2;grid-row:1 / span 2;align-self:center}
+.intro-lesson-illustration .first-steps-art {width:72px;height:72px}
 .intro-lesson-reading-help {grid-column:2;grid-row:1 / span 2;max-width:min(260px,38vw);margin:0;font-size:14px;color:var(--wp-text-secondary)}
 .intro-lesson-reading-help summary {min-height:40px;padding:8px 0;text-align:right;cursor:pointer}
 .intro-lesson-reading-help p {margin:8px 0 0;line-height:1.6}
@@ -20,14 +28,19 @@
 .intro-lesson-card .options {margin:0;align-items:stretch}
 .intro-lesson-card .answer-label {margin:0 0 12px}
 .intro-lesson-card .answer-text {margin:0 0 16px;font-size:30px;color:var(--wp-accent-learning)}
-.intro-lesson-card .feedback {margin:12px 0 0}
+.intro-lesson-card .feedback {max-width:64ch;margin:12px 0 0;line-height:1.6}
+.intro-lesson-card .options.is-sentence-choices {display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.intro-lesson-card .is-sentence-choices .word {text-align:left;font-size:23px;line-height:1.45;min-height:48px}
 @media(max-width:600px) {
   .page.lesson-player.intro-lesson-player {padding:12px 16px 24px}
   .intro-lesson-card {padding:20px 18px;gap:16px}
+  .intro-lesson-card.is-lesson-workspace {min-block-size:500px}
   .intro-lesson-heading.has-reading-help {gap:6px 12px}
   .intro-lesson-heading.has-reading-help h1 {grid-column:1/-1}
   .intro-lesson-heading.has-reading-help .lesson-counter {align-self:center}
   .intro-lesson-reading-help {grid-row:2;max-width:42vw}
+  .intro-lesson-heading.has-illustration {gap:6px 12px}
+  .intro-lesson-illustration .first-steps-art {width:52px;height:52px}
   .intro-lesson-actions {row-gap:12px}
   .intro-lesson-actions .intro-lesson-secondary {font-size:14px}
 }

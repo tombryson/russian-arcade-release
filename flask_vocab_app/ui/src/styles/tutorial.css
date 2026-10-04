@@ -17,7 +17,7 @@
 .tutorial-word-card .tutorial-word-meaning { margin:0 0 22px; font-size:24px; }
 .tutorial-word-card .cta { margin-top:14px; }
 
-/* Keep introduction slides steady; let the exercises fit their content. */
+/* Introduction slides retain their own shared size. */
 .first-delivery-stage.is-explainer { grid-template-rows:auto 1fr auto; min-height:460px; }
 .first-delivery-content { min-width:0; }
 .first-delivery-content p { max-width:64ch; }
@@ -29,8 +29,6 @@
 .first-delivery .tutorial-progress-introduction h2 { margin:0; }
 .first-delivery .tutorial-progress-introduction p { max-width:54ch; margin:16px 0 0; font-size:18px; line-height:1.65; text-wrap:pretty; }
 .page.first-delivery .options { margin:0 0 20px; }
-.first-delivery .answer-label { margin:0 0 12px; }
-.first-delivery .answer-text { margin:0 0 16px; font-size:30px; color:var(--wp-accent-learning); }
 .first-delivery .first-delivery-actions { display:flex; margin:0; gap:8px 20px; }
 .first-delivery .is-explainer .first-delivery-actions { display:grid; grid-template-columns:280px minmax(0,1fr); min-height:58px; }
 .first-delivery-actions .cta { margin:0; padding:12px 22px; font-size:18px; }
@@ -100,7 +98,7 @@
 /* Optional reading help and return navigation sit at the edge of the word card. */
 .tutorial-pronunciation {display:flex;align-items:center;flex-wrap:wrap;gap:8px 18px}
 .first-delivery .tutorial-word-context {margin:14px 0 4px}
-.first-delivery .is-word-practice .first-delivery-actions {align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:12px}
+.first-delivery .is-word-practice .first-delivery-actions {align-items:center;justify-content:space-between;flex-wrap:wrap}
 .first-delivery-actions .first-delivery-return {margin-left:auto;text-align:right}
 @media(max-width:600px) {
   .first-delivery .is-word-practice .first-delivery-actions {row-gap:12px}

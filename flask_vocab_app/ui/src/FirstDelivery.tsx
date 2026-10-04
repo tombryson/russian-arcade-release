@@ -98,7 +98,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
     </div>
     <IntroLessonCard title={title} counter={caption} headingRef={heading}
       readingHelp={learning ? learning.reading_help : undefined} readingKey={question?.id}
-      className={`first-delivery-stage${['coins','progress','alphabet'].includes(step) ? ' is-explainer' : ''}${step === 'alphabet' ? ' is-alphabet' : ''}${step === 'words' ? ' is-word-practice' : ''}${step === 'words' && attempt?.phase === 'question' ? ' is-recall' : ''}`}
+      className={`first-delivery-stage${['coins','progress','alphabet'].includes(step) ? ' is-explainer' : ' is-lesson-workspace'}${step === 'alphabet' ? ' is-alphabet' : ''}${step === 'words' ? ' is-word-practice' : ''}${step === 'words' && attempt?.phase === 'question' ? ' is-recall' : ''}`}
       contentClass={`first-delivery-content${step === 'progress' ? ' is-progress-introduction' : step === 'alphabet' ? ' is-alphabet-introduction' : ''}`}
       actionClass="first-delivery-actions" actions={<>
         {step === 'coins' ? <>

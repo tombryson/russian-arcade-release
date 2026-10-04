@@ -124,6 +124,12 @@ completion. The title, counter and actions keep the same spacing. Reading help
 sits at the top right and starts closed for each teaching card. Normal and slow
 playback stay beside the Russian word or phrase.
 
+Teaching, questions and feedback reserve the same working area, with actions at
+the bottom. Longer content and expanded help can increase its height; text is
+never clipped or reduced to fit. Question illustrations stay beside the heading
+through answer feedback. An image alone does not create a separate context row.
+Long sentence choices use full-width rows instead of narrow columns.
+
 Translated examples sit together below the explanation. Longer dialogues wrap;
 noun comparisons can use columns on wider screens. Illustrations appear only
 when the content defines one. The name exercise remains local and ungraded.

@@ -184,6 +184,57 @@ describe('First steps lesson player',()=>{
     await click(choices[0].text);await screen.findByText('That’s right.');
     expect(api.posts().map(([url,request])=>[url,JSON.parse(String(request?.body))])).toEqual([[`${root}/${lessonId}/answer`,{question_id:question.id,answer:choices[0].id}]]);
   });
+  it.each([
+    {choice:'сумка',correct:true,label:'That’s right.'},
+    {choice:'письмо',correct:false,label:'Here’s the answer.'},
+  ])('keeps the image with its question heading through correct=$correct feedback',async({choice,correct,label})=>{
+    const question={...questions[0],prompt:'Name the bag.',visual:'bag'};
+    const api=server(lesson({attempt:attempt({phase:'question',teaching:null,question})}));
+    const view=render(<FirstSteps lessonId="bag"/>);
+    const heading=await screen.findByRole('heading',{level:1,name:question.prompt});
+    const image=screen.getByRole('img',{name:'A letter bag'});
+    expect(heading.closest('header')).toBeTruthy();
+    expect(image.closest('header')).toBe(heading.closest('header'));
+    expect(view.container.querySelector('.first-steps-question-context')).toBeNull();
+    expect(screen.queryByText('Сумка means a bag.')).toBeNull();
+    await click(choice);await screen.findByText(label);
+    expect(screen.getByRole('img',{name:'A letter bag'})).toBe(image);
+    expect(screen.getAllByRole('img')).toHaveLength(1);
+    expect(image.closest('header')).toBe(heading.closest('header'));
+    expect(view.container.querySelector('.first-steps-question-context')).toBeNull();
+    expect(screen.getByText('сумка',{exact:true}).getAttribute('lang')).toBe('ru');
+    expect(screen.getByText('Сумка means a bag.')).toBeTruthy();
+    expect(screen.queryByRole('button',{name:'сумка'})).toBeNull();
+    expect(api.state.lesson.attempt?.answers[0]).toMatchObject({correct,acknowledged:false});
+    await click('Continue');await screen.findByRole('heading',{name:questions[1].prompt});
+    expect(screen.queryByRole('img',{name:'A letter bag'})).toBeNull();
+  });
+  it.each(['hint','answer'] as const)('shows a listening transcript only after the %s response supplies it',async(reveal)=>{
+    const play=vi.spyOn(HTMLMediaElement.prototype,'play').mockResolvedValue();
+    const question={...questions[0],prompt:'Listen. Which thing did you hear?',audio_url:'/static/audio/first-steps-v2/bag-listen-object.mp3'};
+    const api=server(lesson({attempt:attempt({phase:'question',teaching:null,question})}));
+    render(<FirstSteps lessonId="bag"/>);
+    const listen=await screen.findByRole('button',{name:'Listen to the question'});
+    expect(listen.closest('header')).toBeNull();
+    expect(screen.queryByText('Это сумка.')).toBeNull();
+    expect(screen.queryByRole('img')).toBeNull();
+    await click('Listen to the question');await screen.findByRole('button',{name:'Pause the question'});
+    expect(play).toHaveBeenCalledOnce();expect(api.posts()).toHaveLength(0);
+    expect(screen.queryByText('Это сумка.')).toBeNull();
+    api.state.lesson.attempt!.question!.transcript='Это сумка.';
+    await click(reveal==='hint' ? 'Show a hint' : 'сумка');
+    expect((await screen.findByText('Это сумка.')).getAttribute('lang')).toBe('ru');
+    expect(screen.getByRole('button',{name:'Pause the question'})).toBeTruthy();
+    if(reveal==='hint'){
+      expect(api.state.lesson.attempt?.answers).toEqual([]);
+      await click('сумка');
+    }
+    await screen.findByText('That’s right.');
+    expect(screen.getByText('Это сумка.')).toBeTruthy();
+    await click('Continue');await screen.findByRole('heading',{name:questions[1].prompt});
+    expect(screen.queryByText('Это сумка.')).toBeNull();
+    expect(screen.queryByRole('button',{name:/the question$/})).toBeNull();
+  });
   it('keeps old answers readable at their version and offers the revised lesson without restarting',async()=>{
     const saved=done({version:'first-steps-v1',attempt:attempt({version:'first-steps-v1',phase:'completed',teaching:null,question:null,answers:[answer(0)],completed_at:123}),updated_lesson_href:'#first-steps/bag?version=first-steps-v2'});
     const api=server(saved);render(<FirstSteps lessonId="bag" version="first-steps-v1"/>);
