@@ -156,7 +156,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
         </> : step === 'progress' ? <>
           <button class="cta" onClick={() => showStep('alphabet')}>Continue <span aria-hidden="true">→</span></button><button class="text-link" onClick={() => showStep('coins')}>Back to Lingocoins</button>
         </> : step === 'alphabet' ? <>
-          <a class="cta" href="#alphabet?from=first-delivery">Learn the alphabet <span aria-hidden="true">→</span></a><button class="text-link" disabled={busy || !practice} onClick={openActivity}>Continue to first words</button>
+          <button class="cta" disabled={busy || !practice} onClick={openActivity}>Continue <span aria-hidden="true">→</span></button><a class="text-link alphabet-prompt-link" href="#alphabet?from=first-delivery"><span class="alphabet-prompt-icon" lang="ru" aria-hidden="true">Аа</span><span>Learn the alphabet</span></a>
         </> : step === 'words' ? <>
           {learning && question ? <button class="cta" disabled={busy} onClick={()=>void save('learn',{question_id:question.id})}>{busy ? 'Saving…' : attempt!.question_index+1===attempt!.total_questions ? 'Try these words' : 'Next word'} <span aria-hidden="true">→</span></button>
             : question && attempt?.phase === 'feedback' && feedback ? <button class="cta" disabled={busy} onClick={()=>void save('continue',{question_id:question.id})}>{busy ? 'Saving…' : attempt.question_index+1===attempt.total_questions ? 'Finish activity' : 'Next word'} <span aria-hidden="true">→</span></button>

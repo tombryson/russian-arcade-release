@@ -71,7 +71,7 @@
   .first-delivery-stage { padding:20px 18px; gap:16px; }
   .first-delivery-stage.is-explainer { min-height:580px; }
   .first-delivery .onboarding-intro-copy { margin-bottom:16px; font-size:17px; }
-  .first-delivery .is-explainer .first-delivery-actions { grid-template-columns:minmax(0,1fr); grid-template-rows:58px 48px; min-height:114px; }
+  .first-delivery .is-explainer .first-delivery-actions { grid-template-columns:minmax(0,1fr); grid-template-rows:58px minmax(48px,auto); min-height:114px; }
   .is-explainer .first-delivery-actions .text-link { grid-column:1; grid-row:2; justify-self:stretch; justify-content:center; }
   .onboarding-coins { grid-template-columns:minmax(0,1fr) 72px; gap:14px; align-items:start; }
   .onboarding-coins-copy { display:contents; }

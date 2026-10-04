@@ -34,7 +34,7 @@ describe('Russian Arcade activity home', () => {
     render(<App initialProfile={null} initialOnboarding={{profile_id:null,coins_introduced:true,progress_introduced:true}}/>);
 
     await screen.findByRole('heading', {name:'Learn the alphabet', level:1});
-    await vi.waitFor(() => expect((screen.getByRole('button', {name:'Continue to first words'}) as HTMLButtonElement).disabled).toBe(false));
+    await vi.waitFor(() => expect((screen.getByRole('button', {name:'Continue',exact:true}) as HTMLButtonElement).disabled).toBe(false));
     expect(screen.queryByRole('heading', {name:'Your first lesson is complete.'})).toBeNull();
     expect(screen.queryByText(/Lingocoins earned/)).toBeNull();
     const alphabet = screen.getByRole('link', {name:'Learn the alphabet'});
@@ -68,16 +68,16 @@ describe('Russian Arcade activity home', () => {
     vi.stubGlobal('fetch', fetch);
     render(<App initialProfile={null} initialOnboarding={{profile_id:null,coins_introduced:true,progress_introduced:true}}/>);
     await screen.findByRole('heading', {name:'Learn the alphabet', level:1});
-    await vi.waitFor(() => expect((screen.getByRole('button', {name:'Continue to first words'}) as HTMLButtonElement).disabled).toBe(false));
+    await vi.waitFor(() => expect((screen.getByRole('button', {name:'Continue',exact:true}) as HTMLButtonElement).disabled).toBe(false));
 
-    fireEvent.click(screen.getByRole('button', {name:'Continue to first words'}));
+    fireEvent.click(screen.getByRole('button', {name:'Continue',exact:true}));
     expect(await screen.findByRole('heading', {name:'Meet Barsik', level:1})).toBeTruthy();
     expect(window.location.hash).toBe('#first-delivery');
     expect(fetch.mock.calls).toHaveLength(1);
 
     await act(() => { window.location.hash = '#first-delivery?step=alphabet'; });
     expect(await screen.findByRole('heading', {name:'Learn the alphabet', level:1})).toBeTruthy();
-    await vi.waitFor(() => expect((screen.getByRole('button', {name:'Continue to first words'}) as HTMLButtonElement).disabled).toBe(false));
+    await vi.waitFor(() => expect((screen.getByRole('button', {name:'Continue',exact:true}) as HTMLButtonElement).disabled).toBe(false));
     expect(screen.queryByRole('heading', {name:'Meet Barsik', level:1})).toBeNull();
     expect(window.location.pathname).toBe(path);
     expect(window.location.hash).toBe('#first-delivery?step=alphabet');
@@ -278,7 +278,7 @@ describe('Russian Arcade activity home', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
     expect(screen.getByRole('heading', { name: 'Learn the alphabet', level:1 })).toBeTruthy();
     expect(screen.getByRole('link', { name: 'Learn the alphabet' }).getAttribute('href')).toBe('#alphabet?from=first-delivery');
-    expect(screen.getByRole('button', { name: 'Continue to first words' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Continue', exact: true })).toBeTruthy();
     expect(window.location.hash).toBe('#first-delivery?step=alphabet');
     expect(replaceState.mock.calls.some(([, , url]) => String(url).endsWith('#first-delivery?step=alphabet'))).toBe(true);
     expect(screen.queryByRole('heading', { name: 'Which word means “hello”?' })).toBeNull();
