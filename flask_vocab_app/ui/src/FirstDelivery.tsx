@@ -100,7 +100,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
         <h1 ref={heading} tabIndex={-1}>{title}</h1>
         {caption && <p class="lesson-counter">{caption}</p>}
       </header>
-      <div class="first-delivery-content">
+      <div class={`first-delivery-content${step === 'progress' ? ' is-progress-introduction' : ''}`}>
         {step === 'coins' ? <>
           <p class="onboarding-intro-copy">Practise Russian and help Barsik deliver your letter.</p>
           <div class="onboarding-coins">

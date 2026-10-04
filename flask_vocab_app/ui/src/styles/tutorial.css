@@ -1,4 +1,4 @@
-.tutorial-progress-introduction { display:grid; grid-template-columns:92px minmax(0,1fr); gap:28px; align-items:start; }
+.tutorial-progress-introduction { display:grid; grid-template-columns:92px minmax(0,1fr); gap:28px; align-items:center; }
 .tutorial-progress-barsik { width:92px; height:68px; object-fit:contain; margin-top:6px; }
 .tutorial-progress-introduction h2 { margin-top:0; }
 .tutorial-reading-passage { white-space:pre-line; margin:0 0 24px; font-size:clamp(23px,3vw,32px); line-height:1.6; }
@@ -30,7 +30,10 @@
 .first-delivery .onboarding-intro-copy { margin:0 0 20px; font-size:19px; line-height:1.5; color:var(--wp-text-secondary); }
 .page.first-delivery .tutorial-word-card .tutorial-new-word { margin:0 0 4px; }
 .first-delivery .tutorial-word-card .tutorial-word-meaning { margin-bottom:10px; }
-.first-delivery .tutorial-progress-introduction p { margin-top:12px; }
+.first-delivery-content.is-progress-introduction { display:flex; flex-direction:column; justify-content:space-evenly; gap:28px; padding-block:8px; }
+.first-delivery .is-progress-introduction .onboarding-intro-copy { margin:0; }
+.first-delivery .tutorial-progress-introduction h2 { margin:0; }
+.first-delivery .tutorial-progress-introduction p { max-width:54ch; margin:16px 0 0; font-size:18px; line-height:1.65; text-wrap:pretty; }
 .page.first-delivery .options { margin:0 0 20px; }
 .first-delivery .answer-label { margin:0 0 12px; }
 .first-delivery .answer-text { margin:0 0 16px; font-size:30px; color:var(--wp-accent-learning); }
@@ -65,7 +68,8 @@
   .tutorial-progress-barsik { width:60px; height:44px; margin-top:0; }
   .tutorial-progress-introduction > div { display:contents; }
   .first-delivery .tutorial-progress-introduction h2 { font-size:20px; }
-  .first-delivery .tutorial-progress-introduction p { grid-column:1/-1; margin:0; }
+  .first-delivery .tutorial-progress-introduction p { grid-column:1/-1; margin:0; font-size:17px; }
+  .first-delivery-content.is-progress-introduction { gap:20px; padding-block:4px; }
   .page.lesson-player.first-delivery { padding:12px 16px 24px; }
   .first-delivery .lesson-player-nav { margin-bottom:12px; }
   .first-delivery-stage { padding:20px 18px; gap:16px; }
