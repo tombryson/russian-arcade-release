@@ -39,7 +39,7 @@ describe('Russian alphabet', () => {
     expect(buttons.filter(button => button.getAttribute('aria-label')?.endsWith(', vowel'))).toHaveLength(10);
     expect(buttons.filter(button => button.getAttribute('aria-label')?.endsWith(', consonant'))).toHaveLength(21);
     expect(buttons.filter(button => button.getAttribute('aria-label')?.endsWith(', sign'))).toHaveLength(2);
-    expect(buttons.filter(button => button.getAttribute('aria-label')?.startsWith('Listen to syllable '))).toHaveLength(15);
+    expect(buttons.filter(button => button.getAttribute('aria-label')?.startsWith('Listen to syllable '))).toHaveLength(12);
     expect(screen.getByText('Letter sound')).toBeTruthy();
     expect(screen.getByRole('link', {name: 'Your first delivery'}).getAttribute('href')).toBe('#first-delivery');
     expect(screen.getByText('Click a letter to hear a pronunciation example. Try the word too.')).toBeTruthy();
@@ -56,7 +56,7 @@ describe('Russian alphabet', () => {
   it.each([
     ['П', 'п', 'па', 'pe', 'а'],
     ['Б', 'б', 'ба', 'be', 'а'],
-  ] as const)('identifies the complete practice syllable for %s instead of presenting it as an isolated sound', async (upper, lower, syllable, id, vowel) => {
+  ] as const)('labels the practice syllable for %s instead of presenting it as an isolated sound', async (upper, lower, syllable, id, vowel) => {
     const {container} = render(<Alphabet/>);
     await click(screen.getByRole('button', {name: `Listen to syllable ${syllable} for ${upper} ${lower}, consonant`}));
     const detail = screen.getByRole('complementary', {name: `About ${upper} ${lower}`});
@@ -67,11 +67,12 @@ describe('Russian alphabet', () => {
     expect(within(detail).queryByRole('button', {name: /sound:/})).toBeNull();
     expect(within(detail).getByRole('button', {name: `Stop syllable: ${syllable}`})).toBeTruthy();
     expect(within(detail).getByRole('button', {name: /Listen to letter name:/})).toBeTruthy();
-    expect(container.querySelector('audio')?.getAttribute('src')).toBe(`/static/audio/alphabet-v1/sounds/female/${id}-sound.mp3?v=sounds-v7`);
+    expect(container.querySelector('audio')?.getAttribute('src')).toBe(`/static/audio/alphabet-v1/sounds/female/${id}-sound.mp3?v=sounds-v8`);
     expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(1);
   });
 
   it.each([
+    ['В', 'в', 've'], ['Н', 'н', 'en'], ['Ц', 'ц', 'tse'],
     ['Ф', 'ф', 'ef'], ['Ч', 'ч', 'che'], ['Щ', 'щ', 'shcha'],
     ['Ш', 'ш', 'sha'], ['Й', 'й', 'short-i'], ['Ж', 'ж', 'zhe'],
   ] as const)('plays isolated %s in both voices with the matching label', async (upper, lower, id) => {
@@ -82,7 +83,7 @@ describe('Russian alphabet', () => {
       const detail = screen.getByRole('complementary', {name: `About ${upper} ${lower}`});
       expect(within(detail).getByRole('button', {name: `Stop sound: ${upper}`})).toBeTruthy();
       expect(detail.textContent).not.toContain('Practice syllable:');
-      expect(container.querySelector('audio')?.getAttribute('src')).toBe(`/static/audio/alphabet-v1/sounds/${label.toLowerCase()}/${id}-sound.mp3?v=sounds-v7`);
+      expect(container.querySelector('audio')?.getAttribute('src')).toBe(`/static/audio/alphabet-v1/sounds/${label.toLowerCase()}/${id}-sound.mp3?v=sounds-v8`);
     }
     expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(2);
   });
@@ -94,7 +95,7 @@ describe('Russian alphabet', () => {
     expect(within(detail).getByText('Sound at the start of a word')).toBeTruthy();
     expect(within(detail).getByRole('button', {name: 'Stop sound: Е'})).toBeTruthy();
     expect(detail.textContent).not.toContain('Practice syllable:');
-    expect(container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/female/ye-sound.mp3?v=sounds-v7');
+    expect(container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/female/ye-sound.mp3?v=sounds-v8');
   });
 
   it('retries a failed syllable only on request and never substitutes its letter name', async () => {
@@ -105,7 +106,7 @@ describe('Russian alphabet', () => {
     });
     const {container} = render(<Alphabet/>);
     await click(screen.getByRole('button', {name: 'Listen to syllable па for П п, consonant'}));
-    expect(attempted).toEqual(['/static/audio/alphabet-v1/sounds/female/pe-sound.mp3?v=sounds-v7']);
+    expect(attempted).toEqual(['/static/audio/alphabet-v1/sounds/female/pe-sound.mp3?v=sounds-v8']);
     expect(container.querySelector('audio')?.getAttribute('src')).toBeNull();
     expect(screen.getByRole('status').textContent).toContain('Press a play button to try again.');
     enter(letterButtons()[1]);
@@ -113,7 +114,7 @@ describe('Russian alphabet', () => {
     expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(1);
     expect(screen.getByRole('button', {name: 'Listen to letter name: пэ'})).toBeTruthy();
     await click(screen.getByRole('button', {name: 'Listen to syllable: па'}));
-    expect(container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/female/pe-sound.mp3?v=sounds-v7');
+    expect(container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/female/pe-sound.mp3?v=sounds-v8');
     expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(2);
     expect(screen.queryByRole('status')).toBeNull();
     expect(fetch).not.toHaveBeenCalled();
@@ -130,14 +131,14 @@ describe('Russian alphabet', () => {
     expect(HTMLMediaElement.prototype.play).not.toHaveBeenCalled();
     expect(audio.getAttribute('src')).toBeNull();
     await click(screen.getByRole('button', {name: 'Listen to syllable ба for Б б, consonant'}));
-    expect(audio.getAttribute('src')).toBe(`/static/audio/alphabet-v1/sounds/${voice}/be-sound.mp3?v=sounds-v7`);
+    expect(audio.getAttribute('src')).toBe(`/static/audio/alphabet-v1/sounds/${voice}/be-sound.mp3?v=sounds-v8`);
     expect(screen.getByRole('button', {name: 'Stop syllable: ба'})).toBeTruthy();
     await click(screen.getByRole('button', {name: 'Listen to word: бана́н (banana)'}));
     expect(audio.getAttribute('src')).toBe(`/static/audio/alphabet-v1/${folder}be-word.mp3`);
     await click(screen.getByRole('button', {name: 'Listen to letter name: бэ'}));
     expect(audio.getAttribute('src')).toBe(`/static/audio/alphabet-v1/${folder}be-name.mp3`);
     await click(screen.getByRole('button', {name: 'Listen to syllable: ба'}));
-    expect(audio.getAttribute('src')).toBe(`/static/audio/alphabet-v1/sounds/${voice}/be-sound.mp3?v=sounds-v7`);
+    expect(audio.getAttribute('src')).toBe(`/static/audio/alphabet-v1/sounds/${voice}/be-sound.mp3?v=sounds-v8`);
     await click(screen.getByRole('button', {name: 'Stop syllable: ба'}));
     expect(audio.getAttribute('src')).toBeNull();
     expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(4);
@@ -185,7 +186,7 @@ describe('Russian alphabet', () => {
     expect(second.container.querySelector('audio')?.getAttribute('src')).toBeNull();
     expect(HTMLMediaElement.prototype.play).not.toHaveBeenCalled();
     await click(screen.getByRole('button', {name: 'Listen to sound: А'}));
-    expect(second.container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/male/a-sound.mp3?v=sounds-v7');
+    expect(second.container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/male/a-sound.mp3?v=sounds-v8');
     await click(screen.getByRole('button', {name: 'Listen to letter name: а'}));
     expect(second.container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/male/a-name.mp3');
     await click(screen.getByRole('button', {name: 'Listen to word: арбу́з (watermelon)'}));
@@ -216,7 +217,7 @@ describe('Russian alphabet', () => {
     expect(voiceRadio('Male').checked).toBe(true);
     expect(HTMLMediaElement.prototype.play).not.toHaveBeenCalled();
     await click(letterButtons()[0]);
-    expect(container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/male/a-sound.mp3?v=sounds-v7');
+    expect(container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/male/a-sound.mp3?v=sounds-v8');
     await click(voiceRadio('Female'));
     expect(container.querySelector('audio')?.getAttribute('src')).toBeNull();
     await click(screen.getByRole('button', {name: 'Listen to word: арбу́з (watermelon)'}));
@@ -245,7 +246,7 @@ describe('Russian alphabet', () => {
     expect(screen.queryByRole('status')).toBeNull();
     await click(screen.getByRole('button', {name: 'Listen to syllable: ба'}));
     await act(async () => { rejectOld(new Error('Previous voice was interrupted')); });
-    expect(audio.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/male/be-sound.mp3?v=sounds-v7');
+    expect(audio.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/male/be-sound.mp3?v=sounds-v8');
     expect(screen.getByRole('button', {name: 'Stop syllable: ба'})).toBeTruthy();
     expect(screen.queryByRole('status')).toBeNull();
     expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(2);
@@ -259,7 +260,7 @@ describe('Russian alphabet', () => {
     await click(voiceRadio('Female'));
     expect(HTMLMediaElement.prototype.pause).toHaveBeenCalledTimes(pauses);
     expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(1);
-    expect(container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/female/a-sound.mp3?v=sounds-v7');
+    expect(container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/female/a-sound.mp3?v=sounds-v8');
   });
 
   it('never plays or changes selection on mouse or pointer entry, before or after a click', async () => {
@@ -274,7 +275,7 @@ describe('Russian alphabet', () => {
     fireEvent.mouseEnter(buttons[2]);
     await advance(1000);
     expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(1);
-    expect(container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/female/a-sound.mp3?v=sounds-v7');
+    expect(container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/female/a-sound.mp3?v=sounds-v8');
     expect(buttons[0].getAttribute('aria-pressed')).toBe('true');
     fireEvent.ended(container.querySelector('audio')!);
     enter(buttons[3]);
@@ -379,7 +380,7 @@ describe('Russian alphabet', () => {
     await click(letterButtons()[1]);
     await act(async () => { rejectOld(new Error('Previous clip was interrupted')); });
     expect(screen.queryByRole('status')).toBeNull();
-    expect(container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/female/be-sound.mp3?v=sounds-v7');
+    expect(container.querySelector('audio')?.getAttribute('src')).toBe('/static/audio/alphabet-v1/sounds/female/be-sound.mp3?v=sounds-v8');
     expect(screen.getByRole('button', {name: 'Stop syllable: ба'})).toBeTruthy();
   });
 

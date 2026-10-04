@@ -25,8 +25,8 @@ class AlphabetSoundCatalogueTests(unittest.TestCase):
         self.assertFalse({'hard-sign-sound.mp3', 'soft-sign-sound.mp3'} & set(clips))
         for filename, spec in clips.items():
             self.assertEqual(filename, spec['letter_id'] + '-sound.mp3')
-        self.assertEqual(sum(spec['kind'] == 'syllable' for spec in clips.values()), 15)
-        self.assertEqual(sum(spec['kind'] == 'sound' for spec in clips.values()), 16)
+        self.assertEqual(sum(spec['kind'] == 'syllable' for spec in clips.values()), 12)
+        self.assertEqual(sum(spec['kind'] == 'sound' for spec in clips.values()), 19)
         self.assertEqual(clips['be-sound.mp3']['display_text'], 'ба')
         self.assertEqual(clips['be-sound.mp3']['ipa'], 'ba')
         self.assertEqual(clips['ef-sound.mp3']['ipa'], 'f')
@@ -75,15 +75,18 @@ class AlphabetSoundCatalogueTests(unittest.TestCase):
 
 
 class AlphabetSpeechDurationTests(unittest.TestCase):
-    def test_110_ms_exception_applies_only_to_selected_letters_and_excludes_silence(self):
-        tone = Sine(330).to_audio_segment(duration=110).apply_gain(-15)
-        silence = AudioSegment.silent(duration=500, frame_rate=44100)
-        for letter_id in ('o', 'ef', 'che', 'shcha', 'sha', 'short-i', 'zhe'):
+    def test_per_letter_duration_exceptions_do_not_count_external_silence(self):
+        targets = {**dict.fromkeys(('ve', 'en', 'o', 'shcha', 'ef', 'che', 'tse', 'pe'), 130),
+                   **dict.fromkeys(('sha', 'short-i', 'zhe'), 110)}
+        silence = AudioSegment.silent(duration=500, frame_rate=48000)
+        for letter_id, duration in targets.items():
+            tone = Sine(330, sample_rate=48000).to_audio_segment(duration=duration).apply_gain(-15)
             with self.subTest(letter_id=letter_id):
-                self.assertEqual(command.require_speech(tone, letter_id=letter_id), 110)
-                with self.assertRaisesRegex(ValueError, '110 ms'):
-                    command.require_speech(silence + tone[:109] + silence, letter_id=letter_id)
-        for letter_id in set(item['letter_id'] for item in command.load_clips().values()) - {'o', 'ef', 'che', 'shcha', 'sha', 'short-i', 'zhe'}:
+                self.assertEqual(command.require_speech(tone, letter_id=letter_id), duration)
+                with self.assertRaisesRegex(ValueError, f'{duration} ms'):
+                    command.require_speech(silence + tone[:duration - 1] + silence, letter_id=letter_id)
+        tone = Sine(330).to_audio_segment(duration=130).apply_gain(-15)
+        for letter_id in set(item['letter_id'] for item in command.load_clips().values()) - set(targets):
             with self.subTest(letter_id=letter_id), self.assertRaisesRegex(ValueError, '160 ms'):
                 command.require_speech(tone, letter_id=letter_id)
 
@@ -93,16 +96,18 @@ class AlphabetSpeechDurationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, '160 ms'):
             command.require_speech(tone[:159])
 
-    def test_che_preserves_a_quiet_release_without_counting_external_padding(self):
-        tone = Sine(330, sample_rate=48000).to_audio_segment(duration=110).apply_gain(-15)
-        silence = AudioSegment.silent(duration=5, frame_rate=48000)
-        release = tone[:5] + silence + tone[10:]
-        self.assertEqual(command.require_speech(release, letter_id='che'), 105)
-        with self.assertRaisesRegex(ValueError, '110 ms'):
-            command.require_speech(release, letter_id='sha')
-        for padded in (silence + tone[:105], tone[:105] + silence):
-            with self.assertRaisesRegex(ValueError, '110 ms'):
-                command.require_speech(padded, letter_id='che')
+    def test_selected_consonants_preserve_internal_quiet_without_counting_padding(self):
+        tone = Sine(330, sample_rate=48000).to_audio_segment(duration=130).apply_gain(-15)
+        for letter_id, quiet_ms in (('che', 5), ('en', 1), ('tse', 12)):
+            silence = AudioSegment.silent(duration=quiet_ms, frame_rate=48000)
+            release = tone[:5] + silence + tone[5 + quiet_ms:]
+            with self.subTest(letter_id=letter_id):
+                self.assertEqual(command.require_speech(release, letter_id=letter_id), 130 - quiet_ms)
+                with self.assertRaisesRegex(ValueError, '130 ms'):
+                    command.require_speech(release, letter_id='ef')
+                for padded in (silence + tone[:130 - quiet_ms], tone[:130 - quiet_ms] + silence):
+                    with self.assertRaisesRegex(ValueError, '130 ms'):
+                        command.require_speech(padded, letter_id=letter_id)
 
     def test_external_padding_cannot_round_159_ms_up_to_the_minimum(self):
         for leading_ms in (500, 503):
@@ -280,20 +285,20 @@ class AlphabetSoundPreparationTests(unittest.TestCase):
                     command.render(self.root / recipe['source'], destination, recipe)
                 self.assertEqual(destination.read_bytes(), b'keep existing recording')
 
-    def test_ef_110_ms_crop_passes_loading_and_render_but_109_ms_is_rejected(self):
+    def test_ef_130_ms_crop_passes_loading_and_render_but_129_ms_is_rejected(self):
         clips = {**self.clips, 'ef-sound.mp3': {**self.clips['ef-sound.mp3'], 'kind': 'sound', 'ipa': 'f', 'display_text': 'ф'}}
-        recipe = self.isolated_recipe(end_ms=210)
-        male = self.isolated_recipe(source=command.SOURCE_PREFIX + 'male/ef-name.mp3', end_ms=210)
+        recipe = self.isolated_recipe(end_ms=230)
+        male = self.isolated_recipe(source=command.SOURCE_PREFIX + 'male/ef-name.mp3', end_ms=230)
         self.load_recipes({**self.recipes, 'female-ef': recipe, 'male-ef': male}, clips)
         destination = self.root / 'isolated-output.mp3'
         result = command.render(self.root / recipe['source'], destination, recipe, letter_id='ef')
-        self.assertEqual(result['source_active_ms'], 110)
-        self.assertEqual(len(AudioSegment.from_file(destination)), 110 + 60 + 100)
+        self.assertEqual(result['source_active_ms'], 130)
+        self.assertEqual(len(AudioSegment.from_file(destination)), 130 + 60 + 100)
         before = destination.read_bytes()
-        shorter = {**recipe, 'end_ms': 209}
-        with self.assertRaisesRegex(ValueError, '110 ms'):
+        shorter = {**recipe, 'end_ms': 229}
+        with self.assertRaisesRegex(ValueError, '130 ms'):
             self.load_recipes({**self.recipes, 'female-ef': shorter, 'male-ef': male}, clips)
-        with self.assertRaisesRegex(ValueError, '110 ms'):
+        with self.assertRaisesRegex(ValueError, '130 ms'):
             command.render(self.root / recipe['source'], destination, shorter, letter_id='ef')
         self.assertEqual(destination.read_bytes(), before)
 
@@ -385,6 +390,19 @@ class AlphabetSoundPreparationTests(unittest.TestCase):
         source.with_suffix('.json').write_text(json.dumps(provenance))
         with self.assertRaisesRegex(ValueError, 'request provenance'):
             command.source_specs(clips, {'female-short-i': recipe}, 'female', self.root)
+
+    def test_shortened_pe_retains_syllable_label_and_can_only_use_its_syllable_source(self):
+        clips = {'pe-sound.mp3': command.load_clips()['pe-sound.mp3']}
+        recipes = {voice + '-pe': {'source': command.RECORDED_PREFIX + voice + '-pe.mp3',
+                    'source_sha256': 'a' * 64, 'mode': 'crop', 'start_ms': 90, 'end_ms': 220,
+                    'repetitions': 1, 'fade_in_ms': 2, 'fade_out_ms': 3}
+                   for voice in command.VOICE_IDS}
+        self.assertEqual(clips['pe-sound.mp3']['display_text'], 'па')
+        self.assertEqual(clips['pe-sound.mp3']['kind'], 'syllable')
+        self.load_recipes(recipes, clips)
+        recipes['female-pe']['source'] = command.SOURCE_PREFIX + 'pe-name.mp3'
+        with self.assertRaises(ValueError):
+            self.load_recipes(recipes, clips)
 
     def test_copying_a_consonant_name_cannot_masquerade_as_a_practice_syllable(self):
         recipe = {**self.recipes['female-ef'], 'source': command.SOURCE_PREFIX + 'ef-name.mp3'}
