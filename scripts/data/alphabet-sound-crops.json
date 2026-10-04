@@ -1,5 +1,5 @@
 {
-  "version": "alphabet-sound-crops-v3",
+  "version": "alphabet-sound-crops-v4",
   "review": "Whole consonant-vowel practice syllables replace cropped consonants. Every example has at least 160 ms of detected source speech. No cropping, repetition, stretching, or artificial amplification. Duration checks do not certify pronunciation.",
   "processing": {
     "normalization_dbfs": -20,
@@ -9,7 +9,11 @@
     "max_gain_db": 3,
     "minimum_speech_ms": 160,
     "speech_frame_ms": 1,
-    "speech_threshold_dbfs": -45
+    "speech_threshold_dbfs": -45,
+    "minimum_speech_ms_by_letter": {
+      "o": 80,
+      "ef": 80
+    }
   },
   "clips": {
     "female-a": {
@@ -165,12 +169,12 @@
     "female-o": {
       "source": "flask_vocab_app/static/audio/alphabet-v1/o-name.mp3",
       "source_sha256": "4c8af4715ab39eba786feac7363afaef6a52091aae70c5bd85a3d8fdad087d2f",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "mode": "crop",
+      "start_ms": 60,
+      "end_ms": 140,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "female-pe": {
       "source": "scripts/audio-sources/alphabet/syllables-v1/female-pe.mp3",
@@ -223,14 +227,14 @@
       "fade_out_ms": 0
     },
     "female-ef": {
-      "source": "scripts/audio-sources/alphabet/syllables-v1/female-ef.mp3",
-      "source_sha256": "8844bc415e956a04aa7a1c1b88c8a18886e3b46a9fdba773b586d58342e5e3ea",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "source": "flask_vocab_app/static/audio/alphabet-v1/ef-name.mp3",
+      "source_sha256": "51caf980d9ab4a19602e62d3d2c26c9f8bdb8d9dca9a1a25ee41755c93bb0e74",
+      "mode": "crop",
+      "start_ms": 240,
+      "end_ms": 320,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "female-kha": {
       "source": "scripts/audio-sources/alphabet/syllables-v1/female-kha.mp3",
@@ -475,12 +479,12 @@
     "male-o": {
       "source": "flask_vocab_app/static/audio/alphabet-v1/male/o-name.mp3",
       "source_sha256": "94c4581f8e13e48d4f257bc31d37097dc81b8841e854758872bd325fbffa9b6d",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "mode": "crop",
+      "start_ms": 60,
+      "end_ms": 140,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "male-pe": {
       "source": "scripts/audio-sources/alphabet/syllables-v1/male-pe.mp3",
@@ -533,14 +537,14 @@
       "fade_out_ms": 0
     },
     "male-ef": {
-      "source": "scripts/audio-sources/alphabet/syllables-v1/male-ef.mp3",
-      "source_sha256": "6a66af5b1bb936d519288dee3c9e8510a3f9d33c91a7f0374adaeef326805895",
-      "mode": "copy",
-      "start_ms": null,
-      "end_ms": null,
+      "source": "flask_vocab_app/static/audio/alphabet-v1/male/ef-name.mp3",
+      "source_sha256": "7705f18ef290cb3ae0788c02b47f7361ac600b6ff1038fe57800e44751514035",
+      "mode": "crop",
+      "start_ms": 230,
+      "end_ms": 310,
       "repetitions": 1,
-      "fade_in_ms": 0,
-      "fade_out_ms": 0
+      "fade_in_ms": 2,
+      "fade_out_ms": 3
     },
     "male-kha": {
       "source": "scripts/audio-sources/alphabet/syllables-v1/male-kha.mp3",

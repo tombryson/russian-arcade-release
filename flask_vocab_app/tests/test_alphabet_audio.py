@@ -33,7 +33,7 @@ class AlphabetCatalogueTests(unittest.TestCase):
             self.assertIsNone(rows[letter]['soundIpa'])
             self.assertIsNone(rows[letter]['soundAudio'])
         for row in data:
-            if row['kind'] == 'consonant':
+            if row['kind'] == 'consonant' and row['upper'] != 'Ф':
                 self.assertEqual(row['practiceSyllable'], row['lower'] + ('о' if row['upper'] == 'Й' else 'а'))
             else:
                 self.assertIsNone(row['practiceSyllable'])

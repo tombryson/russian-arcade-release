@@ -1,6 +1,6 @@
 {
-  "version": "alphabet-sounds-v4",
-  "method": "whole-v4-pronunciation-examples",
+  "version": "alphabet-sounds-v5",
+  "method": "v4-pronunciation-examples-with-explicit-sound-crops",
   "voice": "female",
   "voice_id": "ymDCYd8puC7gYjxIamPt",
   "processing": {
@@ -10,10 +10,14 @@
     "trailing_ms": 100,
     "max_gain_db": 3,
     "minimum_speech_ms": 160,
+    "minimum_speech_ms_by_letter": {
+      "o": 80,
+      "ef": 80
+    },
     "speech_frame_ms": 1,
     "speech_threshold_dbfs": -45
   },
-  "review": "Whole pronunciation examples preserve source speech. Signal-duration checks are not a pronunciation review.",
+  "review": "О and Ф use 80 ms source crops. Other examples preserve whole source recordings. Signal-duration checks are not a pronunciation review.",
   "clips": {
     "a-sound.mp3": {
       "letter_id": "a",
@@ -617,12 +621,12 @@
       "recipe": {
         "source": "flask_vocab_app/static/audio/alphabet-v1/o-name.mp3",
         "source_sha256": "4c8af4715ab39eba786feac7363afaef6a52091aae70c5bd85a3d8fdad087d2f",
-        "mode": "copy",
-        "start_ms": null,
-        "end_ms": null,
+        "mode": "crop",
+        "start_ms": 60,
+        "end_ms": 140,
         "repetitions": 1,
-        "fade_in_ms": 0,
-        "fade_out_ms": 0
+        "fade_in_ms": 2,
+        "fade_out_ms": 3
       },
       "source_generation": {
         "model": "eleven_v4",
@@ -633,14 +637,14 @@
       },
       "model": "eleven_v4",
       "voice_id": "ymDCYd8puC7gYjxIamPt",
-      "gain_db": 0,
-      "source_active_ms": 522,
-      "processing_applied": "byte-for-byte copy",
-      "audio_sha256": "4c8af4715ab39eba786feac7363afaef6a52091aae70c5bd85a3d8fdad087d2f",
-      "duration_ms": 785,
-      "size_bytes": 6913,
-      "leading_silence_ms": 40,
-      "trailing_silence_ms": 80
+      "gain_db": -8.259942564989284,
+      "source_active_ms": 80,
+      "processing_applied": "single crop, edge fades, bounded gain and padding",
+      "audio_sha256": "980101c9d144a19a30a4942cba4f59067011ba7c6a9f0c166a10b1c5f5c189ea",
+      "duration_ms": 240,
+      "size_bytes": 5058,
+      "leading_silence_ms": 60,
+      "trailing_silence_ms": 100
     },
     "pe-sound.mp3": {
       "letter_id": "pe",
@@ -845,45 +849,36 @@
     },
     "ef-sound.mp3": {
       "letter_id": "ef",
-      "kind": "syllable",
-      "display_text": "фа",
-      "ipa": "fa",
+      "kind": "sound",
+      "display_text": "ф",
+      "ipa": "f",
       "recipe": {
-        "source": "scripts/audio-sources/alphabet/syllables-v1/female-ef.mp3",
-        "source_sha256": "8844bc415e956a04aa7a1c1b88c8a18886e3b46a9fdba773b586d58342e5e3ea",
-        "mode": "copy",
-        "start_ms": null,
-        "end_ms": null,
+        "source": "flask_vocab_app/static/audio/alphabet-v1/ef-name.mp3",
+        "source_sha256": "51caf980d9ab4a19602e62d3d2c26c9f8bdb8d9dca9a1a25ee41755c93bb0e74",
+        "mode": "crop",
+        "start_ms": 240,
+        "end_ms": 320,
         "repetitions": 1,
-        "fade_in_ms": 0,
-        "fade_out_ms": 0
+        "fade_in_ms": 2,
+        "fade_out_ms": 3
       },
       "source_generation": {
         "model": "eleven_v4",
         "voice_id": "ymDCYd8puC7gYjxIamPt",
-        "text": "фа.",
-        "text_sha256": "125655ce8f01ee74f9ceba659b87ffaebf0a6b80a5451aeb2dc18cc7414317a0",
-        "audio_sha256": "8844bc415e956a04aa7a1c1b88c8a18886e3b46a9fdba773b586d58342e5e3ea",
-        "request": {
-          "text": "фа.",
-          "model_id": "eleven_v4",
-          "language_code": "ru",
-          "voice_settings": {
-            "stability": 0.8,
-            "similarity_boost": 0.85
-          }
-        }
+        "text": "эф.",
+        "text_sha256": "024e1490e823c00e66d62ad9417a39e7c40f2ba738ee66896569f2ed931fac21",
+        "audio_sha256": "51caf980d9ab4a19602e62d3d2c26c9f8bdb8d9dca9a1a25ee41755c93bb0e74"
       },
       "model": "eleven_v4",
       "voice_id": "ymDCYd8puC7gYjxIamPt",
-      "gain_db": 0,
-      "source_active_ms": 371,
-      "processing_applied": "byte-for-byte copy",
-      "audio_sha256": "8844bc415e956a04aa7a1c1b88c8a18886e3b46a9fdba773b586d58342e5e3ea",
-      "duration_ms": 720,
-      "size_bytes": 12582,
-      "leading_silence_ms": 5,
-      "trailing_silence_ms": 285
+      "gain_db": 3,
+      "source_active_ms": 80,
+      "processing_applied": "single crop, edge fades, bounded gain and padding",
+      "audio_sha256": "f44f3647f2ad6f7ca0576b67cc5c87e9ce3679073d08c2a643bcf7c81341ddd2",
+      "duration_ms": 240,
+      "size_bytes": 5058,
+      "leading_silence_ms": 60,
+      "trailing_silence_ms": 100
     },
     "kha-sound.mp3": {
       "letter_id": "kha",

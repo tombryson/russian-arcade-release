@@ -1,8 +1,9 @@
 """Build packaged Russian pronunciation examples from fixed v4 recordings.
 
 Default is a read-only plan. --execute copies vowel recordings and complete
-consonant-vowel practice syllables using the authored source hashes. No credentials or
-provider calls are used. --verify checks source provenance and output hashes.
+consonant-vowel practice syllables, with explicit 80 ms crops for О and Ф.
+Authored source hashes are checked. No credentials or provider calls are used.
+--verify checks source provenance and output hashes.
 Waveform inspection and automatic checks are not native-listener certification.
 """
 import argparse
@@ -25,16 +26,19 @@ RECORDED_PREFIX = 'scripts/audio-sources/alphabet/syllables-v1/'
 DIRECTORY = audio.DIRECTORY / 'sounds'
 RECIPES = ROOT / 'scripts/data/alphabet-sound-crops.json'
 MODEL = audio.MODEL
-VERSION = 'alphabet-sounds-v4'
-RECIPE_VERSION = 'alphabet-sound-crops-v3'
+VERSION = 'alphabet-sounds-v5'
+RECIPE_VERSION = 'alphabet-sound-crops-v4'
 MAX_CLIPS = 31
 MIN_SPEECH_MS = 160
+# Explicit listening adjustments; all other isolated sounds keep the default.
+MIN_SPEECH_MS_BY_LETTER = {'o': 80, 'ef': 80}
 SPEECH_THRESHOLD_DBFS = -45
 SPEECH_FRAME_MS = 1
 VOWELS = frozenset(('a', 'ye', 'yo', 'i', 'o', 'u', 'yery', 'e', 'yu', 'ya'))
 VOICE_IDS = {'female': 'ymDCYd8puC7gYjxIamPt', 'male': 'sRk0zCqhS2Cmv0bzx5wA'}
 PROCESSING = {'normalization_dbfs': -20, 'max_peak_dbfs': -3, 'leading_ms': 60,
               'trailing_ms': 100, 'max_gain_db': 3, 'minimum_speech_ms': MIN_SPEECH_MS,
+              'minimum_speech_ms_by_letter': MIN_SPEECH_MS_BY_LETTER,
               'speech_frame_ms': SPEECH_FRAME_MS, 'speech_threshold_dbfs': SPEECH_THRESHOLD_DBFS}
 
 
@@ -96,13 +100,14 @@ def load_recipes(path=RECIPES, clips=None):
                         or recipe['fade_in_ms'] != 0 or recipe['fade_out_ms'] != 0):
                     raise ValueError('Copy only an unchanged vowel recording or an explicitly labelled practice syllable.')
             else:
+                minimum = MIN_SPEECH_MS_BY_LETTER.get(item['letter_id'], MIN_SPEECH_MS)
                 if (any(type(recipe[key]) not in (int, float) or not math.isfinite(recipe[key]) for key in ('start_ms', 'end_ms', 'fade_in_ms', 'fade_out_ms'))
                         or not 0 <= recipe['start_ms'] < recipe['end_ms'] <= 15000
-                        or recipe['end_ms'] - recipe['start_ms'] < MIN_SPEECH_MS
+                        or recipe['end_ms'] - recipe['start_ms'] < minimum
                         or item['kind'] == 'syllable'
                         or not 0 <= recipe['fade_in_ms'] <= 10 or not 0 <= recipe['fade_out_ms'] <= 10
                         or recipe['fade_in_ms'] + recipe['fade_out_ms'] >= recipe['end_ms'] - recipe['start_ms']):
-                    raise ValueError('An isolated sound needs at least 160 ms of source audio; practice syllables must remain whole.')
+                    raise ValueError(f'An isolated sound needs at least {minimum} ms of source audio; practice syllables must remain whole.')
     return data['clips']
 
 
@@ -172,18 +177,19 @@ def plan(directory, specs, voice):
     return saved, todo
 
 
-def require_speech(recording):
+def require_speech(recording, *, letter_id=None):
     # Measure the source signal, not MP3/container duration or added padding.
     # This detects undersized/quiet clips; it cannot certify pronunciation.
     active_ms = sum(len(recording[start:start + SPEECH_FRAME_MS])
                     for start in range(0, len(recording), SPEECH_FRAME_MS)
                     if recording[start:start + SPEECH_FRAME_MS].dBFS > SPEECH_THRESHOLD_DBFS)
-    if active_ms < MIN_SPEECH_MS:
-        raise ValueError('A pronunciation example needs at least 160 ms of audible source speech; silence does not count.')
+    minimum = MIN_SPEECH_MS_BY_LETTER.get(letter_id, MIN_SPEECH_MS)
+    if active_ms < minimum:
+        raise ValueError(f'A pronunciation example needs at least {minimum} ms of audible source speech; silence does not count.')
     return active_ms
 
 
-def render(source, destination, recipe):
+def render(source, destination, recipe, *, letter_id=None):
     if recipe['repetitions'] != 1:
         raise ValueError('Each recording must contain one pronunciation, without repeats.')
     from pydub import AudioSegment
@@ -192,10 +198,11 @@ def render(source, destination, recipe):
         active_ms = require_speech(original)
         destination.write_bytes(source.read_bytes())
         return {'gain_db': 0, 'source_active_ms': active_ms, 'processing_applied': 'byte-for-byte copy'}
-    if recipe['end_ms'] - recipe['start_ms'] < MIN_SPEECH_MS:
-        raise ValueError('A pronunciation crop needs at least 160 ms of source audio.')
+    minimum = MIN_SPEECH_MS_BY_LETTER.get(letter_id, MIN_SPEECH_MS)
+    if recipe['end_ms'] - recipe['start_ms'] < minimum:
+        raise ValueError(f'A pronunciation crop needs at least {minimum} ms of source audio.')
     crop = original[recipe['start_ms']:recipe['end_ms']]
-    active_ms = require_speech(crop)
+    active_ms = require_speech(crop, letter_id=letter_id)
     crop = crop.fade_in(recipe['fade_in_ms']).fade_out(recipe['fade_out_ms'])
     gain = min(PROCESSING['max_gain_db'], PROCESSING['normalization_dbfs'] - crop.dBFS,
                PROCESSING['max_peak_dbfs'] - crop.max_dBFS)
@@ -226,15 +233,15 @@ def prepare(directory, specs, *, voice, selected=None, max_new=MAX_CLIPS, source
         return saved
     directory.mkdir(parents=True, exist_ok=True)
     if saved is None:
-        saved = {'version': VERSION, 'method': 'whole-v4-pronunciation-examples',
+        saved = {'version': VERSION, 'method': 'v4-pronunciation-examples-with-explicit-sound-crops',
                  'voice': voice, 'voice_id': VOICE_IDS[voice], 'processing': PROCESSING,
-                 'review': 'Whole pronunciation examples preserve source speech. Signal-duration checks are not a pronunciation review.',
+                 'review': 'О and Ф use 80 ms source crops. Other examples preserve whole source recordings. Signal-duration checks are not a pronunciation review.',
                  'clips': {}}
     for filename in todo:
         spec = specs[filename]
         with tempfile.TemporaryDirectory(prefix='.alphabet-sound-', dir=directory) as temporary:
             candidate = Path(temporary) / filename
-            details = render(source_dir / spec['recipe']['source'], candidate, spec['recipe'])
+            details = render(source_dir / spec['recipe']['source'], candidate, spec['recipe'], letter_id=spec['letter_id'])
             metadata = audio.audio_metadata(candidate)
             audio.atomic_write(directory / filename, candidate.read_bytes())
         saved['clips'][filename] = {**spec, **details, **metadata}
