@@ -83,7 +83,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles' 
   return <section class="page first-delivery lesson-player">
     <div class="lesson-player-nav">
       <a class="text-link" href="#first-steps"><span aria-hidden="true">← </span>First steps</a>
-      <a class="text-link alphabet-prompt-link" href="#alphabet?from=first-delivery">Have you learned the alphabet? <span aria-hidden="true">→</span></a>
+      <a class="text-link alphabet-prompt-link" href="#alphabet?from=first-delivery"><span class="alphabet-prompt-icon" lang="ru" aria-hidden="true">Аа</span><span>Learn the alphabet</span></a>
     </div>
     <div class={`first-delivery-stage${step < 2 ? ' is-explainer' : ''}`}>
       <header class="first-delivery-heading">
