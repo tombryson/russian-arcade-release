@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 import tempfile
 import unittest
+from urllib.parse import parse_qs, urlsplit
 from flask import render_template
 from flask.testing import FlaskClient
 
@@ -90,7 +91,12 @@ class WordPostTests(unittest.TestCase):
                 self.assertEqual(home.headers['Cache-Control'], 'no-store')
                 tools = client.get('/tools/anki/')
                 self.assertEqual(tools.status_code, 302)
-                self.assertEqual(tools.location, '/post/household' if household else '/post/profiles')
+                if household:
+                    self.assertEqual(tools.location, '/post/household')
+                else:
+                    location = urlsplit(tools.location)
+                    self.assertEqual(location.path, '/post/profiles')
+                    self.assertEqual(parse_qs(location.query), {'next': ['/tools/anki/']})
 
     def test_legacy_home_redirect_preserves_query_without_overriding_browser_fragment(self):
         for household in (False, True):

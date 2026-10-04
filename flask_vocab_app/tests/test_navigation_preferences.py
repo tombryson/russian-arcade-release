@@ -68,7 +68,10 @@ class NavigationPreferenceTests(unittest.TestCase):
         self.assertEqual(normalize_navigation_layout('sidebar'), 'sidebar')
         page = self.client.get('/post/profiles').text
         self.assertIn('navigation-layout-top', page)
-        self.assert_layout_selected(page, 'top')
+        self.assertNotIn('class="appearance-picker"', page)
+        self.assertNotIn('id="appearance"', page)
+        self.assertNotIn('/static/js/appearance_picker.js', page)
+        self.assertNotIn('/static/css/appearance_picker.css', page)
         self.assertIsNone(self.selected_layout())
 
     def test_preference_saves_for_guest_and_is_bootstrapped_into_both_shells(self):
@@ -79,10 +82,12 @@ class NavigationPreferenceTests(unittest.TestCase):
         self.assertEqual(self.selected_layout(), 'sidebar')
         native = self.client.get('/').text
         self.assertIn('data-navigation-layout="sidebar"', native)
-        self.assert_layout_selected(self.client.get('/post/profiles').text, 'sidebar')
+        self.assertIn('navigation-layout-sidebar', self.client.get('/post/profiles').text)
         self.select_profile()
         legacy = self.client.get('/writing').text
         self.assertIn('navigation-layout-sidebar', legacy)
+        picker = legacy.split('<details class="appearance-picker">', 1)[1].split('</details>', 1)[0]
+        self.assert_layout_selected(picker, 'sidebar')
         self.save('top')
         self.assertIn('data-navigation-layout="top"', self.client.get('/').text)
         self.assertIn('navigation-layout-top', self.client.get('/writing').text)
@@ -92,7 +97,7 @@ class NavigationPreferenceTests(unittest.TestCase):
         self.save('sidebar')
         self.assertEqual(self.selected_layout(), 'sidebar')
         self.assertIsNone(self.selected_layout(other))
-        self.assert_layout_selected(other.get('/post/profiles').text, 'top')
+        self.assertIn('navigation-layout-top', other.get('/post/profiles').text)
 
     def test_sidebar_contains_the_brand_profile_progress_and_one_click_shortcuts(self):
         self.save('sidebar')
@@ -185,7 +190,7 @@ class NavigationPreferenceTests(unittest.TestCase):
         self.client.delete_cookie(self.app.config['SESSION_COOKIE_NAME'])
         self.assertIsNone(self.selected_layout())
         self.assertIn('data-navigation-layout="sidebar"', self.client.get('/').text)
-        self.assert_layout_selected(self.client.get('/post/profiles').text, 'sidebar')
+        self.assertIn('navigation-layout-sidebar', self.client.get('/post/profiles').text)
         self.select_profile()
         self.assertEqual(self.selected_layout(), 'sidebar')
         self.assertIn('navigation-layout-sidebar', self.client.get('/writing').text)
@@ -195,7 +200,7 @@ class NavigationPreferenceTests(unittest.TestCase):
             with self.subTest(value=value):
                 self.client.set_cookie('ui_navigation', value)
                 self.assertIn('data-navigation-layout="top"', self.client.get('/').text)
-                self.assert_layout_selected(self.client.get('/post/profiles').text, 'top')
+                self.assertIn('navigation-layout-top', self.client.get('/post/profiles').text)
         self.app.config['SESSION_COOKIE_SECURE'] = True
         self.save('sidebar')
         self.assertTrue(self.client.get_cookie('ui_navigation').secure)
@@ -259,10 +264,10 @@ class NavigationPreferenceTests(unittest.TestCase):
 
     def test_appearance_dropdown_is_accessible_translated_and_has_no_inline_code(self):
         self.save('sidebar')
+        self.select_profile()
         with self.client.session_transaction() as saved:
             saved['ui_lang'] = 'ru'
-        page = self.client.get('/post/profiles').text
-        self.assertIn('id="appearance"', page)
+        page = self.client.get('/writing').text.split('<details class="appearance-picker">', 1)[1].split('</details>', 1)[0]
         self.assertIn('aria-label="Внешний вид"', page)
         self.assertIn('<summary', page)
         self.assertIn('Верхнее меню', page)

@@ -10,6 +10,7 @@ from services.skill_progress import snapshot as skill_snapshot
 from utils.household_access import access_id, access_policy, csrf_token, user_session_scope
 from utils.navigation import browser_navigation_layout
 from utils.course_context import selected_course_progress
+from utils.profile_navigation import profile_return_url
 
 
 def personal_sessions():
@@ -116,12 +117,13 @@ def create_user_sessions_blueprint():
         personal_sessions().rename(access_id(), body({'display_name'})['display_name'])
         return jsonify(state())
 
-    def render_picker(**context):
+    def render_picker(*, next_url=None, **context):
         try:
             assets = build_assets(current_app.config['WORD_POST_DIST_DIR'])
         except BuildUnavailable:
             assets = {'styles': []}
         return render_template('user_sessions.html', state=state(), assets=assets,
+                               next_url=profile_return_url(next_url),
                                curriculum_results=assessed_work(),
                                profile_course_progress=selected_course_progress(),
                                profile_skill_progress=selected_skill_progress(), **context)
@@ -134,12 +136,13 @@ def create_user_sessions_blueprint():
                                    curriculum_results=assessed_work(),
                                    profile_course_progress=selected_course_progress(),
                                    profile_skill_progress=selected_skill_progress(require_introduction=False))
-        return render_picker()
+        return render_picker(next_url=request.args.get('next'))
 
     @bp.post('/post/profiles/actions')
     @access_policy('public')
     def actions():
         action = request.form.get('action')
+        next_url = profile_return_url(request.form.get('next'))
         try:
             if action == 'create':
                 create(request.form)
@@ -153,7 +156,8 @@ def create_user_sessions_blueprint():
             else:
                 raise LearningError('invalid_action', 'Choose a supported profile action.')
         except LearningError as error:
-            return render_picker(error=str(error), form_name=request.form.get('display_name', '')), error.status
-        return redirect('/#home')
+            return render_picker(next_url=next_url, error=str(error),
+                                 form_name=request.form.get('display_name', '')), error.status
+        return redirect(next_url)
 
     return bp

@@ -9,8 +9,6 @@
   {% for filename in assets.styles %}<link rel="stylesheet" href="{{ url_for('word_post.assets', filename=filename) }}">{% endfor %}
   <link rel="stylesheet" href="/static/css/user_sessions.css?v=1">
   <link rel="stylesheet" href="/static/css/profile_skill_progress.css?v=3">
-  <link rel="stylesheet" href="/static/css/appearance_picker.css?v=1">
-  <script src="/static/js/appearance_picker.js?v=1" defer></script>
   <script src="/static/js/user_sessions.js?v=3" defer></script>
 </head>
 <body class="navigation-layout-{{ navigation_layout }}">
@@ -26,6 +24,7 @@
       <form class="user-profile-card{{ ' is-current' if selected else '' }}" action="/post/profiles/actions" method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <input type="hidden" name="action" value="select">
+        <input type="hidden" name="next" value="{{ next_url }}">
         <input type="hidden" name="profile_id" value="{{ profile.id }}">
         <button type="submit"><span class="user-profile-avatar" aria-hidden="true">{{ profile.display_name[:1] | upper }}</span><span><span class="user-profile-name">{{ profile.display_name }}</span><span class="user-profile-caption">{% if selected %}{{ 'Продолжить →' if ui_lang == 'ru' else 'Continue →' }}{% else %}{{ 'Выбрать профиль →' if ui_lang == 'ru' else 'Choose profile →' }}{% endif %}</span></span></button>
       </form>
@@ -34,12 +33,12 @@
     {% include '_profile_course_progress.html' %}
     {% include '_profile_skill_progress.html' %}
     {% include '_profile_curriculum_results.html' %}
-    {% include '_navigation_preferences.html' %}
     <details class="user-profile-add" {% if not state.profiles or error | default('') %}open{% endif %}>
       <summary>{{ 'Добавить профиль' if ui_lang == 'ru' else 'Add a profile' }}</summary>
       <form class="user-profile-form" action="/post/profiles/actions" method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <input type="hidden" name="action" value="create">
+        <input type="hidden" name="next" value="{{ next_url }}">
         <label for="new-profile-name">{{ 'Ваше имя' if ui_lang == 'ru' else 'Your name' }}</label>
         <input id="new-profile-name" name="display_name" value="{{ form_name | default('') }}" required maxlength="60" autocomplete="given-name">
         <button class="cta" type="submit">{{ 'Создать профиль' if ui_lang == 'ru' else 'Create profile' }}</button>
@@ -51,6 +50,7 @@
       <form class="user-profile-form" action="/post/profiles/actions" method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <input type="hidden" name="action" value="rename">
+        <input type="hidden" name="next" value="{{ next_url }}">
         <label for="profile-name">{{ 'Ваше имя' if ui_lang == 'ru' else 'Your name' }}</label>
         <input id="profile-name" name="display_name" value="{{ state.profile.display_name }}" required maxlength="60" autocomplete="given-name">
         <button class="cta" type="submit">{{ 'Сохранить имя' if ui_lang == 'ru' else 'Save name' }}</button>

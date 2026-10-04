@@ -1,5 +1,12 @@
+from html import unescape
+import re
 import unittest
+from urllib.parse import parse_qs, urlsplit
 
+from werkzeug.test import Client
+from werkzeug.wrappers import Response
+
+from hosted_demo_mount import DemoMount
 from repositories.learning_repository import transaction
 from services.personal_learning import PERSONAL_PROFILE, PersonalSessions, personal_access
 from tests.support import isolated_app
@@ -31,6 +38,16 @@ class UserSessionTests(unittest.TestCase):
         with (client or self.client).session_transaction() as saved:
             return saved.get('personal_access_id')
 
+    def assert_picker_destination(self, url, expected, *, prefix=''):
+        parsed = urlsplit(url)
+        self.assertEqual(parsed.path, prefix + '/post/profiles')
+        self.assertEqual(parse_qs(parsed.query), {'next': [expected]})
+
+    def assert_form_destination(self, page, expected):
+        destinations = [unescape(value) for value in re.findall(r'name="next" value="([^"]*)"', page)]
+        self.assertGreaterEqual(len(destinations), 2)
+        self.assertEqual(set(destinations), {expected})
+
     def test_new_visitor_can_browse_home_but_must_choose_before_studying(self):
         state = self.state()
         self.assertIsNone(state['profile'])
@@ -39,8 +56,51 @@ class UserSessionTests(unittest.TestCase):
         self.assertEqual(self.client.get('/').status_code, 200)
         self.assertEqual(self.client.get('/api/v1/progression').status_code, 401)
         self.assertEqual(self.client.get('/api/v1/flashcards').status_code, 401)
-        self.assertEqual(self.client.get('/writing').headers['Location'], '/post/profiles')
+        self.assert_picker_destination(self.client.get('/writing').headers['Location'], '/writing')
         self.assertIsNone(self.credential())
+
+    def test_legacy_activity_entry_preserves_the_requested_path_and_query(self):
+        destination = '/word_jumble?load=example&topic=travel&prompt=where?'
+        response = self.client.get(destination)
+        self.assertEqual(response.status_code, 302)
+        self.assert_picker_destination(response.location, destination)
+        picker = self.client.get(response.location)
+        self.assertEqual(picker.status_code, 200)
+        self.assert_form_destination(picker.text, destination)
+        selected = self.client.post('/post/profiles/actions', data={
+            'action': 'select', 'profile_id': PERSONAL_PROFILE,
+            'csrf_token': self.state()['csrf_token'], 'next': destination,
+        })
+        self.assertEqual(selected.location, destination)
+
+    def test_htmx_activity_entry_requests_a_full_page_profile_navigation(self):
+        destination = '/writing?load=example'
+        response = self.client.get(destination, headers={'HX-Request': 'true'})
+        self.assertEqual(response.status_code, 200)
+        self.assert_picker_destination(response.headers['HX-Redirect'], destination)
+        self.assertEqual(response.data, b'')
+        self.assertNotIn('Location', response.headers)
+        private_api = self.client.get('/api/v1/progression', headers={'HX-Request': 'true'})
+        self.assertEqual(private_api.status_code, 401)
+        self.assertNotIn('HX-Redirect', private_api.headers)
+
+    def test_mounted_profile_continuation_stays_in_the_demo(self):
+        client = Client(DemoMount(self.app), Response)
+        destination = '/demo/writing?load=example'
+        response = client.get(destination)
+        self.assertEqual(response.status_code, 302)
+        self.assert_picker_destination(response.location, destination, prefix='/demo')
+        picker = client.get(response.location)
+        self.assert_form_destination(picker.text, destination)
+        self.assertIn('action="/demo/post/profiles/actions"', picker.text)
+        htmx = client.get(destination, headers={'HX-Request': 'true'})
+        self.assert_picker_destination(htmx.headers['HX-Redirect'], destination, prefix='/demo')
+        token = client.get('/demo/api/v1/user-session').json['csrf_token']
+        selected = client.post('/demo/post/profiles/actions', data={
+            'action': 'select', 'profile_id': PERSONAL_PROFILE,
+            'csrf_token': token, 'next': destination,
+        })
+        self.assertEqual(selected.location, destination)
 
     def test_existing_personal_cookie_and_progress_survive(self):
         credential = personal_access(self.db)
@@ -187,6 +247,56 @@ class UserSessionTests(unittest.TestCase):
         })
         self.assertEqual(response.headers['Location'], '/post/profiles')
         self.assertIsNone(self.state()['profile'])
+
+    def test_profile_selection_and_creation_resume_native_and_legacy_destinations(self):
+        for destination in ('/#speaking', '/?source=activities#speaking/scenario/market?level=A2',
+                            '/writing?load=example#draft', '/demo/#flashcards'):
+            with self.subTest(destination=destination):
+                picker = self.client.get('/post/profiles', query_string={'next': destination})
+                self.assert_form_destination(picker.text, destination)
+                response = self.client.post('/post/profiles/actions', data={
+                    'action': 'select', 'profile_id': PERSONAL_PROFILE,
+                    'csrf_token': self.state()['csrf_token'], 'next': destination,
+                })
+                self.assertEqual(response.location, destination)
+        created = self.client.post('/post/profiles/actions', data={
+            'action': 'create', 'display_name': 'New speaker',
+            'csrf_token': self.state()['csrf_token'], 'next': '/#speaking',
+        })
+        self.assertEqual(created.location, '/#speaking')
+        self.assertEqual(self.state()['profile']['display_name'], 'New speaker')
+
+    def test_profile_return_paths_reject_external_and_malformed_destinations(self):
+        for destination in ('https://other.invalid', '//other.invalid', '/\\other.invalid',
+                            '/%2fother.invalid', '/%5cother.invalid', '/writing\nInjected',
+                            '/writing%0D%0AInjected', '/writing%7F', '/%FF', '/%broken',
+                            '/%2', '/[invalid%escape', 'javascript:alert(1)', '#speaking', '',
+                            '/' + 'a' * 4096):
+            with self.subTest(destination=destination):
+                picker = self.client.get('/post/profiles', query_string={'next': destination})
+                self.assertEqual(picker.status_code, 200)
+                self.assert_form_destination(picker.text, '/#home')
+                selected = self.client.post('/post/profiles/actions', data={
+                    'action': 'select', 'profile_id': PERSONAL_PROFILE,
+                    'csrf_token': self.state()['csrf_token'], 'next': destination,
+                })
+                self.assertEqual(selected.status_code, 302)
+                self.assertEqual(selected.location, '/#home')
+        self.assert_form_destination(self.client.get('/post/profiles').text, '/#home')
+
+    def test_invalid_profile_submission_keeps_the_destination_for_retry(self):
+        destination = '/#speaking/scenario/market?level=A2'
+        response = self.client.post('/post/profiles/actions', data={
+            'action': 'create', 'display_name': ' ',
+            'csrf_token': self.state()['csrf_token'], 'next': destination,
+        })
+        self.assertEqual(response.status_code, 400)
+        self.assert_form_destination(response.text, destination)
+        response = self.client.post('/post/profiles/actions', data={
+            'action': 'create', 'display_name': 'River',
+            'csrf_token': self.state()['csrf_token'], 'next': destination,
+        })
+        self.assertEqual(response.location, destination)
 
     def test_profile_pages_escape_names_and_keep_invalid_form_input(self):
         self.command('/profiles', {'display_name': '<img src=x onerror=alert(1)>'})

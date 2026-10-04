@@ -112,6 +112,8 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
   const onboarding=useOnboarding(initialOnboarding);
   const [state, setState] = useState<State>({ mode: householdEnabled ? 'loading' : 'legacy' });
   const signedOut = !householdEnabled && initialProfile === null;
+  const profileRequired = signedOut && !['home','activities','alphabet','words','first-delivery','first-steps','game','games','shop'].includes(location.page);
+  const profilePickerHref = appUrl(`/post/profiles?${new URLSearchParams({next:window.location.pathname + window.location.search + window.location.hash})}`);
   const profile = householdEnabled ? state.household?.profile ?? null : initialProfile === undefined ? state.household?.profile ?? null : initialProfile;
   const progression=useProgression(!signedOut && (!householdEnabled || !!state.household?.profile),profile?.id);
   const [refresh, setRefresh] = useState(0);
@@ -139,6 +141,9 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
       history.replaceState(history.state, '', location.canonicalHash);
     }
   }, [location]);
+  useEffect(() => {
+    if (profileRequired) window.location.replace(profilePickerHref);
+  }, [profileRequired, profilePickerHref]);
   useEffect(() => {
     if (!workspace.current) return;
     const sidebar = workspace.current.querySelector<HTMLElement>('.activity-sidebar');
@@ -294,7 +299,7 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
     <div class={activityWorkspace ? 'activity-workspace-content' : undefined}>
     <main id="main" class={location.page==='game'?'game-workspace':undefined} tabIndex={-1}>
       {householdEnabled && state.home && location.page !== 'home' && <div class="learner-bar"><span>{language === 'ru' ? 'Учится' : 'Learning as'} {state.home.profile.display_name}</span><a href="/post/household">{language === 'ru' ? 'Сменить ученика' : 'Change learner'}</a></div>}
-      {signedOut && !['home','activities','alphabet','words','first-delivery','first-steps','game','games','shop'].includes(location.page) ? <section class="page"><p class="kicker">Russian Arcade</p><h1 ref={heading} tabIndex={-1}>{language === 'ru' ? 'Кто занимается?' : 'Who’s learning?'}</h1><p>{language === 'ru' ? 'Выберите профиль, чтобы сохранить занятия и продолжить с того же места.' : 'Choose your profile to save your practice and pick up where you left off.'}</p><a class="cta" href="/post/profiles">{language === 'ru' ? 'Выбрать профиль' : 'Choose your profile'}</a></section>
+      {profileRequired ? <section class="page"><p role="status">{language === 'ru' ? 'Открываем профили…' : 'Opening profiles…'}</p><a class="text-link" href={profilePickerHref}>{language === 'ru' ? 'Выбрать профиль' : 'Choose your profile'}</a></section>
         : state.mode === 'loading' ? <section class="page"><h1 ref={heading} tabIndex={-1}>Opening your activities…</h1><p role="status">Checking your saved learning.</p></section>
         : state.mode === 'error' ? <section class="page"><h1 ref={heading} tabIndex={-1}>Your activities could not open.</h1><p role="alert">{state.error}</p><div class="action-row"><button class="cta" onClick={() => setRefresh(value => value + 1)}>Try again</button>{householdEnabled ? <a href="/post/household">Choose a learner</a> : <a href="#activities">Back to activities</a>}</div></section>
         : location.page === 'game' ? <JourneyGame key={`${profile?.id ?? state.mode}:${location.sessionId ?? location.gameId}`} gameId={location.gameId} sessionId={location.sessionId} profileHref={householdEnabled ? '/post/household' : '/post/profiles'}/>

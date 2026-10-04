@@ -13,6 +13,18 @@ beforeEach(()=>vi.spyOn(window,'scrollTo').mockImplementation(()=>{}));
 afterEach(() => {vi.unstubAllGlobals();vi.restoreAllMocks();});
 
 describe('Russian Arcade activity home', () => {
+  it.each(['/', '/demo/'])('opens the shared profile picker with the requested Speaking route at %s', async path => {
+    const destination = `${path}?v=preview#speaking/scenario/cafe?level=A2`;
+    window.history.replaceState(null, '', destination);
+    const fetch = vi.fn(); vi.stubGlobal('fetch', fetch);
+    render(<App initialProfile={null}/>);
+    expect(screen.queryByRole('heading', {name:'Who’s learning?'})).toBeNull();
+    expect(screen.getByRole('status').textContent).toBe('Opening profiles…');
+    const picker = new URL(screen.getByRole('link', {name:'Choose your profile'}).getAttribute('href')!, window.location.origin);
+    expect(picker.pathname).toBe(`${path}post/profiles`);
+    expect(picker.searchParams.get('next')).toBe(destination);
+    expect(fetch).not.toHaveBeenCalled();
+  });
   it.each(['/', '/demo/'])('opens the alphabet without a profile at %s and returns to the introduction', async path => {
     window.history.replaceState(null, '', `${path}#alphabet?from=first-delivery`);
     const fetch = vi.fn(); vi.stubGlobal('fetch', fetch);
@@ -361,8 +373,9 @@ describe('Personal user sessions', () => {
     expect(screen.getByText('Hello! I’m Barsik.')).toBeTruthy();
     expect(fetch.mock.calls.every(([url])=>['/api/v1/first-steps','/api/v1/games'].includes(url))).toBe(true);
     await navigate('flashcards');
-    expect(screen.getByRole('heading',{name:'Who’s learning?'})).toBeTruthy();
-    expect(screen.getByRole('link',{name:'Choose your profile'}).getAttribute('href')).toBe('/post/profiles');
+    expect(screen.queryByRole('heading',{name:'Who’s learning?'})).toBeNull();
+    expect(screen.getByRole('status').textContent).toBe('Opening profiles…');
+    expect(screen.getByRole('link',{name:'Choose your profile'}).getAttribute('href')).toBe('/post/profiles?next=%2F%23flashcards');
     expect(screen.queryByText(/grown-up/i)).toBeNull();
     expect(fetch.mock.calls.every(([url])=>['/api/v1/first-steps','/api/v1/games'].includes(url))).toBe(true);
   });

@@ -5,13 +5,14 @@ import re
 import sqlite3
 from urllib.parse import urlsplit
 
-from flask import abort, current_app, has_request_context, jsonify, redirect, render_template, request, session
+from flask import abort, current_app, has_request_context, jsonify, redirect, render_template, request, session, url_for
 
 from hosted_account_page import ACCOUNT_PUBLIC_ASSETS
 from services.first_steps_audio import is_public_recording
 from services.alphabet_audio import is_public_alphabet_recording
 from services.curriculum_sequence_content import is_public_teaching_recording
 from repositories.learning_repository import LearningError, require_access, timestamp, transaction
+from utils.profile_navigation import profile_return_url
 
 
 def access_policy(role):
@@ -179,7 +180,14 @@ def install_household_policy(app):
                 session.pop('personal_access_id', None)
                 return
             if request.method == 'GET' and not request.path.startswith('/api/'):
-                return redirect('/post/household' if enabled else '/post/profiles')
+                if enabled:
+                    return redirect('/post/household')
+                path = request.full_path if request.query_string else request.path
+                destination = profile_return_url(request.script_root + path)
+                picker = url_for('user_sessions.page', next=destination)
+                if request.headers.get('HX-Request', '').lower() == 'true':
+                    return current_app.response_class(status=200, headers={'HX-Redirect': picker})
+                return redirect(picker)
             raise
 
     @app.after_request
