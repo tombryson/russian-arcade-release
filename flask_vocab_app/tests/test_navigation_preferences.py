@@ -278,6 +278,11 @@ class NavigationPreferenceTests(unittest.TestCase):
             menu = activity_navigation(language)
             self.assertEqual([item['page'] for item in menu['main']], ['home', 'activities', 'vocab'])
             self.assertEqual(menu['activities'][0]['page'], 'native_flashcards')
+            self.assertEqual([item['page'] for item in menu['activities'][-2:]], ['alphabet', 'curriculum'])
+            alphabet = menu['activities'][-2]
+            self.assertEqual(alphabet['href'], '/#alphabet')
+            self.assertEqual(alphabet['label'], 'Алфавит' if language == 'ru' else 'Alphabet')
+            self.assertFalse(alphabet['boost'])
             self.assertEqual(menu['main'][0]['href'], '/#home')
             self.assertEqual(menu['tools'][0]['href'], '/tools/anki/')
             self.assertTrue(any(item['href'] == '/#speaking' and not item['boost'] for item in menu['activities']))

@@ -25,6 +25,20 @@ describe('Top Activities menu', () => {
     expect(links.every(link => !link.hasAttribute('aria-current'))).toBe(true);
   });
 
+  it('keeps learning resources after Games and All activities without leaving the demo route', () => {
+    window.history.replaceState(null, '', '/demo/#alphabet');
+    const resources = [
+      {page:'alphabet', href:'/#alphabet', label:'Alphabet', boost:false},
+      {page:'curriculum', href:'/curriculum', label:'Curriculum', boost:true},
+    ];
+    const {container} = render(<ActivitiesMenu items={[...resources, ...items]} language="en" active activePage="alphabet" />);
+    const links = within(container.querySelector('.activities-menu-options')!).getAllByRole('link');
+    expect(links.slice(-4).map(link => link.textContent?.replace('↗', '').trim())).toEqual(['Games', 'All activities', 'Alphabet', 'Curriculum']);
+    const alphabet = screen.getByRole('link', {name:'Alphabet'});
+    expect(alphabet.getAttribute('href')).toBe('#alphabet');
+    expect(alphabet.getAttribute('aria-current')).toBe('page');
+  });
+
   it('closes after a selection, including selecting the current activity', () => {
     const {container} = render(<ActivitiesMenu items={items} language="en" active activePage="speaking" />);
     container.addEventListener('click', event => { if ((event.target as Element).closest('a')) event.preventDefault(); });

@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { act, fireEvent, render, screen, within } from '@testing-library/preact';
 import { App } from './App';
-import type { ActivityNavigation } from './ActivitySidebar';
+import { ActivitySidebar, type ActivityNavigation } from './ActivitySidebar';
 
 const navigation: ActivityNavigation = {
   title: 'Activities & tools', more: 'More tools',
@@ -29,6 +29,18 @@ async function navigate(hash: string) {
 afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks(); });
 
 describe('Saved navigation layout', () => {
+  it('groups Alphabet and Curriculum after the activities and Shop', () => {
+    const resources = [
+      {page:'alphabet', href:'/#alphabet', label:'Alphabet', boost:false},
+      {page:'curriculum', href:'/curriculum', label:'Curriculum', boost:true},
+    ];
+    const {container} = render(<ActivitySidebar navigation={{...navigation, activities:[...resources, ...navigation.activities]}} activePage="alphabet" />);
+    const links = within(container.querySelector('.activity-sidebar-links')!).getAllByRole('link');
+    expect(links.slice(-3).map(link => link.textContent)).toEqual(['Shop', 'Alphabet', 'Curriculum']);
+    expect(screen.getByRole('link', {name:'Alphabet'}).getAttribute('href')).toBe('#alphabet');
+    expect(screen.getByRole('link', {name:'Alphabet'}).getAttribute('aria-current')).toBe('page');
+  });
+
   it.each(['en', 'ru'] as const)('contains the brand, profile and introduced controls in a self-contained %s sidebar', async language => {
     vi.stubGlobal('ResizeObserver', class { observe() {} disconnect() {} });
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ok:false, json:async () => ({error:{message:'Offline'}})}));

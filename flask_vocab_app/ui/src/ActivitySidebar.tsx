@@ -36,9 +36,9 @@ export function ActivitySidebar({ navigation, activePage, language = 'en', profi
       <div class="sidebar-menu-scroll">
         <a class="activity-sidebar-title" href="#activities" onClick={close}>{navigation.title}</a>
         <div class="activity-sidebar-links">
-          {navigation.activities.filter(item => item.page !== 'curriculum').map(item => <a key={item.page} href={item.href} aria-current={item.page === activePage ? 'page' : undefined} onClick={close}>{item.label}</a>)}
+          {navigation.activities.filter(item => !['alphabet', 'curriculum'].includes(item.page)).map(item => <a key={item.page} href={item.href.startsWith('/#') ? item.href.slice(1) : item.href} aria-current={item.page === activePage ? 'page' : undefined} onClick={close}>{item.label}</a>)}
           <a href="#shop" aria-current={activePage === 'shop' ? 'page' : undefined} onClick={close}>{language === 'ru' ? 'Магазин' : 'Shop'}</a>
-          {navigation.activities.filter(item => item.page === 'curriculum').map(item => <a key={item.page} href={item.href} aria-current={item.page === activePage ? 'page' : undefined} onClick={close}>{item.label}</a>)}
+          {navigation.activities.filter(item => ['alphabet', 'curriculum'].includes(item.page)).map(item => <a key={item.page} href={item.href.startsWith('/#') ? item.href.slice(1) : item.href} aria-current={item.page === activePage ? 'page' : undefined} onClick={close}>{item.label}</a>)}
         </div>
         {!!tools.length && <details class="activity-sidebar-more">
           <summary>{navigation.more}</summary>

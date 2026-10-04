@@ -13,6 +13,23 @@ beforeEach(()=>vi.spyOn(window,'scrollTo').mockImplementation(()=>{}));
 afterEach(() => {vi.unstubAllGlobals();vi.restoreAllMocks();});
 
 describe('Russian Arcade activity home', () => {
+  it.each(['/', '/demo/'])('opens the alphabet without a profile at %s and returns to the introduction', async path => {
+    window.history.replaceState(null, '', `${path}#alphabet?from=first-delivery`);
+    const fetch = vi.fn(); vi.stubGlobal('fetch', fetch);
+    render(<App initialProfile={null}/>);
+    expect(await screen.findByRole('heading', {name:'Russian alphabet', level:1})).toBeTruthy();
+    expect(screen.getByRole('link', {name:/Back to your first words/}).getAttribute('href')).toBe('#first-delivery');
+    expect(screen.queryByText('Who’s learning?')).toBeNull();
+    expect(fetch).not.toHaveBeenCalled();
+    expect(screen.getByLabelText('Activities').getAttribute('data-active')).toBe('true');
+  });
+  it('ignores an unknown alphabet return destination', async () => {
+    window.history.replaceState(null, '', '/#alphabet?from=https://example.com');
+    vi.stubGlobal('fetch', vi.fn());
+    render(<App initialProfile={null}/>);
+    expect(await screen.findByRole('heading', {name:'Russian alphabet', level:1})).toBeTruthy();
+    expect(within(screen.getByRole('main')).getByRole('link', {name:/Activities/}).getAttribute('href')).toBe('#activities');
+  });
   it('opens a direct chapter link and early test-out for a learner before any coin introduction',async()=>{
     window.history.replaceState(null,'','/#journey/chapter/first');
     const course={version:1,profile_id:'personal',band:'A1',unlocked_levels:['A1'],current_chapter_id:'first',progress:0,completed:false,chapters:[{id:'first',number:1,title:'The little post office',title_ru:'Маленькая почта',intro:'Your original letter stays sealed.',intro_ru:'Письмо закрыто.',status:'practice',progress:0,topics:[],activity_count:0,required_activity_count:2,last_attempt_id:null}]};

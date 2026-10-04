@@ -24,6 +24,7 @@ Google Drive and SQLite have separate roles. Drive supports quick word capture, 
 
 | Area | Current experience |
 | --- | --- |
+| **Alphabet** | Explore all 33 Russian letters. Listen to each letter name and an example word, with notes on pronunciation and stress. Available from the first lesson and Activities menu. |
 | **Flashcards** | Generate missing-word cards from vocabulary or selected lesson words, with pictures and audio. Review with **Again / Hard / Good / Easy**, response timing and spaced repetition. Filter cards by topic and grammar. |
 | **Reading and Listening** | Generate reading or listening tasks, or paste a passage. Answer comprehension questions, save new vocabulary and revisit stories. Listening records playback and optional transcript support. |
 | **Word Jumble** | Compose an original sentence using a supplied word set and receive feedback on meaning, grammar and use of the target words. |

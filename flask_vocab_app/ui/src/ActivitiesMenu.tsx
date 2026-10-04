@@ -40,12 +40,12 @@ export function ActivitiesMenu({ items, language, active, activePage }: Activiti
       {label}<svg class="activities-menu-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
     </summary>
     <div class="activities-menu-options" onClick={event => { if ((event.target as Element).closest('a')) close(); }}>
-      {items.filter(item => item.page !== 'curriculum').map(item => <a key={item.page} href={item.href.startsWith('/#') ? item.href.slice(1) : item.href} aria-current={activePage === item.page ? 'page' : undefined}>{item.label}</a>)}
+      {items.filter(item => !['alphabet', 'curriculum'].includes(item.page)).map(item => <a key={item.page} href={item.href.startsWith('/#') ? item.href.slice(1) : item.href} aria-current={activePage === item.page ? 'page' : undefined}>{item.label}</a>)}
       <a href="#games" aria-current={activePage === 'games' ? 'page' : undefined}>{language === 'ru' ? 'Игры' : 'Games'}</a>
       <a class="activities-menu-all" href="#activities" aria-current={activePage === 'activities' ? 'page' : undefined}>
         {language === 'ru' ? 'Все занятия' : 'All activities'}<span aria-hidden="true">↗</span>
       </a>
-      {items.filter(item => item.page === 'curriculum').map(item => <a key={item.page} href={item.href} aria-current={activePage === item.page ? 'page' : undefined}>{item.label}</a>)}
+      {items.filter(item => ['alphabet', 'curriculum'].includes(item.page)).map(item => <a key={item.page} href={item.href.startsWith('/#') ? item.href.slice(1) : item.href} aria-current={activePage === item.page ? 'page' : undefined}>{item.label}</a>)}
     </div>
   </details>;
 }

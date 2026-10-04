@@ -31,7 +31,7 @@
                         hx-swap="outerHTML show:none"
                         hx-push-url="true"
                     >
-                        {% for item in activity_navigation.activities if item.page != 'curriculum' %}
+                        {% for item in activity_navigation.activities if item.page not in ('alphabet', 'curriculum') %}
                         <a
                             class="sidebar-link {% if active_page == item.page %}active{% endif %}"
                             href="{{ item.href }}"
@@ -40,7 +40,7 @@
                         >{{ item.label }}</a>
                         {% endfor %}
                         <a class="sidebar-link" href="/#shop" hx-boost="false">{{ 'Магазин' if ui_lang == 'ru' else 'Shop' }}</a>
-                        {% for item in activity_navigation.activities if item.page == 'curriculum' %}
+                        {% for item in activity_navigation.activities if item.page in ('alphabet', 'curriculum') %}
                         <a class="sidebar-link {% if active_page == item.page %}active{% endif %}" href="{{ item.href }}" hx-boost="false"{% if active_page == item.page %} aria-current="page"{% endif %}>{{ item.label }}</a>
                         {% endfor %}
                     </div>
