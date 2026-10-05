@@ -1,6 +1,6 @@
 /* The word library keeps study information readable without widening the page. */
 [data-page="vocab"] { --vocab-ink:#292a46; --vocab-muted:#676678; --vocab-line:#e6e2d8; --vocab-paper:#fffdf5; max-width:1500px; padding:38px 42px 70px; }
-.vocab-heading { display:flex; justify-content:space-between; align-items:center; gap:24px; margin-bottom:26px; }
+.vocab-heading { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:24px; margin-bottom:26px; }
 .vocab-heading h1 { margin:0 0 10px; }
 .vocab-heading p { margin:0; max-width:620px; color:var(--wp-text-secondary, var(--color-text)); }
 .vocab-heading .vocab-eyebrow { font-size:11px; font-weight:600; letter-spacing:.12em; margin-bottom:12px; color:var(--wp-accent-learning, var(--color-primary)); }

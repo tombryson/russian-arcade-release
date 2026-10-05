@@ -40,7 +40,7 @@
       </form>
     </details>
     {% endif %}
-    <p class="translation-library-link"><a class="sentence-text-link" href="/sentences/saved">{{ ui_t('translation.open_library') }} <span aria-hidden="true">↗</span></a></p>
+    <p class="translation-library-link">{% include '_phrasebook_link.html' %}</p>
   </div>
 </main>
 {% endblock %}

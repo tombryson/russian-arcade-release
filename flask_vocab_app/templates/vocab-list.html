@@ -6,7 +6,7 @@
     <header class="vocab-heading">
         <div><p class="vocab-eyebrow">{{ 'ВАШ СЛОВАРЬ' if ru else 'YOUR VOCABULARY' }}</p><h1>{{ page_title }}</h1>
         <p>{{ 'Слова, их формы и карточки для практики.' if ru else 'Your words, their forms, and the cards you practise.' }}</p></div>
-        <div class="vocab-heading-actions"><a class="sentence-text-link" href="/sentences/saved" hx-boost="false">{{ ui_t('sentences.saved_title') }} ↗</a><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWordModal">＋ {{ 'Добавить слово' if ru else 'Add a word' }}</button></div>
+        <div class="vocab-heading-actions">{% include '_phrasebook_link.html' %}<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWordModal">＋ {{ 'Добавить слово' if ru else 'Add a word' }}</button></div>
     </header>
     <div class="vocab-source-row">
         <fieldset class="vocab-source-switch"><legend class="visually-hidden">{{ 'Источник слов' if ru else 'Vocabulary source' }}</legend>

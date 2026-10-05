@@ -1,0 +1,25 @@
+/* One recognisable entry to the phrasebook in both application shells. */
+a.phrasebook-link {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:48px;
+  max-width:100%;
+  padding:7px 14px 7px 10px;
+  border:1px solid var(--wp-border-subtle, var(--color-border));
+  border-radius:12px;
+  background:var(--wp-surface-sheet, var(--color-surface));
+  color:var(--wp-text-primary, var(--color-text));
+  font:500 14px/1.4 var(--wp-font-reading, system-ui, sans-serif);
+  text-decoration:none;
+}
+.phrasebook-link-book { width:30px; height:33px; flex:none; transform:rotate(-5deg); }
+.phrasebook-link-arrow { width:16px; height:16px; flex:none; margin-left:4px; }
+a.phrasebook-link:hover {
+  color:var(--wp-text-primary, var(--color-text));
+  border-color:currentColor;
+  background:color-mix(in srgb, var(--wp-surface-ticket, #F8C843) 14%, var(--wp-surface-sheet, var(--color-surface)));
+  text-decoration:none;
+}
+a.phrasebook-link:focus-visible { outline:3px solid var(--wp-accent-delivery, var(--color-primary)); outline-offset:4px; }
