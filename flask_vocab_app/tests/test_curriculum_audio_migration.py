@@ -81,7 +81,11 @@ class CurriculumAudioMigrationTests(unittest.TestCase):
                 self.assertEqual(schema_version(conn), 64)
                 with self.assertRaises(sqlite3.IntegrityError):
                     conn.execute("UPDATE curriculum_situations SET voice_json=? WHERE id='pending'", (encoded(self.upgraded),))
-            version, backup = upgrade_database(db)
+            # This deliberately partial fixture exercises 065 alone, not later
+            # migrations that require the rest of the application schema.
+            (failing / '066_invalid.sql').unlink()
+            with patch('migrations.MIGRATION_DIR', failing):
+                version, backup = upgrade_database(db)
             self.assertEqual(version, 65)
             with sqlite3.connect(backup) as conn:
                 self.assertEqual(schema_version(conn), 64)

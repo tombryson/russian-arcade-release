@@ -62,9 +62,9 @@
     busy=true;
     try {
       const response=await originalFetch.call(window,appUrl('/api/v1/progression'),{credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json'}});
-      if (response.status===401 || response.status===403) lastData=undefined;
+      if (response.status===401 || response.status===403) {lastData=undefined;window.arcadeGameUnlocks?.reset();}
       const data=await response.json();
-      if (data.error?.code==='profile_changed') lastData=undefined;
+      if (['account_changed','profile_changed','profile_required','adult_required','unauthorized','locked'].includes(data.error?.code)) {lastData=undefined;window.arcadeGameUnlocks?.reset();}
       if (!response.ok) throw new Error('Progress unavailable');
       if (!Number.isFinite(data.balance)) throw new Error('Progress unavailable');
       lastData=data;
@@ -74,6 +74,9 @@
         badge.setAttribute('aria-label',`${badge.dataset.language==='ru' ? 'Лингокоины' : 'Lingo coins'}: ${data.balance}`);
       });
       renderSkill(data);
+      const account=document.querySelector('meta[name="learning-account"]')?.content || 'local';
+      const base=appUrl('/#shop').startsWith('/demo/') ? '/demo' : '/';
+      window.arcadeGameUnlocks?.update(data,{scope:`${account}:${base}`,language:document.documentElement.lang,shopHref:appUrl('/#shop')});
     } catch (_) {
       renderSkill(lastData,true);
       if (!lastData) badges().forEach(badge=>{badge.querySelector('[data-progression-balance]').textContent='—';badge.setAttribute('aria-label',badge.dataset.language==='ru' ? 'Лингокоины: недоступно' : 'Lingo coins: unavailable');});

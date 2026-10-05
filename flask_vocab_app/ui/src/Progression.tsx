@@ -4,6 +4,7 @@ import type { Language } from './review-types';
 import type { SkillProgressData } from './SkillProgress';
 import type { CourseData } from './CourseJourney';
 import {GameCatalogue} from './JourneyGames';
+import {updateGameUnlocks,resetGameUnlocks,type GameShopMilestones} from './game-unlock-celebration';
 import './styles/progression.css';
 
 export type PracticeLevel='A1'|'A2'|'B1'|'B2';
@@ -11,7 +12,7 @@ type World={id:string;title:string;title_ru:string;threshold:number;unlocked:boo
 export type ProgressionData={profile_id:string;balance:number;earned_total:number;legacy_balance:number;preferred_level:PracticeLevel;
   levels:{id:PracticeLevel;label:string;label_ru:string}[];policy:{activity_coins:number;activity_daily_cap:number;review_coins:number;review_daily_cap:number};
   recent_rewards:{id:string;amount:number;activity:string;title:string;created_at:number}[];
-  journey:{worlds:World[];next_world:World|null};skill:SkillProgressData;course?:CourseData};
+  journey:{worlds:World[];next_world:World|null};skill:SkillProgressData;course?:CourseData;game_shop?:GameShopMilestones};
 export type ProgressionState={data?:ProgressionData;error:string;loading:boolean;refresh:()=>void};
 type Scene={world:World;scene:{title:string;title_ru:string;intro:string;intro_ru:string;prompt:string;prompt_ru:string;choices:{id:string;text:string;text_ru:string}[];
   feedback?:{correct:boolean;text:string;text_ru:string};completed:boolean};progression:ProgressionData;coins_earned?:number};
@@ -22,7 +23,7 @@ export function useProgression(enabled=true,profileKey?:string):ProgressionState
   const [loading,setLoading]=useState(false);
   const [revision,setRevision]=useState(0);
   const refresh=()=>setRevision(value=>value+1);
-  useEffect(()=>{setData(undefined);setError('');},[enabled,profileKey]);
+  useEffect(()=>{setData(undefined);setError('');resetGameUnlocks();return resetGameUnlocks;},[enabled,profileKey]);
   useEffect(()=>{
     if (!enabled) { setData(undefined);return; }
     const abort=new AbortController();setLoading(true);
@@ -31,9 +32,10 @@ export function useProgression(enabled=true,profileKey?:string):ProgressionState
       if (profileKey && value.profile_id!==profileKey) throw new ApiError('The learner changed. Reload to view their progress.','profile_changed');
       if (!Number.isFinite(value.balance)) throw new Error('Your coin balance could not load.');
       setData(value);setError('');
+      updateGameUnlocks(value);
     }).catch(e=>{
       if (abort.signal.aborted) return;
-      if (e instanceof ApiError && ['locked','profile_changed','profile_required','adult_required','unauthorized'].includes(e.code)) setData(undefined);
+      if (e instanceof ApiError && ['locked','account_changed','profile_changed','profile_required','adult_required','unauthorized'].includes(e.code)) {setData(undefined);resetGameUnlocks();}
       setError(e instanceof Error ? e.message : 'Your progress could not load.');
     })
       .finally(()=>{if (!abort.signal.aborted) setLoading(false);});

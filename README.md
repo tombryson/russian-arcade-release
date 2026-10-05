@@ -43,7 +43,7 @@ The appearance icon switches between top navigation and a left sidebar, saving t
 
 ### Practice games
 
-The shop lets learners choose permanent game unlocks using Lingocoins: 25 for the first purchase and 50 for each later game. Core practice stays available from the start. First steps teaches the opening words without automatically unlocking games. Games use a wider vocabulary and remain open for standalone practice once owned. See [game access](docs/game-access.md) for pricing and migration rules.
+The shop lets learners choose permanent game unlocks at individual prices from 500 to 1,200 Lingocoins. Each game costs the same whether it is the first or a later purchase. Core practice stays available from the start. First steps teaches the opening words without automatically unlocking games. Games use a wider vocabulary and remain open for standalone practice once owned. See [game access](docs/game-access.md) for pricing and migration rules.
 
 | Game | What you practise |
 | --- | --- |

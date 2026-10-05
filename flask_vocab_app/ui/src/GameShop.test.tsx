@@ -1,12 +1,12 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
-import {act, fireEvent, render, screen} from '@testing-library/preact';
+import {act, fireEvent, render, screen, waitFor} from '@testing-library/preact';
 import {GameShop} from './GameShop';
 import {GameLanguage} from './GameLocale';
 import type {GameCatalogueState, JourneyGameId} from './journey-games-api';
 
-const catalogue = (balance=100):GameCatalogueState => ({profile_id:'tom',shop:{balance,first_purchase:true,price:25,enabled:true},games:[
-  {id:'pack-bag',title:'Pack the bag',description:'Match Russian messages to pictures.',lesson_id:'bag',lesson_title:'Bag',lesson_href:'#first-steps/bag',unlocked:false,new:false,active_session_id:null,purchase:{price:25,owned:false,can_purchase:balance>=25}},
-  {id:'directions',title:'Follow the directions',description:'Find your way through a Russian town.',lesson_id:'directions',lesson_title:'Directions',lesson_href:'#first-steps/directions',unlocked:false,new:false,active_session_id:null,purchase:{price:25,owned:false,can_purchase:balance>=25}}
+const catalogue = (balance=2000):GameCatalogueState => ({profile_id:'tom',shop:{balance,enabled:true,policy:'game-shop-v2'},games:[
+  {id:'pack-bag',title:'Pack the bag',description:'Match Russian messages to pictures.',lesson_id:'bag',lesson_title:'Bag',lesson_href:'#first-steps/bag',unlocked:false,new:false,active_session_id:null,purchase:{price:500,owned:false,can_purchase:balance>=500}},
+  {id:'directions',title:'Follow the directions',description:'Find your way through a Russian town.',lesson_id:'directions',lesson_title:'Directions',lesson_href:'#first-steps/directions',unlocked:false,new:false,active_session_id:null,purchase:{price:1200,owned:false,can_purchase:balance>=1200}}
 ]});
 const response = (value:unknown,ok=true) => ({ok,json:async()=>structuredClone(value)});
 function server(initial=catalogue()) {
@@ -20,45 +20,71 @@ function server(initial=catalogue()) {
     const id=url.split('/').at(-2) as JourneyGameId;
     const game=state.catalogue.games.find(item=>item.id===id)!;
     if(state.fail){const code=state.fail;state.fail='';if(code==='network')throw new Error('Connection interrupted.');return response({error:{code,message:code==='profile_changed'?'Your profile changed.':'Your balance changed.'}},false);}
-    if(state.priceChanged){state.priceChanged=false;state.catalogue.shop!.first_purchase=false;state.catalogue.shop!.price=50;for(const item of state.catalogue.games)item.purchase!.price=50;return response({error:{code:'price_changed',message:'The price changed. Please review it before buying.'}},false);}
+    if(state.priceChanged){state.priceChanged=false;game.purchase!.price=650;return response({error:{code:'price_changed',message:'The price changed. Please review it before buying.'}},false);}
     state.purchases++;
     const charged=game.purchase!.owned?0:game.purchase!.price;
     game.unlocked=true;game.purchase!.owned=true;
     state.catalogue.shop!.balance!-=charged;
-    state.catalogue.shop!.price=50;state.catalogue.shop!.first_purchase=false;
-    for(const item of state.catalogue.games){item.purchase!.price=50;item.purchase!.can_purchase=!item.purchase!.owned && state.catalogue.shop!.balance!>=50;}
+    for(const item of state.catalogue.games)item.purchase!.can_purchase=!item.purchase!.owned && state.catalogue.shop!.balance!>=item.purchase!.price;
     return response({game_id:id,charged,balance:state.catalogue.shop!.balance,owned:true,already_owned:charged===0});
   });
   vi.stubGlobal('fetch',fetch);
   return {state,fetch,posts:()=>fetch.mock.calls.filter(([,request])=>request?.method==='POST')};
 }
-async function unlock(name='Pack the bag',price=25) {
+async function unlock(name='Pack the bag',price=500) {
   fireEvent.click(await screen.findByRole('button',{name:`Unlock ${name} for ${price} Lingocoins`}));
 }
 beforeEach(()=>{window.location.hash='shop';});
 afterEach(()=>vi.unstubAllGlobals());
 
 describe('Shop',()=>{
-  it('makes ownership permanent only after a confirmed purchase and refreshes every remaining price',async()=>{
+  it('shows different prices and makes ownership permanent only after a confirmed purchase',async()=>{
     const api=server();const changed=vi.fn();window.addEventListener('lingo:progression',changed);
     render(<GameShop/>);
     expect(await screen.findByRole('heading',{name:'Shop'})).toBeTruthy();
-    await screen.findByRole('button',{name:'Unlock Pack the bag for 25 Lingocoins'});
+    await screen.findByRole('button',{name:'Unlock Pack the bag for 500 Lingocoins'});
+    expect(screen.getByRole('button',{name:'Unlock Follow the directions for 1200 Lingocoins'})).toBeTruthy();
+    expect(screen.getByText('Each game has its own price. Unlock it once and keep playing.')).toBeTruthy();
     expect(api.posts()).toHaveLength(0);
     await unlock();
     expect(await screen.findByRole('link',{name:'Play Pack the bag'})).toBeTruthy();
-    expect(screen.getByLabelText('75 Lingocoins')).toBeTruthy();
-    expect(await screen.findByRole('button',{name:'Unlock Follow the directions for 50 Lingocoins'})).toBeTruthy();
+    expect(screen.getByLabelText('1500 Lingocoins')).toBeTruthy();
+    expect(await screen.findByRole('button',{name:'Unlock Follow the directions for 1200 Lingocoins'})).toBeTruthy();
     expect(screen.getByText('Pack the bag is yours. You can play it whenever you like.')).toBeTruthy();
     expect(api.posts()).toHaveLength(1);expect(changed).toHaveBeenCalledTimes(1);
+    expect(JSON.parse(api.posts()[0][1]!.body as string).expected_price).toBe(500);
     window.removeEventListener('lingo:progression',changed);
+  });
+  it('quotes the selected game price and computes affordability per game',async()=>{
+    const api=server(catalogue(1300));render(<GameShop/>);
+    await unlock('Follow the directions',1200);
+    await screen.findByRole('link',{name:'Play Follow the directions'});
+    expect(JSON.parse(api.posts()[0][1]!.body as string).expected_price).toBe(1200);
+    expect(screen.getByLabelText('100 Lingocoins')).toBeTruthy();
+    expect(screen.getByText('400 more coins needed')).toBeTruthy();
+    expect((screen.getByRole('button',{name:'Unlock Pack the bag for 500 Lingocoins'}) as HTMLButtonElement).disabled).toBe(true);
+  });
+  it('allows an affordable game while showing the expensive game shortfall',async()=>{
+    const api=server(catalogue(700));render(<GameShop/>);
+    expect((await screen.findByRole('button',{name:'Unlock Pack the bag for 500 Lingocoins'}) as HTMLButtonElement).disabled).toBe(false);
+    expect((screen.getByRole('button',{name:'Unlock Follow the directions for 1200 Lingocoins'}) as HTMLButtonElement).disabled).toBe(true);
+    expect(screen.getByText('500 more coins needed')).toBeTruthy();
+    expect(api.posts()).toHaveLength(0);
+  });
+  it('does not invent a price or purchase control when a game quote is missing',async()=>{
+    const overview=catalogue();delete overview.games[0].purchase;
+    const api=server(overview);render(<GameShop/>);
+    expect(await screen.findByText('Price unavailable')).toBeTruthy();
+    expect(screen.queryByRole('button',{name:/Unlock Pack the bag for/})).toBeNull();
+    expect(screen.getByRole('button',{name:'Unlock Follow the directions for 1200 Lingocoins'})).toBeTruthy();
+    expect(api.posts()).toHaveLength(0);
   });
   it('ignores duplicate clicks while a purchase is pending and keeps other games disabled',async()=>{
     const api=server();api.state.hold=true;render(<GameShop/>);
-    const button=await screen.findByRole('button',{name:'Unlock Pack the bag for 25 Lingocoins'});
+    const button=await screen.findByRole('button',{name:'Unlock Pack the bag for 500 Lingocoins'});
     fireEvent.click(button);fireEvent.click(button);
     expect(screen.queryByRole('link',{name:'Play Pack the bag'})).toBeNull();
-    expect((screen.getByRole('button',{name:'Unlock Follow the directions for 25 Lingocoins'}) as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByRole('button',{name:'Unlock Follow the directions for 1200 Lingocoins'}) as HTMLButtonElement).disabled).toBe(true);
     expect(api.posts()).toHaveLength(1);
     await act(async()=>api.state.release?.());
     expect(await screen.findByRole('link',{name:'Play Pack the bag'})).toBeTruthy();
@@ -67,43 +93,45 @@ describe('Shop',()=>{
     const api=server();api.state.fail='network';render(<GameShop/>);await unlock();
     await screen.findByRole('alert');
     expect(screen.queryByRole('link',{name:'Play Pack the bag'})).toBeNull();
-    expect((screen.getByRole('button',{name:'Unlock Follow the directions for 25 Lingocoins'}) as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByRole('button',{name:'Unlock Follow the directions for 1200 Lingocoins'}) as HTMLButtonElement).disabled).toBe(true);
     fireEvent.click(screen.getByRole('button',{name:'Try again'}));
     await screen.findByRole('link',{name:'Play Pack the bag'});
     const first=JSON.parse(api.posts()[0][1]!.body as string),second=JSON.parse(api.posts()[1][1]!.body as string);
-    expect(first.request_id).toBeTruthy();expect(first.expected_price).toBe(25);expect(second).toEqual(first);
+    expect(first.request_id).toBeTruthy();expect(first.expected_price).toBe(500);expect(second).toEqual(first);
   });
   it('refreshes a stale price and waits for a new explicit purchase at the new price',async()=>{
     const api=server();api.state.priceChanged=true;render(<GameShop/>);await unlock();
     expect(await screen.findByRole('alert')).toBeTruthy();
-    expect(await screen.findByRole('button',{name:'Unlock Pack the bag for 50 Lingocoins'})).toBeTruthy();
+    expect(await screen.findByRole('button',{name:'Unlock Pack the bag for 650 Lingocoins'})).toBeTruthy();
+    expect(screen.getByRole('button',{name:'Unlock Follow the directions for 1200 Lingocoins'})).toBeTruthy();
     expect(api.posts()).toHaveLength(1);expect(screen.queryByRole('link',{name:'Play Pack the bag'})).toBeNull();
-    await unlock('Pack the bag',50);await screen.findByRole('link',{name:'Play Pack the bag'});
+    await unlock('Pack the bag',650);await screen.findByRole('link',{name:'Play Pack the bag'});
     const first=JSON.parse(api.posts()[0][1]!.body as string),second=JSON.parse(api.posts()[1][1]!.body as string);
-    expect(second.expected_price).toBe(50);expect(second.request_id).not.toBe(first.request_id);
+    expect(second.expected_price).toBe(650);expect(second.request_id).not.toBe(first.request_id);
   });
   it('refreshes insufficient funds without unlocking or retrying automatically',async()=>{
     const api=server();api.state.fail='insufficient_funds';render(<GameShop/>);
-    await screen.findByRole('button',{name:'Unlock Pack the bag for 25 Lingocoins'});
+    await screen.findByRole('button',{name:'Unlock Pack the bag for 500 Lingocoins'});
     api.state.catalogue.shop!.balance=3;for(const game of api.state.catalogue.games)game.purchase!.can_purchase=false;
     await unlock();await screen.findByRole('alert');
     expect(screen.getByLabelText('3 Lingocoins')).toBeTruthy();
-    expect((screen.getByRole('button',{name:'Unlock Pack the bag for 25 Lingocoins'}) as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByRole('button',{name:'Unlock Pack the bag for 500 Lingocoins'}) as HTMLButtonElement).disabled).toBe(true);
     expect(api.posts()).toHaveLength(1);
   });
   it('keeps the confirmed game when refresh fails but blocks purchases with stale prices',async()=>{
     const api=server();api.state.refreshFails=true;render(<GameShop/>);await unlock();
     expect(await screen.findByRole('link',{name:'Play Pack the bag'})).toBeTruthy();
     expect(await screen.findByRole('button',{name:'Refresh shop'})).toBeTruthy();
-    expect((screen.getByRole('button',{name:'Unlock Follow the directions for 25 Lingocoins'}) as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByRole('button',{name:'Unlock Follow the directions for 1200 Lingocoins'}) as HTMLButtonElement).disabled).toBe(true);
     api.state.refreshFails=false;fireEvent.click(screen.getByRole('button',{name:'Refresh shop'}));
-    await screen.findByRole('button',{name:'Unlock Follow the directions for 50 Lingocoins'});
+    await waitFor(()=>expect((screen.getByRole('button',{name:'Unlock Follow the directions for 1200 Lingocoins'}) as HTMLButtonElement).disabled).toBe(false));
   });
   it('accepts a signed wallet after a reward reversal and shows the true shortfall',async()=>{
     const api=server(catalogue(-1));render(<GameShop/>);
     expect(await screen.findByLabelText('-1 Lingocoins')).toBeTruthy();
-    expect(screen.getAllByText('26 more coins needed')).toHaveLength(2);
-    expect((screen.getByRole('button',{name:'Unlock Pack the bag for 25 Lingocoins'}) as HTMLButtonElement).disabled).toBe(true);
+    expect(screen.getByText('501 more coins needed')).toBeTruthy();
+    expect(screen.getByText('1201 more coins needed')).toBeTruthy();
+    expect((screen.getByRole('button',{name:'Unlock Pack the bag for 500 Lingocoins'}) as HTMLButtonElement).disabled).toBe(true);
     expect(api.posts()).toHaveLength(0);
   });
   it('removes purchase controls and asks to reopen the profile if identity changes',async()=>{
@@ -129,6 +157,6 @@ describe('Shop',()=>{
   it('has Russian shop and purchase copy',async()=>{
     server();render(<GameLanguage.Provider value="ru"><GameShop/></GameLanguage.Provider>);
     expect(await screen.findByRole('heading',{name:'Магазин'})).toBeTruthy();
-    expect(await screen.findByRole('button',{name:'Открыть «Собери сумку» за 25 лингокоинов'})).toBeTruthy();
+    expect(await screen.findByRole('button',{name:'Открыть «Собери сумку» за 500 лингокоинов'})).toBeTruthy();
   });
 });

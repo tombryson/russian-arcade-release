@@ -100,6 +100,9 @@ class JourneyGamesTests(unittest.TestCase):
                 award(conn, 'personal-learning', activity='reading',
                       content_key=f'read-{index}', source_key=f'read-{index}',
                       title='Completed reading practice', now=946684800 + (index // 4) * 86400)
+            conn.execute('INSERT INTO progression_entries VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+                         (identifier(), 'personal-learning', None, 'saved-wallet', 1200, 0,
+                          'legacy', '', 'Saved wallet', 'fixture-v1', timestamp()))
         before = self.counts()
         for _ in range(2):
             games = self.client.get('/api/v1/games').json['games']
@@ -107,7 +110,7 @@ class JourneyGamesTests(unittest.TestCase):
             self.assertTrue(all(game['purchase']['can_purchase'] for game in games))
         self.assertEqual(self.counts(), before)
         self.start('directions', status=409)
-        self.request('/api/v1/games/pack-bag/purchase', {'request_id': identifier(), 'expected_price': 25})
+        self.request('/api/v1/games/pack-bag/purchase', {'request_id': identifier(), 'expected_price': 500})
         self.assertTrue(self.client.get('/api/v1/games').json['games'][0]['new'])
         started = self.start()
         game = self.client.get('/api/v1/games').json['games'][0]

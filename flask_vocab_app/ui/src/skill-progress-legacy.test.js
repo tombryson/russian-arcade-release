@@ -3,6 +3,7 @@ import {JSDOM} from 'jsdom';
 import {afterEach,describe,expect,it,vi} from 'vitest';
 import {waitFor} from '@testing-library/preact';
 const script=readFileSync('../static/js/progression.js','utf8');
+const celebrationScript=readFileSync('../static/js/game_unlock_celebration.js','utf8');
 const template=readFileSync('../templates/_skill_progress.html','utf8');
 let dom;
 afterEach(()=>dom?.window.close());
@@ -25,6 +26,7 @@ async function setup(initial=data(),{household=false,language='en',layout='top',
   const fetch=vi.fn(async(url)=>url==='/api/v1/progression' ? {ok:!state.fail,status:state.fail ? state.status : 200,json:async()=>state.data} : savedResponse);
   dom.window.fetch=fetch;dom.window.Request=class Request {};
   dom.window.setInterval=()=>0;
+  dom.window.eval(celebrationScript);
   dom.window.eval(script);
   const document=dom.window.document;
   const rail=document.querySelector('[data-skill-rail]');
@@ -39,6 +41,24 @@ async function setup(initial=data(),{household=false,language='en',layout='top',
 }
 
 describe('Shared progress in existing activities',()=>{
+  it.each([['unauthorized',401],['account_changed',409]])('celebrates without disturbing the activity and clears on %s',async(code,status)=>{
+    const game_shop={enabled:true,policy:'game-shop-v2',offers:[{id:'pack-bag',price:500}]};
+    const {state,document,refresh,savedResponse}=await setup(data({balance:499,game_shop}));
+    const draft=document.querySelector('textarea');draft.focus();draft.setSelectionRange(2,5);
+    expect(document.querySelector('.game-unlock-notice')).toBeNull();
+    state.data=data({balance:502,game_shop});
+    expect(await refresh()).toBe(savedResponse);
+    expect(document.querySelector('.game-unlock-notice-message').textContent).toBe('You can unlock a game!');
+    expect(document.querySelector('.game-unlock-notice-link').getAttribute('href')).toBe('/#shop');
+    expect(document.querySelectorAll('.game-unlock-confetti')).toHaveLength(1);
+    expect(document.activeElement).toBe(draft);
+    expect([draft.selectionStart,draft.selectionEnd]).toEqual([2,5]);
+    expect(draft.value).toBe('Я читаю.');
+    state.fail=true;state.status=status;state.data={error:{code}};
+    await refresh();
+    expect(document.querySelector('.game-unlock-notice')).toBeNull();
+    expect(document.querySelector('.game-unlock-confetti')).toBeNull();
+  });
   it('distinguishes a full preparation bar from a saved milestone pass',async()=>{
     const {rail,state,refresh}=await setup(rated({progress:1,status:'ready'}));
     expect(rail.querySelector('[data-skill-bar]').getAttribute('aria-valuetext')).toContain('100% prepared for checkpoint');

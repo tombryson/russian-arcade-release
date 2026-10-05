@@ -8,7 +8,7 @@ import unittest
 from migrations import MIGRATION_DIR, upgrade_database
 from repositories.learning_repository import LearningError, encoded, identifier, timestamp, transaction
 from services.first_steps import chapter_content
-from services.game_access import access_state, purchase, wallet_balance
+from services.game_access import GAME_IDS, GAME_PRICES, POLICY, access_state, purchase, wallet_balance
 from services.progression import award, reverse, snapshot
 from services.scene_builder import build_content, options as scene_options
 from tests.support import isolated_app, select_test_profile, latest_schema_version, strip_course_progression
@@ -42,7 +42,7 @@ class GameAccessTests(unittest.TestCase):
                       category, '2000-01-01', 'Saved practice', 'fixture-v1', now))
         return receipt_id
 
-    def fund(self, amount=100, **kwargs):
+    def fund(self, amount=2500, **kwargs):
         with transaction(self.db, write=True) as conn:
             return self.receipt(conn, amount, **kwargs)
 
@@ -65,7 +65,9 @@ class GameAccessTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200, response.text)
         return response.json, {game['id']: game for game in response.json['games']}
 
-    def buy(self, game='scene-builder', request_id='first-purchase', price=25, status=200):
+    def buy(self, game='scene-builder', request_id='first-purchase', price=None, status=200):
+        if price is None:
+            price = GAME_PRICES.get(game, 800)
         return self.request('/api/v1/games/' + game + '/purchase',
                             {'request_id': request_id, 'expected_price': price}, status=status)
 
@@ -79,96 +81,180 @@ class GameAccessTests(unittest.TestCase):
         self.assertTrue(all(not game['unlocked'] for game in self.catalogue()[1].values()))
 
     def test_large_wallet_and_core_rewards_never_automatically_unlock(self):
-        self.fund(1000)
+        self.fund(2500)
         with transaction(self.db, write=True) as conn:
             award(conn, 'personal-learning', activity='reading', content_key='new-reading',
                   source_key='new-reading', title='Reading')
         for _ in range(2):
             state, games = self.catalogue()
-            self.assertEqual(state['shop'], {'balance': 1003, 'first_purchase': True, 'price': 25, 'enabled': True})
+            self.assertEqual(state['shop'], {'balance': 2503, 'enabled': True, 'policy': POLICY})
             self.assertTrue(all(not game['unlocked'] and game['purchase']['can_purchase'] for game in games.values()))
         with transaction(self.db) as conn:
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM journey_game_access').fetchone()[0], 0)
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM journey_game_purchases').fetchone()[0], 0)
 
-    def test_first_choice_costs_25_then_any_other_costs_50(self):
-        self.fund(100)
+    def test_each_game_has_a_distinct_price_at_least_ten_times_old_standard_price(self):
+        _, games = self.catalogue()
+        prices = {game: games[game]['purchase']['price'] for game in GAME_IDS}
+        self.assertEqual(prices, {
+            'pack-bag': 500, 'missing-stamp': 600, 'mailbox-sort': 700,
+            'scene-builder': 800, 'letter-back': 900, 'radio': 1000,
+            'detective': 1100, 'directions': 1200,
+        })
+        self.assertEqual(len(set(prices.values())), len(GAME_IDS))
+        self.assertTrue(all(price >= 10 * 50 for price in prices.values()))
+        with transaction(self.db) as conn:
+            legacy = access_state(conn, 'personal-learning')['pairs']['purchase']
+            self.assertEqual(legacy['price'], 800)
+            self.assertFalse(legacy['can_purchase'])
+
+    def test_each_game_price_is_the_same_for_first_and_later_purchases(self):
+        self.fund(2500)
         first = self.buy('directions')
         self.assertEqual({k: first[k] for k in ('game_id', 'charged', 'balance', 'owned', 'already_owned')},
-                         {'game_id': 'directions', 'charged': 25, 'balance': 75, 'owned': True, 'already_owned': False})
+                         {'game_id': 'directions', 'charged': 1200, 'balance': 1300, 'owned': True, 'already_owned': False})
         state, games = self.catalogue()
-        self.assertFalse(state['shop']['first_purchase'])
-        self.assertEqual(state['shop']['price'], 50)
+        self.assertEqual({game: games[game]['purchase']['price'] for game in GAME_IDS},
+                         {game: GAME_PRICES[game] for game in GAME_IDS})
         self.assertTrue(games['directions']['purchase']['owned'])
         self.assertFalse(games['directions']['purchase']['can_purchase'])
-        second = self.buy('scene-builder', 'second-purchase', 50)
-        self.assertEqual((second['charged'], second['balance']), (50, 25))
+        second = self.buy('scene-builder', 'second-purchase')
+        self.assertEqual((second['charged'], second['balance']), (800, 500))
         state, games = self.catalogue()
         self.assertTrue(games['scene-builder']['unlocked'])
         self.assertFalse(games['radio']['purchase']['can_purchase'])
+        self.assertTrue(games['pack-bag']['purchase']['can_purchase'])
 
     def test_old_wallet_and_intro_coins_are_spendable(self):
-        self.fund(10, event=False, eligible=0)
-        self.fund(15, activity='first_steps')
+        self.fund(400, event=False, eligible=0)
+        self.fund(400, activity='first_steps')
         self.assertEqual(self.buy()['balance'], 0)
         with transaction(self.db) as conn:
             self.assertEqual(wallet_balance(conn, 'personal-learning'), 0)
             row = conn.execute("SELECT * FROM progression_entries WHERE category='purchase'").fetchone()
-            self.assertEqual((row['amount'], row['eligible'], row['event_id']), (-25, 0, None))
+            self.assertEqual((row['amount'], row['eligible'], row['event_id']), (-800, 0, None))
+
+    def test_progression_offers_match_unowned_prices_and_are_read_only(self):
+        self.fund(800)
+        with transaction(self.db) as conn:
+            before = snapshot(conn, 'personal-learning')['game_shop']
+        self.assertEqual(before, {'enabled': True, 'policy': POLICY, 'offers': [
+            {'id': game, 'price': GAME_PRICES[game]} for game in GAME_IDS]})
+        self.buy()
+        with transaction(self.db) as conn:
+            changes = conn.total_changes
+            after = snapshot(conn, 'personal-learning')['game_shop']
+            self.assertEqual(conn.total_changes, changes)
+            self.assertEqual(after['offers'], [offer for offer in before['offers'] if offer['id'] != 'scene-builder'])
+            self.assertEqual(snapshot(conn, None)['game_shop'], {'enabled': False, 'policy': POLICY, 'offers': []})
+        with self.app.app_context(), transaction(self.db) as conn:
+            self.app.config['PUBLIC_DEMO'] = True
+            self.assertEqual(snapshot(conn, 'personal-learning')['game_shop'],
+                             {'enabled': False, 'policy': POLICY, 'offers': []})
+
+    def test_price_migration_keeps_old_purchase_receipt_ownership_and_ledger_unchanged(self):
+        self.fund(100, event=False, eligible=0)
+        historical = {'game_id': 'scene-builder', 'charged': 25, 'balance': 75,
+                      'owned': True, 'already_owned': False}
+        with transaction(self.db, write=True) as conn:
+            conn.execute('DROP TABLE journey_game_purchases')
+            original = 'CREATE TABLE journey_game_purchases (' + (MIGRATION_DIR / '039_game_shop.sql').read_text().split('CREATE TABLE journey_game_purchases (', 1)[1]
+            statement = ''
+            for line in original.splitlines(keepends=True):
+                statement += line
+                if sqlite3.complete_statement(statement):
+                    conn.execute(statement)
+                    statement = ''
+            conn.execute('DELETE FROM schema_migrations WHERE version=66')
+            conn.execute('INSERT INTO progression_entries VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+                         ('old-debit', 'personal-learning', None, 'game-purchase:old-purchase', -25,
+                          0, 'purchase', '2000-01-01', 'Game unlock: scene-builder', 'game-shop-v1', 1))
+            conn.execute('INSERT INTO journey_game_access VALUES (?,?,?,?,?)',
+                         ('personal-learning', 'scene-builder', 1, 2, 'game-shop-v1'))
+            conn.execute('INSERT INTO journey_game_purchases(rowid,profile_id,request_id,game_id,expected_price,charged,entry_id,result_json,created_at) VALUES (17,?,?,?,?,?,?,?,?)',
+                         ('personal-learning', 'old-purchase', 'scene-builder', 25, 25,
+                          'old-debit', encoded(historical), 1))
+            tables = {name: [tuple(row) for row in conn.execute('SELECT rowid,* FROM ' + name)]
+                      for name in ('progression_entries', 'journey_game_access', 'journey_game_purchases')}
+        self.assertEqual(upgrade_database(self.db, backup=False)[0], latest_schema_version())
+        _, games = self.catalogue()
+        self.assertTrue(games['scene-builder']['unlocked'])
+        self.assertFalse(games['scene-builder']['new'])
+        self.assertEqual(games['scene-builder']['purchase']['price'], 800)
+        result = self.buy(request_id='old-purchase', price=25)
+        self.assertEqual({field: result[field] for field in historical}, historical)
+        with transaction(self.db) as conn:
+            for name, rows in tables.items():
+                self.assertEqual([tuple(row) for row in conn.execute('SELECT rowid,* FROM ' + name)], rows, name)
+            self.assertIsNone(conn.execute('PRAGMA foreign_key_check').fetchone())
+        self.assertEqual(upgrade_database(self.db, backup=False)[0], latest_schema_version())
+        for command in ("UPDATE journey_game_purchases SET charged=0", "DELETE FROM journey_game_purchases"):
+            with self.assertRaises(sqlite3.IntegrityError):
+                with transaction(self.db, write=True) as conn:
+                    conn.execute(command)
 
     def test_retry_is_identical_and_owned_click_never_charges_again(self):
-        self.fund(100)
+        self.fund(2500)
         first = self.buy()
         self.assertEqual(first, self.buy())
         owned = self.buy(request_id='another-request', price=25)
-        self.assertEqual((owned['charged'], owned['balance'], owned['already_owned']), (0, 75, True))
+        self.assertEqual((owned['charged'], owned['balance'], owned['already_owned']), (0, 1700, True))
         with transaction(self.db) as conn:
             self.assertEqual(conn.execute("SELECT COUNT(*) FROM progression_entries WHERE category='purchase'").fetchone()[0], 1)
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM journey_game_access').fetchone()[0], 1)
 
     def test_reusing_purchase_request_for_other_choice_is_conflict(self):
-        self.fund(100)
+        self.fund(2500)
         self.buy()
-        for game, price in (('directions', 25), ('scene-builder', 50)):
+        for game, price in (('directions', 1200), ('scene-builder', 25)):
             result = self.buy(game, price=price, status=409)
             self.assertEqual(result['error']['code'], 'idempotency_conflict')
 
     def test_failed_receipt_rolls_back_debit_and_ownership_together(self):
-        self.fund(100)
+        self.fund(2500)
         with transaction(self.db, write=True) as conn:
             conn.execute("CREATE TRIGGER test_purchase_failure BEFORE INSERT ON journey_game_purchases "
                          "BEGIN SELECT RAISE(ABORT,'Simulated storage failure'); END")
         with self.assertRaises(sqlite3.IntegrityError):
             self.buy()
         with transaction(self.db) as conn:
-            self.assertEqual(wallet_balance(conn, 'personal-learning'), 100)
+            self.assertEqual(wallet_balance(conn, 'personal-learning'), 2500)
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM journey_game_access').fetchone()[0], 0)
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM journey_game_purchases').fetchone()[0], 0)
 
     def test_stale_price_never_silently_charges_higher_amount(self):
-        self.fund(100)
+        self.fund(2500)
         self.buy()
         stale = self.buy('directions', 'stale-price', 25, status=409)
         self.assertEqual(stale['error']['code'], 'price_changed')
-        self.assertEqual(stale['error']['price'], 50)
+        self.assertEqual(stale['error']['price'], 1200)
         with transaction(self.db) as conn:
-            self.assertEqual(wallet_balance(conn, 'personal-learning'), 75)
+            self.assertEqual(wallet_balance(conn, 'personal-learning'), 1700)
             self.assertFalse(access_state(conn, 'personal-learning')['directions']['unlocked'])
-        self.assertEqual(self.buy('directions', 'stale-price', 50)['charged'], 50)
+        self.assertEqual(self.buy('directions', 'stale-price', 1200)['charged'], 1200)
+
+    def test_other_game_price_cannot_be_used_for_a_more_expensive_game(self):
+        self.fund(2500)
+        response = self.buy('directions', price=500, status=409)
+        self.assertEqual(response['error']['code'], 'price_changed')
+        self.assertEqual(response['error']['price'], 1200)
+        with transaction(self.db) as conn:
+            self.assertEqual(wallet_balance(conn, 'personal-learning'), 2500)
+            self.assertEqual(conn.execute('SELECT COUNT(*) FROM journey_game_purchases').fetchone()[0], 0)
 
     def test_insufficient_balance_changes_nothing(self):
-        self.fund(24)
+        self.fund(799)
         result = self.buy(status=409)
         self.assertEqual(result['error']['code'], 'insufficient_coins')
         with transaction(self.db) as conn:
-            self.assertEqual(wallet_balance(conn, 'personal-learning'), 24)
+            self.assertEqual(wallet_balance(conn, 'personal-learning'), 799)
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM journey_game_purchases').fetchone()[0], 0)
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM journey_game_access').fetchone()[0], 0)
         self.fund(1)
-        self.assertEqual(self.buy()['charged'], 25)
+        self.assertEqual(self.buy()['charged'], 800)
 
     def test_profile_required_and_other_profile_cannot_spend_or_inherit_access(self):
-        self.fund(100)
+        self.fund(2500)
         self.buy()
         guest = self.app.test_client()
         token = guest.get('/api/v1/games').json['csrf_token']
@@ -181,11 +267,11 @@ class GameAccessTests(unittest.TestCase):
             conn.execute("INSERT INTO learning_profiles(id,display_name,avatar,study_timezone,created_at) VALUES ('other','Other','cat','UTC',?)", (timestamp(),))
         select_test_profile(self.client, 'other')
         self.assertFalse(self.catalogue()[1]['scene-builder']['unlocked'])
-        self.assertTrue(self.catalogue()[0]['shop']['first_purchase'])
+        self.assertEqual(self.catalogue()[1]['scene-builder']['purchase']['price'], 800)
         self.assertEqual(self.buy(status=409)['error']['code'], 'insufficient_coins')
 
     def test_post_requires_csrf_and_strict_price(self):
-        self.fund(100)
+        self.fund(2500)
         response = self.client.post('/api/v1/games/scene-builder/purchase', json={'request_id': 'no-csrf', 'expected_price': 25})
         self.assertEqual(response.status_code, 403)
         for price in (True, '25', -1, 25.0):
@@ -194,7 +280,7 @@ class GameAccessTests(unittest.TestCase):
         self.assertEqual(self.buy('pairs', status=404)['error']['code'], 'not_found')
 
     def test_purchase_does_not_change_skill_earned_total_daily_allowance_or_journey(self):
-        self.fund(100)
+        self.fund(2500)
         with transaction(self.db, write=True) as conn:
             award(conn, 'personal-learning', activity='reading', content_key='before', source_key='before', title='Reading')
             before = snapshot(conn, 'personal-learning')
@@ -203,7 +289,7 @@ class GameAccessTests(unittest.TestCase):
         self.buy()
         with transaction(self.db, write=True) as conn:
             after = snapshot(conn, 'personal-learning')
-            self.assertEqual(after['balance'], before['balance'] - 25)
+            self.assertEqual(after['balance'], before['balance'] - 800)
             for field in ('earned_total', 'legacy_balance', 'skill', 'journey'):
                 self.assertEqual(after[field], before[field], field)
             for name, rows in tables.items():
@@ -212,7 +298,7 @@ class GameAccessTests(unittest.TestCase):
             self.assertEqual(rewards, [3, 3, 3, 0])
 
     def test_undo_after_spending_keeps_right_and_append_only_history(self):
-        self.fund(22)
+        self.fund(797)
         with transaction(self.db, write=True) as conn:
             award(conn, 'personal-learning', activity='reading', content_key='undoable', source_key='undoable', title='Reading')
         self.buy()
@@ -228,7 +314,7 @@ class GameAccessTests(unittest.TestCase):
                     conn.execute('DELETE FROM ' + table)
 
     def test_paid_purchase_opens_game_without_introduction(self):
-        self.fund(25)
+        self.fund(800)
         self.buy()
         self.assertTrue(self.catalogue()[1]['scene-builder']['new'])
         state = self.request('/api/v1/games/scene-builder/start',
@@ -253,7 +339,7 @@ class GameAccessTests(unittest.TestCase):
         with transaction(self.db, write=True) as conn:
             self.legacy_unlock(conn, 'radio')
             session_id, saved_content = self.saved_scene(conn, sample=sample)
-            self.receipt(conn, 100, 'first_steps')
+            self.receipt(conn, 2500, 'first_steps')
             before_ledger = [tuple(row) for row in conn.execute('SELECT rowid,* FROM progression_entries')]
             strip_course_progression(conn)
             conn.execute('DROP TABLE journey_game_purchases')
@@ -279,9 +365,9 @@ class GameAccessTests(unittest.TestCase):
         self.assertTrue(games['scene-builder']['unlocked'])
         self.assertFalse(games['radio']['unlocked'])
         self.assertEqual(games['scene-builder']['active_session_id'], session_id)
-        self.assertTrue(state['shop']['first_purchase'])
+        self.assertEqual(games['radio']['purchase']['price'], 1000)
         self.assertEqual(self.client.get('/api/v1/games/sessions/' + session_id).status_code, 200)
-        self.assertEqual(self.buy('radio')['charged'], 25)
+        self.assertEqual(self.buy('radio')['charged'], 1000)
         self.assertEqual(upgrade_database(self.db, backup=False)[0], latest_schema_version())
         other = self.app.test_client()
         self.assertEqual(other.get('/api/v1/games/sessions/' + session_id).status_code, 404)
@@ -290,14 +376,14 @@ class GameAccessTests(unittest.TestCase):
         self.migrate_from_38(sample=True)
         self.assertFalse(self.catalogue()[1]['scene-builder']['unlocked'])
 
-    def test_grandfathered_right_does_not_consume_discount(self):
-        self.fund(100)
+    def test_grandfathered_right_remains_owned_and_does_not_change_prices(self):
+        self.fund(2500)
         with transaction(self.db, write=True) as conn:
             conn.execute('INSERT INTO journey_game_access VALUES (?,?,?,?,?)',
                          ('personal-learning', 'scene-builder', 1, 1, 'practice-coins-v1'))
         self.assertEqual(self.buy('scene-builder')['charged'], 0)
-        self.assertTrue(self.catalogue()[0]['shop']['first_purchase'])
-        self.assertEqual(self.buy('directions', 'first-paid')['charged'], 25)
+        self.assertEqual(self.catalogue()[1]['directions']['purchase']['price'], 1200)
+        self.assertEqual(self.buy('directions', 'first-paid')['charged'], 1200)
 
     def concurrent(self, choices):
         barrier = threading.Barrier(len(choices))
@@ -312,36 +398,35 @@ class GameAccessTests(unittest.TestCase):
             return list(pool.map(attempt, choices))
 
     def test_concurrent_same_game_charges_once(self):
-        self.fund(100)
-        results = self.concurrent([('scene-builder', 'parallel-one', 25), ('scene-builder', 'parallel-two', 25)])
-        self.assertEqual(sorted(row['charged'] for row in results), [0, 25])
+        self.fund(2500)
+        results = self.concurrent([('scene-builder', 'parallel-one', 800), ('scene-builder', 'parallel-two', 800)])
+        self.assertEqual(sorted(row['charged'] for row in results), [0, 800])
         with transaction(self.db) as conn:
-            self.assertEqual(wallet_balance(conn, 'personal-learning'), 75)
+            self.assertEqual(wallet_balance(conn, 'personal-learning'), 1700)
 
     def test_concurrent_same_request_returns_same_receipt(self):
-        self.fund(100)
-        results = self.concurrent([('scene-builder', 'same-request', 25)] * 2)
+        self.fund(2500)
+        results = self.concurrent([('scene-builder', 'same-request', 800)] * 2)
         self.assertEqual(results[0], results[1])
         with transaction(self.db) as conn:
             self.assertEqual(conn.execute('SELECT COUNT(*) FROM journey_game_purchases').fetchone()[0], 1)
 
-    def test_concurrent_different_games_cannot_both_claim_first_discount(self):
-        self.fund(100)
-        results = self.concurrent([('scene-builder', 'parallel-one', 25), ('directions', 'parallel-two', 25)])
-        self.assertEqual(sum(isinstance(row, dict) for row in results), 1)
-        self.assertIn('price_changed', results)
+    def test_concurrent_different_games_keep_their_displayed_prices(self):
+        self.fund(2500)
+        results = self.concurrent([('scene-builder', 'parallel-one', 800), ('directions', 'parallel-two', 1200)])
+        self.assertEqual(sorted(row['charged'] for row in results), [800, 1200])
         with transaction(self.db) as conn:
-            self.assertEqual(wallet_balance(conn, 'personal-learning'), 75)
-            self.assertEqual(conn.execute('SELECT COUNT(*) FROM journey_game_access').fetchone()[0], 1)
+            self.assertEqual(wallet_balance(conn, 'personal-learning'), 500)
+            self.assertEqual(conn.execute('SELECT COUNT(*) FROM journey_game_access').fetchone()[0], 2)
 
-    def test_concurrent_full_price_purchases_cannot_overspend(self):
-        self.fund(75)
+    def test_concurrent_purchases_cannot_overspend(self):
+        self.fund(1700)
         self.buy('pack-bag')
-        results = self.concurrent([('scene-builder', 'parallel-one', 50), ('directions', 'parallel-two', 50)])
+        results = self.concurrent([('scene-builder', 'parallel-one', 800), ('directions', 'parallel-two', 1200)])
         self.assertEqual(sum(isinstance(row, dict) for row in results), 1)
         self.assertIn('insufficient_coins', results)
         with transaction(self.db) as conn:
-            self.assertEqual(wallet_balance(conn, 'personal-learning'), 0)
+            self.assertEqual(wallet_balance(conn, 'personal-learning'), 1200 - next(row['charged'] for row in results if isinstance(row, dict)))
 
     def test_demo_samples_remain_available_but_shop_is_disabled(self):
         self.app.config['PUBLIC_DEMO'] = True

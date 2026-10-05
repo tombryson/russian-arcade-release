@@ -4,7 +4,7 @@ import type {DeliveryState} from './delivery-types';
 export type JourneyGameId='pack-bag'|'directions'|'pairs'|'mailbox-sort'|'missing-stamp'|'radio'|'detective'|'letter-back'|'scene-builder';
 export type GameUnlock={required_coins:number;earned_coins:number;remaining_coins:number};
 export type GamePurchase={price:number;owned:boolean;can_purchase:boolean};
-export type GameShopState={balance:number|null;first_purchase:boolean;price:number;enabled:boolean};
+export type GameShopState={balance:number|null;enabled:boolean;policy?:string};
 export type GamePurchaseReceipt={game_id:JourneyGameId;charged:number;balance:number;owned:true;already_owned:boolean};
 export type GameSummary={id:JourneyGameId;title:string;description:string;lesson_id:string;lesson_title:string;lesson_href:string;unlocked:boolean;unlock?:GameUnlock;purchase?:GamePurchase;new:boolean;availability?:'sample'|'local-only';active_session_id:string|null};
 export type GameSources={word_count:number;form_count:number;topics:string[];lessons:{id:string;title:string;count:number}[]};
@@ -33,7 +33,7 @@ export async function getGames(signal?:AbortSignal):Promise<GameCatalogueState> 
   const value=await api<GameCatalogueState>('/api/v1/games',undefined,signal);
   if(!value||!Array.isArray(value.games)||!value.games.every(game=>game&&typeof game.id==='string'&&typeof game.title==='string'&&typeof game.unlocked==='boolean'&&typeof game.lesson_href==='string'))throw new Error('Your games could not load. Please try again.');
   if(value.games.some(game=>game.unlock && (![game.unlock.required_coins,game.unlock.earned_coins,game.unlock.remaining_coins].every(value=>Number.isInteger(value)&&value>=0))))throw new Error('Your games could not load. Please try again.');
-  if(value.shop && (!(value.shop.balance===null || Number.isInteger(value.shop.balance)) || !Number.isInteger(value.shop.price) || value.shop.price<0 || typeof value.shop.first_purchase!=='boolean' || typeof value.shop.enabled!=='boolean'))throw new Error('Your shop could not load. Please try again.');
+  if(value.shop && (!(value.shop.balance===null || Number.isInteger(value.shop.balance)) || typeof value.shop.enabled!=='boolean'))throw new Error('Your shop could not load. Please try again.');
   if(value.games.some(game=>game.purchase && (!Number.isInteger(game.purchase.price)||game.purchase.price<0||typeof game.purchase.owned!=='boolean'||typeof game.purchase.can_purchase!=='boolean')))throw new Error('Your shop could not load. Please try again.');
   if(value.sources){const sources=value.sources;if(!Number.isFinite(sources.word_count)||!Number.isFinite(sources.form_count)||!Array.isArray(sources.topics)||!sources.topics.every(topic=>typeof topic==='string')||!Array.isArray(sources.lessons)||!sources.lessons.every(lesson=>lesson&&typeof lesson.id==='string'&&typeof lesson.title==='string'&&Number.isFinite(lesson.count)))throw new Error('Your word sources could not load. Please try again.');}
   return value;

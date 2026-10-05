@@ -9,7 +9,7 @@ const data:ProgressionData={profile_id:'personal',balance:42,earned_total:3,lega
 const scene={world:data.journey.worlds[1],scene:{title:'A letter for you',title_ru:'Письмо для вас',intro:'Barsik picks up your letter.',intro_ru:'Барсик берёт ваше письмо.',prompt:'What does привет mean?',prompt_ru:'Что означает слово «привет»?',choices:[{id:'hello',text:'Hello',text_ru:'Привет'},{id:'thanks',text:'Thank you',text_ru:'Спасибо'}],completed:false},progression:data};
 const response=(value:unknown)=>Promise.resolve({ok:true,json:async()=>value});
 const source=()=>({data,error:'',loading:false,refresh:vi.fn()});
-afterEach(()=>{vi.useRealTimers();vi.unstubAllGlobals();window.history.replaceState(null,'','/');});
+afterEach(()=>{window.arcadeGameUnlocks?.reset();localStorage.clear();vi.useRealTimers();vi.unstubAllGlobals();window.history.replaceState(null,'','/');});
 
 describe('Shared progression',()=>{
   it('shows the real balance and uses new earnings for journey progress',()=>{
@@ -51,6 +51,41 @@ describe('Shared progression',()=>{
     balance=45;window.dispatchEvent(new Event('lingo:progression'));
     expect(await screen.findByRole('link',{name:'Lingo coins: 45'})).toBeTruthy();
     expect(fetch.mock.calls).toHaveLength(2);
+  });
+  it('celebrates an earned game price once and keeps the shop link inside the demo',async()=>{
+    window.history.replaceState(null,'','/demo/#flashcards');
+    let balance=499;
+    const fetch=vi.fn(()=>response({...data,balance,game_shop:{enabled:true,policy:'game-shop-v2',offers:[{id:'pack-bag',price:500}]}}));
+    vi.stubGlobal('fetch',fetch);
+    function Header(){return <ProgressionBadge progression={useProgression(true,'personal')} />;}
+    const {unmount}=render(<Header />);
+    await screen.findByRole('link',{name:'Lingo coins: 499'});
+    expect(screen.queryByText('You can unlock a game!')).toBeNull();
+    balance=502;window.dispatchEvent(new Event('lingo:progression'));
+    await screen.findByText('You can unlock a game!');
+    expect(screen.getByRole('link',{name:'Visit shop'}).getAttribute('href')).toBe('/demo/#shop');
+    expect(document.querySelectorAll('.game-unlock-confetti')).toHaveLength(1);
+    fireEvent.click(screen.getByRole('button',{name:'Dismiss notification'}));
+    window.dispatchEvent(new Event('lingo:progression'));
+    await waitFor(()=>expect(fetch.mock.calls).toHaveLength(3));
+    expect(screen.queryByText('You can unlock a game!')).toBeNull();
+    unmount();
+    expect(document.querySelector('.game-unlock-confetti')).toBeNull();
+  });
+  it.each([['unauthorized',401],['account_changed',409]])('removes the celebration on %s',async(code,status)=>{
+    let value:unknown={...data,balance:499,game_shop:{enabled:true,policy:`game-shop-v2-${code}`,offers:[{id:'pack-bag',price:500}]}};
+    let expired=false;
+    vi.stubGlobal('fetch',vi.fn(()=>Promise.resolve({ok:!expired,status:expired ? status : 200,json:async()=>value})));
+    function Header(){return <ProgressionBadge progression={useProgression(true,'personal')} />;}
+    render(<Header />);
+    await screen.findByRole('link',{name:'Lingo coins: 499'});
+    value={...(value as ProgressionData),balance:500};window.dispatchEvent(new Event('lingo:progression'));
+    await screen.findByText('You can unlock a game!');
+    expired=true;value={error:{code,message:'Sign in again.'}};
+    window.dispatchEvent(new Event('lingo:progression'));
+    await screen.findByRole('link',{name:'Lingo coins: unavailable'});
+    expect(screen.queryByText('You can unlock a game!')).toBeNull();
+    expect(document.querySelector('.game-unlock-confetti')).toBeNull();
   });
   it('celebrates a saved balance increase without celebrating reloads, profile switches or reversals',()=>{
     vi.useFakeTimers();

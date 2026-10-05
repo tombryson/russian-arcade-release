@@ -23,7 +23,9 @@ def strip_curriculum_sequences(conn):
                   'learning_session_drafts', 'curriculum_transfer_exposure',
                   'curriculum_unit_requests', 'curriculum_unit_bindings', 'curriculum_unit_runs'):
         conn.execute('DROP TABLE IF EXISTS ' + table)
-    conn.execute('DELETE FROM schema_migrations WHERE version IN (56,57,58,59,60,62,63,64,65)')
+    # 066 can safely rebuild its existing purchase table when replayed; remove
+    # its marker too so it does not hide earlier migrations during this rewind.
+    conn.execute('DELETE FROM schema_migrations WHERE version IN (56,57,58,59,60,62,63,64,65,66)')
 
 
 def strip_course_progression(conn):

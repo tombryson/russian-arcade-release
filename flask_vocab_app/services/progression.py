@@ -238,6 +238,8 @@ def award_speaking(conn, session, report):
 
 
 def snapshot(conn, profile_id):
+    from flask import current_app, has_app_context
+    from services.game_access import shop_offers
     from services.skill_progress import snapshot as skill_snapshot
     from services.course_progression import course_snapshot
     conn.row_factory = sqlite3.Row
@@ -250,7 +252,9 @@ def snapshot(conn, profile_id):
     return {'profile_id':profile_id,'balance':totals[0],'earned_total':max(0,totals[1]),'legacy_balance':totals[2],
         'preferred_level':row[0] if row else 'A1','levels':LEVELS,'policy':RULES,'recent_rewards':rewards,
         'journey':{'worlds':worlds,'next_world':next((w for w in worlds if not w['completed']),None)},
-        'skill':skill_snapshot(conn, profile_id), 'course':course_snapshot(conn, profile_id)}
+        'skill':skill_snapshot(conn, profile_id), 'course':course_snapshot(conn, profile_id),
+        'game_shop':shop_offers(conn, profile_id,
+            enabled=not (has_app_context() and current_app.config.get('PUBLIC_DEMO')))}
 
 
 def journey_read(conn, profile_id, world_id):

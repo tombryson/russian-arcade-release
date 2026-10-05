@@ -10,9 +10,14 @@ import sqlite3
 from contracts.learning import key
 from repositories.learning_repository import LearningError, encoded, identifier, timestamp
 
-POLICY = 'game-shop-v1'
-FIRST_GAME_PRICE = 25
-GAME_PRICE = 50
+POLICY = 'game-shop-v2'
+GAME_PRICES = {
+    'pack-bag': 500, 'missing-stamp': 600, 'mailbox-sort': 700,
+    'scene-builder': 800, 'letter-back': 900, 'radio': 1000,
+    'detective': 1100, 'directions': 1200,
+    # Retained for legacy access records; it is not sold separately.
+    'pairs': 800,
+}
 # Stable display order, independent of price or progress.
 GAME_IDS = ('pack-bag', 'scene-builder', 'missing-stamp', 'mailbox-sort',
             'directions', 'radio', 'letter-back', 'detective')
@@ -31,11 +36,18 @@ def wallet_balance(conn, profile_id):
 
 
 def shop_state(conn, profile_id, *, enabled=True):
-    paid = profile_id and conn.execute(
-        'SELECT 1 FROM journey_game_purchases WHERE profile_id=? AND charged>0 LIMIT 1',
-        (profile_id,)).fetchone()
-    return {'balance': wallet_balance(conn, profile_id), 'first_purchase': not bool(paid),
-            'price': GAME_PRICE if paid else FIRST_GAME_PRICE, 'enabled': bool(enabled)}
+    return {'balance': wallet_balance(conn, profile_id), 'enabled': bool(enabled), 'policy': POLICY}
+
+
+def shop_offers(conn, profile_id, *, enabled=True):
+    """Unowned offers for detecting wallet affordability during practice."""
+    enabled = bool(enabled and profile_id)
+    owned = {row[0] for row in conn.execute(
+        'SELECT game_id FROM journey_game_access WHERE profile_id=?', (profile_id,))} if enabled else set()
+    return {'enabled': enabled, 'offers': [
+        {'id': game, 'price': GAME_PRICES[game]} for game in GAME_IDS
+        if game not in owned
+    ] if enabled else [], 'policy': POLICY}
 
 
 def access_state(conn, profile_id, guest=None, *, enabled=True):
@@ -45,9 +57,9 @@ def access_state(conn, profile_id, guest=None, *, enabled=True):
     return {game: {
         'unlocked': game in grants,
         'new': bool(game in grants and grants[game]['first_started_at'] is None),
-        'purchase': {'price': shop['price'], 'owned': game in grants,
-                     'can_purchase': bool(enabled and profile_id and game not in grants
-                                          and shop['balance'] >= shop['price'])},
+        'purchase': {'price': GAME_PRICES[game], 'owned': game in grants,
+                     'can_purchase': bool(enabled and profile_id and game in GAME_IDS and game not in grants
+                                          and shop['balance'] >= GAME_PRICES[game])},
     } for game in (*GAME_IDS, 'pairs')}
 
 
@@ -78,17 +90,18 @@ def purchase(conn, profile_id, game_id, request_id, expected_price, *, now=None)
     owned = bool(conn.execute('SELECT 1 FROM journey_game_access WHERE profile_id=? AND game_id=?',
                               (profile_id, game_id)).fetchone())
     shop = shop_state(conn, profile_id)
+    price = GAME_PRICES[game_id]
     charged, entry_id = 0, None
     now = timestamp() if now is None else now
     if not owned:
-        if expected_price != shop['price']:
+        if expected_price != price:
             raise LearningError('price_changed', 'The price has changed. Check the new price before unlocking this game.',
-                                409, {'price': shop['price'], 'balance': shop['balance']})
-        if shop['balance'] < shop['price']:
+                                409, {'price': price, 'balance': shop['balance']})
+        if shop['balance'] < price:
             raise LearningError('insufficient_coins', 'Earn a few more Lingocoins to unlock this game.',
-                                409, {'price': shop['price'], 'balance': shop['balance']})
+                                409, {'price': price, 'balance': shop['balance']})
         from services.progression import study_day
-        charged, entry_id = shop['price'], identifier()
+        charged, entry_id = price, identifier()
         conn.execute('INSERT INTO progression_entries VALUES (?,?,?,?,?,?,?,?,?,?,?)',
                      (entry_id, profile_id, None, 'game-purchase:' + request_id, -charged,
                       0, 'purchase', study_day(conn, profile_id, now), 'Game unlock: ' + game_id, POLICY, now))
