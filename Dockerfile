@@ -4,6 +4,7 @@ COPY flask_vocab_app/ui/package*.json ./
 RUN npm ci
 COPY flask_vocab_app/ui/ ./
 COPY flask_vocab_app/static/css/ /build/static/css/
+COPY flask_vocab_app/static/js/ /build/static/js/
 RUN npm run build
 
 FROM python:3.12-slim-bookworm

@@ -20,6 +20,7 @@ wordfreq==3.1.1
 # Security floor on every platform; Intel macOS may need a Rust/OpenSSL build.
 cryptography==50.0.1
 # Patched OAuth and HTTP dependencies; keep direct installs secure too.
+Werkzeug==3.1.9
 oauthlib==4.0.0
 urllib3==2.8.0
 # Explicit dependency for the mocked SDK transport tests.
