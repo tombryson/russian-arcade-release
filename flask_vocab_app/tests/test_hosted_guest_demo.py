@@ -363,7 +363,7 @@ class HostedGuestCompositionTests(unittest.TestCase):
             '/static/images/barsik-market-v1.webp',
             '/static/images/barsik-leaving-town-v1.webp',
         }
-        for path in sorted(journey_images | ACCOUNT_PUBLIC_ASSETS):
+        for path in sorted(journey_images | ACCOUNT_PUBLIC_ASSETS | {'/static/images/phrasebook.svg'}):
             for prefix in ('', '/demo'):
                 for method in ('GET', 'HEAD'):
                     with self.subTest(path=prefix + path, method=method):
@@ -373,6 +373,10 @@ class HostedGuestCompositionTests(unittest.TestCase):
                             if path in journey_images and method == 'GET':
                                 self.assertEqual(response.mimetype, 'image/webp')
                                 self.assertEqual(response.data[8:12], b'WEBP')
+                            if path == '/static/images/phrasebook.svg':
+                                self.assertEqual(response.mimetype, 'image/svg+xml')
+                                if method == 'GET':
+                                    self.assertTrue(response.data.startswith(b'<svg'))
         self.assertFalse(app.extensions['hosted_trial'].cache)
 
     def test_practice_recordings_are_public_and_support_partial_playback(self):

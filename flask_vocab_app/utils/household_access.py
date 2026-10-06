@@ -124,7 +124,7 @@ def install_household_policy(app):
                 'images/barsik-running-v1.webp', 'images/barsik-progress-run-v1.webp', 'images/favicon.svg',
                 'images/barsik-leaving-home-v1.webp', 'images/barsik-post-office-v1.webp',
                 'images/barsik-market-v1.webp', 'images/barsik-leaving-town-v1.webp',
-                'images/favicon.ico', 'images/apple-touch-icon.png',
+                'images/favicon.ico', 'images/apple-touch-icon.png', 'images/phrasebook.svg',
                 'images/scene-builder/cat-v1.webp', 'images/scene-builder/table-v1.webp',
                 'images/scene-builder/book-v1.webp', 'images/scene-builder/book-upright-v1.webp', 'images/scene-builder/walking-v1.webp',
                 'images/scene-builder/taxi-v1.webp',

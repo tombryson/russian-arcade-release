@@ -22,6 +22,9 @@ component families affected seven other page areas.
 The Phrasebook issue was a separate deployment mismatch. The shared illustrated
 button replaces the plain blue link. The collection itself already has compact
 Russian, English and audio columns; it did not need another redesign.
+Live verification also found the new Phrasebook icon missing from the public
+asset allowlist. Its exact path is now allowed without a profile cookie. Tests
+cover both the main and `/demo` mounts while retaining private-media protection.
 
 Static stylesheet versions for My words and Lessons were increased so browsers
 request the corrected files. Bundled application styles have content hashes.

@@ -43,6 +43,7 @@ class WordPostTests(unittest.TestCase):
             self.app.config.update(WORD_POST_HOUSEHOLD_ENABLED=household, SECRET_KEY='test-only-' * 4)
             client = FlaskClient(self.app)
             for filename, mimetypes in (('favicon.svg', ('image/svg+xml',)),
+                                       ('phrasebook.svg', ('image/svg+xml',)),
                                        ('favicon.ico', ('image/x-icon', 'image/vnd.microsoft.icon')),
                                        ('apple-touch-icon.png', ('image/png',))):
                 with client.get('/static/images/' + filename) as response:
