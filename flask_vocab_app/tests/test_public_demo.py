@@ -238,9 +238,9 @@ class PublicDemoTests(unittest.TestCase):
         denied = self.a.post(start_path, base_url=self.base, json=request_body)
         self.assertEqual(denied.status_code, 403)
 
-        def post(path, body):
+        def post(path, body, *, status=200):
             response = self.a.post(path, base_url=self.base, headers=headers, json=body)
-            self.assertEqual(response.status_code, 200, response.text)
+            self.assertEqual(response.status_code, status, response.text)
             return response.json
 
         state = post(start_path, request_body)
@@ -264,6 +264,7 @@ class PublicDemoTests(unittest.TestCase):
             saved = json.loads(conn.execute('SELECT content_json FROM course_target_practice_attempts WHERE id=?',
                                             (state['id'],)).fetchone()[0])
 
+        hint_availability = set()
         for item in saved:
             self.assertEqual(state['current_item']['id'], item['id'])
             def action(name, **values):
@@ -281,12 +282,23 @@ class PublicDemoTests(unittest.TestCase):
                 self.assertTrue(state['current_item']['listened'])
                 state = action('transcript')
                 self.assertEqual(state['current_item']['transcript'], item['question']['transcript'])
-            state = action('hint')
-            self.assertIsNotNone(state['current_item']['hint'])
+            available = state['current_item']['hint_available']
+            hint_availability.add(available)
+            self.assertIsNone(state['current_item']['hint'])
+            if available:
+                state = action('hint')
+                self.assertTrue(state['current_item']['hint']['en'])
+                self.assertTrue(state['current_item']['hint']['ru'])
+            else:
+                denied = post(path + '/hint', {'item_id': item['id'],
+                              'request_id': item['id'] + '-hint'}, status=400)
+                self.assertEqual(denied['error']['code'], 'hint_unavailable')
+                self.assertEqual(self.a.get(path, base_url=self.base).json, state)
             state = action('answer', choice_id=item['question']['answer'])
             self.assertTrue(state['current_item']['feedback']['correct'])
             state = action('next')
 
+        self.assertEqual(hint_availability, {False, True})
         self.assertEqual(state['status'], 'completed')
         self.assertTrue(state['coverage']['ready'])
         self.assertTrue(all(not target['demonstrated'] for target in state['coverage']['targets']))
