@@ -174,7 +174,6 @@ function FirstStepsPlayer({lessonId,version,profileHref,journeyHref}:{lessonId:s
     {!attempt && !error && <p role="status" class="first-steps-empty">Opening your lesson…</p>}
     {state && attempt && <>
       <IntroLessonCard title={title} counter={counter} headingRef={heading} className="is-lesson-workspace"
-        readingHelp={learning ? learning.reading_help : undefined} readingKey={teaching?.id}
         illustration={!learning && !completed && question?.visual ? <LessonVisual kind={question.visual} decorative={false}/> : undefined}
         actions={completed ? <>
           {state.next_lesson ? <a class="cta" href={state.next_lesson.href}>{nextLessonLabel(state.next_lesson)} <span aria-hidden="true">→</span></a> : <a class="cta" href={journeyHref}>Start at home <span aria-hidden="true">→</span></a>}

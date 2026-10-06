@@ -118,21 +118,21 @@ describe('First steps lesson player',()=>{
     expect((await screen.findByText('су́мка')).getAttribute('lang')).toBe('ru');
     expect(screen.getByText('This is a letter.').getAttribute('lang')).toBe('en');
     expect(screen.queryByText('Old single example')).toBeNull();expect(screen.getAllByText('Это сумка.')).toHaveLength(1);
-    expect(screen.getByText('Read this word').closest('details')!.open).toBe(false);
+    expect(screen.queryByText('Read this word')).toBeNull();
+    expect(screen.queryByText(teaching.reading_help)).toBeNull();
     await click('Slow replay of сумка');
     await waitFor(()=>expect(view.container.querySelector('audio')!.playbackRate).toBe(.75));
     expect(api.posts()).toHaveLength(0);
   });
-  it('starts optional reading help closed for each new teaching card',async()=>{
+  it('keeps teaching cards free of separate reading-help controls as the lesson advances',async()=>{
     const api=server(lesson({attempt:attempt()}));render(<FirstSteps lessonId="bag"/>);
-    const summary=await screen.findByText('Read this word');
-    expect(summary.closest('details')!.open).toBe(false);
-    fireEvent.click(summary);
-    expect(summary.closest('details')!.open).toBe(true);
+    await screen.findByRole('heading',{name:cards[0].title});
+    expect(screen.queryByText('Read this word')).toBeNull();
+    expect(screen.queryByText(cards[0].reading_help!)).toBeNull();
     expect(api.posts()).toHaveLength(0);
     await click('Continue');await screen.findByRole('heading',{name:cards[1].title});
-    expect(screen.getByText(cards[1].reading_help!)).toBeTruthy();
-    expect(screen.getByText('Read this word').closest('details')!.open).toBe(false);
+    expect(screen.queryByText(cards[1].reading_help!)).toBeNull();
+    expect(screen.queryByText('Read this word')).toBeNull();
     expect(screen.queryByText(cards[0].reading_help!)).toBeNull();
   });
   it('lets learners try their own name locally without grading or saving it',async()=>{

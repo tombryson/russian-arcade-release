@@ -9,15 +9,10 @@
 .intro-lesson-heading {display:flex;flex-direction:column;gap:6px}
 .intro-lesson-heading h1 {margin:0;font:500 clamp(26px,2.6vw,34px)/1.35 var(--wp-font-display);letter-spacing:-1px;text-wrap:initial}
 .intro-lesson-heading .lesson-counter {margin:0;min-height:21px;font-size:13px;color:var(--wp-text-secondary)}
-.intro-lesson-heading.has-reading-help {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 20px;align-items:start}
-.intro-lesson-heading.has-reading-help h1,.intro-lesson-heading.has-reading-help .lesson-counter {grid-column:1}
 .intro-lesson-heading.has-illustration {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 20px;align-items:start}
 .intro-lesson-heading.has-illustration h1,.intro-lesson-heading.has-illustration .lesson-counter {grid-column:1}
 .intro-lesson-illustration {grid-column:2;grid-row:1 / span 2;align-self:center}
 .intro-lesson-illustration .first-steps-art {width:72px;height:72px}
-.intro-lesson-reading-help {grid-column:2;grid-row:1 / span 2;max-width:min(260px,38vw);margin:0;font-size:14px;color:var(--wp-text-secondary)}
-.intro-lesson-reading-help summary {min-height:40px;padding:8px 0;text-align:right;cursor:pointer}
-.intro-lesson-reading-help p {margin:8px 0 0;line-height:1.6}
 .intro-lesson-content {min-width:0}
 .intro-lesson-content p {max-width:64ch}
 .intro-lesson-actions {display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;margin:0}
@@ -35,10 +30,6 @@
   .page.lesson-player.intro-lesson-player {padding:12px 16px 24px}
   .intro-lesson-card {padding:20px 18px;gap:16px}
   .intro-lesson-card.is-lesson-workspace {min-block-size:500px}
-  .intro-lesson-heading.has-reading-help {gap:6px 12px}
-  .intro-lesson-heading.has-reading-help h1 {grid-column:1/-1}
-  .intro-lesson-heading.has-reading-help .lesson-counter {align-self:center}
-  .intro-lesson-reading-help {grid-row:2;max-width:42vw}
   .intro-lesson-heading.has-illustration {gap:6px 12px}
   .intro-lesson-illustration .first-steps-art {width:52px;height:52px}
   .intro-lesson-actions {row-gap:12px}

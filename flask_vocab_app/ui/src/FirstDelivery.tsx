@@ -97,7 +97,6 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
       <a class="text-link" href="#first-steps"><span aria-hidden="true">← </span>First steps</a>
     </div>
     <IntroLessonCard title={title} counter={caption} headingRef={heading}
-      readingHelp={learning ? learning.reading_help : undefined} readingKey={question?.id}
       className={`first-delivery-stage${['coins','progress','alphabet'].includes(step) ? ' is-explainer' : ' is-lesson-workspace'}${step === 'alphabet' ? ' is-alphabet' : ''}${step === 'words' ? ' is-word-practice' : ''}${step === 'words' && attempt?.phase === 'question' ? ' is-recall' : ''}`}
       contentClass={`first-delivery-content${step === 'progress' ? ' is-progress-introduction' : step === 'alphabet' ? ' is-alphabet-introduction' : ''}`}
       actionClass="first-delivery-actions" actions={<>
@@ -114,7 +113,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
             : !question && <button class="cta" disabled={busy} onClick={()=>void save('complete')}>{busy ? 'Saving…' : 'Finish activity'} <span aria-hidden="true">→</span></button>}
           <button class="text-link first-delivery-return" disabled={busy} onClick={replay}>Back to the introduction</button>
         </> : <>
-          <a class="cta" href={next.href}>{next.label} <span aria-hidden="true">→</span></a><button class="text-link" onClick={replay}>Revisit the introduction</button>
+          <a class="cta" href={next.href}>{next.label} <span aria-hidden="true">→</span></a>
         </>}
       </>}>
         {step === 'coins' ? <>
@@ -164,7 +163,6 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
         </> : <>
           <p>You’ve met Barsik and practised your first three Russian words.</p>
           {practice?.reward && practice.reward.amount>0 && (practice.reward.status==='pending' ? <div class="tutorial-reward"><p><strong>{practice.reward.amount} Lingocoins earned</strong></p><p>{profileHref.startsWith('/post/household') ? 'Choose a learner to start saving your practice.' : 'Create a profile to save your coins and first activity.'}</p><>{profileHref !== next.href && <a class="text-link" href={profileHref}>{profileHref.startsWith('/post/household') ? 'Choose a learner' : 'Create a profile'} <span aria-hidden="true">→</span></a>}</></div> : <div class="tutorial-reward" role="status"><p><strong>{practice.reward.awarded_now ? `+${practice.reward.amount} Lingocoins` : `${practice.reward.amount} Lingocoins earned`}</strong></p></div>)}
-          {!!practice?.teaching_cards?.length && <details class="coin-rules"><summary>Revisit your first words</summary><ul class="tutorial-answer-review">{practice.teaching_cards.map(item=><li key={item.id}><p><strong lang="ru">{item.word_display ?? item.word}</strong> · <span lang="en">{item.meaning}</span></p><LessonAudio compact src={item.audio_url} label={item.word}/></li>)}</ul></details>}
           {!!practice?.previous_attempt?.answers.length && <details class="coin-rules"><summary>Earlier first activity</summary><ol class="tutorial-answer-review">{practice.previous_attempt.answers.map(item=><li key={item.question_id}><p><strong>{item.answer_text}</strong></p><p>{item.feedback}</p></li>)}</ol></details>}
           <p class="intro">{next.description}</p>
         </>}

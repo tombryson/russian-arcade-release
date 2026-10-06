@@ -120,9 +120,9 @@ proposed as one permanent translation per lemma.
 ## Lesson presentation
 
 All five lessons use `IntroLessonCard` for teaching, questions, feedback and
-completion. The title, counter and actions keep the same spacing. Reading help
-sits at the top right and starts closed for each teaching card. Normal and slow
-playback stay beside the Russian word or phrase.
+completion. The title, counter and actions keep the same spacing. Normal and slow
+playback stay beside the Russian word or phrase. There is no separate reading-help
+control above the teaching content.
 
 Teaching, questions and feedback reserve the same working area, with actions at
 the bottom. Longer content and expanded help can increase its height; text is
@@ -138,8 +138,9 @@ Questions put hints and example review in one action row. Opening examples still
 records support before displaying them. Listening transcripts stay hidden until
 the backend permits them. Audio controls never submit an answer.
 
-Completion keeps the next lesson as the main action. Rewards and optional word
-review remain inside the same card; further practice is a small row below it.
+Completion keeps the next lesson as the main action. The first lesson shows its
+reward without word review or an introduction replay button. Later lessons retain
+optional word review inside the card; further practice is a small row below it.
 The site footer is omitted while a lesson is open.
 
 ## Evidence and limits

@@ -77,7 +77,8 @@ describe('Your first words',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Slow replay of Привет!'}));
     await screen.findByRole('button',{name:'Pause Привет!'});
     expect(view.container.querySelector('audio')!.playbackRate).toBe(.75);
-    expect(screen.getByText('Read this word').closest('details')!.open).toBe(false);
+    expect(screen.queryByText('Read this word')).toBeNull();
+    expect(screen.queryByText(teaching.reading_help)).toBeNull();
     expect(api.posts()).toHaveLength(0);
   });
   it('lets a learner hear a choice without submitting that answer',async()=>{
@@ -239,28 +240,30 @@ describe('Your first words',()=>{
     await start();expect(JSON.parse(api.posts()[0][1]?.body as string)).toEqual({restart:true});
     expect(screen.getByRole('heading',{name:words[0].title,level:1})).toBeTruthy();
   });
-  it('shows the completion reward only after saving and does not award again when revisiting',async()=>{
+  it('shows the completion reward only after saving and does not award again on reload',async()=>{
     const api=server({...empty(),attempt:attempt({phase:'feedback',question_index:2,question:question(2),answers:[answer(0,{acknowledged:true}),answer(1,{acknowledged:true}),answer(2)]})});api.state.failNext='complete';
-    render(<FirstDelivery next={next} />);fireEvent.click(await screen.findByRole('button',{name:'Finish activity'}));await screen.findByRole('alert');
+    const view=render(<FirstDelivery next={next} />);fireEvent.click(await screen.findByRole('button',{name:'Finish activity'}));await screen.findByRole('alert');
     expect(screen.queryByText('+3 Lingocoins')).toBeNull();
     fireEvent.click(screen.getByRole('button',{name:'Try again'}));await screen.findByText('+3 Lingocoins');
-    const count=api.posts().length;fireEvent.click(screen.getByRole('button',{name:'Revisit the introduction'}));fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
-    expect(screen.getByRole('heading',{name:'New to the Russian alphabet?'})).toBeTruthy();
-    fireEvent.click(screen.getByRole('button',{name:'Continue',exact:true}));
+    const count=api.posts().length;
+    expect(screen.queryByRole('button',{name:'Revisit the introduction'})).toBeNull();
+    view.unmount();api.state.value=completed();render(<FirstDelivery next={next} />);
+    await screen.findByText('3 Lingocoins earned');
     expect(screen.queryByText('+3 Lingocoins')).toBeNull();expect(api.posts()).toHaveLength(count);
   });
   it('resumes the actual credited amount without another completion request',async()=>{
     const api=server(completed({amount:2,status:'credited',awarded_now:false}));render(<FirstDelivery next={next} />);
     await screen.findByText('2 Lingocoins earned');expect(api.posts()).toHaveLength(0);
   });
-  it('keeps one word-and-meaning review after completion without repeating answers or explanations',async()=>{
+  it('shows the reward and next action without word review or introduction replay after completion',async()=>{
     const api=server({...completed(),teaching_cards:words});render(<FirstDelivery next={next} />);
-    const summary=await screen.findByText('Revisit your first words');
-    expect(summary.closest('details')!.open).toBe(false);
-    fireEvent.click(summary);expect(summary.closest('details')!.open).toBe(true);
+    await screen.findByRole('heading',{name:'Your first lesson is complete.'});
+    expect(screen.queryByText('Revisit your first words')).toBeNull();
+    expect(screen.queryByRole('button',{name:'Revisit the introduction'})).toBeNull();
+    expect(screen.getByRole('link',{name:next.label}).getAttribute('href')).toBe(next.href);
     for(const word of words) {
-      expect(screen.getByText(word.word,{exact:true}).getAttribute('lang')).toBe('ru');
-      expect(screen.getByText(word.meaning,{exact:true}).getAttribute('lang')).toBe('en');
+      expect(screen.queryByText(word.word,{exact:true})).toBeNull();
+      expect(screen.queryByText(word.meaning,{exact:true})).toBeNull();
       expect(screen.queryByText(word.explanation)).toBeNull();
     }
     expect(screen.queryByText('Look back at your answers')).toBeNull();

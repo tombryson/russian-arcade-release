@@ -95,7 +95,7 @@
   .tutorial-alphabet-invitation-label { font-size:36px; }
 }
 
-/* Optional reading help and return navigation sit at the edge of the word card. */
+/* Return navigation sits at the edge of the word card. */
 .tutorial-pronunciation {display:flex;align-items:center;flex-wrap:wrap;gap:8px 18px}
 .first-delivery .tutorial-word-context {margin:14px 0 4px}
 .first-delivery .is-word-practice .first-delivery-actions {align-items:center;justify-content:space-between;flex-wrap:wrap}
