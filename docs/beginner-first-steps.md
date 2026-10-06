@@ -105,9 +105,19 @@ grammar labels from Russian answers.
 
 Listening prompts do not show the transcript or an illustration that gives away
 the answer. A listening hint can guide attention without revealing the transcript;
-the transcript appears with feedback after the answer. Replay must remain
+the transcript appears with feedback after the answer, unless the answer already
+shows the same sentence. Replay must remain
 available. Missing audio must be handled as unavailable audio, not treated as an
 incorrect learner answer.
+
+Listening questions start their recording once when they open, at normal speed.
+Answer feedback and navigation stop it. Replay and slow replay remain available;
+a browser that blocks automatic playback shows a short instruction to press
+Listen. Teaching and individual word recordings remain click-to-play.
+
+The bag lesson asks the learner to match the whole recorded sentence, with
+parallel choices such as «Это карта.» and «Это сумка.». The later listening
+questions ask for a name or object from a longer exchange.
 
 ## Data and saved progress
 
@@ -120,6 +130,11 @@ question ID for both introductory editions and the first delivery. It overrides
 older answer-revealing hints when responses are prepared, while saved content,
 answers and historical hint-use records retain their original meaning. Unknown
 questions have no hint; they must not fall back to frozen hint text.
+
+The original bag listening question used noun-only choices. A narrow presentation
+correction also supplies sentence choices for unanswered saved attempts. It keeps
+the same choice IDs and answer. New answers record the presentation version;
+previously answered questions retain their original labels and saved evidence.
 
 Vocabulary records keep lemmas separate from their observed forms. For example,
 мой, моя and моё use the lemma мой with different grammatical tags. The name

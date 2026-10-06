@@ -158,6 +158,54 @@ class FirstStepsVersionTests(unittest.TestCase):
         answered = self.post('bag', 'answer', {'question_id': question['id'], 'answer': question['answer']})
         self.assertTrue(answered['attempt']['answers'][0]['hint_used'])
 
+    def test_existing_bag_listening_uses_sentences_but_preserves_earlier_answer_labels(self):
+        self.hello()
+        ready = self.prepare('bag')
+        definition = self.definition('bag')
+        original = deepcopy(definition)
+        listening = original['questions'][-1]
+        listening['prompt'] = 'Listen. Which thing did you hear?'
+        listening['feedback'] = 'The speaker says «Это сумка» — “This is a bag”.'
+        old_choices = {'map': 'карта', 'bag': 'сумка', 'letter': 'письмо'}
+        for choice in listening['choices']:
+            choice['text'] = old_choices[choice['id']]
+        with transaction(self.db, write=True) as conn:
+            conn.execute('UPDATE first_steps_attempts SET content_json=? WHERE id=?',
+                         (json.dumps(original), ready['attempt']['id']))
+        for question in definition['questions'][:-1]:
+            self.post('bag', 'answer', {'question_id': question['id'], 'answer': question['answer']})
+            self.post('bag', 'continue', {'question_id': question['id']})
+        with transaction(self.db) as conn:
+            before = dict(conn.execute('SELECT * FROM first_steps_attempts WHERE id=?', (ready['attempt']['id'],)).fetchone())
+        current = self.read('bag')['attempt']['question']
+        self.assertEqual(current['prompt'], 'Listen. Which sentence did you hear?')
+        self.assertEqual(current['choices'], definition['questions'][-1]['choices'])
+        self.assertNotIn('transcript', current)
+        self.assertNotIn('audio_text', current)
+        with transaction(self.db) as conn:
+            self.assertEqual(dict(conn.execute('SELECT * FROM first_steps_attempts WHERE id=?', (ready['attempt']['id'],)).fetchone()), before)
+        body = {'question_id': listening['id'], 'answer': 'letter'}
+        answered = self.post('bag', 'answer', body)
+        feedback = answered['attempt']['answers'][-1]
+        self.assertFalse(feedback['correct'])
+        self.assertEqual(feedback['answer_text'], 'Это письмо.')
+        self.assertEqual(feedback['correct_answer'], 'Это сумка.')
+        self.assertEqual(feedback['feedback'], 'This is a bag.')
+        self.assertEqual(self.read('bag')['attempt'], answered['attempt'])
+        self.assertEqual(self.post('bag', 'answer', body)['attempt'], answered['attempt'])
+        with transaction(self.db, write=True) as conn:
+            after = dict(conn.execute('SELECT * FROM first_steps_attempts WHERE id=?', (ready['attempt']['id'],)).fetchone())
+            self.assertEqual(after['content_json'], before['content_json'])
+            saved = json.loads(after['answers_json'])
+            self.assertEqual({key: value for key, value in saved.items() if key != listening['id']}, json.loads(before['answers_json']))
+            # An answer recorded before the correction retains its original labels.
+            saved[listening['id']].pop('presentation_version')
+            conn.execute('UPDATE first_steps_attempts SET answers_json=? WHERE id=?', (json.dumps(saved), ready['attempt']['id']))
+        historical = self.read('bag')['attempt']['answers'][-1]
+        self.assertEqual(historical['answer_text'], 'письмо')
+        self.assertEqual(historical['correct_answer'], 'сумка')
+        self.assertEqual(historical['feedback'], listening['feedback'])
+
     def test_saved_grammar_question_gets_strategy_hint_without_changing_frozen_content(self):
         self.hello()
         self.finish('bag')

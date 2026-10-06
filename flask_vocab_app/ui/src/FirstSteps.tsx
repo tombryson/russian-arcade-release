@@ -156,6 +156,7 @@ function FirstStepsPlayer({lessonId,version,profileHref,journeyHref}:{lessonId:s
   const learning=attempt?.phase==='learn' && teaching;
   const completed=attempt?.phase==='completed';
   const answered=attempt?.phase==='feedback' && feedback;
+  const transcript=answered && question?.transcript?.trim()===answered.correct_answer.trim() ? undefined : question?.transcript;
   const counter=completed ? 'Lesson complete' : attempt?.phase==='ready' ? undefined
     : learning ? `Learn · ${attempt!.teaching_index+1} of ${attempt!.total_teaching}`
     : `Try · ${(attempt?.question_index ?? 0)+1} of ${attempt?.total_questions ?? 0}`;
@@ -188,10 +189,10 @@ function FirstStepsPlayer({lessonId,version,profileHref,journeyHref}:{lessonId:s
             : <details class="first-steps-review"><summary>Revisit your words</summary><ul class="first-steps-review-list">{state.teaching_cards.map(item=><li key={item.id}><div class="first-steps-review-word"><strong lang="ru">{item.word_display ?? item.word}</strong><LessonAudio compact src={item.audio_url} label={item.word}/></div><p lang="en">{item.meaning}</p></li>)}</ul></details>}
         </> : learning ? <TeachingCard teaching={learning}/>
         : question ? <>
-          {(question.passage || question.audio_url || question.transcript) && <div class="first-steps-question-context">
+          {(question.passage || question.audio_url || transcript) && <div class="first-steps-question-context">
             {question.passage && <p class="first-steps-passage" lang="ru">{question.passage}</p>}
-            <LessonAudio inline key={question.id} src={question.audio_url} label="the question"/>
-            {question.transcript && <p lang="ru" class="first-steps-transcript">{question.transcript}</p>}
+            <LessonAudio inline key={question.id} src={question.audio_url} label="the question" autoPlay={attempt.phase==='question'}/>
+            {transcript && <p lang="ru" class="first-steps-transcript">{transcript}</p>}
           </div>}
           {answered ? <>
             <p class="answer-label">{answered.correct ? 'That’s right.' : 'Here’s the answer.'}</p>

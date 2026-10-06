@@ -1,5 +1,5 @@
 import {afterEach,beforeEach,describe,expect,it,vi} from 'vitest';
-import {act,fireEvent,render,screen,waitFor} from '@testing-library/preact';
+import {act,cleanup,fireEvent,render,screen,waitFor} from '@testing-library/preact';
 import {FirstSteps} from './FirstSteps';
 import type {FirstStepsAttempt,FirstStepsChapter,FirstStepsLesson,FirstStepsSummary,FirstStepsTeaching} from './first-steps-api';
 
@@ -67,8 +67,13 @@ function server(initial=lesson(),overview=chapter()) {
   return {state,fetch,posts:()=>fetch.mock.calls.filter(([,request])=>request?.method==='POST')};
 }
 async function click(name:string){fireEvent.click(await screen.findByRole('button',{name}));}
-beforeEach(()=>vi.stubGlobal('scrollTo',vi.fn()));
-afterEach(()=>{vi.unstubAllGlobals();vi.restoreAllMocks();});
+beforeEach(()=>{
+  vi.stubGlobal('scrollTo',vi.fn());
+  vi.spyOn(HTMLMediaElement.prototype,'play').mockResolvedValue();
+  vi.spyOn(HTMLMediaElement.prototype,'pause').mockImplementation(()=>{});
+  vi.spyOn(HTMLMediaElement.prototype,'load').mockImplementation(()=>{});
+});
+afterEach(()=>{cleanup();vi.unstubAllGlobals();vi.restoreAllMocks();});
 
 describe('First steps chapter',()=>{
   it('shows the five actual lessons and links the real next step without pretending locked lessons are available',async()=>{
@@ -119,6 +124,7 @@ describe('First steps lesson player',()=>{
     expect(screen.queryByText('Old single example')).toBeNull();expect(screen.getAllByText('Это сумка.')).toHaveLength(1);
     expect(screen.queryByText('Read this word')).toBeNull();
     expect(screen.queryByText(teaching.reading_help)).toBeNull();
+    expect(HTMLMediaElement.prototype.play).not.toHaveBeenCalled();
     await click('Slow replay of сумка');
     await waitFor(()=>expect(view.container.querySelector('audio')!.playbackRate).toBe(.75));
     expect(api.posts()).toHaveLength(0);
@@ -164,13 +170,15 @@ describe('First steps lesson player',()=>{
   it.each([
     {lessonId:'bag',language:'ru' as const,choices:questions[0].choices},
     {lessonId:'gender',language:'en' as const,choices:[{id:'bag',text:'Feminine'},{id:'letter',text:'Neuter'}]},
-  ])('plays question and $language choice recordings without submitting an answer',async({lessonId,language,choices})=>{
+  ])('autoplays the question and leaves $language choice recordings manual without submitting an answer',async({lessonId,language,choices})=>{
     const play=vi.spyOn(HTMLMediaElement.prototype,'play').mockResolvedValue();
     vi.spyOn(HTMLMediaElement.prototype,'pause').mockImplementation(()=>{});
     const question={...questions[0],audio_url:'/static/audio/first-steps-v2/question.mp3',choices_language:language,choices:choices.map(choice=>({...choice,audio_url:`/static/audio/first-steps-v2/${choice.id}.mp3`}))};
     const api=server(lesson({attempt:attempt({phase:'question',teaching:null,question})}));render(<FirstSteps lessonId={lessonId}/>);
     expect((await screen.findByRole('button',{name:choices[0].text})).getAttribute('lang')).toBe(language);
-    await click('Listen to the question');await screen.findByRole('button',{name:'Pause the question'});
+    await screen.findByRole('button',{name:'Pause the question'});
+    expect(play).toHaveBeenCalledOnce();
+    expect(play.mock.contexts[0]).toBe(document.querySelector('.first-steps-question-context audio'));
     await click('Slow replay of the question');
     await click(`Listen to ${choices[0].text}`);await screen.findByRole('button',{name:`Pause ${choices[0].text}`});
     expect(play).toHaveBeenCalledTimes(3);
@@ -180,6 +188,41 @@ describe('First steps lesson player',()=>{
     expect(screen.queryByText('Сумка means a bag.')).toBeNull();
     await click(choices[0].text);await screen.findByText('That’s right.');
     expect(api.posts().map(([url,request])=>[url,JSON.parse(String(request?.body))])).toEqual([[`${root}/${lessonId}/answer`,{question_id:question.id,answer:choices[0].id}]]);
+  });
+  it('keeps choice recordings manual when the question has no recording',async()=>{
+    const question={...questions[0],choices:questions[0].choices.map(choice=>({...choice,audio_url:`/static/audio/${choice.id}.mp3`}))};
+    const api=server(lesson({attempt:attempt({phase:'question',teaching:null,question})}));render(<FirstSteps lessonId="bag"/>);
+    await screen.findByRole('heading',{name:question.prompt});
+    expect(HTMLMediaElement.prototype.play).not.toHaveBeenCalled();
+    await click('Listen to сумка');await screen.findByRole('button',{name:'Pause сумка'});
+    expect(HTMLMediaElement.prototype.play).toHaveBeenCalledOnce();expect(api.posts()).toHaveLength(0);
+  });
+  it('does not restart question audio for hint loading or feedback and stops it when the answer arrives',async()=>{
+    const question={...grammarQuestion,audio_url:'/static/audio/question.mp3'};
+    const api=server(lesson({attempt:attempt({phase:'question',teaching:null,question})}));
+    const view=render(<FirstSteps lessonId="gender"/>);
+    await screen.findByRole('button',{name:'Pause the question'});
+    const player=view.container.querySelector('audio')!;
+    expect(player.play).toHaveBeenCalledOnce();
+    api.state.holdNext='hint';await click('Show a hint');
+    expect(screen.getByText('Saving…')).toBeTruthy();expect(player.play).toHaveBeenCalledOnce();
+    await act(async()=>api.state.release!());await screen.findByText(strategyHint);
+    expect(player.play).toHaveBeenCalledOnce();expect(player.pause).not.toHaveBeenCalled();
+    await click('карта');await screen.findByText('That’s right.');
+    expect(player.pause).toHaveBeenCalledOnce();expect(player.play).toHaveBeenCalledOnce();
+    expect(screen.getByRole('button',{name:'Listen to the question'})).toBeTruthy();
+    await click('Continue');await screen.findByRole('heading',{name:questions[1].prompt});
+    expect(view.container.querySelector('audio')).toBeNull();expect(player.play).toHaveBeenCalledOnce();
+  });
+  it('keeps a blocked listening question usable through the Listen fallback',async()=>{
+    vi.mocked(HTMLMediaElement.prototype.play).mockRejectedValueOnce(new DOMException('User gesture required','NotAllowedError'));
+    const question={...questions[0],audio_url:'/static/audio/question.mp3'};
+    const api=server(lesson({attempt:attempt({phase:'question',teaching:null,question})}));render(<FirstSteps lessonId="bag"/>);
+    expect(await screen.findByText('Press Listen to hear the recording.')).toBeTruthy();
+    expect(screen.queryByRole('alert')).toBeNull();expect(screen.queryByRole('button',{name:'Retry audio'})).toBeNull();
+    expect(screen.getByRole('button',{name:'сумка'}).hasAttribute('disabled')).toBe(false);
+    await click('Listen to the question');await screen.findByRole('button',{name:'Pause the question'});
+    expect(screen.queryByText('Press Listen to hear the recording.')).toBeNull();expect(api.posts()).toHaveLength(0);
   });
   it.each([
     {choice:'сумка',correct:true,label:'That’s right.'},
@@ -211,23 +254,39 @@ describe('First steps lesson player',()=>{
     const question={...questions[0],prompt:'Listen. Which thing did you hear?',audio_url:'/static/audio/first-steps-v2/bag-listen-object.mp3'};
     const api=server(lesson({attempt:attempt({phase:'question',teaching:null,question})}));
     render(<FirstSteps lessonId="bag"/>);
-    const listen=await screen.findByRole('button',{name:'Listen to the question'});
+    const listen=await screen.findByRole('button',{name:'Pause the question'});
     expect(listen.closest('header')).toBeNull();
     expect(screen.queryByText('Это сумка.')).toBeNull();
     expect(screen.queryByRole('img')).toBeNull();
     expect(screen.queryByRole('button',{name:'Show a hint'})).toBeNull();
-    await click('Listen to the question');await screen.findByRole('button',{name:'Pause the question'});
     expect(play).toHaveBeenCalledOnce();expect(api.posts()).toHaveLength(0);
     expect(screen.queryByText('Это сумка.')).toBeNull();
     api.state.lesson.attempt!.question!.transcript='Это сумка.';
     await click('сумка');
     expect((await screen.findByText('Это сумка.')).getAttribute('lang')).toBe('ru');
-    expect(screen.getByRole('button',{name:'Pause the question'})).toBeTruthy();
+    expect(screen.getByRole('button',{name:'Listen to the question'})).toBeTruthy();
     await screen.findByText('That’s right.');
     expect(screen.getByText('Это сумка.')).toBeTruthy();
     await click('Continue');await screen.findByRole('heading',{name:questions[1].prompt});
     expect(screen.queryByText('Это сумка.')).toBeNull();
     expect(screen.queryByRole('button',{name:/the question$/})).toBeNull();
+  });
+  it.each([
+    {description:'identical',transcript:'Это сумка.',showTranscript:false},
+    {description:'identical apart from surrounding whitespace',transcript:'  Это сумка.\n',showTranscript:false},
+    {description:'longer than the answer',transcript:'Это сумка. А это письмо.',showTranscript:true},
+  ])('only displays a separate feedback transcript when it adds content: $description',async({transcript,showTranscript})=>{
+    const question={...questions[0],prompt:'Listen. Which sentence did you hear?',audio_url:'/static/audio/first-steps-v2/bag-listen-object.mp3',transcript,choices:[{id:'bag',text:'Это сумка.'},{id:'letter',text:'Это письмо.'}]};
+    const result={...answer(),answer_text:'Это сумка.',correct_answer:'Это сумка.',feedback:'This is a bag.'};
+    server(lesson({attempt:attempt({phase:'feedback',teaching:null,question,answers:[result]})}));
+    const view=render(<FirstSteps lessonId="bag"/>);
+    await screen.findByText('That’s right.');
+    const answerText=screen.getAllByText('Это сумка.',{exact:true});
+    expect(answerText).toHaveLength(1);expect(answerText[0].classList.contains('answer-text')).toBe(true);
+    expect(answerText[0].getAttribute('lang')).toBe('ru');expect(screen.getByText('This is a bag.')).toBeTruthy();
+    expect(view.container.querySelector('.first-steps-transcript')?.textContent ?? null).toBe(showTranscript ? transcript : null);
+    expect(screen.getByRole('button',{name:'Listen to the question'})).toBeTruthy();
+    expect(HTMLMediaElement.prototype.play).not.toHaveBeenCalled();
   });
   it('keeps old answers readable at their version and offers the revised lesson without restarting',async()=>{
     const saved=done({version:'first-steps-v1',attempt:attempt({version:'first-steps-v1',phase:'completed',teaching:null,question:null,answers:[answer(0)],completed_at:123}),updated_lesson_href:'#first-steps/bag?version=first-steps-v2'});

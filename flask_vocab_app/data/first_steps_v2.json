@@ -192,24 +192,24 @@
         },
         {
           "id": "bag-listen-object",
-          "prompt": "Listen. Which thing did you hear?",
+          "prompt": "Listen. Which sentence did you hear?",
           "choices": [
             {
               "id": "map",
-              "text": "карта"
+              "text": "Это карта."
             },
             {
               "id": "bag",
-              "text": "сумка"
+              "text": "Это сумка."
             },
             {
               "id": "letter",
-              "text": "письмо"
+              "text": "Это письмо."
             }
           ],
           "answer": "bag",
           "hint": "Listen for the word after это. You can replay the recording.",
-          "feedback": "The speaker says «Это сумка» — “This is a bag”.",
+          "feedback": "This is a bag.",
           "choices_language": "ru",
           "audio_text": "Это сумка.",
           "transcript": "Это сумка.",

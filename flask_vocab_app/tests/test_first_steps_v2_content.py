@@ -86,6 +86,16 @@ class FirstStepsV2ContentTests(unittest.TestCase):
         self.assertEqual(len(recordings), 18)
         self.assertEqual(listening, ['bag-listen-object', 'introductions-listen-name', 'ownership-listen-exchange'])
 
+    def test_bag_listening_matches_the_recorded_sentence_with_parallel_choices(self):
+        lesson = next(item for item in self.content['lessons'] if item['id'] == 'bag')
+        question = next(item for item in lesson['questions'] if item['id'] == 'bag-listen-object')
+        self.assertEqual(question['prompt'], 'Listen. Which sentence did you hear?')
+        self.assertEqual([choice['text'] for choice in question['choices']],
+                         ['Это карта.', 'Это сумка.', 'Это письмо.'])
+        correct = next(choice['text'] for choice in question['choices'] if choice['id'] == question['answer'])
+        self.assertEqual(correct, question['audio_text'])
+        self.assertEqual(correct, question['transcript'])
+
     def test_authored_card_vocabulary_has_one_target_and_matching_morphology(self):
         for lesson in self.content['lessons']:
             for item in lesson['vocabulary']:

@@ -144,6 +144,23 @@ def _available(chapter, lesson_id):
     return lesson
 
 
+_BAG_LISTENING_PRESENTATION = 'bag-listening-sentences-v1'
+
+
+def _question_presentation(version, item, saved=None):
+    """Repair the original listening choices without relabelling past answers."""
+    if saved and saved.get('presentation_version') != _BAG_LISTENING_PRESENTATION:
+        return item
+    original = {'map': 'карта', 'bag': 'сумка', 'letter': 'письмо'}
+    if (version == DEFAULT_VERSION and item['id'] == 'bag-listen-object'
+            and item.get('audio_text') == 'Это сумка.'
+            and {choice['id']: choice['text'] for choice in item['choices']} == original):
+        return {**item, 'prompt': 'Listen. Which sentence did you hear?',
+                'feedback': 'This is a bag.',
+                'choices': [{**choice, 'text': 'Это ' + choice['text'] + '.'} for choice in item['choices']]}
+    return item
+
+
 def _attempt(row):
     lesson = json.loads(row['content_json'])
     cards, questions = lesson['teaching'], lesson['questions']
@@ -154,7 +171,8 @@ def _attempt(row):
              else 'ready' if question_index == len(questions) else 'feedback' if questions[question_index]['id'] in answers else 'question')
     question = None
     if phase in ('question', 'feedback'):
-        item = questions[question_index]
+        frozen = questions[question_index]
+        item = _question_presentation(row['version'], frozen, answers.get(frozen['id']))
         question = {key: item[key] for key in ('id', 'prompt', 'passage', 'choices', 'visual', 'audio_url', 'choices_language') if key in item}
         hint = hint_for(row['version'], item['id'])
         question['hint_available'] = bool(hint)
@@ -166,6 +184,7 @@ def _attempt(row):
     for item in questions:
         saved = answers.get(item['id'])
         if saved:
+            item = _question_presentation(row['version'], item, saved)
             public_answers.append({'question_id': item['id'], 'answer': saved['answer'],
                                    'answer_text': next(choice['text'] for choice in item['choices'] if choice['id'] == saved['answer']),
                                    'correct': saved['correct'], 'correct_answer': next(choice['text'] for choice in item['choices'] if choice['id'] == item['answer']),
@@ -298,6 +317,10 @@ def lesson_command(lesson_id, operation, data, version=None):
                     raise LearningError('invalid_answer', 'Choose one of the available answers.')
                 answers[question_id] = {'answer': data['answer'], 'correct': data['answer'] == question['answer'],
                                         'hint_used': question_id in hints, 'answered_at': now}
+                if _question_presentation(row['version'], question) != question:
+                    # Remember which labels were shown for this new response;
+                    # older responses still display their frozen noun labels.
+                    answers[question_id]['presentation_version'] = _BAG_LISTENING_PRESENTATION
             elif operation == 'continue':
                 if saved is None:
                     raise LearningError('answer_required', 'Answer this question before continuing.', 409)
