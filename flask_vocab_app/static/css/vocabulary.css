@@ -16,6 +16,7 @@
 .vocab-tools-panel { margin-top:16px; padding:20px; border:1px solid var(--wp-border-subtle, var(--color-border)); border-radius:14px; text-align:left; }
 .vocab-tools-panel p { font-size:14px; }
 .vocab-tools-panel button { margin:4px 0; }
+.vocab-tools-panel .btn-outline-secondary { --bs-btn-color:var(--wp-text-primary); --bs-btn-border-color:var(--wp-text-secondary); --bs-btn-hover-color:var(--wp-text-primary); --bs-btn-hover-bg:var(--wp-surface-sheet); --bs-btn-hover-border-color:var(--wp-text-primary); --bs-btn-active-color:var(--wp-text-primary); --bs-btn-active-bg:var(--wp-surface-sheet); }
 .vocab-stats { display:flex; gap:48px; margin:0 0 24px; }
 .vocab-stats>div { display:flex; flex-direction:column-reverse; gap:4px; }
 .vocab-stats dt { color:var(--wp-text-secondary, var(--color-text)); font-size:12px; font-weight:400; }

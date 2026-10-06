@@ -26,6 +26,7 @@ button, a, p { overflow-wrap: anywhere; }
 .nav { display: flex; gap: 6px; flex-wrap: wrap; }
 .nav a { display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 30px; white-space: nowrap; text-decoration: none; }
 .nav a[aria-current] { background: var(--wp-header-foreground); color: var(--wp-header-background); }
+.top .text-link { color: var(--wp-header-foreground); }
 .top a:focus-visible { outline-color: var(--wp-surface-ticket); }
 main, .bottom { max-width: 1180px; margin: auto; }
 .learner-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 40px; padding: 12px 0; border-bottom: 1px solid var(--wp-border-subtle); color: var(--wp-text-secondary); font-size: 13px; }
