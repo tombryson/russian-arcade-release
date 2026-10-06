@@ -59,3 +59,10 @@ were checked through source and colour-pair analysis, not a complete live game.
   Test feedback states as well as entry pages.
 - Verify deployed asset versions after publishing. A local commit does not
   update Fly automatically.
+
+## Release checks
+
+The production build exposed a missing Docker copy step for shared JavaScript.
+That step was added. Dependency checks also required patches for Werkzeug
+(`CVE-2026-102598`) and source-map-js (`GHSA-68fv-2mgg-jv7q`). The release includes
+those narrowly scoped updates; neither audit was bypassed.
