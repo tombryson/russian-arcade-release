@@ -120,6 +120,53 @@ class PracticeIdentityTests(unittest.TestCase):
         self.assertEqual(self.conn.execute('PRAGMA integrity_check').fetchone()[0], 'ok')
         self.assertEqual(self.conn.execute('PRAGMA foreign_key_check').fetchall(), [])
 
+    def test_old_hints_and_replayed_receipts_use_safe_cues_without_rewriting_history(self):
+        for version in ('a1-target-practice-v1', 'a1-target-practice-v2'):
+            release = deepcopy(course_releases.RELEASES['a1-journey-v2'])
+            release['preparation']['content_version'] = version
+            with patch.dict(course_releases.RELEASES, {'a1-journey-v2': release}):
+                started = course_targets.practice_start(self.conn, self.pid, 'home', version + '-start')
+            attempt_id = started['id']
+            items = json.loads(self.conn.execute('SELECT content_json FROM course_target_practice_attempts WHERE id=?', (attempt_id,)).fetchone()[0])
+            for item_id in ('greetings-exchange-names-read', 'family-possessive-agreement-select'):
+                with self.subTest(version=version, item_id=item_id):
+                    index = next(i for i, item in enumerate(items) if item['id'] == item_id)
+                    item = items[index]
+                    self.conn.execute('UPDATE course_target_practice_attempts SET current_index=?,state_json=? WHERE id=?',
+                                      (index, encoded({item_id: {'learned': True, 'hint': True}}), attempt_id))
+                    old_result = course_targets.practice_get(self.conn, self.pid, attempt_id)
+                    old_result['current_item']['hint'] = item['hint']
+                    del old_result['current_item']['hint_available']
+                    # Pre-identity receipts do not carry their own content version.
+                    old_result.pop('content_version')
+                    request_id = version + '-' + item_id + '-old-hint'
+                    self.conn.execute('INSERT INTO course_target_practice_receipts VALUES (?,?,?,?,?,?)',
+                                      (self.pid, request_id, attempt_id,
+                                       payload_hash({'attempt_id': attempt_id, 'action': 'hint', 'item_id': item_id, 'choice_id': None}),
+                                       encoded(old_result), 1))
+                    tables = ('course_target_practice_attempts', 'course_target_practice_receipts', 'course_target_observations')
+                    before = {table: list(self.conn.execute('SELECT * FROM ' + table)) for table in tables}
+                    current = course_targets.practice_get(self.conn, self.pid, attempt_id)
+                    replay = course_targets.practice_action(self.conn, self.pid, attempt_id, 'hint', {'item_id': item_id}, request_id)
+                    for result in (current, replay):
+                        projected = result['current_item']
+                        self.assertEqual(projected['question'], old_result['current_item']['question'])
+                        if item_id == 'greetings-exchange-names-read':
+                            self.assertFalse(projected['hint_available'])
+                            self.assertIsNone(projected['hint'])
+                        else:
+                            self.assertTrue(projected['hint_available'])
+                            self.assertIn('noun’s gender', projected['hint']['en'])
+                            self.assertNotEqual(projected['hint'], item['hint'])
+                    for table in tables:
+                        self.assertEqual(list(self.conn.execute('SELECT * FROM ' + table)), before[table])
+                    # Historical hint use still counts when the answer is saved.
+                    course_targets.practice_action(self.conn, self.pid, attempt_id, 'answer',
+                                                   {'item_id': item_id, 'choice_id': item['question']['answer']}, request_id + '-answer')
+                    support = self.conn.execute('SELECT support_json FROM course_target_observations WHERE practice_id=? AND item_id=?',
+                                                (attempt_id, item_id)).fetchone()[0]
+                    self.assertTrue(json.loads(support)['hint'])
+
 
 class PracticeIdentityMigrationTests(unittest.TestCase):
     def setUp(self):

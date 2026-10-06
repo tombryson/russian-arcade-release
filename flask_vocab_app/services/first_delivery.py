@@ -7,6 +7,7 @@ from flask import current_app, session
 from repositories.learning_repository import LearningError, encoded, identifier, timestamp, transaction
 from services.onboarding import onboarding_state
 from services.first_steps_audio import intro_speech
+from services.intro_hints import hint_for
 from services.progression import WELCOME_COINS, award_first_delivery, snapshot as progression_snapshot
 from utils.household_access import access_id, csrf_token
 
@@ -95,8 +96,10 @@ def _serialize_attempt(row):
             # Add pronunciation support without rewriting saved questions or answers.
             public_question['choices'] = [dict(choice, audio_url=intro_speech('word-' + choice['id'])['audio_url'])
                                            for choice in question['choices']]
-        if question['id'] in hints:
-            public_question['hint'] = question['hint']
+        hint = hint_for(row['version'], question['id'])
+        public_question['hint_available'] = bool(hint)
+        if hint and question['id'] in hints:
+            public_question['hint'] = hint
     public_answers = []
     for item in questions:
         saved = answers.get(item['id'])
@@ -221,6 +224,8 @@ def practice_command(operation, data):
                 if data['answer'] != saved['answer']:
                     raise LearningError('answer_already_saved', 'Your first answer is saved. Continue after the feedback.', 409)
                 return _public_state(conn, profile_id, row)
+            if operation == 'hint' and not hint_for(row['version'], question_id):
+                raise LearningError('hint_unavailable', 'Try an answer to see its explanation.', 409)
             if operation == 'hint' and question_id in hints:
                 return _public_state(conn, profile_id, row)
             if operation == 'continue' and question_id in acknowledged:

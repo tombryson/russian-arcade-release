@@ -52,12 +52,19 @@ class FirstDeliveryTests(unittest.TestCase):
             state = self.post('learn', {'question_id': state['attempt']['question']['id']}, client)
         return state
 
-    def answer_all(self, *, hints=(), wrong=(), client=None):
+    def seed_historical_hints(self, question_ids, client=None):
+        """Model assistance saved before answer-revealing hints were removed."""
+        attempt_id = self.read(client)['attempt']['id']
+        with transaction(self.db, write=True) as conn:
+            conn.execute('UPDATE first_delivery_attempts SET hints_json=? WHERE id=?',
+                         (encoded(list(question_ids)), attempt_id))
+
+    def answer_all(self, *, historical_hints=(), wrong=(), client=None):
         self.learn_all(client)
+        if historical_hints:
+            self.seed_historical_hints(historical_hints, client)
         for question in QUESTIONS:
             qid = question['id']
-            if qid in hints:
-                self.post('hint', {'question_id': qid}, client)
             answer = next(choice['id'] for choice in question['choices'] if choice['id'] != question['answer']) if qid in wrong else question['answer']
             self.post('answer', {'question_id': qid, 'answer': answer}, client)
             self.post('continue', {'question_id': qid}, client)
@@ -302,12 +309,27 @@ class FirstDeliveryTests(unittest.TestCase):
         self.profile_create(client=guest)
         self.assertEqual(self.read(guest)['progression']['balance'], 3)
 
-    def test_hints_are_persistent_and_only_unassisted_first_answers_count(self):
+    def test_word_recall_has_no_answer_revealing_hint_or_assistance_record(self):
         self.prepare()
-        hinted = self.post('hint', {'question_id': 'word-hello'})
-        self.assertIn('hint', hinted['attempt']['question'])
+        for question in QUESTIONS:
+            current = self.read()['attempt']['question']
+            self.assertFalse(current['hint_available'])
+            self.assertNotIn('hint', current)
+            self.post('hint', {'question_id': question['id']}, status=409)
+            with transaction(self.db) as conn:
+                self.assertEqual(conn.execute('SELECT hints_json FROM first_delivery_attempts').fetchone()[0], '[]')
+            answered = self.post('answer', {'question_id': question['id'], 'answer': question['answer']})
+            self.assertFalse(answered['attempt']['answers'][-1]['hint_used'])
+            self.post('continue', {'question_id': question['id']})
+
+    def test_historical_hints_still_exclude_assisted_answers_without_showing_old_hint(self):
+        self.prepare()
+        self.seed_historical_hints(['word-hello'])
+        hinted = self.read()
+        self.assertNotIn('hint', hinted['attempt']['question'])
+        self.assertFalse(hinted['attempt']['question']['hint_available'])
         self.assertEqual(self.read()['attempt'], hinted['attempt'])
-        self.assertEqual(self.post('hint', {'question_id': 'word-hello'})['attempt'], hinted['attempt'])
+        self.post('hint', {'question_id': 'word-hello'}, status=409)
         self.answer_all(wrong=('word-letter',))
         result = self.post('complete')
         reading = result['progression']['skill']['skills'][0]
@@ -319,15 +341,28 @@ class FirstDeliveryTests(unittest.TestCase):
         self.assertEqual(evidence['unassisted_count'], 2)
         self.assertEqual(evidence['_skill']['scores'], {'reading': .5})
 
-    def test_all_hinted_still_earns_coins_without_inventing_a_skill_rating(self):
+    def test_historically_all_hinted_still_earns_coins_without_inventing_a_skill_rating(self):
         self.prepare()
         before = self.balances()
-        self.answer_all(hints=tuple(q['id'] for q in QUESTIONS))
+        self.answer_all(historical_hints=tuple(q['id'] for q in QUESTIONS))
         result = self.post('complete')
         self.assertEqual(result['progression']['balance'], before['balance'] + 3)
         self.assertEqual(result['progression']['earned_total'], before['earned_total'] + 3)
         self.assertTrue(all(skill['rating'] is None and skill['observations'] == 0
                             for skill in result['progression']['skill']['skills']))
+
+    def test_legacy_reading_hint_guides_attention_and_records_assistance(self):
+        self.legacy_attempt()
+        ready = self.post('continue', {'question_id': 'greeting'})
+        self.assertTrue(ready['attempt']['question']['hint_available'])
+        self.assertNotIn('hint', ready['attempt']['question'])
+        hinted = self.post('hint', {'question_id': 'letter'})
+        self.assertEqual(hinted['attempt']['question']['hint'], 'The second sentence refers back to an object in the first.')
+        self.assertNotIn('письмо', hinted['attempt']['question']['hint'])
+        self.assertEqual(self.read()['attempt'], hinted['attempt'])
+        self.assertEqual(self.post('hint', {'question_id': 'letter'})['attempt'], hinted['attempt'])
+        answered = self.post('answer', {'question_id': 'letter', 'answer': 'letter'})
+        self.assertTrue(answered['attempt']['answers'][-1]['hint_used'])
 
     def test_incorrect_unassisted_answers_do_not_force_progress_up(self):
         self.prepare()
@@ -355,7 +390,7 @@ class FirstDeliveryTests(unittest.TestCase):
         second = self.profile_create()
         self.introduce()
         self.post('start')
-        self.answer_all(hints=tuple(q['id'] for q in QUESTIONS))
+        self.answer_all(historical_hints=tuple(q['id'] for q in QUESTIONS))
         self.post('complete')
         with transaction(self.db, write=True) as conn:
             amounts = [award(conn, second, activity='journey', content_key=f'second-{index}', source_key=f'second-{index}', title='Practice')

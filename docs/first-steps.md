@@ -37,7 +37,7 @@ The clerk’s final clue is **«Рынок там. Прямо, потом нал
 
 ## Saved practice and rewards
 
-Lessons unlock in order. All teaching cards must be acknowledged before answering, and each first answer is frozen before feedback. Hints remain available and are recorded before the answer. Incorrect answers still lead to feedback and allow the lesson to be completed. Refreshes and request retries resume the saved teaching card, question or feedback without adding a second completion.
+Lessons unlock in order. All teaching cards must be acknowledged before answering, and each first answer is frozen before feedback. Hints are available only where a useful cue leaves the answer for the learner to work out; using one is recorded before the answer. The presentation policy in `services/intro_hints.py` also applies to this earlier edition, so frozen answer-revealing hints are not shown. Incorrect answers still lead to feedback and allow the lesson to be completed. Refreshes and request retries resume the saved teaching card, question or feedback without adding a second completion.
 
 Lesson one keeps its separate lifetime welcome bonus of 3 coins. The four later lessons use ordinary participation rewards: up to 3 coins each, within the shared 12-coin daily activity allowance. Hints and mistakes do not reduce participation rewards. A completed lesson cannot be replayed on another day to claim another grant. Coin amounts reflect committed receipts, including zero when the allowance is already used.
 

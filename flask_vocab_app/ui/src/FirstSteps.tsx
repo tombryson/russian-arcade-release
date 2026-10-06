@@ -176,7 +176,7 @@ function FirstStepsPlayer({lessonId,version,profileHref,journeyHref}:{lessonId:s
         </> : learning ? <button class="cta" disabled={busy} onClick={()=>void save('learn',{teaching_id:learning.id})}>{busy ? 'Saving…' : attempt.teaching_index+1===attempt.total_teaching ? 'Try what you’ve learned' : 'Continue'} <span aria-hidden="true">→</span></button>
         : question && answered ? <button class="cta" disabled={busy} onClick={()=>void save('continue',{question_id:question.id})}>{busy ? 'Saving…' : attempt.question_index+1===attempt.total_questions ? 'Finish lesson' : 'Continue'} <span aria-hidden="true">→</span></button>
         : question ? <>
-          {!question.hint && <button class="text-link" disabled={busy} onClick={()=>void save('hint',{question_id:question.id})}>Show a hint</button>}
+          {question.hint_available===true && !question.hint && <button class="text-link" disabled={busy} onClick={()=>void save('hint',{question_id:question.id})}>Show a hint</button>}
         </> : <button class="cta" disabled={busy} onClick={()=>void save('complete')}>{busy ? 'Saving…' : 'Finish lesson'} <span aria-hidden="true">→</span></button>}>
         {completed ? <>
           <p class="first-steps-resolution">{state.resolution ?? 'You’ve finished this lesson. Ready for the next part?'}</p>

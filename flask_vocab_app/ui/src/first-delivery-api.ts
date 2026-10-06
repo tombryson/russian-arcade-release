@@ -4,7 +4,7 @@ import type {ProgressionData} from './Progression';
 export type FirstDeliveryAnswer={question_id:string;answer:string;answer_text:string;correct:boolean;correct_answer:string;feedback:string;hint_used:boolean;acknowledged:boolean};
 export type FirstDeliveryAttempt={
   id:string;version:string;phase:'learn'|'question'|'feedback'|'ready'|'completed';question_index:number;total_questions:number;
-  question:null|{id:string;title?:string;passage?:string;prompt:string;lesson?:{word:string;word_display?:string;meaning:string;explanation:string;audio_url?:string;reading_help?:string};choices:{id:string;text:string;audio_url?:string}[];hint?:string};
+  question:null|{id:string;title?:string;passage?:string;prompt:string;lesson?:{word:string;word_display?:string;meaning:string;explanation:string;audio_url?:string;reading_help?:string};choices:{id:string;text:string;audio_url?:string}[];hint_available?:boolean;hint?:string};
   answers:FirstDeliveryAnswer[];completed_at:number|null;
 };
 export type FirstDeliveryState={profile_id:string|null;attempt:FirstDeliveryAttempt|null;teaching_cards?:{id:string;title:string;word:string;word_display?:string;meaning:string;explanation:string;audio_url?:string}[];progression?:ProgressionData;pending_reward:number;previous_attempt?:{version:string;answers:FirstDeliveryAnswer[]}|null;reward:null|{amount:number;status:'credited'|'pending';awarded_now:boolean}};

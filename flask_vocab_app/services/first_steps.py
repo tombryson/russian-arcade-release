@@ -6,6 +6,7 @@ from flask import current_app
 
 from repositories.learning_repository import LearningError, encoded, identifier, timestamp, transaction
 from services.first_delivery import _completed_attempt, _owner
+from services.intro_hints import hint_for
 from services.progression import RULES, WELCOME_COINS, award, snapshot, unlock_worlds
 
 LEGACY_VERSION = 'first-steps-v1'
@@ -155,10 +156,11 @@ def _attempt(row):
     if phase in ('question', 'feedback'):
         item = questions[question_index]
         question = {key: item[key] for key in ('id', 'prompt', 'passage', 'choices', 'visual', 'audio_url', 'choices_language') if key in item}
-        question['review_available'] = True
-        if item['id'] in hints:
-            question['hint'] = item['hint']
-        if item['id'] in hints or phase == 'feedback':
+        hint = hint_for(row['version'], item['id'])
+        question['hint_available'] = bool(hint)
+        if hint and item['id'] in hints:
+            question['hint'] = hint
+        if phase == 'feedback':
             question.update({key: item[key] for key in ('audio_text', 'transcript') if key in item})
     public_answers = []
     for item in questions:
@@ -190,12 +192,6 @@ def _lesson_state(conn, profile_id, guest_token, content, lesson_id, version, *,
         previous = _rows(conn, profile_id, guest_token, LEGACY_CHAPTER_ID).get(lesson_id)
         if previous:
             result['previous_lesson'] = {'title': json.loads(previous['content_json'])['title'], 'href': lesson_href(lesson_id, LEGACY_VERSION)}
-    if row and result['attempt']['question'] and result['attempt']['question']['id'] in json.loads(row['hints_json']):
-        frozen = json.loads(row['content_json'])
-        learned = set(json.loads(row['learned_json']))
-        question = next(item for item in frozen['questions'] if item['id'] == result['attempt']['question']['id'])
-        review_ids = set(question.get('review_teaching_ids', learned))
-        result['teaching_cards'] = [card for card in frozen['teaching'] if card['id'] in learned & review_ids]
     if row and row['completed_at'] is not None:
         frozen = json.loads(row['content_json'])
         result['reward'] = {'amount': row['reward_amount'] if profile_id else RULES['activity_coins'],
@@ -287,6 +283,8 @@ def lesson_command(lesson_id, operation, data, version=None):
                 if data['answer'] != saved['answer']:
                     raise LearningError('answer_already_saved', 'Your first answer is saved. Continue after the feedback.', 409)
                 return _lesson_state(conn, profile_id, guest_token, content, lesson_id, version)
+            if operation in ('hint', 'review') and not hint_for(row['version'], question_id):
+                raise LearningError('hint_unavailable', 'Try an answer to see its explanation.', 409)
             if (operation in ('hint', 'review') and question_id in hints) or (operation == 'continue' and question_id in acknowledged):
                 return _lesson_state(conn, profile_id, guest_token, content, lesson_id, version)
             if len(acknowledged) >= len(questions) or question_id != questions[len(acknowledged)]['id']:

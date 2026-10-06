@@ -3,7 +3,7 @@ import {fireEvent,render,screen,waitFor} from '@testing-library/preact';
 import {CoursePreparation,type CoursePractice} from './CoursePreparation';
 import type {ProgressionState} from './Progression';
 const progression={data:{profile_id:'p',course:{release_id:'a1-journey-v2'}},refresh:vi.fn(),loading:false,error:''} as unknown as ProgressionState;
-const practice=():CoursePractice=>({id:'practice-1',release_id:'a1-journey-v2',target_catalogue_version:'a1-targets-v1',content_version:'a1-target-practice-v1',profile_id:'p',section_id:'home',status:'active',completed_count:0,total_count:1,current_item:{id:'item-1',target_id:'target-1',title:'A family member',title_ru:'Член семьи',stage:'learn',teaching:{explanation:'Use моя before сестра.',explanation_ru:'Перед словом «сестра» употребляем «моя».',example_ru:'Это моя сестра.',example_en:'This is my sister.'},question:{prompt:'Which phrase fits?',prompt_ru:'Какой вариант подходит?',choices:[{id:'right',text:'Моя сестра'},{id:'wrong',text:'Мой сестра'}]},hint:null,feedback:null,listened:false,transcript:null},coverage:{required_count:1,prepared_count:0,ready:false,targets:[]}});
+const practice=():CoursePractice=>({id:'practice-1',release_id:'a1-journey-v2',target_catalogue_version:'a1-targets-v1',content_version:'a1-target-practice-v1',profile_id:'p',section_id:'home',status:'active',completed_count:0,total_count:1,current_item:{id:'item-1',target_id:'target-1',title:'A family member',title_ru:'Член семьи',stage:'learn',teaching:{explanation:'Use моя before сестра.',explanation_ru:'Перед словом «сестра» употребляем «моя».',example_ru:'Это моя сестра.',example_en:'This is my sister.'},question:{prompt:'Which phrase fits?',prompt_ru:'Какой вариант подходит?',choices:[{id:'right',text:'Моя сестра'},{id:'wrong',text:'Мой сестра'}]},hint_available:true,hint:null,feedback:null,listened:false,transcript:null},coverage:{required_count:1,prepared_count:0,ready:false,targets:[]}});
 function serve(handler:(url:string,body:any)=>unknown){const fetch=vi.fn(async(url:string,options?:RequestInit)=>({ok:true,json:async()=>handler(url,options?.body?JSON.parse(String(options.body)):undefined)}));vi.stubGlobal('fetch',fetch);return fetch;}
 beforeEach(()=>{window.location.hash='';});afterEach(()=>{vi.unstubAllGlobals();vi.restoreAllMocks();});
 describe('Milestone target practice',()=>{
@@ -69,6 +69,25 @@ describe('Milestone target practice',()=>{
     expect(screen.getByText('Saved explanation.')).toBeTruthy();
     expect(fetch.mock.calls.every(([,options])=>options?.method==='GET')).toBe(true);
     expect(saved.current_item?.selected_choice).toBe('wrong');
+  });
+  it('keeps the answer controls available when there is no useful hint',async()=>{
+    const value=practice();value.current_item={...value.current_item!,stage:'question',hint_available:false,hint:{en:'Old answer-revealing help.',ru:'Старая подсказка с ответом.'}};
+    const fetch=serve(()=>value);render(<CoursePreparation practiceId="practice-1" progression={progression}/>);
+    fireEvent.click(await screen.findByRole('radio',{name:'Моя сестра'}));
+    expect(screen.queryByRole('button',{name:'Show a hint'})).toBeNull();
+    expect(screen.queryByText('Old answer-revealing help.')).toBeNull();
+    expect((screen.getByRole('button',{name:'Check answer'}) as HTMLButtonElement).disabled).toBe(false);
+    expect(fetch.mock.calls.every(([,options])=>options?.method==='GET')).toBe(true);
+  });
+  it('shows a Russian listening cue without opening the transcript',async()=>{
+    let value=listeningPractice();
+    const fetch=serve(url=>{if(url.endsWith('/hint'))value={...value,current_item:{...value.current_item!,hint:{en:'Listen to the words next to each name.',ru:'Слушайте слова рядом с именами.'}}};return value;});
+    render(<CoursePreparation practiceId="practice-1" language="ru" progression={progression}/>);
+    fireEvent.click(await screen.findByRole('button',{name:'Подсказка'}));
+    await screen.findByText('Слушайте слова рядом с именами.');
+    expect(screen.getByRole('button',{name:'Показать текст записи'})).toBeTruthy();
+    expect(screen.queryByText('Это моя сестра.')).toBeNull();
+    expect(fetch.mock.calls.filter(([,options])=>options?.method==='POST').map(([url])=>url.split('/').at(-1))).toEqual(['hint']);
   });
   it('starts or resumes section practice with a stable request across an uncertain start',async()=>{
     let fail=true;const fetch=vi.fn(async(_url:string,_options?:RequestInit)=>{if(fail)throw new Error('Offline');return{ok:true,json:async()=>practice()};});vi.stubGlobal('fetch',fetch);

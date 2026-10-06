@@ -15,6 +15,7 @@ from contracts.learning import key
 from repositories.learning_repository import LearningError, encoded, identifier, payload_hash, timestamp
 from services.curriculum_targets import curriculum_targets, get_section, get_target, targets_for_section
 from services.course_releases import release_metadata
+from services.course_practice_hints import preparation_hint, project_preparation_hint
 
 PRACTICE_FILE = Path(__file__).resolve().parents[1] / 'data' / 'course_target_practice.json'
 PRACTICE_VERSION = 'a1-target-practice-v2'
@@ -73,7 +74,8 @@ def validate_practice(data):
         choices = question.get('choices', [])
         require(isinstance(choices, list) and 2 <= len(choices) <= 6 and all(isinstance(c, dict) and _nonempty(c.get('id')) and _nonempty(c.get('text')) for c in choices), 'Choose from authored Russian options.')
         require(len({c['id'] for c in choices}) == len(choices) and len({c['text'] for c in choices}) == len(choices) and question.get('answer') in {c['id'] for c in choices}, 'The answer must identify a distinct offered option.')
-        require(all(_nonempty(item.get('hint', {}).get(f)) for f in ('en', 'ru')), 'Each item needs optional bilingual help.')
+        hint = item.get('hint')
+        require(hint is None or isinstance(hint, dict) and all(_nonempty(hint.get(f)) for f in ('en', 'ru')), 'Optional hints must be bilingual.')
         if target['response_mode'] == 'listening_selection':
             require(question.get('passage') is None and _nonempty(question.get('transcript')) and question.get('audio_url') == f"/static/audio/course/a1-targets-v1/{item['id']}.mp3", 'Listening needs its own audio and a hidden transcript.')
             require(question['transcript'] != teaching['example_ru'], 'The teaching example must not reveal the listening task.')
@@ -220,13 +222,14 @@ def practice_get(conn, profile_id, attempt_id):
         target = next(target for target in snapshot['targets'] if target['id'] == item['target_id'])
         saved = state.get(item['id'], {})
         question = item['question']
+        hint = preparation_hint(row['content_version'], item['id'])
         # Do not return the task before its teaching action or return solutions
         # with unattempted questions. Listening transcripts need explicit help.
         stage = 'feedback' if 'answer' in saved else 'question' if saved.get('learned') else 'learn'
         current = {'id': item['id'], 'target_id': item['target_id'],
                    'title': item.get('title', target['title_en']), 'title_ru': item.get('title_ru', target['title_ru']), 'stage': stage,
                    'teaching': deepcopy(item['teaching']), 'question': None,
-                   'hint': deepcopy(item['hint']) if saved.get('hint') else None,
+                   'hint_available': hint is not None, 'hint': hint if saved.get('hint') else None,
                    'feedback': None, 'selected_choice': saved.get('answer'), 'listened': bool(saved.get('listened')),
                    'transcript': question.get('transcript') if saved.get('transcript') else None}
         if stage != 'learn':
@@ -314,7 +317,7 @@ def practice_action(conn, profile_id, attempt_id, action, body, request_id):
     if receipt:
         if receipt['payload_hash'] != digest:
             raise LearningError('request_conflict', 'This request belongs to a different practice action.', 409)
-        return json.loads(receipt['result_json'])
+        return project_preparation_hint(json.loads(receipt['result_json']), row['content_version'])
     identity, snapshot = _practice_context(row)
     items, states = json.loads(row['content_json']), json.loads(row['state_json'])
     if row['status'] != 'active' or items[row['current_index']]['id'] != item_id:
@@ -355,6 +358,8 @@ def practice_action(conn, profile_id, attempt_id, action, body, request_id):
                  response={'choice_id': choice_id}, support={'teaching': True, 'hint': bool(saved.get('hint')),
                  'transcript': bool(saved.get('transcript'))}, **observation)
     elif action == 'hint':
+        if preparation_hint(row['content_version'], item_id) is None:
+            raise LearningError('hint_unavailable', 'This question has no hint.')
         saved['hint'] = True
     elif action in ('listened', 'transcript'):
         if not question.get('audio_url'):

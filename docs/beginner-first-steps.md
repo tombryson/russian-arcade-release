@@ -71,10 +71,17 @@ The ownership lesson has three stages:
 2. Guided questions give the noun’s group while the learner chooses the form.
 3. Later questions omit that reminder and transfer the pattern to карта.
 
-Hints and review remain available. Using them records supported practice, not an
-independent demonstration of mastery. Gender questions use English category
-labels because the learner is classifying grammar. Other answer choices are in
-Russian.
+Teaching examples appear before the question, and answer explanations follow the
+submitted answer. A question offers a hint only when a useful cue leaves the
+language decision to the learner. Hints can direct attention to a noun ending,
+agreement, or part of a recording. They must not supply the target word, its
+translation, the required form, or the noun group being tested. Initial letters
+and elimination clues must not identify the correct choice either.
+
+Basic word and phrase recognition therefore has no hint button. Questions do not
+offer teaching-card review during recall. Using an available hint records
+supported practice. Gender questions use English category labels because the
+learner is classifying grammar. Other answer choices are in Russian.
 
 The final tasks combine already taught phrases. They do not add formal greetings,
 directions or requests inside a supposed recap.
@@ -97,15 +104,22 @@ uses `name_slot: true`. Questions use `choices_language` to distinguish English
 grammar labels from Russian answers.
 
 Listening prompts do not show the transcript or an illustration that gives away
-the answer. A transcript may be requested as support or shown with feedback.
-Replay must remain available. Missing audio must be handled as unavailable audio,
-not treated as an incorrect learner answer.
+the answer. A listening hint can guide attention without revealing the transcript;
+the transcript appears with feedback after the answer. Replay must remain
+available. Missing audio must be handled as unavailable audio, not treated as an
+incorrect learner answer.
 
 ## Data and saved progress
 
 The original `first_steps.json` remains unchanged. Saved attempts must retain the
 content and answers with which they began. The new chapter is a separate content
 edition; changing the preferred route must not relabel old results as new lessons.
+
+`services/intro_hints.py` resolves presentation hints by content version and
+question ID for both introductory editions and the first delivery. It overrides
+older answer-revealing hints when responses are prepared, while saved content,
+answers and historical hint-use records retain their original meaning. Unknown
+questions have no hint; they must not fall back to frozen hint text.
 
 Vocabulary records keep lemmas separate from their observed forms. For example,
 мой, моя and моё use the lemma мой with different grammatical tags. The name
@@ -135,8 +149,9 @@ noun comparisons can use columns on wider screens. Illustrations appear only
 when the content defines one. The name exercise remains local and ungraded.
 
 Teaching examples appear before practice. Questions do not offer an example-review
-control that reveals the answer. Hints remain available. Listening transcripts stay
-hidden until the backend permits them. Audio controls never submit an answer.
+control that reveals the answer. A hint control appears only when a non-revealing
+cue is available. Listening transcripts stay hidden until answer feedback. Audio
+controls never submit an answer.
 
 Completion keeps the next lesson as the main action. The first lesson shows its
 reward without word review or an introduction replay button. Later lessons retain

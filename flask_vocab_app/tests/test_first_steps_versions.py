@@ -101,7 +101,7 @@ class FirstStepsVersionTests(unittest.TestCase):
         self.post('introductions', 'start', version=LEGACY_VERSION, status=404)
         self.assertEqual(self.counts(), before)
 
-    def test_review_records_support_and_reveals_only_current_seen_teaching_and_transcript(self):
+    def test_hints_do_not_reveal_teaching_or_listening_transcript_before_answer(self):
         self.hello()
         definition = self.definition('bag')
         first = definition['questions'][0]
@@ -109,29 +109,69 @@ class FirstStepsVersionTests(unittest.TestCase):
         self.post('bag', 'review', {'question_id': first['id']}, status=409)
         self.assertEqual(self.read('bag')['teaching_cards'], [])
         ready = self.prepare('bag')
-        self.assertTrue(ready['attempt']['question']['review_available'])
+        self.assertFalse(ready['attempt']['question']['hint_available'])
+        self.assertNotIn('review_available', ready['attempt']['question'])
         self.assertEqual(ready['teaching_cards'], [])
         self.assertNotIn('answer', ready['attempt']['question'])
-        reviewed = self.post('bag', 'review', {'question_id': first['id']})
-        self.assertTrue(reviewed['teaching_cards'])
-        self.assertTrue({card['id'] for card in reviewed['teaching_cards']} <= {card['id'] for card in definition['teaching']})
-        self.assertEqual(self.post('bag', 'review', {'question_id': first['id']})['attempt'], reviewed['attempt'])
-        answered = self.post('bag', 'answer', {'question_id': first['id'], 'answer': first['answer']})
-        self.assertTrue(answered['attempt']['answers'][0]['hint_used'])
-        self.post('bag', 'continue', {'question_id': first['id']})
-        self.assertEqual(self.read('bag')['teaching_cards'], [])
-        for question in definition['questions'][1:]:
+        for question in definition['questions']:
+            qid = question['id']
             if question.get('audio_url'):
                 current = self.read('bag')['attempt']['question']
                 self.assertEqual(current['audio_url'], question['audio_url'])
+                self.assertTrue(current['hint_available'])
+                self.assertNotIn('hint', current)
                 self.assertNotIn('audio_text', current)
                 self.assertNotIn('transcript', current)
-                supported = self.post('bag', 'review', {'question_id': question['id']})['attempt']['question']
-                self.assertEqual(supported['audio_text'], question['audio_text'])
-                self.assertEqual(supported['transcript'], question['transcript'])
-            self.post('bag', 'answer', {'question_id': question['id'], 'answer': question['answer']})
-            self.post('bag', 'continue', {'question_id': question['id']})
+                supported = self.post('bag', 'hint', {'question_id': qid})
+                self.assertEqual(supported['attempt']['question']['hint'], 'Replay the recording and focus on the word after это.')
+                for response in (supported, self.read('bag'), self.post('bag', 'hint', {'question_id': qid}),
+                                 self.post('bag', 'review', {'question_id': qid})):
+                    self.assertNotIn('audio_text', response['attempt']['question'])
+                    self.assertNotIn('transcript', response['attempt']['question'])
+                    self.assertEqual(response['teaching_cards'], [])
+            else:
+                for operation in ('hint', 'review'):
+                    self.post('bag', operation, {'question_id': qid}, status=409)
+                self.assertEqual(self.read('bag')['teaching_cards'], [])
+                self.assertNotIn('hint', self.read('bag')['attempt']['question'])
+            answered = self.post('bag', 'answer', {'question_id': qid, 'answer': question['answer']})
+            self.assertEqual(answered['attempt']['answers'][-1]['hint_used'], bool(question.get('audio_url')))
+            if question.get('audio_url'):
+                self.assertEqual(answered['attempt']['question']['transcript'], question['transcript'])
+            self.post('bag', 'continue', {'question_id': qid})
         self.post('bag', 'review', {'question_id': first['id'], 'teaching_cards': []}, status=400)
+
+    def test_saved_answer_revealing_hints_are_suppressed_without_rewriting_history(self):
+        self.hello()
+        ready = self.prepare('bag')
+        question = self.definition('bag')['questions'][0]
+        with transaction(self.db, write=True) as conn:
+            conn.execute('UPDATE first_steps_attempts SET hints_json=? WHERE id=?',
+                         (json.dumps([question['id']]), ready['attempt']['id']))
+            frozen = dict(conn.execute('SELECT * FROM first_steps_attempts WHERE id=?', (ready['attempt']['id'],)).fetchone())
+        for response in (self.read('bag'), self.post('bag', 'start')):
+            self.assertFalse(response['attempt']['question']['hint_available'])
+            self.assertNotIn('hint', response['attempt']['question'])
+            self.assertEqual(response['teaching_cards'], [])
+        with transaction(self.db) as conn:
+            self.assertEqual(dict(conn.execute('SELECT * FROM first_steps_attempts WHERE id=?', (ready['attempt']['id'],)).fetchone()), frozen)
+        answered = self.post('bag', 'answer', {'question_id': question['id'], 'answer': question['answer']})
+        self.assertTrue(answered['attempt']['answers'][0]['hint_used'])
+
+    def test_saved_grammar_question_gets_strategy_hint_without_changing_frozen_content(self):
+        self.hello()
+        self.finish('bag')
+        self.finish('introductions')
+        ready = self.prepare('gender')
+        qid = ready['attempt']['question']['id']
+        with transaction(self.db) as conn:
+            content = conn.execute('SELECT content_json FROM first_steps_attempts WHERE id=?', (ready['attempt']['id'],)).fetchone()[0]
+        self.assertIn('masculine', json.loads(content)['questions'][0]['hint'])
+        hinted = self.post('gender', 'hint', {'question_id': qid})
+        self.assertEqual(hinted['attempt']['question']['hint'], 'Look at the noun’s last letter and recall the ending patterns.')
+        self.assertEqual(hinted['teaching_cards'], [])
+        with transaction(self.db) as conn:
+            self.assertEqual(conn.execute('SELECT content_json FROM first_steps_attempts WHERE id=?', (ready['attempt']['id'],)).fetchone()[0], content)
 
     def test_full_new_sequence_earns_participation_once_without_reading_ratings_or_story_checkpoint(self):
         self.hello()

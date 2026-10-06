@@ -16,9 +16,11 @@ const cards:FirstStepsTeaching[]=[
   {id:'letter-word',title:'Your letter',word:'письмо',meaning:'a letter',explanation:'The letter is for you.',visual:'envelope',reading_help:'The stress in письмо́ is on the final syllable.'},
 ];
 const questions=[
-  {id:'bag-q',prompt:'Which word means a bag?',choices:[{id:'bag',text:'сумка'},{id:'letter',text:'письмо'}]},
-  {id:'letter-q',prompt:'Which word means a letter?',choices:[{id:'letter',text:'письмо'},{id:'bag',text:'сумка'}]},
+  {id:'bag-q',prompt:'Which word means a bag?',choices:[{id:'bag',text:'сумка'},{id:'letter',text:'письмо'}],hint_available:false},
+  {id:'letter-q',prompt:'Which word means a letter?',choices:[{id:'letter',text:'письмо'},{id:'bag',text:'сумка'}],hint_available:false},
 ];
+const grammarQuestion={id:'gender-q',prompt:'Which word belongs to the same noun group as сумка?',choices:[{id:'map',text:'карта'},{id:'letter',text:'письмо'}],hint_available:true};
+const strategyHint='Compare the endings of the words.';
 const attempt=(patch:Partial<FirstStepsAttempt>={}):FirstStepsAttempt=>({id:'bag-1',version:'first-steps-v2',phase:'learn',teaching_index:0,total_teaching:2,question_index:0,total_questions:2,teaching:cards[0],question:null,answers:[],completed_at:null,...patch});
 const chapter=():FirstStepsChapter=>({profile_id:'tom',lessons:structuredClone(summaries),next_lesson:structuredClone(summaries[1]),completed_count:1,complete:false,pending_reward:0});
 const lesson=(patch:Partial<FirstStepsLesson>={}):FirstStepsLesson=>({profile_id:'tom',lesson:{...summaries[1],total_lessons:5},attempt:null,teaching_cards:[],reward:null,pending_reward:0,next_lesson:{...summaries[2],status:'available'},chapter_complete:false,...patch});
@@ -45,15 +47,13 @@ function server(initial=lesson(),overview=chapter()) {
       current.teaching_index++;current.teaching=cards[current.teaching_index] ?? null;
       if(!current.teaching){current.phase='question';current.question=questions[0];}
     }
-    if(action==='hint')current.question={...current.question!,hint:'The word for a bag starts with су.'};
+    if(action==='hint')current.question={...current.question!,hint:strategyHint};
     if(action==='answer'){
       const choice=current.question!.choices.find(item=>item.id===body.answer)!;
-      current.answers.push({...answer(current.question_index),answer:choice.id,answer_text:choice.text,correct:choice.id===current.question!.choices[0].id,hint_used:!!current.question!.hint});current.phase='feedback';
+      current.answers.push({...answer(current.question_index),question_id:current.question!.id,answer:choice.id,answer_text:choice.text,correct:choice.id===current.question!.choices[0].id,correct_answer:current.question!.choices[0].text,...(current.question!.id===grammarQuestion.id ? {feedback:'Карта and сумка belong to the same noun group.'} : {}),hint_used:!!current.question!.hint});current.phase='feedback';
     }
     if(action==='continue'){
-      const reviewAvailable=current.question?.review_available;
       current.answers.at(-1)!.acknowledged=true;current.question_index++;current.question=questions[current.question_index] ?? null;
-      if(current.question && reviewAvailable)current.question={...current.question,review_available:true};
       if(!current.question)current.phase='ready';else current.phase='question';
     }
     if(action==='complete'){
@@ -144,7 +144,7 @@ describe('First steps lesson player',()=>{
     expect(api.posts()).toHaveLength(0);expect(api.state.lesson.attempt?.answers).toEqual([]);
   });
   it.each(['first-steps-v1','first-steps-v2'])('keeps teaching examples out of unanswered %s questions',async version=>{
-    const api=server(lesson({version,teaching_cards:cards,attempt:attempt({version,phase:'question',teaching:null,question:{...questions[0],review_available:true}})}));
+    const api=server(lesson({version,teaching_cards:cards,attempt:attempt({version,phase:'question',teaching:null,question:questions[0]})}));
     render(<FirstSteps lessonId="bag" version={version}/>);
     await screen.findByRole('heading',{name:questions[0].prompt});
     expect(screen.queryByRole('button',{name:'Review examples'})).toBeNull();
@@ -206,7 +206,7 @@ describe('First steps lesson player',()=>{
     await click('Continue');await screen.findByRole('heading',{name:questions[1].prompt});
     expect(screen.queryByRole('img',{name:'A letter bag'})).toBeNull();
   });
-  it.each(['hint','answer'] as const)('shows a listening transcript only after the %s response supplies it',async(reveal)=>{
+  it('keeps a listening transcript hidden until the answer response supplies it',async()=>{
     const play=vi.spyOn(HTMLMediaElement.prototype,'play').mockResolvedValue();
     const question={...questions[0],prompt:'Listen. Which thing did you hear?',audio_url:'/static/audio/first-steps-v2/bag-listen-object.mp3'};
     const api=server(lesson({attempt:attempt({phase:'question',teaching:null,question})}));
@@ -215,17 +215,14 @@ describe('First steps lesson player',()=>{
     expect(listen.closest('header')).toBeNull();
     expect(screen.queryByText('Это сумка.')).toBeNull();
     expect(screen.queryByRole('img')).toBeNull();
+    expect(screen.queryByRole('button',{name:'Show a hint'})).toBeNull();
     await click('Listen to the question');await screen.findByRole('button',{name:'Pause the question'});
     expect(play).toHaveBeenCalledOnce();expect(api.posts()).toHaveLength(0);
     expect(screen.queryByText('Это сумка.')).toBeNull();
     api.state.lesson.attempt!.question!.transcript='Это сумка.';
-    await click(reveal==='hint' ? 'Show a hint' : 'сумка');
+    await click('сумка');
     expect((await screen.findByText('Это сумка.')).getAttribute('lang')).toBe('ru');
     expect(screen.getByRole('button',{name:'Pause the question'})).toBeTruthy();
-    if(reveal==='hint'){
-      expect(api.state.lesson.attempt?.answers).toEqual([]);
-      await click('сумка');
-    }
     await screen.findByText('That’s right.');
     expect(screen.getByText('Это сумка.')).toBeTruthy();
     await click('Continue');await screen.findByRole('heading',{name:questions[1].prompt});
@@ -274,24 +271,46 @@ describe('First steps lesson player',()=>{
     expect(api.posts().map(([url,request])=>[url,JSON.parse(request?.body as string)])).toEqual([[root+'/bag/start',{}],[root+'/bag/learn',{teaching_id:'bag-word'}],[root+'/bag/learn',{teaching_id:'letter-word'}]]);
   });
 
-  it('shows optional hints only on click and saves wrong answers before moving on',async()=>{
-    const api=server(lesson({attempt:attempt({phase:'question',teaching_index:2,teaching:null,question:questions[0]})}));render(<FirstSteps lessonId="bag"/>);
-    const heading=await screen.findByRole('heading',{level:1,name:questions[0].prompt});expect(screen.queryByText(/starts with су/)).toBeNull();
-    await click('Show a hint');expect(await screen.findByText('The word for a bag starts with су.')).toBeTruthy();
-    await click('письмо');expect(await screen.findByText('Here’s the answer.')).toBeTruthy();expect(screen.getByText('Сумка means a bag.')).toBeTruthy();
-    expect(screen.getByRole('heading',{level:1,name:questions[0].prompt})).toBe(heading);
+  it.each([false,undefined])('omits hint controls for direct recall with hint_available=%s',async hint_available=>{
+    const question={...questions[0],prompt:'Name the bag.',visual:'bag',hint_available};
+    const api=server(lesson({attempt:attempt({phase:'question',teaching:null,question})}));render(<FirstSteps lessonId="bag"/>);
+    await screen.findByRole('heading',{name:question.prompt});
+    expect(screen.getByRole('img',{name:'A letter bag'})).toBeTruthy();
+    expect(screen.queryByRole('button',{name:'Show a hint'})).toBeNull();
+    expect(screen.queryByText('Сумка means a bag.')).toBeNull();
+    expect(api.posts()).toHaveLength(0);
+    await click('сумка');await screen.findByText('That’s right.');
+    expect(api.state.lesson.attempt?.answers[0].hint_used).toBe(false);
+    expect(api.posts().map(([url])=>url.split('/').at(-1))).toEqual(['answer']);
+  });
+
+  it('requests an available strategy hint once and saves wrong answers before moving on',async()=>{
+    const api=server(lesson({attempt:attempt({phase:'question',teaching_index:2,teaching:null,question:grammarQuestion})}));api.state.holdNext='hint';render(<FirstSteps lessonId="gender"/>);
+    const heading=await screen.findByRole('heading',{level:1,name:grammarQuestion.prompt});expect(screen.queryByText(strategyHint)).toBeNull();
+    expect(api.posts()).toHaveLength(0);
+    await click('Show a hint');
+    expect(screen.getByRole('button',{name:'Show a hint'}).hasAttribute('disabled')).toBe(true);
+    expect(screen.getByRole('button',{name:'карта'}).hasAttribute('disabled')).toBe(true);
+    expect(screen.getByRole('button',{name:'письмо'}).hasAttribute('disabled')).toBe(true);
+    expect(screen.queryByText(strategyHint)).toBeNull();
+    await act(async()=>api.state.release!());
+    expect(await screen.findByText(strategyHint)).toBeTruthy();
+    expect(screen.queryByRole('button',{name:'Show a hint'})).toBeNull();
+    expect(api.posts().map(([url,request])=>[url,JSON.parse(String(request?.body))])).toEqual([[root+'/gender/hint',{question_id:grammarQuestion.id}]]);
+    await click('письмо');expect(await screen.findByText('Here’s the answer.')).toBeTruthy();expect(screen.getByText('Карта and сумка belong to the same noun group.')).toBeTruthy();
+    expect(screen.getByRole('heading',{level:1,name:grammarQuestion.prompt})).toBe(heading);
     await waitFor(()=>expect(document.activeElement).toBe(heading));
-    expect(screen.queryByRole('button',{name:'сумка'})).toBeNull();expect(screen.queryByRole('heading',{name:questions[1].prompt})).toBeNull();
+    expect(screen.queryByRole('button',{name:'карта'})).toBeNull();expect(screen.queryByRole('heading',{name:questions[1].prompt})).toBeNull();
     await click('Continue');expect(await screen.findByRole('heading',{name:questions[1].prompt})).toBeTruthy();
     expect(api.state.lesson.attempt?.answers[0]).toMatchObject({correct:false,hint_used:true,acknowledged:true});
   });
 
   it('preserves the question during a failed answer and retries the exact submission',async()=>{
-    const api=server(lesson({attempt:attempt({phase:'question',teaching:null,question:questions[0]})}));api.state.holdNext='answer';api.state.failNext='answer';
-    render(<FirstSteps lessonId="bag"/>);await click('сумка');
+    const api=server(lesson({attempt:attempt({phase:'question',teaching:null,question:grammarQuestion})}));api.state.holdNext='answer';api.state.failNext='answer';
+    render(<FirstSteps lessonId="gender"/>);await click('карта');
     expect(screen.getByRole('button',{name:'письмо'}).hasAttribute('disabled')).toBe(true);expect(screen.getByRole('button',{name:'Show a hint'}).hasAttribute('disabled')).toBe(true);
     await act(async()=>api.state.release!());await screen.findByRole('alert');
-    expect(screen.queryByText('Сумка means a bag.')).toBeNull();await click('Try again');await screen.findByText('Сумка means a bag.');
+    expect(screen.queryByText('Карта and сумка belong to the same noun group.')).toBeNull();await click('Try again');await screen.findByText('Карта and сумка belong to the same noun group.');
     const posts=api.posts().filter(([url])=>url.endsWith('/answer'));expect(posts).toHaveLength(2);expect(posts[0][1]?.body).toBe(posts[1][1]?.body);
   });
 

@@ -94,15 +94,49 @@ class CourseTargetTests(unittest.TestCase):
     def test_first_error_is_immutable_and_hint_recorded(self):
         state=practice_start(self.conn,self.pid,'home','start')
         with self.assertRaises(LearningError): self.action(state,'answer',choice_id='1')
+        while not state['current_item']['hint_available']:
+            state=self.action(state,'learn');state=self.action(state,'answer',choice_id=self.correct(state));state=self.action(state,'next')
         state=self.action(state,'learn');correct=self.correct(state)
         wrong=next(c['id'] for c in state['current_item']['question']['choices'] if c['id']!=correct)
         state=self.action(state,'hint');state=self.action(state,'answer',choice_id=wrong)
         self.assertFalse(state['current_item']['feedback']['correct'])
         with self.assertRaises(LearningError): self.action(state,'answer',choice_id=correct)
-        observation=self.conn.execute('SELECT * FROM course_target_observations WHERE practised=1').fetchone()
+        observation=self.conn.execute('SELECT * FROM course_target_observations WHERE practised=1 AND item_id=?', (state['current_item']['id'],)).fetchone()
         self.assertEqual(json.loads(observation['first_response_json']),{'choice_id':wrong})
         self.assertEqual(observation['needs_practice'],1)
         self.assertTrue(json.loads(observation['support_json'])['hint'])
+
+    def test_hints_are_optional_but_any_authored_hint_is_bilingual(self):
+        catalogue=deepcopy(practice_catalogue())
+        del catalogue['items'][0]['hint']
+        catalogue['items'][1]['hint']=None
+        validate_practice(catalogue)
+        catalogue['items'][1]['hint']={'en':'Check the noun ending.'}
+        with self.assertRaises(ValueError): validate_practice(catalogue)
+
+    def test_unavailable_hint_does_not_change_state_or_support(self):
+        state=self.action(practice_start(self.conn,self.pid,'home','start'),'learn')
+        self.assertFalse(state['current_item']['hint_available'])
+        before=dict(self.conn.execute('SELECT * FROM course_target_practice_attempts WHERE id=?',(state['id'],)).fetchone())
+        with self.assertRaises(LearningError) as error: self.action(state,'hint')
+        self.assertEqual(error.exception.code,'hint_unavailable')
+        self.assertEqual(dict(self.conn.execute('SELECT * FROM course_target_practice_attempts WHERE id=?',(state['id'],)).fetchone()),before)
+        state=self.action(state,'answer',choice_id=self.correct(state))
+        observation=self.conn.execute('SELECT support_json FROM course_target_observations WHERE practised=1').fetchone()
+        self.assertFalse(json.loads(observation['support_json'])['hint'])
+
+    def test_listening_hint_is_a_cue_without_transcript_or_listening_credit(self):
+        state=practice_start(self.conn,self.pid,'home','start')
+        while not state['current_item']['target_id'].endswith('.listen'):
+            state=self.action(state,'learn');state=self.action(state,'answer',choice_id=self.correct(state));state=self.action(state,'next')
+        state=self.action(self.action(state,'learn'),'hint')
+        self.assertTrue(state['current_item']['hint_available'])
+        self.assertIn('each object',state['current_item']['hint']['en'])
+        self.assertNotIn('полке',json.dumps(state['current_item']['hint'],ensure_ascii=False))
+        self.assertIsNone(state['current_item']['transcript'])
+        self.assertFalse(state['current_item']['listened'])
+        with self.assertRaises(LearningError) as error: self.action(state,'answer',choice_id=self.correct(state))
+        self.assertEqual(error.exception.code,'listen_required')
 
     def test_audio_must_be_played_or_explicit_transcript_support_used(self):
         state=practice_start(self.conn,self.pid,'home','start')

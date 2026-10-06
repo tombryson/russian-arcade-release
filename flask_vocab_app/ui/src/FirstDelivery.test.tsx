@@ -12,7 +12,7 @@ const words=[
   {id:'word-thanks',word:'Спасибо!',meaning:'Thank you',title:'Say thank you.',prompt:'Say thank you.',explanation:'Use this when someone helps you.',correct:'thanks'},
 ];
 const choices=[{id:'letter',text:'письмо'},{id:'hello',text:'Привет!'},{id:'thanks',text:'Спасибо!'}];
-const question=(index=0,learn=false)=>({...words[index],choices:learn ? [] : choices,...(learn ? {lesson:words[index]} : {})});
+const question=(index=0,learn=false)=>({...words[index],choices:learn ? [] : choices,hint_available:false,...(learn ? {lesson:words[index]} : {})});
 const attempt=(patch:Partial<FirstDeliveryAttempt>={}):FirstDeliveryAttempt=>({id:'delivery-1',version,phase:'question',question_index:0,total_questions:3,question:question(),answers:[],completed_at:null,...patch});
 const empty=():FirstDeliveryState=>({profile_id:'tom',attempt:null,pending_reward:0,reward:null});
 const answer=(index:number,patch={})=>({question_id:words[index].id,answer:words[index].correct,answer_text:words[index].word,correct:true,correct_answer:words[index].word,feedback:`${words[index].word} means ${words[index].meaning.toLowerCase()}.`,hint_used:false,acknowledged:false,...patch});
@@ -34,7 +34,6 @@ function server(initial=empty()) {
       if(current.question_index<2) {current.question_index++;current.question=question(current.question_index,true);}
       else {current.question_index=0;current.phase='question';current.question=question();}
     }
-    if(action==='hint') current.question={...current.question!,hint:'Привет is the greeting you learned.'};
     if(action==='answer') {
       const choice=current.question!.choices.find(item=>item.id===body.answer)!;
       current.answers.push(answer(current.question_index,{answer:choice.id,answer_text:choice.text,correct:choice.id===words[current.question_index].correct,hint_used:!!current.question!.hint}));
@@ -209,15 +208,26 @@ describe('Your first words',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Try these words'}));await screen.findByRole('button',{name:'Привет!'});
     expect(screen.queryByText('Thank you',{exact:true})).toBeNull();
   });
-  it('requests hints on click and keeps saved feedback until Next word',async()=>{
+  it.each([false,undefined])('omits hint controls for direct recall with hint_available=%s',async hint_available=>{
+    const api=server({...empty(),attempt:attempt({question:{...question(),hint_available}})});render(<FirstDelivery next={next} />);
+    await screen.findByRole('button',{name:'Привет!'});
+    expect(screen.queryByRole('button',{name:'Show a hint'})).toBeNull();
+    expect(screen.queryByText('Use this greeting with a friend.')).toBeNull();
+    expect(api.posts()).toHaveLength(0);
+    fireEvent.click(screen.getByRole('button',{name:'Привет!'}));await screen.findByText('That’s right.');
+    expect(api.state.value.attempt?.answers[0].hint_used).toBe(false);
+    expect(api.posts().map(([url])=>url.split('/').at(-1))).toEqual(['answer']);
+  });
+  it('keeps saved wrong-answer feedback until Next word',async()=>{
     const api=server({...empty(),attempt:attempt()});render(<FirstDelivery next={next} />);
     await screen.findByRole('button',{name:'Привет!'});
-    expect(screen.queryByText(/greeting you learned/)).toBeNull();
-    fireEvent.click(screen.getByRole('button',{name:'Show a hint'}));await screen.findByText('Привет is the greeting you learned.');
+    expect(screen.queryByRole('button',{name:'Show a hint'})).toBeNull();
     fireEvent.click(screen.getByRole('button',{name:'Спасибо!'}));await screen.findByText('Here’s the word you need.');
     expect(screen.getByText('Привет!',{selector:'.answer-text'}).getAttribute('lang')).toBe('ru');
     expect(screen.queryByRole('button',{name:'Привет!'})).toBeNull();
-    expect(api.state.value.attempt?.answers[0].hint_used).toBe(true);
+    expect(api.state.value.attempt?.answers[0].hint_used).toBe(false);
+    expect(screen.queryByRole('heading',{name:words[1].prompt})).toBeNull();
+    fireEvent.click(screen.getByRole('button',{name:'Next word'}));await screen.findByRole('heading',{name:words[1].prompt});
   });
   it('retries the same failed answer without advancing or celebrating',async()=>{
     const api=server({...empty(),attempt:attempt()});api.state.holdNext='answer';api.state.failNext='answer';

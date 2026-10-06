@@ -65,12 +65,18 @@ class FirstStepsTests(unittest.TestCase):
         for card in self.definition(lesson)['teaching']:
             self.post(lesson, 'learn', {'teaching_id': card['id']}, client=client)
 
-    def finish(self, lesson, *, client=None, hints=(), wrong=(), complete=True):
+    def seed_historical_hints(self, lesson, question_ids, client=None):
+        attempt_id = self.read(lesson, client)['attempt']['id']
+        with transaction(self.db, write=True) as conn:
+            conn.execute('UPDATE first_steps_attempts SET hints_json=? WHERE id=?',
+                         (encoded(list(question_ids)), attempt_id))
+
+    def finish(self, lesson, *, client=None, historical_hints=(), wrong=(), complete=True):
         self.prepare(lesson, client=client)
+        if historical_hints:
+            self.seed_historical_hints(lesson, historical_hints, client)
         for question in self.definition(lesson)['questions']:
             qid = question['id']
-            if qid in hints:
-                self.post(lesson, 'hint', {'question_id': qid}, client=client)
             answer = next(choice['id'] for choice in question['choices'] if choice['id'] != question['answer']) if qid in wrong else question['answer']
             self.post(lesson, 'answer', {'question_id': qid, 'answer': answer}, client=client)
             self.post(lesson, 'continue', {'question_id': qid}, client=client)
@@ -170,14 +176,15 @@ class FirstStepsTests(unittest.TestCase):
                 self.assertEqual(owned[1]['title'], self.definition('bag')['title'])
                 self.assertEqual(owned[1]['version'], self.content['version'])
 
-    def test_first_answers_are_immutable_and_hints_exclude_only_assisted_questions(self):
+    def test_first_answers_are_immutable_and_historical_hints_exclude_only_assisted_questions(self):
         self.hello()
         self.prepare('bag')
-        self.post('bag', 'hint', {'question_id': 'bag-name-letter'})
-        self.assertIn('hint', self.read('bag')['attempt']['question'])
+        self.seed_historical_hints('bag', ['bag-name-letter'])
+        self.assertNotIn('hint', self.read('bag')['attempt']['question'])
+        self.assertFalse(self.read('bag')['attempt']['question']['hint_available'])
         self.post('bag', 'answer', {'question_id': 'bag-name-letter', 'answer': 'letter'})
         self.post('bag', 'answer', {'question_id': 'bag-name-letter', 'answer': 'map'}, status=409)
-        self.post('bag', 'hint', {'question_id': 'bag-name-letter'})
+        self.post('bag', 'hint', {'question_id': 'bag-name-letter'}, status=409)
         self.post('bag', 'continue', {'question_id': 'bag-name-letter'})
         self.post('bag', 'answer', {'question_id': 'bag-name-bag', 'answer': 'map'})
         self.post('bag', 'continue', {'question_id': 'bag-name-bag'})
@@ -192,7 +199,7 @@ class FirstStepsTests(unittest.TestCase):
         self.assertTrue(all(item['rating'] is None for item in finished['progression']['skill']['skills'][1:]))
         before = self.balance()
         hinted_questions = [question['id'] for question in self.definition('directions')['questions']]
-        all_hinted = self.finish('directions', hints=hinted_questions)
+        all_hinted = self.finish('directions', historical_hints=hinted_questions)
         self.assertEqual(all_hinted['progression']['balance'], before['balance'] + 3)
         self.assertEqual(all_hinted['progression']['skill'], before['skill'])
 
