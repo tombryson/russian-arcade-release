@@ -134,9 +134,9 @@ Translated examples sit together below the explanation. Longer dialogues wrap;
 noun comparisons can use columns on wider screens. Illustrations appear only
 when the content defines one. The name exercise remains local and ungraded.
 
-Questions put hints and example review in one action row. Opening examples still
-records support before displaying them. Listening transcripts stay hidden until
-the backend permits them. Audio controls never submit an answer.
+Teaching examples appear before practice. Questions do not offer an example-review
+control that reveals the answer. Hints remain available. Listening transcripts stay
+hidden until the backend permits them. Audio controls never submit an answer.
 
 Completion keeps the next lesson as the main action. The first lesson shows its
 reward without word review or an introduction replay button. Later lessons retain

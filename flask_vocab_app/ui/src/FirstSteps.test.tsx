@@ -46,7 +46,6 @@ function server(initial=lesson(),overview=chapter()) {
       if(!current.teaching){current.phase='question';current.question=questions[0];}
     }
     if(action==='hint')current.question={...current.question!,hint:'The word for a bag starts with су.'};
-    if(action==='review'){state.lesson.teaching_cards=cards;current.question={...current.question!,hint:'Use the examples to help you.'};}
     if(action==='answer'){
       const choice=current.question!.choices.find(item=>item.id===body.answer)!;
       current.answers.push({...answer(current.question_index),answer:choice.id,answer_text:choice.text,correct:choice.id===current.question!.choices[0].id,hint_used:!!current.question!.hint});current.phase='feedback';
@@ -144,25 +143,23 @@ describe('First steps lesson player',()=>{
     expect(screen.getByText('Try your name in Russian or your own alphabet. This isn’t graded.')).toBeTruthy();
     expect(api.posts()).toHaveLength(0);expect(api.state.lesson.attempt?.answers).toEqual([]);
   });
-  it('opens optional examples only after recording support and starts each question with them closed',async()=>{
-    const api=server(lesson({version:'first-steps-v2',attempt:attempt({phase:'question',teaching:null,question:{...questions[0],review_available:true}})}));
-    render(<FirstSteps lessonId="bag" version="first-steps-v2"/>);
-    const review=await screen.findByRole('button',{name:'Review examples'});
-    expect(review.getAttribute('aria-expanded')).toBe('false');expect(screen.queryByText('Barsik keeps the letter in his bag.')).toBeNull();
-    await click('Review examples');await screen.findByText('Barsik keeps the letter in his bag.');
-    expect(review.getAttribute('aria-expanded')).toBe('true');
-    expect(screen.getByText('a bag').getAttribute('lang')).toBe('en');
-    expect(screen.getByText('Это сумка.').getAttribute('lang')).toBe('ru');
-    expect(screen.getByText('This is a bag.').getAttribute('lang')).toBe('en');
+  it.each(['first-steps-v1','first-steps-v2'])('keeps teaching examples out of unanswered %s questions',async version=>{
+    const api=server(lesson({version,teaching_cards:cards,attempt:attempt({version,phase:'question',teaching:null,question:{...questions[0],review_available:true}})}));
+    render(<FirstSteps lessonId="bag" version={version}/>);
+    await screen.findByRole('heading',{name:questions[0].prompt});
+    expect(screen.queryByRole('button',{name:'Review examples'})).toBeNull();
+    expect(screen.queryByText(cards[0].explanation)).toBeNull();
+    expect(screen.queryByText('a bag',{exact:true})).toBeNull();
+    expect(screen.queryByText('Это сумка.')).toBeNull();
+    expect(screen.queryByText('This is a bag.')).toBeNull();
     expect(screen.queryByText('Сумка means a bag.')).toBeNull();
-    const writes=api.posts();expect(writes).toHaveLength(1);
-    expect(writes[0][0]).toBe(root+'/bag/review?version=first-steps-v2');expect(JSON.parse(String(writes[0][1]?.body))).toEqual({question_id:'bag-q'});
-    await click('Review examples');expect(screen.queryByText('Barsik keeps the letter in his bag.')).toBeNull();
-    await click('Review examples');expect(api.posts()).toHaveLength(1);
+    expect(api.posts()).toHaveLength(0);
     await click('сумка');await screen.findByText('That’s right.');
+    expect(screen.getByText('Сумка means a bag.')).toBeTruthy();
     await click('Continue');await screen.findByRole('heading',{name:questions[1].prompt});
-    expect(screen.queryByText('Barsik keeps the letter in his bag.')).toBeNull();
-    expect(screen.getByRole('button',{name:'Review examples'}).getAttribute('aria-expanded')).toBe('false');
+    expect(screen.queryByRole('button',{name:'Review examples'})).toBeNull();
+    expect(screen.queryByText(cards[1].explanation)).toBeNull();
+    expect(api.posts().map(([url])=>url.split('?')[0].split('/').at(-1))).toEqual(['answer','continue']);
   });
   it.each([
     {lessonId:'bag',language:'ru' as const,choices:questions[0].choices},

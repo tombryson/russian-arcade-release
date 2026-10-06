@@ -111,14 +111,11 @@ function FirstStepsPlayer({lessonId,version,profileHref,journeyHref}:{lessonId:s
   const [busy,setBusy]=useState(false);
   const [error,setError]=useState('');
   const [locked,setLocked]=useState(false);
-  const [reviewQuestion,setReviewQuestion]=useState('');
-  const reviewed=useRef('');
   const heading=useRef<HTMLHeadingElement>(null),mounted=useRef(true),inFlight=useRef(false);
   const retryRequest=useRef<{action:FirstStepsAction;body:unknown}|{action:'load'}>({action:'load'});
   const attempt=state?.attempt;
   const teaching=attempt?.teaching;
   const question=attempt?.question;
-  const reviewOpen=!!question && reviewQuestion===question.id;
   const feedback=attempt?.answers.find(item=>item.question_id===question?.id);
   const currentVersion=state?.version ?? version;
   const legacy=currentVersion==='first-steps-v1' || attempt?.version==='first-steps-v1';
@@ -150,14 +147,12 @@ function FirstStepsPlayer({lessonId,version,profileHref,journeyHref}:{lessonId:s
     inFlight.current=true;setBusy(true);setError('');retryRequest.current={action,body};
     try {
       let result=await saveFirstSteps(lessonId,action,body,currentVersion);accept(result);
-      if(mounted.current && action==='review'){reviewed.current=question?.id ?? '';setReviewQuestion(question?.id ?? '');}
       if(mounted.current && action==='continue' && result.attempt?.phase==='ready') {
         retryRequest.current={action:'complete',body:{}};result=await saveFirstSteps(lessonId,'complete',{},result.version ?? currentVersion);accept(result);
       }
     }catch(cause){report(cause);}finally{inFlight.current=false;if(mounted.current)setBusy(false);}
   }
   function retry(){const request=retryRequest.current;request.action==='load' ? void load() : void save(request.action,request.body);}
-  function review(){if(reviewOpen)setReviewQuestion('');else if(question && reviewed.current===question.id)setReviewQuestion(question.id);else if(question)void save('review',{question_id:question.id});}
   const learning=attempt?.phase==='learn' && teaching;
   const completed=attempt?.phase==='completed';
   const answered=attempt?.phase==='feedback' && feedback;
@@ -182,7 +177,6 @@ function FirstStepsPlayer({lessonId,version,profileHref,journeyHref}:{lessonId:s
         : question && answered ? <button class="cta" disabled={busy} onClick={()=>void save('continue',{question_id:question.id})}>{busy ? 'Saving…' : attempt.question_index+1===attempt.total_questions ? 'Finish lesson' : 'Continue'} <span aria-hidden="true">→</span></button>
         : question ? <>
           {!question.hint && <button class="text-link" disabled={busy} onClick={()=>void save('hint',{question_id:question.id})}>Show a hint</button>}
-          {question.review_available && <button type="button" class="text-link intro-lesson-secondary" aria-expanded={reviewOpen} aria-controls="first-steps-examples" disabled={busy} onClick={review}>Review examples</button>}
         </> : <button class="cta" disabled={busy} onClick={()=>void save('complete')}>{busy ? 'Saving…' : 'Finish lesson'} <span aria-hidden="true">→</span></button>}>
         {completed ? <>
           <p class="first-steps-resolution">{state.resolution ?? 'You’ve finished this lesson. Ready for the next part?'}</p>
@@ -206,10 +200,6 @@ function FirstStepsPlayer({lessonId,version,profileHref,journeyHref}:{lessonId:s
           </> : <>
             <div class={`options${sentenceChoices ? ' is-sentence-choices' : ''}`}>{question.choices.map(choice=><div class="first-steps-choice" key={choice.id}><button class="word" lang={question.choices_language ?? 'ru'} disabled={busy} onClick={()=>void save('answer',{question_id:question.id,answer:choice.id})}>{choice.text}</button><LessonAudio compact src={choice.audio_url} label={choice.text}/></div>)}</div>
             {question.hint && <Feedback>{question.hint}</Feedback>}
-            {reviewOpen && <ul id="first-steps-examples" class="first-steps-review-examples">{state.teaching_cards.map(item=><li key={item.id}>
-              <div class="first-steps-review-word"><strong lang="ru">{item.word_display ?? item.word}</strong><LessonAudio inline src={item.audio_url} label={item.word}/></div>
-              <p lang="en">{item.meaning}</p><p>{item.explanation}</p><TeachingExamples teaching={item}/>
-            </li>)}</ul>}
             {busy && <p class="quiet" role="status">Saving…</p>}
           </>}
         </> : <p>You’ve finished every question. Let’s see how Barsik is getting on.</p>}

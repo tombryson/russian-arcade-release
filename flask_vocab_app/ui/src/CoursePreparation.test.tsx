@@ -1,5 +1,5 @@
 import {afterEach,beforeEach,describe,expect,it,vi} from 'vitest';
-import {fireEvent,render,screen,waitFor,within} from '@testing-library/preact';
+import {fireEvent,render,screen,waitFor} from '@testing-library/preact';
 import {CoursePreparation,type CoursePractice} from './CoursePreparation';
 import type {ProgressionState} from './Progression';
 const progression={data:{profile_id:'p',course:{release_id:'a1-journey-v2'}},refresh:vi.fn(),loading:false,error:''} as unknown as ProgressionState;
@@ -23,10 +23,11 @@ describe('Milestone target practice',()=>{
     const commands=fetch.mock.calls.filter(([,options])=>options?.method==='POST');expect(commands.map(([url])=>url.split('/').at(-1))).toEqual(['learn','answer','next']);
     expect(JSON.parse(String(commands[1][1]?.body))).toMatchObject({item_id:'item-1',choice_id:'right'});
   });
-  it('shows translated examples once, lets learners review them and closes review for the next item',async()=>{
+  it('shows translated examples before recall and keeps them unavailable while answering',async()=>{
     let value=practice();value={...value,total_count:2,current_item:{...value.current_item!,teaching:{...value.current_item!.teaching,examples:[{ru:'Это мама.',en:'This is Mum.'},{ru:'Это папа.',en:'This is Dad.'}]}}};
     const fetch=serve(url=>{
       if(url.endsWith('/learn'))value={...value,current_item:{...value.current_item!,stage:'question'}};
+      if(url.endsWith('/hint'))value={...value,current_item:{...value.current_item!,hint:{en:'Think about who is in the family.',ru:'Подумайте, кто в семье.'}}};
       if(url.endsWith('/answer'))value={...value,current_item:{...value.current_item!,stage:'feedback',feedback:{correct:true,answer:'right',explanation:'That phrase fits.',explanation_ru:'Этот вариант подходит.'}}};
       if(url.endsWith('/next'))value={...value,completed_count:1,current_item:{...value.current_item!,id:'item-2',stage:'question',feedback:null}};
       return value;
@@ -39,18 +40,23 @@ describe('Milestone target practice',()=>{
     expect(screen.queryByText('Это моя сестра.')).toBeNull();
     expect(screen.queryByText('This is my sister.')).toBeNull();
     fireEvent.click(screen.getByRole('button',{name:'Try it →'}));
-    const summary=await screen.findByText('Review examples');const disclosure=summary.closest('details')!;
-    expect(disclosure.open).toBe(false);
-    fireEvent.click(summary);expect(disclosure.open).toBe(true);
-    expect(within(disclosure).getByText('Use моя before сестра.')).toBeTruthy();
-    expect(within(disclosure).getByText('This is Mum.')).toBeTruthy();
-    fireEvent.click(summary);expect(disclosure.open).toBe(false);
-    fireEvent.click(summary);expect(disclosure.open).toBe(true);
-    expect(fetch.mock.calls.filter(([,options])=>options?.method==='POST').map(([url])=>url.split('/').at(-1))).toEqual(['learn']);
+    await screen.findByRole('radio',{name:'Моя сестра'});
+    expect(screen.queryByText('Review examples')).toBeNull();
+    expect(screen.queryByText('Use моя before сестра.')).toBeNull();
+    expect(screen.queryByText('Это мама.')).toBeNull();
+    expect(screen.queryByText('This is Mum.')).toBeNull();
+    expect(screen.queryByText('Это папа.')).toBeNull();
+    expect(screen.queryByText('This is Dad.')).toBeNull();
+    fireEvent.click(screen.getByRole('button',{name:'Show a hint'}));
+    await screen.findByText('Think about who is in the family.');
+    expect(fetch.mock.calls.filter(([,options])=>options?.method==='POST').map(([url])=>url.split('/').at(-1))).toEqual(['learn','hint']);
     fireEvent.click(screen.getByRole('radio',{name:'Моя сестра'}));fireEvent.click(screen.getByRole('button',{name:'Check answer'}));
-    fireEvent.click(await screen.findByRole('button',{name:'Next →'}));
+    await screen.findByText('That phrase fits.');
+    fireEvent.click(screen.getByRole('button',{name:'Next →'}));
     await waitFor(()=>expect(screen.getByRole('radio',{name:'Моя сестра'}).getAttribute('name')).toBe('practice-item-2'));
-    expect(screen.getByText('Review examples').closest('details')!.open).toBe(false);
+    expect(screen.queryByText('Review examples')).toBeNull();
+    expect(screen.queryByText('Use моя before сестра.')).toBeNull();
+    expect(screen.queryByText('This is Mum.')).toBeNull();
   });
   it('offers the revised lesson without changing a retained answer',async()=>{
     const current=practice();const saved={...current,updated_practice_href:'#journey/release/a1-journey-v2/prepare/home',current_item:{...current.current_item!,stage:'feedback',selected_choice:'wrong',feedback:{correct:false,answer:'right',explanation:'Saved explanation.',explanation_ru:'Сохранённое объяснение.'}}} as CoursePractice;

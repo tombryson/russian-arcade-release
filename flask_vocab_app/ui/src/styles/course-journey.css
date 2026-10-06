@@ -49,10 +49,6 @@
 .course-preparation-player .course-teaching-examples {display:grid;gap:16px;list-style:none;padding:0;margin:18px 0 24px}
 .course-preparation-player .course-teaching-examples p {margin:0}
 .course-preparation-player .course-teaching-examples .quiet {margin-top:3px;font-size:14px;line-height:1.6}
-.course-preparation-player .course-example-review {margin:0 0 18px;border-block:1px solid var(--wp-border-subtle);font-size:14px;line-height:1.6}
-.course-preparation-player .course-example-review summary {padding:12px 0;cursor:pointer;color:var(--wp-text-secondary)}
-.course-preparation-player .course-example-review .course-teaching-example {font-size:22px}
-.course-preparation-player .course-example-review .course-teaching-examples {gap:12px;margin-block:12px 18px}
 .course-preparation-player .course-revision-notice {display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:18px 0;font-size:13px;line-height:1.6;color:var(--wp-text-secondary)}
 .course-preparation-player .course-revision-notice .text-link {font-size:inherit}
 

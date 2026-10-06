@@ -39,11 +39,6 @@
 .first-steps-name-slot input {max-width:100%;min-width:0;padding:10px 12px;border:1px solid var(--wp-border-subtle);border-radius:6px;color:inherit;background:transparent;font:inherit}
 .first-steps-name-slot output {display:block;margin-top:12px;font-size:22px}
 .first-steps .first-steps-name-slot .quiet {font-size:13px;margin:8px 0 0}
-.first-steps-review-examples {list-style:none;padding:16px 0 0;margin:20px 0 0;display:grid;gap:18px;border-top:1px solid var(--wp-border-subtle)}
-.first-steps-review-examples>li {padding-bottom:16px;border-bottom:1px solid var(--wp-border-subtle)}
-.first-steps-review-examples>li:last-child {padding-bottom:0;border:0}
-.first-steps-review-examples strong {font-size:23px;font-weight:500}
-.first-steps .first-steps-review-examples>li>p {font-size:14px;margin:6px 0;line-height:1.6}
 .first-steps-review-word {display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px}
 .first-steps-version-note {font-size:13px;line-height:1.6;color:var(--wp-text-secondary);margin-block:18px}
 .first-steps-version-note a {text-underline-offset:3px}
