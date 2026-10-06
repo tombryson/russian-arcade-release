@@ -46,6 +46,9 @@ html { scroll-padding-top: 116px; }
 .arcade-workspace .list-group-item a { color: var(--wp-accent-learning); }
 .arcade-workspace .table { --bs-table-bg: var(--wp-surface-sheet); --bs-table-color: var(--wp-text-primary); --bs-table-border-color: var(--wp-border-subtle); }
 .arcade-workspace .text-muted { color: var(--wp-text-secondary) !important; }
+/* Anki metrics sit on themed cards; keep Bootstrap utilities in the same palette. */
+.arcade-workspace #metrics .text-dark { color: var(--wp-text-primary) !important; }
+.arcade-workspace #metrics .text-primary { color: var(--wp-accent-learning) !important; }
 .arcade-workspace .story-text { font-size: 22px; line-height: 1.85; }
 .arcade-workspace :focus-visible { outline: 3px solid var(--wp-accent-delivery); outline-offset: 4px; }
 .arcade-header :focus-visible { outline-color: var(--wp-surface-ticket); }
