@@ -93,11 +93,11 @@ questions declare the same fields plus `transcript`. The authored set requires
 18 recordings, plus three for the existing first-word lesson. URLs use
 `/static/audio/first-steps-v2/{id}.mp3`.
 
-`audio_text` contains plain Russian without added stress marks. `word_display`
-adds stress marks for reading; it does not change the vocabulary source text.
-Optional `reading_help` gives an approximate English pronunciation aid. It is
-secondary to the recording and is not a transcription standard or pronunciation
-assessment.
+Teaching cards and word reviews display `word` in normal Russian spelling,
+without added stress marks. This also applies to saved lessons with an accented
+`word_display` field. Russian letters such as ё and й keep their usual marks.
+`audio_text` and the recordings remain unchanged. Older `word_display` and
+`reading_help` fields are retained in saved content but are not displayed.
 
 Teaching cards may include translated `examples`. The introductory name card
 uses `name_slot: true`. Questions use `choices_language` to distinguish English

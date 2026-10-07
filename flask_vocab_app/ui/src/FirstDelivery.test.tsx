@@ -66,12 +66,13 @@ beforeEach(()=>{vi.stubGlobal('scrollTo',vi.fn());window.history.replaceState({}
 afterEach(()=>{vi.unstubAllGlobals();vi.restoreAllMocks();});
 
 describe('Your first words',()=>{
-  it('offers recorded pronunciation and slow replay alongside the stressed first word',async()=>{
+  it('shows normal spelling for saved stressed words while retaining recorded pronunciation and slow replay',async()=>{
     vi.spyOn(HTMLMediaElement.prototype,'play').mockResolvedValue();
     const teaching={...words[0],word_display:'Приве́т!',audio_url:'/static/audio/first-steps-v2/hello-word-hello.mp3',reading_help:'The second syllable is stressed.'};
     const api=server({...empty(),attempt:attempt({phase:'learn',question:{...question(0,true),lesson:teaching}})});
     const view=render(<FirstDelivery next={next}/>);
-    expect((await screen.findByText('Приве́т!')).getAttribute('lang')).toBe('ru');
+    expect((await screen.findByText('Привет!',{exact:true})).getAttribute('lang')).toBe('ru');
+    expect(screen.queryByText(teaching.word_display)).toBeNull();
     expect(screen.getByText('Hello',{exact:true}).getAttribute('lang')).toBe('en');
     fireEvent.click(screen.getByRole('button',{name:'Slow replay of Привет!'}));
     await screen.findByRole('button',{name:'Pause Привет!'});

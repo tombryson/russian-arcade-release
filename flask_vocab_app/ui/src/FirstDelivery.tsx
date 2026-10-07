@@ -146,7 +146,7 @@ export function FirstDelivery({ next, onIntroduce, profileHref='/post/profiles',
         </> : step === 'words' ? <>
           {question ? learning ? <div class="tutorial-word-card">
             <div class="tutorial-pronunciation">
-              <p class="tutorial-new-word" lang="ru">{learning.word_display ?? learning.word}</p>
+              <p class="tutorial-new-word" lang="ru">{learning.word}</p>
               <LessonAudio inline key={question.id} src={learning.audio_url} label={learning.word}/>
             </div>
             <p class="tutorial-word-meaning" lang="en">{learning.meaning}</p>

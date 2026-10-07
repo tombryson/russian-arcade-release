@@ -115,11 +115,12 @@ describe('First steps chapter',()=>{
 });
 
 describe('First steps lesson player',()=>{
-  it('shows stressed teaching, recorded audio and translated comparisons without repeating the old example',async()=>{
+  it('uses normal spelling even for saved stressed teaching, with recorded audio and translated comparisons',async()=>{
     vi.spyOn(HTMLMediaElement.prototype,'play').mockResolvedValue();
     const teaching={...cards[0],word_display:'су́мка',audio_url:'/static/audio/first-steps-v2/bag-word.mp3',examples:[{ru:'Это сумка.',en:'This is a bag.'},{ru:'Это письмо.',en:'This is a letter.'}],example:'Old single example',reading_help:'Су́мка has two syllables.'};
     const api=server(lesson({attempt:attempt({teaching})}));const view=render(<FirstSteps lessonId="bag"/>);
-    expect((await screen.findByText('су́мка')).getAttribute('lang')).toBe('ru');
+    expect((await screen.findByText('сумка',{exact:true})).getAttribute('lang')).toBe('ru');
+    expect(screen.queryByText(teaching.word_display)).toBeNull();
     expect(screen.getByText('This is a letter.').getAttribute('lang')).toBe('en');
     expect(screen.queryByText('Old single example')).toBeNull();expect(screen.getAllByText('Это сумка.')).toHaveLength(1);
     expect(screen.queryByText('Read this word')).toBeNull();
@@ -389,10 +390,11 @@ describe('First steps lesson player',()=>{
   });
 
   it('offers one compact word review without duplicate explanations, answers or rewards',async()=>{
-    const api=server(done());render(<FirstSteps lessonId="bag"/>);
+    const api=server(done({teaching_cards:[{...cards[0],word_display:'су́мка'},cards[1]]}));render(<FirstSteps lessonId="bag"/>);
     expect(await screen.findByText('3 Lingocoins earned')).toBeTruthy();expect(screen.queryByText('+3 Lingocoins')).toBeNull();
     expect(screen.getByText('Revisit your words')).toBeTruthy();expect(screen.queryByText('Your saved answers')).toBeNull();
     expect(screen.getByText('сумка',{exact:true}).getAttribute('lang')).toBe('ru');
+    expect(screen.queryByText('су́мка')).toBeNull();
     expect(screen.getByText('a bag',{exact:true}).getAttribute('lang')).toBe('en');
     expect(screen.queryByText('Сумка means a bag.')).toBeNull();expect(screen.queryByText('Письмо means a letter.')).toBeNull();
     expect(screen.queryByText('Barsik keeps the letter in his bag.')).toBeNull();expect(screen.queryByRole('button',{name:'Start again'})).toBeNull();expect(api.posts()).toHaveLength(0);

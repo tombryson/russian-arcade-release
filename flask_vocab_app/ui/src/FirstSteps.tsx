@@ -93,7 +93,7 @@ function TeachingCard({teaching}:{teaching:FirstStepsTeaching}) {
     <div class="first-steps-teaching-main">
       <div class="first-steps-word-block">
         <div class="first-steps-pronunciation">
-          <p class={`first-steps-word${teaching.word.length>28?' is-phrase':''}`} lang="ru">{teaching.word_display ?? teaching.word}</p>
+          <p class={`first-steps-word${teaching.word.length>28?' is-phrase':''}`} lang="ru">{teaching.word}</p>
           <LessonAudio inline key={teaching.id} src={teaching.audio_url} label={teaching.word}/>
         </div>
         <p class="first-steps-meaning" lang="en">{teaching.meaning}</p>
@@ -186,7 +186,7 @@ function FirstStepsPlayer({lessonId,version,profileHref,journeyHref}:{lessonId:s
             <ProfileSave profileHref={profileHref} pending={state.reward.status==='pending' ? state.pending_reward : 0}/>
           </div> : <p>Your lesson is complete. No coins were added.</p>}
           {legacy ? <details class="first-steps-review"><summary>Your saved answers</summary><ol class="first-steps-review-list">{attempt.answers.map(item=><li key={item.question_id}><strong lang={item.choices_language ?? 'ru'}>{item.answer_text}</strong><p>{item.feedback}</p>{item.hint_used && <p class="quiet">You used a hint.</p>}</li>)}</ol></details>
-            : <details class="first-steps-review"><summary>Revisit your words</summary><ul class="first-steps-review-list">{state.teaching_cards.map(item=><li key={item.id}><div class="first-steps-review-word"><strong lang="ru">{item.word_display ?? item.word}</strong><LessonAudio compact src={item.audio_url} label={item.word}/></div><p lang="en">{item.meaning}</p></li>)}</ul></details>}
+            : <details class="first-steps-review"><summary>Revisit your words</summary><ul class="first-steps-review-list">{state.teaching_cards.map(item=><li key={item.id}><div class="first-steps-review-word"><strong lang="ru">{item.word}</strong><LessonAudio compact src={item.audio_url} label={item.word}/></div><p lang="en">{item.meaning}</p></li>)}</ul></details>}
         </> : learning ? <TeachingCard teaching={learning}/>
         : question ? <>
           {(question.passage || question.audio_url || transcript) && <div class="first-steps-question-context">
