@@ -21,7 +21,7 @@ EDITIONS = {
     DEFAULT_VERSION: {'chapter_id': CHAPTER_ID, 'lesson_ids': LESSON_IDS, 'path': CONTENT_PATH.with_name('first_steps_v2.json')},
 }
 HELLO = {'id': 'hello', 'position': 1, 'title': 'Hello, Barsik!',
-         'description': 'Meet Barsik and learn hello, letter and thank you.',
+         'description': 'Meet your guide and learn your first Russian word.',
          'version': 'first-delivery-v2', 'chapter_id': LEGACY_CHAPTER_ID,
          'vocabulary': [
              {'lemma': 'привет', 'form': 'Привет', 'pos': 'INTJ', 'sentence': 'Привет, Барсик!', 'translation': 'Hello, Barsik!', 'target_meaning': 'hello', 'grammar': {}},

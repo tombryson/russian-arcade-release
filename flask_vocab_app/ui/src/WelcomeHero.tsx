@@ -48,7 +48,7 @@ export function WelcomeHero({ headingRef, profileKey, nextDestination, courseJou
     <a class="delivery-ticket" href={href}>
       <span class="ticket-stub" aria-hidden="true">{complete ? '✓' : next ? String(next.position).padStart(2,'0') : '→'}</span>
       <span class="ticket-copy"><span class="ticket-label">{label}</span>{' '}
-        <strong>{title}</strong>{' '}<span>{complete ? 'Keep practising and help Barsik carry your letter onward.' : next?.description ?? 'Meet Barsik and learn your first three Russian words.'}</span>
+        <strong>{title}</strong>{' '}<span>{complete ? 'Keep practising and help Barsik carry your letter onward.' : next?.description ?? 'Meet your guide and learn your first Russian word.'}</span>
       </span>
       <span class="ticket-action">{action} <span aria-hidden="true">↗</span></span>
     </a>
