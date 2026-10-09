@@ -139,10 +139,11 @@ export function Flashcards({ profileId, language = 'en', personal = false, wordI
           {!data.active_session_id && <label class="flashcard-session-size"><span class="sr-only">{t('Session size', 'Размер занятия')}</span><select value={size} disabled={busy || !!pending.current} onChange={e => setSize(Number(e.currentTarget.value))}>{[5,10,20].map(n => <option value={n} key={n}>{n} {t('cards', 'карточек')}</option>)}</select></label>}
           <button class="cta" disabled={busy} onClick={() => void start()}>{busy ? t('Opening…', 'Открываем…') : pending.current ? t('Try starting again', 'Попробовать начать снова') : data.active_session_id ? t('Continue practice', 'Продолжить') : t('Start practice', 'Начать практику')} <span aria-hidden="true">→</span></button>
         </div>}
+        {!data.active_session_id && !data.counts.ready && data.counts.cards > 0 && !data.counts.media_pending && data.counts.next_due_at &&
+          <p class="flashcard-next-review">{t('Next review', 'Следующее повторение')}: <span>{nextTime(data.counts.next_due_at, data.server_now, language)}.</span></p>}
       </div>
-      {!data.active_session_id && !data.counts.ready && data.counts.cards > 0 && <p class="flashcard-study-note">{data.counts.media_pending
+      {!data.active_session_id && !data.counts.ready && data.counts.cards > 0 && (data.counts.media_pending || !data.counts.next_due_at) && <p class="flashcard-study-note">{data.counts.media_pending
         ? t('Some cards still need pictures and audio. Open a card to add them.', 'Некоторым карточкам нужны картинка и аудио. Откройте карточку, чтобы добавить их.')
-        : data.counts.next_due_at ? `${t('Next review', 'Следующее повторение')}: ${nextTime(data.counts.next_due_at, data.server_now, language)}.`
         : data.counts.suspended ? t('Open a card to return it to practice.', 'Откройте карточку, чтобы вернуть её в практику.')
         : t('No cards due. New cards will be available tomorrow.', 'Пока нечего повторять. Новые карточки будут доступны завтра.')}</p>}
       <section ref={library} class="native-library" aria-labelledby="card-library-heading">
