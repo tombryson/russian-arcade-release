@@ -31,7 +31,7 @@
         <link rel="stylesheet" href="/static/css/user_sessions.css?v=3" />
         <script src="/static/js/user_sessions.js?v=3" defer></script>
         <script src="/static/js/language_picker.js?v=1" defer></script>
-        <link rel="stylesheet" href="/static/css/navigation_layout.css?v=6" />
+        <link rel="stylesheet" href="/static/css/navigation_layout.css?v=7" />
         <link rel="stylesheet" href="/static/css/activities_menu.css?v=1" />
         <link rel="stylesheet" href="/static/css/appearance_picker.css?v=4" />
         <link rel="stylesheet" href="/static/css/activity_entry.css?v=2" />
@@ -40,6 +40,7 @@
         <link rel="stylesheet" href="/static/css/phrasebook_link.css?v=1" />
         <script src="/static/js/appearance_picker.js?v=1" defer></script>
         <script src="/static/js/activities_menu.js?v=1" defer></script>
+        <script type="module" src="/static/js/header_menu_legacy.js?v=1"></script>
         <script src="/static/js/curriculum.js?v=1" defer></script>
         <script src="/static/js/activity_editor.js?v=5" defer></script>
         <script src="/static/js/sequence_drafts.js?v=1" defer></script>
@@ -56,7 +57,12 @@
         <a class="arcade-skip" href="#mainContent">Skip to activity</a>
         {% if navigation_layout != 'sidebar' %}
         <header class="arcade-header shared-header"><a class="arcade-brand" href="/" hx-boost="false" aria-label="{{ ui_t('app.title') }}"><span lang="ru" aria-hidden="true">Я</span><strong>{{ ui_t('app.title') }}<small>{{ ui_t('app.tagline') }}</small></strong></a>
-          <nav aria-label="{{ ui_t('nav.main') }}"><a href="/" hx-boost="false">{{ ui_t('nav.home') }}</a>{% include '_activities_menu.html' %}<a href="/vocab" hx-boost="false" {% if active_page in ['vocab', 'sentences_saved'] %}aria-current="page"{% endif %}>{{ ui_t('nav.my_words') }}</a></nav>
+          <div class="header-navigation" data-expanded="false">
+            <button class="header-menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="{{ 'Меню' if ui_lang == 'ru' else 'Menu' }}">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path class="header-menu-bars" d="M4 6h16M4 12h16M4 18h16" /><path class="header-menu-close" d="M6 6l12 12M18 6 6 18" /></svg>
+            </button>
+            <nav id="primary-navigation" aria-label="{{ ui_t('nav.main') }}"><a href="/" hx-boost="false">{{ ui_t('nav.home') }}</a>{% include '_activities_menu.html' %}<a href="/vocab" hx-boost="false" {% if active_page in ['vocab', 'sentences_saved'] %}aria-current="page"{% endif %}>{{ ui_t('nav.my_words') }}</a></nav>
+          </div>
           <div class="header-utilities">
             {% include '_progression.html' %}
             {% include '_language_picker.html' %}

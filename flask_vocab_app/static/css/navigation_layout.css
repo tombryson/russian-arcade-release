@@ -19,7 +19,7 @@
   .navigation-layout-top > .arcade-header .arcade-brand > span { display:grid; place-items:center; padding:0; }
 }
 
-/* Shared top header: one desktop row, two deliberate rows on smaller screens. */
+/* Shared top header: desktop links, compact mobile navigation. */
 .navigation-layout-top > .shared-header {
   display:flex; align-items:center; justify-content:space-between; flex-wrap:nowrap;
   gap:20px; min-height:68px;
@@ -40,7 +40,7 @@
   display:grid; place-items:center; flex:0 0 30px; width:30px; height:38px;
   padding:0; font:500 24px/1 var(--wp-font-display);
 }
-.navigation-layout-top > .shared-header > nav {
+.navigation-layout-top > .shared-header > .header-navigation > nav {
   display:flex; align-items:center; flex-wrap:nowrap; gap:4px; width:auto; min-width:0;
 }
 .navigation-layout-top > .shared-header nav > a,
@@ -71,7 +71,7 @@
   }
   .navigation-layout-top > .shared-header > :is(.brand, .arcade-brand) { grid-column:1; grid-row:1; }
   .navigation-layout-top > .shared-header > .header-utilities { grid-column:2; grid-row:1; }
-  .navigation-layout-top > .shared-header > nav {
+  .navigation-layout-top > .shared-header > .header-navigation > nav {
     display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
     grid-column:1 / -1; grid-row:2; justify-self:center; width:100%; max-width:600px;
   }
@@ -95,6 +95,55 @@
   .navigation-layout-top > .shared-header :is(.brand, .arcade-brand) { gap:7px; }
   .navigation-layout-top > .shared-header nav > a,
   .navigation-layout-top > .shared-header .activities-menu > summary { padding-inline:8px; font-size:13px; }
+}
+
+/* The same disclosure controls native activities and server-rendered pages. */
+.header-navigation { display:contents; }
+.header-menu-toggle { display:none; }
+@media(max-width:700px) {
+  .navigation-layout-top > .shared-header {
+    display:flex; flex-wrap:nowrap; justify-content:flex-start; gap:4px;
+    min-height:60px; padding:8px;
+  }
+  .navigation-layout-top > .shared-header:has(.header-navigation[data-expanded=true]) { z-index:1101; }
+  .navigation-layout-top > .shared-header > :is(.brand, .arcade-brand) { order:1; margin-right:auto; }
+  .navigation-layout-top > .shared-header.top .brand > span:last-child,
+  .navigation-layout-top > .shared-header.arcade-header .arcade-brand strong { display:none; }
+  .navigation-layout-top > .shared-header > .header-utilities { order:2; gap:0; }
+  .navigation-layout-top > .shared-header > .header-navigation { display:block; order:3; flex:0 0 44px; }
+  .navigation-layout-top .header-utilities .user-session-link.user-session-account-entry { flex:0 0 44px; width:44px; padding:10px; }
+  .navigation-layout-top .header-utilities .user-session-entry-icon { display:block; }
+  .navigation-layout-top .header-utilities .user-session-entry-label { display:none; }
+  .header-menu-toggle {
+    display:grid; place-items:center; width:44px; height:44px; padding:10px;
+    border:0; border-radius:10px; background:transparent; color:inherit; cursor:pointer;
+  }
+  .header-menu-toggle:hover,.header-menu-toggle[aria-expanded=true] { background:#ffffff18; }
+  .header-menu-toggle:focus-visible { outline:2px solid var(--wp-surface-ticket); outline-offset:-2px; }
+  .header-menu-close,.header-menu-toggle[aria-expanded=true] .header-menu-bars { display:none; }
+  .header-menu-toggle[aria-expanded=true] .header-menu-close { display:block; }
+  .navigation-layout-top > .shared-header > .header-navigation > nav {
+    position:absolute; top:calc(100% + 6px); right:8px; z-index:1100;
+    display:flex; flex-direction:column; align-items:stretch; gap:4px;
+    width:min(320px,calc(100vw - 16px)); max-height:calc(100dvh - var(--skill-header-height,100px) - 16px);
+    overflow-y:auto; overscroll-behavior:contain; margin:0; padding:8px;
+    border:1px solid #ffffff30; border-radius:12px; background:var(--wp-header-background);
+    color:var(--wp-header-foreground); box-shadow:0 8px 24px #0003;
+  }
+  .navigation-layout-top > .shared-header > .header-navigation[data-expanded=false] > nav { display:none; }
+  .navigation-layout-top > .shared-header .header-navigation nav > a,
+  .navigation-layout-top > .shared-header .header-navigation .activities-menu > summary {
+    justify-content:space-between; width:100%; min-height:44px; padding:10px 14px; border-radius:7px; text-align:left;
+  }
+  .header-navigation .activities-menu .activities-menu-options {
+    position:static; transform:none; width:100%; max-width:none; max-height:none; overflow:visible;
+    margin:4px 0 0; padding:0 0 4px 12px; border:0; border-radius:0; box-shadow:none;
+    background:transparent; color:inherit;
+  }
+  .header-navigation .activities-menu .activities-menu-options a { font-size:14px; }
+  .header-navigation .activities-menu .activities-menu-options a:hover,
+  .header-navigation .activities-menu .activities-menu-options a[aria-current=page] { background:#ffffff18; color:inherit; }
+  .header-navigation .activities-menu .activities-menu-options a:focus-visible { outline-color:var(--wp-surface-ticket); }
 }
 
 /* The sidebar owns navigation and account controls; the page has no top banner. */

@@ -201,7 +201,8 @@ main, .bottom { max-width: 1180px; margin: auto; }
   .household-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 700px) {
-  .hero { grid-template-columns: 1fr; min-height: 0; padding: 48px 28px 56px; gap: 52px; }
+  .hero { grid-template-columns: 1fr; min-height: 0; padding: 24px 20px 36px; gap: 32px; }
+  .hero .kicker { display: none; }
   .headline { font-size: clamp(32px, 7.5vw, 48px); letter-spacing: -1.5px; }
   .hero-illustration { max-width: 320px; }
   .delivery-ticket { grid-template-columns: 1fr; gap: 20px; padding: 24px; }

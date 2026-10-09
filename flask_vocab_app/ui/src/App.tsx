@@ -27,6 +27,7 @@ import {useOnboarding, type OnboardingState} from './Onboarding';
 import { ActivitySidebar, type ActivityNavigation } from './ActivitySidebar';
 import { AppearancePicker } from './AppearancePicker';
 import { ActivitiesMenu } from './ActivitiesMenu';
+import { HeaderNavigation } from './HeaderNavigation';
 import { ActivityHeader } from './ActivityHeader';
 import type { Language } from './review-types';
 import { StepThroughConversation } from './StepThroughConversation';
@@ -284,11 +285,11 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
   return <GameLanguage.Provider value={language}><div ref={workspace} class={`navigation-layout-${navigationLayout}${activityWorkspace ? ' activity-workspace' : ''}${lessonWorkspace ? ' lesson-workspace' : ''}${learningWorkspace ? ' learning-workspace' : ''}${location.page === 'speaking' ? ' speaking-workspace' : ''}`}>
     <a class="skip-link" href="#main">Skip to content</a>
     {!activityWorkspace && <header ref={header} class="top shared-header"><a class="brand" href="#home" aria-label="Russian Arcade home"><span class="mark" lang="ru" aria-hidden="true">Я</span><span><span class="brand-name">Russian Arcade</span><span class="origin">Learn and practise Russian</span></span></a>
-      <nav class="nav" aria-label={language === 'ru' ? 'Главное меню' : 'Main navigation'}>
+      <HeaderNavigation language={language}>
         <a href="#home" aria-current={['home','first-delivery','first-steps'].includes(location.page) ? 'page' : undefined}>{language === 'ru' ? 'Главная' : 'Home'}</a>
         <ActivitiesMenu items={menuActivities} language={language} active={['activities','practice','review','flashcards','generate','conversation','speech-lab','speaking','game','games','alphabet'].includes(location.page)} activePage={activeNavigationPage} />
         <a href={wordsHref} aria-current={location.page === 'words' ? 'page' : undefined}>{language === 'ru' ? 'Список слов' : 'Vocab list'}</a>
-      </nav>
+      </HeaderNavigation>
       <div class="header-utilities">
         {coinBalance}
         {languageControl}
