@@ -226,13 +226,19 @@ class WordPostTests(unittest.TestCase):
                             page = render_template('base.html', ui_lang=language, navigation_layout=layout,
                                                    household_enabled=household, user_session_scope='opaque-scope',
                                                    user_session_profile={'id': 'profile-id', 'display_name': 'Tom'})
-                        shell = page.split('class="sidebar-account"', 1)[1] if layout == 'sidebar' else page.split('<header class="arcade-header"', 1)[1].split('</header>', 1)[0]
+                        if layout == 'sidebar':
+                            shell = page.split('class="sidebar-account"', 1)[1]
+                        else:
+                            header = re.search(r'<header\b[^>]*class="[^"]*\barcade-header\b[^"]*"[^>]*>(.*?)</header>', page, re.S)
+                            self.assertIsNotNone(header)
+                            shell = header.group(1)
                         links = re.findall(r'<a\b[^>]*class="user-session-link[^>]*>.*?</a>', shell, re.S)
                         self.assertEqual(len(links), 1)
                         link = links[0]
                         if mode == 'preview':
                             label = ('Войти' if language == 'ru' else 'Sign in') if available else ('Аккаунт' if language == 'ru' else 'Account')
-                            self.assertRegex(link, rf'>\s*{label}\s*</a>')
+                            visible_label = html_module.unescape(re.sub(r'<[^>]+>', '', link)).strip()
+                            self.assertEqual(visible_label, label)
                             self.assertNotIn('user-session-initial', link)
                         elif mode == 'hosted':
                             label = 'Профиль: Tom' if language == 'ru' else 'Profile: Tom'
