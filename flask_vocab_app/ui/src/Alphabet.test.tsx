@@ -30,6 +30,22 @@ afterEach(() => {
 });
 
 describe('Russian alphabet', () => {
+  it('opens pronunciation notes without playing audio and keeps them tied to the selected letter', async () => {
+    render(<Alphabet/>);
+    const toggle = screen.getByRole('button', {name: 'Pronunciation notes'});
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    await click(toggle);
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    expect(HTMLMediaElement.prototype.play).not.toHaveBeenCalled();
+    await click(screen.getByRole('button', {name: 'Listen to syllable ба for Б б, consonant'}));
+    const detail = screen.getByRole('complementary', {name: 'About Б б'});
+    expect(within(detail).getByRole('button', {name: 'Listen to letter name: бэ'})).toBeTruthy();
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    await click(toggle);
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(1);
+  });
+
   it('shows all 33 letters without loading audio or calling a provider, with a return to the lesson', () => {
     const {container} = render(<Alphabet returnHref="#first-delivery" returnLabel="Your first delivery"/>);
     const buttons = letterButtons();

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'preact/hooks';
+import {useEffect, useLayoutEffect, useRef, useState} from 'preact/hooks';
 import type {JSX} from 'preact';
 import {appUrl} from './app-url';
 import alphabetData from './alphabet-data.json';
@@ -43,8 +43,12 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
   const [selectedId, setSelectedId] = useState(letters[0].id);
   const [playing, setPlaying] = useState('');
   const [error, setError] = useState('');
+  const [notesOpen, setNotesOpen] = useState(false);
   const player = useRef<HTMLAudioElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
+  const layout = useRef<HTMLDivElement>(null);
+  const detail = useRef<HTMLElement>(null);
+  const keyboardTarget = useRef<HTMLButtonElement | null>(null);
   const attempt = useRef(0);
   const active = useRef<string>();
   const mounted = useRef(true);
@@ -70,6 +74,27 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     heading.current?.focus({preventScroll: true});
     const audio = player.current;
     return () => { mounted.current = false; stopAudio(audio); };
+  }, []);
+
+  useLayoutEffect(() => {
+    const button = keyboardTarget.current;
+    keyboardTarget.current = null;
+    if (!button || document.activeElement !== button) return;
+    // Scroll after the new letter's notes have changed the panel height.
+    layout.current?.style.setProperty('--alphabet-detail-height', `${detail.current?.getBoundingClientRect().height ?? 0}px`);
+    button.scrollIntoView?.({block: 'nearest', inline: 'nearest'});
+  }, [selectedId]);
+
+  useEffect(() => {
+    const panel = detail.current;
+    if (!panel || typeof ResizeObserver === 'undefined') return;
+    // Keep keyboard-focused letters clear of the mobile inspector, including
+    // when pronunciation notes are expanded or text is enlarged.
+    const measure = () => layout.current?.style.setProperty('--alphabet-detail-height', `${panel.getBoundingClientRect().height}px`);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(panel);
+    return () => observer.disconnect();
   }, []);
 
   async function play(letter: Letter, clip: Clip) {
@@ -124,7 +149,12 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
     const destination = Math.max(0, Math.min(group.length - 1, next));
     stopAudio();
     setSelectedId(group[destination].id);
-    grid?.querySelectorAll<HTMLButtonElement>('button')[destination]?.focus();
+    const button = grid?.querySelectorAll<HTMLButtonElement>('button')[destination];
+    if (button) {
+      keyboardTarget.current = button;
+      button.focus({preventScroll: true});
+      if (group[destination].id === selectedId) button.scrollIntoView?.({block: 'nearest', inline: 'nearest'});
+    }
   }
 
   function renderLetters(group: Letter[]) {
@@ -163,17 +193,8 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
       <ul class="alphabet-legend" aria-label="Letter types">{(['vowel', 'consonant'] as const).map(kind =>
         <li class={`alphabet-kind-${kind}`} key={kind}><span aria-hidden="true"/>{labels[kind]}s</li>)}</ul>
     </div>
-    <div class="alphabet-layout">
-      <div class="alphabet-grid-wrap">
-        <p id="alphabet-keyboard-help" class="alphabet-sr-only">Use the arrow keys to choose a letter, then press Enter or Space to listen.</p>
-        <ol class="alphabet-grid" aria-label="Russian letters" aria-describedby="alphabet-keyboard-help">{renderLetters(soundingLetters)}</ol>
-        <p class="alphabet-grid-caption">10 vowels · 21 consonants</p>
-        <section class="alphabet-signs" aria-labelledby="alphabet-signs-heading">
-          <div class="alphabet-signs-heading"><h2 id="alphabet-signs-heading">Silent signs</h2><p>No sound of their own.</p></div>
-          <ol class="alphabet-grid" aria-label="Silent signs">{renderLetters(silentSigns)}</ol>
-        </section>
-      </div>
-      <aside id="alphabet-detail" class={`alphabet-detail alphabet-kind-${selected.kind}`} aria-label={`About ${selected.upper} ${selected.lower}`}>
+    <div ref={layout} class="alphabet-layout">
+      <aside ref={detail} id="alphabet-detail" class={`alphabet-detail alphabet-kind-${selected.kind}`} aria-label={`About ${selected.upper} ${selected.lower}`}>
         <div class="alphabet-detail-meta"><span>Letter {String(position + 1).padStart(2, '0')} / 33</span><span class="alphabet-kind-label">{labels[selected.kind]}</span></div>
         <h2 class="alphabet-detail-pair" lang="ru">{selected.soundAudio
           ? <button type="button" class="alphabet-sound-play" onClick={() => playOrStop('sound')} aria-label={`${soundPlaying ? 'Stop' : 'Listen to'} ${selectedSyllable ? `syllable: ${selectedSyllable}` : `sound: ${selected.upper}`}`}>
@@ -187,13 +208,27 @@ export function Alphabet({returnHref = '#activities', returnLabel = 'Activities'
           <span class="alphabet-detail-label">In a word</span><span class="alphabet-example-row"><strong lang="ru"><ExampleWord letter={selected}/></strong><span class="alphabet-play-icon"><Speaker playing={wordPlaying}/></span></span>
           <span class="alphabet-example-meaning">{selected.exampleMeaning}</span>
         </button>
-        <p class="alphabet-note">{selected.note}</p>
-        <button type="button" class="alphabet-name-play" onClick={() => playOrStop('name')} aria-label={`${namePlaying ? 'Stop' : 'Listen to'} letter name: ${selected.name}`}>
-          <span>Letter name: <strong lang="ru">{selected.name}</strong></span><Speaker playing={namePlaying}/>
+        <button type="button" class="alphabet-notes-toggle" aria-expanded={notesOpen} aria-controls="alphabet-notes" onClick={() => setNotesOpen(open => !open)}>
+          Pronunciation notes <span aria-hidden="true">{notesOpen ? '−' : '+'}</span>
         </button>
+        <div id="alphabet-notes" class={`alphabet-notes${notesOpen ? ' is-open' : ''}`}>
+          <p class="alphabet-note">{selected.note}</p>
+          <button type="button" class="alphabet-name-play" onClick={() => playOrStop('name')} aria-label={`${namePlaying ? 'Stop' : 'Listen to'} letter name: ${selected.name}`}>
+            <span>Letter name: <strong lang="ru">{selected.name}</strong></span><Speaker playing={namePlaying}/>
+          </button>
+        </div>
+        {error && <p class="alphabet-error" role="status">{error}</p>}
       </aside>
+      <div class="alphabet-grid-wrap">
+        <p id="alphabet-keyboard-help" class="alphabet-sr-only">Use the arrow keys to choose a letter, then press Enter or Space to listen.</p>
+        <ol class="alphabet-grid" aria-label="Russian letters" aria-describedby="alphabet-keyboard-help">{renderLetters(soundingLetters)}</ol>
+        <p class="alphabet-grid-caption">10 vowels · 21 consonants</p>
+        <section class="alphabet-signs" aria-labelledby="alphabet-signs-heading">
+          <div class="alphabet-signs-heading"><h2 id="alphabet-signs-heading">Silent signs</h2><p>No sound of their own.</p></div>
+          <ol class="alphabet-grid" aria-label="Silent signs">{renderLetters(silentSigns)}</ol>
+        </section>
+      </div>
     </div>
-    {error && <p class="alphabet-error" role="status">{error}</p>}
     <audio ref={player} preload="none" hidden aria-hidden="true"/>
   </section>;
 }
