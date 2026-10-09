@@ -1,4 +1,4 @@
-import { bindHeaderMenu } from './header_menu.js?v=1';
+import { bindHeaderMenu } from './header_menu.js?v=2';
 
 const binding = Symbol.for('russian-arcade.header-menu');
 if (!document[binding]) {
@@ -10,7 +10,7 @@ if (!document[binding]) {
                 menus.delete(root);
             }
         }
-        document.querySelectorAll('.header-navigation').forEach(root => {
+        document.querySelectorAll('[data-header-menu]').forEach(root => {
             if (!menus.has(root)) menus.set(root, bindHeaderMenu(root));
         });
     };

@@ -4,20 +4,21 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { bindHeaderMenu } from '../../static/js/header_menu.js';
 
 const markup = `
-  <div class="header-navigation" data-expanded="false">
-    <button class="header-menu-toggle" type="button" aria-label="Menu" aria-controls="primary-navigation" aria-expanded="false">Menu</button>
-    <nav id="primary-navigation" aria-label="Main navigation">
-      <a href="#home">Home</a>
-      <details class="activities-menu"><summary>Activities</summary><div><a href="#writing"><span>Writing</span></a></div></details>
-      <a href="#words">Vocab list</a>
-    </nav>
+  <div class="header-controls" data-header-menu data-expanded="false">
+    <button class="header-menu-toggle" type="button" aria-label="Account and settings" aria-controls="header-utilities" aria-expanded="false">More</button>
+    <div id="header-utilities" class="header-utilities" data-header-menu-panel>
+      <a href="#shop">Coins</a>
+      <details class="language-picker"><summary>Language</summary><form class="language-picker-options"><button type="button">English</button></form></details>
+      <details class="appearance-picker"><summary>Appearance</summary><form class="appearance-picker-options"><button type="button">Top navigation</button></form></details>
+      <a class="account-link" href="#account"><span>Account</span></a>
+    </div>
   </div>
   <button id="outside">Outside</button>`;
 
 let root, toggle, nested, media, cleanup;
 beforeEach(() => {
   document.body.innerHTML = markup;
-  root = document.querySelector('.header-navigation');
+  root = document.querySelector('[data-header-menu]');
   toggle = root.querySelector('button');
   nested = root.querySelector('details');
   media = new EventTarget();
@@ -31,27 +32,32 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('shared mobile header navigation', () => {
-  it('opens from the button, keeps activity disclosure clicks open, and resets nested menus when closed', () => {
+describe('shared mobile header controls', () => {
+  it('opens from the button, keeps language disclosure clicks open, and resets nested menus when closed', () => {
     cleanup = bindHeaderMenu(root);
-    expect(toggle.getAttribute('aria-controls')).toBe(root.querySelector('nav').id);
+    expect(toggle.getAttribute('aria-controls')).toBe(root.querySelector('[data-header-menu-panel]').id);
     toggle.click();
     expect(root.dataset.expanded).toBe('true');
     expect(toggle.getAttribute('aria-expanded')).toBe('true');
     nested.querySelector('summary').click();
     expect(nested.open).toBe(true);
     expect(root.dataset.expanded).toBe('true');
+    root.querySelector('.appearance-picker').open = true;
     toggle.click();
     expect(root.dataset.expanded).toBe('false');
     expect(toggle.getAttribute('aria-expanded')).toBe('false');
     expect(nested.open).toBe(false);
+    expect(root.querySelector('.appearance-picker').open).toBe(false);
+    toggle.click();
+    expect(root.dataset.expanded).toBe('true');
+    expect(root.querySelectorAll('details[open]')).toHaveLength(0);
   });
 
   it('closes on Escape before nested disclosure handlers can move focus into hidden content', () => {
     cleanup = bindHeaderMenu(root);
     toggle.click();
     nested.open = true;
-    nested.querySelector('a').focus();
+    nested.querySelector('button').focus();
     const nestedEscape = vi.fn(() => nested.querySelector('summary').focus());
     document.addEventListener('keydown', nestedEscape);
     try {
@@ -64,6 +70,40 @@ describe('shared mobile header navigation', () => {
       expect(nestedEscape).not.toHaveBeenCalled();
     } finally {
       document.removeEventListener('keydown', nestedEscape);
+    }
+  });
+
+  it.each(['language', 'appearance'])('cooperates with the legacy %s picker and keeps its settings usable', picker => {
+    const listeners = [];
+    const scopedDocument = {
+      addEventListener(type, listener, options) {
+        document.addEventListener(type, listener, options);
+        listeners.push([type, listener, options]);
+      },
+      querySelectorAll: selector => document.querySelectorAll(selector),
+      get activeElement() { return document.activeElement; },
+    };
+    runInNewContext(readFileSync(`../static/js/${picker}_picker.js`, 'utf8'), {
+      document: scopedDocument, location: window.location,
+    });
+    cleanup = bindHeaderMenu(root);
+    try {
+      toggle.click();
+      const details = root.querySelector(`.${picker}-picker`);
+      details.querySelector('summary').click();
+      const setting = details.querySelector('button');
+      setting.click();
+      expect(root.dataset.expanded).toBe('true');
+      expect(details.open).toBe(true);
+      setting.focus();
+      setting.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+      expect(root.dataset.expanded).toBe('false');
+      expect(details.open).toBe(false);
+      expect(document.activeElement).toBe(toggle);
+      toggle.click();
+      expect(details.open).toBe(false);
+    } finally {
+      listeners.forEach(([type, listener, options]) => document.removeEventListener(type, listener, options));
     }
   });
 
@@ -82,7 +122,7 @@ describe('shared mobile header navigation', () => {
     toggle.click();
     nested.open = true;
     const click = new MouseEvent('click', { bubbles: true, cancelable: true });
-    nested.querySelector('a span').dispatchEvent(click);
+    root.querySelector('.account-link span').dispatchEvent(click);
     expect(root.dataset.expanded).toBe('false');
     expect(nested.open).toBe(false);
     expect(click.defaultPrevented).toBe(false);

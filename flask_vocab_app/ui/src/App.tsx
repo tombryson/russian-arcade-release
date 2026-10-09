@@ -28,6 +28,7 @@ import { ActivitySidebar, type ActivityNavigation } from './ActivitySidebar';
 import { AppearancePicker } from './AppearancePicker';
 import { ActivitiesMenu } from './ActivitiesMenu';
 import { HeaderNavigation } from './HeaderNavigation';
+import { HeaderUtilities } from './HeaderUtilities';
 import { ActivityHeader } from './ActivityHeader';
 import type { Language } from './review-types';
 import { StepThroughConversation } from './StepThroughConversation';
@@ -286,16 +287,22 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
     <a class="skip-link" href="#main">Skip to content</a>
     {!activityWorkspace && <header ref={header} class="top shared-header"><a class="brand" href="#home" aria-label="Russian Arcade home"><span class="mark" lang="ru" aria-hidden="true">Я</span><span><span class="brand-name">Russian Arcade</span><span class="origin">Learn and practise Russian</span></span></a>
       <HeaderNavigation language={language}>
-        <a href="#home" aria-current={['home','first-delivery','first-steps'].includes(location.page) ? 'page' : undefined}>{language === 'ru' ? 'Главная' : 'Home'}</a>
+        <a class="header-home-link" href="#home" aria-label={language === 'ru' ? 'Главная' : 'Home'} title={language === 'ru' ? 'Главная' : 'Home'} aria-current={['home','first-delivery','first-steps'].includes(location.page) ? 'page' : undefined}>
+          <svg class="header-nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>
+          <span class="header-nav-label">{language === 'ru' ? 'Главная' : 'Home'}</span>
+        </a>
         <ActivitiesMenu items={menuActivities} language={language} active={['activities','practice','review','flashcards','generate','conversation','speech-lab','speaking','game','games','alphabet'].includes(location.page)} activePage={activeNavigationPage} />
-        <a href={wordsHref} aria-current={location.page === 'words' ? 'page' : undefined}>{language === 'ru' ? 'Список слов' : 'Vocab list'}</a>
+        <a class="header-vocab-link" href={wordsHref} aria-label={language === 'ru' ? 'Список слов' : 'Vocab list'} title={language === 'ru' ? 'Список слов' : 'Vocab list'} aria-current={location.page === 'words' ? 'page' : undefined}>
+          <svg class="header-nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01" stroke-width="3"/></svg>
+          <span class="header-nav-label">{language === 'ru' ? 'Список слов' : 'Vocab list'}</span>
+        </a>
       </HeaderNavigation>
-      <div class="header-utilities">
+      <HeaderUtilities language={language}>
         {coinBalance}
         {languageControl}
         {appearanceControl}
         {profileControl}
-      </div>
+      </HeaderUtilities>
       {skillProgress}
     </header>}
     <div class={activityWorkspace ? 'activity-layout' : undefined}>

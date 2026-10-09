@@ -1,19 +1,19 @@
 /**
- * Bind the shared mobile navigation without intercepting link navigation.
+ * Bind the shared mobile header disclosure without intercepting navigation.
  * @param {HTMLElement} root
  * @returns {() => void}
  */
 export function bindHeaderMenu(root) {
     const toggle = root.querySelector('.header-menu-toggle');
-    const nav = root.querySelector('nav');
-    if (!toggle || !nav) return () => {};
+    const panel = root.querySelector('[data-header-menu-panel]');
+    if (!toggle || !panel) return () => {};
 
     const document = root.ownerDocument;
     const window = document.defaultView;
     const mobile = window.matchMedia?.('(max-width: 700px)');
     const isOpen = () => root.dataset.expanded === 'true';
     const close = () => {
-        nav.querySelectorAll('details[open]').forEach(menu => { menu.open = false; });
+        panel.querySelectorAll('details[open]').forEach(menu => { menu.open = false; });
         root.dataset.expanded = 'false';
         toggle.setAttribute('aria-expanded', 'false');
     };
@@ -32,7 +32,7 @@ export function bindHeaderMenu(root) {
             return;
         }
         const link = event.target.closest?.('a[href]');
-        if (!link || !nav.contains(link) || event.defaultPrevented || event.button ||
+        if (!link || !panel.contains(link) || event.defaultPrevented || event.button ||
             event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
             link.target || link.hasAttribute('download')) return;
         close();
