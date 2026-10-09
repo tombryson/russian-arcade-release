@@ -91,44 +91,53 @@
 .library-prompt { font-size:1.65rem; line-height:1.45; margin:12px 0 24px; }
 .library-actions { display:flex; flex-wrap:wrap; gap:12px 22px; justify-content:space-between; border-top:1px solid var(--wp-border-subtle); margin-top:16px; padding-top:12px; }
 .card-history { font-size:.8rem; }.card-history ol { padding-left:20px; }.card-history li { margin:12px 0; }
-.native-review-page { max-width:1040px; margin-inline:auto; }
-.review-topline,.review-bottomline { display:flex; gap:20px; align-items:center; justify-content:space-between; margin-bottom:24px; font-size:.9rem; }
-.review-progress { display:flex; gap:20px; align-items:center; justify-content:space-between; margin:20px 0 28px; color:var(--wp-text-secondary); font-size:.9rem; }
-.review-progress progress { width:150px; height:7px; accent-color:var(--wp-accent-learning); }
-.recall-card { border:2px solid var(--wp-text-primary); border-radius:6px 24px 24px 24px; background:var(--wp-surface-sheet); padding:24px 28px 20px; box-shadow:5px 6px 0 var(--wp-border-subtle); }
-.recall-card-meta,.card-type-line { display:flex; gap:16px; justify-content:space-between; font-size:.8rem; color:var(--wp-text-secondary); }
-.recall-card-meta { padding-bottom:18px; border-bottom:1px solid var(--wp-border-subtle); }
-.recall-card-meta>span:last-child { color:var(--wp-accent-learning); font-size:1.6rem; line-height:1; }
-.recall-situation { margin:38px 0 10px; text-align:center; color:var(--wp-text-secondary); }
-.native-review-page .recall-prompt { font:500 clamp(1.65rem,3cqi,2.25rem)/1.5 var(--wp-font-reading); letter-spacing:-.01em; text-align:center; margin:8px 0 16px; overflow-wrap:anywhere; }
-.recall-context,.recall-context-meaning { font-size:1.15rem; text-align:center; margin:12px auto; max-width:600px; white-space:pre-line; }
-.recall-word-meaning { font-size:1.2rem; margin:12px auto; text-align:center; }
+.page.native-review-page { max-width:960px; min-height:0; margin-inline:auto; padding:16px clamp(16px,3vw,32px) 24px; }
+.review-topline,.review-bottomline { display:flex; gap:16px; align-items:center; justify-content:space-between; font-size:.85rem; }
+.review-topline { min-height:36px; }
+.review-progress { display:flex; gap:12px; align-items:center; margin:4px 0 14px; color:var(--wp-text-secondary); font-size:.8rem; }
+.review-progress progress { flex:1; width:100%; height:5px; accent-color:var(--wp-accent-learning); }
+.recall-card { position:relative; display:flex; flex-direction:column; min-height:clamp(320px,52svh,440px); border:1px solid var(--wp-border-subtle); border-radius:18px; background:var(--wp-surface-sheet); padding:12px 24px 20px; }
+.card-type-line { display:flex; gap:16px; justify-content:space-between; font-size:.8rem; color:var(--wp-text-secondary); }
+.recall-toolbar { display:flex; align-items:center; justify-content:flex-end; gap:4px; min-height:36px; }
+.recall-tool { display:inline-flex; align-items:center; justify-content:center; min-height:36px; padding:6px 10px; border:0; border-radius:8px; background:transparent; color:var(--wp-text-secondary); font:500 .8rem var(--wp-font-reading); }
+.recall-tool:not(:disabled):hover,.recall-tool[aria-expanded=true] { color:var(--wp-accent-learning); background:var(--wp-surface-paper); }
+.recall-refresh { width:36px; padding:8px; }
+.recall-hint { position:absolute; z-index:5; top:52px; right:24px; width:min(320px,calc(100% - 48px)); max-height:180px; overflow:auto; display:flex; align-items:flex-start; gap:8px; padding:12px 10px 12px 16px; border:1px solid var(--wp-border-subtle); border-radius:12px; background:var(--wp-surface-paper); box-shadow:0 6px 20px #0002; }
+.recall-hint p { flex:1; margin:0; font-size:.85rem; line-height:1.5; }
+.recall-hint-content { min-width:0; flex:1; }
+.recall-hint-content .card-illustration { max-height:120px; width:auto; max-width:100%; margin:4px auto; }
+.recall-hint .recall-tool { flex:none; width:28px; min-height:28px; padding:0; font-size:1.2rem; }
+.native-review-page .recall-prompt { font:500 clamp(1.6rem,3cqi,2.25rem)/1.4 var(--wp-font-reading); letter-spacing:-.01em; text-align:center; margin:0; overflow-wrap:anywhere; }
+.recall-context,.recall-context-meaning { font-size:1rem; text-align:center; margin:8px auto; max-width:600px; white-space:pre-line; }
+.recall-word-meaning { font-size:1.1rem; margin:8px auto; text-align:center; }
 .recall-context-meaning { font-size:1rem; color:var(--wp-text-secondary); }
 .cloze-slot { display:inline-block; min-width:85px; border-bottom:3px solid var(--wp-accent-learning); color:var(--wp-accent-learning); }
 .cloze-slot a { color:inherit; text-decoration:none; }
 .cloze-slot a:hover { text-decoration:underline; text-underline-offset:5px; }
-.reveal-controls { display:flex; flex-direction:column; align-items:center; gap:15px; margin:40px 0 25px; }
-.reveal-button { min-width:220px; justify-content:center; }
-.recall-answer { text-align:center; border-top:1px dashed var(--wp-border-subtle); margin-top:28px; padding-top:20px; }
-.recall-answer .answer-text { font-size:1.8rem; line-height:1.5; white-space:pre-line; overflow-wrap:anywhere; }
-.answer-explanation { max-width:610px; margin:16px auto; line-height:1.8; text-align:left; white-space:pre-line; }
-.recall-question { margin:32px 0 16px; text-align:center; color:var(--wp-text-secondary); }
-.rating-controls { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin:16px 0 28px; }
-.rating-controls button { display:flex; align-items:center; gap:10px; min-height:58px; padding:12px; justify-content:center; border-radius:10px; cursor:pointer; font:500 1rem var(--wp-font-reading); background:var(--wp-surface-sheet); color:var(--wp-text-primary); border:2px solid var(--wp-border-subtle); }
+.recall-actions { margin-top:auto; padding-top:18px; text-align:center; }
+.recall-card.is-long { min-height:0; height:clamp(320px,54svh,620px); }
+.recall-card.is-long .recall-face { min-height:0; overflow:auto; align-content:start; padding:12px 4px; overscroll-behavior:contain; scrollbar-gutter:stable; }
+.native-review-page .recall-card.is-long .recall-prompt { font-size:1.15rem; line-height:1.6; text-align:left; }
+.recall-card.is-long .answer-text { font-size:1rem; line-height:1.6; text-align:left; }
+.recall-card.is-long .recall-toolbar,.recall-card.is-long .recall-actions,.recall-card.is-long .recall-media { flex:none; }
+.recall-actions .reveal-button { min-width:180px; min-height:48px; padding:10px 24px; justify-content:center; font-size:1rem; }
+.recall-answer { text-align:center; padding:12px 0 0; }
+.recall-answer .answer-text { font-size:1.5rem; line-height:1.4; margin:0 0 8px; white-space:pre-line; overflow-wrap:anywhere; }
+.recall-explanation { margin:8px auto 0; max-width:610px; text-align:left; font-size:.85rem; }
+.recall-explanation summary { width:fit-content; margin-inline:auto; padding:6px; cursor:pointer; color:var(--wp-text-secondary); }
+.answer-explanation { margin:8px 0; line-height:1.6; white-space:pre-line; }
+.rating-controls { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:0; }
+.rating-controls button { display:flex; align-items:center; gap:8px; min-height:48px; padding:10px; justify-content:center; border-radius:10px; cursor:pointer; font:500 .95rem var(--wp-font-reading); background:var(--wp-surface-sheet); color:var(--wp-text-primary); border:1px solid var(--wp-border-subtle); }
 .rating-controls .rating-good { border-color:var(--wp-accent-learning); }
 .rating-controls .rating-easy { background:var(--wp-action-primary-background); color:var(--wp-action-primary-foreground); border-color:var(--wp-action-primary-foreground); }
 .rating-controls button:not(:disabled):hover { box-shadow:0 3px 0 var(--wp-border-subtle); transform:translateY(-1px); }
 .rating-controls kbd { font:inherit; font-size:.75rem; opacity:.65; }
-.recall-hint { border-left:3px solid var(--wp-accent-learning); margin:20px 0; padding:10px 16px; }.recall-hint p { margin:5px 0; }
-.recall-hint summary { cursor:pointer; min-height:44px; padding:10px 0; font-weight:600; }
-.card-problem { margin-top:26px; border-top:1px solid var(--wp-border-subtle); padding-top:12px; font-size:.85rem; }
-.card-problem summary { min-height:44px; cursor:pointer; padding:10px 0; color:var(--wp-text-secondary); }
-.review-bottomline { margin:30px 0; }
+.review-bottomline { margin:8px 0 0; }
+.review-finish { margin-left:auto; }
 .review-feedback,.review-complete { padding:44px; margin:24px 0; }
 .review-feedback h1,.review-complete h1 { font-size:clamp(1.8rem,3.7vw,2.8rem); }
 .review-feedback-answer { font-size:1.8rem; line-height:1.5; white-space:pre-line; }
 .next-review-time { color:var(--wp-accent-learning); }
-.recall-media { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin:20px 0; }.recall-media img { max-width:100%; max-height:240px; object-fit:contain; border-radius:10px; }.recall-media audio { max-width:100%; }
 .card-workspace { max-width:1020px; }.card-preparation { margin:32px 0; }
 .card-search .action-row { flex-wrap:nowrap; }.card-search label { display:block; margin:12px 0; }.word-results { display:flex; flex-wrap:wrap; gap:10px; margin:20px 0; }
 .card-word-heading { display:flex; align-items:center; gap:18px; margin:32px 0; }.card-word-heading strong { font-size:2rem; }.card-word-heading span { max-width:350px; font-size:.85rem; }
@@ -141,7 +150,7 @@
 .card-approval { padding-top:22px; border-top:1px solid var(--wp-border-subtle); }.discard-draft { margin-top:18px; }.card-reports { margin:32px 0; }.card-reports p { font-size:.9rem; }
 @media(max-width:700px) {
  .editor-two { grid-template-columns:1fr; }
- .recall-card { padding:20px 22px 14px; }.recall-situation { margin-top:25px; }.recall-prompt { font-size:2.15rem; }.recall-context { font-size:1rem; }.rating-controls { gap:10px; }.rating-controls button { padding:12px 10px; font-size:.9rem; }
+ .recall-card { padding:10px 16px 16px; }.rating-controls { gap:6px; }.rating-controls button { padding:10px 6px; font-size:.9rem; }
  .review-topline { flex-wrap:wrap; gap:8px; }.review-shortcuts,.rating-controls kbd { display:none; }.review-feedback,.review-complete { padding:26px; }.card-version-heading { flex-wrap:wrap; gap:0; }.card-word-heading { flex-wrap:wrap; gap:4px; }.card-search .action-row { flex-wrap:wrap; }.post-language { margin-left:0; }
 }
 @media(max-width:900px) {
@@ -151,9 +160,9 @@
  .top .post-language summary { min-width:48px; min-height:48px; text-align:center; }
 }
 @media(max-width:600px) {
- .review-progress progress { flex:none; width:100px; }
+ .review-progress progress { min-width:60px; }
 }
-@media(max-width:420px) { .rating-controls { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:360px) { .rating-controls { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 
 .card-search .cta { flex:none; white-space:nowrap; }
 /* Generation keeps the original parameter-first workflow. */
@@ -177,15 +186,23 @@
 .generated-meaning { font-size:1.3rem; }
 
 /* A card has one focal image, readable text, then optional listening support. */
-.recall-face { padding:30px 0 10px; }
-.recall-face.has-picture { display:grid; grid-template-columns:minmax(140px,26%) minmax(0,1fr); gap:28px; align-items:center; }
+.recall-face { flex:1; display:grid; align-content:center; width:100%; max-width:720px; margin-inline:auto; padding:16px 0; }
+.recall-face.has-picture { grid-template-columns:minmax(100px,24%) minmax(0,1fr); gap:28px; align-items:center; }
 .card-illustration { display:block; width:100%; max-width:360px; max-height:300px; aspect-ratio:1; object-fit:contain; border-radius:14px; margin:16px auto; }
-.recall-face>.card-illustration { margin:0; border:1px solid var(--wp-border-subtle); }
+.recall-face>.card-illustration { margin:0; max-height:160px; border:1px solid var(--wp-border-subtle); }
 .recall-text { min-width:0; }
-.recall-face.has-picture .recall-prompt,.recall-face.has-picture .recall-context { text-align:left; }
-.recall-media { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:18px; margin:20px 0; }
+.recall-face.has-picture :is(.recall-prompt,.recall-context,.recall-word-meaning,.recall-context-meaning,.recall-answer) { text-align:left; }
+.recall-face.has-picture .recall-explanation summary { margin-inline:0; padding-left:0; }
+.recall-media { display:flex; flex-wrap:wrap; justify-content:center; gap:8px 16px; margin:4px 0; }
 .card-recording { min-width:0; margin:12px 0; }
-.recall-media .card-recording { margin:0; padding:14px; border:1px solid var(--wp-border-subtle); border-radius:12px; }
+.recall-media .card-recording { margin:0; }
+.card-recording--compact { display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+.card-recording.card-recording--compact audio { display:none; }
+.card-recording-play { display:inline-flex; gap:8px; align-items:center; min-height:36px; padding:6px 10px; background:transparent; color:var(--wp-accent-learning); border:0; border-radius:8px; font-size:.85rem; }
+.card-recording-play:hover { background:var(--wp-surface-paper); }
+.card-recording-speed>span { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.card-recording-speed select { min-height:36px; width:auto; padding:4px; border:1px solid var(--wp-border-subtle); border-radius:7px; background:var(--wp-surface-sheet); color:var(--wp-text-secondary); font-size:.75rem; }
+.card-recording-error { flex-basis:100%; font-size:.8rem; color:var(--wp-text-secondary); }
 .card-recording-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; font-size:.85rem; margin-bottom:10px; }
 .card-recording-heading>span { font-weight:600; }
 .card-recording-heading label { display:flex; align-items:center; gap:6px; color:var(--wp-text-secondary); }
@@ -204,9 +221,10 @@
   .generator-filters { grid-template-columns:repeat(4,minmax(0,1fr)); }
 }
 @container flashcard-workspace (max-width: 740px) {
-  .recall-face.has-picture { grid-template-columns:1fr; gap:20px; }
-  .recall-face>.card-illustration { max-width:180px; margin:auto; }
-  .recall-face.has-picture .recall-prompt,.recall-face.has-picture .recall-context { text-align:center; }
+  .recall-face.has-picture { grid-template-columns:1fr; gap:12px; }
+  .recall-face>.card-illustration { max-width:120px; max-height:120px; margin:auto; }
+  .recall-face.has-picture :is(.recall-prompt,.recall-context,.recall-word-meaning,.recall-context-meaning,.recall-answer) { text-align:center; }
+  .recall-face.has-picture .recall-explanation summary { margin-inline:auto; }
   .review-topline,.review-bottomline { flex-wrap:wrap; gap:8px 20px; }
 }
 @container flashcard-workspace (max-width: 540px) {
@@ -215,7 +233,6 @@
 }
 @container flashcard-workspace (max-width: 440px) {
   .generator-filters { grid-template-columns:1fr; }
-  .rating-controls { grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
 
 .lesson-card-context { margin-bottom:1.5rem; padding:1.25rem 1.5rem; }

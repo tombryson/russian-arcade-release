@@ -64,13 +64,53 @@ describe('Native reviewer',()=>{
     await screen.findByRole('heading',{name:'Следующая карточка'});expect(screen.getByRole('alert').textContent).toContain('another tab');expect(screen.queryByRole('button',{name:'Retry saving'})).toBeNull();
     expect(fetch.mock.calls.filter(([url])=>url.endsWith('/reviews'))).toHaveLength(1);
   });
-  it('records a confusing-card report separately from ratings',async()=>{
-    const skipped={...front,revision:1,phase:'feedback',item:null,skipped_cards:1};
-    const fetch=vi.fn((url:string,_options?:RequestInit)=>response(url.endsWith('/report')?skipped:front));vi.stubGlobal('fetch',fetch);
-    render(<NativeReview sessionId="session" profileId="learner" />);await screen.findByRole('button',{name:/Show answer/});
-    fireEvent.click(screen.getByText('Something wrong with this card?'));fireEvent.click(screen.getByRole('button',{name:'Translation seems wrong'}));
-    await screen.findByText('Card set aside.');expect(screen.queryByRole('button',{name:'Undo last answer'})).toBeNull();
-    expect(fetch.mock.calls.some(([url])=>url.endsWith('/reviews'))).toBe(false);
+  it('refreshes the saved card without recording or discarding an answer',async()=>{
+    const fetch=vi.fn().mockImplementationOnce(()=>response(front)).mockImplementation(()=>response(shown));vi.stubGlobal('fetch',fetch);
+    render(<NativeReview sessionId="session" profileId="learner" />);
+    fireEvent.click(await screen.findByRole('button',{name:'Refresh card'}));
+    await screen.findByRole('button',{name:'Good'});
+    expect(fetch.mock.calls).toHaveLength(2);
+    expect(fetch.mock.calls.every(([url,options])=>url==='/api/v1/review-sessions/session' && options.method==='GET')).toBe(true);
+    expect(screen.queryByText('Something wrong with this card?')).toBeNull();
+    expect(screen.queryByText('How well did you remember?')).toBeNull();
+  });
+  it('keeps the hint optional and closes it when the answer is revealed',async()=>{
+    const helped={...front,revision:1,item:{...front.item!,hint:'Think of an invitation.',assisted:true}};
+    const revealed={...shown,revision:2,item:{...shown.item!,hint:helped.item.hint,assisted:true}};
+    const fetch=vi.fn((url:string)=>response(url.endsWith('/help')?helped:url.endsWith('/reveal')?revealed:front));vi.stubGlobal('fetch',fetch);
+    render(<NativeReview sessionId="session" profileId="learner" />);
+    fireEvent.click(await screen.findByRole('button',{name:'Hint',exact:true}));
+    await screen.findByText('Think of an invitation.');
+    fireEvent.click(screen.getByRole('button',{name:/Show answer/}));await screen.findByRole('button',{name:'Good'});
+    expect(screen.queryByText('Think of an invitation.')).toBeNull();
+    expect(screen.getByRole('button',{name:'Hint',exact:true}).getAttribute('aria-expanded')).toBe('false');
+    fireEvent.click(screen.getByRole('button',{name:'Hint',exact:true}));await screen.findByText('Think of an invitation.');
+    fireEvent.click(screen.getByRole('button',{name:'Close hint'}));
+    expect(screen.queryByText('Think of an invitation.')).toBeNull();
+    expect(document.activeElement).toBe(screen.getByRole('button',{name:'Hint',exact:true}));
+    expect(fetch.mock.calls.filter(([url])=>url.endsWith('/help'))).toHaveLength(1);
+  });
+  it('reopens an assisted hint without recording assistance again and supports media-only hints',async()=>{
+    const helped={...front,revision:1,item:{...front.item!,assisted:true,assets:[{id:'hint-image',role:'hint',media_type:'image/png'}]}};
+    const fetch=vi.fn((url:string)=>response(url.endsWith('/help')?helped:front));vi.stubGlobal('fetch',fetch);
+    render(<NativeReview sessionId="session" profileId="learner" />);
+    fireEvent.click(await screen.findByRole('button',{name:'Hint',exact:true}));
+    await screen.findByRole('img',{name:'Illustration of the example sentence'});
+    fireEvent.click(screen.getByRole('button',{name:'Hint',exact:true}));
+    expect(fetch.mock.calls.filter(([url])=>url.endsWith('/help'))).toHaveLength(1);
+    expect(screen.queryByRole('complementary',{name:'Hint'})).toBeNull();
+  });
+  it('prevents refresh from losing an unconfirmed save',async()=>{
+    let rejectSave:(reason:Error)=>void=()=>{};
+    const fetch=vi.fn((url:string)=>url.endsWith('/reviews')?new Promise((_resolve,reject)=>{rejectSave=reject;}):response(shown));vi.stubGlobal('fetch',fetch);
+    render(<NativeReview sessionId="session" profileId="learner" />);
+    fireEvent.click(await screen.findByRole('button',{name:'Good'}));
+    expect((screen.getByRole('button',{name:'Refresh card'}) as HTMLButtonElement).disabled).toBe(true);
+    await act(()=>rejectSave(new TypeError('offline')));
+    await screen.findByRole('button',{name:'Retry saving'});
+    const refresh=screen.getByRole('button',{name:'Refresh card'}) as HTMLButtonElement;
+    expect(refresh.disabled).toBe(true);fireEvent.click(refresh);
+    expect(fetch.mock.calls.filter(([url])=>url==='/api/v1/review-sessions/session')).toHaveLength(1);
   });
   it('resumes an old confirmation automatically and offers undo on the next card',async()=>{
     const fetch=vi.fn((url:string,_options?:RequestInit)=>response(url.endsWith('/undo')?{...shown,revision:4,item:{...shown.item,id:'new-occurrence'}}:url.endsWith('/next')?nextCard:rated));vi.stubGlobal('fetch',fetch);
@@ -108,6 +148,17 @@ describe('Native reviewer',()=>{
     render(<NativeReview sessionId="session" profileId="learner" />);const heading=await screen.findByRole('heading',{name:'Давай играть!'});
     fireEvent.keyDown(heading,{key:'2'});fireEvent.keyDown(heading,{key:' ',repeat:true});expect(fetch.mock.calls).toHaveLength(1);
     fireEvent.keyDown(heading,{key:' '});await screen.findByRole('button',{name:'Good'});expect(fetch.mock.calls.some(([url])=>url.endsWith('/reviews'))).toBe(false);
+  });
+  it('lets the long-card region use Space to scroll without revealing or grading',async()=>{
+    const prompt='Перед путешествием по незнакомому городу мы решили сначала зайти в небольшую библиотеку, узнать историю старых улиц и спросить у местных жителей, где находится остановка автобуса.';
+    const long={...front,item:{...front.item!,prompt,context:undefined}};
+    const fetch=vi.fn((url:string)=>response(url.endsWith('/reveal')?{...shown,item:{...shown.item!,prompt,context:undefined}}:long));vi.stubGlobal('fetch',fetch);
+    render(<NativeReview sessionId="session" profileId="learner" />);
+    const content=await screen.findByRole('region',{name:'Card content'});
+    fireEvent.keyDown(content,{key:' '});expect(fetch.mock.calls).toHaveLength(1);
+    fireEvent.keyDown(screen.getByRole('heading',{name:prompt}),{key:' '});await screen.findByRole('button',{name:'Good'});
+    fireEvent.keyDown(content,{key:'3'});
+    expect(fetch.mock.calls.some(([url])=>url.endsWith('/reviews'))).toBe(false);
   });
   it('finishes a withdrawn session without presenting its answer',async()=>{
     const unavailable={...front,item:null};
@@ -153,7 +204,7 @@ describe('Rich card presentation',()=>{
     expect((screen.getByLabelText('Example: playback speed') as HTMLSelectElement).value).toBe('1');
     fireEvent.change(screen.getByLabelText('Example: playback speed'),{target:{value:'0.75'}});
     expect((screen.getByLabelText('Example: Russian audio') as HTMLAudioElement).playbackRate).toBe(0.75);
-    expect(screen.getByText('Verb')).toBeTruthy();expect(screen.getByText('Plural')).toBeTruthy();expect(screen.queryByText('Let’s play a game together.')).toBeNull();
+    expect(screen.queryByLabelText('Card details')).toBeNull();expect(screen.queryByText('Let’s play a game together.')).toBeNull();
     fireEvent.click(screen.getByRole('button',{name:/Show answer/}));expect(await screen.findByText('Let’s play a game together.')).toBeTruthy();
   });
   it('keeps grammar, difficulty and sort filters when searching the library',async()=>{
@@ -213,12 +264,12 @@ describe('Anki cloze recall',()=>{
     fireEvent.click(screen.getByRole('button',{name:/Show answer/}));
     await screen.findByText('I am studying constructions in Russian.');
     expect(screen.getByText('structures')).toBeTruthy();expect(screen.queryByText('English cue')).toBeNull();
-    const hint=screen.getByText('Think of building blocks.').closest('details')!;
-    expect(hint.open).toBe(false);
-    fireEvent.click(screen.getByText('Hint'));
-    await vi.waitFor(()=>expect(hint.open).toBe(true));
-    fireEvent.click(screen.getByText('Hint'));
-    await vi.waitFor(()=>expect(hint.open).toBe(false));
+    expect(screen.queryByText('Think of building blocks.')).toBeNull();
+    fireEvent.click(screen.getByRole('button',{name:'Hint',exact:true}));
+    await screen.findByText('Think of building blocks.');
+    fireEvent.click(screen.getByRole('button',{name:'Hint',exact:true}));
+    expect(screen.queryByText('Think of building blocks.')).toBeNull();
+    expect(screen.getAllByRole('link',{name:'конструкций'})).toHaveLength(1);
     for(const link of screen.getAllByRole('link',{name:'конструкций'})) {
       expect(link.getAttribute('href')).toBe(url);expect(link.getAttribute('target')).toBe('_blank');
     }
