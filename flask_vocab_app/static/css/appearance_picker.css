@@ -12,19 +12,3 @@
 .sidebar-account .appearance-picker .appearance-picker-options { top:auto; bottom:calc(100% + 8px); }
 .navigation-preferences { display:flex; align-items:center; justify-content:space-between; max-width:440px; margin-top:32px; padding-top:20px; border-top:1px solid var(--wp-border-subtle,#b8b7c7); }
 .navigation-preferences h2 { margin:0; font-size:18px; }
-@media(max-width:900px) {
-  .arcade-header:has(.appearance-picker) { grid-template-columns:minmax(0,1fr) auto 40px 40px; gap:12px 6px; }
-  .arcade-header:has(.appearance-picker) .arcade-progression { grid-column:2; }
-  .arcade-header:has(.appearance-picker) .language-picker { grid-column:3; }
-  .arcade-header:has(.appearance-picker) .appearance-picker { grid-column:4; grid-row:2; }
-  .arcade-header:has(.appearance-picker) .user-session-link { grid-column:4; }
-  .arcade-header:has(.appearance-picker) nav { grid-column:1/4; }
-}
-@media(max-width:900px) {
-  .top:has(>.appearance-picker) { grid-template-columns:minmax(0,1fr) auto 40px 40px; gap:12px 6px; }
-  .top:has(>.appearance-picker) > .progression-badge { grid-column:2; }
-  .top:has(>.appearance-picker) > .post-language { grid-column:3; }
-  .top > .appearance-picker { grid-column:4; grid-row:2; }
-  .top:has(>.appearance-picker) > .user-session-link { grid-column:4; }
-  .top:has(>.appearance-picker) > .nav { grid-column:1/4; }
-}

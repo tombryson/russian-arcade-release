@@ -24,9 +24,7 @@
 .journey-choices .word { padding:17px 22px; font-size:19px; text-align:left; }
 .journey-feedback { padding:18px 0; font-size:17px; line-height:1.7; }
 .journey-feedback.correct,.journey-complete { color:var(--wp-accent-learning); }
-@media(max-width:900px) { .top:has(.progression-badge):has(.post-language) { grid-template-columns:minmax(0,1fr) auto 48px; } .top:has(.progression-badge) .progression-badge { grid-column:2; grid-row:1; } .top:has(.progression-badge) .post-language { grid-column:3; } }
 @media(max-width:650px) { .journey-balance>p { margin:0; width:100%; } .journey-world { gap:16px; padding:22px; } .journey-scene { padding:24px; } }
-@media(max-width:560px) { .top .brand { min-width:0; gap:10px; } .top .brand-name { font-size:17px; } .top .origin { font-size:9px; } .top .mark { font-size:20px; padding:10px 7px; } .top .progression-badge { padding:7px; gap:5px; } .top .progression-coin { width:23px; height:23px; } }
 
 .progression-badge.is-gaining .progression-coin { animation:coin-earned .8s ease-out; }
 .progression-badge.is-gaining strong { color:#edc968; }

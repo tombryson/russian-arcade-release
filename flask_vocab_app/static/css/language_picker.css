@@ -24,15 +24,5 @@
 .language-selected { width: 1em; font-weight: 700; }
 .language-picker > summary:focus-visible { outline: 3px solid #f8ce52; outline-offset: 4px; }
 .language-picker-options button:focus-visible { outline: 3px solid #294acc; outline-offset: -2px; }
-.arcade-header-actions { display: flex; align-items: center; gap: 16px; }
-.arcade-header-actions nav { align-items: center; }
 .sidebar .language-picker { margin: 0 12px 20px; }
 .sidebar .language-picker-options { position: static; margin-top: 10px; }
-@media (max-width: 900px) {
-    .arcade-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; padding: 20px 20px 12px; }
-    .arcade-header-actions { display: contents; }
-    .arcade-header-actions > .language-picker { grid-column: 2; grid-row: 1; }
-    .arcade-header-actions > nav { grid-column: 1 / -1; grid-row: 2; justify-content: space-between; width: 100%; gap: 2px; }
-    .arcade-header-actions > nav a { padding: 8px 10px; font-size: 14px; }
-    .arcade-brand { min-width: 0; }
-}

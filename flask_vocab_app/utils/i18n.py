@@ -10,7 +10,7 @@ UI_TRANSLATIONS = {
     "nav.activities": {"en": "Activities", "ru": "Занятия"},
     "nav.games": {"en": "Games", "ru": "Игры"},
     "nav.all_activities": {"en": "All activities", "ru": "Все занятия"},
-    "nav.my_words": {"en": "My words", "ru": "Мои слова"},
+    "nav.my_words": {"en": "Vocab list", "ru": "Список слов"},
     "nav.flashcards": {"en": "Flashcards", "ru": "Карточки"},
     "nav.anki_tools": {"en": "Anki card tools", "ru": "Карточки для Anki"},
     "nav.more_tools": {"en": "More tools", "ru": "Ещё инструменты"},

@@ -19,6 +19,84 @@
   .navigation-layout-top > .arcade-header .arcade-brand > span { display:grid; place-items:center; padding:0; }
 }
 
+/* Shared top header: one desktop row, two deliberate rows on smaller screens. */
+.navigation-layout-top > .shared-header {
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:nowrap;
+  gap:20px; min-height:68px;
+  padding:10px max(32px, calc((100vw - 1100px) / 2));
+}
+.navigation-layout-top > .shared-header:has(> .skill-rail) { padding-bottom:42px; }
+.navigation-layout-top > .shared-header :is(.brand, .arcade-brand) {
+  display:flex; align-items:center; flex:0 0 auto; gap:10px; min-width:0; min-height:44px;
+}
+.navigation-layout-top > .shared-header.top .origin,
+.navigation-layout-top > .shared-header.arcade-header .arcade-brand small { display:none; }
+.navigation-layout-top > .shared-header.top .brand-name,
+.navigation-layout-top > .shared-header.arcade-header .arcade-brand strong {
+  font:500 16px/1.35 var(--wp-font-display); white-space:nowrap;
+}
+.navigation-layout-top > .shared-header.top .mark,
+.navigation-layout-top > .shared-header.arcade-header .arcade-brand > span {
+  display:grid; place-items:center; flex:0 0 30px; width:30px; height:38px;
+  padding:0; font:500 24px/1 var(--wp-font-display);
+}
+.navigation-layout-top > .shared-header > nav {
+  display:flex; align-items:center; flex-wrap:nowrap; gap:4px; width:auto; min-width:0;
+}
+.navigation-layout-top > .shared-header nav > a,
+.navigation-layout-top > .shared-header .activities-menu > summary {
+  display:flex; align-items:center; justify-content:center; min-height:44px;
+  padding:10px 14px; white-space:nowrap; font-size:14px; line-height:1.5;
+}
+.navigation-layout-top > .shared-header .header-utilities {
+  display:flex; align-items:center; justify-content:flex-end; flex:0 0 auto; gap:4px; min-width:0;
+}
+.navigation-layout-top .header-utilities :is(.post-language, .language-picker, .appearance-picker) { flex:0 0 auto; margin:0; }
+.navigation-layout-top .header-utilities :is(.post-language, .language-picker, .appearance-picker) > summary,
+.navigation-layout-top .header-utilities .user-session-link {
+  display:flex; align-items:center; justify-content:center; flex:0 0 44px;
+  width:44px; height:44px; min-width:44px; min-height:44px; margin:0; padding:10px; border-radius:10px;
+}
+.navigation-layout-top .header-utilities .user-session-link { padding:5px; }
+.navigation-layout-top .header-utilities .user-session-link.user-session-account-entry {
+  flex:0 0 auto; width:auto; padding:0 12px; border-radius:22px;
+}
+.navigation-layout-top .header-utilities :is(.post-language, .language-picker, .appearance-picker) > summary:hover,
+.navigation-layout-top .header-utilities :is(.post-language, .language-picker, .appearance-picker)[open] > summary { background:#ffffff18; }
+.navigation-layout-top .header-utilities :is(.progression-badge, .arcade-progression) { min-height:44px; padding:8px; }
+@media(max-width:1050px) {
+  .navigation-layout-top > .shared-header {
+    display:grid; grid-template-columns:minmax(0,1fr) auto;
+    gap:4px 16px; padding-block:8px;
+  }
+  .navigation-layout-top > .shared-header > :is(.brand, .arcade-brand) { grid-column:1; grid-row:1; }
+  .navigation-layout-top > .shared-header > .header-utilities { grid-column:2; grid-row:1; }
+  .navigation-layout-top > .shared-header > nav {
+    display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-column:1 / -1; grid-row:2; justify-self:center; width:100%; max-width:600px;
+  }
+  .navigation-layout-top > .shared-header nav > a,
+  .navigation-layout-top > .shared-header .activities-menu > summary { padding-inline:12px; }
+}
+@media(max-width:600px) {
+  .navigation-layout-top > .shared-header { gap:4px 8px; padding-inline:16px; }
+  .navigation-layout-top > .shared-header.top .brand-name,
+  .navigation-layout-top > .shared-header.arcade-header .arcade-brand strong { font-size:14px; }
+  .navigation-layout-top .header-utilities .user-session-link.user-session-account-entry { flex:0 0 44px; width:44px; padding:10px; }
+  .navigation-layout-top .header-utilities .user-session-entry-icon { display:block; flex:0 0 auto; }
+  .navigation-layout-top .header-utilities .user-session-entry-label { display:none; }
+  .navigation-layout-top > .shared-header.top:has(.progression-badge) .brand > span:last-child,
+  .navigation-layout-top > .shared-header.arcade-header:has(.arcade-progression) .arcade-brand strong { display:none; }
+}
+@media(max-width:380px) {
+  .navigation-layout-top > .shared-header { padding-inline:12px; }
+  .navigation-layout-top > .shared-header.top .brand-name,
+  .navigation-layout-top > .shared-header.arcade-header .arcade-brand strong { font-size:12px; }
+  .navigation-layout-top > .shared-header :is(.brand, .arcade-brand) { gap:7px; }
+  .navigation-layout-top > .shared-header nav > a,
+  .navigation-layout-top > .shared-header .activities-menu > summary { padding-inline:8px; font-size:13px; }
+}
+
 /* The sidebar owns navigation and account controls; the page has no top banner. */
 .navigation-layout-top #sidebar { display:none; }
 .navigation-layout-top .main-content { margin-left:0; width:100%; }

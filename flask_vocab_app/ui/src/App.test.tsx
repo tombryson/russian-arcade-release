@@ -261,7 +261,7 @@ describe('Russian Arcade activity home', () => {
     await navigate('pocket');
     expect(screen.getByRole('link', { name: /Open vocabulary library/ }).getAttribute('href')).toBe('/vocab');
     await navigate('main');
-    expect(screen.getByRole('heading', { name: 'My words' })).toBeTruthy();
+    expect(screen.getByRole('heading', { name: 'Vocab list' })).toBeTruthy();
   });
   it('preserves direct links to the practice choices without leaving Home', async () => {
     const fetch = vi.fn(); vi.stubGlobal('fetch', fetch);
@@ -269,7 +269,7 @@ describe('Russian Arcade activity home', () => {
     await navigate('choose-practice');
     expect(document.activeElement).toBe(screen.getByRole('heading', { name: 'Choose what to practise' }));
     expect(within(screen.getByRole('main')).getByRole('link', { name: /^Comprehension/ }).getAttribute('href')).toBe('/comprehension');
-    expect(screen.getByRole('link', { name: /^My words Find/ }).getAttribute('href')).toBe('/vocab');
+    expect(screen.getByRole('link', { name: /^Vocab list Find/ }).getAttribute('href')).toBe('/vocab');
     expect(screen.getByRole('link', { name: 'Home' }).getAttribute('aria-current')).toBe('page');
     expect(fetch.mock.calls.every(([url])=>['/api/v1/progression','/api/v1/first-steps','/api/v1/games'].includes(url))).toBe(true);
     await navigate('activities');

@@ -73,33 +73,27 @@ export function VocabTable() {
     };
     const date = value => { const parsed = new Date(value); return Number.isNaN(parsed.getTime()) ? '—' : parsed.toLocaleDateString(language==='ru' ? 'ru' : 'en-GB',{day:'numeric',month:'short',year:'numeric'}); };
     const select = (name,title,value,setter,options) => h('label',{className:'vocab-filter'},[title,h('select',{name,value,onChange:event=>setter(event.currentTarget.value)},[h('option',{value:''},t('All','Все')),...options.map(option=>h('option',{key:option,value:option},name==='level' ? option : label(option)))])]);
-    const stats = [
-        [words.length,t('Words','Слов')],
-        [words.reduce((n,w)=>n+w.native_count,0),t('In-app cards','Карточек в приложении')],
-        [words.filter(w=>w.native_count>0).length,t('Words with cards','Слов с карточками')],
-    ];
     return h('section',{className:'vocab-library','aria-label':t('Word library','Словарь')},[
-        h('dl',{className:'vocab-stats'},stats.map(([value,title])=>h('div',{key:title},[h('dt',null,title),h('dd',null,loading ? '…' : error ? '—' : number(value))]))),
         h('div',{className:'vocab-paper'},[
             h('div',{className:'vocab-search-row'},[
-                h('label',{className:'vocab-search'},[h('span',null,t('Find a word or one of its forms','Найти слово или его форму')),h('input',{type:'search',value:query,placeholder:t('Search Russian words…','Поиск по русским словам…'),onInput:event=>setQuery(event.currentTarget.value)})]),
-                h('a',{className:'vocab-flashcard-link',href:appUrl('/#flashcards')},t('Open flashcards →','Открыть карточки →')),
-            ]),
-            h('details',{className:'vocab-filters'},[
-                h('summary',null,t('Filter words','Фильтры')),
-                h('div',{className:'vocab-filter-grid'},[
-                    select('pos',t('Part of speech','Часть речи'),pos,setPos,[...new Set(words.map(w=>w.pos))].sort()),
-                    select('topic',t('Topic','Тема'),topic,setTopic,[...new Set(words.flatMap(w=>w.topic))].sort()),
-                    select('level',t('Difficulty','Сложность'),level,setLevel,[...new Set(words.map(w=>w.lemma_difficulty))].sort((a,b)=>a-b)),
-                    h('label',{className:'vocab-filter'},[t('In-app cards','Карточки в приложении'),h('select',{value:cards,onChange:event=>setCards(event.currentTarget.value)},[
-                        h('option',{value:''},t('All words','Все слова')),h('option',{value:'with'},t('With cards','С карточками')),h('option',{value:'without'},t('Without cards','Без карточек'))])]),
-                ]),
+                h('label',{className:'vocab-search'},[h('span',{className:'visually-hidden'},t('Find a word or one of its forms','Найти слово или его форму')),h('input',{type:'search',value:query,placeholder:t('Search words or forms…','Поиск слов и форм…'),onInput:event=>setQuery(event.currentTarget.value)})]),
+                h('a',{className:'vocab-flashcard-link',href:appUrl('/#flashcards')},t('Flashcards →','Карточки →')),
             ]),
             h('div',{className:'vocab-results-bar'},[
-                h('p',{role:'status'},loading ? t('Loading your words…','Загружаем слова…') : counted(filtered.length,'word','words','слово','слова','слов')),
-                activeFilters && h('button',{type:'button',className:'vocab-plain-button',onClick:reset},t('Clear filters','Сбросить фильтры')),
-                h('label',null,[t('Sort','Порядок'),h('select',{value:sort,onChange:event=>setSort(event.currentTarget.value)},[
-                    ['lemma','Russian A–Я','По алфавиту'],['recent','Newest first','Сначала новые'],['cards','Most cards','Больше карточек'],['level','Easiest first','Сначала простые'],
+                h('p',{role:'status'},loading ? t('Loading…','Загрузка…') : counted(filtered.length,'word','words','слово','слова','слов')),
+                h('details',{className:'vocab-filters'},[
+                    h('summary',null,t('Filters','Фильтры')),
+                    h('div',{className:'vocab-filter-grid'},[
+                        select('pos',t('Part of speech','Часть речи'),pos,setPos,[...new Set(words.map(w=>w.pos))].sort()),
+                        select('topic',t('Topic','Тема'),topic,setTopic,[...new Set(words.flatMap(w=>w.topic))].sort()),
+                        select('level',t('Difficulty','Сложность'),level,setLevel,[...new Set(words.map(w=>w.lemma_difficulty))].sort((a,b)=>a-b)),
+                        h('label',{className:'vocab-filter'},[t('In-app cards','Карточки в приложении'),h('select',{value:cards,onChange:event=>setCards(event.currentTarget.value)},[
+                            h('option',{value:''},t('All words','Все слова')),h('option',{value:'with'},t('With cards','С карточками')),h('option',{value:'without'},t('Without cards','Без карточек'))])]),
+                        activeFilters && h('button',{type:'button',className:'vocab-plain-button',onClick:reset},t('Clear filters','Сбросить фильтры')),
+                    ]),
+                ]),
+                h('label',{className:'vocab-sort'},[h('span',{className:'visually-hidden'},t('Sort','Порядок')),h('select',{value:sort,onChange:event=>setSort(event.currentTarget.value)},[
+                    ['lemma','Russian A–Я','Алфавит'],['recent','Newest first','Сначала новые'],['cards','Most cards','Больше карточек'],['level','Easiest first','Сначала простые'],
                 ].map(([value,en,ru])=>h('option',{value},t(en,ru))))]),
             ]),
             error && h('div',{className:'vocab-error',role:'alert'},[error,' ',h('button',{onClick:()=>setRefresh(v=>v+1)},t('Retry','Повторить'))]),
@@ -113,13 +107,14 @@ export function VocabTable() {
                     h('tr',{key:word.id,className:expanded===word.id ? 'is-expanded' : ''},[
                         h('td',null,[h('button',{className:'vocab-word',onClick:()=>setExpanded(expanded===word.id ? null : word.id),'aria-expanded':expanded===word.id,'aria-controls':`word-detail-${word.id}`},[h('span',{lang:'ru'},word.lemma),h('span',{'aria-hidden':true},expanded===word.id ? '−' : '+')]),h('span',{className:'vocab-word-meta'},`${label(word.pos)} · ${counted(word.form_count,'form','forms','форма','формы','форм')}`)]),
                         h('td',{className:'vocab-topic-cell','data-label':t('Topics','Темы')},h('div',{className:'vocab-tags'},word.topic.length ? word.topic.slice(0,2).map(topic=>h('span',{key:topic},label(topic))).concat(word.topic.length>2 ? h('span',{title:word.topic.slice(2).map(label).join(', ')},`+${word.topic.length-2}`) : []) : h('span',{className:'vocab-muted'},'—'))),
-                        h('td',{'data-label':t('Difficulty','Сложность')},h('span',{className:'vocab-level'},word.lemma_difficulty || '—')),
-                        h('td',{'data-label':t('Cards','Карточки')},[
+                        h('td',{className:'vocab-difficulty-cell','data-label':t('Difficulty','Сложность')},h('span',{className:'vocab-level'},word.lemma_difficulty || '—')),
+                        h('td',{className:'vocab-cards-cell','data-label':t('Cards','Карточки')},[
                             word.native_count ? h('a',{className:'vocab-count',href:appUrl(`/#flashcards?word_id=${word.id}`),'aria-label':`${word.lemma}: ${counted(word.native_count,'in-app card','in-app cards','карточка в приложении','карточки в приложении','карточек в приложении')}`},`${word.native_count} →`) : h('span',{className:'vocab-zero','aria-label':t('0 in-app cards','0 карточек в приложении')},'0'),
                             word.anki_exports>0 && h('span',{className:'vocab-anki'},`${t('Anki exports','Экспорты в Anki')}: ${word.anki_exports}`),
                         ]),
                     ]),
                     expanded===word.id && h('tr',{key:`detail-${word.id}`,className:'vocab-detail-row'},h('td',{colSpan:4},h('section',{id:`word-detail-${word.id}`,className:'vocab-word-detail','aria-label':`${t('Details','Сведения')}: ${word.lemma}`},[
+                        h('p',{className:'vocab-compact-metadata'},`${word.topic.map(label).join(' · ')}${word.topic.length ? ' · ' : ''}${t('Difficulty','Сложность')}: ${word.lemma_difficulty || '—'}`),
                         h('div',{className:'vocab-detail-top'},[
                             h('div',null,[h('h3',null,t('Memory hint','Подсказка для запоминания')),h('p',{lang:'en'},word.mnemonic || t('No hint saved.','Подсказка пока не сохранена.'))]),
                             h('p',{className:'vocab-muted'},`${t('Added','Добавлено')} ${date(word.date_added)}`),

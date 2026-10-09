@@ -452,7 +452,7 @@
     let vocabMount;
     let vocabMountRequest = 0;
     async function loadVocabTable() {
-        return Promise.all([loadPreact(), import('/static/js/VocabTable.js?v=2')]);
+        return Promise.all([loadPreact(), import('/static/js/VocabTable.js?v=3')]);
     }
 
     function refreshVocabSource() {

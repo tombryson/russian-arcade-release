@@ -104,8 +104,8 @@ class NavigationPreferenceTests(unittest.TestCase):
         self.select_profile()
         self.introduce_progress()
         for language, words, sentences, appearance in (
-            ('en', 'My words', 'Phrasebook', 'Appearance'),
-            ('ru', 'Мои слова', 'Разговорник', 'Внешний вид'),
+            ('en', 'Vocab list', 'Phrasebook', 'Appearance'),
+            ('ru', 'Список слов', 'Разговорник', 'Внешний вид'),
         ):
             with self.subTest(language=language):
                 with self.client.session_transaction() as saved:
@@ -150,7 +150,7 @@ class NavigationPreferenceTests(unittest.TestCase):
         self.select_profile()
         self.introduce_progress()
         page = self.client.get('/writing').text
-        header = page.split('<header class="arcade-header"', 1)[1].split('</header>', 1)[0]
+        header = page.split('<header class="arcade-header shared-header"', 1)[1].split('</header>', 1)[0]
         self.assertNotIn('id="sidebar"', page)
         for control in ('class="user-session-link"', 'data-progression-badge', 'data-skill-rail', 'class="language-picker"'):
             self.assertEqual(header.count(control), 1)

@@ -21,7 +21,7 @@ export function ActivitySidebar({ navigation, activePage, language = 'en', profi
   const [expanded, setExpanded] = useState(false);
   const close = () => setExpanded(false);
   const tools = navigation.tools.filter(item => item.page !== 'sentences_saved');
-  const wordsLabel = language === 'ru' ? 'Мои слова' : 'My words';
+  const wordsLabel = language === 'ru' ? 'Список слов' : 'Vocab list';
   const savedLabel = language === 'ru' ? 'Разговорник' : 'Phrasebook';
   return <aside class="activity-sidebar">
     <div class="sidebar-brand-row" onClick={event => { if ((event.target as Element).closest('a')) close(); }}>

@@ -1,27 +1,29 @@
 {% extends "base.html" %}
-{% set page_title = 'Мои слова' if session.get('ui_lang') == 'ru' else 'My words' %}
+{% set page_title = 'Список слов' if session.get('ui_lang') == 'ru' else 'Vocab list' %}
 {% set ru = session.get('ui_lang') == 'ru' %}
 {% block main_content %}
 <main class="main-content" id="mainContent" data-page="vocab">
     <header class="vocab-heading">
-        <div><p class="vocab-eyebrow">{{ 'ВАШ СЛОВАРЬ' if ru else 'YOUR VOCABULARY' }}</p><h1>{{ page_title }}</h1>
-        <p>{{ 'Слова, их формы и карточки для практики.' if ru else 'Your words, their forms, and the cards you practise.' }}</p></div>
-        <div class="vocab-heading-actions">{% include '_phrasebook_link.html' %}<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWordModal">＋ {{ 'Добавить слово' if ru else 'Add a word' }}</button></div>
+        <h1>{{ page_title }}</h1>
+        <div class="vocab-heading-actions">
+            {% include '_phrasebook_link.html' %}
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWordModal">＋ {{ 'Добавить слово' if ru else 'Add a word' }}</button>
+            <details class="vocab-tools"><summary aria-label="{{ 'Инструменты словаря' if ru else 'Vocabulary tools' }}" title="{{ 'Инструменты словаря' if ru else 'Vocabulary tools' }}"><span class="vocab-tools-label">{{ 'Инструменты' if ru else 'Tools' }}</span><svg class="vocab-tools-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></summary>
+                <div class="vocab-tools-panel">
+                    <fieldset class="vocab-source-switch"><legend>{{ 'Источник слов' if ru else 'Vocabulary source' }}</legend>
+                        <input type="radio" name="source" id="source-db" value="db" {% if source == 'db' %}checked{% endif %}><label for="source-db">{{ 'Словарь' if ru else 'Word library' }}</label>
+                        <input type="radio" name="source" id="source-cloud" value="cloud" {% if source == 'cloud' %}checked{% endif %}><label for="source-cloud">Google Drive</label>
+                    </fieldset>
+                    <p>{{ 'Добавляйте слова в Google Drive, затем переносите их в словарь с помощью синхронизации.' if ru else 'Collect words in Google Drive, then sync them into your word library.' }}</p>
+                    <button class="btn btn-primary" hx-post="/sync_vocab" hx-target="#syncPreviewModal .modal-content" hx-swap="innerHTML" data-bs-toggle="modal" data-bs-target="#syncPreviewModal" hx-indicator="#sync-spinner">{{ 'Просмотреть синхронизацию' if ru else 'Review sync' }}</button>
+                    <button class="btn btn-outline-secondary" hx-post="/sanitize_vocab" hx-target="#sanitizePreviewModal .modal-content" hx-swap="innerHTML" data-bs-toggle="modal" data-bs-target="#sanitizePreviewModal" hx-indicator="#sanitize-spinner">{{ 'Очистить список Drive' if ru else 'Clean up Drive list' }}</button>
+                    <p id="sync-spinner" class="htmx-indicator" role="status">{{ ui_t('vocab.syncing') }}</p>
+                    <p id="sanitize-spinner" class="htmx-indicator" role="status">{{ ui_t('vocab.cleaning') }}</p>
+                    <div id="sync-result" role="status"></div>
+                </div>
+            </details>
+        </div>
     </header>
-    <div class="vocab-source-row">
-        <fieldset class="vocab-source-switch"><legend class="visually-hidden">{{ 'Источник слов' if ru else 'Vocabulary source' }}</legend>
-            <input type="radio" name="source" id="source-db" value="db" {% if source == 'db' %}checked{% endif %}><label for="source-db">{{ 'Словарь' if ru else 'Word library' }}</label>
-            <input type="radio" name="source" id="source-cloud" value="cloud" {% if source == 'cloud' %}checked{% endif %}><label for="source-cloud">Google Drive</label>
-        </fieldset>
-        <details class="vocab-tools"><summary>{{ 'Синхронизация и инструменты' if ru else 'Sync & tools' }}</summary><div class="vocab-tools-panel">
-            <p>{{ 'Добавляйте слова в Google Drive, затем переносите их в словарь с помощью синхронизации.' if ru else 'Collect words in Google Drive, then sync them into your word library.' }}</p>
-            <button class="btn btn-primary" hx-post="/sync_vocab" hx-target="#syncPreviewModal .modal-content" hx-swap="innerHTML" data-bs-toggle="modal" data-bs-target="#syncPreviewModal" hx-indicator="#sync-spinner">{{ 'Просмотреть синхронизацию' if ru else 'Review sync' }}</button>
-            <button class="btn btn-outline-secondary" hx-post="/sanitize_vocab" hx-target="#sanitizePreviewModal .modal-content" hx-swap="innerHTML" data-bs-toggle="modal" data-bs-target="#sanitizePreviewModal" hx-indicator="#sanitize-spinner">{{ 'Очистить список Drive' if ru else 'Clean up Drive list' }}</button>
-            <p id="sync-spinner" class="htmx-indicator" role="status">{{ ui_t('vocab.syncing') }}</p>
-            <p id="sanitize-spinner" class="htmx-indicator" role="status">{{ ui_t('vocab.cleaning') }}</p>
-            <div id="sync-result" role="status"></div>
-        </div></details>
-    </div>
     <div id="vocab-spinner" class="htmx-indicator" role="status">{{ ui_t('common.loading') }}</div>
     {% include '_vocab_dynamic_content.html' %}
         <!-- Sync Preview Modal -->

@@ -26,7 +26,7 @@ it('finds inflected forms and treats Russian case, stress and ё consistently',a
 it('uses real POS codes and keeps filters separate from the word rows',async () => {
  render(<VocabTable />);
  await screen.findByRole('button',{name:'вместе'});
- fireEvent.click(screen.getByText('Filter words'));
+ fireEvent.click(screen.getByText('Filters'));
  fireEvent.change(screen.getByLabelText('Part of speech'),{target:{value:'ADVB'}});
  expect(screen.getByRole('button',{name:'вместе'})).toBeTruthy();
  expect(screen.queryByRole('button',{name:'ёж'})).toBeNull();
@@ -49,7 +49,7 @@ it('shows current native counts, labels export history and opens exact form deta
 it('makes native card coverage filterable without treating Anki exports as native cards',async () => {
  render(<VocabTable />);
  await screen.findByRole('button',{name:'ёж'});
- fireEvent.click(screen.getByText('Filter words'));
+ fireEvent.click(screen.getByText('Filters'));
  fireEvent.change(screen.getByLabelText('In-app cards'),{target:{value:'without'}});
  expect(screen.queryByRole('button',{name:'ёж'})).toBeNull();
  expect(screen.getByRole('button',{name:'вместе'})).toBeTruthy();

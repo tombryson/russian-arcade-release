@@ -153,12 +153,6 @@
  .recall-card { padding:10px 16px 16px; }.rating-controls { gap:6px; }.rating-controls button { padding:10px 6px; font-size:.9rem; }
  .review-topline { flex-wrap:wrap; gap:8px; }.review-shortcuts,.rating-controls kbd { display:none; }.review-feedback,.review-complete { padding:26px; }.card-version-heading { flex-wrap:wrap; gap:0; }.card-word-heading { flex-wrap:wrap; gap:4px; }.card-search .action-row { flex-wrap:wrap; }.post-language { margin-left:0; }
 }
-@media(max-width:900px) {
- .top:has(.post-language) { display:grid; grid-template-columns:minmax(0,1fr) 48px; gap:12px 4px; }
- .top:has(.post-language) .nav { grid-column:1/-1; grid-row:2; justify-content:space-between; }
- .top .post-language { grid-column:2; grid-row:1; margin:0; }
- .top .post-language summary { min-width:48px; min-height:48px; text-align:center; }
-}
 @media(max-width:600px) {
  .review-progress progress { min-width:60px; }
 }

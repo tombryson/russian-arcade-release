@@ -401,7 +401,7 @@ describe('Received-letter milestone course',()=>{
     const fetch=mockServer((url,body)=>url.endsWith('/vocabulary') ? body?.lemma ? {word_id:7,href:'/vocab?word_id=7',flashcards_href:'#generate?word_id=7',enrichment_pending:true} : {needs_choice:true,choices:[{lemma:'стать',pos:'VERB',label:'стать · verb'},{lemma:'сталь',pos:'NOUN',label:'сталь · noun'}]} : saved);
     render(<CourseJourney attemptId="attempt-1" progression={progression()}/>);await screen.findByText('Keep words from this letter');
     fireEvent.click(screen.getByRole('button',{name:'Add word'}));fireEvent.click(await screen.findByRole('button',{name:'стать · verb'}));
-    expect(await screen.findByRole('link',{name:'Saved in My words'})).toBeTruthy();expect(screen.getByText('Word saved. Details could not be prepared.')).toBeTruthy();
+    expect(await screen.findByRole('link',{name:'Saved in Vocab list'})).toBeTruthy();expect(screen.getByText('Word saved. Details could not be prepared.')).toBeTruthy();
     fireEvent.click(screen.getByRole('button',{name:'Retry details'}));await waitFor(()=>expect(fetch.mock.calls.filter(([,options])=>options?.method==='POST')).toHaveLength(3));
     const writes=fetch.mock.calls.filter(([,options])=>options?.method==='POST');expect(JSON.parse(String(writes[1][1]?.body))).toMatchObject({word:'стали',lemma:'стать',pos:'VERB'});expect(JSON.parse(String(writes[1][1]?.body))).not.toHaveProperty('context');expect(JSON.parse(String(writes[2][1]?.body))).toMatchObject({word:'стали',lemma:'стать',pos:'VERB'});expect(JSON.parse(String(writes[2][1]?.body)).request_id).not.toBe(JSON.parse(String(writes[1][1]?.body)).request_id);
   });

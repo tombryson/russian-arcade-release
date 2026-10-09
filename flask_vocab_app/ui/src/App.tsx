@@ -283,16 +283,18 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
 
   return <GameLanguage.Provider value={language}><div ref={workspace} class={`navigation-layout-${navigationLayout}${activityWorkspace ? ' activity-workspace' : ''}${lessonWorkspace ? ' lesson-workspace' : ''}${learningWorkspace ? ' learning-workspace' : ''}${location.page === 'speaking' ? ' speaking-workspace' : ''}`}>
     <a class="skip-link" href="#main">Skip to content</a>
-    {!activityWorkspace && <header ref={header} class="top"><a class="brand" href="#home" aria-label="Russian Arcade home"><span class="mark" lang="ru" aria-hidden="true">Я</span><span><span class="brand-name">Russian Arcade</span><span class="origin">Learn and practise Russian</span></span></a>
+    {!activityWorkspace && <header ref={header} class="top shared-header"><a class="brand" href="#home" aria-label="Russian Arcade home"><span class="mark" lang="ru" aria-hidden="true">Я</span><span><span class="brand-name">Russian Arcade</span><span class="origin">Learn and practise Russian</span></span></a>
       <nav class="nav" aria-label={language === 'ru' ? 'Главное меню' : 'Main navigation'}>
         <a href="#home" aria-current={['home','first-delivery','first-steps'].includes(location.page) ? 'page' : undefined}>{language === 'ru' ? 'Главная' : 'Home'}</a>
         <ActivitiesMenu items={menuActivities} language={language} active={['activities','practice','review','flashcards','generate','conversation','speech-lab','speaking','game','games','alphabet'].includes(location.page)} activePage={activeNavigationPage} />
-        <a href={wordsHref} aria-current={location.page === 'words' ? 'page' : undefined}>{language === 'ru' ? 'Мои слова' : 'My words'}</a>
+        <a href={wordsHref} aria-current={location.page === 'words' ? 'page' : undefined}>{language === 'ru' ? 'Список слов' : 'Vocab list'}</a>
       </nav>
-      {coinBalance}
-      {languageControl}
-      {appearanceControl}
-      {profileControl}
+      <div class="header-utilities">
+        {coinBalance}
+        {languageControl}
+        {appearanceControl}
+        {profileControl}
+      </div>
       {skillProgress}
     </header>}
     <div class={activityWorkspace ? 'activity-layout' : undefined}>
@@ -333,7 +335,7 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
             {legacy ? <><div class="home-choices">
               <ActivityLink {...activities[0]} detail={undefined} />
               {nativeEnabled ? <ActivityLink title="Flashcards" description="Generate cards from your vocabulary and study them here." href="#flashcards" mark="Я ↻" /> : <ActivityLink {...activities[1]} detail={undefined} />}
-              <ActivityLink title="My words" description="Find a word, explore its meaning or add something new to learn." href="/vocab" mark="Слова" />
+              <ActivityLink title={language === 'ru' ? 'Список слов' : 'Vocab list'} description="Find a word, explore its meaning or add something new to learn." href="/vocab" mark="Слова" />
             </div><a class="text-link more-activities" href="#activities">All activities <span aria-hidden="true">↗</span></a></> : availableActivities()}
             </div>
             <figure class="home-rest">
@@ -344,7 +346,7 @@ export function App({ householdEnabled = false, nativeEnabled = true, language =
           <ActivityLink title="Russian alphabet" description="Explore the letters and hear them in words." href="#alphabet" mark="Аа" />
           <GameCatalogue key={profile?.id ?? state.mode} context="activities"/>
           {legacy && <aside class="development-note"><h2>Anki Link</h2><p>Prefer to study in Anki? Its existing card generator is available as an optional tool.</p><a class="text-link" href="/tools/anki/">Open existing Anki card tools <span aria-hidden="true">↗</span></a></aside>}
-        </section> : <section class="page"><p class="kicker">Your vocabulary</p><h1 ref={heading} tabIndex={-1}>My words</h1>
+        </section> : <section class="page"><h1 ref={heading} tabIndex={-1}>{language === 'ru' ? 'Список слов' : 'Vocab list'}</h1>
           {legacy ? <><p class="intro">Find a word, explore its forms or add something new to learn.</p><div class="action-row"><a class="cta" href="/vocab">Open vocabulary library <span aria-hidden="true">↗</span></a><a class="phrasebook-link" href="/sentences/saved"><img class="phrasebook-link-book" src="/static/images/phrasebook.svg" width="30" height="33" alt=""/><span>{language === 'ru' ? 'Разговорник' : 'Phrasebook'}</span><svg class="phrasebook-link-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 5 5 5-5 5"/></svg></a></div><Sheet><h2>Words can come from anywhere.</h2><p>Add them in the app or capture them in Google Drive. Your existing library keeps them together.</p></Sheet></>
             : state.mode === 'locked' ? <Sheet><h2>Choose a learner to see their words.</h2><a class="text-link" href="/post/household">Choose a learner</a></Sheet>
               : <><p>Words linked to your recent practice appear here. A correct answer means you practised a word; remembering it takes revisiting.</p>{state.progress?.evidence.length ? <ul class="word-list">{Array.from(new Map(state.progress.evidence.map(item => [item.word_id, item])).values()).map(item => <li key={item.word_id}><strong lang="ru">{item.lemma}</strong><span>Practised in an activity</span></li>)}</ul> : <Sheet><h2>No word practice saved yet.</h2><p>Start an approved activity with linked vocabulary to see your words here.</p><a class="text-link" href="#activities">Choose an activity</a></Sheet>}

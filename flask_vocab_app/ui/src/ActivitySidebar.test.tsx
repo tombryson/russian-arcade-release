@@ -8,7 +8,7 @@ const navigation: ActivityNavigation = {
   main: [
     {page:'home', href:'/#home', label:'Home', boost:false},
     {page:'activities', href:'/#activities', label:'All activities', boost:false},
-    {page:'vocab', href:'/vocab', label:'My words', boost:false},
+    {page:'vocab', href:'/vocab', label:'Vocab list', boost:false},
   ],
   activities: [
     {page:'native_flashcards', href:'/#flashcards', label:'Flashcards', boost:false},
@@ -76,7 +76,7 @@ describe('Saved navigation layout', () => {
     expect(account.querySelector<HTMLInputElement>('input[name="csrf_token"]')?.value).toBe('test-token');
     expect(account.querySelector<HTMLInputElement>('input[name="next"]')?.value).toBe('/#words');
     expect(footer.querySelector('.sidebar-utilities')).toBeNull();
-    for (const [label, href] of [[language === 'ru' ? 'Мои слова' : 'My words', '/vocab'], [language === 'ru' ? 'Разговорник' : 'Phrasebook', '/sentences/saved']]) {
+    for (const [label, href] of [[language === 'ru' ? 'Список слов' : 'Vocab list', '/vocab'], [language === 'ru' ? 'Разговорник' : 'Phrasebook', '/sentences/saved']]) {
       const link = within(shortcuts).getByRole('link', {name:label});
       expect(link.getAttribute('href')).toBe(href);
       expect(link.getAttribute('title')).toBe(label);
@@ -158,7 +158,7 @@ describe('Saved navigation layout', () => {
     else if (mode === 'child') await screen.findByRole('heading', {name:'No word practice saved yet.'});
     else await screen.findByRole('link', {name:/Open vocabulary library/});
     const shortcuts = container.querySelector<HTMLElement>('.sidebar-shortcuts')!;
-    expect(within(shortcuts).getByRole('link', {name:'My words'}).getAttribute('href')).toBe(mode === 'adult' ? '/vocab' : '#words');
+    expect(within(shortcuts).getByRole('link', {name:'Vocab list'}).getAttribute('href')).toBe(mode === 'adult' ? '/vocab' : '#words');
     expect(!!within(shortcuts).queryByRole('link', {name:'Phrasebook'})).toBe(mode === 'adult');
   });
 
